@@ -1,7 +1,6 @@
 import React from "react";
-import logo from './logo.svg';
-import './App.scss';
-// import Portal from "GenericComponents/Portal";
+import logo from "./logo.svg";
+import "./App.scss";
 
 function App() {
   return (
@@ -20,8 +19,7 @@ function App() {
           Learn React
         </a>
       </header>
-      {/*<Portal />*/}
-    </div>
+     </div>
   );
 }
 
