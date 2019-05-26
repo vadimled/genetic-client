@@ -1,9 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import FilterItem from "../../genericComponents/filterItem";
 // import PropTypes from 'prop-types';
 
 class MainPage extends Component {
   render() {
-    return <div>MainPage</div>;
+    return (
+      <div>
+        <h3>MainPage</h3>
+        <FilterItem />
+      </div>
+    );
   }
 }
 
