@@ -1,0 +1,51 @@
+@import "./Colors.scss";
+@import "./AntdOverrides";
+@import "./FlexboxStyles";
+@import "./AntdOverrides";
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
+
+.App {
+  text-align: center;
+  display: grid;
+}
+
+.App.rtl {
+  direction: rtl;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  @media (max-width: 768px) {
+    grid-template-columns: auto;
+  }
+}
+
+.App-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: $white;
+  border-bottom: 1px solid $border_color;
+  height: 64px;
+  color: white;
+
+  .App-header-menu-button {
+    cursor: pointer;
+    text-align: right;
+    margin-right: 24px;
+  }
+
+  .ant-select.ant-select-enabled {
+    width: 95px !important;
+  }
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.sidebar-wrapper {
+  overflow: hidden !important;
+  background-color: $white;
+}

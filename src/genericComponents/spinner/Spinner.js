@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.scss';
-import Portal from "../Portal";
+import Portal from "../portal";
 
 
 const Spinner = () => {
