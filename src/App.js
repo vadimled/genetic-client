@@ -1,6 +1,8 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.scss";
+import { Route, Switch } from "react-router-dom";
+import MainPage from "Pages/mainPage";
 
 function App() {
   return (
@@ -19,7 +21,14 @@ function App() {
           Learn React
         </a>
       </header>
-     </div>
+  
+      <div className="main-content">
+        <Switch>
+          <Route path="/" exact component={MainPage}/>
+        </Switch>
+      </div>
+  
+      </div>
   );
 }
 
