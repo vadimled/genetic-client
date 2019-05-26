@@ -27,8 +27,8 @@ function App() {
           <Route path="/" exact component={MainPage}/>
         </Switch>
       </div>
-  
-      </div>
+   
+    </div>
   );
 }
 
