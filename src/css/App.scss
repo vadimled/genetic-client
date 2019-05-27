@@ -7,15 +7,16 @@
 .App {
   text-align: center;
   display: grid;
+  overflow: hidden;
 }
 
 .App-header {
-  position: sticky;
+  position: relative;
   top: 0;
   z-index: 1;
   background: $white;
   border-bottom: 1px solid $border_color;
-  height: 64px;
+  height: 48px;
   color: white;
 
   .App-header-menu-button {
@@ -31,4 +32,8 @@
 
 .App-link {
   color: #61dafb;
+}
+
+h1 {
+  margin: 0 auto;
 }

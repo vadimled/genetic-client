@@ -1,11 +1,10 @@
 @import "../../../../css/Colors.scss";
 
 .sidebar-layout :global {
-  margin-top: 65px;
-  z-index: 0;
+  width: 100%;
   border: 1px solid #58ff17;
   height: 100vh;
-  background-color: #aec3d2;
+
   .content {
     width: 100%;
 
@@ -29,6 +28,23 @@
       font-size: 16px;
       text-align: left;
       margin-top: 12px;
+    }
+  }
+
+  .icon-mode {
+    display: block;
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    left: 166px;
+    cursor: pointer;
+    z-index: 2222;
+    transition: 0.4s ease;
+    transform: translate(0px, 0px);
+
+    &.sidebar-closed {
+      transition: 0.4s ease;
+      transform: translate(0px, 0px);
     }
   }
 }
