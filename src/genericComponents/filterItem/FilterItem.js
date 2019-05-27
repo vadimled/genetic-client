@@ -2,10 +2,13 @@ import React, { Component } from "react";
 // import PropTypes from "prop-types";
 import { Checkbox } from "antd";
 import style from "./FilterItem.module.scss";
+import {TAG_COLORS} from 'Utils/constants';
+
 
 const Tag = ({ color }) => {
+  console.log(color)
   const style =
-    color !== "white"
+    color !== TAG_COLORS.white
       ? { backgroundColor: color }
       : { backgroundColor: color, border: "1px solid #DAE1E6" };
   return <div style={style} className="tag" />;
@@ -18,16 +21,16 @@ const Tag = ({ color }) => {
 
 class FilterItem extends Component {
   render() {
-    const { label, tagColor } = this.props;
+    const { item } = this.props;
     return (
-      <div className={style["filter-item-wrapper"]}>
+      <div className={style["filter-item-wrapper"]} id="filter-item">
         <Checkbox>
           <div className="flex items-center checkbox-inner-content">
-            <Tag color={tagColor} />
+            {item.tagColor && <Tag color={item.tagColor} />}
             <span
-              style={label === "Unclassified" ? { color: "#96A2AA" } : null}
+              style={item.label === "Unclassified" ? { color: "#96A2AA" } : null}
             >
-              {label}
+              {item.label}
             </span>
           </div>
         </Checkbox>
