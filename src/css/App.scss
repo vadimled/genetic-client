@@ -9,10 +9,6 @@
   display: grid;
 }
 
-.main-content-wrapper {
-  display: flex;
-}
-
 .App-header {
   position: sticky;
   top: 0;
@@ -35,17 +31,4 @@
 
 .App-link {
   color: #61dafb;
-}
-
-.sidebar-wrapper {
-  top: 65px !important;
-  //left: -300px !important;
-  //border: #ca1717 solid 1px;
-  //overflow: hidden !important;
-  background-color: $list-single_hover;
-}
-
-.sidebar-buffer {
-  width: 24px;
-  height: 100%;
 }

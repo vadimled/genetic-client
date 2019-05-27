@@ -1,0 +1,34 @@
+@import "../../../../css/Colors.scss";
+
+.sidebar-layout :global {
+  margin-top: 65px;
+  z-index: 0;
+  border: 1px solid #58ff17;
+  height: 100vh;
+  background-color: #aec3d2;
+  .content {
+    width: 100%;
+
+    //@media (max-width: 768px) {
+    //  width: 100%;
+    //  padding: 0 36px;
+    //}
+
+    .title {
+      color: $title_color;
+      font-weight: normal;
+      font-size: 16px;
+      text-align: left;
+      padding: 11px 0 0 11px;
+      line-height: normal;
+    }
+
+    .subtitle {
+      color: $subtitle_color;
+      line-height: 21px;
+      font-size: 16px;
+      text-align: left;
+      margin-top: 12px;
+    }
+  }
+}

@@ -280,6 +280,7 @@ module.exports = function(webpackEnv) {
         Reducers: path.resolve(__dirname, "../src/store/reducers/"),
         Sagas: path.resolve(__dirname, "../src/sagas/"),
         Pages: path.resolve(__dirname, "../src/pages/"),
+        Assets: path.resolve(__dirname, "../src/assets/"),
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
