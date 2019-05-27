@@ -4,13 +4,17 @@ import { Checkbox } from "antd";
 import style from "./FilterItem.module.scss";
 
 const Tag = ({ color }) => {
-  console.log(color);
   const style =
     color !== "white"
       ? { backgroundColor: color }
       : { backgroundColor: color, border: "1px solid #DAE1E6" };
   return <div style={style} className="tag" />;
 };
+
+// const Icon = (icon) => {
+//   console.log(icon)
+//   return <div className="icon">{icon}</div>
+// }
 
 class FilterItem extends Component {
   render() {
