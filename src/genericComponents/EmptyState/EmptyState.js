@@ -1,19 +1,18 @@
 import React from 'react';
-import defaultImage from '../../assets/EmptyState.svg';
-
-import './EmptyState.scss';
+import defaultImage from 'Assets/EmptyState.svg';
+import style from './EmptyState.module.scss';
 
 const EmptyState = ({image, title, description}) => {
   return (
-    <div className="c-empty-state">
+    <div className={style["c-empty-state"]}>
       <div
-        className="c-empty-state__image"
+        className={style["image"]}
         style={{
           backgroundImage: `url(${image})`
         }}
       />
-      <div className="c-empty-state__title">{title}</div>
-      <div className="c-empty-state__description">{description}</div>
+      <div className={style["title"]}>{title}</div>
+      <div className={style["description"]}>{description}</div>
     </div>
   );
 };

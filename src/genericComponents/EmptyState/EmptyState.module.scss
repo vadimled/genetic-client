@@ -1,4 +1,4 @@
-@import "../../css/Colors.scss";
+@import "Css/Colors.scss";
 
 .c-empty-state {
   display: flex;
@@ -11,7 +11,7 @@
   padding: 30px;
   box-sizing: border-box;
 
-  &__image {
+  .image {
     width: 168px;
     height: 124px;
     margin-bottom: 32px;
@@ -20,7 +20,7 @@
     background-size: contain;
   }
 
-  &__title {
+  .title {
     font-size: 24px;
     line-height: 32px;
     color: $subtitle_color;
@@ -28,7 +28,7 @@
     margin-bottom: 7px;
   }
 
-  &__description {
+  .description {
     font-size: 16px;
     line-height: 21px;
     color: $subtitle_color;
