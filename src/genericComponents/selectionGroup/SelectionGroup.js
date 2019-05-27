@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import {TAG_COLORS} from 'Utils/constants';
 import FilterItem from "../filterItem";
-import style from './SelectionGroup.module.scss'
+import style from './SelectionGroup.module.scss';
 
 class SelectionGroup extends Component {
 

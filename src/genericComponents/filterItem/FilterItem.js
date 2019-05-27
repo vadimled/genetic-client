@@ -6,7 +6,7 @@ import {TAG_COLORS} from 'Utils/constants';
 
 
 const Tag = ({ color }) => {
-  console.log(color)
+  console.log(color);
   const style =
     color !== TAG_COLORS.white
       ? { backgroundColor: color }
