@@ -1,0 +1,13 @@
+.filter-item-wrapper :global {
+  border: 1px solid red;
+  .tag {
+    width: 15px;
+    height: 15px;
+    border: 1px dashed violet;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .checkbox-inner-content {
+    padding-top: 2px;
+  }
+}

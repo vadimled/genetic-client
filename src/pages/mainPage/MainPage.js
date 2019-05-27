@@ -7,7 +7,7 @@ class MainPage extends Component {
     return (
       <div>
         <h3>MainPage</h3>
-        <FilterItem />
+        <FilterItem label="PATH" />
       </div>
     );
   }
