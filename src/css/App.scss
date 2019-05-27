@@ -9,16 +9,8 @@
   display: grid;
 }
 
-.App.rtl {
-  direction: rtl;
-}
-
-.main-content {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  @media (max-width: 768px) {
-    grid-template-columns: auto;
-  }
+.main-content-wrapper {
+  display: flex;
 }
 
 .App-header {
@@ -46,6 +38,14 @@
 }
 
 .sidebar-wrapper {
-  overflow: hidden !important;
-  background-color: $white;
+  top: 65px !important;
+  //left: -300px !important;
+  //border: #ca1717 solid 1px;
+  //overflow: hidden !important;
+  background-color: $list-single_hover;
+}
+
+.sidebar-buffer {
+  width: 24px;
+  height: 100%;
 }

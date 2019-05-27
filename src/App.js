@@ -22,18 +22,19 @@ function App() {
         </p>
       </header>
       <OffCanvas
-        width={300}
+        width={192}
         transitionDuration={300}
-        effect={"parallax"}
+        effect={"push"}
         isMenuOpened={sidebarToggle}
-        position={"right"}
+        position={"left"}
       >
-        <OffCanvasBody>
+        <OffCanvasBody className="main-content-wrapper">
+          <div className="sidebar-buffer"></div>
           <Switch>
             <Route path="/" exact component={MainPage} />
           </Switch>
         </OffCanvasBody>
-        <OffCanvasMenu>
+        <OffCanvasMenu className="sidebar-wrapper">
           <p>Placeholder content.</p>
           <ul>
             <li>Link 1</li>
