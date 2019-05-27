@@ -5,7 +5,10 @@ import style from "./FilterItem.module.scss";
 
 const Tag = ({ color }) => {
   console.log(color);
-  const style = color !=='white' ? { backgroundColor: color } : {backgroundColor: color, border: '1px solid #DAE1E6'}
+  const style =
+    color !== "white"
+      ? { backgroundColor: color }
+      : { backgroundColor: color, border: "1px solid #DAE1E6" };
   return <div style={style} className="tag" />;
 };
 
@@ -17,7 +20,11 @@ class FilterItem extends Component {
         <Checkbox>
           <div className="flex items-center checkbox-inner-content">
             <Tag color={tagColor} />
-            <span style={label === 'Unclassified' ? {color: '#96A2AA'} : null}>{label}</span>
+            <span
+              style={label === "Unclassified" ? { color: "#96A2AA" } : null}
+            >
+              {label}
+            </span>
           </div>
         </Checkbox>
       </div>
