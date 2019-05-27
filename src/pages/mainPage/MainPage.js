@@ -7,7 +7,9 @@ class MainPage extends Component {
     return (
       <div>
         <h3>MainPage</h3>
-        <FilterItem label="PATH" />
+        <FilterItem label="Unclassified" tagColor="white" />
+        <FilterItem label="PATH" tagColor="green" />
+        <FilterItem label="LATH" tagColor="yellow" />
       </div>
     );
   }

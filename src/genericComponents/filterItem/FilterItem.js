@@ -5,18 +5,19 @@ import style from "./FilterItem.module.scss";
 
 const Tag = ({ color }) => {
   console.log(color);
-  return <div style={{ backgroundColor: color }} className="tag" />;
+  const style = color !=='white' ? { backgroundColor: color } : {backgroundColor: color, border: '1px solid #DAE1E6'}
+  return <div style={style} className="tag" />;
 };
 
 class FilterItem extends Component {
   render() {
-    const { label = "Unclassified", tagColor = "red" } = this.props;
+    const { label, tagColor } = this.props;
     return (
       <div className={style["filter-item-wrapper"]}>
         <Checkbox>
           <div className="flex items-center checkbox-inner-content">
             <Tag color={tagColor} />
-            <span>{label}</span>
+            <span style={label === 'Unclassified' ? {color: '#96A2AA'} : null}>{label}</span>
           </div>
         </Checkbox>
       </div>
