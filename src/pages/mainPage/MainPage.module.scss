@@ -1,0 +1,10 @@
+@import "../../css/Colors";
+
+.main-page :global {
+  border: #211fca solid 1px;
+  //overflow: hidden !important;
+  background-color: $button-disabled;
+
+  width: 90%;
+  height: 100vh;
+}
