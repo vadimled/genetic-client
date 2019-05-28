@@ -1,5 +1,5 @@
 import React from 'react';
-import defaultImage from 'Assets/EmptyState.svg';
+import defaultImage from 'Assets/emptyState.svg';
 import style from './EmptyState.module.scss';
 
 const EmptyState = ({image, title, description}) => {
