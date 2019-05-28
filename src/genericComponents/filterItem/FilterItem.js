@@ -1,15 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Checkbox } from "antd";
+import { Checkbox, Radio } from "antd";
 import style from "./FilterItem.module.scss";
-import { Radio } from "antd";
 import Tag from './components/Tag';
 
 
-const FilterItem = ({ item, mode, index, onChange, value }) => (
+const FilterItem = ({ item, mode, index, onChange, checkboxValue, radioValue }) => (checkboxValue) || (
   <div className={style["filter-item-wrapper"]} id="filter-item">
     {mode === "multiple" ? (
-      <Checkbox>
+      <Checkbox checked={checkboxValue} onChange={onChange}>
         <div className="flex items-center checkbox-inner-content">
           {item.tagColor && <Tag color={item.tagColor} />}
           <span
@@ -20,7 +19,7 @@ const FilterItem = ({ item, mode, index, onChange, value }) => (
         </div>
       </Checkbox>
     ) : (
-      <Radio.Group onChange={onChange} value={value}>
+      <Radio.Group onChange={onChange} value={radioValue}>
         <Radio value={index + 1}>
           {item.icon}
           <span className="item-label">{item.label}</span>
@@ -38,4 +37,8 @@ FilterItem.propTypes = {
   value: PropTypes.number
 };
 
+FilterItem.defaultProps = {
+  checkboxValue: true,
+  radioValue: 2,
+};
 export default FilterItem;

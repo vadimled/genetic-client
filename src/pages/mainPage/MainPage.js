@@ -3,9 +3,8 @@ import style from "./MainPage.module.scss";
 import cn from "classnames";
 import SideBarLayout from "./components/sideBarLayout";
 import SelectionGroup from "../../genericComponents/selectionGroup";
-import { TAG_COLORS } from "../../utils/constants";
-import { Icon, Collapse } from "antd";
-
+import { Collapse } from "antd";
+import filtersConfig from "./filtersConfig";
 
 // eslint-disable-next-line
 const Panel = Collapse.Panel;
@@ -22,43 +21,24 @@ class MainPage extends Component {
 
     this.state = {
       sidebarToggle: false,
-      variantClassFilterItems: [
-        { tagColor: TAG_COLORS.white, label: "Unclassified" },
-        { tagColor: TAG_COLORS.red, label: "PATH" },
-        { tagColor: TAG_COLORS.orange, label: "LATH" },
-        { tagColor: TAG_COLORS.yellow, label: "VUS" },
-        { tagColor: TAG_COLORS.blueLight, label: "LBEN" },
-        { tagColor: TAG_COLORS.blue, label: "BEN" }
-      ],
+      filters: {
+        ['Type']: {
+          // "unclassified": true,
+          // "path": false
+        },
+        ['Variant']: {
+          items: [
+            {"unclassified": true},
+            {"path": false}
 
-      typeFilterItems: [
-        { label: "Somatic" },
-        { label: "Germline" },
-        { label: "ACMG" }
-      ],
-
-      hotSpotFilterItems: [
-        { label: "True", icon: <Icon type="check" /> },
-        { label: "False", icon: <Icon type="close" /> }
-      ],
-
-      snpFilterItems: [
-        { label: "True", icon: <Icon type="check" /> },
-        { label: "False", icon: <Icon type="close" /> }
-      ],
-
-      roiFilterItems: [
-        { label: "True", icon: <Icon type="check" /> },
-        { label: "False", icon: <Icon type="close" /> }
-      ],
-
-      gnomIdFilterItems: [
-        { value: "na", label: "NA" },
-        { value: "veryRare", label: "very rare(0-1%)" },
-        { value: "rare", label: "rare (1-5%)" },
-        { value: "common", label: "common (>5%)" }
-      ]
-    };
+          ]
+        },
+        ['Hot Spot']: {},
+        ['SNP']: {},
+        ['ROI']: {},
+        ['Gnom ID']: {}
+      }
+    }
   }
 
   handleClick = () => {
@@ -67,8 +47,16 @@ class MainPage extends Component {
     });
   };
 
+  onChange = e => {
+    console.log(e.target);
+    // setRadioValue(e.target.value);
+    // setCheckboxValue(e.target.checked)
+  };
+
   render() {
-    const { sidebarToggle } = this.state;
+    const { sidebarToggle, filters } = this.state;
+
+
     return (
       <div className={style["main-page"]}>
         <div
@@ -86,41 +74,20 @@ class MainPage extends Component {
                 <Arrow dir={!isActive ? "right" : "down"} />
               )}
             >
+              {Object.keys(filtersConfig).map((key, i) => {
 
-              <Panel header="Variant Class" key="1">
-                <SelectionGroup
-                  mode="single"
-                  filterItems={this.state.typeFilterItems}
-                />
-              </Panel>
+                return (
+                  <Panel header={key} key={i + 1}>
+                    <SelectionGroup
+                      mode={filtersConfig[key].mode}
+                      filterItems={filtersConfig[key].items}
+                      onChange={this.onChange}
+                      values={(filters[key].items && filters[key].items.length > 0) ? filters[key].items : []}
+                    />
+                  </Panel>
+                );
+              })}
 
-              <Panel header="Type" key="2">
-                <SelectionGroup
-                  mode="multiple"
-                  filterItems={this.state.variantClassFilterItems}
-                />
-              </Panel>
-
-              <Panel header="Hot Spot" key="3">
-                <SelectionGroup
-                  mode="single"
-                  filterItems={this.state.hotSpotFilterItems}
-                />
-              </Panel>
-
-              <Panel header="SNP" key="4">
-                <SelectionGroup
-                  mode="single"
-                  filterItems={this.state.snpFilterItems}
-                />
-              </Panel>
-
-              <Panel header="ROI" key="5">
-                <SelectionGroup
-                  mode="single"
-                  filterItems={this.state.roiFilterItems}
-                />
-              </Panel>
             </Collapse>
           </SideBarLayout>
         </div>
@@ -136,7 +103,5 @@ class MainPage extends Component {
     );
   }
 }
-
-
 
 export default MainPage;
