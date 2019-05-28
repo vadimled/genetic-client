@@ -4,6 +4,7 @@ import SelectionGroup from "../../genericComponents/selectionGroup";
 import { TAG_COLORS } from "../../utils/constants";
 import { Icon } from "antd";
 import { Collapse } from 'antd';
+import style from './MainPage.module.scss';
 
 // eslint-disable-next-line
 const Panel = Collapse.Panel;
@@ -11,6 +12,9 @@ const Panel = Collapse.Panel;
 function callback(key) {
   console.log(key);
 }
+
+const Arrow = ({dir}) => <i className={`${dir} arrow`} />;
+
 
 class MainPage extends Component {
 
@@ -57,12 +61,15 @@ class MainPage extends Component {
     };
   }
 
+
+
   render() {
+
     return (
-      <div>
+      <div className={style['main-page-wrapper']}>
         <h3>MainPage</h3>
 
-        <Collapse defaultActiveKey={['1']} onChange={callback}>
+        <Collapse defaultActiveKey={['1']} onChange={callback} expandIcon={({ isActive }) => <Arrow dir={!isActive ? 'right' : 'down'} />}>
 
           <Panel header="Type" key="1">
             <SelectionGroup mode="multiple" filterItems={this.state.variantClassFilterItems}/>
