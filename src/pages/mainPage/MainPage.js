@@ -22,23 +22,19 @@ class MainPage extends Component {
     this.state = {
       sidebarToggle: false,
       filters: {
-        ['Type']: {
+        ["Type"]: {
           // "unclassified": true,
           // "path": false
         },
-        ['Variant']: {
-          items: [
-            {"unclassified": true},
-            {"path": false}
-
-          ]
+        ["Variant"]: {
+          items: [{ unclassified: true }, { path: false }]
         },
-        ['Hot Spot']: {},
-        ['SNP']: {},
-        ['ROI']: {},
-        ['Gnom ID']: {}
+        ["Hot Spot"]: {},
+        ["SNP"]: {},
+        ["ROI"]: {},
+        ["Gnom ID"]: {}
       }
-    }
+    };
   }
 
   handleClick = () => {
@@ -55,7 +51,6 @@ class MainPage extends Component {
 
   render() {
     const { sidebarToggle, filters } = this.state;
-
 
     return (
       <div className={style["main-page"]}>
@@ -75,19 +70,21 @@ class MainPage extends Component {
               )}
             >
               {Object.keys(filtersConfig).map((key, i) => {
-
                 return (
                   <Panel header={key} key={i + 1}>
                     <SelectionGroup
                       mode={filtersConfig[key].mode}
                       filterItems={filtersConfig[key].items}
                       onChange={this.onChange}
-                      values={(filters[key].items && filters[key].items.length > 0) ? filters[key].items : []}
+                      values={
+                        filters[key].items && filters[key].items.length > 0
+                          ? filters[key].items
+                          : []
+                      }
                     />
                   </Panel>
                 );
               })}
-
             </Collapse>
           </SideBarLayout>
         </div>
