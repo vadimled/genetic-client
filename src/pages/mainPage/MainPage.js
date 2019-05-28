@@ -28,7 +28,17 @@ class MainPage extends Component {
       hotSpotFilterItems: [
         {label: 'True', icon: <Icon type="check" />},
         {label: 'False', icon: <Icon type="close" />}
-      ]
+      ],
+
+      snpFilterItems: [
+        {label: 'True', icon: <Icon type="check" />},
+        {label: 'False', icon: <Icon type="close" />}
+      ],
+
+      roiFilterItems: [
+        {label: 'True', icon: <Icon type="check" />},
+        {label: 'False', icon: <Icon type="close" />}
+      ],
     };
   }
 
@@ -37,13 +47,18 @@ class MainPage extends Component {
       <div>
         <h3>MainPage</h3>
 
-        <SelectionGroup mode="multiple" filterItems={this.state.variantClassFilterItems}/>
+        <SelectionGroup title="Type" mode="multiple" filterItems={this.state.variantClassFilterItems}/>
 
 
-        <SelectionGroup mode="single" filterItems={this.state.typeFilterItems}/>
+        <SelectionGroup title="Variant Class" mode="single" filterItems={this.state.typeFilterItems}/>
 
 
-        <SelectionGroup mode="single" filterItems={this.state.hotSpotFilterItems}/>
+        <SelectionGroup title="Hot Spot" mode="single" filterItems={this.state.hotSpotFilterItems}/>
+
+
+        <SelectionGroup title="SNP" mode="single" filterItems={this.state.snpFilterItems}/>
+
+        <SelectionGroup title="ROI" mode="single" filterItems={this.state.roiFilterItems}/>
 
       </div>
     );

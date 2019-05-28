@@ -16,9 +16,10 @@ class SelectionGroup extends Component {
   };
 
   render() {
-    const { filterItems, mode } = this.props;
+    const { filterItems, mode, title } = this.props;
     return (
       <div className={style["selection-group-wrapper"]}>
+        <h3>{title}</h3>
         {filterItems.map((item, i) => (
           <FilterItem
             mode={mode}
