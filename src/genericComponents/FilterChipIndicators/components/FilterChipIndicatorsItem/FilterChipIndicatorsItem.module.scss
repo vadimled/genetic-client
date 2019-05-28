@@ -1,6 +1,6 @@
 @import "Css/Colors.scss";
 
-.c-filterlist-item {
+.filter-chip-indicators-item :global {
   display: flex;
   align-items: center;
   background-color: $filter-list-item;

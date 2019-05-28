@@ -1,6 +1,6 @@
 /**
   * Usage example:
-  <FilterListItem
+  <FilterChipIndicators
     onDelete={(id) => console.log(id)}
     data={[
       {
@@ -19,27 +19,27 @@
 */
 
 import React from 'react';
-import FilterListItem from './components/FilterListItem';
-import style from './FilterList.module.scss';
+import FilterChipIndicatorsItem from './components/FilterChipIndicatorsItem';
+import style from './FilterChipIndicators.module.scss';
 
-const FilterList = ({data, onDelete}) => {
+const FilterChipIndicators = ({data, onDelete}) => {
   const showedItems = data.slice(0, 2);
 
   return (
-    <div className={style["c-filterlist"]}>
-      {showedItems.map((item) => <FilterListItem
+    <div className={style["filter-chip-indicators"]}>
+      {showedItems.map((item) => <FilterChipIndicatorsItem
         key={item.id} {...item}
         onDelete={onDelete.bind(null, item.id)}
       />)}
-      {data.length > 2 && <div className={style["more"]}>
+      {data.length > 2 && <div className="more">
         2 more ...
       </div>}
     </div>
   );
 };
 
-FilterList.defaultProps = {
+FilterChipIndicators.defaultProps = {
   data: [],
 };
 
-export default FilterList;
+export default FilterChipIndicators;
