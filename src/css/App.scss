@@ -7,27 +7,16 @@
 .App {
   text-align: center;
   display: grid;
-}
-
-.App.rtl {
-  direction: rtl;
-}
-
-.main-content {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  @media (max-width: 768px) {
-    grid-template-columns: auto;
-  }
+  overflow: hidden;
 }
 
 .App-header {
-  position: sticky;
+  position: relative;
   top: 0;
   z-index: 1;
   background: $white;
   border-bottom: 1px solid $border_color;
-  height: 64px;
+  height: 48px;
   color: white;
 
   .App-header-menu-button {
@@ -45,7 +34,6 @@
   color: #61dafb;
 }
 
-.sidebar-wrapper {
-  overflow: hidden !important;
-  background-color: $white;
+h1 {
+  margin: 0 auto;
 }

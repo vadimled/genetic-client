@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-// import PropTypes from 'prop-types';
+import style from "./MainPage.module.scss";
+import cn from "classnames";
+import SideBarLayout from "./components/sideBarLayout";
 import SelectionGroup from "../../genericComponents/selectionGroup";
 import { TAG_COLORS } from "../../utils/constants";
-import { Icon } from "antd";
-import { Collapse } from "antd";
-import style from "./MainPage.module.scss";
+import { Icon, Collapse } from "antd";
+
 
 // eslint-disable-next-line
 const Panel = Collapse.Panel;
@@ -18,7 +19,9 @@ const Arrow = ({ dir }) => <i className={`${dir} arrow`} />;
 class MainPage extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
+      sidebarToggle: false,
       variantClassFilterItems: [
         { tagColor: TAG_COLORS.white, label: "Unclassified" },
         { tagColor: TAG_COLORS.red, label: "PATH" },
@@ -58,60 +61,81 @@ class MainPage extends Component {
     };
   }
 
+  handleClick = () => {
+    this.setState({
+      sidebarToggle: !this.state.sidebarToggle
+    });
+  };
+
   render() {
+    const { sidebarToggle } = this.state;
     return (
-      <div className={style["main-page-wrapper"]}>
-        <h3>MainPage</h3>
-        <Collapse
-          defaultActiveKey={["1"]}
-          onChange={callback}
-          expandIcon={({ isActive }) => (
-            <Arrow dir={!isActive ? "right" : "down"} />
-          )}
+      <div className={style["main-page"]}>
+        <div
+          className={cn(["sidebar-wrapper", { "sidebar-open": sidebarToggle }])}
         >
-          <Panel header="Type" key="1">
-            <SelectionGroup
-              mode="multiple"
-              filterItems={this.state.variantClassFilterItems}
-            />
-          </Panel>
+          <SideBarLayout
+            title={"Filters"}
+            handleClick={this.handleClick}
+            mode={sidebarToggle}
+          >
+            <Collapse
+              defaultActiveKey={["1"]}
+              onChange={callback}
+              expandIcon={({ isActive }) => (
+                <Arrow dir={!isActive ? "right" : "down"} />
+              )}
+            >
+              <Panel header="Type" key="1">
+                <SelectionGroup
+                  mode="multiple"
+                  filterItems={this.state.variantClassFilterItems}
+                />
+              </Panel>
 
-          <Panel header="Variant Class" key="2">
-            <SelectionGroup
-              mode="single"
-              filterItems={this.state.typeFilterItems}
-            />
-          </Panel>
+              <Panel header="Variant Class" key="2">
+                <SelectionGroup
+                  mode="single"
+                  filterItems={this.state.typeFilterItems}
+                />
+              </Panel>
 
-          <Panel header="Hot Spot" key="3">
-            <SelectionGroup
-              mode="single"
-              filterItems={this.state.hotSpotFilterItems}
-            />
-          </Panel>
+              <Panel header="Hot Spot" key="3">
+                <SelectionGroup
+                  mode="single"
+                  filterItems={this.state.hotSpotFilterItems}
+                />
+              </Panel>
 
-          <Panel header="SNP" key="4">
-            <SelectionGroup
-              mode="single"
-              filterItems={this.state.snpFilterItems}
-            />
-          </Panel>
+              <Panel header="SNP" key="4">
+                <SelectionGroup
+                  mode="single"
+                  filterItems={this.state.snpFilterItems}
+                />
+              </Panel>
 
-          <Panel header="ROI" key="5">
-            <SelectionGroup
-              mode="single"
-              filterItems={this.state.roiFilterItems}
-            />
-          </Panel>
-        </Collapse>
-        ,
+              <Panel header="ROI" key="5">
+                <SelectionGroup
+                  mode="single"
+                  filterItems={this.state.roiFilterItems}
+                />
+              </Panel>
+            </Collapse>
+          </SideBarLayout>
+        </div>
+        <div
+          className={cn([
+            "main-content-wrapper",
+            { "sidebar-open": sidebarToggle }
+          ])}
+        >
+          <h1>Page content</h1>
+        </div>
       </div>
     );
   }
 }
 
-// MainPage.propTypes = {
-//
-// };
+
 
 export default MainPage;

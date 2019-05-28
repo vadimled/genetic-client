@@ -7,12 +7,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header" />
-
-      <div className="main-content">
-        <Switch>
-          <Route path="/" exact component={MainPage} />
-        </Switch>
-      </div>
+      <Switch>
+        <Route path="/" exact component={MainPage} />
+      </Switch>
     </div>
   );
 }
