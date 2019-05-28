@@ -15,6 +15,7 @@
     "babel-preset-react-app": "^9.0.0",
     "camelcase": "^5.2.0",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
+    "classnames": "^2.2.6",
     "create-react-component-folder": "^0.1.30",
     "css-loader": "2.1.1",
     "dotenv": "6.2.0",
@@ -41,6 +42,7 @@
     "react-app-polyfill": "^1.0.1",
     "react-dev-utils": "^9.0.1",
     "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
@@ -109,7 +111,8 @@
     "eslint-plugin-react-hooks": "^1.5.0",
     "lint-staged": "8.1.7",
     "husky": "^2.3.0",
-    "prettier": "1.17.1"
+    "prettier": "1.17.1",
+    "prop-types": "latest"
   },
   "jest": {
     "collectCoverageFrom": [
