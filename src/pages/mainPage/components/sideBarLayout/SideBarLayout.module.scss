@@ -48,6 +48,7 @@
     cursor: pointer;
     transition: 0.4s ease;
     transform: translate(0px, 0px);
+    z-index: 999;
 
     &.sidebar-closed {
       transition: 0.4s ease;
