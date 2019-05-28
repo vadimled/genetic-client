@@ -2,6 +2,9 @@
   //border: 1px solid red;
   text-align: left;
   #filter-item {
-    //margin-top: 14px;
+    margin-top: 14px;
+  }
+  #filter-item:first-child {
+    margin-top: 0;
   }
 }
