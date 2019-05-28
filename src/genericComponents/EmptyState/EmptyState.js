@@ -4,15 +4,15 @@ import style from './EmptyState.module.scss';
 
 const EmptyState = ({image, title, description}) => {
   return (
-    <div className={style["c-empty-state"]}>
+    <div className={style["empty-state"]}>
       <div
-        className={style["image"]}
+        className="image"
         style={{
           backgroundImage: `url(${image})`
         }}
       />
-      <div className={style["title"]}>{title}</div>
-      <div className={style["description"]}>{description}</div>
+      <div className="title">{title}</div>
+      <div className="description">{description}</div>
     </div>
   );
 };

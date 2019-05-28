@@ -1,6 +1,6 @@
 @import "Css/Colors.scss";
 
-.c-empty-state {
+.empty-state :global {
   display: flex;
   flex-direction: column;
   justify-content: center;
