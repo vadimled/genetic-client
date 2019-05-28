@@ -42,7 +42,7 @@ class FilterItem extends Component {
           </Checkbox>
         ) : (
           <Radio.Group onChange={onChange} value={value}>
-            <Radio value={index + 1}><span className="item-label">{item.label}</span></Radio>
+            <Radio value={index + 1}>{item.icon}<span className="item-label">{item.label}</span></Radio>
           </Radio.Group>
         )}
       </div>

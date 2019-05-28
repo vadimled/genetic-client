@@ -290,3 +290,15 @@
     }
   }
 }
+
+.anticon-check {
+  svg {
+    color: $panel-filled;
+  }
+}
+
+.anticon-close {
+  svg {
+    color: $error-message;
+  }
+}

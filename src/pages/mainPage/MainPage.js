@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import PropTypes from 'prop-types';
 import SelectionGroup from "../../genericComponents/selectionGroup";
 import { TAG_COLORS } from "../../utils/constants";
+import { Icon } from "antd";
 
 class MainPage extends Component {
 
@@ -22,6 +23,11 @@ class MainPage extends Component {
         {label: 'Somatic'},
         {label: 'Germline'},
         {label: 'ACMG'}
+      ],
+
+      hotSpotFilterItems: [
+        {label: 'True', icon: <Icon type="check" />},
+        {label: 'False', icon: <Icon type="close" />}
       ]
     };
   }
@@ -35,6 +41,9 @@ class MainPage extends Component {
 
 
         <SelectionGroup mode="single" filterItems={this.state.typeFilterItems}/>
+
+
+        <SelectionGroup mode="single" filterItems={this.state.hotSpotFilterItems}/>
 
       </div>
     );
