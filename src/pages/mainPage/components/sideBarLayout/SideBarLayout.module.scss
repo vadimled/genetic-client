@@ -32,10 +32,11 @@
 
     .children {
       display: block;
-      width: 87%;
+      width: 92%;
       height: 100vh;
       text-align: left;
-      padding: 12px;
+      padding-left: 12px;
+      //padding-right: 0  ;
     }
   }
 
@@ -44,7 +45,7 @@
     position: absolute;
     width: 52px;
     height: 52px;
-    left: 166px;
+    left: 171px;
     cursor: pointer;
     transition: 0.4s ease;
     transform: translate(0px, 0px);
