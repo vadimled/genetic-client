@@ -86,17 +86,18 @@ class MainPage extends Component {
                 <Arrow dir={!isActive ? "right" : "down"} />
               )}
             >
-              <Panel header="Type" key="1">
-                <SelectionGroup
-                  mode="multiple"
-                  filterItems={this.state.variantClassFilterItems}
-                />
-              </Panel>
 
-              <Panel header="Variant Class" key="2">
+              <Panel header="Variant Class" key="1">
                 <SelectionGroup
                   mode="single"
                   filterItems={this.state.typeFilterItems}
+                />
+              </Panel>
+
+              <Panel header="Type" key="2">
+                <SelectionGroup
+                  mode="multiple"
+                  filterItems={this.state.variantClassFilterItems}
                 />
               </Panel>
 
