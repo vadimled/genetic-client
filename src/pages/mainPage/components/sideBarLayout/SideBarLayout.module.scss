@@ -2,7 +2,6 @@
 
 .sidebar-layout :global {
   width: 100%;
-  border: 1px solid #58ff17;
   height: 100vh;
 
   .content {
@@ -14,11 +13,12 @@
     //}
 
     .title {
+      position: sticky;
       color: $title_color;
       font-weight: normal;
       font-size: 16px;
       text-align: left;
-      padding: 11px 0 0 11px;
+      padding: 12px;
       line-height: normal;
     }
 
@@ -29,6 +29,14 @@
       text-align: left;
       margin-top: 12px;
     }
+
+    .children {
+      display: block;
+      width: 87%;
+      height: 100vh;
+      text-align: left;
+      padding: 12px;
+    }
   }
 
   .icon-mode {
@@ -38,7 +46,6 @@
     height: 52px;
     left: 166px;
     cursor: pointer;
-    z-index: 2222;
     transition: 0.4s ease;
     transform: translate(0px, 0px);
 

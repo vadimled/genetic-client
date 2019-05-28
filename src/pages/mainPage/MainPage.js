@@ -29,7 +29,29 @@ class MainPage extends Component {
             title={"Filters"}
             handleClick={this.handleClick}
             mode={sidebarToggle}
-          />
+          >
+            {`Lorem ipsum dolor sit amet, consectetur adipiscing elit.  +
+              Nullam sed est lectus. In hac habitasse platea dictumst.  +
+              Aenean accumsan venenatis dapibus. Aenean faucibus dolor et leo
+              tempor auctor.  + Pellentesque et sagittis lorem. Aliquam ut
+              lacus blandit, egestas eros ac, dictum ante.  + Integer lobortis
+              nisl dolor, eget porta sem accumsan vel.  + Maecenas lacinia
+              nibh posuere neque fermentum bibendum. +  Aenean interdum ante
+              et imperdiet gravida. Sed vitae libero facilisis, malesuada elit
+              ac, sodales lorem.  + In hac habitasse platea dictumst. Etiam
+              vitae convallis velit, id finibus arcu. +  Sed in ante dictum
+              lacus viverra consequat. \n + \n + Subheading\n + \n +
+              Witae neque. Ut odio dolor, pellentesque vitae odio nec,
+              ultricies tempus nibh.  + Mauris vitae orci sit amet lacus
+              molestie vulputate ac id erat.  + Proin ultricies risus eu
+              tincidunt ultricies. +  Interdum et malesuada fames ac ante
+              ipsum primis in faucibus.molestie vulputate ac id erat.  + Proin
+              ultricies risus eu tincidunt ultricies.  + Interdum et malesuada
+              fames ac ante ipsum primis in faucibus. ies tempus nibh. +
+              Mauris vitae orci sit amet lacus molestie vulputate ac id erat.
+              + Proin ultricies risus eu tincidunt ultricies. Interdum et
+              malesuada fame`}
+          </SideBarLayout>
         </div>
         <div
           className={cn([

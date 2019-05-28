@@ -21,7 +21,9 @@ const SideBarLayout = props => {
         <div>
           {title && <div className="title">{title}</div>}
           {subtitle && <div className="subtitle">{subtitle}</div>}
-          {children}
+          <div className="scrollbar">
+            <div className="children">{children}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -31,7 +33,7 @@ const SideBarLayout = props => {
 SideBarLayout.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  children: PropTypes.object
+  children: PropTypes.node
 };
 
 export default SideBarLayout;
