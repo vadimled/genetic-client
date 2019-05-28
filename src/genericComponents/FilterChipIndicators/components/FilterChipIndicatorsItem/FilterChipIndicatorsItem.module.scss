@@ -1,0 +1,43 @@
+@import "Css/Colors.scss";
+
+.filter-chip-indicators-item :global {
+  display: flex;
+  align-items: center;
+  background-color: $filter-list-item;
+  margin-right: 8px;
+  padding: 5px 8px;
+  border-radius: 4px;
+
+  font-size: 14px;
+  line-height: 18px;
+  color: $title_color;
+
+  .value {
+    margin-left: 2px;
+    font-weight: 600;
+  }
+
+  .button {
+    width: 16px;
+    height: 16px;
+    background-color: rgba(0, 0, 0, 0);
+    background-position: center;
+    background-size: contain;
+    cursor: pointer;
+    border: 0px;
+    margin-left: 4px;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+
+    &:active,
+    &:focus {
+      outline: none;
+    }
+    &::-moz-focus-inner {
+      border: 0;
+    }
+  }
+}

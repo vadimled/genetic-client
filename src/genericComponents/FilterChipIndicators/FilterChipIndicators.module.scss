@@ -1,0 +1,19 @@
+@import "Css/Colors.scss";
+
+.filter-chip-indicators :global {
+  display: flex;
+  flex-wrap: wrap;
+
+  .more {
+    display: flex;
+    align-items: center;
+    background-color: $filter-list-item;
+    margin-right: 8px;
+    padding: 5px 8px;
+    border-radius: 4px;
+
+    font-size: 14px;
+    line-height: 18px;
+    color: $title_color;
+  }
+}
