@@ -2,8 +2,8 @@ import React, { Component } from "react";
 // import PropTypes from "prop-types";
 import { Checkbox } from "antd";
 import style from "./FilterItem.module.scss";
-import {TAG_COLORS} from 'Utils/constants';
-
+import { TAG_COLORS } from "Utils/constants";
+import { Radio } from "antd";
 
 const Tag = ({ color }) => {
   console.log(color);
@@ -20,20 +20,31 @@ const Tag = ({ color }) => {
 // }
 
 class FilterItem extends Component {
+
+
   render() {
-    const { item } = this.props;
+    const { item, mode, index, onChange, value } = this.props;
+    console.log("--item: ", item);
     return (
       <div className={style["filter-item-wrapper"]} id="filter-item">
-        <Checkbox>
-          <div className="flex items-center checkbox-inner-content">
-            {item.tagColor && <Tag color={item.tagColor} />}
-            <span
-              style={item.label === "Unclassified" ? { color: "#96A2AA" } : null}
-            >
-              {item.label}
-            </span>
-          </div>
-        </Checkbox>
+        {mode === "multiple" ? (
+          <Checkbox>
+            <div className="flex items-center checkbox-inner-content">
+              {item.tagColor && <Tag color={item.tagColor} />}
+              <span
+                style={
+                  item.label === "Unclassified" ? { color: "#96A2AA" } : null
+                }
+              >
+                {item.label}
+              </span>
+            </div>
+          </Checkbox>
+        ) : (
+          <Radio.Group onChange={onChange} value={value}>
+            <Radio value={index + 1}><span className="item-label">{item.label}</span></Radio>
+          </Radio.Group>
+        )}
       </div>
     );
   }

@@ -8,4 +8,9 @@
   .checkbox-inner-content {
     padding-top: 2px;
   }
+  .ant-radio-wrapper-checked {
+    .item-label {
+      font-weight: bold;
+    }
+  }
 }

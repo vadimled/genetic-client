@@ -1,30 +1,33 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 // import PropTypes from 'prop-types';
-import {TAG_COLORS} from 'Utils/constants';
 import FilterItem from "../filterItem";
-import style from './SelectionGroup.module.scss';
+import style from "./SelectionGroup.module.scss";
 
 class SelectionGroup extends Component {
+  state = {
+    value: 1
+  };
 
-  constructor(props){
-    super(props);
-    this.state = {
-      filterItems: [
-        {tagColor: TAG_COLORS.white, label: 'Unclassified'},
-        {tagColor: TAG_COLORS.red, label: 'PATH'},
-        {tagColor: TAG_COLORS.orange, label: 'LATH'},
-        {tagColor: TAG_COLORS.yellow, label: 'VUS'},
-        {tagColor: TAG_COLORS.blueLight, label: 'LBEN'},
-        {tagColor: TAG_COLORS.blue, label: 'BEN'},
-      ]
-    };
-  }
+  onChange = e => {
+    console.log("radio checked", e.target.value);
+    this.setState({
+      value: e.target.value
+    });
+  };
 
   render() {
+    const { filterItems, mode } = this.props;
     return (
       <div className={style["selection-group-wrapper"]}>
-        {this.state.filterItems.map((item, i) => (
-          <FilterItem item={item} key={i} />
+        {filterItems.map((item, i) => (
+          <FilterItem
+            mode={mode}
+            item={item}
+            key={i}
+            index={i}
+            onChange={this.onChange}
+            value={this.state.value}
+          />
         ))}
       </div>
     );
