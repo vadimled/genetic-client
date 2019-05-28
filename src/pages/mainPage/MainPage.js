@@ -3,6 +3,14 @@ import React, { Component } from "react";
 import SelectionGroup from "../../genericComponents/selectionGroup";
 import { TAG_COLORS } from "../../utils/constants";
 import { Icon } from "antd";
+import { Collapse } from 'antd';
+
+// eslint-disable-next-line
+const Panel = Collapse.Panel;
+
+function callback(key) {
+  console.log(key);
+}
 
 class MainPage extends Component {
 
@@ -39,6 +47,13 @@ class MainPage extends Component {
         {label: 'True', icon: <Icon type="check" />},
         {label: 'False', icon: <Icon type="close" />}
       ],
+
+      gnomIdFilterItems: [
+        {value: 'na', label: "NA"},
+        {value: 'veryRare', label: "very rare(0-1%)"},
+        {value: 'rare', label: "rare (1-5%)"},
+        {value: 'common', label: "common (>5%)"},
+      ]
     };
   }
 
@@ -47,18 +62,29 @@ class MainPage extends Component {
       <div>
         <h3>MainPage</h3>
 
-        <SelectionGroup title="Type" mode="multiple" filterItems={this.state.variantClassFilterItems}/>
+        <Collapse defaultActiveKey={['1']} onChange={callback}>
 
+          <Panel header="Type" key="1">
+            <SelectionGroup mode="multiple" filterItems={this.state.variantClassFilterItems}/>
+          </Panel>
 
-        <SelectionGroup title="Variant Class" mode="single" filterItems={this.state.typeFilterItems}/>
+          <Panel header="Variant Class" key="2">
+            <SelectionGroup mode="single" filterItems={this.state.typeFilterItems}/>
+          </Panel>
 
+          <Panel header="Hot Spot" key="3">
+            <SelectionGroup mode="single" filterItems={this.state.hotSpotFilterItems}/>
+          </Panel>
 
-        <SelectionGroup title="Hot Spot" mode="single" filterItems={this.state.hotSpotFilterItems}/>
+          <Panel header="SNP" key="4">
+            <SelectionGroup mode="single" filterItems={this.state.snpFilterItems}/>
+          </Panel>
 
+          <Panel header="ROI" key="5">
+            <SelectionGroup mode="single" filterItems={this.state.roiFilterItems}/>
+          </Panel>
 
-        <SelectionGroup title="SNP" mode="single" filterItems={this.state.snpFilterItems}/>
-
-        <SelectionGroup title="ROI" mode="single" filterItems={this.state.roiFilterItems}/>
+        </Collapse>,
 
       </div>
     );
