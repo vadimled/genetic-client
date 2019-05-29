@@ -1,9 +1,10 @@
 import { TAG_COLORS } from "../../utils/constants";
 import { Icon } from "antd";
 import React from "react";
+import {FILTERS} from "../../utils/constants";
 
 export default  {
-  Type: {
+  [FILTERS.type]: {
     mode: "single",
     items: [
       { id:"somatic", label: "Somatic" },
@@ -12,7 +13,7 @@ export default  {
     ],
   },
 
-  ['Variant']: {
+  [FILTERS.variantClass]: {
     mode: "multiple",
     items: [
       { id: "unclassified", tagColor: TAG_COLORS.white, label: "Unclassified" },
@@ -24,7 +25,7 @@ export default  {
     ]
   },
 
-  ['Hot Spot']: {
+  [FILTERS.hotSpot]: {
     mode: "single",
     items: [
       { id: "true", label: "True", icon: <Icon type="check" /> },
@@ -32,7 +33,7 @@ export default  {
     ],
   },
 
-  SNP:{
+  [FILTERS.snp]:{
     mode: "single",
     items: [
       { id: "true", label: "True", icon: <Icon type="check" /> },
@@ -40,7 +41,7 @@ export default  {
     ],
   }, 
 
-  ROI: {
+  [FILTERS.roi]: {
     mode: "single",
     items: [
       {id: "true",  label: "True", icon: <Icon type="check" /> },
@@ -48,7 +49,7 @@ export default  {
     ]
   },
 
-  ['Gnom ID']: {
+  [FILTERS.gnomId]: {
     mode: "single",
     items: [
       { id: "na", value: "na", label: "NA" },

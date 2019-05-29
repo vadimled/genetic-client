@@ -22,11 +22,8 @@ class MainPage extends Component {
     this.state = {
       sidebarToggle: false,
       filters: {
-        ["Type"]: {
-          // "unclassified": true,
-          // "path": false
-        },
-        ["Variant"]: {
+        ["Type"]: {},
+        ["Variant Class"]: {
           items: [{ unclassified: true }, { path: false }]
         },
         ["Hot Spot"]: {},
@@ -45,8 +42,6 @@ class MainPage extends Component {
 
   onChange = e => {
     console.log(e.target);
-    // setRadioValue(e.target.value);
-    // setCheckboxValue(e.target.checked)
   };
 
   render() {
@@ -102,3 +97,5 @@ class MainPage extends Component {
 }
 
 export default MainPage;
+
+
