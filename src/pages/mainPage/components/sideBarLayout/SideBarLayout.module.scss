@@ -3,6 +3,7 @@
 .sidebar-layout :global {
   width: 100%;
   height: 100vh;
+  border-right: $border_color solid 1px;
 
   .content {
     width: 100%;

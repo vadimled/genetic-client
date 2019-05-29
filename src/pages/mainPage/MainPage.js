@@ -5,6 +5,8 @@ import SideBarLayout from "./components/sideBarLayout";
 import SelectionGroup from "../../genericComponents/selectionGroup";
 import { Collapse } from "antd";
 import filtersConfig from "./filtersConfig";
+import Toolbar from "./components/toolbar";
+import TableLayout from "./components/tableLayout";
 
 // eslint-disable-next-line
 const Panel = Collapse.Panel;
@@ -89,7 +91,211 @@ class MainPage extends Component {
             { "sidebar-open": sidebarToggle }
           ])}
         >
-          <h1>Page content</h1>
+          <Toolbar />
+          <TableLayout>
+            {`Lorem ipsum dolor sit amet, consectetur adipiscing elit.  +
+              Nullam sed est lectus. In hac habitasse platea dictumst.  +
+              Aenean accumsan venenatis dapibus. Aenean faucibus dolor et leo
+              tempor auctor.  + Pellentesque et sagittis lorem. Aliquam ut
+              lacus blandit, egestas eros ac, dictum ante.  + Integer lobortis
+              nisl dolor, eget porta sem accumsan vel.  + Maecenas lacinia
+              nibh posuere neque fermentum bibendum. +  Aenean interdum ante
+              et imperdiet gravida. Sed vitae libero facilisis, malesuada elit
+              ac, sodales lorem.  + In hac habitasse platea dictumst. Etiam
+              vitae convallis velit, id finibus arcu. +  Sed in ante dictum
+              lacus viverra consequat. \n + \n + Subheading\n + \n +
+              Witae neque. Ut odio dolor, pellentesque vitae odio nec,
+              ultricies tempus nibh.  + Mauris vitae orci sit amet lacus
+              molestie vulputate ac id erat.  + Proin ultricies risus eu
+              tincidunt ultricies. +  Interdum et malesuada fames ac ante
+              ipsum primis in faucibus.molestie vulputate ac id erat.  + Proin
+              ultricies risus eu tincidunt ultricies.  + Interdum et malesuada
+              fames ac ante ipsum primis in faucibus. ies tempus nibh. +
+              Mauris vitae orci sit amet lacus molestie vulputate ac id erat.
+              + Proin ultricies risus eu tincidunt ultricies. Interdum et
+              malesuada fameLorem ipsum dolor sit amet, consectetur adipiscing elit.  +
+              Nullam sed est lectus. In hac habitasse platea dictumst.  +
+              Aenean accumsan venenatis dapibus. Aenean faucibus dolor et leo
+              tempor auctor.  + Pellentesque et sagittis lorem. Aliquam ut
+              lacus blandit, egestas eros ac, dictum ante.  + Integer lobortis
+              nisl dolor, eget porta sem accumsan vel.  + Maecenas lacinia
+              nibh posuere neque fermentum bibendum. +  Aenean interdum ante
+              et imperdiet gravida. Sed vitae libero facilisis, malesuada elit
+              ac, sodales lorem.  + In hac habitasse platea dictumst. Etiam
+              vitae convallis velit, id finibus arcu. +  Sed in ante dictum
+              lacus viverra consequat. \n + \n + Subheading\n + \n +
+              Witae neque. Ut odio dolor, pellentesque vitae odio nec,
+              ultricies tempus nibh.  + Mauris vitae orci sit amet lacus
+              molestie vulputate ac id erat.  + Proin ultricies risus eu
+              tincidunt ultricies. +  Interdum et malesuada fames ac ante
+              ipsum primis in faucibus.molestie vulputate ac id erat.  + Proin
+              ultricies risus eu tincidunt ultricies.  + Interdum et malesuada
+              fames ac ante ipsum primis in faucibus. ies tempus nibh. +
+              Mauris vitae orci sit amet lacus molestie vulputate ac id erat.
+              + Proin ultricies risus eu tincidunt ultricies. Interdum et
+              malesuada fameLorem ipsum dolor sit amet, consectetur adipiscing elit.  +
+              Nullam sed est lectus. In hac habitasse platea dictumst.  +
+              Aenean accumsan venenatis dapibus. Aenean faucibus dolor et leo
+              tempor auctor.  + Pellentesque et sagittis lorem. Aliquam ut
+              lacus blandit, egestas eros ac, dictum ante.  + Integer lobortis
+              nisl dolor, eget porta sem accumsan vel.  + Maecenas lacinia
+              nibh posuere neque fermentum bibendum. +  Aenean interdum ante
+              et imperdiet gravida. Sed vitae libero facilisis, malesuada elit
+              ac, sodales lorem.  + In hac habitasse platea dictumst. Etiam
+              vitae convallis velit, id finibus arcu. +  Sed in ante dictum
+              lacus viverra consequat. \n + \n + Subheading\n + \n +
+              Witae neque. Ut odio dolor, pellentesque vitae odio nec,
+              ultricies tempus nibh.  + Mauris vitae orci sit amet lacus
+              molestie vulputate ac id erat.  + Proin ultricies risus eu
+              tincidunt ultricies. +  Interdum et malesuada fames ac ante
+              ipsum primis in faucibus.molestie vulputate ac id erat.  + Proin
+              ultricies risus eu tincidunt ultricies.  + Interdum et malesuada
+              fames ac ante ipsum primis in faucibus. ies tempus nibh. +
+              Mauris vitae orci sit amet lacus molestie vulputate ac id erat.
+              + Proin ultricies risus eu tincidunt ultricies. Interdum et
+              malesuada fameLorem ipsum dolor sit amet, consectetur adipiscing elit.  +
+              Nullam sed est lectus. In hac habitasse platea dictumst.  +
+              Aenean accumsan venenatis dapibus. Aenean faucibus dolor et leo
+              tempor auctor.  + Pellentesque et sagittis lorem. Aliquam ut
+              lacus blandit, egestas eros ac, dictum ante.  + Integer lobortis
+              nisl dolor, eget porta sem accumsan vel.  + Maecenas lacinia
+              nibh posuere neque fermentum bibendum. +  Aenean interdum ante
+              et imperdiet gravida. Sed vitae libero facilisis, malesuada elit
+              ac, sodales lorem.  + In hac habitasse platea dictumst. Etiam
+              vitae convallis velit, id finibus arcu. +  Sed in ante dictum
+              lacus viverra consequat. \n + \n + Subheading\n + \n +
+              Witae neque. Ut odio dolor, pellentesque vitae odio nec,
+              ultricies tempus nibh.  + Mauris vitae orci sit amet lacus
+              molestie vulputate ac id erat.  + Proin ultricies risus eu
+              tincidunt ultricies. +  Interdum et malesuada fames ac ante
+              ipsum primis in faucibus.molestie vulputate ac id erat.  + Proin
+              ultricies risus eu tincidunt ultricies.  + Interdum et malesuada
+              fames ac ante ipsum primis in faucibus. ies tempus nibh. +
+              Mauris vitae orci sit amet lacus molestie vulputate ac id erat.
+              + Proin ultricies risus eu tincidunt ultricies. Interdum et
+              malesuada fameLorem ipsum dolor sit amet, consectetur adipiscing elit.  +
+              Nullam sed est lectus. In hac habitasse platea dictumst.  +
+              Aenean accumsan venenatis dapibus. Aenean faucibus dolor et leo
+              tempor auctor.  + Pellentesque et sagittis lorem. Aliquam ut
+              lacus blandit, egestas eros ac, dictum ante.  + Integer lobortis
+              nisl dolor, eget porta sem accumsan vel.  + Maecenas lacinia
+              nibh posuere neque fermentum bibendum. +  Aenean interdum ante
+              et imperdiet gravida. Sed vitae libero facilisis, malesuada elit
+              ac, sodales lorem.  + In hac habitasse platea dictumst. Etiam
+              vitae convallis velit, id finibus arcu. +  Sed in ante dictum
+              lacus viverra consequat. \n + \n + Subheading\n + \n +
+              Witae neque. Ut odio dolor, pellentesque vitae odio nec,
+              ultricies tempus nibh.  + Mauris vitae orci sit amet lacus
+              molestie vulputate ac id erat.  + Proin ultricies risus eu
+              tincidunt ultricies. +  Interdum et malesuada fames ac ante
+              ipsum primis in faucibus.molestie vulputate ac id erat.  + Proin
+              ultricies risus eu tincidunt ultricies.  + Interdum et malesuada
+              fames ac ante ipsum primis in faucibus. ies tempus nibh. +
+              Mauris vitae orci sit amet lacus molestie vulputate ac id erat.
+              + Proin ultricies risus eu tincidunt ultricies. Interdum et
+              malesuada fameLorem ipsum dolor sit amet, consectetur adipiscing elit.  +
+              Nullam sed est lectus. In hac habitasse platea dictumst.  +
+              Aenean accumsan venenatis dapibus. Aenean faucibus dolor et leo
+              tempor auctor.  + Pellentesque et sagittis lorem. Aliquam ut
+              lacus blandit, egestas eros ac, dictum ante.  + Integer lobortis
+              nisl dolor, eget porta sem accumsan vel.  + Maecenas lacinia
+              nibh posuere neque fermentum bibendum. +  Aenean interdum ante
+              et imperdiet gravida. Sed vitae libero facilisis, malesuada elit
+              ac, sodales lorem.  + In hac habitasse platea dictumst. Etiam
+              vitae convallis velit, id finibus arcu. +  Sed in ante dictum
+              lacus viverra consequat. \n + \n + Subheading\n + \n +
+              Witae neque. Ut odio dolor, pellentesque vitae odio nec,
+              ultricies tempus nibh.  + Mauris vitae orci sit amet lacus
+              molestie vulputate ac id erat.  + Proin ultricies risus eu
+              tincidunt ultricies. +  Interdum et malesuada fames ac ante
+              ipsum primis in faucibus.molestie vulputate ac id erat.  + Proin
+              ultricies risus eu tincidunt ultricies.  + Interdum et malesuada
+              fames ac ante ipsum primis in faucibus. ies tempus nibh. +
+              Mauris vitae orci sit amet lacus molestie vulputate ac id erat.
+              + Proin ultricies risus eu tincidunt ultricies. Interdum et
+              malesuada fameLorem ipsum dolor sit amet, consectetur adipiscing elit.  +
+              Nullam sed est lectus. In hac habitasse platea dictumst.  +
+              Aenean accumsan venenatis dapibus. Aenean faucibus dolor et leo
+              tempor auctor.  + Pellentesque et sagittis lorem. Aliquam ut
+              lacus blandit, egestas eros ac, dictum ante.  + Integer lobortis
+              nisl dolor, eget porta sem accumsan vel.  + Maecenas lacinia
+              nibh posuere neque fermentum bibendum. +  Aenean interdum ante
+              et imperdiet gravida. Sed vitae libero facilisis, malesuada elit
+              ac, sodales lorem.  + In hac habitasse platea dictumst. Etiam
+              vitae convallis velit, id finibus arcu. +  Sed in ante dictum
+              lacus viverra consequat. \n + \n + Subheading\n + \n +
+              Witae neque. Ut odio dolor, pellentesque vitae odio nec,
+              ultricies tempus nibh.  + Mauris vitae orci sit amet lacus
+              molestie vulputate ac id erat.  + Proin ultricies risus eu
+              tincidunt ultricies. +  Interdum et malesuada fames ac ante
+              ipsum primis in faucibus.molestie vulputate ac id erat.  + Proin
+              ultricies risus eu tincidunt ultricies.  + Interdum et malesuada
+              fames ac ante ipsum primis in faucibus. ies tempus nibh. +
+              Mauris vitae orci sit amet lacus molestie vulputate ac id erat.
+              + Proin ultricies risus eu tincidunt ultricies. Interdum et
+              malesuada fameLorem ipsum dolor sit amet, consectetur adipiscing elit.  +
+              Nullam sed est lectus. In hac habitasse platea dictumst.  +
+              Aenean accumsan venenatis dapibus. Aenean faucibus dolor et leo
+              tempor auctor.  + Pellentesque et sagittis lorem. Aliquam ut
+              lacus blandit, egestas eros ac, dictum ante.  + Integer lobortis
+              nisl dolor, eget porta sem accumsan vel.  + Maecenas lacinia
+              nibh posuere neque fermentum bibendum. +  Aenean interdum ante
+              et imperdiet gravida. Sed vitae libero facilisis, malesuada elit
+              ac, sodales lorem.  + In hac habitasse platea dictumst. Etiam
+              vitae convallis velit, id finibus arcu. +  Sed in ante dictum
+              lacus viverra consequat. \n + \n + Subheading\n + \n +
+              Witae neque. Ut odio dolor, pellentesque vitae odio nec,
+              ultricies tempus nibh.  + Mauris vitae orci sit amet lacus
+              molestie vulputate ac id erat.  + Proin ultricies risus eu
+              tincidunt ultricies. +  Interdum et malesuada fames ac ante
+              ipsum primis in faucibus.molestie vulputate ac id erat.  + Proin
+              ultricies risus eu tincidunt ultricies.  + Interdum et malesuada
+              fames ac ante ipsum primis in faucibus. ies tempus nibh. +
+              Mauris vitae orci sit amet lacus molestie vulputate ac id erat.
+              + Proin ultricies risus eu tincidunt ultricies. Interdum et
+              malesuada fameLorem ipsum dolor sit amet, consectetur adipiscing elit.  +
+              Nullam sed est lectus. In hac habitasse platea dictumst.  +
+              Aenean accumsan venenatis dapibus. Aenean faucibus dolor et leo
+              tempor auctor.  + Pellentesque et sagittis lorem. Aliquam ut
+              lacus blandit, egestas eros ac, dictum ante.  + Integer lobortis
+              nisl dolor, eget porta sem accumsan vel.  + Maecenas lacinia
+              nibh posuere neque fermentum bibendum. +  Aenean interdum ante
+              et imperdiet gravida. Sed vitae libero facilisis, malesuada elit
+              ac, sodales lorem.  + In hac habitasse platea dictumst. Etiam
+              vitae convallis velit, id finibus arcu. +  Sed in ante dictum
+              lacus viverra consequat. \n + \n + Subheading\n + \n +
+              Witae neque. Ut odio dolor, pellentesque vitae odio nec,
+              ultricies tempus nibh.  + Mauris vitae orci sit amet lacus
+              molestie vulputate ac id erat.  + Proin ultricies risus eu
+              tincidunt ultricies. +  Interdum et malesuada fames ac ante
+              ipsum primis in faucibus.molestie vulputate ac id erat.  + Proin
+              ultricies risus eu tincidunt ultricies.  + Interdum et malesuada
+              fames ac ante ipsum primis in faucibus. ies tempus nibh. +
+              Mauris vitae orci sit amet lacus molestie vulputate ac id erat.
+              + Proin ultricies risus eu tincidunt ultricies. Interdum et
+              malesuada fameLorem ipsum dolor sit amet, consectetur adipiscing elit.  +
+              Nullam sed est lectus. In hac habitasse platea dictumst.  +
+              Aenean accumsan venenatis dapibus. Aenean faucibus dolor et leo
+              tempor auctor.  + Pellentesque et sagittis lorem. Aliquam ut
+              lacus blandit, egestas eros ac, dictum ante.  + Integer lobortis
+              nisl dolor, eget porta sem accumsan vel.  + Maecenas lacinia
+              nibh posuere neque fermentum bibendum. +  Aenean interdum ante
+              et imperdiet gravida. Sed vitae libero facilisis, malesuada elit
+              ac, sodales lorem.  + In hac habitasse platea dictumst. Etiam
+              vitae convallis velit, id finibus arcu. +  Sed in ante dictum
+              lacus viverra consequat. \n + \n + Subheading\n + \n +
+              Witae neque. Ut odio dolor, pellentesque vitae odio nec,
+              ultricies tempus nibh.  + Mauris vitae orci sit amet lacus
+              molestie vulputate ac id erat.  + Proin ultricies risus eu
+              tincidunt ultricies. +  Interdum et malesuada fames ac ante
+              ipsum primis in faucibus.molestie vulputate ac id erat.  + Proin
+              ultricies risus eu tincidunt ultricies.  + Interdum et malesuada
+              fames ac ante ipsum primis in faucibus. ies tempus nibh. +
+              Mauris vitae orci sit amet lacus molestie vulputate ac id erat.
+              + Proin ultricies risus eu tincidunt ultricies. Interdum et
+              malesuada fame`}
+
+          </TableLayout>
         </div>
       </div>
     );
