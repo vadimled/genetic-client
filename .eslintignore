@@ -2,3 +2,5 @@ config/
 scripts/
 .gitignore
 .prettierignore
+./config
+./scripts

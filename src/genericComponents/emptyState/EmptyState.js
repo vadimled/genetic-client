@@ -1,5 +1,12 @@
+/**
+  * Usage Example
+  import EmptyState from 'GenericComponents/EmptyState';
+  <EmptyState />
+*/
+
 import React from 'react';
-import defaultImage from 'Assets/emptyState.svg';
+import PropTypes from "prop-types";
+import defaultImage from 'Assets/EmptyState.svg';
 import style from './EmptyState.module.scss';
 
 const EmptyState = ({image, title, description}) => {
@@ -15,6 +22,12 @@ const EmptyState = ({image, title, description}) => {
       <div className="description">{description}</div>
     </div>
   );
+};
+
+EmptyState.propTypes = {
+  image: PropTypes.any,
+  title: PropTypes.string,
+  description: PropTypes.string
 };
 
 EmptyState.defaultProps = {
