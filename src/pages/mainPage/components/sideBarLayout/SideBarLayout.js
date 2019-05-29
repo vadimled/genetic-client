@@ -18,11 +18,10 @@ const SideBarLayout = props => {
       </div>
 
       <div className="content">
-        <div>
-          {title && <div className="title">{title}</div>}
-          {subtitle && <div className="subtitle">{subtitle}</div>}
-          <div className="children scrollbar">{children}</div>
-        </div>
+        {title && <div className="title">{title}</div>}
+        {subtitle && <div className="subtitle">{subtitle}</div>}
+        <div className="divider" />
+        <div className="children scrollbar">{children}</div>
       </div>
     </div>
   );

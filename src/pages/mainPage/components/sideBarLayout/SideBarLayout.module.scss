@@ -1,4 +1,4 @@
-@import "../../../../css/Colors.scss";
+@import "Css/Colors.scss";
 
 .sidebar-layout :global {
   width: 100%;
@@ -28,6 +28,14 @@
       font-size: 16px;
       text-align: left;
       margin-top: 12px;
+    }
+
+    .divider {
+      display: block;
+      width: 168px;
+      height: 1px;
+      margin-left: 8px;
+      background-color: $border_color;
     }
 
     .children {
