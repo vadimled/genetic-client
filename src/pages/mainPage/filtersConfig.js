@@ -33,7 +33,7 @@ export default  {
     ],
   },
 
-  [FILTERS.snp]:{
+  [FILTERS.snp]: {
     mode: "single",
     items: [
       { id: true, label: "True", icon: <Icon type="check" /> },
@@ -44,7 +44,7 @@ export default  {
   [FILTERS.roi]: {
     mode: "single",
     items: [
-      {id: true,  label: "True", icon: <Icon type="check" /> },
+      { id: true,  label: "True", icon: <Icon type="check" /> },
       { id: false, label: "False", icon: <Icon type="close" /> }
     ]
   },

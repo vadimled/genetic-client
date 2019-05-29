@@ -1,12 +1,28 @@
 import React, { Component } from "react";
+import {connect} from "react-redux";
 import style from "./MainPage.module.scss";
 import cn from "classnames";
 import SideBarLayout from "./components/sideBarLayout";
 import SelectionGroup from "GenericComponents/selectionGroup";
 import { Collapse } from "antd";
 import filtersConfig from "./filtersConfig";
-
-import { FILTERS } from "Utils/constants"; // todo: remove
+import {
+  getFilterType,
+  getFilterVariantClass,
+  getFilterHotSpot,
+  getFilterSnp,
+  getFilterRoi,
+  getFilterGnomId
+} from "Store/selectors";
+import {
+  setFilterType,
+  setFilterVariantClass,
+  setFilterHotSpot,
+  setFilterSnp,
+  setFilterRoi,
+  setFilterGnomId
+} from "Actions/filtersActions";
+import { FILTERS } from "Utils/constants";
 
 
 // eslint-disable-next-line
@@ -42,12 +58,19 @@ class MainPage extends Component {
   };
 
   onChange = (filterSection, filterItemId) => {
-    console.log("filterSection", filterSection);
-    console.log('filterItemId', filterItemId);
+    switch(filterSection) {
+      case FILTERS.type : this.props.setFilterType({value: filterItemId}); break;
+      case FILTERS.variantClass : this.props.setFilterVariantClass({value: filterItemId}); break;
+      case FILTERS.hotSpot : this.props.setFilterHotSpot({value: filterItemId}); break;
+      case FILTERS.snp : this.props.setFilterSnp({value: filterItemId}); break;
+      case FILTERS.roi : this.props.setFilterRoi({value: filterItemId}); break;
+      case FILTERS.gnomId : this.props.setFilterGnomId({value: filterItemId}); break;
+    }
   };
 
   render() {
-    const { sidebarToggle, filters } = this.state;
+    const { sidebarToggle } = this.state;
+    const { filters } = this.props;
 
     return (
       <div className={style["main-page"]}>
@@ -94,6 +117,28 @@ class MainPage extends Component {
   }
 }
 
-export default MainPage;
+function mapStateToProps(state) {
+  return {
+    filters: {
+      [FILTERS.type]: getFilterType(state),
+      [FILTERS.variantClass]: getFilterVariantClass(state),
+      [FILTERS.hotSpot]: getFilterHotSpot(state),
+      [FILTERS.snp]: getFilterSnp(state),
+      [FILTERS.roi]: getFilterRoi(state),
+      [FILTERS.gnomId]: getFilterGnomId(state)
+    }
+  };
+}
 
+function mapDispatchToProps(dispatch) {
+  return {
+    setFilterType: (data) => dispatch(setFilterType(data)),
+    setFilterVariantClass: (data) => dispatch(setFilterVariantClass(data)),
+    setFilterHotSpot: (data) => dispatch(setFilterHotSpot(data)),
+    setFilterSnp: (data) => dispatch(setFilterSnp(data)),
+    setFilterRoi: (data) => dispatch(setFilterRoi(data)),
+    setFilterGnomId: (data) => dispatch(setFilterGnomId(data)),
+  };
+}
 
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
