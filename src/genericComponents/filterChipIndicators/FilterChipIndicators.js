@@ -1,6 +1,6 @@
 /**
   * Usage example:
-  <FilterChipIndicators
+  <filterChipIndicators
     onDelete={(id) => console.log(id)}
     data={[
       {

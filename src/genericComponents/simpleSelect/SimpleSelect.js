@@ -1,5 +1,6 @@
-import React, {Fragment } from "react";
+import React, { Fragment, memo } from "react";
 import { Select } from "antd";
+import PropTypes from "prop-types";
 
 // eslint-disable-next-line
 const Option = Select.Option;
@@ -32,4 +33,13 @@ const SimpleSelect = ({ label, subLabel, onChange, options, value, name }) => {
   );
 };
 
-export default SimpleSelect;
+SimpleSelect.propTypes = {
+  onChange: PropTypes.func,
+  options: PropTypes.array,
+  label: PropTypes.string,
+  subLabel: PropTypes.string,
+  value: PropTypes.string,
+  name: PropTypes.string
+};
+
+export default memo(SimpleSelect);
