@@ -8,7 +8,7 @@ class MainPage extends Component {
     super(props);
 
     this.state = {
-      sidebarToggle: false
+      sidebarToggle: true
     };
   }
 
