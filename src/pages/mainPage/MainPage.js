@@ -58,13 +58,22 @@ class MainPage extends Component {
   };
 
   onChange = (filterSection, filterItemId) => {
+    const {
+      setFilterType,
+      setFilterVariantClass,
+      setFilterHotSpot,
+      setFilterSnp,
+      setFilterRoi,
+      setFilterGnomId
+    } = this.props;
+
     switch(filterSection) {
-      case FILTERS.type : this.props.setFilterType({value: filterItemId}); break;
-      case FILTERS.variantClass : this.props.setFilterVariantClass({value: filterItemId}); break;
-      case FILTERS.hotSpot : this.props.setFilterHotSpot({value: filterItemId}); break;
-      case FILTERS.snp : this.props.setFilterSnp({value: filterItemId}); break;
-      case FILTERS.roi : this.props.setFilterRoi({value: filterItemId}); break;
-      case FILTERS.gnomId : this.props.setFilterGnomId({value: filterItemId}); break;
+      case FILTERS.type : setFilterType({value: filterItemId}); break;
+      case FILTERS.variantClass : setFilterVariantClass({value: filterItemId}); break;
+      case FILTERS.hotSpot : setFilterHotSpot({value: filterItemId}); break;
+      case FILTERS.snp : setFilterSnp({value: filterItemId}); break;
+      case FILTERS.roi : setFilterRoi({value: filterItemId}); break;
+      case FILTERS.gnomId : setFilterGnomId({value: filterItemId}); break;
     }
   };
 
