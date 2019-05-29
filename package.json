@@ -100,6 +100,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "4.3.0",
     "eslint-config-react-app": "^4.0.1",
@@ -158,11 +159,6 @@
     "watchPlugins": [
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
-    ]
-  },
-  "babel": {
-    "presets": [
-      "react-app"
     ]
   },
   "crcf": [
