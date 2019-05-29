@@ -4,8 +4,7 @@ import { Checkbox, Radio } from "antd";
 import style from "./FilterItem.module.scss";
 import Tag from './components/Tag';
 
-
-const FilterItem = ({ item, mode, index, onChange, checkboxValue, radioValue }) => (checkboxValue) || (
+const FilterItem = ({ item, mode, onChange, checkboxValue, radioValue }) => (
   <div className={style["filter-item-wrapper"]} id="filter-item">
     {mode === "multiple" ? (
       <Checkbox checked={checkboxValue} onChange={onChange}>
@@ -20,7 +19,7 @@ const FilterItem = ({ item, mode, index, onChange, checkboxValue, radioValue }) 
       </Checkbox>
     ) : (
       <Radio.Group onChange={onChange} value={radioValue}>
-        <Radio value={index + 1}>
+        <Radio value={item.id}>
           {item.icon}
           <span className="item-label">{item.label}</span>
         </Radio>
@@ -30,15 +29,16 @@ const FilterItem = ({ item, mode, index, onChange, checkboxValue, radioValue }) 
 );
 
 FilterItem.propTypes = {
-  item: PropTypes.object,
-  index: PropTypes.number,
-  onChange: PropTypes.func,
-  mode: PropTypes.string,
-  value: PropTypes.number
+  item: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  mode: PropTypes.string.isRequired,
+  checkboxValue: PropTypes.bool,
+  radioValue: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
 };
 
 FilterItem.defaultProps = {
-  checkboxValue: true,
-  radioValue: 2,
+  checkboxValue: false,
+  radioValue: null,
 };
-export default FilterItem;
+
+export default React.memo(FilterItem);

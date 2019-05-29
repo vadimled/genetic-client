@@ -2,9 +2,12 @@ import React, { Component } from "react";
 import style from "./MainPage.module.scss";
 import cn from "classnames";
 import SideBarLayout from "./components/sideBarLayout";
-import SelectionGroup from "../../genericComponents/selectionGroup";
+import SelectionGroup from "GenericComponents/selectionGroup";
 import { Collapse } from "antd";
 import filtersConfig from "./filtersConfig";
+
+import { FILTERS } from "Utils/constants"; // todo: remove
+
 
 // eslint-disable-next-line
 const Panel = Collapse.Panel;
@@ -22,14 +25,12 @@ class MainPage extends Component {
     this.state = {
       sidebarToggle: false,
       filters: {
-        ["Type"]: {},
-        ["Variant Class"]: {
-          items: [{ unclassified: true }, { path: false }]
-        },
-        ["Hot Spot"]: {},
-        ["SNP"]: {},
-        ["ROI"]: {},
-        ["Gnom ID"]: {}
+        [FILTERS.type]: "germline",
+        [FILTERS.variantClass]: ['unclassified', 'lben'],
+        [FILTERS.hotSpot]: true,
+        [FILTERS.snp]: null,
+        [FILTERS.roi]: null,
+        [FILTERS.gnomId]: null
       }
     };
   }
@@ -40,8 +41,9 @@ class MainPage extends Component {
     });
   };
 
-  onChange = e => {
-    console.log(e.target);
+  onChange = (filterSection, filterItemId) => {
+    console.log("filterSection", filterSection);
+    console.log('filterItemId', filterItemId);
   };
 
   render() {
@@ -70,12 +72,8 @@ class MainPage extends Component {
                     <SelectionGroup
                       mode={filtersConfig[key].mode}
                       filterItems={filtersConfig[key].items}
-                      onChange={this.onChange}
-                      values={
-                        filters[key].items && filters[key].items.length > 0
-                          ? filters[key].items
-                          : []
-                      }
+                      onChange={this.onChange.bind(this, key)}
+                      values={filters[key]}
                     />
                   </Panel>
                 );

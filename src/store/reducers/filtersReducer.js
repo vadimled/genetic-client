@@ -1,11 +1,14 @@
 import createReducer from './createReducer';
 import actionsTypes from '../actionsTypes';
+import { FILTERS } from "Utils/constants";
 
 const initialState = {
-  type: 'Somatic', // or null
-  variantClass: ['PATH', 'VUS'], // or []
-  hotSpot: true, // or null
-  snp: false, // or null
+  [FILTERS.type]: null,
+  [FILTERS.variantClass]: [],
+  [FILTERS.hotSpot]: null,
+  [FILTERS.snp]: null,
+  [FILTERS.roi]: null,
+  [FILTERS.gnomId]: null
 };
 
 const filtersReducer = createReducer(initialState, {
