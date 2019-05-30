@@ -27,7 +27,7 @@ class Toolbar extends Component {
               onChange={this.handleOnChange}
               name="mutation"
               value={this.state.mutation}
-              disabled={false}
+              disabled
             />
           </div>
         </div>
