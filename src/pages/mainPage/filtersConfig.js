@@ -1,15 +1,15 @@
-import { TAG_COLORS } from "../../utils/constants";
 import { Icon } from "antd";
 import React from "react";
-import {FILTERS} from "../../utils/constants";
+import { TAG_COLORS } from "Utils/constants";
+import { FILTERS } from "Utils/constants";
 
 export default  {
   [FILTERS.type]: {
     mode: "single",
     items: [
-      { id:"somatic", label: "Somatic" },
-      { id:"germline", label: "Germline" },
-      { id:"acmg", label: "ACMG" }
+      { id: "somatic", label: "Somatic" },
+      { id: "germline", label: "Germline" },
+      { id: "acmg", label: "ACMG" }
     ],
   },
 
@@ -28,24 +28,24 @@ export default  {
   [FILTERS.hotSpot]: {
     mode: "single",
     items: [
-      { id: "true", label: "True", icon: <Icon type="check" /> },
-      { id: "false", label: "False", icon: <Icon type="close" /> }
+      { id: true, label: "True", icon: <Icon type="check" /> },
+      { id: false, label: "False", icon: <Icon type="close" /> }
     ],
   },
 
-  [FILTERS.snp]:{
+  [FILTERS.snp]: {
     mode: "single",
     items: [
-      { id: "true", label: "True", icon: <Icon type="check" /> },
-      { id: "false", label: "False", icon: <Icon type="close" /> }
+      { id: true, label: "True", icon: <Icon type="check" /> },
+      { id: false, label: "False", icon: <Icon type="close" /> }
     ],
-  }, 
+  },
 
   [FILTERS.roi]: {
     mode: "single",
     items: [
-      {id: "true",  label: "True", icon: <Icon type="check" /> },
-      { id: "false", label: "False", icon: <Icon type="close" /> }
+      { id: true,  label: "True", icon: <Icon type="check" /> },
+      { id: false, label: "False", icon: <Icon type="close" /> }
     ]
   },
 
@@ -53,7 +53,7 @@ export default  {
     mode: "single",
     items: [
       { id: "na", value: "na", label: "NA" },
-      {id: "veryRare", value: "veryRare", label: "very rare(0-1%)" },
+      { id: "veryRare", value: "veryRare", label: "very rare(0-1%)" },
       { id: "rare", value: "rare", label: "rare (1-5%)" },
       { id: "common", value: "common", label: "common (>5%)" }
     ]

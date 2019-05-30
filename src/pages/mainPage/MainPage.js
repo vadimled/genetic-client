@@ -1,10 +1,29 @@
 import React, { Component } from "react";
+import {connect} from "react-redux";
 import style from "./MainPage.module.scss";
 import cn from "classnames";
 import SideBarLayout from "./components/sideBarLayout";
-import SelectionGroup from "../../genericComponents/selectionGroup";
+import SelectionGroup from "GenericComponents/selectionGroup";
 import { Collapse } from "antd";
 import filtersConfig from "./filtersConfig";
+import {
+  getFilterType,
+  getFilterVariantClass,
+  getFilterHotSpot,
+  getFilterSnp,
+  getFilterRoi,
+  getFilterGnomId
+} from "Store/selectors";
+import {
+  setFilterType,
+  setFilterVariantClass,
+  setFilterHotSpot,
+  setFilterSnp,
+  setFilterRoi,
+  setFilterGnomId
+} from "Actions/filtersActions";
+import { FILTERS } from "Utils/constants";
+
 
 // eslint-disable-next-line
 const Panel = Collapse.Panel;
@@ -22,14 +41,12 @@ class MainPage extends Component {
     this.state = {
       sidebarToggle: false,
       filters: {
-        ["Type"]: {},
-        ["Variant Class"]: {
-          items: [{ unclassified: true }, { path: false }]
-        },
-        ["Hot Spot"]: {},
-        ["SNP"]: {},
-        ["ROI"]: {},
-        ["Gnom ID"]: {}
+        [FILTERS.type]: "germline",
+        [FILTERS.variantClass]: ['unclassified', 'lben'],
+        [FILTERS.hotSpot]: true,
+        [FILTERS.snp]: null,
+        [FILTERS.roi]: null,
+        [FILTERS.gnomId]: null
       }
     };
   }
@@ -40,12 +57,29 @@ class MainPage extends Component {
     });
   };
 
-  onChange = e => {
-    console.log(e.target);
+  onChange = (filterSection, filterItemId) => {
+    const {
+      setFilterType,
+      setFilterVariantClass,
+      setFilterHotSpot,
+      setFilterSnp,
+      setFilterRoi,
+      setFilterGnomId
+    } = this.props;
+
+    switch(filterSection) {
+      case FILTERS.type : setFilterType({value: filterItemId}); break;
+      case FILTERS.variantClass : setFilterVariantClass({value: filterItemId}); break;
+      case FILTERS.hotSpot : setFilterHotSpot({value: filterItemId}); break;
+      case FILTERS.snp : setFilterSnp({value: filterItemId}); break;
+      case FILTERS.roi : setFilterRoi({value: filterItemId}); break;
+      case FILTERS.gnomId : setFilterGnomId({value: filterItemId}); break;
+    }
   };
 
   render() {
-    const { sidebarToggle, filters } = this.state;
+    const { sidebarToggle } = this.state;
+    const { filters } = this.props;
 
     return (
       <div className={style["main-page"]}>
@@ -70,12 +104,8 @@ class MainPage extends Component {
                     <SelectionGroup
                       mode={filtersConfig[key].mode}
                       filterItems={filtersConfig[key].items}
-                      onChange={this.onChange}
-                      values={
-                        filters[key].items && filters[key].items.length > 0
-                          ? filters[key].items
-                          : []
-                      }
+                      onChange={this.onChange.bind(this, key)}
+                      values={filters[key]}
                     />
                   </Panel>
                 );
@@ -96,6 +126,28 @@ class MainPage extends Component {
   }
 }
 
-export default MainPage;
+function mapStateToProps(state) {
+  return {
+    filters: {
+      [FILTERS.type]: getFilterType(state),
+      [FILTERS.variantClass]: getFilterVariantClass(state),
+      [FILTERS.hotSpot]: getFilterHotSpot(state),
+      [FILTERS.snp]: getFilterSnp(state),
+      [FILTERS.roi]: getFilterRoi(state),
+      [FILTERS.gnomId]: getFilterGnomId(state)
+    }
+  };
+}
 
+function mapDispatchToProps(dispatch) {
+  return {
+    setFilterType: (data) => dispatch(setFilterType(data)),
+    setFilterVariantClass: (data) => dispatch(setFilterVariantClass(data)),
+    setFilterHotSpot: (data) => dispatch(setFilterHotSpot(data)),
+    setFilterSnp: (data) => dispatch(setFilterSnp(data)),
+    setFilterRoi: (data) => dispatch(setFilterRoi(data)),
+    setFilterGnomId: (data) => dispatch(setFilterGnomId(data)),
+  };
+}
 
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
