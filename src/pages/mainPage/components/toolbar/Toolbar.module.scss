@@ -11,4 +11,11 @@
   font-size: 14px;
   padding: 10px 25px;
   border-bottom: $border_color solid 1px;
+
+  .mutation-select-wrapper {
+    display: block;
+    margin-left: 12px;
+    font-weight: 600;
+    font-size: 14px;
+  }
 }
