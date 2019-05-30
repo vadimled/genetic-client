@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import style from "./MainPage.module.scss";
 import cn from "classnames";
 import SideBarLayout from "./components/sideBarLayout";
-import SelectionGroup from "../../genericComponents/selectionGroup";
+import SelectionGroup from "GenericComponents/selectionGroup";
 import { Collapse } from "antd";
 import filtersConfig from "./filtersConfig";
 import Toolbar from "./components/toolbar";

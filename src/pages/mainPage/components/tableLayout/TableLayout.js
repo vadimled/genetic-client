@@ -1,15 +1,9 @@
 import React from "react";
-import style from "./TableLayout.module.scss";
 import PropTypes from "prop-types";
+import style from "./TableLayout.module.scss";
 
-const TableLayout = ({children}) => {
-  return (
-    <div className={`${style["table-wrapper"]}`}>
-      <div className="scrollbar">
-        {children}
-      </div>
-    </div>
-  );
+const TableLayout = ({ children }) => {
+  return <div className={`${style["table-wrapper"]}`}>{children}</div>;
 };
 
 TableLayout.propTypes = {
