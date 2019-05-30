@@ -1,0 +1,36 @@
+@import "Css/Colors.scss";
+
+.empty-state :global {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  box-sizing: border-box;
+
+  .image {
+    width: 168px;
+    height: 124px;
+    margin-bottom: 32px;
+
+    background-position: center;
+    background-size: contain;
+  }
+
+  .title {
+    font-size: 24px;
+    line-height: 32px;
+    color: $subtitle_color;
+
+    margin-bottom: 7px;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 21px;
+    color: $subtitle_color;
+  }
+}
