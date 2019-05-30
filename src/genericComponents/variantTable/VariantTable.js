@@ -12,72 +12,101 @@ const columns = [
     render: () => <Checkbox />
   },
   {
-    title: "Full Name",
-    width: 100,
-    dataIndex: "name",
-    key: "name",
+    title: "Gene",
+    width: 150,
+    dataIndex: "gene",
+    key: "gene",
   },
   {
-    title: "Age",
-    width: 100,
-    dataIndex: "age",
-    key: "age",
+    title: "Chr: position",
+    width: 150,
+    dataIndex: "chrPosition",
+    key: "chrPosition",
   },
   {
-    title: "Column 1",
-    dataIndex: "address",
+    title: "Transcript",
+    dataIndex: "transcript",
     key: "1",
     width: 150
   },
   {
-    title: "Column 2",
-    dataIndex: "address",
+    title: "Exon",
+    dataIndex: "exon",
     key: "2",
-    width: 150
+    width: 50
   },
   {
-    title: "Column 3",
-    dataIndex: "address",
+    title: "Allele change",
+    dataIndex: "alleleChange",
     key: "3",
     width: 150
   },
   {
-    title: "Column 4",
-    dataIndex: "address",
+    title: "coding",
+    dataIndex: "coding",
     key: "4",
     width: 150
   },
   {
-    title: "Column 5",
-    dataIndex: "address",
+    title: "Protein",
+    dataIndex: "protein",
     key: "5",
     width: 150
   },
   {
-    title: "Column 6",
-    dataIndex: "address",
+    title: "VAF",
+    dataIndex: "vaf",
     key: "6",
-    width: 150
+    // width: 150
   },
   {
-    title: "Column 7",
-    dataIndex: "address",
+    title: "Zygosity",
+    dataIndex: "zygosity",
     key: "7",
-    width: 150
+    // width: 150
   },
-  { title: "Column 8", dataIndex: "address", key: "8" },
-
+  {
+    title: "Variant Class",
+    dataIndex: "variantClass",
+    key: "8"
+  },
+  {
+    title: "coverage",
+    dataIndex: "coverage",
+    key: "8"
+  },
+  {
+    title: "Notes",
+    dataIndex: "notes",
+    key: "8"
+  },
+  {
+    title: "Activity log",
+    dataIndex: "activityLog",
+    key: "8"
+  },
 ];
 
-const data = [];
-for (let i = 0; i < 100; i++) {
-  data.push({
-    key: i,
-    name: `Edrward ${i}`,
-    age: 32,
-    address: `London Park no. ${i}`
-  });
-}
+const data = [
+  {
+    gene: 'SDHA',
+    chrPosition: 'Chr5 : 236628',
+    transcript: 'NM_005591.3',
+    exon: 7,
+    alleleChange: 'C > T',
+    coding: 'gCc/gTc',
+    protein: 'A449V',
+    vaf: 33
+  }
+];
+// for (let i = 0; i < 100; i++) {
+//   data.push({
+//     key: i,
+//     name: `Edrward ${i}`,
+//     age: 32,
+//     address: `London Park no. ${i}`
+//   });
+// }
 
 class VariantTable extends Component {
   render() {
