@@ -1,0 +1,14 @@
+@import "Css/Colors.scss";
+
+.toolbar-wrapper :global {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  background-color: $white;
+  font-style: normal;
+  font-size: 14px;
+  padding: 10px 25px;
+  border-bottom: $border_color solid 1px;
+}
