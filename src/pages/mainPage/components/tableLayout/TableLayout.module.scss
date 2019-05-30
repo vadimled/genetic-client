@@ -1,0 +1,9 @@
+@import "Css/Colors.scss";
+
+.table-wrapper :global {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 70vh;
+  padding: 50px;
+}

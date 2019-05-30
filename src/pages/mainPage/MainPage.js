@@ -6,6 +6,8 @@ import SideBarLayout from "./components/sideBarLayout";
 import SelectionGroup from "GenericComponents/selectionGroup";
 import { Collapse } from "antd";
 import filtersConfig from "./filtersConfig";
+import Toolbar from "./components/toolbar";
+import TableLayout from "./components/tableLayout";
 import {
   getFilterType,
   getFilterVariantClass,
@@ -120,7 +122,12 @@ class MainPage extends Component {
             { "sidebar-open": sidebarToggle }
           ])}
         >
-          <VariantTable/>
+          <Toolbar />
+          <TableLayout>
+
+            <VariantTable/>
+          </TableLayout>
+
         </div>
       </div>
     );
