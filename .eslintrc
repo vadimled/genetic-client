@@ -35,15 +35,12 @@
     "react/jsx-boolean-value": 1,
     "react/jsx-closing-bracket-location": 0,
     "react/jsx-curly-spacing": 1,
-    "react/jsx-indent-props": [
-      2,
-      2
-    ],
+    "react/jsx-indent-props": [2, 2],
     "import/prefer-default-export": 0,
     "react/jsx-max-props-per-line": 0,
     "react/wrap-multilines": 0,
     "react/jsx-no-duplicate-props": 1,
-    "react/jsx-no-literals": [0, {"noStrings": true}],
+    "react/jsx-no-literals": [0, { "noStrings": true }],
     "react/jsx-no-undef": 1,
     "react/jsx-sort-prop-types": 0,
     "react/jsx-sort-props": 0,
@@ -56,10 +53,7 @@
     "no-undef": 0,
     "react/no-did-mount-set-state": 1,
     "react/no-did-update-set-state": 1,
-    "spaced-comment": [
-      "error",
-      "always"
-    ],
+    "spaced-comment": ["error", "always"],
     "prefer-destructuring": [
       "error",
       {
@@ -68,18 +62,10 @@
         }
       }
     ],
-    "eqeqeq": [
-      "error",
-      "smart"
-    ]
+    "eqeqeq": ["error", "smart"]
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
-  "plugins": [
-    "react"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "plugins": ["react"],
   "env": {
     "browser": false,
     "node": true,
