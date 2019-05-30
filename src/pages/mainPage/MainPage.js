@@ -120,6 +120,7 @@ class MainPage extends Component {
           ])}
         >
           <h1>Page content</h1>
+
         </div>
       </div>
     );
