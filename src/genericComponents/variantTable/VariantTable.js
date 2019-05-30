@@ -1,22 +1,27 @@
 import React, { Component } from "react";
 // import PropTypes from "prop-types";
 
-import { Table } from "antd";
+import { Table, Checkbox } from "antd";
 
 const columns = [
+  {
+    title: "",
+    key: "checkbox",
+    fixed: "left",
+    width: 50,
+    render: () => <Checkbox />
+  },
   {
     title: "Full Name",
     width: 100,
     dataIndex: "name",
     key: "name",
-    fixed: "left"
   },
   {
     title: "Age",
     width: 100,
     dataIndex: "age",
     key: "age",
-    fixed: "left"
   },
   {
     title: "Column 1",
@@ -61,13 +66,7 @@ const columns = [
     width: 150
   },
   { title: "Column 8", dataIndex: "address", key: "8" },
-  {
-    title: "Action",
-    key: "operation",
-    fixed: "right",
-    width: 100,
-    render: () => <a href="javascript:;">action</a>
-  }
+
 ];
 
 const data = [];
@@ -82,7 +81,7 @@ for (let i = 0; i < 100; i++) {
 
 class VariantTable extends Component {
   render() {
-    const screenWidth = screen.width;
+    const screenWidth = screen.width - 500;
     const screenHeight = screen.height;
 
     console.log("-screenWidth: ", screenWidth);
@@ -93,7 +92,8 @@ class VariantTable extends Component {
         pagination={false}
         columns={columns}
         dataSource={data}
-        scroll={{ x: 1500, y: screenHeight }}
+        scroll={{ y: screenHeight }}
+        className="flex"
       />
     );
   }
