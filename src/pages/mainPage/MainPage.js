@@ -23,6 +23,7 @@ import {
   setFilterGnomId
 } from "Actions/filtersActions";
 import { FILTERS } from "Utils/constants";
+import VariantTable from "GenericComponents/variantTable";
 
 
 // eslint-disable-next-line
@@ -119,8 +120,7 @@ class MainPage extends Component {
             { "sidebar-open": sidebarToggle }
           ])}
         >
-          <h1>Page content</h1>
-
+          <VariantTable/>
         </div>
       </div>
     );

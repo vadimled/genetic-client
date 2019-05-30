@@ -5,54 +5,91 @@ import { Table } from "antd";
 
 const columns = [
   {
-    title: "Full Name",
+    title: 'Full Name',
     width: 100,
-    dataIndex: "name",
-    key: "name",
-    fixed: "left"
+    dataIndex: 'name',
+    key: 'name',
+    fixed: 'left',
   },
   {
-    title: "Age",
+    title: 'Age',
     width: 100,
-    dataIndex: "age",
-    key: "age",
-    fixed: "left"
+    dataIndex: 'age',
+    key: 'age',
+    fixed: 'left',
   },
-  { title: "Column 1", dataIndex: "address", key: "1" },
-  { title: "Column 2", dataIndex: "address", key: "2" },
-  { title: "Column 3", dataIndex: "address", key: "3" },
-  { title: "Column 4", dataIndex: "address", key: "4" },
-  { title: "Column 5", dataIndex: "address", key: "5" },
-  { title: "Column 6", dataIndex: "address", key: "6" },
-  { title: "Column 7", dataIndex: "address", key: "7" },
-  { title: "Column 8", dataIndex: "address", key: "8" },
   {
-    title: "Action",
-    key: "operation",
-    fixed: "right",
+    title: 'Column 1',
+    dataIndex: 'address',
+    key: '1',
+    width: 150,
+  },
+  {
+    title: 'Column 2',
+    dataIndex: 'address',
+    key: '2',
+    width: 150,
+  },
+  {
+    title: 'Column 3',
+    dataIndex: 'address',
+    key: '3',
+    width: 150,
+  },
+  {
+    title: 'Column 4',
+    dataIndex: 'address',
+    key: '4',
+    width: 150,
+  },
+  {
+    title: 'Column 5',
+    dataIndex: 'address',
+    key: '5',
+    width: 150,
+  },
+  {
+    title: 'Column 6',
+    dataIndex: 'address',
+    key: '6',
+    width: 150,
+  },
+  {
+    title: 'Column 7',
+    dataIndex: 'address',
+    key: '7',
+    width: 150,
+  },
+  { title: 'Column 8', dataIndex: 'address', key: '8' },
+  {
+    title: 'Action',
+    key: 'operation',
+    fixed: 'right',
     width: 100,
-    render: () => <a href="">action</a>
-  }
+    render: () => <a href="javascript:;">action</a>,
+  },
 ];
 
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
+const data = [];
+for (let i = 0; i < 100; i++) {
+  data.push({
+    key: i,
+    name: `Edrward ${i}`,
     age: 32,
-    address: "New York Park"
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 40,
-    address: "London Park"
-  }
-];
+    address: `London Park no. ${i}`,
+  });
+}
 
 class VariantTable extends Component {
   render() {
-    return <Table columns={columns} dataSource={data} scroll={{ x: 1300 }} />;
+
+    const screenWidth = screen.width;
+    const screenHeight = screen.height;
+
+    console.log("-screenWidth: ", screenWidth)
+    console.log("-screenHeight: ", screenHeight)
+
+    return <Table pagination={false} columns={columns} dataSource={data} scroll={{ x: 1500, y: screenHeight }} />;
   }
 }
 
