@@ -18,6 +18,6 @@ export const FILTERS = {
   hotSpot: "Hot Spot",
   snp: "SNP",
   roi: "ROI",
-  gnomId: "Gnom ID",
+  gnomId: "GnomAD",
   cancerDBs: "Cancer DBs",
 };
