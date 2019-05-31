@@ -56,18 +56,14 @@ export default  {
     type: ["somatic", "germline"],
     mode: "single",
     items: [
-      { id: true,  label: "True", icon: <Icon type="check" /> },
+      { id: true, label: "True", icon: <Icon type="check" /> },
       { id: false, label: "False", icon: <Icon type="close" /> }
     ]
   },
 
   [FILTERS.vaf]: {
     type: ["somatic"],
-    mode: "range",
-    // items: [
-    //   { id: true,  label: "True", icon: <Icon type="check" /> },
-    //   { id: false, label: "False", icon: <Icon type="close" /> }
-    // ]
+    mode: "range"
   },
 
   [FILTERS.cancerDBs]: {

@@ -15,6 +15,7 @@ import {
   getFilterHotSpot,
   getFilterSnp,
   getFilterRoi,
+  getFilterVaf,
   getFilterCancerDBs,
   getFilterGnomId
 } from "Store/selectors";
@@ -24,6 +25,7 @@ import {
   setFilterHotSpot,
   setFilterSnp,
   setFilterRoi,
+  setFilterVaf,
   setFilterCancerDBs,
   setFilterGnomId
 } from "Actions/filtersActions";
@@ -54,19 +56,20 @@ class MainPage extends Component {
     });
   };
 
-  onChange = (filterSection, mode, filterItemId) => {
+  onChange = (filterSection, mode, value) => {
     const {
       setFilterVariantClass,
       setFilterSomaticClass,
       setFilterHotSpot,
       setFilterSnp,
       setFilterRoi,
+      setFilterVaf,
       setFilterCancerDBs,
       setFilterGnomId
     } = this.props;
 
     const data = {
-      value: filterItemId,
+      value,
       mode
     };
 
@@ -76,6 +79,7 @@ class MainPage extends Component {
       case FILTERS.hotSpot : setFilterHotSpot(data); break;
       case FILTERS.snp : setFilterSnp(data); break;
       case FILTERS.roi : setFilterRoi(data); break;
+      case FILTERS.vaf : setFilterVaf(data); break;
       case FILTERS.cancerDBs : setFilterCancerDBs(data); break;
       case FILTERS.gnomId : setFilterGnomId(data); break;
     }
@@ -128,7 +132,7 @@ class MainPage extends Component {
                                 <Panel header={key} key={i + 1 + 'inner'}>
                                   <SelectionGroup
                                     mode={childGroup.mode}
-                                    filterItems={childGroup.items}
+                                    items={childGroup.items}
                                     onChange={this.onChange.bind(this, key, childGroup.mode)}
                                     values={filters[key]}
                                   />
@@ -142,7 +146,7 @@ class MainPage extends Component {
                       {!group.children &&
                         <SelectionGroup
                           mode={group.mode}
-                          filterItems={group.items}
+                          items={group.items}
                           onChange={this.onChange.bind(this, key, group.mode)}
                           values={filters[key]}
                         />
@@ -190,6 +194,7 @@ function mapStateToProps(state) {
       [FILTERS.hotSpot]: getFilterHotSpot(state),
       [FILTERS.snp]: getFilterSnp(state),
       [FILTERS.roi]: getFilterRoi(state),
+      [FILTERS.vaf]: getFilterVaf(state),
       [FILTERS.cancerDBs]: getFilterCancerDBs(state),
       [FILTERS.gnomId]: getFilterGnomId(state)
     }
@@ -203,6 +208,7 @@ function mapDispatchToProps(dispatch) {
     setFilterHotSpot: (data) => dispatch(setFilterHotSpot(data)),
     setFilterSnp: (data) => dispatch(setFilterSnp(data)),
     setFilterRoi: (data) => dispatch(setFilterRoi(data)),
+    setFilterVaf: (data) => dispatch(setFilterVaf(data)),
     setFilterCancerDBs: (data) => dispatch(setFilterCancerDBs(data)),
     setFilterGnomId: (data) => dispatch(setFilterGnomId(data)),
   };

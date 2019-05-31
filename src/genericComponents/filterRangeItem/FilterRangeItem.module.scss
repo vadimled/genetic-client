@@ -1,0 +1,39 @@
+.filter-item-wrapper :global {
+  position: relative;
+
+  margin-left: -15px;
+  width: 104%;
+
+  .ant-slider {
+    margin: 0;
+  }
+
+  .ant-slider-rail {
+    background-color: rgba(188, 156, 255, 0.25);
+  }
+
+  .ant-slider-handle {
+    background-color: #0e8ce6;
+    width: 10px;
+    height: 10px;
+    border: 0px;
+    margin-top: -3px;
+    margin-left: -6px;
+  }
+
+  .ant-slider-track {
+    background-color: #0e8ce6;
+  }
+
+  .values {
+    position: absolute;
+    top: -25px;
+    right: 0;
+    color: #0e8ce6;
+  }
+
+  .positions {
+    display: flex;
+    justify-content: space-between;
+  }
+}

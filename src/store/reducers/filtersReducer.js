@@ -37,6 +37,7 @@ const initialState = {
   [FILTERS.hotSpot]: null,
   [FILTERS.snp]: null,
   [FILTERS.roi]: null,
+  [FILTERS.vaf]: [13, 50],
   [FILTERS.cancerDBs]: [],
   [FILTERS.gnomId]: null
 };
@@ -102,6 +103,17 @@ const filtersReducer = createReducer(initialState, {
     return {
       ...state,
       [FILTERS.roi]: newValue
+    };
+  },
+
+  [actionsTypes.SET_FILTER_VAF]: (state, {payload}) => {
+    let { value, mode } = payload;
+
+    let newValue = changeValueAccordingOnMode(state[FILTERS.vaf], value, mode);
+
+    return {
+      ...state,
+      [FILTERS.vaf]: newValue
     };
   },
 

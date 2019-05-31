@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Checkbox } from "antd";
-import style from "./FilterItem.module.scss";
+import style from "./FilterCheckboxItem.module.scss";
 import Tag from './components/Tag';
 
-const FilterItem = ({ item, onChange, value }) => (
+const FilterCheckboxItem = ({ item, onChange, value }) => (
   <div className={`${style["filter-item-wrapper"]} filter-item`}>
 
     <Checkbox checked={value} onChange={onChange}>
@@ -22,15 +22,14 @@ const FilterItem = ({ item, onChange, value }) => (
   </div>
 );
 
-FilterItem.propTypes = {
+FilterCheckboxItem.propTypes = {
   item: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  mode: PropTypes.string.isRequired,
   value: PropTypes.bool,
 };
 
-FilterItem.defaultProps = {
+FilterCheckboxItem.defaultProps = {
   value: false
 };
 
-export default React.memo(FilterItem);
+export default React.memo(FilterCheckboxItem);
