@@ -2,7 +2,7 @@ import createReducer from './createReducer';
 import actionsTypes from '../actionsTypes';
 import { FILTERS } from "Utils/constants";
 
-const changeValueAccordingOnMode = ({stateValue, value, mode}) => {
+const changeValueAccordingOnMode = (stateValue, value, mode) => {
   let newValue;
 
   if (mode === 'multiple') {
@@ -53,11 +53,7 @@ const filtersReducer = createReducer(initialState, {
   [actionsTypes.SET_FILTER_VARIANT_CLASS]: (state, {payload}) => {
     const { value, mode } = payload;
 
-    let newValue = changeValueAccordingOnMode({
-      stateValue: state[FILTERS.variantClass],
-      value,
-      mode
-    });
+    let newValue = changeValueAccordingOnMode(state[FILTERS.variantClass], value, mode);
 
     return {
       ...state,
@@ -68,11 +64,7 @@ const filtersReducer = createReducer(initialState, {
   [actionsTypes.SET_FILTER_SOMATIC_CLASS]: (state, {payload}) => {
     const { value, mode } = payload;
 
-    let newValue = changeValueAccordingOnMode({
-      stateValue: state[FILTERS.somaticClass],
-      value,
-      mode
-    });
+    let newValue = changeValueAccordingOnMode(state[FILTERS.somaticClass], value, mode);
 
     return {
       ...state,
@@ -83,11 +75,7 @@ const filtersReducer = createReducer(initialState, {
   [actionsTypes.SET_FILTER_HOT_SPOT]: (state, {payload}) => {
     let { value, mode } = payload;
 
-    let newValue = changeValueAccordingOnMode({
-      stateValue: state[FILTERS.hotSpot],
-      value,
-      mode
-    });
+    let newValue = changeValueAccordingOnMode(state[FILTERS.hotSpot], value, mode);
 
     return {
       ...state,
@@ -98,11 +86,7 @@ const filtersReducer = createReducer(initialState, {
   [actionsTypes.SET_FILTER_SNP]: (state, {payload}) => {
     let { value, mode } = payload;
 
-    let newValue = changeValueAccordingOnMode({
-      stateValue: state[FILTERS.snp],
-      value,
-      mode
-    });
+    let newValue = changeValueAccordingOnMode(state[FILTERS.snp], value, mode);
 
     return {
       ...state,
@@ -113,11 +97,7 @@ const filtersReducer = createReducer(initialState, {
   [actionsTypes.SET_FILTER_ROI]: (state, {payload}) => {
     let { value, mode } = payload;
 
-    let newValue = changeValueAccordingOnMode({
-      stateValue: state[FILTERS.roi],
-      value,
-      mode
-    });
+    let newValue = changeValueAccordingOnMode(state[FILTERS.roi], value, mode);
 
     return {
       ...state,
@@ -128,11 +108,7 @@ const filtersReducer = createReducer(initialState, {
   [actionsTypes.SET_FILTER_CANCER_DBS]: (state, {payload}) => {
     let { value, mode } = payload;
 
-    let newValue = changeValueAccordingOnMode({
-      stateValue: state[FILTERS.cancerDBs],
-      value,
-      mode
-    });
+    let newValue = changeValueAccordingOnMode(state[FILTERS.cancerDBs], value, mode);
 
     return {
       ...state,
@@ -143,11 +119,7 @@ const filtersReducer = createReducer(initialState, {
   [actionsTypes.SET_FILTER_GNOM_ID]: (state, {payload}) => {
     let { value, mode } = payload;
 
-    let newValue = changeValueAccordingOnMode({
-      stateValue: state[FILTERS.gnomId],
-      value,
-      mode
-    });
+    let newValue = changeValueAccordingOnMode(state[FILTERS.gnomId], value, mode);
 
     return {
       ...state,
