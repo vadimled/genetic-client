@@ -14,6 +14,13 @@ export const setFilterVariantClass = data => {
   };
 };
 
+export const setFilterSomaticClass = data => {
+  return {
+    type: actionsTypes.SET_FILTER_SOMATIC_CLASS,
+    payload: data
+  };
+};
+
 export const setFilterHotSpot = data => {
   return {
     type: actionsTypes.SET_FILTER_HOT_SPOT,

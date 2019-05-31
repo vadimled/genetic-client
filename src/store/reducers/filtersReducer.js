@@ -33,6 +33,7 @@ const changeValueAccordingOnMode = ({stateValue, value, mode}) => {
 const initialState = {
   [FILTERS.type]: 'somatic', // 'somatic' | 'germline'
   [FILTERS.variantClass]: [],
+  [FILTERS.somaticClass]: null,
   [FILTERS.hotSpot]: null,
   [FILTERS.snp]: null,
   [FILTERS.roi]: null,
@@ -60,6 +61,21 @@ const filtersReducer = createReducer(initialState, {
     return {
       ...state,
       [FILTERS.variantClass]: newValue
+    };
+  },
+
+  [actionsTypes.SET_FILTER_SOMATIC_CLASS]: (state, {payload}) => {
+    const { value, mode } = payload;
+
+    let newValue = changeValueAccordingOnMode({
+      stateValue: state[FILTERS.somaticClass],
+      value,
+      mode
+    });
+
+    return {
+      ...state,
+      [FILTERS.somaticClass]: newValue
     };
   },
 

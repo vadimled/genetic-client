@@ -11,6 +11,7 @@ import TableLayout from "./components/tableLayout";
 import {
   getFilterType,
   getFilterVariantClass,
+  getFilterSomaticClass,
   getFilterHotSpot,
   getFilterSnp,
   getFilterRoi,
@@ -18,6 +19,7 @@ import {
 } from "Store/selectors";
 import {
   setFilterVariantClass,
+  setFilterSomaticClass,
   setFilterHotSpot,
   setFilterSnp,
   setFilterRoi,
@@ -53,37 +55,25 @@ class MainPage extends Component {
   onChange = (filterSection, mode, filterItemId) => {
     const {
       setFilterVariantClass,
+      setFilterSomaticClass,
       setFilterHotSpot,
       setFilterSnp,
       setFilterRoi,
       setFilterGnomId
     } = this.props;
 
+    const data = {
+      value: filterItemId,
+      mode
+    };
+
     switch(filterSection) {
-      case FILTERS.variantClass : setFilterVariantClass({
-        value: filterItemId,
-        mode
-      }); break;
-
-      case FILTERS.hotSpot : setFilterHotSpot({
-        value: filterItemId,
-        mode
-      }); break;
-
-      case FILTERS.snp : setFilterSnp({
-        value: filterItemId,
-        mode
-      }); break;
-
-      case FILTERS.roi : setFilterRoi({
-        value: filterItemId,
-        mode
-      }); break;
-
-      case FILTERS.gnomId : setFilterGnomId({
-        value: filterItemId,
-        mode
-      }); break;
+      case FILTERS.variantClass : setFilterVariantClass(data); break;
+      case FILTERS.somaticClass : setFilterSomaticClass(data); break;
+      case FILTERS.hotSpot : setFilterHotSpot(data); break;
+      case FILTERS.snp : setFilterSnp(data); break;
+      case FILTERS.roi : setFilterRoi(data); break;
+      case FILTERS.gnomId : setFilterGnomId(data); break;
     }
   };
 
@@ -192,6 +182,7 @@ function mapStateToProps(state) {
     type: getFilterType(state),
     filters: {
       [FILTERS.variantClass]: getFilterVariantClass(state),
+      [FILTERS.somaticClass]: getFilterSomaticClass(state),
       [FILTERS.hotSpot]: getFilterHotSpot(state),
       [FILTERS.snp]: getFilterSnp(state),
       [FILTERS.roi]: getFilterRoi(state),
@@ -202,8 +193,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setFilterType: (data) => dispatch(setFilterType(data)),
     setFilterVariantClass: (data) => dispatch(setFilterVariantClass(data)),
+    setFilterSomaticClass: (data) => dispatch(setFilterSomaticClass(data)),
     setFilterHotSpot: (data) => dispatch(setFilterHotSpot(data)),
     setFilterSnp: (data) => dispatch(setFilterSnp(data)),
     setFilterRoi: (data) => dispatch(setFilterRoi(data)),
