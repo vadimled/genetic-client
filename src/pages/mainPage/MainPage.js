@@ -105,12 +105,12 @@ class MainPage extends Component {
               {Object.keys(filtersConfig)
                 .filter(key => filtersConfig[key].type.includes(type))
                 .map((key, i) => {
-                  let section = filtersConfig[key];
+                  let group = filtersConfig[key];
 
                   return (
                     <Panel header={key} key={i + 1}>
 
-                      {section.children &&
+                      {group.children &&
                         <Collapse
                           key={`collapse-${i}`}
                           defaultActiveKey={["1"]}
@@ -119,17 +119,17 @@ class MainPage extends Component {
                             <Arrow dir={!isActive ? "right" : "down"} />
                           )}
                         >
-                          {Object.keys(section.children)
-                            .filter((key) => section.children[key].type.includes(type))
+                          {Object.keys(group.children)
+                            .filter((key) => group.children[key].type.includes(type))
                             .map((key, i) => {
-                              let csection = section.children[key];
+                              let childGroup = group.children[key];
 
                               return (
                                 <Panel header={key} key={i + 1 + 'inner'}>
                                   <SelectionGroup
-                                    mode={csection.mode}
-                                    filterItems={csection.items}
-                                    onChange={this.onChange.bind(this, key, csection.mode)}
+                                    mode={childGroup.mode}
+                                    filterItems={childGroup.items}
+                                    onChange={this.onChange.bind(this, key, childGroup.mode)}
                                     values={filters[key]}
                                   />
                                 </Panel>
@@ -139,11 +139,11 @@ class MainPage extends Component {
                         </Collapse>
                       }
 
-                      {!section.children &&
+                      {!group.children &&
                         <SelectionGroup
-                          mode={section.mode}
-                          filterItems={section.items}
-                          onChange={this.onChange.bind(this, key, section.mode)}
+                          mode={group.mode}
+                          filterItems={group.items}
+                          onChange={this.onChange.bind(this, key, group.mode)}
                           values={filters[key]}
                         />
                       }

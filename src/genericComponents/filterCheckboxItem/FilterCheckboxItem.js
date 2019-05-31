@@ -5,7 +5,7 @@ import style from "./FilterItem.module.scss";
 import Tag from './components/Tag';
 
 const FilterItem = ({ item, onChange, value }) => (
-  <div className={style["filter-item-wrapper"]} id="filter-item">
+  <div className={`${style["filter-item-wrapper"]} filter-item`}>
 
     <Checkbox checked={value} onChange={onChange}>
       <div className="flex items-center checkbox-inner-content">

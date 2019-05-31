@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import FilterItem from "GenericComponents/filterItem";
+import FilterCheckboxItem from "GenericComponents/filterCheckboxItem";
 import style from "./SelectionGroup.module.scss";
 
 const SelectionGroup = ({ filterItems, mode, onChange, values}) => {
   return (
     <div className={style["selection-group-wrapper"]}>
       {filterItems.map((item, i) => (
-        <FilterItem
+        <FilterCheckboxItem
           id={item.id}
           mode={mode}
           item={item}
@@ -26,7 +26,7 @@ const SelectionGroup = ({ filterItems, mode, onChange, values}) => {
 };
 
 SelectionGroup.propTypes = {
-  filterItems: PropTypes.array.isRequired,
+  filterItems: PropTypes.array,
   mode: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   values: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.bool])
