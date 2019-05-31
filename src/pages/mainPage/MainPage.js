@@ -15,6 +15,7 @@ import {
   getFilterHotSpot,
   getFilterSnp,
   getFilterRoi,
+  getFilterCancerDBs,
   getFilterGnomId
 } from "Store/selectors";
 import {
@@ -23,6 +24,7 @@ import {
   setFilterHotSpot,
   setFilterSnp,
   setFilterRoi,
+  setFilterCancerDBs,
   setFilterGnomId
 } from "Actions/filtersActions";
 import { FILTERS } from "Utils/constants";
@@ -59,6 +61,7 @@ class MainPage extends Component {
       setFilterHotSpot,
       setFilterSnp,
       setFilterRoi,
+      setFilterCancerDBs,
       setFilterGnomId
     } = this.props;
 
@@ -73,6 +76,7 @@ class MainPage extends Component {
       case FILTERS.hotSpot : setFilterHotSpot(data); break;
       case FILTERS.snp : setFilterSnp(data); break;
       case FILTERS.roi : setFilterRoi(data); break;
+      case FILTERS.cancerDBs : setFilterCancerDBs(data); break;
       case FILTERS.gnomId : setFilterGnomId(data); break;
     }
   };
@@ -186,6 +190,7 @@ function mapStateToProps(state) {
       [FILTERS.hotSpot]: getFilterHotSpot(state),
       [FILTERS.snp]: getFilterSnp(state),
       [FILTERS.roi]: getFilterRoi(state),
+      [FILTERS.cancerDBs]: getFilterCancerDBs(state),
       [FILTERS.gnomId]: getFilterGnomId(state)
     }
   };
@@ -198,6 +203,7 @@ function mapDispatchToProps(dispatch) {
     setFilterHotSpot: (data) => dispatch(setFilterHotSpot(data)),
     setFilterSnp: (data) => dispatch(setFilterSnp(data)),
     setFilterRoi: (data) => dispatch(setFilterRoi(data)),
+    setFilterCancerDBs: (data) => dispatch(setFilterCancerDBs(data)),
     setFilterGnomId: (data) => dispatch(setFilterGnomId(data)),
   };
 }

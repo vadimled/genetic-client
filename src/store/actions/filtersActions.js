@@ -42,6 +42,13 @@ export const setFilterRoi = data => {
   };
 };
 
+export const setFilterCancerDBs = data => {
+  return {
+    type: actionsTypes.SET_FILTER_CANCER_DBS,
+    payload: data
+  };
+};
+
 export const setFilterGnomId = data => {
   return {
     type: actionsTypes.SET_FILTER_GNOM_ID,

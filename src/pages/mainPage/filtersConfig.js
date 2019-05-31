@@ -61,6 +61,16 @@ export default  {
     ]
   },
 
+  [FILTERS.cancerDBs]: {
+    type: ["somatic", "germline"],
+    mode: "multiple",
+    items: [
+      { id: "clinVarSIG", label: "clinVarSIG" },
+      { id: "cosmic", label: "Cosmic" },
+      { id: "OMIM", label: "OMIM" },
+    ]
+  },
+
   [FILTERS.gnomId]: {
     type: ["somatic"],
     mode: "single",

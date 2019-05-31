@@ -37,6 +37,7 @@ const initialState = {
   [FILTERS.hotSpot]: null,
   [FILTERS.snp]: null,
   [FILTERS.roi]: null,
+  [FILTERS.cancerDBs]: [],
   [FILTERS.gnomId]: null
 };
 
@@ -121,6 +122,21 @@ const filtersReducer = createReducer(initialState, {
     return {
       ...state,
       [FILTERS.roi]: newValue
+    };
+  },
+
+  [actionsTypes.SET_FILTER_CANCER_DBS]: (state, {payload}) => {
+    let { value, mode } = payload;
+
+    let newValue = changeValueAccordingOnMode({
+      stateValue: state[FILTERS.cancerDBs],
+      value,
+      mode
+    });
+
+    return {
+      ...state,
+      [FILTERS.cancerDBs]: newValue
     };
   },
 
