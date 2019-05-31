@@ -17,7 +17,6 @@ import {
   getFilterGnomId
 } from "Store/selectors";
 import {
-  setFilterType,
   setFilterVariantClass,
   setFilterHotSpot,
   setFilterSnp,
@@ -51,9 +50,8 @@ class MainPage extends Component {
     });
   };
 
-  onChange = (filterSection, filterItemId) => {
+  onChange = (filterSection, mode, filterItemId) => {
     const {
-      setFilterType,
       setFilterVariantClass,
       setFilterHotSpot,
       setFilterSnp,
@@ -62,12 +60,30 @@ class MainPage extends Component {
     } = this.props;
 
     switch(filterSection) {
-      case FILTERS.type : setFilterType({value: filterItemId}); break;
-      case FILTERS.variantClass : setFilterVariantClass({value: filterItemId}); break;
-      case FILTERS.hotSpot : setFilterHotSpot({value: filterItemId}); break;
-      case FILTERS.snp : setFilterSnp({value: filterItemId}); break;
-      case FILTERS.roi : setFilterRoi({value: filterItemId}); break;
-      case FILTERS.gnomId : setFilterGnomId({value: filterItemId}); break;
+      case FILTERS.variantClass : setFilterVariantClass({
+        value: filterItemId,
+        mode
+      }); break;
+
+      case FILTERS.hotSpot : setFilterHotSpot({
+        value: filterItemId,
+        mode
+      }); break;
+
+      case FILTERS.snp : setFilterSnp({
+        value: filterItemId,
+        mode
+      }); break;
+
+      case FILTERS.roi : setFilterRoi({
+        value: filterItemId,
+        mode
+      }); break;
+
+      case FILTERS.gnomId : setFilterGnomId({
+        value: filterItemId,
+        mode
+      }); break;
     }
   };
 
@@ -119,7 +135,7 @@ class MainPage extends Component {
                                   <SelectionGroup
                                     mode={csection.mode}
                                     filterItems={csection.items}
-                                    onChange={this.onChange.bind(this, key)}
+                                    onChange={this.onChange.bind(this, key, csection.mode)}
                                     values={filters[key]}
                                   />
                                 </Panel>
@@ -133,7 +149,7 @@ class MainPage extends Component {
                         <SelectionGroup
                           mode={section.mode}
                           filterItems={section.items}
-                          onChange={this.onChange.bind(this, key)}
+                          onChange={this.onChange.bind(this, key, section.mode)}
                           values={filters[key]}
                         />
                       }
