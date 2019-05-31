@@ -3,7 +3,7 @@ import actionsTypes from '../actionsTypes';
 import { FILTERS } from "Utils/constants";
 
 const initialState = {
-  [FILTERS.type]: null,
+  [FILTERS.type]: 'somatic', // 'somatic' | 'germline'
   [FILTERS.variantClass]: [],
   [FILTERS.hotSpot]: null,
   [FILTERS.snp]: null,

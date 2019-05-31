@@ -42,14 +42,6 @@ class MainPage extends Component {
 
     this.state = {
       sidebarToggle: false,
-      filters: {
-        [FILTERS.type]: "germline",
-        [FILTERS.variantClass]: ['unclassified', 'lben'],
-        [FILTERS.hotSpot]: true,
-        [FILTERS.snp]: null,
-        [FILTERS.roi]: null,
-        [FILTERS.gnomId]: null
-      }
     };
   }
 
@@ -81,7 +73,7 @@ class MainPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { filters } = this.props;
+    const { filters, type } = this.props;
 
     return (
       <div className={style["main-page"]}>
@@ -100,18 +92,56 @@ class MainPage extends Component {
                 <Arrow dir={!isActive ? "right" : "down"} />
               )}
             >
-              {Object.keys(filtersConfig).map((key, i) => {
-                return (
-                  <Panel header={key} key={i + 1}>
-                    <SelectionGroup
-                      mode={filtersConfig[key].mode}
-                      filterItems={filtersConfig[key].items}
-                      onChange={this.onChange.bind(this, key)}
-                      values={filters[key]}
-                    />
-                  </Panel>
-                );
-              })}
+              {Object.keys(filtersConfig)
+                .filter(key => filtersConfig[key].type.includes(type))
+                .map((key, i) => {
+                  let section = filtersConfig[key];
+
+                  return (
+                    <Panel header={key} key={i + 1}>
+
+                      {section.children &&
+                        <Collapse
+                          key={`collapse-${i}`}
+                          defaultActiveKey={["1"]}
+                          onChange={callback}
+                          expandIcon={({ isActive }) => (
+                            <Arrow dir={!isActive ? "right" : "down"} />
+                          )}
+                        >
+                          {Object.keys(section.children)
+                            .filter((key) => section.children[key].type.includes(type))
+                            .map((key, i) => {
+                              let csection = section.children[key];
+
+                              return (
+                                <Panel header={key} key={i + 1 + 'inner'}>
+                                  <SelectionGroup
+                                    mode={csection.mode}
+                                    filterItems={csection.items}
+                                    onChange={this.onChange.bind(this, key)}
+                                    values={filters[key]}
+                                  />
+                                </Panel>
+                              );
+                            })
+                          }
+                        </Collapse>
+                      }
+
+                      {!section.children &&
+                        <SelectionGroup
+                          mode={section.mode}
+                          filterItems={section.items}
+                          onChange={this.onChange.bind(this, key)}
+                          values={filters[key]}
+                        />
+                      }
+
+                    </Panel>
+                  );
+                })
+              }
             </Collapse>
           </SideBarLayout>
         </div>
@@ -134,7 +164,6 @@ class MainPage extends Component {
               ac, sodales lorem.  + In hac habitasse platea dictumst. Etiam
               vitae convallis velit, id finibus arcu. +  Sed in ante dictum
               lacus viverra consequat. `}
-
           </TableLayout>
         </div>
       </div>
@@ -144,8 +173,8 @@ class MainPage extends Component {
 
 function mapStateToProps(state) {
   return {
+    type: getFilterType(state),
     filters: {
-      [FILTERS.type]: getFilterType(state),
       [FILTERS.variantClass]: getFilterVariantClass(state),
       [FILTERS.hotSpot]: getFilterHotSpot(state),
       [FILTERS.snp]: getFilterSnp(state),

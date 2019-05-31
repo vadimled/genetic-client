@@ -4,16 +4,8 @@ import { TAG_COLORS } from "Utils/constants";
 import { FILTERS } from "Utils/constants";
 
 export default  {
-  [FILTERS.type]: {
-    mode: "single",
-    items: [
-      { id: "somatic", label: "Somatic" },
-      { id: "germline", label: "Germline" },
-      { id: "acmg", label: "ACMG" }
-    ],
-  },
-
   [FILTERS.variantClass]: {
+    type: ["somatic", "germline"],
     mode: "multiple",
     items: [
       { id: "unclassified", tagColor: TAG_COLORS.white, label: "Unclassified" },
@@ -25,23 +17,31 @@ export default  {
     ]
   },
 
-  [FILTERS.hotSpot]: {
-    mode: "single",
-    items: [
-      { id: true, label: "True", icon: <Icon type="check" /> },
-      { id: false, label: "False", icon: <Icon type="close" /> }
-    ],
-  },
+  ['Variant panels']: {
+    type: ["somatic"],
+    children: {
+      [FILTERS.hotSpot]: {
+        type: ["somatic"],
+        mode: "single",
+        items: [
+          { id: true, label: "True", icon: <Icon type="check" /> },
+          { id: false, label: "False", icon: <Icon type="close" /> }
+        ],
+      },
 
-  [FILTERS.snp]: {
-    mode: "single",
-    items: [
-      { id: true, label: "True", icon: <Icon type="check" /> },
-      { id: false, label: "False", icon: <Icon type="close" /> }
-    ],
+      [FILTERS.snp]: {
+        type: ["somatic"],
+        mode: "single",
+        items: [
+          { id: true, label: "True", icon: <Icon type="check" /> },
+          { id: false, label: "False", icon: <Icon type="close" /> }
+        ],
+      },
+    }
   },
 
   [FILTERS.roi]: {
+    type: ["somatic", "germline"],
     mode: "single",
     items: [
       { id: true,  label: "True", icon: <Icon type="check" /> },
@@ -50,6 +50,7 @@ export default  {
   },
 
   [FILTERS.gnomId]: {
+    type: ["somatic"],
     mode: "single",
     items: [
       { id: "na", value: "na", label: "NA" },
