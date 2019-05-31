@@ -13,13 +13,11 @@ const SelectionGroup = ({ filterItems, mode, onChange, values}) => {
           item={item}
           key={i}
           onChange={onChange.bind(null, item.id)}
-          checkboxValue={mode === 'multiple'
-            ? values.some((val) => item.id === val)
+          value={mode === 'multiple' || mode === 'single'
+            ? mode === 'multiple'
+              ? values.some((val) => item.id === val)
+              : item.id === values
             : false
-          }
-          radioValue={mode === 'single'
-            ? values
-            : null
           }
         />
       ))}

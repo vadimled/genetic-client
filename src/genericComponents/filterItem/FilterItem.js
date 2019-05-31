@@ -1,30 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Checkbox, Radio } from "antd";
+import { Checkbox } from "antd";
 import style from "./FilterItem.module.scss";
 import Tag from './components/Tag';
 
-const FilterItem = ({ item, mode, onChange, checkboxValue, radioValue }) => (
+const FilterItem = ({ item, onChange, value }) => (
   <div className={style["filter-item-wrapper"]} id="filter-item">
-    {mode === "multiple" ? (
-      <Checkbox checked={checkboxValue} onChange={onChange}>
-        <div className="flex items-center checkbox-inner-content">
-          {item.tagColor && <Tag color={item.tagColor} />}
-          <span
-            style={item.label === "Unclassified" ? { color: "#96A2AA" } : null}
-          >
-            {item.label}
-          </span>
-        </div>
-      </Checkbox>
-    ) : (
-      <Radio.Group onChange={onChange} value={radioValue}>
-        <Radio value={item.id}>
-          {item.icon}
-          <span className="item-label">{item.label}</span>
-        </Radio>
-      </Radio.Group>
-    )}
+
+    <Checkbox checked={value} onChange={onChange}>
+      <div className="flex items-center checkbox-inner-content">
+        {!!item.icon && item.icon}
+        {!!item.tagColor && <Tag color={item.tagColor} />}
+        <span
+          style={item.label === "Unclassified" ? { color: "#96A2AA" } : null}
+        >
+          {item.label}
+        </span>
+      </div>
+    </Checkbox>
+
   </div>
 );
 
@@ -32,13 +26,11 @@ FilterItem.propTypes = {
   item: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   mode: PropTypes.string.isRequired,
-  checkboxValue: PropTypes.bool,
-  radioValue: PropTypes.oneOfType([PropTypes.string, PropTypes.bool])
+  value: PropTypes.bool,
 };
 
 FilterItem.defaultProps = {
-  checkboxValue: false,
-  radioValue: null,
+  value: false
 };
 
 export default React.memo(FilterItem);
