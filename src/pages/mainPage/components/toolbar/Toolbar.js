@@ -1,21 +1,39 @@
 import React, { Component } from "react";
 import style from "./Toolbar.module.scss";
 import NumberVariants from "Pages/mainPage/components/numberVariants";
-// import PropTypes from 'prop-types';
+import { getFilteredEntries, getTotalEntries } from "Store/selectors";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 class Toolbar extends Component {
   render() {
+    const { filtered, total } = this.props;
+
     return (
       <div className={style["toolbar-wrapper"]}>
         <div className="left-wrapper">Left</div>
         <div className="right-wrapper">
-          <NumberVariants filtered={"10"} total={"13024"} />
+          <NumberVariants filtered={filtered} total={total} />
         </div>
       </div>
     );
   }
 }
 
-// Toolbar.propTypes = {};
+Toolbar.propTypes = {
+  filtered: PropTypes.string,
+  total: PropTypes.string
+};
 
-export default Toolbar;
+Toolbar.defaultProps = {
+  filtered: "10",
+  total: "20000"
+};
+function mapStateToProps(state) {
+  return {
+    filtered: getFilteredEntries(state),
+    total: getTotalEntries(state)
+  };
+}
+
+export default connect(mapStateToProps)(Toolbar);
