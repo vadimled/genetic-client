@@ -25,14 +25,10 @@ Toolbar.propTypes = {
   total: PropTypes.string
 };
 
-Toolbar.defaultProps = {
-  filtered: "10",
-  total: "20000"
-};
 function mapStateToProps(state) {
   return {
-    filtered: getFilteredEntries(state),
-    total: getTotalEntries(state)
+    filtered: getFilteredEntries(state) || undefined,
+    total: getTotalEntries(state) || undefined
   };
 }
 

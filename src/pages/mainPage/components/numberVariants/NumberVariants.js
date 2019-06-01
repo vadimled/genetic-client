@@ -15,4 +15,9 @@ NumberVariants.propTypes = {
   total: PropTypes.string
 };
 
+NumberVariants.defaultProps = {
+  filtered: "0",
+  total: "20000"
+};
+
 export default memo(NumberVariants);
