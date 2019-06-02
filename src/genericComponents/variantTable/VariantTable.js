@@ -90,7 +90,19 @@ const data = [
     zygosity: "Hom",
     variantClass: "",
     coverage: 300,
-
+  },
+  {
+    gene: 'PDG',
+    chrPosition: 'Chr5 : 236628',
+    transcript: 'NM_005591.3',
+    exon: 1,
+    alleleChange: 'C > T',
+    coding: 'gCc/gTc',
+    protein: 'A449V',
+    vaf: 1,
+    zygosity: "Hetro",
+    variantClass: "",
+    coverage: 20,
   }
 ];
 
