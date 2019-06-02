@@ -77,34 +77,8 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    gene: 'SDHA',
-    chrPosition: 'Chr5 : 236628',
-    transcript: 'NM_005591.3',
-    exon: 7,
-    alleleChange: 'C > T',
-    coding: 'gCc/gTc',
-    protein: 'A449V',
-    vaf: 33,
-    zygosity: "Hom",
-    variantClass: "",
-    coverage: 300,
-  },
-  {
-    gene: 'PDG',
-    chrPosition: 'Chr5 : 236628',
-    transcript: 'NM_005591.3',
-    exon: 1,
-    alleleChange: 'C > T',
-    coding: 'gCc/gTc',
-    protein: 'A449V',
-    vaf: 1,
-    zygosity: "Hetro",
-    variantClass: "",
-    coverage: 20,
-  }
-];
+
+
 
 class VariantTable extends Component {
   render() {
@@ -115,7 +89,7 @@ class VariantTable extends Component {
         bordered
         pagination={false}
         columns={columns}
-        dataSource={data}
+        dataSource={this.props.data}
         className="flex"
       />
     );

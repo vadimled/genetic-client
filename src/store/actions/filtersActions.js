@@ -41,3 +41,12 @@ export const setFilterGnomId = data => {
     payload: data
   };
 };
+
+
+
+export const getFilteredData = data => {
+  return {
+    type: actionsTypes.GET_FILTERED_DATA,
+    payload: data
+  };
+};

@@ -3,12 +3,52 @@ import actionsTypes from '../actionsTypes';
 import { FILTERS } from "Utils/constants";
 
 const initialState = {
-  [FILTERS.type]: null,
-  [FILTERS.variantClass]: [],
-  [FILTERS.hotSpot]: null,
-  [FILTERS.snp]: null,
-  [FILTERS.roi]: null,
-  [FILTERS.gnomId]: null
+  // [FILTERS.type]: null,
+  // [FILTERS.variantClass]: [],
+  // [FILTERS.hotSpot]: null,
+  // [FILTERS.snp]: null,
+  // [FILTERS.roi]: null,
+  // [FILTERS.gnomId]: null,
+
+  type: null,
+  variantClass: [],
+  hotSpot: null,
+  snp: null,
+  roi: null,
+  gnomId: null,
+
+  data: [
+    {
+      gene: "SDHA",
+      chrPosition: "Chr5 : 236628",
+      transcript: "NM_005591.3",
+      exon: 7,
+      alleleChange: "C > T",
+      coding: "gCc/gTc",
+      protein: "A449V",
+      vaf: 33,
+      zygosity: "Hom",
+      variantClass: "",
+      coverage: 300,
+      hotSpot: true,
+      roi: false
+    },
+    {
+      gene: "PDG",
+      chrPosition: "Chr5 : 236628",
+      transcript: "NM_005591.3",
+      exon: 1,
+      alleleChange: "C > T",
+      coding: "gCc/gTc",
+      protein: "A449V",
+      vaf: 1,
+      zygosity: "Hetro",
+      variantClass: "",
+      coverage: 20,
+      hotSpot: false,
+      roi: true
+    }
+  ]
 };
 
 const filtersReducer = createReducer(initialState, {
@@ -16,7 +56,7 @@ const filtersReducer = createReducer(initialState, {
     const { value } = payload;
     return {
       ...state,
-      [FILTERS.type]: value
+      type: value
     };
   },
 
@@ -34,7 +74,7 @@ const filtersReducer = createReducer(initialState, {
 
     return {
       ...state,
-      [FILTERS.variantClass]: classes
+      variantClass: classes
     };
   },
 
@@ -42,7 +82,7 @@ const filtersReducer = createReducer(initialState, {
     const { value } = payload;
     return {
       ...state,
-      [FILTERS.hotSpot]: value
+      hotSpot: value
     };
   },
 
@@ -50,7 +90,7 @@ const filtersReducer = createReducer(initialState, {
     const { value } = payload;
     return {
       ...state,
-      [FILTERS.snp]: value
+      snp: value
     };
   },
 
@@ -58,7 +98,7 @@ const filtersReducer = createReducer(initialState, {
     const { value } = payload;
     return {
       ...state,
-      [FILTERS.roi]: value
+      roi: value
     };
   },
 
@@ -66,9 +106,13 @@ const filtersReducer = createReducer(initialState, {
     const { value } = payload;
     return {
       ...state,
-      [FILTERS.gnomId]: value
+      gnomId: value
     };
   },
+
+  // [actionsTypes]
+
+
 });
 
 export default filtersReducer;

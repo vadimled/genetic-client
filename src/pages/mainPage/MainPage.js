@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import style from "./MainPage.module.scss";
 import cn from "classnames";
 import SideBarLayout from "./components/sideBarLayout";
@@ -14,7 +14,8 @@ import {
   getFilterHotSpot,
   getFilterSnp,
   getFilterRoi,
-  getFilterGnomId
+  getFilterGnomId,
+  getFilteredData
 } from "Store/selectors";
 import {
   setFilterType,
@@ -27,13 +28,43 @@ import {
 import { FILTERS } from "Utils/constants";
 import VariantTable from "GenericComponents/variantTable";
 
-
 // eslint-disable-next-line
 const Panel = Collapse.Panel;
 
 function callback(key) {
   console.log(key);
 }
+
+// const data = [
+//   {
+//     gene: "SDHA",
+//     chrPosition: "Chr5 : 236628",
+//     transcript: "NM_005591.3",
+//     exon: 7,
+//     alleleChange: "C > T",
+//     coding: "gCc/gTc",
+//     protein: "A449V",
+//     vaf: 33,
+//     zygosity: "Hom",
+//     variantClass: "",
+//     coverage: 300,
+//     hotSpot: "yes"
+//   },
+//   {
+//     gene: "PDG",
+//     chrPosition: "Chr5 : 236628",
+//     transcript: "NM_005591.3",
+//     exon: 1,
+//     alleleChange: "C > T",
+//     coding: "gCc/gTc",
+//     protein: "A449V",
+//     vaf: 1,
+//     zygosity: "Hetro",
+//     variantClass: "",
+//     coverage: 20,
+//     hotSpot: "no"
+//   }
+// ];
 
 const Arrow = ({ dir }) => <i className={`${dir} arrow`} />;
 
@@ -43,14 +74,14 @@ class MainPage extends Component {
 
     this.state = {
       sidebarToggle: false,
-      filters: {
-        [FILTERS.type]: "germline",
-        [FILTERS.variantClass]: ['unclassified', 'lben'],
-        [FILTERS.hotSpot]: true,
-        [FILTERS.snp]: null,
-        [FILTERS.roi]: null,
-        [FILTERS.gnomId]: null
-      }
+      // filters: {
+      //   [FILTERS.type]: "germline",
+      //   [FILTERS.variantClass]: ["unclassified", "lben"],
+      //   [FILTERS.hotSpot]: true,
+      //   [FILTERS.snp]: null,
+      //   [FILTERS.roi]: null,
+      //   [FILTERS.gnomId]: null
+      // }
     };
   }
 
@@ -70,19 +101,33 @@ class MainPage extends Component {
       setFilterGnomId
     } = this.props;
 
-    switch(filterSection) {
-      case FILTERS.type : setFilterType({value: filterItemId}); break;
-      case FILTERS.variantClass : setFilterVariantClass({value: filterItemId}); break;
-      case FILTERS.hotSpot : setFilterHotSpot({value: filterItemId}); break;
-      case FILTERS.snp : setFilterSnp({value: filterItemId}); break;
-      case FILTERS.roi : setFilterRoi({value: filterItemId}); break;
-      case FILTERS.gnomId : setFilterGnomId({value: filterItemId}); break;
+    switch (filterSection) {
+      case FILTERS.type:
+        setFilterType({ value: filterItemId });
+        break;
+      case FILTERS.variantClass:
+        setFilterVariantClass({ value: filterItemId });
+        break;
+      case FILTERS.hotSpot:
+        setFilterHotSpot({ value: filterItemId });
+        break;
+      case FILTERS.snp:
+        setFilterSnp({ value: filterItemId });
+        break;
+      case FILTERS.roi:
+        setFilterRoi({ value: filterItemId });
+        break;
+      case FILTERS.gnomId:
+        setFilterGnomId({ value: filterItemId });
+        break;
     }
   };
 
   render() {
     const { sidebarToggle } = this.state;
-    const { filters } = this.props;
+    const { filters, data } = this.props;
+
+    // console.log(this.props.filters)
 
     return (
       <div className={style["main-page"]}>
@@ -124,11 +169,9 @@ class MainPage extends Component {
         >
           <Toolbar />
           <TableLayout>
-            <VariantTable/>
+            <VariantTable data={data} />
           </TableLayout>
-
         </div>
-
       </div>
     );
   }
@@ -143,22 +186,23 @@ function mapStateToProps(state) {
       [FILTERS.snp]: getFilterSnp(state),
       [FILTERS.roi]: getFilterRoi(state),
       [FILTERS.gnomId]: getFilterGnomId(state)
-    }
+    },
+    data: getFilteredData(state)
   };
 }
-
-
-
 
 function mapDispatchToProps(dispatch) {
   return {
-    setFilterType: (data) => dispatch(setFilterType(data)),
-    setFilterVariantClass: (data) => dispatch(setFilterVariantClass(data)),
-    setFilterHotSpot: (data) => dispatch(setFilterHotSpot(data)),
-    setFilterSnp: (data) => dispatch(setFilterSnp(data)),
-    setFilterRoi: (data) => dispatch(setFilterRoi(data)),
-    setFilterGnomId: (data) => dispatch(setFilterGnomId(data)),
+    setFilterType: data => dispatch(setFilterType(data)),
+    setFilterVariantClass: data => dispatch(setFilterVariantClass(data)),
+    setFilterHotSpot: data => dispatch(setFilterHotSpot(data)),
+    setFilterSnp: data => dispatch(setFilterSnp(data)),
+    setFilterRoi: data => dispatch(setFilterRoi(data)),
+    setFilterGnomId: data => dispatch(setFilterGnomId(data))
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainPage);
