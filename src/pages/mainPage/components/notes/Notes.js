@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from "react";
-import style from "./Notes.modules.scss";
-import { TEXTS } from "src/utils/constants";
+import style from "./Notes.module.scss";
+import { TEXTS } from "Utils/constants";
 import { ReactComponent as EditIcon } from "Assets/edit.svg";
 import { Popover } from "antd";
-// import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 class Notes extends Component {
   constructor(props) {
@@ -15,18 +15,23 @@ class Notes extends Component {
   }
 
   handelEditClick = () => {
+    console.log("handelEditClick");
     this.setState({ isEdit: true });
   };
 
   render() {
     const { valueNotes } = this.props;
     return (
-      <div className={style["notes-wrapper"]}>
+      <div className={style["notes-wrapper"]} onClick={this.handelEditClick}>
         {!valueNotes ? (
           <div className="notes-content-empty" onClick={this.handelEditClick}>
             {TEXTS.addNote}
             {this.state.isEdit && (
-              <Popover placement="bottom" content={content} trigger="click">
+              <Popover
+                placement="bottom"
+                content={<div> COMPONENT </div>}
+                trigger="click"
+              >
                 <div className="edit-text-box" />
               </Popover>
             )}
@@ -44,6 +49,8 @@ class Notes extends Component {
   }
 }
 
-Notes.propTypes = {};
+Notes.propTypes = {
+  valueNotes: PropTypes.string
+};
 
 export default Notes;

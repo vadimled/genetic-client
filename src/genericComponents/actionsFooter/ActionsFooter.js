@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button} from "antd";
 import style from "./ActionsFooter.module.scss";
-import { TEXTS } from "src/utils/constants";
+import { TEXTS } from "Utils/constants";
 
 const ActionsFooter = ({disabled, doneHandler, cancelHandler, disableCancel}) => {
 
