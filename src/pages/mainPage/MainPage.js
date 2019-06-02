@@ -25,6 +25,7 @@ import {
   setFilterGnomId
 } from "Actions/filtersActions";
 import { FILTERS } from "Utils/constants";
+import VariantTable from "GenericComponents/variantTable";
 
 
 // eslint-disable-next-line
@@ -123,19 +124,9 @@ class MainPage extends Component {
         >
           <Toolbar />
           <TableLayout>
-            {`Lorem ipsum dolor sit amet, consectetur adipiscing elit.  +
-              Nullam sed est lectus. In hac habitasse platea dictumst.  +
-              Aenean accumsan venenatis dapibus. Aenean faucibus dolor et leo
-              tempor auctor.  + Pellentesque et sagittis lorem. Aliquam ut
-              lacus blandit, egestas eros ac, dictum ante.  + Integer lobortis
-              nisl dolor, eget porta sem accumsan vel.  + Maecenas lacinia
-              nibh posuere neque fermentum bibendum. +  Aenean interdum ante
-              et imperdiet gravida. Sed vitae libero facilisis, malesuada elit
-              ac, sodales lorem.  + In hac habitasse platea dictumst. Etiam
-              vitae convallis velit, id finibus arcu. +  Sed in ante dictum
-              lacus viverra consequat. `}
-
+            <VariantTable/>
           </TableLayout>
+
         </div>
 
       </div>
@@ -155,6 +146,9 @@ function mapStateToProps(state) {
     }
   };
 }
+
+
+
 
 function mapDispatchToProps(dispatch) {
   return {
