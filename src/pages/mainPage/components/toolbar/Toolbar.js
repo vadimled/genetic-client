@@ -3,16 +3,17 @@ import style from "./Toolbar.module.scss";
 import NumberVariants from "Pages/mainPage/components/numberVariants";
 import { getFilteredEntriesAmount, getTotalEntriesAmount } from "Store/selectors";
 import { connect } from "react-redux";
+import cn from "classnames";
 import PropTypes from "prop-types";
 
 class Toolbar extends Component {
   render() {
-    const { filtered, total } = this.props;
-
+    const { filtered, total, sidebarToggle } = this.props;
+    
     return (
       <div className={style["toolbar-wrapper"]}>
         <div className="left-wrapper">Left</div>
-        <div className="right-wrapper">
+        <div className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}>
           <NumberVariants filtered={filtered} total={total} />
         </div>
       </div>

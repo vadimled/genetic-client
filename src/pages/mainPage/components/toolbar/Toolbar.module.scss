@@ -13,5 +13,11 @@
   border-bottom: $border_color solid 1px;
 
   .right-wrapper {
+    transform: translate(0px, 0px);
+    transition: 0.4s ease;
+
+    &.sidebar-open {
+      transform: translate(-175px, 0px);
+    }
   }
 }
