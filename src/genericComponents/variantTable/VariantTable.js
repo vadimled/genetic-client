@@ -6,84 +6,84 @@ import { Table, Checkbox } from "antd";
 const columns = [
   {
     title: "",
-    key: "checkbox",
+    key: "1",
     fixed: "left",
     width: 50,
     render: () => <Checkbox />
   },
   {
     title: "Gene",
-    width: 150,
+    // width: 150,
     dataIndex: "gene",
-    key: "gene",
+    key: "2",
   },
   {
     title: "Chr: position",
-    width: 150,
+    // width: 150,
     dataIndex: "chrPosition",
-    key: "chrPosition",
+    key: "3",
   },
   {
     title: "Transcript",
     dataIndex: "transcript",
-    key: "1",
-    width: 150
+    key: "4",
+    // width: 150
   },
   {
     title: "Exon",
     dataIndex: "exon",
-    key: "2",
-    width: 50
+    key: "5",
+    // width: 50
   },
   {
     title: "Allele change",
     dataIndex: "alleleChange",
-    key: "3",
-    width: 150
+    key: "6",
+    // width: 150
   },
   {
     title: "coding",
     dataIndex: "coding",
-    key: "4",
-    width: 150
+    key: "7",
+    // width: 150
   },
   {
     title: "Protein",
     dataIndex: "protein",
-    key: "5",
-    width: 150
+    key: "8",
+    // width: 150
   },
   {
     title: "VAF",
     dataIndex: "vaf",
-    key: "6",
+    key: "9",
     // width: 150
   },
   {
     title: "Zygosity",
     dataIndex: "zygosity",
-    key: "7",
+    key: "10",
     // width: 150
   },
   {
     title: "Variant Class",
     dataIndex: "variantClass",
-    key: "8"
+    key: "11"
   },
   {
     title: "coverage",
     dataIndex: "coverage",
-    key: "8"
+    key: "12"
   },
   {
     title: "Notes",
     dataIndex: "notes",
-    key: "8"
+    key: "13"
   },
   {
     title: "Activity log",
     dataIndex: "activityLog",
-    key: "8"
+    key: "14"
   },
 ];
 
@@ -96,7 +96,11 @@ const data = [
     alleleChange: 'C > T',
     coding: 'gCc/gTc',
     protein: 'A449V',
-    vaf: 33
+    vaf: 33,
+    zygosity: "Hom",
+    variantClass: "",
+    coverage: 300,
+
   }
 ];
 // for (let i = 0; i < 100; i++) {
@@ -118,10 +122,11 @@ class VariantTable extends Component {
 
     return (
       <Table
+        bordered
         pagination={false}
         columns={columns}
         dataSource={data}
-        scroll={{ y: screenHeight }}
+        // scroll={{ y: screenHeight }}
         className="flex"
       />
     );
