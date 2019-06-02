@@ -1,17 +1,14 @@
 import { FILTERS } from "Utils/constants";
-import {createSelector} from 'reselect';
+import { createSelector } from "reselect";
 
-export const
-  getFilterType = state => state?.filters?.[FILTERS.type],
+export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVariantClass = state => state?.filters?.[FILTERS.variantClass],
   getFilterHotSpot = state => state?.filters?.[FILTERS.hotSpot],
   getFilterSnp = state => state?.filters?.[FILTERS.snp],
   getFilterRoi = state => state?.filters?.[FILTERS.roi],
-  getFilterGnomId = state => state?.filters?.[FILTERS.gnomId]
-;
+  getFilterGnomId = state => state?.filters?.[FILTERS.gnomId];
 
-
-const getData =  state => state?.filters.data;
+const getData = state => state?.filters.data;
 
 export const getFilteredData = createSelector(
   getData,
@@ -21,9 +18,8 @@ export const getFilteredData = createSelector(
   getFilterSnp,
   getFilterRoi,
   getFilterGnomId,
-  (data ,type, variantClass, hotSpot, snp, roi, gnom) => {
-
-    console.log('-data: ', data)
+  (data, type, variantClass, hotSpot, snp, roi, gnom) => {
+    console.log("-data: ", data);
     // console.log('-type: ', type)
     // console.log('-variantClass: ', variantClass)
     // console.log('-hotSpot: ', hotSpot)
@@ -32,10 +28,15 @@ export const getFilteredData = createSelector(
     // console.log('-gnom: ', gnom)
 
     const filter = {
-      type, variantClass, hotSpot: true, snp, roi, gnom
-    }
+      type,
+      variantClass,
+      hotSpot: true,
+      snp,
+      roi,
+      gnom
+    };
 
-    console.log('--filter: ', filter)
+    console.log("--filter: ", filter);
 
     // const filteredData = data.map(item => {
     //   for (let key in filter){
@@ -54,10 +55,9 @@ export const getFilteredData = createSelector(
       return true;
     });
 
-
-    console.log('---data: ', data)
+    console.log("---data: ", data);
     //
-    return data
+    return data;
 
     // data.map(item => {
     //   // console.log(item)
