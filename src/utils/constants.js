@@ -15,3 +15,9 @@ export const FILTERS = {
   roi: "ROI",
   gnomId: "Gnom ID"
 };
+
+export const TEXTS = {
+  addNote: "Add a note",
+  cancel: "Cancel",
+  done: "Done"
+};
