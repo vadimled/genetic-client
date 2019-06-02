@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import style from "./Toolbar.module.scss";
 import NumberVariants from "Pages/mainPage/components/numberVariants";
-import { getFilteredEntries, getTotalEntries } from "Store/selectors";
+import { getFilteredEntriesAmount, getTotalEntriesAmount } from "Store/selectors";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -27,8 +27,8 @@ Toolbar.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    filtered: getFilteredEntries(state) || undefined,
-    total: getTotalEntries(state) || undefined
+    filtered: getFilteredEntriesAmount(state) || undefined,
+    total: getTotalEntriesAmount(state) || undefined
   };
 }
 

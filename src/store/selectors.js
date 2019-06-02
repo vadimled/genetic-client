@@ -11,11 +11,16 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterRoi = state => state?.filters?.[FILTERS.roi],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomId],
   
-  getTotalEntries = state => state?.db?.length;
+  getTotalEntriesAmount = state => state?.db?.length;
 
 
 export const getFilteredEntries = createSelector(
   getDb,
   getFilters,
-  (db, filters) => console.log(db, filters)
+  (db, filters) => console.log(db, filters) // TODO: when real data structure will be created
+);
+
+export const getFilteredEntriesAmount = createSelector(
+  getFilteredEntries,
+  (filters) => filters?.length
 );
