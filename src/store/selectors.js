@@ -50,11 +50,11 @@ export const getFilteredData = createSelector(
     data = data.filter(function(item) {
       for (let key in filter) {
         if (item[key] && (item[key] === undefined || item[key] !== filter[key])){
-          console.log('here 1')
+          console.log('here 1');
           return data;
         }
       }
-      console.log('here 2')
+      console.log('here 2');
       return true;
     });
 
