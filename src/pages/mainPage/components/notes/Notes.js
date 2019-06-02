@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import style from "./Notes.modules.scss";
 import { TEXTS } from "src/utils/constants";
 import { ReactComponent as EditIcon } from "Assets/edit.svg";
+import { Popover } from "antd";
 // import PropTypes from 'prop-types';
 
 class Notes extends Component {
@@ -24,7 +25,11 @@ class Notes extends Component {
         {!valueNotes ? (
           <div className="notes-content-empty" onClick={this.handelEditClick}>
             {TEXTS.addNote}
-            {this.state.isEdit && <div className="edit-text-box" />}
+            {this.state.isEdit && (
+              <Popover placement="bottom" content={content} trigger="click">
+                <div className="edit-text-box" />
+              </Popover>
+            )}
           </div>
         ) : (
           <Fragment>
