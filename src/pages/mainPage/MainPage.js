@@ -146,6 +146,8 @@ function mapStateToProps(state) {
   };
 }
 
+
+
 function mapDispatchToProps(dispatch) {
   return {
     setFilterType: (data) => dispatch(setFilterType(data)),
