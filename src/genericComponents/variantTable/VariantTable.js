@@ -5,75 +5,75 @@ import { Table, Checkbox } from "antd";
 const columns = [
   {
     title: "",
-    key: "1",
     fixed: "left",
     width: 50,
-    render: () => <Checkbox />
+    render: () => <Checkbox />,
+    key: "checkbox"
   },
   {
     title: "Gene",
     dataIndex: "gene",
-    key: "2",
+    key: "gene"
   },
   {
     title: "Chr: position",
     dataIndex: "chrPosition",
-    key: "3",
+    key: "chrPosition"
   },
   {
     title: "Transcript",
     dataIndex: "transcript",
-    key: "4",
+    key: "transcript"
   },
   {
     title: "Exon",
     dataIndex: "exon",
-    key: "5",
+    key: "exon"
   },
   {
     title: "Allele change",
     dataIndex: "alleleChange",
-    key: "6",
+    key: "alleleChange"
   },
   {
     title: "coding",
     dataIndex: "coding",
-    key: "7",
+    key: "coding"
   },
   {
     title: "Protein",
     dataIndex: "protein",
-    key: "8",
+    key: "protein"
   },
   {
     title: "VAF",
     dataIndex: "vaf",
-    key: "9",
+    key: "vaf"
   },
   {
     title: "Zygosity",
     dataIndex: "zygosity",
-    key: "10",
+    key: "zygosity"
   },
   {
     title: "Variant Class",
     dataIndex: "variantClass",
-    key: "11"
+    key: "variantClass"
   },
   {
     title: "coverage",
     dataIndex: "coverage",
-    key: "12"
+    key: "coverage"
   },
   {
     title: "Notes",
     dataIndex: "notes",
-    key: "13"
+    key: "notes"
   },
   {
     title: "Activity log",
     dataIndex: "activityLog",
-    key: "14"
+    key: "activityLog"
   },
 ];
 
@@ -99,6 +99,7 @@ class VariantTable extends Component {
 
     return (
       <Table
+        rowKey="gene"
         bordered
         pagination={false}
         columns={columns}
