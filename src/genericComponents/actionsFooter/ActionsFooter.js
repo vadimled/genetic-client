@@ -6,7 +6,7 @@ import { TEXTS } from "Utils/constants";
 const ActionsFooter = ({disabled, doneHandler, cancelHandler, disableCancel}) => {
 
   return (
-    <footer className={`${style["actions-footer-wrapper"]} divider`}>
+    <footer className={`${style["actions-footer-wrapper"]}`}>
       {!disableCancel &&
       <button className='button-cancel'
         disabled={disableCancel}

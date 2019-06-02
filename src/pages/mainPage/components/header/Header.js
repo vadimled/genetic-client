@@ -14,7 +14,7 @@ class Header extends Component {
           </div>
           <div className="left-wrapper">
             {/* TODO: Test ID place*/}
-            <Notes />
+            <Notes valueNotes={"Test ID place..."}/>
           </div>
         </div>
         <div className="flex justify-start flex-row">
