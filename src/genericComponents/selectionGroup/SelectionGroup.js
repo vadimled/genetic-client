@@ -4,6 +4,10 @@ import FilterItem from "GenericComponents/filterItem";
 import style from "./SelectionGroup.module.scss";
 
 const SelectionGroup = ({ filterItems, mode, onChange, values}) => {
+  console.log('-filterItems: ', filterItems)
+  console.log('-mode: ', mode)
+  console.log('-values: ', values)
+
   return (
     <div className={style["selection-group-wrapper"]}>
       {filterItems.map((item, i) => (

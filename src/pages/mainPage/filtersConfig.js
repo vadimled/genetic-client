@@ -1,19 +1,23 @@
 import { Icon } from "antd";
 import React from "react";
 import { TAG_COLORS } from "Utils/constants";
-import { FILTERS } from "Utils/constants";
+// import { FILTERS } from "Utils/constants";
 
-export default  {
-  [FILTERS.type]: {
+export default [
+  {
+    name: "Type",
+    id: "type",
     mode: "single",
     items: [
       { id: "somatic", label: "Somatic" },
       { id: "germline", label: "Germline" },
       { id: "acmg", label: "ACMG" }
-    ],
+    ]
   },
 
-  [FILTERS.variantClass]: {
+  {
+    name: "Variant Class",
+    id: "variantClass",
     mode: "multiple",
     items: [
       { id: "unclassified", tagColor: TAG_COLORS.white, label: "Unclassified" },
@@ -25,31 +29,39 @@ export default  {
     ]
   },
 
-  [FILTERS.hotSpot]: {
+  {
+    name: "Hot Spot",
+    id: "hotSpot",
     mode: "single",
     items: [
       { id: true, label: "True", icon: <Icon type="check" /> },
-      { id: false, label: "False", icon: <Icon type="close" /> }
-    ],
-  },
-
-  [FILTERS.snp]: {
-    mode: "single",
-    items: [
-      { id: true, label: "True", icon: <Icon type="check" /> },
-      { id: false, label: "False", icon: <Icon type="close" /> }
-    ],
-  },
-
-  [FILTERS.roi]: {
-    mode: "single",
-    items: [
-      { id: true,  label: "True", icon: <Icon type="check" /> },
       { id: false, label: "False", icon: <Icon type="close" /> }
     ]
   },
 
-  [FILTERS.gnomId]: {
+  {
+    name: "SNP",
+    id: "snp",
+    mode: "single",
+    items: [
+      { id: true, label: "True", icon: <Icon type="check" /> },
+      { id: false, label: "False", icon: <Icon type="close" /> }
+    ]
+  },
+
+  {
+    name: "ROI",
+    id: "roi",
+    mode: "single",
+    items: [
+      { id: true, label: "True", icon: <Icon type="check" /> },
+      { id: false, label: "False", icon: <Icon type="close" /> }
+    ]
+  },
+
+  {
+    name: "Gnom ID",
+    id: "gnomId",
     mode: "single",
     items: [
       { id: "na", value: "na", label: "NA" },
@@ -58,4 +70,4 @@ export default  {
       { id: "common", value: "common", label: "common (>5%)" }
     ]
   }
-};
+];

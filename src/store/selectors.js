@@ -30,7 +30,7 @@ export const getFilteredData = createSelector(
     const filter = {
       type,
       variantClass,
-      hotSpot: true,
+      hotSpot,
       snp,
       roi,
       gnom
@@ -49,9 +49,12 @@ export const getFilteredData = createSelector(
 
     data = data.filter(function(item) {
       for (let key in filter) {
-        if (item[key] && (item[key] === undefined || item[key] !== filter[key]))
-          return false;
+        if (item[key] && (item[key] === undefined || item[key] !== filter[key])){
+          console.log('here 1')
+          return data;
+        }
       }
+      console.log('here 2')
       return true;
     });
 

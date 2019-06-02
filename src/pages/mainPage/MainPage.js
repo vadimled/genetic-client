@@ -25,7 +25,7 @@ import {
   setFilterRoi,
   setFilterGnomId
 } from "Actions/filtersActions";
-import { FILTERS } from "Utils/constants";
+// import { FILTERS } from "Utils/constants";
 import VariantTable from "GenericComponents/variantTable";
 
 // eslint-disable-next-line
@@ -92,6 +92,9 @@ class MainPage extends Component {
   };
 
   onChange = (filterSection, filterItemId) => {
+    console.log('filterSection: ', filterSection)
+    console.log('filterItemId: ', filterItemId)
+
     const {
       setFilterType,
       setFilterVariantClass,
@@ -102,22 +105,22 @@ class MainPage extends Component {
     } = this.props;
 
     switch (filterSection) {
-      case FILTERS.type:
+      case 'type':
         setFilterType({ value: filterItemId });
         break;
-      case FILTERS.variantClass:
+      case 'variantClass':
         setFilterVariantClass({ value: filterItemId });
         break;
-      case FILTERS.hotSpot:
+      case 'hotSpot':
         setFilterHotSpot({ value: filterItemId });
         break;
-      case FILTERS.snp:
+      case 'snp':
         setFilterSnp({ value: filterItemId });
         break;
-      case FILTERS.roi:
+      case 'roi':
         setFilterRoi({ value: filterItemId });
         break;
-      case FILTERS.gnomId:
+      case 'gnomId':
         setFilterGnomId({ value: filterItemId });
         break;
     }
@@ -127,7 +130,7 @@ class MainPage extends Component {
     const { sidebarToggle } = this.state;
     const { filters, data } = this.props;
 
-    // console.log(this.props.filters)
+    console.log(this.props.filters)
 
     return (
       <div className={style["main-page"]}>
@@ -146,14 +149,15 @@ class MainPage extends Component {
                 <Arrow dir={!isActive ? "right" : "down"} />
               )}
             >
-              {Object.keys(filtersConfig).map((key, i) => {
+              {filtersConfig.map((key, i) => {
+                console.log('666key: ', key)
                 return (
-                  <Panel header={key} key={i + 1}>
+                  <Panel header={key.name} key={i + 1}>
                     <SelectionGroup
-                      mode={filtersConfig[key].mode}
-                      filterItems={filtersConfig[key].items}
-                      onChange={this.onChange.bind(this, key)}
-                      values={filters[key]}
+                      mode={key.mode}
+                      filterItems={key.items}
+                      onChange={this.onChange.bind(this, key.id)}
+                      values={filters[key.id]}
                     />
                   </Panel>
                 );
@@ -180,12 +184,12 @@ class MainPage extends Component {
 function mapStateToProps(state) {
   return {
     filters: {
-      [FILTERS.type]: getFilterType(state),
-      [FILTERS.variantClass]: getFilterVariantClass(state),
-      [FILTERS.hotSpot]: getFilterHotSpot(state),
-      [FILTERS.snp]: getFilterSnp(state),
-      [FILTERS.roi]: getFilterRoi(state),
-      [FILTERS.gnomId]: getFilterGnomId(state)
+      type: getFilterType(state),
+      variantClass: getFilterVariantClass(state),
+      hotSpot: getFilterHotSpot(state),
+      snp: getFilterSnp(state),
+      roi: getFilterRoi(state),
+      gnomId: getFilterGnomId(state)
     },
     data: getFilteredData(state)
   };
