@@ -124,7 +124,6 @@ class MainPage extends Component {
         >
           <Toolbar />
           <TableLayout>
-
             <VariantTable/>
           </TableLayout>
 
