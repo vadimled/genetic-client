@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from "react";
+import {connect} from "react-redux";
 import { Tooltip } from "antd";
 import style from "./Notes.module.scss";
 import { LIMITS, TEXTS } from "Utils/constants";
 import { ReactComponent as EditIcon } from "Assets/edit.svg";
 import PropTypes from "prop-types";
 import EditNotes from "Pages/mainPage/components/notes/components/editNotes";
+import { setNotes } from "Store/actions/tableActions";
 
 class Notes extends Component {
   constructor(props) {
@@ -100,4 +102,10 @@ Notes.propTypes = {
   valueNotes: PropTypes.string
 };
 
-export default Notes;
+function mapDispatchToProps(dispatch) {
+  return {
+    setNotes: (data) => dispatch(setNotes(data)),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Notes);
