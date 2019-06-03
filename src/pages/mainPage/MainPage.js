@@ -150,7 +150,7 @@ class MainPage extends Component {
               )}
             >
               {filtersConfig.map((key, i) => {
-                console.log('666key: ', key);
+                console.log('666key id: ', filters[key.id]);
                 return (
                   <Panel header={key.name} key={i + 1}>
                     <SelectionGroup

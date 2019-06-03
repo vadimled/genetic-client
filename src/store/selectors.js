@@ -1,12 +1,12 @@
-import { FILTERS } from "Utils/constants";
+// import { FILTERS } from "Utils/constants";
 import { createSelector } from "reselect";
 
-export const getFilterType = state => state?.filters?.[FILTERS.type],
-  getFilterVariantClass = state => state?.filters?.[FILTERS.variantClass],
-  getFilterHotSpot = state => state?.filters?.[FILTERS.hotSpot],
-  getFilterSnp = state => state?.filters?.[FILTERS.snp],
-  getFilterRoi = state => state?.filters?.[FILTERS.roi],
-  getFilterGnomId = state => state?.filters?.[FILTERS.gnomId];
+export const getFilterType = state => state?.filters?.type,
+  getFilterVariantClass = state => state?.filters?.variantClass,
+  getFilterHotSpot = state => state?.filters?.hotSpot,
+  getFilterSnp = state => state?.filters?.snp,
+  getFilterRoi = state => state?.filters?.roi,
+  getFilterGnomId = state => state?.filters?.gnomId;
 
 const getData = state => state?.filters.data;
 
