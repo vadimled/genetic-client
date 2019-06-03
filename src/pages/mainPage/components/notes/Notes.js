@@ -9,34 +9,38 @@ class Notes extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
+    this.initialState = {
       isEdit: false,
       editNotes: "",
       limit: {
-        value: 0,
-      },
+        value: 0
+      }
+    };
+
+    this.state = {
+      ...this.initialState
     };
   }
-  
+
   validateNotesLength = number => {
     if (number <= LIMITS.maxNotesChar) {
       return {
-        validateStatus: 'success',
-        errorMsg: null,
+        validateStatus: "success",
+        errorMsg: null
       };
     }
     return {
-      validateStatus: 'error',
-      errorMsg: `Maximum ${LIMITS.maxNotesChar} characters`,
+      validateStatus: "error",
+      errorMsg: `Maximum ${LIMITS.maxNotesChar} characters`
     };
   };
-  
+
   handleDone = () => {
-    this.setState({ isEdit: false, editNotes: "" });
+    this.setState({...this.initialState});
   };
 
   handleCancel = () => {
-    this.setState({ isEdit: false, editNotes: "" });
+    this.setState({...this.initialState});
   };
 
   handelEditClick = e => {
@@ -48,15 +52,14 @@ class Notes extends Component {
     const { value } = e.target;
     let amount = value.length;
     this.setState({
-      editNotes: value ,
+      editNotes: value,
       limit: {
         ...this.validateNotesLength(amount),
-        value:amount,
+        value: amount
       }
     });
   };
-  
-  
+
   render() {
     const { valueNotes } = this.props;
     return (

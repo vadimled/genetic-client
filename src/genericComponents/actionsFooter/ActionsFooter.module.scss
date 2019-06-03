@@ -11,10 +11,13 @@
   padding-right: 9px;
 
   .ant-btn {
-    width: 100px;
-    height: 44px;
+    width: 64px;
+    height: 28px;
     padding: 0 !important;
     border: none;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    line-height: 18px !important;
 
     span {
       margin: 0 auto;
@@ -26,8 +29,8 @@
     border: none;
     font-style: normal;
     font-weight: 600;
-    line-height: 21px;
-    font-size: 16px;
+    line-height: 18px;
+    font-size: 14px;
     text-align: center;
     color: $subtitle_color;
     padding-right: 16px;
