@@ -197,11 +197,6 @@
       border: 2px solid $neutral_30;
       box-sizing: border-box;
       border-radius: 4px;
-
-      &:after {
-        left: 2px;
-        top: 5px;
-      }
     }
 
     & + span {
