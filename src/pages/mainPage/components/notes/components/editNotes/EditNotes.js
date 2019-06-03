@@ -30,7 +30,10 @@ const EditNotes = ({
         </Form.Item>
       </Form>
 
-      <ActionsFooter doneHandler={doneHandler} cancelHandler={cancelHandler} />
+      <ActionsFooter
+        disabled={validateStatus.errorMsg}
+        doneHandler={doneHandler}
+        cancelHandler={cancelHandler} />
     </div>
   );
 };
