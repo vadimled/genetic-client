@@ -78,7 +78,7 @@ class VariantTable extends Component {
     return data.map((row, index) => {
       return {
         ...row,
-        notes: <Notes key={index} id={index} valueNotes={row?.notes} />
+        notes: <Notes key={index} id={index} />
       };
     });
   };
@@ -86,7 +86,7 @@ class VariantTable extends Component {
   render() {
     const { selectedRowKeys, onSelectRowKey } = this.props;
     const dataWithNotes = this.addNodes();
-    // console.log(dataWithNotes);
+
     // rowSelection object indicates the need for row selection
     const rowSelection = {
       onChange: selectedRowKeys => {

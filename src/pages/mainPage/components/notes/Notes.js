@@ -15,7 +15,7 @@ class Notes extends Component {
 
     this.initialState = {
       visible: false,
-      editNotes: props.valueNotes,
+      editNotes: props.getValue,
       limit: {
         value: 0
       }
@@ -53,7 +53,8 @@ class Notes extends Component {
   };
 
   handelEditClick = () => {
-    this.setState({ visible: true });
+    const { getValue } = this.props;
+    this.setState({ editNotes: getValue, visible: true });
   };
 
   handleEditNotesOnChange = e => {
@@ -69,7 +70,6 @@ class Notes extends Component {
   };
 
   setPopup = () => {
-    // const { valueNotes } = this.props;
     return (
       <div className="edit-text-box">
         <EditNotes
@@ -84,10 +84,11 @@ class Notes extends Component {
   };
 
   render() {
-    const { valueNotes } = this.props;
+    const { getValue } = this.props;
+
     return (
       <div className={style["notes-wrapper"]}>
-        {!valueNotes ? (
+        {!getValue ? (
           <Popover
             placement="bottom"
             content={this.setPopup()}
@@ -100,8 +101,8 @@ class Notes extends Component {
           </Popover>
         ) : (
           <Fragment>
-            <Tooltip placement="bottom" title={valueNotes}>
-              <div className="notes-content">{valueNotes}</div>
+            <Tooltip placement="bottom" title={getValue}>
+              <div className="notes-content">{getValue}</div>
             </Tooltip>
             <Popover
               placement="bottom"
