@@ -10,22 +10,16 @@ import {
 } from "Store/selectors";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { setMutationType } from "Store/actions/variantsActions";
+import { getMutationType } from "Store/selectors";
 
 class Toolbar extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      mutation: "dna"
-    };
-  }
-
   handleOnChange = e => {
-    this.setState({ mutation: e.target.value });
+    this.props.setMutationType(e.target.value);
   };
 
   render() {
-    const { filtered, total, sidebarToggle } = this.props;
+    const { filtered, total, sidebarToggle, mutations } = this.props;
 
     return (
       <div className={style["toolbar-wrapper"]}>
@@ -35,8 +29,8 @@ class Toolbar extends Component {
               options={MUTATION}
               onChange={this.handleOnChange}
               name="mutation"
-              value={this.state.mutation}
-              // disabled
+              value={mutations}
+              disabled
             />
           </div>
         </div>
@@ -52,14 +46,25 @@ class Toolbar extends Component {
 
 Toolbar.propTypes = {
   filtered: PropTypes.string,
-  total: PropTypes.string
+  total: PropTypes.string,
+  mutations: PropTypes.string
 };
 
 const mapStateToProps = state => {
   return {
     filtered: getFilteredEntriesAmount(state) || undefined,
-    total: getTotalEntriesAmount(state) || undefined
+    total: getTotalEntriesAmount(state) || undefined,
+    mutations: getMutationType(state)
   };
 };
 
-export default connect(mapStateToProps)(Toolbar);
+function mapDispatchToProps(dispatch) {
+  return {
+    setMutationType: data => dispatch(setMutationType(data))
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Toolbar);
