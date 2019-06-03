@@ -18,29 +18,16 @@ const getAppliedFilters = createSelector(
   getFilterRoi,
   getFilterGnomId,
   (type, variantClass, hotSpot, snp, roi, gnom) => {
-
-    console.log('++type: ', type)
-    console.log('++variantClass: ', variantClass)
-    console.log('++hotSpot: ', hotSpot)
-    console.log('++snp: ', snp)
-    console.log('++roi: ', roi)
-    console.log('++gnom: ', gnom)
-
     const filters = {
-      ...(type !== null && {type}),
-      ...(variantClass.length && {variantClass}),
-      ...(hotSpot !== null && {hotSpot}),
-      ...(snp !== null && {snp}),
-      ...(roi !== null && {roi}),
-      ...(gnom !== null && {gnom}),
+      ...(type !== null && { type }),
+      ...(variantClass.length && { variantClass }),
+      ...(hotSpot !== null && { hotSpot }),
+      ...(snp !== null && { snp }),
+      ...(roi !== null && { roi }),
+      ...(gnom !== null && { gnom })
     };
 
-
-    console.log('++filters: ', filters)
-
-
-
-
+    console.log("++filters: ", filters);
   }
 );
 
@@ -55,7 +42,6 @@ export const getFilteredData = createSelector(
     // console.log('-snp: ', snp)
     // console.log('-roi: ', roi)
     // console.log('-gnom: ', gnom)
-
 
     console.log("--appliedFilters: ", appliedFilters);
 
