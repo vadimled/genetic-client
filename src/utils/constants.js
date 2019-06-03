@@ -5,10 +5,6 @@ export const TAG_COLORS = {
   blue: "#559FD5",
   blueLight: "#7CD8FF",
   orange: "#FF835C",
-  tier1: "#EBEBEB",
-  tier2: "#CBCAC9",
-  tier3: "#A1A09F",
-  tier4: "#6E6D6C",
 };
 
 export const FILTERS = {

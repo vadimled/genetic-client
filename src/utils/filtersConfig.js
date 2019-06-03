@@ -22,10 +22,10 @@ export default  {
     mode: "single",
     items: [
       { id: "unclassified", tagColor: TAG_COLORS.white, label: "Unclassified" },
-      { id: "1", tagColor: TAG_COLORS.tier1, label: "Tier1" },
-      { id: "2", tagColor: TAG_COLORS.tier2, label: "Tier2" },
-      { id: "3", tagColor: TAG_COLORS.tier3, label: "Tier3" },
-      { id: "4", tagColor: TAG_COLORS.tier4, label: "Tier4" },
+      { id: "1", tagColor: TAG_COLORS.red, label: "Tier1" },
+      { id: "2", tagColor: TAG_COLORS.orange, label: "Tier2" },
+      { id: "3", tagColor: TAG_COLORS.yellow, label: "Tier3" },
+      { id: "4", tagColor: TAG_COLORS.blueLight, label: "Tier4" },
     ]
   },
 
