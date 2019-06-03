@@ -8,7 +8,7 @@
   position: relative;
   width: 100%;
   height: 100%;
-  min-width: 300px;
+  min-width: 200px;
   padding: 9px;
   background-color: $white;
   font-weight: normal;
@@ -27,6 +27,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .notes-icon {
+    line-height: 4px;
   }
 
   .edit-text-box {
