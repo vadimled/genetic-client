@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import style from "./Notes.module.scss";
-import { TEXTS } from "Utils/constants";
+import { LIMITS, TEXTS } from "Utils/constants";
 import { ReactComponent as EditIcon } from "Assets/edit.svg";
 import PropTypes from "prop-types";
 import EditNotes from "Pages/mainPage/components/notes/components/editNotes";
@@ -11,10 +11,26 @@ class Notes extends Component {
 
     this.state = {
       isEdit: false,
-      editNotes: ""
+      editNotes: "",
+      limit: {
+        value: 0,
+      },
     };
   }
-
+  
+  validateNotesLength = number => {
+    if (number <= LIMITS.maxNotesChar) {
+      return {
+        validateStatus: 'success',
+        errorMsg: null,
+      };
+    }
+    return {
+      validateStatus: 'error',
+      errorMsg: `Maximum ${LIMITS.maxNotesChar} characters`,
+    };
+  };
+  
   handleDone = () => {
     this.setState({ isEdit: false, editNotes: "" });
   };
@@ -29,9 +45,18 @@ class Notes extends Component {
   };
 
   handleEditNotesOnChange = e => {
-    this.setState({ editNotes: e.target.value });
+    const { value } = e.target;
+    let amount = value.length;
+    this.setState({
+      editNotes: value ,
+      limit: {
+        ...this.validateNotesLength(amount),
+        value:amount,
+      }
+    });
   };
-
+  
+  
   render() {
     const { valueNotes } = this.props;
     return (
@@ -55,6 +80,7 @@ class Notes extends Component {
               cancelHandler={this.handleCancel}
               handleOnChange={this.handleEditNotesOnChange}
               notesValue={this.state.editNotes}
+              validateStatus={this.state.limit}
             />
           </div>
         )}

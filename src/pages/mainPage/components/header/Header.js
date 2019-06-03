@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import style from "./Header.module.scss";
-import Notes from "Pages/mainPage/components/notes";
 // import PropTypes from "prop-types";
 
 class Header extends Component {
@@ -14,7 +13,7 @@ class Header extends Component {
           </div>
           <div className="left-wrapper">
             {/* TODO: Test ID place*/}
-            <Notes valueNotes={"Test ID place..."}/>
+            GS00115NP050818_TS1_01
           </div>
         </div>
         <div className="flex justify-start flex-row">

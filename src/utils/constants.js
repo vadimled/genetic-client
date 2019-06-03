@@ -21,3 +21,7 @@ export const TEXTS = {
   cancel: "Cancel",
   done: "Done"
 };
+
+export const LIMITS = {
+  maxNotesChar: 150,
+};
