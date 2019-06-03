@@ -100,6 +100,13 @@
     }
   }
 
+  .collapse-childrens {
+    width: 153px !important;
+    .ant-collapse-header {
+      border-top: none !important;
+    }
+  }
+
   .ant-collapse-content > .ant-collapse-content-box {
     padding: 0 15px;
     padding-right: 0;
