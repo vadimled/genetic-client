@@ -1,19 +1,42 @@
 import React, { Component } from "react";
 import style from "./Toolbar.module.scss";
+import SimpleSelect from "GenericComponents/simpleSelect";
+import { MUTATION } from "Utils/constants";
 import NumberVariants from "Pages/mainPage/components/numberVariants";
-import { getFilteredEntriesAmount, getTotalEntriesAmount } from "Store/selectors";
-import { connect } from "react-redux";
 import cn from "classnames";
+import {
+  getFilteredEntriesAmount,
+  getTotalEntriesAmount
+} from "Store/selectors";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { setMutationType } from "Store/actions/variantsActions";
+import { getMutationType } from "Store/selectors";
 
 class Toolbar extends Component {
+  handleOnChange = e => {
+    this.props.setMutationType(e.target.value);
+  };
+
   render() {
-    const { filtered, total, sidebarToggle } = this.props;
-    
+    const { filtered, total, sidebarToggle, mutations } = this.props;
+
     return (
       <div className={style["toolbar-wrapper"]}>
-        <div className="left-wrapper">Left</div>
-        <div className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}>
+        <div className="left-wrapper">
+          <div className="mutation-select-wrapper">
+            <SimpleSelect
+              options={MUTATION}
+              onChange={this.handleOnChange}
+              name="mutation"
+              value={mutations}
+              disabled
+            />
+          </div>
+        </div>
+        <div
+          className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}
+        >
           <NumberVariants filtered={filtered} total={total} />
         </div>
       </div>
@@ -23,14 +46,25 @@ class Toolbar extends Component {
 
 Toolbar.propTypes = {
   filtered: PropTypes.string,
-  total: PropTypes.string
+  total: PropTypes.string,
+  mutations: PropTypes.string
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
     filtered: getFilteredEntriesAmount(state) || undefined,
-    total: getTotalEntriesAmount(state) || undefined
+    total: getTotalEntriesAmount(state) || undefined,
+    mutations: getMutationType(state)
+  };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setMutationType: data => dispatch(setMutationType(data))
   };
 }
 
-export default connect(mapStateToProps)(Toolbar);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Toolbar);

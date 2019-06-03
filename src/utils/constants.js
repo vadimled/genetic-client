@@ -25,3 +25,10 @@ export const TEXTS = {
 export const LIMITS = {
   maxNotesChar: 150,
 };
+
+
+export const MUTATION = [
+  { value: "dna", label: "DNA" },
+  { value: "rna", label: "RNA" },
+  { value: "agena", label: "Agena" }
+];
