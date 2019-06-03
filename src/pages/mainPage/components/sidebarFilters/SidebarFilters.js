@@ -96,6 +96,7 @@ class SidebarFilters extends Component {
                       expandIcon={({ isActive }) => (
                         <Arrow dir={!isActive ? "right" : "down"} />
                       )}
+                      className="collapse-childrens"
                     >
                       {Object.keys(group.children)
                         .filter((key) => group.children[key].type.includes(type))
