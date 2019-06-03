@@ -122,7 +122,7 @@ class MainPage extends Component {
             { "sidebar-open": sidebarToggle }
           ])}
         >
-          <Toolbar />
+          <Toolbar sidebarToggle={sidebarToggle}/>
           <TableLayout>
             <VariantTable/>
           </TableLayout>
