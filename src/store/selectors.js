@@ -10,6 +10,10 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterSnp = state => state?.filters?.[FILTERS.snp],
   getFilterRoi = state => state?.filters?.[FILTERS.roi],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomId],
+
+  getTableData = state => state?.table?.data,
+  getSelectedRowKeys = state => state?.table?.selectedRowKeys,
+
   getMutationType = state => state.variants.mutations,
   getTotalEntriesAmount = state => state?.db?.length;
 
