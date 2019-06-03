@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Tooltip } from "antd";
 import style from "./Notes.module.scss";
 import { LIMITS, TEXTS } from "Utils/constants";
 import { ReactComponent as EditIcon } from "Assets/edit.svg";
@@ -36,11 +37,12 @@ class Notes extends Component {
   };
 
   handleDone = () => {
-    this.setState({...this.initialState});
+    this.props.setNotes(this.state.editNotes);
+    this.setState({ ...this.initialState });
   };
 
   handleCancel = () => {
-    this.setState({...this.initialState});
+    this.setState({ ...this.initialState });
   };
 
   handelEditClick = e => {
@@ -70,8 +72,10 @@ class Notes extends Component {
           </div>
         ) : (
           <Fragment>
-            <div className="notes-content">{valueNotes}</div>
-            <div onClick={this.handelEditClick}>
+            <Tooltip placement="bottom" title={valueNotes}>
+              <div className="notes-content">{valueNotes}</div>
+            </Tooltip>
+            <div className="notes-icon" onClick={this.handelEditClick}>
               <EditIcon />
             </div>
           </Fragment>
