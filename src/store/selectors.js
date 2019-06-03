@@ -1,7 +1,6 @@
 // import { FILTERS } from "Utils/constants";
 import { createSelector } from "reselect";
-import isEmpty from 'lodash.isempty';
-
+import isEmpty from "lodash.isempty";
 
 export const getFilterType = state => state?.filters?.type,
   getFilterVariantClass = state => state?.filters?.variantClass,
@@ -38,31 +37,26 @@ export const getFilteredData = createSelector(
   getData,
   getAppliedFilters,
   (data, appliedFilters) => {
-
     console.log("--appliedFilters: ", appliedFilters);
 
-    if(isEmpty(appliedFilters)){
-      console.log('-No filters')
-      return data
+    if (isEmpty(appliedFilters)) {
+      console.log("-No filters");
+      return data;
     }
-
 
     const filteredData = data.filter(function(item) {
       for (let key in appliedFilters) {
-        if (item[key] === undefined || item[key] !== appliedFilters[key]){
-          console.log('here 1');
+        if (item[key] === undefined || item[key] !== appliedFilters[key]) {
+          console.log("here 1");
           return false;
         }
       }
-      console.log('here 2');
+      console.log("here 2");
       return true;
     });
-
-
 
     console.log("---filteredData: ", filteredData);
     // //
     return filteredData;
-
   }
 );
