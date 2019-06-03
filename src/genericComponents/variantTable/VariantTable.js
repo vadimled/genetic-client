@@ -26,7 +26,7 @@ const columns = [
     dataIndex: "transcript",
     key: "4"
   },
-  /* {
+  {
     title: "Exon",
     dataIndex: "exon",
     key: "5"
@@ -65,7 +65,7 @@ const columns = [
     title: "coverage",
     dataIndex: "coverage",
     key: "12"
-  },*/
+  },
   {
     title: "Notes",
     dataIndex: "notes",
@@ -91,8 +91,10 @@ const data = [
     zygosity: "Hom",
     variantClass: "",
     coverage: 300,
-    notes: <Notes /* valueNotes={"Test ID place Mutation data dropdown list"} */ />
-  },
+    notes: (
+      <Notes valueNotes={"Test ID place Mutation data dropdown list"} />
+    )
+  }
 ];
 
 class VariantTable extends Component {
