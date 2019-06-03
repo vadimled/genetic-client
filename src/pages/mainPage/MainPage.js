@@ -7,7 +7,8 @@ import SelectionGroup from "GenericComponents/selectionGroup";
 import { Collapse } from "antd";
 import filtersConfig from "./filtersConfig";
 import Toolbar from "./components/toolbar";
-import TableLayout from "./components/tableLayout";
+import TableData from './components/tableData';
+
 import {
   getFilterType,
   getFilterVariantClass,
@@ -25,8 +26,6 @@ import {
   setFilterGnomId
 } from "Actions/filtersActions";
 import { FILTERS } from "Utils/constants";
-import VariantTable from "GenericComponents/variantTable";
-
 
 // eslint-disable-next-line
 const Panel = Collapse.Panel;
@@ -123,9 +122,7 @@ class MainPage extends Component {
           ])}
         >
           <Toolbar sidebarToggle={sidebarToggle}/>
-          <TableLayout>
-            <VariantTable/>
-          </TableLayout>
+          <TableData />
 
         </div>
 
@@ -146,9 +143,6 @@ function mapStateToProps(state) {
     }
   };
 }
-
-
-
 
 function mapDispatchToProps(dispatch) {
   return {

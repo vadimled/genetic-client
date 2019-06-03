@@ -10,9 +10,12 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterSnp = state => state?.filters?.[FILTERS.snp],
   getFilterRoi = state => state?.filters?.[FILTERS.roi],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomId],
-  
-  getTotalEntriesAmount = state => state?.db?.length;
 
+  getTotalEntriesAmount = state => state?.db?.length,
+
+  getTableData = state => state?.table?.data,
+  getSelectedRowKeys = state => state?.table?.selectedRowKeys
+;
 
 export const getFilteredEntries = createSelector(
   getDb,
