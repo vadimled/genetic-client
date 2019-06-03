@@ -33,13 +33,13 @@ const changeValueAccordingOnMode = (stateValue, value, mode) => {
 const initialState = {
   [FILTERS.type]: 'somatic', // 'somatic' | 'germline'
   [FILTERS.variantClass]: [],
-  [FILTERS.somaticClass]: null,
-  [FILTERS.hotSpot]: null,
-  [FILTERS.snp]: null,
-  [FILTERS.roi]: null,
+  [FILTERS.somaticClass]: [],
+  [FILTERS.hotSpot]: [],
+  [FILTERS.snp]: [],
+  [FILTERS.roi]: [],
   [FILTERS.vaf]: [13, 50],
   [FILTERS.cancerDBs]: [],
-  [FILTERS.gnomId]: null
+  [FILTERS.gnomId]: []
 };
 
 const filtersReducer = createReducer(initialState, {

@@ -19,7 +19,7 @@ export default  {
 
   [FILTERS.somaticClass]: {
     type: ["somatic"],
-    mode: "single",
+    mode: "multiple",
     items: [
       { id: "unclassified", tagColor: TAG_COLORS.white, label: "Unclassified" },
       { id: "1", tagColor: TAG_COLORS.red, label: "Tier1" },
@@ -34,7 +34,7 @@ export default  {
     children: {
       [FILTERS.hotSpot]: {
         type: ["somatic"],
-        mode: "single",
+        mode: "multiple",
         items: [
           { id: true, label: "True", icon: <Icon type="check" /> },
           { id: false, label: "False", icon: <Icon type="close" /> }
@@ -43,7 +43,7 @@ export default  {
 
       [FILTERS.snp]: {
         type: ["somatic"],
-        mode: "single",
+        mode: "multiple",
         items: [
           { id: true, label: "True", icon: <Icon type="check" /> },
           { id: false, label: "False", icon: <Icon type="close" /> }
@@ -54,7 +54,7 @@ export default  {
 
   [FILTERS.roi]: {
     type: ["somatic", "germline"],
-    mode: "single",
+    mode: "multiple",
     items: [
       { id: true, label: "True", icon: <Icon type="check" /> },
       { id: false, label: "False", icon: <Icon type="close" /> }
@@ -78,7 +78,7 @@ export default  {
 
   [FILTERS.gnomId]: {
     type: ["somatic"],
-    mode: "single",
+    mode: "multiple",
     items: [
       { id: "na", value: "na", label: "NA" },
       { id: "veryRare", value: "veryRare", label: "very rare(0-1%)" },
