@@ -1,15 +1,8 @@
 import React, { Component } from "react";
-
-import { Table, Checkbox } from "antd";
+import PropTypes from "prop-types";
+import { Table } from "antd";
 
 const columns = [
-  {
-    title: "",
-    key: "1",
-    fixed: "left",
-    width: 50,
-    render: () => <Checkbox />
-  },
   {
     title: "Gene",
     dataIndex: "gene",
@@ -77,38 +70,42 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    gene: 'SDHA',
-    chrPosition: 'Chr5 : 236628',
-    transcript: 'NM_005591.3',
-    exon: 7,
-    alleleChange: 'C > T',
-    coding: 'gCc/gTc',
-    protein: 'A449V',
-    vaf: 33,
-    zygosity: "Hom",
-    variantClass: "",
-    coverage: 300,
-
-  }
-];
 
 class VariantTable extends Component {
   render() {
+    const { data, selectedRowKeys, onSelectRowKey } = this.props;
+
+    // rowSelection object indicates the need for row selection
+    const rowSelection = {
+      onChange: (selectedRowKeys) => {
+        onSelectRowKey(selectedRowKeys);
+      },
+      selectedRowKeys,
+      fixed: 'left'
+    };
 
     return (
       <Table
+        rowSelection={rowSelection}
         bordered
         pagination={false}
         columns={columns}
         dataSource={data}
-        className="flex"
+        scroll={{ x: '100%' }}
       />
     );
   }
 }
 
-Table.propTypes = {};
+VariantTable.propTypes = {
+  data: PropTypes.array,
+  selectedRowKeys: PropTypes.array,
+  onSelectRowKey: PropTypes.func.isRequired
+};
+
+VariantTable.defaultProps = {
+  data: [],
+  selectedRowKeys: []
+};
 
 export default VariantTable;
