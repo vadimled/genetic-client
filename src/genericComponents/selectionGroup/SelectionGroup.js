@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FilterCheckboxItem from "GenericComponents/filterCheckboxItem";
-import FilterRangeItem from "GenericComponents/filterRangeItem";
+import RangeSlider from "GenericComponents/rangeSlider";
 import style from "./SelectionGroup.module.scss";
 
 const SelectionGroup = ({ items, mode, onChange, values}) => {
@@ -18,9 +18,10 @@ const SelectionGroup = ({ items, mode, onChange, values}) => {
           }
         />
       ))}
-      {mode === 'range' && <FilterRangeItem
+      {mode === 'range' && <RangeSlider
         onChange={onChange}
-        values={values}
+        rangeValue={values}
+        className="filters-range-slider"
       />}
     </div>
   );

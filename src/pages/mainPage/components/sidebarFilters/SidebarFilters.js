@@ -26,6 +26,7 @@ import {
   setFilterGnomId
 } from "Actions/filtersActions";
 import { FILTERS } from "Utils/constants";
+import style from "./SidebarFilters.module.scss";
 
 // eslint-disable-next-line
 const Panel = Collapse.Panel;
@@ -71,64 +72,66 @@ class SidebarFilters extends Component {
     const { filters, type } = this.props;
 
     return (
-      <Collapse
-        defaultActiveKey={["1"]}
-        onChange={callback}
-        expandIcon={({ isActive }) => (
-          <Arrow dir={!isActive ? "right" : "down"} />
-        )}
-      >
-        {Object.keys(filtersConfig)
-          .filter(key => filtersConfig[key].type.includes(type))
-          .map((key, i) => {
-            let group = filtersConfig[key];
+      <div className={style["sidebar-filters"]}>
+        <Collapse
+          defaultActiveKey={["1"]}
+          onChange={callback}
+          expandIcon={({ isActive }) => (
+            <Arrow dir={!isActive ? "right" : "down"} />
+          )}
+        >
+          {Object.keys(filtersConfig)
+            .filter(key => filtersConfig[key].type.includes(type))
+            .map((key, i) => {
+              let group = filtersConfig[key];
 
-            return (
-              <Panel header={key} key={i + 1}>
+              return (
+                <Panel header={key} key={i + 1}>
 
-                {group.children &&
-                  <Collapse
-                    key={`collapse-${i}`}
-                    defaultActiveKey={["1"]}
-                    onChange={callback}
-                    expandIcon={({ isActive }) => (
-                      <Arrow dir={!isActive ? "right" : "down"} />
-                    )}
-                  >
-                    {Object.keys(group.children)
-                      .filter((key) => group.children[key].type.includes(type))
-                      .map((key, i) => {
-                        let childGroup = group.children[key];
+                  {group.children &&
+                    <Collapse
+                      key={`collapse-${i}`}
+                      defaultActiveKey={["1"]}
+                      onChange={callback}
+                      expandIcon={({ isActive }) => (
+                        <Arrow dir={!isActive ? "right" : "down"} />
+                      )}
+                    >
+                      {Object.keys(group.children)
+                        .filter((key) => group.children[key].type.includes(type))
+                        .map((key, i) => {
+                          let childGroup = group.children[key];
 
-                        return (
-                          <Panel header={key} key={i + 1 + 'inner'}>
-                            <SelectionGroup
-                              mode={childGroup.mode}
-                              items={childGroup.items}
-                              onChange={this.onChange.bind(this, key, childGroup.mode)}
-                              values={filters[key]}
-                            />
-                          </Panel>
-                        );
-                      })
-                    }
-                  </Collapse>
-                }
+                          return (
+                            <Panel header={key} key={i + 1 + 'inner'}>
+                              <SelectionGroup
+                                mode={childGroup.mode}
+                                items={childGroup.items}
+                                onChange={this.onChange.bind(this, key, childGroup.mode)}
+                                values={filters[key]}
+                              />
+                            </Panel>
+                          );
+                        })
+                      }
+                    </Collapse>
+                  }
 
-                {!group.children &&
-                  <SelectionGroup
-                    mode={group.mode}
-                    items={group.items}
-                    onChange={this.onChange.bind(this, key, group.mode)}
-                    values={filters[key]}
-                  />
-                }
+                  {!group.children &&
+                    <SelectionGroup
+                      mode={group.mode}
+                      items={group.items}
+                      onChange={this.onChange.bind(this, key, group.mode)}
+                      values={filters[key]}
+                    />
+                  }
 
-              </Panel>
-            );
-          })
-        }
-      </Collapse>
+                </Panel>
+              );
+            })
+          }
+        </Collapse>
+      </div>
     );
   }
 }
