@@ -1,6 +1,6 @@
 import createReducer from './createReducer';
 import actionsTypes from '../actionsTypes';
-import { FILTERS } from "Utils/constants";
+// import { FILTERS } from "Utils/constants";
 
 const initialState = {
   // [FILTERS.type]: null,
@@ -16,25 +16,9 @@ const initialState = {
   snp: null,
   roi: null,
   gnomId: null,
-
-  data: [
+  data: Array.from(new Array(15000), (x, i)=> (
     {
-      gene: "SDHA",
-      chrPosition: "Chr5 : 236628",
-      transcript: "NM_005591.3",
-      exon: 7,
-      alleleChange: "C > T",
-      coding: "gCc/gTc",
-      protein: "A449V",
-      vaf: 33,
-      zygosity: "Hom",
-      variantClass: "",
-      coverage: 300,
-      hotSpot: true,
-      roi: false
-    },
-    {
-      gene: "PDG",
+      gene: "PDG" + i,
       chrPosition: "Chr5 : 236628",
       transcript: "NM_005591.3",
       exon: 1,
@@ -48,8 +32,43 @@ const initialState = {
       hotSpot: false,
       roi: true
     }
-  ]
+  ))
+
+  // data: [
+  //   {
+  //     gene: "SDHA",
+  //     chrPosition: "Chr5 : 236628",
+  //     transcript: "NM_005591.3",
+  //     exon: 7,
+  //     alleleChange: "C > T",
+  //     coding: "gCc/gTc",
+  //     protein: "A449V",
+  //     vaf: 33,
+  //     zygosity: "Hom",
+  //     variantClass: "",
+  //     coverage: 300,
+  //     hotSpot: true,
+  //     roi: false
+  //   },
+  //   {
+  //     gene: "PDG",
+  //     chrPosition: "Chr5 : 236628",
+  //     transcript: "NM_005591.3",
+  //     exon: 1,
+  //     alleleChange: "C > T",
+  //     coding: "gCc/gTc",
+  //     protein: "A449V",
+  //     vaf: 1,
+  //     zygosity: "Hetro",
+  //     variantClass: "",
+  //     coverage: 20,
+  //     hotSpot: false,
+  //     roi: true
+  //   }
+  // ]
 };
+
+
 
 const filtersReducer = createReducer(initialState, {
   [actionsTypes.SET_FILTER_TYPE]: (state, {payload}) => {
@@ -62,7 +81,7 @@ const filtersReducer = createReducer(initialState, {
 
   [actionsTypes.SET_FILTER_VARIANT_CLASS]: (state, {payload}) => {
     const { value } = payload;
-    let classes = state[FILTERS.variantClass].slice();
+    let classes = state.variantClass.slice();
 
     // push or remove value from variantClass
     const index = classes.indexOf(value);

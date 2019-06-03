@@ -10,16 +10,45 @@ export const getFilterType = state => state?.filters?.type,
 
 const getData = state => state?.filters.data;
 
-export const getFilteredData = createSelector(
-  getData,
+const getAppliedFilters = createSelector(
   getFilterType,
   getFilterVariantClass,
   getFilterHotSpot,
   getFilterSnp,
   getFilterRoi,
   getFilterGnomId,
-  (data, type, variantClass, hotSpot, snp, roi, gnom) => {
-    console.log("-data: ", data);
+  (type, variantClass, hotSpot, snp, roi, gnom) => {
+
+    console.log('++type: ', type)
+    console.log('++variantClass: ', variantClass)
+    console.log('++hotSpot: ', hotSpot)
+    console.log('++snp: ', snp)
+    console.log('++roi: ', roi)
+    console.log('++gnom: ', gnom)
+
+    const filters = {
+      ...(type !== null && {type}),
+      ...(variantClass.length && {variantClass}),
+      ...(hotSpot !== null && {hotSpot}),
+      ...(snp !== null && {snp}),
+      ...(roi !== null && {roi}),
+      ...(gnom !== null && {gnom}),
+    };
+
+
+    console.log('++filters: ', filters)
+
+
+
+
+  }
+);
+
+export const getFilteredData = createSelector(
+  getData,
+  getAppliedFilters,
+  (data, appliedFilters) => {
+    // console.log("-data: ", data);
     // console.log('-type: ', type)
     // console.log('-variantClass: ', variantClass)
     // console.log('-hotSpot: ', hotSpot)
@@ -27,40 +56,14 @@ export const getFilteredData = createSelector(
     // console.log('-roi: ', roi)
     // console.log('-gnom: ', gnom)
 
-    const filter = {
-      type,
-      variantClass,
-      hotSpot,
-      snp,
-      roi,
-      gnom
-    };
 
-    console.log("--filter: ", filter);
+    console.log("--appliedFilters: ", appliedFilters);
 
-    // const filteredData = data.map(item => {
-    //   for (let key in filter){
-    //     console.log(item[key])
-    //     if(item[key] && (item[key] === filter[key])){
-    //       return item
-    //     }
-    //   }
-    // })
+    const filteredData = data;
 
-    data = data.filter(function(item) {
-      for (let key in filter) {
-        if (item[key] && (item[key] === undefined || item[key] !== filter[key])){
-          console.log('here 1');
-          return data;
-        }
-      }
-      console.log('here 2');
-      return true;
-    });
-
-    console.log("---data: ", data);
-    //
-    return data;
+    // console.log("---filteredData: ", filteredData);
+    // //
+    return filteredData;
 
     // data.map(item => {
     //   // console.log(item)

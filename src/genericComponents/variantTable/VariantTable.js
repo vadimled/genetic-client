@@ -87,7 +87,7 @@ class VariantTable extends Component {
       <Table
         rowKey="gene"
         bordered
-        pagination={false}
+        // pagination={false}
         columns={columns}
         dataSource={this.props.data}
         className="flex"

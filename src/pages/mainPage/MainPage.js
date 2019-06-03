@@ -92,8 +92,8 @@ class MainPage extends Component {
   };
 
   onChange = (filterSection, filterItemId) => {
-    console.log('filterSection: ', filterSection);
-    console.log('filterItemId: ', filterItemId);
+    // console.log('filterSection: ', filterSection);
+    // console.log('filterItemId: ', filterItemId);
 
     const {
       setFilterType,
@@ -130,7 +130,8 @@ class MainPage extends Component {
     const { sidebarToggle } = this.state;
     const { filters, data } = this.props;
 
-    console.log(this.props.filters);
+    // console.log(this.props.filters);
+    // console.log('-data from store: ', data);
 
     return (
       <div className={style["main-page"]}>
@@ -150,7 +151,6 @@ class MainPage extends Component {
               )}
             >
               {filtersConfig.map((key, i) => {
-                console.log('666key id: ', filters[key.id]);
                 return (
                   <Panel header={key.name} key={i + 1}>
                     <SelectionGroup
