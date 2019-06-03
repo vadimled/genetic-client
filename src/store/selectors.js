@@ -1,5 +1,7 @@
 // import { FILTERS } from "Utils/constants";
 import { createSelector } from "reselect";
+import isEmpty from 'lodash.isempty';
+
 
 export const getFilterType = state => state?.filters?.type,
   getFilterVariantClass = state => state?.filters?.variantClass,
@@ -27,7 +29,8 @@ const getAppliedFilters = createSelector(
       ...(gnom !== null && { gnom })
     };
 
-    console.log("++filters: ", filters);
+    // console.log("++filters: ", filters);
+    return filters;
   }
 );
 
@@ -35,29 +38,31 @@ export const getFilteredData = createSelector(
   getData,
   getAppliedFilters,
   (data, appliedFilters) => {
-    // console.log("-data: ", data);
-    // console.log('-type: ', type)
-    // console.log('-variantClass: ', variantClass)
-    // console.log('-hotSpot: ', hotSpot)
-    // console.log('-snp: ', snp)
-    // console.log('-roi: ', roi)
-    // console.log('-gnom: ', gnom)
 
     console.log("--appliedFilters: ", appliedFilters);
 
-    const filteredData = data;
+    if(isEmpty(appliedFilters)){
+      console.log('-No filters')
+      return data
+    }
 
-    // console.log("---filteredData: ", filteredData);
+
+    const filteredData = data.filter(function(item) {
+      for (let key in appliedFilters) {
+        if (item[key] === undefined || item[key] !== appliedFilters[key]){
+          console.log('here 1');
+          return false;
+        }
+      }
+      console.log('here 2');
+      return true;
+    });
+
+
+
+    console.log("---filteredData: ", filteredData);
     // //
     return filteredData;
 
-    // data.map(item => {
-    //   // console.log(item)
-    //   for (let key in filter) {
-    //     if(item[key] === filter[key]){
-    //       console.log('-1--: ', item)
-    //     }
-    //   }
-    // })
   }
 );
