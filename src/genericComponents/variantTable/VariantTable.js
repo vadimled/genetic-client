@@ -80,7 +80,8 @@ class VariantTable extends Component {
       onChange: (selectedRowKeys) => {
         onSelectRowKey(selectedRowKeys);
       },
-      selectedRowKeys
+      selectedRowKeys,
+      fixed: 'left'
     };
 
     return (
@@ -90,7 +91,7 @@ class VariantTable extends Component {
         pagination={false}
         columns={columns}
         dataSource={data}
-        className="flex"
+        scroll={{ x: '100%' }}
       />
     );
   }

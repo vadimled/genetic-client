@@ -314,3 +314,34 @@
     color: $error-message;
   }
 }
+
+// table
+.ant-table {
+  .ant-table-thead {
+    tr {
+      background-color: $table-header-bg;
+    }
+
+    .ant-table-selection-column {
+      position: relative;
+
+      .ant-table-header-column {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+  .ant-table-tbody {
+    background-color: $table-body-bg;
+
+    .ant-table-row {
+      &-selected {
+        td {
+          background-color: $table-selected-row;
+        }
+      }
+    }
+  }
+}
