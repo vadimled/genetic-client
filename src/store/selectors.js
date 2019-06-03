@@ -1,8 +1,8 @@
 import { FILTERS } from "Utils/constants";
-import {createSelector} from 'reselect';
+import { createSelector } from "reselect";
 
-const getDb =  state => state?.db;
-const getFilters =  state => state?.filters;
+const getDb = state => state?.db;
+const getFilters = state => state?.filters;
 
 export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVariantClass = state => state?.filters?.[FILTERS.variantClass],
@@ -11,11 +11,11 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterRoi = state => state?.filters?.[FILTERS.roi],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomId],
 
-  getTotalEntriesAmount = state => state?.db?.length,
-
   getTableData = state => state?.table?.data,
-  getSelectedRowKeys = state => state?.table?.selectedRowKeys
-;
+  getSelectedRowKeys = state => state?.table?.selectedRowKeys,
+
+  getMutationType = state => state.variants.mutations,
+  getTotalEntriesAmount = state => state?.db?.length;
 
 export const getFilteredEntries = createSelector(
   getDb,
@@ -25,5 +25,5 @@ export const getFilteredEntries = createSelector(
 
 export const getFilteredEntriesAmount = createSelector(
   getFilteredEntries,
-  (filters) => filters?.length
+  filters => filters?.length
 );

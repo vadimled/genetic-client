@@ -5,13 +5,22 @@ import PropTypes from "prop-types";
 // eslint-disable-next-line
 const Option = Select.Option;
 
-const SimpleSelect = ({ label, subLabel, onChange, options, value, name }) => {
+const SimpleSelect = ({
+  label,
+  subLabel,
+  onChange,
+  options,
+  value,
+  name,
+  disabled
+}) => {
   return (
     <Fragment>
       <label>{label}</label>
       {subLabel && <span className="sub-label">{subLabel}</span>}
 
       <Select
+        disabled={disabled}
         onChange={val =>
           onChange({
             target: {
@@ -23,7 +32,7 @@ const SimpleSelect = ({ label, subLabel, onChange, options, value, name }) => {
         value={value}
         name={name}
       >
-        {options.map(option => (
+        {options?.map(option => (
           <Option key={option.value} value={option.value}>
             {option.label}
           </Option>

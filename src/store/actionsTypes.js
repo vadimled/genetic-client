@@ -9,6 +9,9 @@ const SET_FILTER_GNOM_ID = "SET_FILTER_GNOM_ID";
 // table
 const SELECT_ROW_KEY = "SELECT_ROW_KEY";
 
+// variants
+const SET_MUTATION_TYPE = "SET_MUTATION_TYPE";
+
 export default {
   // filters
   SET_FILTER_TYPE,
@@ -20,4 +23,7 @@ export default {
 
   // table
   SELECT_ROW_KEY,
+
+  // variants
+  SET_MUTATION_TYPE,
 };

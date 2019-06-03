@@ -15,3 +15,9 @@ export const FILTERS = {
   roi: "ROI",
   gnomId: "Gnom ID"
 };
+
+export const MUTATION = [
+  { value: "dna", label: "DNA" },
+  { value: "rna", label: "RNA" },
+  { value: "agena", label: "Agena" }
+];
