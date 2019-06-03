@@ -1,52 +1,53 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Table } from "antd";
+import Notes from "Pages/mainPage/components/notes";
 
 const columns = [
   {
     title: "Gene",
     dataIndex: "gene",
-    key: "2",
+    key: "2"
   },
   {
     title: "Chr: position",
     dataIndex: "chrPosition",
-    key: "3",
+    key: "3"
   },
   {
     title: "Transcript",
     dataIndex: "transcript",
-    key: "4",
+    key: "4"
   },
   {
     title: "Exon",
     dataIndex: "exon",
-    key: "5",
+    key: "5"
   },
   {
     title: "Allele change",
     dataIndex: "alleleChange",
-    key: "6",
+    key: "6"
   },
   {
     title: "coding",
     dataIndex: "coding",
-    key: "7",
+    key: "7"
   },
   {
     title: "Protein",
     dataIndex: "protein",
-    key: "8",
+    key: "8"
   },
   {
     title: "VAF",
     dataIndex: "vaf",
-    key: "9",
+    key: "9"
   },
   {
     title: "Zygosity",
     dataIndex: "zygosity",
-    key: "10",
+    key: "10"
   },
   {
     title: "Variant Class",
@@ -67,21 +68,32 @@ const columns = [
     title: "Activity log",
     dataIndex: "activityLog",
     key: "14"
-  },
+  }
 ];
 
-
 class VariantTable extends Component {
-  render() {
-    const { data, selectedRowKeys, onSelectRowKey } = this.props;
+  addNodes = () => {
+    const { data } = this.props;
 
+    return data.map((row, index) => {
+      return {
+        ...row,
+        notes: <Notes key={index} id={index} valueNotes={row?.notes} />
+      };
+    });
+  };
+
+  render() {
+    const { selectedRowKeys, onSelectRowKey } = this.props;
+    const dataWithNotes = this.addNodes();
+    // console.log(dataWithNotes);
     // rowSelection object indicates the need for row selection
     const rowSelection = {
-      onChange: (selectedRowKeys) => {
+      onChange: selectedRowKeys => {
         onSelectRowKey(selectedRowKeys);
       },
       selectedRowKeys,
-      fixed: 'left'
+      fixed: "left"
     };
 
     return (
@@ -90,8 +102,8 @@ class VariantTable extends Component {
         bordered
         pagination={false}
         columns={columns}
-        dataSource={data}
-        scroll={{ x: '100%' }}
+        dataSource={dataWithNotes}
+        scroll={{ x: "100%" }}
       />
     );
   }

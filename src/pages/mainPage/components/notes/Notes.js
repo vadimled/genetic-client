@@ -1,20 +1,21 @@
 import React, { Component, Fragment } from "react";
-import {connect} from "react-redux";
-import { Tooltip } from "antd";
+import { connect } from "react-redux";
+import { Popover, Tooltip } from "antd";
 import style from "./Notes.module.scss";
 import { LIMITS, TEXTS } from "Utils/constants";
 import { ReactComponent as EditIcon } from "Assets/edit.svg";
 import PropTypes from "prop-types";
 import EditNotes from "Pages/mainPage/components/notes/components/editNotes";
 import { setNotes } from "Store/actions/tableActions";
+import { getNotes } from "Store/selectors";
 
 class Notes extends Component {
   constructor(props) {
     super(props);
 
     this.initialState = {
-      isEdit: false,
-      editNotes: "",
+      visible: false,
+      editNotes: props.valueNotes,
       limit: {
         value: 0
       }
@@ -39,7 +40,11 @@ class Notes extends Component {
   };
 
   handleDone = () => {
-    this.props.setNotes(this.state.editNotes);
+    const { id, setNotes } = this.props;
+    setNotes({
+      id,
+      notes: this.state.editNotes
+    });
     this.setState({ ...this.initialState });
   };
 
@@ -47,9 +52,8 @@ class Notes extends Component {
     this.setState({ ...this.initialState });
   };
 
-  handelEditClick = e => {
-    e.stopPropagation();
-    this.setState({ isEdit: true });
+  handelEditClick = () => {
+    this.setState({ visible: true });
   };
 
   handleEditNotesOnChange = e => {
@@ -64,34 +68,52 @@ class Notes extends Component {
     });
   };
 
+  setPopup = () => {
+    // const { valueNotes } = this.props;
+    return (
+      <div className="edit-text-box">
+        <EditNotes
+          doneHandler={this.handleDone}
+          cancelHandler={this.handleCancel}
+          handleOnChange={this.handleEditNotesOnChange}
+          notesValue={this.state.editNotes}
+          validateStatus={this.state.limit}
+        />
+      </div>
+    );
+  };
+
   render() {
     const { valueNotes } = this.props;
     return (
       <div className={style["notes-wrapper"]}>
         {!valueNotes ? (
-          <div className="notes-content-empty" onClick={this.handelEditClick}>
-            {TEXTS.addNote}
-          </div>
+          <Popover
+            placement="bottom"
+            content={this.setPopup()}
+            trigger="click"
+            visible={this.state.visible}
+          >
+            <div className="notes-content-empty" onClick={this.handelEditClick}>
+              {TEXTS.addNote}
+            </div>
+          </Popover>
         ) : (
           <Fragment>
             <Tooltip placement="bottom" title={valueNotes}>
               <div className="notes-content">{valueNotes}</div>
             </Tooltip>
-            <div className="notes-icon" onClick={this.handelEditClick}>
-              <EditIcon />
-            </div>
+            <Popover
+              placement="bottom"
+              content={this.setPopup()}
+              trigger="click"
+              visible={this.state.visible}
+            >
+              <div className="notes-icon" onClick={this.handelEditClick}>
+                <EditIcon />
+              </div>
+            </Popover>
           </Fragment>
-        )}
-        {this.state.isEdit && (
-          <div className="edit-text-box">
-            <EditNotes
-              doneHandler={this.handleDone}
-              cancelHandler={this.handleCancel}
-              handleOnChange={this.handleEditNotesOnChange}
-              notesValue={this.state.editNotes}
-              validateStatus={this.state.limit}
-            />
-          </div>
         )}
       </div>
     );
@@ -99,13 +121,23 @@ class Notes extends Component {
 }
 
 Notes.propTypes = {
+  id: PropTypes.number.isRequired,
   valueNotes: PropTypes.string
 };
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
   return {
-    setNotes: (data) => dispatch(setNotes(data)),
+    setNotes: data => dispatch(setNotes(data))
   };
-}
+};
 
-export default connect(null, mapDispatchToProps)(Notes);
+const mapStateToProps = (state, owenProps) => {
+  return {
+    getValue: getNotes(state, owenProps?.id)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Notes);

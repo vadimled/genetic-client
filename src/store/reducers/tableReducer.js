@@ -15,6 +15,7 @@ const initialState = {
       zygosity: "Hom",
       variantClass: "",
       coverage: 300,
+      notes: "Test ID place Mutation data dropdown list"
     },
     {
       key: "2",
@@ -55,6 +56,20 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       selectedRowKeys
+    };
+  },
+  
+  [actionsTypes.SET_NOTES]: (state, {payload}) => {
+    const {id, notes} = payload;
+
+    const newObj = state.table?.data[id];
+  
+    if(newObj)  newObj.notes = notes;
+  
+    console.log(newObj);
+    return {
+      ...state,
+  
     };
   },
 });
