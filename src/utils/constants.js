@@ -8,13 +8,13 @@ export const TAG_COLORS = {
 };
 
 export const FILTERS = {
-  type: "Type",
-  variantClass: "Variant Class",
-  somaticClass: "Somatic Class",
-  hotSpot: "Hot Spot",
-  snp: "SNP",
-  roi: "ROI",
-  vaf: "VAF",
-  gnomId: "GnomAD",
-  cancerDBs: "Cancer DBs",
+  type: "type",
+  variantClass: "variantClass",
+  somaticClass: "somaticClass",
+  hotSpot: "hotSpot",
+  snp: "snp",
+  roi: "roi",
+  vaf: "vaf",
+  gnomId: "gnomId",
+  cancerDBs: "canserBDs",
 };

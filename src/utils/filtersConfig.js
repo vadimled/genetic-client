@@ -5,6 +5,7 @@ import { FILTERS } from "Utils/constants";
 
 export default  {
   [FILTERS.variantClass]: {
+    title: "Type",
     type: ["somatic", "germline"],
     mode: "multiple",
     items: [
@@ -18,6 +19,7 @@ export default  {
   },
 
   [FILTERS.somaticClass]: {
+    title: "Somatic Class",
     type: ["somatic"],
     mode: "multiple",
     items: [
@@ -29,10 +31,12 @@ export default  {
     ]
   },
 
-  ['Variant panels']: {
+  ['variantPanels']: {
+    title: "Variant panels",
     type: ["somatic"],
     children: {
       [FILTERS.hotSpot]: {
+        title: "Hot Spot",
         type: ["somatic"],
         mode: "multiple",
         items: [
@@ -42,6 +46,7 @@ export default  {
       },
 
       [FILTERS.snp]: {
+        title: "SNP",
         type: ["somatic"],
         mode: "multiple",
         items: [
@@ -53,6 +58,7 @@ export default  {
   },
 
   [FILTERS.roi]: {
+    title: "ROI",
     type: ["somatic", "germline"],
     mode: "multiple",
     items: [
@@ -62,11 +68,13 @@ export default  {
   },
 
   [FILTERS.vaf]: {
+    title: "VAF",
     type: ["somatic"],
     mode: "range"
   },
 
   [FILTERS.cancerDBs]: {
+    title: "Cancer DBs",
     type: ["somatic", "germline"],
     mode: "multiple",
     items: [
@@ -77,6 +85,7 @@ export default  {
   },
 
   [FILTERS.gnomId]: {
+    title: "Gnom Id",
     type: ["somatic"],
     mode: "multiple",
     items: [
