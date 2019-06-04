@@ -9,7 +9,13 @@ const SideBarLayout = props => {
   const { title, subtitle, children, handleClick, mode } = props;
   console.log(mode);
   return (
-    <div className={cn([style["sidebar-layout"], "scrollbar"])}>
+    <div
+      className={cn([
+        style["sidebar-layout"],
+        "scrollbar",
+        { "sidebar-closed": !mode }
+      ])}
+    >
       <div
         className={cn(["icon-mode", { "sidebar-closed": !mode }])}
         onClick={handleClick}

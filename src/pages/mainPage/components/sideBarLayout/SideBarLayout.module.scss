@@ -11,9 +11,10 @@
     //  width: 100%;
     //  padding: 0 36px;
     //}
-
+    opacity: 1;
+    transition: 0.4s ease;
     &.sidebar-closed {
-      visibility: hidden;
+      opacity: 0;
     }
 
     .title {
@@ -48,12 +49,11 @@
     height: 52px;
     left: 171px;
     cursor: pointer;
-    transition: 0.4s ease;
     transform: translate(0px, 0px);
     z-index: 999;
 
     &.sidebar-closed {
-      transition: 0.4s ease;
+      left: 155px;
       transform: translate(0px, 0px);
     }
   }
