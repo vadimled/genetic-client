@@ -21,61 +21,62 @@ class VarianrTable2 extends React.Component {
   state = {
     columns: [
       {
-        title: 'Date',
-        dataIndex: 'date',
-        width: 100,
+        title: "Date",
+        dataIndex: "date",
+        width: 100
       },
       {
-        title: 'Amount',
-        dataIndex: 'amount',
-        width: 100,
+        title: "Amount",
+        dataIndex: "amount",
+        width: 100
       },
       {
-        title: 'Type',
-        dataIndex: 'type',
-        width: 700,
+        title: "Type",
+        dataIndex: "type",
+        width: 700
       },
       {
-        title: 'Note',
-        dataIndex: 'note',
-        width: 100,
+        title: "Note",
+        dataIndex: "note",
+        width: 100
       },
       {
-        title: 'Action',
-        key: 'action',
-        render: () => <a href="javascript:;">Delete</a>,
-      },
-    ],
+        title: "Action",
+        key: "action",
+        render: () => <a href="javascript:;">Delete</a>
+      }
+    ]
   };
 
   components = {
     header: {
-      cell: ResizeableTitle,
-    },
+      cell: ResizeableTitle
+    }
   };
 
   data = [
     {
       key: 0,
-      date: '2018-02-11',
+      date: "2018-02-11",
       amount: 120,
-      type: 'incomeincomeincomeiomeincomeincomeincomeincomeincomeincomeincomeincomeincomeincome',
-      note: 'transfer',
+      type:
+        "incomeincomeincomeiomeincomeincomeincomeincomeincomeincomeincomeincomeincomeincome",
+      note: "transfer"
     },
     {
       key: 1,
-      date: '2018-03-11',
+      date: "2018-03-11",
       amount: 243,
-      type: 'income',
-      note: 'transfer',
+      type: "income",
+      note: "transfer"
     },
     {
       key: 2,
-      date: '2018-04-11',
+      date: "2018-04-11",
       amount: 98,
-      type: 'income',
-      note: 'transfer',
-    },
+      type: "income",
+      note: "transfer"
+    }
   ];
 
   handleResize = index => (e, { size }) => {
@@ -83,7 +84,7 @@ class VarianrTable2 extends React.Component {
       const nextColumns = [...columns];
       nextColumns[index] = {
         ...nextColumns[index],
-        width: size.width,
+        width: size.width
       };
       return { columns: nextColumns };
     });
@@ -94,11 +95,18 @@ class VarianrTable2 extends React.Component {
       ...col,
       onHeaderCell: column => ({
         width: column.width,
-        onResize: this.handleResize(index),
-      }),
+        onResize: this.handleResize(index)
+      })
     }));
 
-    return <Table bordered components={this.components} columns={columns} dataSource={this.data} />;
+    return (
+      <Table
+        bordered
+        components={this.components}
+        columns={columns}
+        dataSource={this.data}
+      />
+    );
   }
 }
 
