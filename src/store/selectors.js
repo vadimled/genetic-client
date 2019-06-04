@@ -46,14 +46,16 @@ const getAppliedFilters = createSelector(
   getFilterVaf,
   getFilterCancerDBs,
   getFilterGnomId,
-  (type, variantClass, somaticClass, hotSpot, snp, roi, filterVaf, filterCancerDBs, gnom) => {
+  (type, variantClass, somaticClass, hotSpot, snp, roi, vaf, cancerDBs, gnom) => {
     const filters = {
       // ...(type !== null && { type }),
       ...(variantClass.length && { variantClass }),
-      ...(variantClass.length && { variantClass }),
+      ...(somaticClass.length && { somaticClass }),
       ...(hotSpot.length && { hotSpot }),
       ...(snp.length && { snp }),
       ...(roi.length && { roi }),
+      ...(vaf.length && { vaf }),
+      ...(cancerDBs.length && { cancerDBs }),
       ...(gnom.length && { gnom })
     };
 
@@ -61,15 +63,36 @@ const getAppliedFilters = createSelector(
   }
 );
 
+const filterByVaf = createSelector(
+  getTableData,
+  getAppliedFilters,
+  (data, filters)=>{
+    if(filters.vaf && filters.vaf.length){
+      return filters.vaf
+    }
+  }
+)
 
 export const getFilteredData = createSelector(
   getTableData,
   getAppliedFilters,
-  (data, appliedFilters) => {
+  filterByVaf,
+  (data, appliedFilters, filterByVaf) => {
+
+    console.log(filterByVaf)
+
 
     if (isEmpty(appliedFilters)) {
       console.log("-No filters");
       return data;
+    }
+
+    if(filterByVaf.length){
+      const filteredByVaf = data.filter(item => {
+        return (item.vaf > filterByVaf[0]) && (item.vaf < filterByVaf[1])
+      })
+
+      return filteredByVaf
     }
 
     const filteredData = data.filter(item => {
