@@ -103,13 +103,13 @@ class VariantTable extends Component {
         title: "Gene",
         dataIndex: "gene",
         key: "2",
-        width: 500
+        width: 100
       },
       {
         title: "Chr: position",
         dataIndex: "chrPosition",
         key: "3",
-        width: 500
+        width: 200
       },
       {
         title: "Transcript",
