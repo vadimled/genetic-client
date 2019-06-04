@@ -45,15 +45,15 @@ class Toolbar extends Component {
 }
 
 Toolbar.propTypes = {
-  filtered: PropTypes.string,
-  total: PropTypes.string,
+  filtered: PropTypes.number,
+  total: PropTypes.number,
   mutations: PropTypes.string
 };
 
 const mapStateToProps = state => {
   return {
-    filtered: getFilteredEntriesAmount(state) || undefined,
-    total: getTotalEntriesAmount(state) || undefined,
+    filtered: getFilteredEntriesAmount(state),
+    total: getTotalEntriesAmount(state),
     mutations: getMutationType(state)
   };
 };

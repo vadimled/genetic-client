@@ -1,8 +1,8 @@
 import { FILTERS } from "Utils/constants";
 import { createSelector } from "reselect";
 
-const getDb = state => state?.db;
-const getFilters = state => state?.filters;
+const getData = state => state?.table?.data;
+// const getFilters = state => state?.filters;
 
 export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVariantClass = state => state?.filters?.[FILTERS.variantClass],
@@ -15,15 +15,15 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getSelectedRowKeys = state => state?.table?.selectedRowKeys,
 
   getMutationType = state => state.variants.mutations,
-  getTotalEntriesAmount = state => state?.db?.length;
-
-export const getFilteredEntries = createSelector(
-  getDb,
-  getFilters,
-  (db, filters) => console.log(db, filters) // TODO: when real data structure will be created
-);
+  
+  getFilteredEntries = state => state?.table?.data; // selector that will give us filtered entries
 
 export const getFilteredEntriesAmount = createSelector(
   getFilteredEntries,
   filters => filters?.length
+);
+
+export const getTotalEntriesAmount = createSelector(
+  getData,
+  data => data?.length
 );
