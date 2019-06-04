@@ -16,8 +16,8 @@ const SimpleSelect = ({
 }) => {
   return (
     <Fragment>
-      <label>{label}</label>
-      {subLabel && <span className="sub-label">{subLabel}</span>}
+      {!!label && <label>{label}</label>}
+      {!!subLabel && <span className="sub-label">{subLabel}</span>}
 
       <Select
         disabled={disabled}
@@ -43,12 +43,16 @@ const SimpleSelect = ({
 };
 
 SimpleSelect.propTypes = {
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   options: PropTypes.array,
   label: PropTypes.string,
   subLabel: PropTypes.string,
   value: PropTypes.string,
   name: PropTypes.string
+};
+
+SimpleSelect.defaultProps = {
+  options: []
 };
 
 export default memo(SimpleSelect);

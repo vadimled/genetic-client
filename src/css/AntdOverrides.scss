@@ -346,6 +346,25 @@
   .ant-table-tbody {
     background-color: $table-body-bg;
 
+    tr {
+      td {
+        padding: 0;
+        height: 40px;
+        padding: 0 15px;
+
+        &.ant-table-selection-column {
+          position: relative;
+
+          & > span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+    }
+
     .ant-table-row {
       &-selected {
         td {
