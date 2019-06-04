@@ -115,17 +115,19 @@ class VariantTable extends Component {
         title: "Transcript",
         dataIndex: "transcript",
         key: "4",
-        width: 500
+        width: 150
       },
       {
         title: "Exon",
         dataIndex: "exon",
-        key: "5"
+        key: "5",
+        width: 40
       },
       {
         title: "Allele change",
         dataIndex: "alleleChange",
-        key: "6"
+        key: "6",
+        width: 80
       },
       {
         title: "coding",
@@ -135,37 +137,43 @@ class VariantTable extends Component {
       {
         title: "Protein",
         dataIndex: "protein",
-        key: "8"
+        key: "8",
+        width: 100
       },
       {
         title: "VAF",
         dataIndex: "vaf",
-        key: "9"
+        key: "9",
+        width: 50
       },
       {
         title: "Zygosity",
         dataIndex: "zygosity",
-        key: "10"
+        key: "10",
+        width: 100
       },
       {
         title: "Variant Class",
         dataIndex: "variantClass",
-        key: "11"
+        key: "11",
+        width: 100
       },
       {
         title: "coverage",
         dataIndex: "coverage",
-        key: "12"
+        key: "12",
+        width: 50
       },
       {
         title: "Notes",
         dataIndex: "notes",
-        key: "13"
+        key: "13",
+        width: 200
       },
       {
         title: "Activity log",
         dataIndex: "activityLog",
-        key: "14"
+        key: "14",
       }
     ]
   }

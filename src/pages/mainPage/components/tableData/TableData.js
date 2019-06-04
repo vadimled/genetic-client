@@ -10,7 +10,6 @@ import {
 import {
   onSelectRowKey
 } from "Actions/tableActions";
-import VarianrTable2 from "../../../../genericComponents/variantTable/VarianrTable2";
 
 class TableData extends Component {
   render() {
@@ -22,7 +21,6 @@ class TableData extends Component {
           onSelectRowKey={onSelectRowKey}
           selectedRowKeys={selectedRowKeys}
         />
-        <VarianrTable2 />
       </TableLayout>
     );
   }
