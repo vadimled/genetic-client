@@ -8,6 +8,7 @@ const SET_FILTER_GNOM_ID = "SET_FILTER_GNOM_ID";
 
 // table
 const SELECT_ROW_KEY = "SELECT_ROW_KEY";
+const HANDLE_ZYGOSITY = "HANDLE_ZYGOSITY";
 
 // variants
 const SET_MUTATION_TYPE = "SET_MUTATION_TYPE";
@@ -23,6 +24,7 @@ export default {
 
   // table
   SELECT_ROW_KEY,
+  HANDLE_ZYGOSITY,
 
   // variants
   SET_MUTATION_TYPE,

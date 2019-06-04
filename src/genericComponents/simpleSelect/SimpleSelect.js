@@ -20,7 +20,6 @@ const SimpleSelect = ({
       {!!subLabel && <span className="sub-label">{subLabel}</span>}
 
       <Select
-        // style={{ width: '100%' }}
         disabled={disabled}
         onChange={val =>
           onChange({

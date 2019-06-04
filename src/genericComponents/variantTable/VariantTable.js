@@ -5,93 +5,93 @@ import SimpleSelect from 'GenericComponents/simpleSelect';
 // import TableSelect from 'GenericComponents/tableSelect';
 
 
-const columns = [
-  {
-    title: "Gene",
-    dataIndex: "gene",
-    key: "2",
-  },
-  {
-    title: "Chr: position",
-    dataIndex: "chrPosition",
-    key: "3",
-  },
-  {
-    title: "Transcript",
-    dataIndex: "transcript",
-    key: "4",
-  },
-  {
-    title: "Exon",
-    dataIndex: "exon",
-    key: "5",
-  },
-  {
-    title: "Allele change",
-    dataIndex: "alleleChange",
-    key: "6",
-  },
-  {
-    title: "coding",
-    dataIndex: "coding",
-    key: "7",
-  },
-  {
-    title: "Protein",
-    dataIndex: "protein",
-    key: "8",
-  },
-  {
-    title: "VAF",
-    dataIndex: "vaf",
-    key: "9",
-  },
-  {
-    title: "Zygosity",
-    dataIndex: "zygosity",
-    key: "10",
-    render: (...data) => (
-      <div className="table-select-wrapper">
-        <SimpleSelect
-          options={[
-            {value: 'homo', label: 'Homo'},
-            {value: 'hetro', label: 'Hetro'},
-            {value: 'hemi', label: 'Hemi'},
-            {value: 'insignificant', label: 'Insignificant'},
-            {value: 'somatic', label: 'Somatic'},
-            {value: 'notReal', label: 'Not-Real'},
-            {value: 'unknown', label: 'Unknown'},
-          ]}
-          onChange={() => console.log('data', data)}
-        />
-      </div>
-    ),
-    className: "select"
-  },
-  {
-    title: "Variant Class",
-    dataIndex: "variantClass",
-    key: "11"
-  },
-  {
-    title: "coverage",
-    dataIndex: "coverage",
-    key: "12"
-  },
-  {
-    title: "Notes",
-    dataIndex: "notes",
-    key: "13"
-  },
-  {
-    title: "Activity log",
-    dataIndex: "activityLog",
-    key: "14"
-  },
-];
-
-
 class VariantTable extends Component {
+  columns = [
+    {
+      title: "Gene",
+      dataIndex: "gene",
+      key: "2",
+    },
+    {
+      title: "Chr: position",
+      dataIndex: "chrPosition",
+      key: "3",
+    },
+    {
+      title: "Transcript",
+      dataIndex: "transcript",
+      key: "4",
+    },
+    {
+      title: "Exon",
+      dataIndex: "exon",
+      key: "5",
+    },
+    {
+      title: "Allele change",
+      dataIndex: "alleleChange",
+      key: "6",
+    },
+    {
+      title: "coding",
+      dataIndex: "coding",
+      key: "7",
+    },
+    {
+      title: "Protein",
+      dataIndex: "protein",
+      key: "8",
+    },
+    {
+      title: "VAF",
+      dataIndex: "vaf",
+      key: "9",
+    },
+    {
+      title: "Zygosity",
+      dataIndex: "zygosity",
+      key: "10",
+      render: (...data) => (
+        <div className="table-select-wrapper">
+          <SimpleSelect
+            value={data[1].zygosity}
+            options={[
+              {value: 'homo', label: 'Homo'},
+              {value: 'hetro', label: 'Hetro'},
+              {value: 'hemi', label: 'Hemi'},
+              {value: 'insignificant', label: 'Insignificant'},
+              {value: 'somatic', label: 'Somatic'},
+              {value: 'notReal', label: 'Not-Real'},
+              {value: 'unknown', label: 'Unknown'},
+            ]}
+            onChange={(e) => this.props.handleZygosity({item: data[1], value: e.target.value})}
+          />
+        </div>
+      ),
+      className: "select"
+    },
+    {
+      title: "Variant Class",
+      dataIndex: "variantClass",
+      key: "11"
+    },
+    {
+      title: "coverage",
+      dataIndex: "coverage",
+      key: "12"
+    },
+    {
+      title: "Notes",
+      dataIndex: "notes",
+      key: "13"
+    },
+    {
+      title: "Activity log",
+      dataIndex: "activityLog",
+      key: "14"
+    },
+  ];
+
   render() {
     const { data, selectedRowKeys, onSelectRowKey } = this.props;
 
@@ -109,7 +109,7 @@ class VariantTable extends Component {
         rowSelection={rowSelection}
         bordered
         pagination={false}
-        columns={columns}
+        columns={this.columns}
         dataSource={data}
         scroll={{ x: '100%' }}
       />
@@ -120,7 +120,8 @@ class VariantTable extends Component {
 VariantTable.propTypes = {
   data: PropTypes.array,
   selectedRowKeys: PropTypes.array,
-  onSelectRowKey: PropTypes.func.isRequired
+  onSelectRowKey: PropTypes.func.isRequired,
+  handleZygosity: PropTypes.func.isRequired
 };
 
 VariantTable.defaultProps = {

@@ -7,3 +7,10 @@ export const onSelectRowKey = data => {
   };
 };
 
+export const handleZygosity = data => {
+  return {
+    type: actionsTypes.HANDLE_ZYGOSITY,
+    payload: data
+  };
+};
+

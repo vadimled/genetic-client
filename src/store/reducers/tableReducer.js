@@ -12,7 +12,7 @@ const initialState = {
       coding: 'gCc/gTc',
       protein: 'A449V',
       vaf: 33,
-      zygosity: "Hom",
+      zygosity: "somatic",
       variantClass: "",
       coverage: 300,
     },
@@ -26,7 +26,7 @@ const initialState = {
       coding: 'gCc/gTc',
       protein: 'A449V',
       vaf: 33,
-      zygosity: "Hom",
+      zygosity: "homo",
       variantClass: "",
       coverage: 300,
     },
@@ -40,7 +40,7 @@ const initialState = {
       coding: 'gCc/gTc',
       protein: 'A449V',
       vaf: 33,
-      zygosity: "Hom",
+      zygosity: "notReal",
       variantClass: "",
       coverage: 300,
     },
@@ -55,6 +55,22 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       selectedRowKeys
+    };
+  },
+
+  [actionsTypes.HANDLE_ZYGOSITY]: (state, {payload}) => {
+    const {item, value} = payload;
+    let data = JSON.parse(JSON.stringify(state.data));
+
+    data = data.map((row) => {
+      if (row.key !== item.key) return row;
+      row.zygosity = value;
+      return row;
+    });
+
+    return {
+      ...state,
+      data
     };
   },
 });
