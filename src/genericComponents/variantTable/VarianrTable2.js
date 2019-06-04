@@ -43,7 +43,7 @@ class VarianrTable2 extends React.Component {
       {
         title: "Action",
         key: "action",
-        render: () => <a href="javascript:;">Delete</a>
+        render: () => <a>Delete</a>
       }
     ]
   };
