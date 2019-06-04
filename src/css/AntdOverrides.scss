@@ -174,8 +174,8 @@
 
 .ant-select-dropdown {
   font-size: 16px !important;
-  line-height: 18px;
-  color: $title_color;
+  line-height: 18px !important;
+  color: $title_color !important;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) !important;
 
   .ant-select-dropdown-menu-item-active {
@@ -184,6 +184,11 @@
     &:hover {
       background-color: $select-option-hovered !important;
     }
+  }
+
+  .ant-select-dropdown-menu-item-selected {
+    background-color: $select-option-selected !important;
+    font-weight: normal !important;
   }
 }
 
@@ -206,6 +211,11 @@
     border: none;
     border-radius: 0px;
     background-color: inherit;
+  }
+
+  .ant-select-selection__rendered {
+    line-height: 39px;
+    color: $title_color;
   }
 
   .ant-select-selection:focus,
