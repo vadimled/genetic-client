@@ -196,12 +196,16 @@
     width: 100% !important;
     height: 100% !important;
     color: $neutral_30;
+
+    background-color: inherit;
   }
 
-  .ant-select-selection, .ant-select-selection__rendered {
+  .ant-select-selection,
+  .ant-select-selection__rendered {
     height: 100%;
     border: none;
     border-radius: 0px;
+    background-color: inherit;
   }
 
   .ant-select-selection:focus,
@@ -250,9 +254,14 @@
     z-index: 999;
     border-radius: 4px;
     overflow: hidden;
+    background-color: white !important;
 
     .ant-select-arrow {
       background: $table-header-bg;
+    }
+
+    .ant-select-selection {
+      background-color: white !important;
     }
   }
 
@@ -452,12 +461,6 @@
       &-selected {
         td {
           background-color: $table-selected-row !important;
-        }
-        .ant-select:not(.ant-select-open) {
-          background-color: $table-selected-row;
-          .ant-select-selection {
-            background-color: $table-selected-row;
-          }
         }
       }
 
