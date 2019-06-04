@@ -50,4 +50,8 @@ Not supports in Firefox and IE */
   min-width: 150px;
   background: #fff;
   overflow-y: scroll;
+
+  &.sidebar-closed {
+    overflow-y: hidden;
+  }
 }
