@@ -21,7 +21,12 @@ const EditNotes = ({
           validateStatus={validateStatus.validateStatus}
           help={validateStatus.errorMsg}
         >
-          <TextArea autosize value={notesValue} onChange={handleOnChange} />
+          <TextArea
+            autosize
+            autoFocus
+            value={notesValue}
+            onChange={handleOnChange}
+          />
           <div className="divider">
             <div className="counter">{`${validateStatus.value}/${
               LIMITS.maxNotesChar
@@ -33,7 +38,8 @@ const EditNotes = ({
       <ActionsFooter
         disabled={validateStatus.errorMsg}
         doneHandler={doneHandler}
-        cancelHandler={cancelHandler} />
+        cancelHandler={cancelHandler}
+      />
     </div>
   );
 };
