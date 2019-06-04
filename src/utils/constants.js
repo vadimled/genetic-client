@@ -26,9 +26,18 @@ export const LIMITS = {
   maxNotesChar: 150,
 };
 
-
 export const MUTATION = [
   { value: "dna", label: "DNA" },
   { value: "rna", label: "RNA" },
   { value: "agena", label: "Agena" }
+];
+
+export const ZYGOSITY_OPTIONS = [
+  {value: 'homo', label: 'Homo'},
+  {value: 'hetro', label: 'Hetro'},
+  {value: 'hemi', label: 'Hemi'},
+  {value: 'insignificant', label: 'Insignificant'},
+  {value: 'somatic', label: 'Somatic'},
+  {value: 'notReal', label: 'Not-Real'},
+  {value: 'unknown', label: 'Unknown'},
 ];

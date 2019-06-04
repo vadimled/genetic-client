@@ -30,3 +30,15 @@ export const getFilteredEntriesAmount = createSelector(
 
 export const getNotes = (state, id) => state?.table?.data?.[id].notes;
 
+export const getTableDataAsArray = createSelector(
+  getTableData,
+  data => {
+    let arrayData = [];
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        arrayData.push(data[key]);
+      }
+    }
+    return arrayData;
+  }
+);

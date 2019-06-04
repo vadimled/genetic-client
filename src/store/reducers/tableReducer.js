@@ -1,52 +1,28 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 
+const initData = {};
+for (let id = 0; id <= 500; id++) {
+  initData[id] = {
+    id: id,
+    key: id,
+    gene: "SDHA",
+    chrPosition: "Chr5 : 236628",
+    transcript: "NM_005591.3",
+    exon: 7,
+    alleleChange: "C > T",
+    coding: "gCc/gTc",
+    protein: "A449V",
+    vaf: 33,
+    zygosity: "",
+    variantClass: "",
+    coverage: 300,
+    notes: "Test ID place Mutation data dropdown list"
+  };
+}
+
 const initialState = {
-  data: [
-    {
-      key: "1",
-      gene: "SDHA",
-      chrPosition: "Chr5 : 236628",
-      transcript: "NM_005591.3",
-      exon: 7,
-      alleleChange: "C > T",
-      coding: "gCc/gTc",
-      protein: "A449V",
-      vaf: 33,
-      zygosity: "somatic",
-      variantClass: "",
-      coverage: 300,
-      notes: "Test ID place Mutation data dropdown list"
-    },
-    {
-      key: "2",
-      gene: "SDHA",
-      chrPosition: "Chr5 : 236628",
-      transcript: "NM_005591.3",
-      exon: 7,
-      alleleChange: "C > T",
-      coding: "gCc/gTc",
-      protein: "A449V",
-      vaf: 33,
-      zygosity: "homo",
-      variantClass: "",
-      coverage: 300
-    },
-    {
-      key: "3",
-      gene: "SDHA",
-      chrPosition: "Chr5 : 236628",
-      transcript: "NM_005591.3",
-      exon: 7,
-      alleleChange: "C > T",
-      coding: "gCc/gTc",
-      protein: "A449V",
-      vaf: 33,
-      zygosity: "notReal",
-      variantClass: "",
-      coverage: 300
-    }
-  ],
+  data: initData,
   selectedRowKeys: []
 };
 
@@ -60,26 +36,20 @@ const tableReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.HANDLE_ZYGOSITY]: (state, {payload}) => {
+  [actionsTypes.HANDLE_ZYGOSITY]: (state, { payload }) => {
     const {item, value} = payload;
-    let data = JSON.parse(JSON.stringify(state.data));
-
-    data = data.map((row) => {
-      if (row.key !== item.key) return row;
-      row.zygosity = value;
-      return row;
-    });
+    let data = state?.data;
+    data[item.id].zygosity = value;
 
     return {
-      ...state,
-      data
+      ...state
     };
   },
 
   [actionsTypes.SET_NOTES]: (state, { payload }) => {
     const { id, notes } = payload;
-    const newObj = state?.data[id];
-    if (newObj) newObj.notes = notes;
+    let data = state?.data;
+    data[id].notes = notes;
 
     return {
       ...state

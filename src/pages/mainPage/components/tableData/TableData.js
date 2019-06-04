@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import TableLayout from "../tableLayout";
 import VariantTable from "GenericComponents/variantTable";
 import {
-  getTableData,
+  getTableDataAsArray,
   getSelectedRowKeys,
 } from "Store/selectors";
 import {
@@ -30,7 +30,7 @@ class TableData extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: getTableData(state),
+    data: getTableDataAsArray(state),
     selectedRowKeys: getSelectedRowKeys(state),
   };
 }

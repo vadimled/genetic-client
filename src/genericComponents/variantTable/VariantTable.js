@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Table } from "antd";
 import SimpleSelect from 'GenericComponents/simpleSelect';
 import Notes from "Pages/mainPage/components/notes";
+import { ZYGOSITY_OPTIONS } from 'Utils/constants';
 
 class VariantTable extends Component {
 
@@ -55,16 +56,8 @@ class VariantTable extends Component {
         <div className="table-select-wrapper">
           <SimpleSelect
             value={data[1].zygosity}
-            options={[
-              {value: 'homo', label: 'Homo'},
-              {value: 'hetro', label: 'Hetro'},
-              {value: 'hemi', label: 'Hemi'},
-              {value: 'insignificant', label: 'Insignificant'},
-              {value: 'somatic', label: 'Somatic'},
-              {value: 'notReal', label: 'Not-Real'},
-              {value: 'unknown', label: 'Unknown'},
-            ]}
-            onChange={(e) => this.props.handleZygosity({item: data[1], value: e.target.value})}
+            options={ZYGOSITY_OPTIONS}
+            onChange={(e) => this.props.handleZygosity({item: data[1], index: data[2], value: e.target.value})}
           />
         </div>
       ),
@@ -83,7 +76,8 @@ class VariantTable extends Component {
     {
       title: "Notes",
       dataIndex: "notes",
-      key: "13"
+      key: "13",
+      render: (...data) => <Notes key={data[1].id} id={data[1].id} />
     },
     {
       title: "Activity log",
@@ -92,21 +86,8 @@ class VariantTable extends Component {
     },
   ];
 
-  addNodes = () => {
-    const { data } = this.props;
-
-    return data.map((row, index) => {
-      return {
-        ...row,
-        notes: <Notes key={index} id={index} />
-      };
-    });
-  };
-
-
   render() {
-    const { selectedRowKeys, onSelectRowKey } = this.props;
-    const dataWithNotes = this.addNodes();
+    const { selectedRowKeys, onSelectRowKey, data } = this.props;
 
     // rowSelection object indicates the need for row selection
     const rowSelection = {
@@ -121,9 +102,9 @@ class VariantTable extends Component {
       <Table
         rowSelection={rowSelection}
         bordered
-        pagination={false}
+        // pagination={false}
         columns={this.columns}
-        dataSource={dataWithNotes}
+        dataSource={data}
         scroll={{ x: '100%' }}
       />
     );
