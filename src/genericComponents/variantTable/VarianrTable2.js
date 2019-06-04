@@ -110,4 +110,4 @@ class VarianrTable2 extends React.Component {
   }
 }
 
-export default VarianrTable2
+export default VarianrTable2;
