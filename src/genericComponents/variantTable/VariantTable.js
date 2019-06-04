@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Table } from "antd";
 import SimpleSelect from 'GenericComponents/simpleSelect';
+// import TableSelect from 'GenericComponents/tableSelect';
+
 
 const columns = [
   {
@@ -48,18 +50,22 @@ const columns = [
     title: "Zygosity",
     dataIndex: "zygosity",
     key: "10",
-    render: (...data) => (<SimpleSelect
-      options={[
-        {value: 'homo', label: 'Homo'},
-        {value: 'hetro', label: 'Hetro'},
-        {value: 'hemi', label: 'Hemi'},
-        {value: 'insignificant', label: 'Insignificant'},
-        {value: 'somatic', label: 'Somatic'},
-        {value: 'notReal', label: 'Not-Real'},
-        {value: 'unknown', label: 'Unknown'},
-      ]}
-      onChange={() => console.log('data', data)}
-    />),
+    render: (...data) => (
+      <div className="table-select-wrapper">
+        <SimpleSelect
+          options={[
+            {value: 'homo', label: 'Homo'},
+            {value: 'hetro', label: 'Hetro'},
+            {value: 'hemi', label: 'Hemi'},
+            {value: 'insignificant', label: 'Insignificant'},
+            {value: 'somatic', label: 'Somatic'},
+            {value: 'notReal', label: 'Not-Real'},
+            {value: 'unknown', label: 'Unknown'},
+          ]}
+          onChange={() => console.log('data', data)}
+        />
+      </div>
+    ),
     className: "select"
   },
   {
