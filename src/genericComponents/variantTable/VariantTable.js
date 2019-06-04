@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import PropTypes from "prop-types";
 import { Table, Checkbox } from "antd";
 
 const columns = [
@@ -13,89 +13,107 @@ const columns = [
   {
     title: "Gene",
     dataIndex: "gene",
-    key: "gene"
+    key: "2",
   },
   {
     title: "Chr: position",
     dataIndex: "chrPosition",
-    key: "chrPosition"
+    key: "3",
   },
   {
     title: "Transcript",
     dataIndex: "transcript",
-    key: "transcript"
+    key: "4",
   },
   {
     title: "Exon",
     dataIndex: "exon",
-    key: "exon"
+    key: "5",
   },
   {
     title: "Allele change",
     dataIndex: "alleleChange",
-    key: "alleleChange"
+    key: "6",
   },
   {
     title: "coding",
     dataIndex: "coding",
-    key: "coding"
+    key: "7",
   },
   {
     title: "Protein",
     dataIndex: "protein",
-    key: "protein"
+    key: "8",
   },
   {
     title: "VAF",
     dataIndex: "vaf",
-    key: "vaf"
+    key: "9",
   },
   {
     title: "Zygosity",
     dataIndex: "zygosity",
-    key: "zygosity"
+    key: "10",
   },
   {
     title: "Variant Class",
     dataIndex: "variantClass",
-    key: "variantClass"
+    key: "11"
   },
   {
     title: "coverage",
     dataIndex: "coverage",
-    key: "coverage"
+    key: "12"
   },
   {
     title: "Notes",
     dataIndex: "notes",
-    key: "notes"
+    key: "13"
   },
   {
     title: "Activity log",
     dataIndex: "activityLog",
-    key: "activityLog"
+    key: "14"
   },
 ];
 
 
-
-
 class VariantTable extends Component {
   render() {
+    const { data, selectedRowKeys, onSelectRowKey } = this.props;
+
+    // rowSelection object indicates the need for row selection
+    const rowSelection = {
+      onChange: (selectedRowKeys) => {
+        onSelectRowKey(selectedRowKeys);
+      },
+      selectedRowKeys,
+      fixed: 'left'
+    };
 
     return (
       <Table
-        rowKey="gene"
+        rowSelection={rowSelection}
         bordered
-        // pagination={false}
+        pagination={false}
         columns={columns}
-        dataSource={this.props.data}
+        dataSource={data}
+        scroll={{ x: '100%' }}
         className="flex"
       />
     );
   }
 }
 
-Table.propTypes = {};
+VariantTable.propTypes = {
+  data: PropTypes.array,
+  selectedRowKeys: PropTypes.array,
+  onSelectRowKey: PropTypes.func.isRequired
+};
+
+VariantTable.defaultProps = {
+  data: [],
+  selectedRowKeys: []
+};
 
 export default VariantTable;

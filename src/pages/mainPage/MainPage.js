@@ -3,8 +3,9 @@ import style from "./MainPage.module.scss";
 import cn from "classnames";
 import SideBarLayout from "./components/sideBarLayout";
 import Toolbar from "./components/toolbar";
-import TableLayout from "./components/tableLayout";
 import SidebarFilters from "./components/sidebarFilters";
+import TableData from './components/tableData';
+
 
 class MainPage extends Component {
   constructor(props) {
@@ -43,21 +44,10 @@ class MainPage extends Component {
             { "sidebar-open": sidebarToggle }
           ])}
         >
-          <Toolbar />
-          <TableLayout>
-            {`Lorem ipsum dolor sit amet, consectetur adipiscing elit.  +
-              Nullam sed est lectus. In hac habitasse platea dictumst.  +
-              Aenean accumsan venenatis dapibus. Aenean faucibus dolor et leo
-              tempor auctor.  + Pellentesque et sagittis lorem. Aliquam ut
-              lacus blandit, egestas eros ac, dictum ante.  + Integer lobortis
-              nisl dolor, eget porta sem accumsan vel.  + Maecenas lacinia
-              nibh posuere neque fermentum bibendum. +  Aenean interdum ante
-              et imperdiet gravida. Sed vitae libero facilisis, malesuada elit
-              ac, sodales lorem.  + In hac habitasse platea dictumst. Etiam
-              vitae convallis velit, id finibus arcu. +  Sed in ante dictum
-              lacus viverra consequat. `}
-          </TableLayout>
+          <Toolbar sidebarToggle={sidebarToggle}/>
+          <TableData />
         </div>
+
       </div>
     );
   }

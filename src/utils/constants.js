@@ -18,3 +18,9 @@ export const FILTERS = {
   gnomId: "gnomId",
   cancerDBs: "canserBDs",
 };
+
+export const MUTATION = [
+  { value: "dna", label: "DNA" },
+  { value: "rna", label: "RNA" },
+  { value: "agena", label: "Agena" }
+];
