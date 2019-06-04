@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Table } from "antd";
 import SimpleSelect from 'GenericComponents/simpleSelect';
-// import TableSelect from 'GenericComponents/tableSelect';
-
+import Notes from "Pages/mainPage/components/notes";
 
 class VariantTable extends Component {
+
   columns = [
     {
       title: "Gene",
@@ -92,16 +92,29 @@ class VariantTable extends Component {
     },
   ];
 
+  addNodes = () => {
+    const { data } = this.props;
+
+    return data.map((row, index) => {
+      return {
+        ...row,
+        notes: <Notes key={index} id={index} />
+      };
+    });
+  };
+
+
   render() {
-    const { data, selectedRowKeys, onSelectRowKey } = this.props;
+    const { selectedRowKeys, onSelectRowKey } = this.props;
+    const dataWithNotes = this.addNodes();
 
     // rowSelection object indicates the need for row selection
     const rowSelection = {
-      onChange: (selectedRowKeys) => {
+      onChange: selectedRowKeys => {
         onSelectRowKey(selectedRowKeys);
       },
       selectedRowKeys,
-      fixed: 'left'
+      fixed: "left"
     };
 
     return (
@@ -110,7 +123,7 @@ class VariantTable extends Component {
         bordered
         pagination={false}
         columns={this.columns}
-        dataSource={data}
+        dataSource={dataWithNotes}
         scroll={{ x: '100%' }}
       />
     );

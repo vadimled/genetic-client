@@ -1,7 +1,7 @@
 import { FILTERS } from "Utils/constants";
 import { createSelector } from "reselect";
 
-const getDb = state => state?.db;
+const getDb = state => state?.table?.data;
 const getFilters = state => state?.filters;
 
 export const getFilterType = state => state?.filters?.[FILTERS.type],
@@ -27,3 +27,6 @@ export const getFilteredEntriesAmount = createSelector(
   getFilteredEntries,
   filters => filters?.length
 );
+
+export const getNotes = (state, id) => state?.table?.data?.[id].notes;
+
