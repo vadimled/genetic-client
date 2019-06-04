@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import TableLayout from "../tableLayout";
 import VariantTable from "GenericComponents/variantTable";
 import {
-  getTableData,
   getSelectedRowKeys,
   getFilteredData
 } from "Store/selectors";
@@ -14,8 +13,7 @@ import {
 
 class TableData extends Component {
   render() {
-    const { data, selectedRowKeys, onSelectRowKey, filteredData } = this.props;
-    console.log('--ulfiltered: ', data)
+    const { selectedRowKeys, onSelectRowKey, filteredData } = this.props;
 
     return (
       <TableLayout>
@@ -31,7 +29,6 @@ class TableData extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: getTableData(state),
     selectedRowKeys: getSelectedRowKeys(state),
     filteredData: getFilteredData(state)
   };
