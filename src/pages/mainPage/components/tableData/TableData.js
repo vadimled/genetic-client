@@ -6,6 +6,7 @@ import VariantTable from "GenericComponents/variantTable";
 import {
   getTableData,
   getSelectedRowKeys,
+  getFilteredData
 } from "Store/selectors";
 import {
   onSelectRowKey
@@ -30,6 +31,7 @@ function mapStateToProps(state) {
   return {
     data: getTableData(state),
     selectedRowKeys: getSelectedRowKeys(state),
+    filteredData: getFilteredData(state)
   };
 }
 

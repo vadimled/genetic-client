@@ -5,18 +5,20 @@ import isEmpty from "lodash.isempty";
 const getDb = state => state?.db;
 const getFilters = state => state?.filters;
 
-export const getFilterType = state => state?.filters?.[FILTERS.type],
+export const
+  getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVariantClass = state => state?.filters?.[FILTERS.variantClass],
   getFilterSomaticClass = state => state?.filters?.[FILTERS.somaticClass],
   getFilterHotSpot = state => state?.filters?.[FILTERS.hotSpot],
   getFilterSnp = state => state?.filters?.[FILTERS.snp],
   getFilterRoi = state => state?.filters?.[FILTERS.roi],
-
-  getTableData = state => state?.table?.data,
-  getSelectedRowKeys = state => state?.table?.selectedRowKeys,
   getFilterVaf = state => state?.filters?.[FILTERS.vaf],
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomId],
+
+  getTableData = state => state?.table?.data,
+  getSelectedRowKeys = state => state?.table?.selectedRowKeys,
+
 
 
   getMutationType = state => state.variants.mutations,
@@ -35,23 +37,27 @@ export const getFilteredEntriesAmount = createSelector(
 
 
 
-const getData = state => state?.filters.data;
+// const getData = state => state?.filters.data;
 
 const getAppliedFilters = createSelector(
   getFilterType,
   getFilterVariantClass,
+  getFilterSomaticClass,
   getFilterHotSpot,
   getFilterSnp,
   getFilterRoi,
+  getFilterVaf,
+  getFilterCancerDBs,
   getFilterGnomId,
-  (type, variantClass, hotSpot, snp, roi, gnom) => {
+  (type, variantClass, somaticClass, hotSpot, snp, roi, filterVaf, filterCancerDBs, gnom) => {
     const filters = {
       ...(type !== null && { type }),
       ...(variantClass.length && { variantClass }),
-      ...(hotSpot !== null && { hotSpot }),
-      ...(snp !== null && { snp }),
-      ...(roi !== null && { roi }),
-      ...(gnom !== null && { gnom })
+      ...(variantClass.length && { variantClass }),
+      ...(hotSpot.length && { hotSpot }),
+      ...(snp.length && { snp }),
+      ...(roi.length && { roi }),
+      ...(gnom.length && { gnom })
     };
 
     // console.log("++filters: ", filters);
@@ -70,11 +76,12 @@ const filteredByVariantClass = createSelector(
 );
 
 export const getFilteredData = createSelector(
-  getData,
+  getTableData,
   getAppliedFilters,
   filteredByVariantClass,
   (data, appliedFilters, variantClass) => {
     console.log("--appliedFilters: ", appliedFilters);
+    console.log("--tableData: ", data);
 
     if (isEmpty(appliedFilters)) {
       console.log("-No filters");
