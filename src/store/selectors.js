@@ -36,9 +36,6 @@ export const getFilteredEntriesAmount = createSelector(
 );
 
 
-
-// const getData = state => state?.filters.data;
-
 const getAppliedFilters = createSelector(
   getFilterType,
   getFilterVariantClass,
@@ -60,70 +57,27 @@ const getAppliedFilters = createSelector(
       ...(gnom.length && { gnom })
     };
 
-    // console.log("++filters: ", filters);
     return filters;
   }
 );
 
-const filteredByVariantClass = createSelector(
-  getAppliedFilters,
-  appliedFilters => {
-    if (appliedFilters.variantClass) {
-      // console.log('variantClass: ', appliedFilters.variantClass)
-      return appliedFilters.variantClass;
-    }
-  }
-);
 
 export const getFilteredData = createSelector(
   getTableData,
   getAppliedFilters,
-  filteredByVariantClass,
-  (data, appliedFilters, variantClass) => {
-    console.log("--appliedFilters: ", appliedFilters);
-    console.log("--tableData: ", data);
+  (data, appliedFilters) => {
 
     if (isEmpty(appliedFilters)) {
       console.log("-No filters");
       return data;
     }
 
-    console.log("variantClass: ", variantClass);
-
-    if (variantClass && variantClass.length) {
-      const filteredByVariant = data.filter(item => {
-        return variantClass.some(variant => item.variantClass === variant);
-
-        // variantClass.map(variant => {
-        //   console.log('-item: ', item)
-        //   console.log('-variant: ', variant)
-        //   if(item.variantClass === undefined || item.variantClass !== variant){
-        //     console.log('-no match')
-        //     return false
-        //   }
-        // })
-        // return true
-      });
-      console.log("--filteredByVariant: ", filteredByVariant);
-      return filteredByVariant;
-    }
-
     const filteredData = data.filter(item => {
       for (let key in appliedFilters) {
-        // if(key === 'variantClass'){
-        //   console.log('variant: ', key)
-        //
-        // }
-
-        if (item[key] === undefined || item[key] !== appliedFilters[key]) {
-          console.log("here 1");
-          return false;
-        }
+        return appliedFilters[key].some(filter => item[key] === filter);
       }
-      return true;
     });
 
-    // console.log("here 2");
     return filteredData;
   }
 );

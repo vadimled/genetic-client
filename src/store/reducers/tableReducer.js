@@ -13,8 +13,9 @@ const initialState = {
       protein: 'A449V',
       vaf: 33,
       zygosity: "Hom",
-      variantClass: "",
-      coverage: 300
+      variantClass: "path",
+      coverage: 300,
+      hotSpot: true
     },
     {
       key: "2",
@@ -27,7 +28,7 @@ const initialState = {
       protein: 'A449V',
       vaf: 33,
       zygosity: "Hom",
-      variantClass: "",
+      variantClass: "lath",
       coverage: 300,
     },
     {
@@ -41,7 +42,7 @@ const initialState = {
       protein: 'A449V',
       vaf: 33,
       zygosity: "Hom",
-      variantClass: "",
+      variantClass: "path",
       coverage: 300,
     },
   ],
