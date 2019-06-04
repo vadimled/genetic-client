@@ -15,10 +15,6 @@
   color: $neutral_30;
   cursor: pointer;
 
-  .edit-text-box {
-    min-width: 250px;
-  }
-
   .notes-content-empty {
     width: 100%;
     height: 100%;
@@ -35,6 +31,20 @@
 
   .notes-icon {
     line-height: 4px;
+  }
+
+  .edit-text-box {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: -16px;
+    min-width: 250px;
+    width: calc(100% + 32px);
+    height: auto;
+    background-color: $white;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    z-index: 1;
   }
 
   .ant-form-explain {

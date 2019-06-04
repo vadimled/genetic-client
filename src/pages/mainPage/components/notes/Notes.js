@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Popover, Tooltip } from "antd";
+import { Tooltip } from "antd";
 import style from "./Notes.module.scss";
 import { LIMITS, TEXTS } from "Utils/constants";
 import { ReactComponent as EditIcon } from "Assets/edit.svg";
@@ -14,7 +14,7 @@ class Notes extends Component {
     super(props);
 
     this.initialState = {
-      visible: false,
+      isEdit: false,
       editNotes: props.getValue,
       limit: {
         value: 0
@@ -54,7 +54,7 @@ class Notes extends Component {
 
   handelEditClick = () => {
     const { getValue } = this.props;
-    this.setState({ editNotes: getValue, visible: true });
+    this.setState({ editNotes: getValue, isEdit: true });
   };
 
   handleEditNotesOnChange = e => {
@@ -89,33 +89,21 @@ class Notes extends Component {
     return (
       <div className={style["notes-wrapper"]}>
         {!getValue ? (
-          <Popover
-            placement="bottom"
-            content={this.setPopup()}
-            trigger="click"
-            visible={this.state.visible}
-          >
-            <div className="notes-content-empty" onClick={this.handelEditClick}>
-              {TEXTS.addNote}
-            </div>
-          </Popover>
+          <div className="notes-content-empty" onClick={this.handelEditClick}>
+            {TEXTS.addNote}
+          </div>
         ) : (
           <Fragment>
             <Tooltip placement="bottom" title={getValue}>
               <div className="notes-content">{getValue}</div>
             </Tooltip>
-            <Popover
-              placement="bottom"
-              content={this.setPopup()}
-              trigger="click"
-              visible={this.state.visible}
-            >
-              <div className="notes-icon" onClick={this.handelEditClick}>
-                <EditIcon />
-              </div>
-            </Popover>
+
+            <div className="notes-icon" onClick={this.handelEditClick}>
+              <EditIcon />
+            </div>
           </Fragment>
         )}
+        {this.state.isEdit && this.setPopup()}
       </div>
     );
   }
