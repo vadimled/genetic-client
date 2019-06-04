@@ -265,6 +265,7 @@
     border-radius: 4px;
     overflow: hidden;
     background-color: white !important;
+    min-width: 130px;
 
     .ant-select-arrow {
       background: $table-header-bg;
