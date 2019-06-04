@@ -1,4 +1,4 @@
-// import { FILTERS } from "Utils/constants";
+import { FILTERS } from "Utils/constants";
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
 
