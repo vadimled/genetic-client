@@ -1,15 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Table, Checkbox } from "antd";
+import { Table } from "antd";
 
 const columns = [
-  {
-    title: "",
-    fixed: "left",
-    width: 50,
-    render: () => <Checkbox />,
-    key: "checkbox"
-  },
   {
     title: "Gene",
     dataIndex: "gene",

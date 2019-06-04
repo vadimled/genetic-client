@@ -14,7 +14,7 @@ const initialState = {
       vaf: 33,
       zygosity: "Hom",
       variantClass: "",
-      coverage: 300,
+      coverage: 300
     },
     {
       key: "2",

@@ -51,7 +51,7 @@ const getAppliedFilters = createSelector(
   getFilterGnomId,
   (type, variantClass, somaticClass, hotSpot, snp, roi, filterVaf, filterCancerDBs, gnom) => {
     const filters = {
-      ...(type !== null && { type }),
+      // ...(type !== null && { type }),
       ...(variantClass.length && { variantClass }),
       ...(variantClass.length && { variantClass }),
       ...(hotSpot.length && { hotSpot }),

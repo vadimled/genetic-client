@@ -14,11 +14,13 @@ import {
 
 class TableData extends Component {
   render() {
-    const { data, selectedRowKeys, onSelectRowKey } = this.props;
+    const { data, selectedRowKeys, onSelectRowKey, filteredData } = this.props;
+    console.log('--ulfiltered: ', data)
+
     return (
       <TableLayout>
         <VariantTable
-          data={data}
+          data={filteredData}
           onSelectRowKey={onSelectRowKey}
           selectedRowKeys={selectedRowKeys}
         />
