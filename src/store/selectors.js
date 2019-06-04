@@ -27,3 +27,6 @@ export const getTotalEntriesAmount = createSelector(
   getData,
   data => data?.length
 );
+
+export const getNotes = (state, id) => state?.table?.data?.[id].notes;
+
