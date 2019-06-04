@@ -1,6 +1,6 @@
 import createReducer from './createReducer';
 import actionsTypes from '../actionsTypes';
-import { FILTERS } from "Utils/constants";
+// import { FILTERS } from "Utils/constants";
 
 const changeValueAccordingOnMode = (stateValue, value, mode) => {
   let newValue;
@@ -42,12 +42,14 @@ const initialState = {
   [FILTERS.gnomId]: []
 };
 
+
+
 const filtersReducer = createReducer(initialState, {
   [actionsTypes.SET_FILTER_TYPE]: (state, {payload}) => {
     const { value } = payload;
     return {
       ...state,
-      [FILTERS.type]: value
+      type: value
     };
   },
 
@@ -138,6 +140,10 @@ const filtersReducer = createReducer(initialState, {
       [FILTERS.gnomId]: newValue
     };
   },
+
+  // [actionsTypes]
+
+
 });
 
 export default filtersReducer;
