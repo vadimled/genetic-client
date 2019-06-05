@@ -41,3 +41,37 @@ export const ZYGOSITY_OPTIONS = [
   {value: 'notReal', label: 'Not-Real'},
   {value: 'unknown', label: 'Unknown'},
 ];
+
+export const VARIANT_CLASS = {
+  unclassified: {value: 'unclassified', label: 'unclassified'},
+  path: {value: 'path', label: 'PATH'},
+  lpath: {value: 'lpath', label: 'LPATH'},
+  vus: {value: 'vus', label: 'VUS'},
+  ben: {value: 'ben', label: 'BEN'},
+  lben: {value: 'lben', label: 'LBEN'}
+};
+
+export const SOMATIC_CLASS = {
+  unclassified: {value: 'unclassified', label: 'unclassified'},
+  tier1: {value: 'tier1', label: 'Tier1'},
+  tier2: {value: 'tier2', label: 'Tier2'},
+  tier3: {value: 'tier3', label: 'Tier3'},
+  tier4: {value: 'tier4', label: 'Tier4'}
+};
+
+export const GERMLINE_VARIANT_CLASS_OPTIONS = [
+  {...VARIANT_CLASS.vus},
+  {...VARIANT_CLASS.path},
+  {...VARIANT_CLASS.lpath},
+  {...VARIANT_CLASS.ben},
+  {...VARIANT_CLASS.lben},
+  {...VARIANT_CLASS.unclassified},
+];
+
+export const SOMATIC_VARIANT_CLASS_OPTIONS = [
+  {...SOMATIC_CLASS.tier1},
+  {...SOMATIC_CLASS.tier2},
+  {...SOMATIC_CLASS.tier3},
+  {...SOMATIC_CLASS.tier4},
+  {...SOMATIC_CLASS.unclassified},
+];

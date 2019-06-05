@@ -9,12 +9,13 @@ import {
 } from "Store/selectors";
 import {
   onSelectRowKey,
-  handleZygosity
+  handleZygosity,
+  handleVariantClass
 } from "Actions/tableActions";
 
 class TableData extends Component {
   render() {
-    const { data, selectedRowKeys, onSelectRowKey, handleZygosity } = this.props;
+    const { data, selectedRowKeys, onSelectRowKey, handleZygosity, handleVariantClass } = this.props;
     return (
       <TableLayout>
         <VariantTable
@@ -22,6 +23,7 @@ class TableData extends Component {
           onSelectRowKey={onSelectRowKey}
           selectedRowKeys={selectedRowKeys}
           handleZygosity={handleZygosity}
+          handleVariantClass={handleVariantClass}
         />
       </TableLayout>
     );
@@ -38,7 +40,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     onSelectRowKey: (data) => dispatch(onSelectRowKey(data)),
-    handleZygosity: (data) => dispatch(handleZygosity(data))
+    handleZygosity: (data) => dispatch(handleZygosity(data)),
+    handleVariantClass: (data) => dispatch(handleVariantClass(data))
   };
 }
 

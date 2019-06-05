@@ -22,3 +22,10 @@ export const handleZygosity = data => {
   };
 };
 
+export const handleVariantClass = data => {
+  return {
+    type: actionsTypes.HANDLE_VARIANT_CLASS,
+    payload: data
+  };
+};
+
