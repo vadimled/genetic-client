@@ -77,15 +77,19 @@ const getAppliedFilters = createSelector(
         cancerDBs: item => cancerDBs.some(filter => item[filter] !== undefined)
       }),
       ...(gnomFilter.length && {
-        gnom: (item) =>  {
+        gnom: item => {
           return gnomFilter.some(value => {
-            switch(value) {
-              case GNOM_AD.na : return item.gnomAD === undefined;
-              case GNOM_AD.veryRare : return (item.gnomAD >= 0) && (item.gnomAD < 1);
-              case GNOM_AD.rare : return (item.gnomAD >= 1) && (item.gnomAD < 5);
-              case GNOM_AD.common : return item.gnomAD >= 5;
+            switch (value) {
+              case GNOM_AD.na:
+                return item.gnomAD === undefined;
+              case GNOM_AD.veryRare:
+                return item.gnomAD >= 0 && item.gnomAD < 1;
+              case GNOM_AD.rare:
+                return item.gnomAD >= 1 && item.gnomAD < 5;
+              case GNOM_AD.common:
+                return item.gnomAD >= 5;
             }
-          })
+          });
         }
       })
     };

@@ -42,4 +42,4 @@ export const GNOM_AD = {
   veryRare: "veryRare",
   rare: "rare",
   common: "common"
-}
+};
