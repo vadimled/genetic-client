@@ -5,66 +5,79 @@ import Notes from "Pages/mainPage/components/notes";
 
 const columns = [
   {
+    width: 100,
     title: "Gene",
     dataIndex: "gene",
     key: "2"
   },
   {
+    width: 120,
     title: "Chr: position",
     dataIndex: "chrPosition",
     key: "3"
   },
   {
+    width: 100,
     title: "Transcript",
     dataIndex: "transcript",
     key: "4"
   },
   {
+    width: 50,
     title: "Exon",
     dataIndex: "exon",
     key: "5"
   },
   {
+    width: 110,
     title: "Allele change",
     dataIndex: "alleleChange",
     key: "6"
   },
   {
+    width: 90,
     title: "coding",
     dataIndex: "coding",
     key: "7"
   },
   {
+    width: 80,
     title: "Protein",
     dataIndex: "protein",
     key: "8"
   },
   {
+    width: 30,
     title: "VAF",
     dataIndex: "vaf",
     key: "9"
   },
   {
+    width: 80,
     title: "Zygosity",
     dataIndex: "zygosity",
     key: "10"
   },
   {
+    width: 110,
     title: "Variant Class",
     dataIndex: "variantClass",
     key: "11"
   },
   {
+    width: 80,
     title: "coverage",
     dataIndex: "coverage",
     key: "12"
   },
   {
+    width: 80,
     title: "Notes",
     dataIndex: "notes",
     key: "13"
   },
   {
+    width: 510,
     title: "Activity log",
     dataIndex: "activityLog",
     key: "14"
@@ -100,10 +113,9 @@ class VariantTable extends Component {
       <Table
         rowSelection={rowSelection}
         bordered
-        pagination={false}
         columns={columns}
         dataSource={dataWithNotes}
-        scroll={{ x: "100%" }}
+        scroll={{ x: "max-content" }}
       />
     );
   }
