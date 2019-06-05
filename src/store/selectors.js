@@ -101,12 +101,10 @@ export const getFilteredData = createSelector(
       return filtersArray.every(filter => filter(item));
     });
 
-    console.log("--filtered data: ", filteredData)
+    console.log("--filtered data: ", filteredData);
 
     return filteredData;
   }
 );
 
 export const getNotes = (state, id) => state?.table?.data?.[id].notes;
-
-
