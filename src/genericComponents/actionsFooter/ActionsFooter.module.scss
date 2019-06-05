@@ -1,0 +1,43 @@
+@import "Css/Colors.scss";
+
+.actions-footer-wrapper :global {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 8px 0 16px 0;
+  padding-right: 9px;
+
+  .ant-btn {
+    width: 64px;
+    height: 28px;
+    padding: 0 !important;
+    border: none;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    line-height: 18px !important;
+
+    span {
+      margin: 0 auto;
+    }
+  }
+
+  .button-cancel {
+    background: none;
+    border: none;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px;
+    font-size: 14px;
+    text-align: center;
+    color: $subtitle_color;
+    padding-right: 16px;
+    cursor: pointer;
+
+    &:hover {
+      color: $neutral_hover_30;
+    }
+  }
+}

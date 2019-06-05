@@ -8,13 +8,38 @@ export const TAG_COLORS = {
 };
 
 export const FILTERS = {
-  type: "Type",
-  variantClass: "Variant Class",
-  somaticClass: "Somatic Class",
-  hotSpot: "Hot Spot",
-  snp: "SNP",
-  roi: "ROI",
-  vaf: "VAF",
-  gnomId: "GnomAD",
-  cancerDBs: "Cancer DBs",
+  type: "type",
+  variantClass: "variantClass",
+  somaticClass: "somaticClass",
+  hotSpot: "hotSpot",
+  snp: "snp",
+  roi: "roi",
+  vaf: "vaf",
+  gnomAD: "gnomAD",
+  cancerDBs: "canserBDs",
+};
+
+export const TEXTS = {
+  addNote: "Add a note",
+  cancel: "Cancel",
+  done: "Done"
+};
+
+export const LIMITS = {
+  maxNotesChar: 150,
+};
+
+
+export const MUTATION = [
+  { value: "dna", label: "DNA" },
+  { value: "rna", label: "RNA" },
+  { value: "agena", label: "Agena" }
+];
+
+
+export const GNOM_AD = {
+  na: "na",
+  veryRare: "veryRare",
+  rare: "rare",
+  common: "common"
 };

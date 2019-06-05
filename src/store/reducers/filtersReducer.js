@@ -37,17 +37,19 @@ const initialState = {
   [FILTERS.hotSpot]: [],
   [FILTERS.snp]: [],
   [FILTERS.roi]: [],
-  [FILTERS.vaf]: [13, 50],
+  [FILTERS.vaf]: [],
   [FILTERS.cancerDBs]: [],
-  [FILTERS.gnomId]: []
+  [FILTERS.gnomAD]: []
 };
+
+
 
 const filtersReducer = createReducer(initialState, {
   [actionsTypes.SET_FILTER_TYPE]: (state, {payload}) => {
     const { value } = payload;
     return {
       ...state,
-      [FILTERS.type]: value
+      type: value
     };
   },
 
@@ -131,13 +133,17 @@ const filtersReducer = createReducer(initialState, {
   [actionsTypes.SET_FILTER_GNOM_ID]: (state, {payload}) => {
     let { value, mode } = payload;
 
-    let newValue = changeValueAccordingOnMode(state[FILTERS.gnomId], value, mode);
+    let newValue = changeValueAccordingOnMode(state[FILTERS.gnomAD], value, mode);
 
     return {
       ...state,
-      [FILTERS.gnomId]: newValue
+      [FILTERS.gnomAD]: newValue
     };
   },
+
+  // [actionsTypes]
+
+
 });
 
 export default filtersReducer;

@@ -64,7 +64,7 @@ class SidebarFilters extends Component {
       case FILTERS.roi : setFilterRoi(data); break;
       case FILTERS.vaf : setFilterVaf(data); break;
       case FILTERS.cancerDBs : setFilterCancerDBs(data); break;
-      case FILTERS.gnomId : setFilterGnomId(data); break;
+      case FILTERS.gnomAD : setFilterGnomId(data); break;
     }
   };
 
@@ -86,7 +86,7 @@ class SidebarFilters extends Component {
               let group = filtersConfig[key];
 
               return (
-                <Panel header={key} key={i + 1}>
+                <Panel header={group.title} key={i + 1}>
 
                   {group.children &&
                     <Collapse
@@ -104,7 +104,7 @@ class SidebarFilters extends Component {
                           let childGroup = group.children[key];
 
                           return (
-                            <Panel header={key} key={i + 1 + 'inner'}>
+                            <Panel header={childGroup.title} key={i + 1 + 'inner'}>
                               <SelectionGroup
                                 mode={childGroup.mode}
                                 items={childGroup.items}
@@ -150,7 +150,7 @@ function mapStateToProps(state) {
       [FILTERS.roi]: getFilterRoi(state),
       [FILTERS.vaf]: getFilterVaf(state),
       [FILTERS.cancerDBs]: getFilterCancerDBs(state),
-      [FILTERS.gnomId]: getFilterGnomId(state)
+      [FILTERS.gnomAD]: getFilterGnomId(state)
     }
   };
 }
