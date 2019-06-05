@@ -70,7 +70,7 @@ const getAppliedFilters = createSelector(
         roi: item => roi.some(filter => item.roi === filter)
       }),
       ...(vaf.length && {
-        vaf: item => (item.vaf > vaf[0] && item.vaf < vaf[1])
+        vaf: item => ((item.vaf > vaf[0]) && (item.vaf < vaf[1]))
       }),
       ...(cancerDBs.length && {
         cancerDBs: item => cancerDBs.some(filter => item.cancerDBs === filter)
@@ -95,27 +95,16 @@ export const getFilteredData = createSelector(
       return data;
     }
 
-    const filters = Object.keys(appliedFilters).map(key => {
-      // console.log(typeof appliedFilters[filter])
+    const filtersArray = Object.keys(appliedFilters).map(key => {
       return appliedFilters[key];
     });
 
     const filteredData = data.filter(item => {
-      // for (let key in appliedFilters) {
-      //
-      //   // if (filterByVaf.length) {
-      //   //   return item.vaf > filterByVaf[0] && item.vaf < filterByVaf[1];
-      //   // }
-      //
-      //
-      //   return appliedFilters[key].some(filter => item[key] === filter);
-      // }
 
-      return filters.some(filter => filter(item));
+      return filtersArray.every(filter => filter(item));
     });
 
-    console.log("-----filteredData: ", filteredData);
-
+    console.log("--filteredData: ", filteredData)
     return filteredData;
   }
 );
