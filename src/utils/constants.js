@@ -15,7 +15,7 @@ export const FILTERS = {
   snp: "snp",
   roi: "roi",
   vaf: "vaf",
-  gnomId: "gnomId",
+  gnomAD: "gnomAD",
   cancerDBs: "canserBDs",
 };
 

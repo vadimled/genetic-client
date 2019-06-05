@@ -13,7 +13,7 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterRoi = state => state?.filters?.[FILTERS.roi],
   getFilterVaf = state => state?.filters?.[FILTERS.vaf],
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
-  getFilterGnomId = state => state?.filters?.[FILTERS.gnomId],
+  getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
   getTableData = state => state?.table?.data,
   getSelectedRowKeys = state => state?.table?.selectedRowKeys,
   getMutationType = state => state.variants.mutations,
@@ -51,16 +51,29 @@ const getAppliedFilters = createSelector(
     cancerDBs,
     gnom
   ) => {
+    // const filters = {
+    //   // ...(type !== null && { type }),
+    //   ...(variantClass.length && { variantClass }),
+    //   ...(somaticClass.length && { somaticClass }),
+    //   ...(hotSpot.length && { hotSpot }),
+    //   ...(snp.length && { snp }),
+    //   ...(roi.length && { roi }),
+    //   ...(vaf.length && { vaf }),
+    //   ...(cancerDBs.length && { cancerDBs }),
+    //   ...(gnom.length && { gnom })
+    // };
+
+
+
     const filters = {
-      // ...(type !== null && { type }),
-      ...(variantClass.length && { variantClass }),
-      ...(somaticClass.length && { somaticClass }),
-      ...(hotSpot.length && { hotSpot }),
-      ...(snp.length && { snp }),
-      ...(roi.length && { roi }),
-      ...(vaf.length && { vaf }),
-      ...(cancerDBs.length && { cancerDBs }),
-      ...(gnom.length && { gnom })
+      ...(variantClass.length && { variantClass: (item) => variantClass.some(filter => item.variantClass === filter) }),
+      ...(somaticClass.length && { somaticClass: (item) => somaticClass.some(filter => item.somaticClass === filter) }),
+      ...(hotSpot.length && { hotSpot: (item) => hotSpot.some(filter => item.hotSpot === filter) }),
+      ...(snp.length && { snp: (item) => snp.some(filter => item.snp === filter) }),
+      ...(roi.length && { roi: (item) => roi.some(filter => item.roi === filter) }),
+      ...(vaf.length && { vaf: (item) => vaf.some(filter => item.vaf === filter) }),
+      ...(cancerDBs.length && { cancerDBs: (item) => cancerDBs.some(filter => item.cancerDBs === filter) }),
+      ...(gnom.length && { gnom: (item) => gnom.some(filter => item.gnom === filter) }),
     };
 
     return filters;
@@ -83,25 +96,34 @@ export const getFilteredData = createSelector(
   filterByVaf,
   (data, appliedFilters, filterByVaf) => {
     console.log(filterByVaf);
+    console.log('--appliedFilters: ', appliedFilters);
 
     if (isEmpty(appliedFilters)) {
       console.log("-No filters");
       return data;
     }
 
-    if (filterByVaf.length) {
-      const filteredByVaf = data.filter(item => {
-        return item.vaf > filterByVaf[0] && item.vaf < filterByVaf[1];
-      });
+    const filters = Object.keys(appliedFilters).map(key => {
+      // console.log(typeof appliedFilters[filter])
+      return appliedFilters[key]
+    })
 
-      return filteredByVaf;
-    }
+    const filteredData = data.filter((item) => {
 
-    const filteredData = data.filter(item => {
-      for (let key in appliedFilters) {
-        return appliedFilters[key].some(filter => item[key] === filter);
-      }
+      // for (let key in appliedFilters) {
+      //
+      //   // if (filterByVaf.length) {
+      //   //   return item.vaf > filterByVaf[0] && item.vaf < filterByVaf[1];
+      //   // }
+      //
+      //
+      //   return appliedFilters[key].some(filter => item[key] === filter);
+      // }
+
+      return filters.some(filter => filter(item));
     });
+
+    console.log("-----filteredData: ", filteredData)
 
     return filteredData;
   }

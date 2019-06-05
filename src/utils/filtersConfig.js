@@ -84,8 +84,8 @@ export default  {
     ]
   },
 
-  [FILTERS.gnomId]: {
-    title: "Gnom Id",
+  [FILTERS.gnomAD]: {
+    title: "GnomAD",
     type: ["somatic"],
     mode: "multiple",
     items: [

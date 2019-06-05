@@ -64,7 +64,7 @@ class SidebarFilters extends Component {
       case FILTERS.roi : setFilterRoi(data); break;
       case FILTERS.vaf : setFilterVaf(data); break;
       case FILTERS.cancerDBs : setFilterCancerDBs(data); break;
-      case FILTERS.gnomId : setFilterGnomId(data); break;
+      case FILTERS.gnomAD : setFilterGnomId(data); break;
     }
   };
 
@@ -150,7 +150,7 @@ function mapStateToProps(state) {
       [FILTERS.roi]: getFilterRoi(state),
       [FILTERS.vaf]: getFilterVaf(state),
       [FILTERS.cancerDBs]: getFilterCancerDBs(state),
-      [FILTERS.gnomId]: getFilterGnomId(state)
+      [FILTERS.gnomAD]: getFilterGnomId(state)
     }
   };
 }
