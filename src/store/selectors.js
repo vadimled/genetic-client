@@ -70,7 +70,7 @@ const getAppliedFilters = createSelector(
         roi: item => roi.some(filter => item.roi === filter)
       }),
       ...(vaf.length && {
-        vaf: item => ((item.vaf > vaf[0]) && (item.vaf < vaf[1]))
+        vaf: item => item.vaf > vaf[0] && item.vaf < vaf[1]
       }),
       ...(cancerDBs.length && {
         cancerDBs: item => cancerDBs.some(filter => item.cancerDBs === filter)
@@ -88,8 +88,6 @@ export const getFilteredData = createSelector(
   getTableData,
   getAppliedFilters,
   (data, appliedFilters) => {
-
-
     if (isEmpty(appliedFilters)) {
       console.log("-No filters");
       return data;
@@ -100,11 +98,10 @@ export const getFilteredData = createSelector(
     });
 
     const filteredData = data.filter(item => {
-
       return filtersArray.every(filter => filter(item));
     });
 
-    console.log("--filteredData: ", filteredData)
+    console.log("--filteredData: ", filteredData);
     return filteredData;
   }
 );
