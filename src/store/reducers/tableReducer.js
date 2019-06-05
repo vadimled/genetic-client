@@ -1,6 +1,6 @@
-import createReducer from './createReducer';
-import actionsTypes from '../actionsTypes';
-import {generateDNAVariantTableMockData} from '../../utils/mockdata-generator'
+import createReducer from "./createReducer";
+import actionsTypes from "../actionsTypes";
+import { generateDNAVariantTableMockData } from "../../utils/mockdata-generator";
 
 const initialState = {
   data: generateDNAVariantTableMockData(10000),
