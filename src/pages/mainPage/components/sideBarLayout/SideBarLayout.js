@@ -7,9 +7,15 @@ import cn from "classnames";
 
 const SideBarLayout = props => {
   const { title, subtitle, children, handleClick, mode } = props;
-
+  console.log(mode);
   return (
-    <div className={style["sidebar-layout"]}>
+    <div
+      className={cn([
+        style["sidebar-layout"],
+        "scrollbar",
+        { "sidebar-closed": !mode }
+      ])}
+    >
       <div
         className={cn(["icon-mode", { "sidebar-closed": !mode }])}
         onClick={handleClick}
@@ -17,10 +23,10 @@ const SideBarLayout = props => {
         {mode ? <OpenedIcon /> : <ClosedIcon />}
       </div>
 
-      <div className="content">
+      <div className={cn(["content"], { "sidebar-closed": !mode })}>
         {title && <div className="title">{title}</div>}
         {subtitle && <div className="subtitle">{subtitle}</div>}
-        <div className="children scrollbar">{children}</div>
+        <div className="children">{children}</div>
       </div>
     </div>
   );
