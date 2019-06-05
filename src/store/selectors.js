@@ -2,7 +2,7 @@ import { FILTERS } from "Utils/constants";
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
 
-const getDb = state => state?.db;
+const getDb = state => state?.table?.data;
 const getFilters = state => state?.filters;
 
 export const getFilterType = state => state?.filters?.[FILTERS.type],
@@ -105,3 +105,7 @@ export const getFilteredData = createSelector(
     return filteredData;
   }
 );
+
+export const getNotes = (state, id) => state?.table?.data?.[id].notes;
+
+

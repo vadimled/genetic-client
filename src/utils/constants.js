@@ -19,6 +19,17 @@ export const FILTERS = {
   cancerDBs: "canserBDs",
 };
 
+export const TEXTS = {
+  addNote: "Add a note",
+  cancel: "Cancel",
+  done: "Done"
+};
+
+export const LIMITS = {
+  maxNotesChar: 150,
+};
+
+
 export const MUTATION = [
   { value: "dna", label: "DNA" },
   { value: "rna", label: "RNA" },
