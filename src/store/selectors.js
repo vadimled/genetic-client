@@ -63,17 +63,33 @@ const getAppliedFilters = createSelector(
     //   ...(gnom.length && { gnom })
     // };
 
-
-
     const filters = {
-      ...(variantClass.length && { variantClass: (item) => variantClass.some(filter => item.variantClass === filter) }),
-      ...(somaticClass.length && { somaticClass: (item) => somaticClass.some(filter => item.somaticClass === filter) }),
-      ...(hotSpot.length && { hotSpot: (item) => hotSpot.some(filter => item.hotSpot === filter) }),
-      ...(snp.length && { snp: (item) => snp.some(filter => item.snp === filter) }),
-      ...(roi.length && { roi: (item) => roi.some(filter => item.roi === filter) }),
-      ...(vaf.length && { vaf: (item) => vaf.some(filter => item.vaf === filter) }),
-      ...(cancerDBs.length && { cancerDBs: (item) => cancerDBs.some(filter => item.cancerDBs === filter) }),
-      ...(gnom.length && { gnom: (item) => gnom.some(filter => item.gnom === filter) }),
+      ...(variantClass.length && {
+        variantClass: item =>
+          variantClass.some(filter => item.variantClass === filter)
+      }),
+      ...(somaticClass.length && {
+        somaticClass: item =>
+          somaticClass.some(filter => item.somaticClass === filter)
+      }),
+      ...(hotSpot.length && {
+        hotSpot: item => hotSpot.some(filter => item.hotSpot === filter)
+      }),
+      ...(snp.length && {
+        snp: item => snp.some(filter => item.snp === filter)
+      }),
+      ...(roi.length && {
+        roi: item => roi.some(filter => item.roi === filter)
+      }),
+      ...(vaf.length && {
+        vaf: item => vaf.some(filter => item.vaf === filter)
+      }),
+      ...(cancerDBs.length && {
+        cancerDBs: item => cancerDBs.some(filter => item.cancerDBs === filter)
+      }),
+      ...(gnom.length && {
+        gnom: item => gnom.some(filter => item.gnom === filter)
+      })
     };
 
     return filters;
@@ -96,7 +112,7 @@ export const getFilteredData = createSelector(
   filterByVaf,
   (data, appliedFilters, filterByVaf) => {
     console.log(filterByVaf);
-    console.log('--appliedFilters: ', appliedFilters);
+    console.log("--appliedFilters: ", appliedFilters);
 
     if (isEmpty(appliedFilters)) {
       console.log("-No filters");
@@ -105,11 +121,10 @@ export const getFilteredData = createSelector(
 
     const filters = Object.keys(appliedFilters).map(key => {
       // console.log(typeof appliedFilters[filter])
-      return appliedFilters[key]
-    })
+      return appliedFilters[key];
+    });
 
-    const filteredData = data.filter((item) => {
-
+    const filteredData = data.filter(item => {
       // for (let key in appliedFilters) {
       //
       //   // if (filterByVaf.length) {
@@ -123,7 +138,7 @@ export const getFilteredData = createSelector(
       return filters.some(filter => filter(item));
     });
 
-    console.log("-----filteredData: ", filteredData)
+    console.log("-----filteredData: ", filteredData);
 
     return filteredData;
   }
