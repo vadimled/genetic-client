@@ -1,6 +1,7 @@
 import React, { Fragment, memo } from "react";
 import { Select } from "antd";
 import PropTypes from "prop-types";
+import Tag from 'GenericComponents/tag';
 
 // eslint-disable-next-line
 const Option = Select.Option;
@@ -34,7 +35,12 @@ const SimpleSelect = ({
       >
         {options?.map(option => (
           <Option key={option.value} value={option.value}>
-            {option.label}
+            {option.tagColor && <Tag color={option.tagColor} />}
+            <span
+              style={option.label === "Unclassified" ? { color: "#96A2AA" } : null}
+            >
+              {option.label}
+            </span>
           </Option>
         ))}
       </Select>

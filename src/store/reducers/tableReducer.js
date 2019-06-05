@@ -42,7 +42,18 @@ const tableReducer = createReducer(initialState, {
     data[item.id].zygosity = value;
 
     // and always reset variantClass as a result of changing the zygosity
-    data[item.id].variantClass = '';
+    // reset to
+    if (
+      value !== 'insignificant' &&
+      value !== 'notReal' &&
+      value !== 'unknown'
+    ) {
+      // unclassified is default for somatic & germline
+      data[item.id].variantClass = 'unclassified';
+    }
+    else {
+      data[item.id].variantClass = '';
+    }
 
     return {
       ...state

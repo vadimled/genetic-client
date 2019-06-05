@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Checkbox, Radio } from "antd";
 import style from "./FilterItem.module.scss";
-import Tag from './components/Tag';
+import Tag from 'GenericComponents/tag';
 
 const FilterItem = ({ item, mode, onChange, checkboxValue, radioValue }) => (
   <div className={style["filter-item-wrapper"]} id="filter-item">
