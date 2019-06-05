@@ -37,7 +37,7 @@ const initialState = {
   [FILTERS.hotSpot]: [],
   [FILTERS.snp]: [],
   [FILTERS.roi]: [],
-  [FILTERS.vaf]: [],
+  [FILTERS.vaf]: [1, 100],
   [FILTERS.cancerDBs]: [],
   [FILTERS.gnomAD]: []
 };
