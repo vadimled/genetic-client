@@ -73,7 +73,7 @@ const getAppliedFilters = createSelector(
         vaf: item => item.vaf > vaf[0] && item.vaf < vaf[1]
       }),
       ...(cancerDBs.length && {
-        cancerDBs: item => cancerDBs.some(filter => item.cancerDBs === filter)
+        cancerDBs: item => cancerDBs.some(filter => item[filter] !== undefined)
       }),
       ...(gnom.length && {
         gnom: item => gnom.some(filter => item.gnom === filter)
@@ -100,6 +100,8 @@ export const getFilteredData = createSelector(
     const filteredData = data.filter(item => {
       return filtersArray.every(filter => filter(item));
     });
+
+    console.log("--filtered data: ", filteredData)
 
     return filteredData;
   }

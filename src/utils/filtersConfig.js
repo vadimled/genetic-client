@@ -78,9 +78,9 @@ export default  {
     type: ["somatic", "germline"],
     mode: "multiple",
     items: [
-      { id: "clinVarSIG", label: "clinVarSIG" },
+      { id: "clinvar", label: "Clinvar" },
       { id: "cosmic", label: "Cosmic" },
-      { id: "OMIM", label: "OMIM" },
+      { id: "omim", label: "Omim" },
     ]
   },
 

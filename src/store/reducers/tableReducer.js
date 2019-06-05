@@ -3,7 +3,7 @@ import actionsTypes from "../actionsTypes";
 import { generateDNAVariantTableMockData } from "../../utils/mockdata-generator";
 
 const initialState = {
-  data: generateDNAVariantTableMockData(10000),
+  data: generateDNAVariantTableMockData(100),
   selectedRowKeys: []
 };
 
