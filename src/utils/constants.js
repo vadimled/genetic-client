@@ -35,3 +35,11 @@ export const MUTATION = [
   { value: "rna", label: "RNA" },
   { value: "agena", label: "Agena" }
 ];
+
+
+export const GNOM_AD = {
+  na: "na",
+  veryRare: "veryRare",
+  rare: "rare",
+  common: "common"
+}

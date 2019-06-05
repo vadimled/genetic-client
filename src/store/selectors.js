@@ -1,6 +1,7 @@
 import { FILTERS } from "Utils/constants";
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
+import { GNOM_AD } from "../utils/constants";
 
 const getDb = state => state?.table?.data;
 const getFilters = state => state?.filters;
@@ -49,7 +50,7 @@ const getAppliedFilters = createSelector(
     roi,
     vaf,
     cancerDBs,
-    gnom
+    gnomFilter
   ) => {
     const filters = {
       ...(variantClass.length && {
@@ -75,8 +76,17 @@ const getAppliedFilters = createSelector(
       ...(cancerDBs.length && {
         cancerDBs: item => cancerDBs.some(filter => item[filter] !== undefined)
       }),
-      ...(gnom.length && {
-        gnom: item => gnom.some(filter => item.gnom === filter)
+      ...(gnomFilter.length && {
+        gnom: (item) =>  {
+          return gnomFilter.some(value => {
+            switch(value) {
+              case GNOM_AD.na : return item.gnomAD === undefined;
+              case GNOM_AD.veryRare : return (item.gnomAD >= 0) && (item.gnomAD < 1);
+              case GNOM_AD.rare : return (item.gnomAD >= 1) && (item.gnomAD < 5);
+              case GNOM_AD.common : return item.gnomAD >= 5;
+            }
+          })
+        }
       })
     };
 
@@ -100,8 +110,6 @@ export const getFilteredData = createSelector(
     const filteredData = data.filter(item => {
       return filtersArray.every(filter => filter(item));
     });
-
-    console.log("--filtered data: ", filteredData);
 
     return filteredData;
   }
