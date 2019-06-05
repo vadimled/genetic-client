@@ -516,6 +516,15 @@ export const generateDNAVariantTableMockData = amount =>
     hotSpot: faker.random.arrayElement([faker.random.boolean(), undefined]),
     snp: faker.random.arrayElement([faker.random.boolean(), undefined]),
     roi: faker.random.arrayElement([faker.random.boolean(), undefined]),
+    clinvar: faker.random.arrayElement(["", undefined]),
+    cosmic: faker.random.arrayElement(["", undefined]),
+    omim: faker.random.arrayElement(["", undefined]),
+    gnomAD: faker.random.arrayElement([
+      undefined,
+      faker.random.number(1),
+      faker.random.number({ min: 1, max: 5 }),
+      faker.random.number({ min: 5, max: 100 })
+    ]),
     zygosity: "",
     variantClass: "",
     coverage: faker.random.number({ min: 100, max: 500 }),
