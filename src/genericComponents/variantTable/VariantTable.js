@@ -2,79 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Table } from "antd";
 import Notes from "Pages/mainPage/components/notes";
-import { Resizable } from 'react-resizable';
-
-
-// const columns = [
-//   {
-//     title: "Gene",
-//     dataIndex: "gene",
-//     key: "2"
-//   },
-//   {
-//     title: "Chr: position",
-//     dataIndex: "chrPosition",
-//     key: "3"
-//   },
-//   {
-//     title: "Transcript",
-//     dataIndex: "transcript",
-//     key: "4"
-//   },
-//   {
-//     title: "Exon",
-//     dataIndex: "exon",
-//     key: "5"
-//   },
-//   {
-//     title: "Allele change",
-//     dataIndex: "alleleChange",
-//     key: "6"
-//   },
-//   {
-//     title: "coding",
-//     dataIndex: "coding",
-//     key: "7"
-//   },
-//   {
-//     title: "Protein",
-//     dataIndex: "protein",
-//     key: "8"
-//   },
-//   {
-//     title: "VAF",
-//     dataIndex: "vaf",
-//     key: "9"
-//   },
-//   {
-//     title: "Zygosity",
-//     dataIndex: "zygosity",
-//     key: "10"
-//   },
-//   {
-//     title: "Variant Class",
-//     dataIndex: "variantClass",
-//     key: "11"
-//   },
-//   {
-//     title: "coverage",
-//     dataIndex: "coverage",
-//     key: "12"
-//   },
-//   {
-//     title: "Notes",
-//     dataIndex: "notes",
-//     key: "13"
-//   },
-//   {
-//     title: "Activity log",
-//     dataIndex: "activityLog",
-//     key: "14"
-//   }
-// ];
-
-
-
+import { Resizable } from "react-resizable";
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -90,14 +18,8 @@ const ResizeableTitle = props => {
   );
 };
 
-
-
-
-
-
 class VariantTable extends Component {
-
-  state={
+  state = {
     columns: [
       {
         title: "Gene",
@@ -174,10 +96,10 @@ class VariantTable extends Component {
       {
         title: "Activity log",
         dataIndex: "activityLog",
-        key: "14",
+        key: "14"
       }
     ]
-  }
+  };
 
   addNodes = () => {
     const { data } = this.props;
@@ -192,8 +114,8 @@ class VariantTable extends Component {
 
   components = {
     header: {
-      cell: ResizeableTitle,
-    },
+      cell: ResizeableTitle
+    }
   };
 
   handleResize = index => (e, { size }) => {
@@ -201,7 +123,7 @@ class VariantTable extends Component {
       const nextColumns = [...columns];
       nextColumns[index] = {
         ...nextColumns[index],
-        width: size.width,
+        width: size.width
       };
       return { columns: nextColumns };
     });
@@ -224,8 +146,8 @@ class VariantTable extends Component {
       ...col,
       onHeaderCell: column => ({
         width: column.width,
-        onResize: this.handleResize(index),
-      }),
+        onResize: this.handleResize(index)
+      })
     }));
 
     return (
@@ -233,10 +155,9 @@ class VariantTable extends Component {
         components={this.components}
         rowSelection={rowSelection}
         bordered
-        pagination={false}
         columns={columns}
         dataSource={dataWithNotes}
-        scroll={{ x: "100%" }}
+        scroll={{ x: "max-content" }}
       />
     );
   }
