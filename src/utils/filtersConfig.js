@@ -1,7 +1,7 @@
 import { Icon } from "antd";
 import React from "react";
 import { TAG_COLORS } from "Utils/constants";
-import { FILTERS } from "Utils/constants";
+import { FILTERS, VARIANT_CLASS } from "Utils/constants";
 
 export default  {
   [FILTERS.variantClass]: {
@@ -9,12 +9,12 @@ export default  {
     type: ["somatic", "germline"],
     mode: "multiple",
     items: [
-      { id: "unclassified", tagColor: TAG_COLORS.white, label: "Unclassified" },
-      { id: "path", tagColor: TAG_COLORS.red, label: "PATH" },
-      { id: "lath", tagColor: TAG_COLORS.orange, label: "LATH" },
-      { id: "vus", tagColor: TAG_COLORS.yellow, label: "VUS" },
-      { id: "lben", tagColor: TAG_COLORS.blueLight, label: "LBEN" },
-      { id: "ben", tagColor: TAG_COLORS.blue, label: "BEN" }
+      { id: VARIANT_CLASS.unclassified.value, tagColor: TAG_COLORS.white, label: VARIANT_CLASS.unclassified.label },
+      { id: VARIANT_CLASS.path.value, tagColor: TAG_COLORS.red, label: VARIANT_CLASS.path.label },
+      { id: VARIANT_CLASS.lpath.value, tagColor: TAG_COLORS.orange, label: VARIANT_CLASS.lpath.label },
+      { id: VARIANT_CLASS.vus.value, tagColor: TAG_COLORS.yellow, label: VARIANT_CLASS.vus.label },
+      { id: VARIANT_CLASS.lben.value, tagColor: TAG_COLORS.blueLight, label: VARIANT_CLASS.lben.label },
+      { id: VARIANT_CLASS.ben.value, tagColor: TAG_COLORS.blue, label: VARIANT_CLASS.ben.label }
     ]
   },
 

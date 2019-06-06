@@ -8,10 +8,24 @@ export const setNotes = data => {
   };
 };
 
-
 export const onSelectRowKey = data => {
   return {
     type: actionsTypes.SELECT_ROW_KEY,
     payload: data
   };
 };
+
+export const handleZygosity = data => {
+  return {
+    type: actionsTypes.HANDLE_ZYGOSITY,
+    payload: data
+  };
+};
+
+export const handleVariantClass = data => {
+  return {
+    type: actionsTypes.HANDLE_VARIANT_CLASS,
+    payload: data
+  };
+};
+
