@@ -514,6 +514,52 @@
   }
 }
 
+.ant-table-pagination.ant-pagination {
+  float: left !important;
+  margin: 16px !important;
+}
+
 .ant-popover-placement-bottom > .ant-popover-content > .ant-popover-arrow {
   display: none !important;
+}
+
+th {
+  position: relative;
+}
+
+.react-resizable {
+  position: relative;
+}
+
+.react-resizable-handle {
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  bottom: 0;
+  right: -5px;
+  cursor: col-resize;
+}
+
+.ant-table-scroll {
+  overflow-x: auto !important;
+  table {
+    transition: 0.4s ease;
+    transform: translate(0px, 0px);
+    width: max-content;
+  }
+}
+
+.sidebar-open {
+  .ant-table-wrapper {
+    width: calc(100vw - 197px) !important;
+  }
+  .ant-table-scroll {
+    table {
+      transform: translate(0px, 0px);
+      width: calc(100vw + 197px) !important;
+    }
+  }
+}
+.ant-table colgroup {
+  min-width: 70px !important;
 }
