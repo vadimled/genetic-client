@@ -11,9 +11,24 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVaf = state => state?.filters?.[FILTERS.vaf],
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
-  getTableData = state => state?.table?.data,
+  getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
   getSelectedRowKeys = state => state?.table?.selectedRowKeys,
   getMutationType = state => state.variants.mutations;
+
+export const getNotes = (state, id) => state?.table?.data?.[id].notes;
+
+export const getTableDataAsArray = createSelector(
+  getTableData,
+  data => {
+    let arrayData = [];
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        arrayData.push(data[key]);
+      }
+    }
+    return arrayData;
+  }
+);
 
 const getAppliedFilters = createSelector(
   getFilterType,
@@ -83,7 +98,7 @@ const getAppliedFilters = createSelector(
 );
 
 export const getFilteredData = createSelector(
-  getTableData,
+  getTableDataAsArray,
   getAppliedFilters,
   (data, appliedFilters) => {
     if (isEmpty(appliedFilters)) {
@@ -103,14 +118,12 @@ export const getFilteredData = createSelector(
   }
 );
 
-export const getNotes = (state, id) => state?.table?.data?.[id].notes;
-
 export const getFilteredEntriesAmount = createSelector(
   getFilteredData,
   filteredData => filteredData?.length
 );
 
 export const getTotalEntriesAmount = createSelector(
-  getTableData,
+  getTableDataAsArray,
   data => data?.length
 );

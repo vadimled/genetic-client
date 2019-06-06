@@ -8,12 +8,14 @@ import {
   getFilteredData
 } from "Store/selectors";
 import {
-  onSelectRowKey
+  onSelectRowKey,
+  handleZygosity,
+  handleVariantClass
 } from "Actions/tableActions";
 
 class TableData extends Component {
   render() {
-    const { selectedRowKeys, onSelectRowKey, filteredData } = this.props;
+    const { filteredData, selectedRowKeys, onSelectRowKey, handleZygosity, handleVariantClass } = this.props;
 
     return (
       <TableLayout>
@@ -21,6 +23,8 @@ class TableData extends Component {
           data={filteredData}
           onSelectRowKey={onSelectRowKey}
           selectedRowKeys={selectedRowKeys}
+          handleZygosity={handleZygosity}
+          handleVariantClass={handleVariantClass}
         />
       </TableLayout>
     );
@@ -37,6 +41,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     onSelectRowKey: (data) => dispatch(onSelectRowKey(data)),
+    handleZygosity: (data) => dispatch(handleZygosity(data)),
+    handleVariantClass: (data) => dispatch(handleVariantClass(data))
   };
 }
 
