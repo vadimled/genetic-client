@@ -293,18 +293,6 @@
     color: $neutral_30;
   }
 }
-// only for this cell
-.select--variant-class {
-  .ant-select-arrow {
-    background: $table-header-bg;
-  }
-
-  &:hover {
-    .ant-select-arrow {
-      background: $select-option-hovered;
-    }
-  }
-}
 
 //Popover
 .ant-popover-arrow {

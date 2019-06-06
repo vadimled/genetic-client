@@ -85,7 +85,7 @@ class VariantTable extends Component {
           </div>
           : ''
       ,
-      className: "select select--variant-class",
+      className: "select",
     },
     {
       title: "coverage",
