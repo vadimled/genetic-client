@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 // import PropTypes from 'prop-types';
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import { Collapse } from "antd";
 import SelectionGroup from "GenericComponents/selectionGroup";
 import filtersConfig from "Utils/filtersConfig";
@@ -38,7 +38,6 @@ function callback(key) {
 const Arrow = ({ dir }) => <i className={`${dir} arrow`} />;
 
 class SidebarFilters extends Component {
-
   onChange = (filterSection, mode, value) => {
     const {
       setFilterVariantClass,
@@ -56,15 +55,31 @@ class SidebarFilters extends Component {
       mode
     };
 
-    switch(filterSection) {
-      case FILTERS.variantClass : setFilterVariantClass(data); break;
-      case FILTERS.somaticClass : setFilterSomaticClass(data); break;
-      case FILTERS.hotSpot : setFilterHotSpot(data); break;
-      case FILTERS.snp : setFilterSnp(data); break;
-      case FILTERS.roi : setFilterRoi(data); break;
-      case FILTERS.vaf : setFilterVaf(data); break;
-      case FILTERS.cancerDBs : setFilterCancerDBs(data); break;
-      case FILTERS.gnomAD : setFilterGnomId(data); break;
+    switch (filterSection) {
+      case FILTERS.variantClass:
+        setFilterVariantClass(data);
+        break;
+      case FILTERS.somaticClass:
+        setFilterSomaticClass(data);
+        break;
+      case FILTERS.hotSpot:
+        setFilterHotSpot(data);
+        break;
+      case FILTERS.snp:
+        setFilterSnp(data);
+        break;
+      case FILTERS.roi:
+        setFilterRoi(data);
+        break;
+      case FILTERS.vaf:
+        setFilterVaf(data);
+        break;
+      case FILTERS.cancerDBs:
+        setFilterCancerDBs(data);
+        break;
+      case FILTERS.gnomAD:
+        setFilterGnomId(data);
+        break;
     }
   };
 
@@ -74,11 +89,9 @@ class SidebarFilters extends Component {
     return (
       <div className={style["sidebar-filters"]}>
         <Collapse
-          defaultActiveKey={["1"]}
+          defaultActiveKey={["1", "2", "3", "4", "5", "6", "7"]}
           onChange={callback}
-          expandIcon={({ isActive }) => (
-            <Arrow dir={!isActive ? "right" : "down"} />
-          )}
+          expandIcon={({ isActive }) => <Arrow dir={!isActive ? "right" : "down"} />}
         >
           {Object.keys(filtersConfig)
             .filter(key => filtersConfig[key].type.includes(type))
@@ -87,24 +100,21 @@ class SidebarFilters extends Component {
 
               return (
                 <Panel header={group.title} key={i + 1}>
-
-                  {group.children &&
+                  {group.children && (
                     <Collapse
                       key={`collapse-${i}`}
-                      defaultActiveKey={["1"]}
+                      defaultActiveKey={["1inner", "2inner"]}
                       onChange={callback}
-                      expandIcon={({ isActive }) => (
-                        <Arrow dir={!isActive ? "right" : "down"} />
-                      )}
+                      expandIcon={({ isActive }) => <Arrow dir={!isActive ? "right" : "down"} />}
                       className="collapse-childrens"
                     >
                       {Object.keys(group.children)
-                        .filter((key) => group.children[key].type.includes(type))
+                        .filter(key => group.children[key].type.includes(type))
                         .map((key, i) => {
                           let childGroup = group.children[key];
 
                           return (
-                            <Panel header={childGroup.title} key={i + 1 + 'inner'}>
+                            <Panel header={childGroup.title} key={i + 1 + "inner"}>
                               <SelectionGroup
                                 mode={childGroup.mode}
                                 items={childGroup.items}
@@ -113,24 +123,21 @@ class SidebarFilters extends Component {
                               />
                             </Panel>
                           );
-                        })
-                      }
+                        })}
                     </Collapse>
-                  }
+                  )}
 
-                  {!group.children &&
+                  {!group.children && (
                     <SelectionGroup
                       mode={group.mode}
                       items={group.items}
                       onChange={this.onChange.bind(this, key, group.mode)}
                       values={filters[key]}
                     />
-                  }
-
+                  )}
                 </Panel>
               );
-            })
-          }
+            })}
         </Collapse>
       </div>
     );
@@ -157,14 +164,17 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setFilterVariantClass: (data) => dispatch(setFilterVariantClass(data)),
-    setFilterSomaticClass: (data) => dispatch(setFilterSomaticClass(data)),
-    setFilterHotSpot: (data) => dispatch(setFilterHotSpot(data)),
-    setFilterSnp: (data) => dispatch(setFilterSnp(data)),
-    setFilterRoi: (data) => dispatch(setFilterRoi(data)),
-    setFilterVaf: (data) => dispatch(setFilterVaf(data)),
-    setFilterCancerDBs: (data) => dispatch(setFilterCancerDBs(data)),
-    setFilterGnomId: (data) => dispatch(setFilterGnomId(data)),
+    setFilterVariantClass: data => dispatch(setFilterVariantClass(data)),
+    setFilterSomaticClass: data => dispatch(setFilterSomaticClass(data)),
+    setFilterHotSpot: data => dispatch(setFilterHotSpot(data)),
+    setFilterSnp: data => dispatch(setFilterSnp(data)),
+    setFilterRoi: data => dispatch(setFilterRoi(data)),
+    setFilterVaf: data => dispatch(setFilterVaf(data)),
+    setFilterCancerDBs: data => dispatch(setFilterCancerDBs(data)),
+    setFilterGnomId: data => dispatch(setFilterGnomId(data))
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(SidebarFilters);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SidebarFilters);

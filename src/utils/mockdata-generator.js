@@ -510,7 +510,12 @@ export const generateDNAVariantTableMockData = amount =>
     transcript: `NM_${faker.helpers.replaceSymbolWithNumber("######.#")}`,
     exon: faker.random.number({ min: 1, max: 9 }),
     alleleChange: faker.random.arrayElement(["C > T", "G > A", "T > G", "A > C"]),
-    alleleChangeLong: faker.random.arrayElement(["sdsdddshshh", "sghshsfghsfh", "fsghfsghsfghsfsfhsfh", "sfghsfhsfhsfhfsh"]),
+    alleleChangeLong: faker.random.arrayElement([
+      "sdsdddshshh",
+      "sghshsfghsfh",
+      "fsghfsghsfghsfsfhsfh",
+      "sfghsfhsfhsfhfsh"
+    ]),
     coding: faker.random.arrayElement(["gCc/gTc", "aGc/tCg", "cAc/gTa"]),
     protein: faker.random.alphaNumeric(5),
     vaf: faker.random.number(100),
@@ -531,5 +536,3 @@ export const generateDNAVariantTableMockData = amount =>
     coverage: faker.random.number({ min: 100, max: 500 }),
     notes: faker.lorem.sentence()
   }));
-
-

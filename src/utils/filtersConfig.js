@@ -3,9 +3,9 @@ import React from "react";
 import { TAG_COLORS } from "Utils/constants";
 import { FILTERS, VARIANT_CLASS } from "Utils/constants";
 
-export default  {
+export default {
   [FILTERS.variantClass]: {
-    title: "Type",
+    title: "Germline Class",
     type: ["somatic", "germline"],
     mode: "multiple",
     items: [
@@ -27,11 +27,11 @@ export default  {
       { id: "1", tagColor: TAG_COLORS.red, label: "Tier1" },
       { id: "2", tagColor: TAG_COLORS.orange, label: "Tier2" },
       { id: "3", tagColor: TAG_COLORS.yellow, label: "Tier3" },
-      { id: "4", tagColor: TAG_COLORS.blueLight, label: "Tier4" },
+      { id: "4", tagColor: TAG_COLORS.blueLight, label: "Tier4" }
     ]
   },
 
-  ['variantPanels']: {
+  ["variantPanels"]: {
     title: "Variant panels",
     type: ["somatic"],
     children: {
@@ -42,7 +42,7 @@ export default  {
         items: [
           { id: true, label: "True", icon: <Icon type="check" /> },
           { id: false, label: "False", icon: <Icon type="close" /> }
-        ],
+        ]
       },
 
       [FILTERS.snp]: {
@@ -52,8 +52,8 @@ export default  {
         items: [
           { id: true, label: "True", icon: <Icon type="check" /> },
           { id: false, label: "False", icon: <Icon type="close" /> }
-        ],
-      },
+        ]
+      }
     }
   },
 
@@ -77,11 +77,7 @@ export default  {
     title: "Cancer DBs",
     type: ["somatic", "germline"],
     mode: "multiple",
-    items: [
-      { id: "clinvar", label: "Clinvar" },
-      { id: "cosmic", label: "Cosmic" },
-      { id: "omim", label: "Omim" },
-    ]
+    items: [{ id: "clinvar", label: "Clinvar" }, { id: "cosmic", label: "Cosmic" }, { id: "omim", label: "Omim" }]
   },
 
   [FILTERS.gnomAD]: {
