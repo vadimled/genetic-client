@@ -4,8 +4,8 @@ import {connect} from "react-redux";
 import TableLayout from "../tableLayout";
 import VariantTable from "GenericComponents/variantTable";
 import {
-  getTableData,
   getSelectedRowKeys,
+  getFilteredData
 } from "Store/selectors";
 import {
   onSelectRowKey
@@ -13,11 +13,12 @@ import {
 
 class TableData extends Component {
   render() {
-    const { data, selectedRowKeys, onSelectRowKey } = this.props;
+    const { selectedRowKeys, onSelectRowKey, filteredData } = this.props;
+
     return (
       <TableLayout>
         <VariantTable
-          data={data}
+          data={filteredData}
           onSelectRowKey={onSelectRowKey}
           selectedRowKeys={selectedRowKeys}
         />
@@ -28,8 +29,8 @@ class TableData extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: getTableData(state),
     selectedRowKeys: getSelectedRowKeys(state),
+    filteredData: getFilteredData(state)
   };
 }
 

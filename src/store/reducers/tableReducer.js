@@ -1,52 +1,9 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
+import { generateDNAVariantTableMockData } from "../../utils/mockdata-generator";
 
 const initialState = {
-  data: [
-    {
-      key: "1",
-      gene: "SDHA",
-      chrPosition: "Chr5 : 236628",
-      transcript: "NM_005591.3",
-      exon: 7,
-      alleleChange: "C > T",
-      coding: "gCc/gTc",
-      protein: "A449V",
-      vaf: 33,
-      zygosity: "Hom",
-      variantClass: "",
-      coverage: 300,
-      notes: "Test ID place Mutation data dropdown list"
-    },
-    {
-      key: "2",
-      gene: "SDHA",
-      chrPosition: "Chr5 : 236628",
-      transcript: "NM_005591.3",
-      exon: 7,
-      alleleChange: "C > T",
-      coding: "gCc/gTc",
-      protein: "A449V",
-      vaf: 33,
-      zygosity: "Hom",
-      variantClass: "",
-      coverage: 300
-    },
-    {
-      key: "3",
-      gene: "SDHA",
-      chrPosition: "Chr5 : 236628",
-      transcript: "NM_005591.3",
-      exon: 7,
-      alleleChange: "C > T",
-      coding: "gCc/gTc",
-      protein: "A449V",
-      vaf: 33,
-      zygosity: "Hom",
-      variantClass: "",
-      coverage: 300
-    }
-  ],
+  data: generateDNAVariantTableMockData(100),
   selectedRowKeys: []
 };
 

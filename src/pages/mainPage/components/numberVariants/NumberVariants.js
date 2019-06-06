@@ -11,8 +11,8 @@ const NumberVariants = ({ filtered, total }) => {
 };
 
 NumberVariants.propTypes = {
-  filtered: PropTypes.string,
-  total: PropTypes.string
+  filtered: PropTypes.number,
+  total: PropTypes.number
 };
 
 NumberVariants.defaultProps = {

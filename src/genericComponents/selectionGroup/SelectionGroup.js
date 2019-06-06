@@ -1,34 +1,34 @@
 import React from "react";
 import PropTypes from "prop-types";
-import FilterItem from "GenericComponents/filterItem";
+import FilterCheckboxItem from "GenericComponents/filterCheckboxItem";
+import RangeSlider from "GenericComponents/rangeSlider";
 import style from "./SelectionGroup.module.scss";
 
-const SelectionGroup = ({ filterItems, mode, onChange, values}) => {
+const SelectionGroup = ({ items, mode, onChange, values}) => {
   return (
     <div className={style["selection-group-wrapper"]}>
-      {filterItems.map((item, i) => (
-        <FilterItem
-          id={item.id}
-          mode={mode}
-          item={item}
+      {(mode === 'multiple' || mode === 'single') && items.map((item, i) => (
+        <FilterCheckboxItem
           key={i}
+          item={item}
           onChange={onChange.bind(null, item.id)}
-          checkboxValue={mode === 'multiple'
-            ? values.some((val) => item.id === val)
-            : false
-          }
-          radioValue={mode === 'single'
-            ? values
-            : null
+          value={mode === 'multiple'
+            ? values.some((val) => item.id === val) // mode: multiple
+            : item.id === values // mode: single
           }
         />
       ))}
+      {mode === 'range' && <RangeSlider
+        onChange={onChange}
+        rangeValue={values}
+        className="filters-range-slider"
+      />}
     </div>
   );
 };
 
 SelectionGroup.propTypes = {
-  filterItems: PropTypes.array.isRequired,
+  items: PropTypes.arrayOf(PropTypes.object),
   mode: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   values: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.bool])
