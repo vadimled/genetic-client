@@ -4,16 +4,19 @@ export const TAG_COLORS = {
   yellow: "#FED955",
   blue: "#559FD5",
   blueLight: "#7CD8FF",
-  orange: "#FF835C"
+  orange: "#FF835C",
 };
 
 export const FILTERS = {
-  type: "Type",
-  variantClass: "Variant Class",
-  hotSpot: "Hot Spot",
-  snp: "SNP",
-  roi: "ROI",
-  gnomId: "Gnom ID"
+  type: "type",
+  variantClass: "variantClass",
+  somaticClass: "somaticClass",
+  hotSpot: "hotSpot",
+  snp: "snp",
+  roi: "roi",
+  vaf: "vaf",
+  gnomAD: "gnomAD",
+  cancerDBs: "canserBDs",
 };
 
 export const TEXTS = {
@@ -75,3 +78,10 @@ export const SOMATIC_VARIANT_CLASS_OPTIONS = [
   { ...SOMATIC_CLASS.tier3 },
   { ...SOMATIC_CLASS.tier4 },
 ];
+
+export const GNOM_AD = {
+  na: "na",
+  veryRare: "veryRare",
+  rare: "rare",
+  common: "common"
+};
