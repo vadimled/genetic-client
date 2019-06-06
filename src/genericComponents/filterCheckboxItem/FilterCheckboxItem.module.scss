@@ -1,10 +1,4 @@
 .filter-item-wrapper :global {
-  .tag {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
   .checkbox-inner-content {
     padding-top: 2px;
   }
@@ -18,5 +12,18 @@
   }
   .anticon {
     margin-right: 11px;
+  }
+
+  .ant-checkbox-wrapper {
+    align-items: center;
+
+    .ant-checkbox-inner::after {
+      top: 47%;
+      left: 20%;
+    }
+
+    .ant-checkbox {
+      padding-top: 3px;
+    }
   }
 }

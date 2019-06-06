@@ -14,6 +14,13 @@ export const setFilterVariantClass = data => {
   };
 };
 
+export const setFilterSomaticClass = data => {
+  return {
+    type: actionsTypes.SET_FILTER_SOMATIC_CLASS,
+    payload: data
+  };
+};
+
 export const setFilterHotSpot = data => {
   return {
     type: actionsTypes.SET_FILTER_HOT_SPOT,
@@ -35,9 +42,32 @@ export const setFilterRoi = data => {
   };
 };
 
+export const setFilterVaf = data => {
+  return {
+    type: actionsTypes.SET_FILTER_VAF,
+    payload: data
+  };
+};
+
+export const setFilterCancerDBs = data => {
+  return {
+    type: actionsTypes.SET_FILTER_CANCER_DBS,
+    payload: data
+  };
+};
+
 export const setFilterGnomId = data => {
   return {
     type: actionsTypes.SET_FILTER_GNOM_ID,
+    payload: data
+  };
+};
+
+
+
+export const getFilteredData = data => {
+  return {
+    type: actionsTypes.GET_FILTERED_DATA,
     payload: data
   };
 };
