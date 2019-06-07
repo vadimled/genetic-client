@@ -87,20 +87,20 @@ class SidebarFilters extends Component {
 
   filtersConfigConverter = (initFilters) => {
     return {
-      [FILTERS.variantClass]: { ...initFilters[FILTERS.variantClass] },
-      [FILTERS.somaticClass]: { ...initFilters[FILTERS.somaticClass] },
+      [FILTERS.variantClass]: initFilters[FILTERS.variantClass],
+      [FILTERS.somaticClass]: initFilters[FILTERS.somaticClass],
       ["variantPanels"]: {
         title: "Variant panels",
         type: ["somatic"],
         children: {
-          [FILTERS.hotSpot]: { ...initFilters[FILTERS.hotSpot] },
-          [FILTERS.snp]: { ...initFilters[FILTERS.snp] },
+          [FILTERS.hotSpot]: initFilters[FILTERS.hotSpot],
+          [FILTERS.snp]: initFilters[FILTERS.snp],
         }
       },
-      [FILTERS.roi]: { ...initFilters[FILTERS.roi] },
-      [FILTERS.vaf]: { ...initFilters[FILTERS.vaf] },
-      [FILTERS.cancerDBs]: { ...initFilters[FILTERS.cancerDBs] },
-      [FILTERS.gnomAD]: { ...initFilters[FILTERS.gnomAD] },
+      [FILTERS.roi]: initFilters[FILTERS.roi],
+      [FILTERS.vaf]: initFilters[FILTERS.vaf],
+      [FILTERS.cancerDBs]: initFilters[FILTERS.cancerDBs],
+      [FILTERS.gnomAD]: initFilters[FILTERS.gnomAD],
     };
   };
 
@@ -109,15 +109,30 @@ class SidebarFilters extends Component {
     clearFilterSection({ filtersKey: filterSection });
   };
 
+  clearAllFilters = () => {
+    Object.keys(filtersConfig)
+      .forEach((key) => this.clearFilterSection(key));
+  };
+
   render() {
     const { filters, type } = this.props;
 
     const transformedFiltersConfig = this.filtersConfigConverter(filtersConfig);
+    const filtersChipIndicators = Object.keys(filters).filter((key) => filters[key].length);
 
     return (
       <div className={style["sidebar-filters"]}>
-        {Object.keys(filters)
-          .filter((key) => filters[key].length)
+        {!filtersChipIndicators.length && <div className="filters-title">Filters</div>}
+        {!!filtersChipIndicators.length &&
+          <div
+            className="clear-filters"
+            onClick={this.clearAllFilters}
+          >
+            Clear filters ({filtersChipIndicators.length})
+          </div>
+        }
+
+        {filtersChipIndicators
           .map((key) => {
             return (
               <FilterChipIndicators
