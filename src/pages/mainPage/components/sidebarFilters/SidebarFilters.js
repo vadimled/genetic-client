@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Collapse } from "antd";
 import SelectionGroup from "GenericComponents/selectionGroup";
+import FilterChipIndicators from 'GenericComponents/filterChipIndicators';
 import filtersConfig from "Utils/filtersConfig";
 import {
   getFilterType,
@@ -88,6 +89,11 @@ class SidebarFilters extends Component {
 
     return (
       <div className={style["sidebar-filters"]}>
+        <FilterChipIndicators
+          onDelete={(id) => console.log(id)}
+          data={['lpath', 'path', 'ben']}
+          title={'title'}
+        />
         <Collapse
           defaultActiveKey={["1", "2", "3", "4", "5", "6", "7"]}
           onChange={callback}
