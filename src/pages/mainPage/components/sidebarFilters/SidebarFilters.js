@@ -24,7 +24,8 @@ import {
   setFilterRoi,
   setFilterVaf,
   setFilterCancerDBs,
-  setFilterGnomId
+  setFilterGnomId,
+  clearFilterSection
 } from "Actions/filtersActions";
 import { FILTERS } from "Utils/constants";
 import style from "./SidebarFilters.module.scss";
@@ -103,6 +104,11 @@ class SidebarFilters extends Component {
     };
   };
 
+  clearFilterSection = (filterSection) => {
+    const { clearFilterSection } = this.props;
+    clearFilterSection({ filtersKey: filterSection });
+  };
+
   render() {
     const { filters, type } = this.props;
 
@@ -116,12 +122,11 @@ class SidebarFilters extends Component {
             return (
               <FilterChipIndicators
                 key={key}
-                onDelete={(id) => console.log(id)}
+                onDelete={this.clearFilterSection.bind(this, key)}
                 data={key === FILTERS.vaf
                   ? filters[key]
                   : filtersConfig[key].items
                     .filter((item) => filters[key].includes(item.id))
-                    // .map((item) => item.label)
                 }
                 title={filtersConfig[key].title}
               />
@@ -185,7 +190,7 @@ class SidebarFilters extends Component {
   }
 }
 
-SidebarFilters.propTypes = {};
+// SidebarFilters.propTypes = {};
 
 function mapStateToProps(state) {
   return {
@@ -212,7 +217,8 @@ function mapDispatchToProps(dispatch) {
     setFilterRoi: data => dispatch(setFilterRoi(data)),
     setFilterVaf: data => dispatch(setFilterVaf(data)),
     setFilterCancerDBs: data => dispatch(setFilterCancerDBs(data)),
-    setFilterGnomId: data => dispatch(setFilterGnomId(data))
+    setFilterGnomId: data => dispatch(setFilterGnomId(data)),
+    clearFilterSection: data => dispatch(clearFilterSection(data))
   };
 }
 export default connect(

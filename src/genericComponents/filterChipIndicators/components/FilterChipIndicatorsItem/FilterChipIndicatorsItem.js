@@ -17,7 +17,6 @@ const FilterChipIndicatorsItem = ({ data, onDelete }) => {
             </Fragment>;
           }
           else if (typeof item === 'object') {
-            // console.log("item", item);
             return <Fragment key={item.id}>
               {!!item.icon && <span className="icon">{item.icon}</span>}
               <span>{item.label}</span>

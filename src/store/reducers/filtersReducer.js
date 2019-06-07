@@ -141,8 +141,15 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
-  // [actionsTypes]
+  [actionsTypes.CLEAR_FILTER_SECTION]: (state, {payload}) => {
+    const { filtersKey } = payload;
 
+    state[filtersKey] = [];
+
+    return {
+      ...state
+    };
+  },
 
 });
 

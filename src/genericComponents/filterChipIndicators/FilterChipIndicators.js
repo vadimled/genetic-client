@@ -1,31 +1,9 @@
-/**
-  * Usage example:
-  <FilterChipIndicators
-    onDelete={(id) => console.log(id)}
-    data={[
-      {
-        id: 123,
-        key: 'test key',
-        value: 'VUS',
-      },
-      {
-        id: 234
-      },
-      {
-        id: 2342
-      }
-    ]}
-  />
-*/
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import FilterChipIndicatorsItem from './components/FilterChipIndicatorsItem';
 import style from './FilterChipIndicators.module.scss';
 
 const FilterChipIndicators = ({ title, data, onDelete }) => {
-  // const value = data.join(', ');
-
   return (
     <div className={style["filter-chip-indicators"]}>
       <div className="indicators-title">{title}</div>
