@@ -84,25 +84,60 @@ class SidebarFilters extends Component {
     }
   };
 
+  filtersConfigConverter = (initFilters) => {
+    return {
+      [FILTERS.variantClass]: { ...initFilters[FILTERS.variantClass] },
+      [FILTERS.somaticClass]: { ...initFilters[FILTERS.somaticClass] },
+      ["variantPanels"]: {
+        title: "Variant panels",
+        type: ["somatic"],
+        children: {
+          [FILTERS.hotSpot]: { ...initFilters[FILTERS.hotSpot] },
+          [FILTERS.snp]: { ...initFilters[FILTERS.snp] },
+        }
+      },
+      [FILTERS.roi]: { ...initFilters[FILTERS.roi] },
+      [FILTERS.vaf]: { ...initFilters[FILTERS.vaf] },
+      [FILTERS.cancerDBs]: { ...initFilters[FILTERS.cancerDBs] },
+      [FILTERS.gnomAD]: { ...initFilters[FILTERS.gnomAD] },
+    };
+  };
+
   render() {
     const { filters, type } = this.props;
 
+    const transformedFiltersConfig = this.filtersConfigConverter(filtersConfig);
+
     return (
       <div className={style["sidebar-filters"]}>
-        <FilterChipIndicators
-          onDelete={(id) => console.log(id)}
-          data={['lpath', 'path', 'ben']}
-          title={'title'}
-        />
+        {Object.keys(filters)
+          .filter((key) => filters[key].length)
+          .map((key) => {
+            return (
+              <FilterChipIndicators
+                key={key}
+                onDelete={(id) => console.log(id)}
+                data={key === FILTERS.vaf
+                  ? filters[key]
+                  : filtersConfig[key].items
+                    .filter((item) => filters[key].includes(item.id))
+                    // .map((item) => item.label)
+                }
+                title={filtersConfig[key].title}
+              />
+            );
+          })
+        }
+
         <Collapse
           defaultActiveKey={["1", "2", "3", "4", "5", "6", "7"]}
           onChange={callback}
           expandIcon={({ isActive }) => <Arrow dir={!isActive ? "right" : "down"} />}
         >
-          {Object.keys(filtersConfig)
-            .filter(key => filtersConfig[key].type.includes(type))
+          {Object.keys(transformedFiltersConfig)
+            .filter(key => transformedFiltersConfig[key].type.includes(type))
             .map((key, i) => {
-              let group = filtersConfig[key];
+              let group = transformedFiltersConfig[key];
 
               return (
                 <Panel header={group.title} key={i + 1}>

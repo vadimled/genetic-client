@@ -5,6 +5,9 @@
   align-items: center;
   justify-content: space-between;
 
+  width: 168px;
+  max-width: 168px;
+
   background-color: $select-option-selected;
 
   margin-bottom: 7px;
@@ -42,6 +45,10 @@
     &::-moz-focus-inner {
       border: 0;
     }
+  }
+
+  .icon {
+    margin-right: 3px;
   }
 }
 

@@ -23,17 +23,18 @@ import PropTypes from 'prop-types';
 import FilterChipIndicatorsItem from './components/FilterChipIndicatorsItem';
 import style from './FilterChipIndicators.module.scss';
 
-const FilterChipIndicators = ({title, data, onDelete}) => {
+const FilterChipIndicators = ({ title, data, onDelete }) => {
+  // const value = data.join(', ');
+
   return (
     <div className={style["filter-chip-indicators"]}>
-      {!!title && <div className="indicators-title">{title}</div>}
+      <div className="indicators-title">{title}</div>
 
       <div className="indicators-items">
-        {data.map((item) => <FilterChipIndicatorsItem
-          key={item}
-          value={item}
-          onDelete={onDelete.bind(null, item)}
-        />)}
+        <FilterChipIndicatorsItem
+          data={data}
+          onDelete={onDelete}
+        />
       </div>
 
     </div>
@@ -42,12 +43,13 @@ const FilterChipIndicators = ({title, data, onDelete}) => {
 
 FilterChipIndicators.propTypes = {
   data: PropTypes.array,
-  title: PropTypes.string
+  title: PropTypes.string,
+  onDelete: PropTypes.func.isRequired,
 };
 
 FilterChipIndicators.defaultProps = {
   data: [],
-  title: null
+  title: '',
 };
 
 export default FilterChipIndicators;
