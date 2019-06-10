@@ -7,7 +7,7 @@ import cn from "classnames";
 
 const SideBarLayout = props => {
   const { title, subtitle, children, handleClick, mode } = props;
-  console.log(mode);
+
   return (
     <div
       className={cn([

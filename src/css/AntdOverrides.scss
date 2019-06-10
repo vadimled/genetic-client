@@ -1,4 +1,5 @@
 @import "./Colors";
+$sideBarWidth: 197px;
 
 // button
 .ant-btn {
@@ -559,12 +560,12 @@ th {
 
 .sidebar-open {
   .ant-table-wrapper {
-    width: calc(100vw - 197px) !important;
+    width: calc(100vw - #{$sideBarWidth}) !important;
   }
   .ant-table-scroll {
     table {
       transform: translate(0px, 0px);
-      width: calc(100vw + 197px) !important;
+      width: calc(100vw + #{$sideBarWidth}) !important;
     }
   }
 }
