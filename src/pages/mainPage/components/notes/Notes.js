@@ -108,7 +108,7 @@ class Notes extends Component {
           </div>
         ) : (
           <Fragment>
-            <Tooltip placement="bottom" title={getValue}>
+            <Tooltip placement="bottomLeft" title={getValue}>
               <div className="notes-content">{getValue}</div>
             </Tooltip>
 
