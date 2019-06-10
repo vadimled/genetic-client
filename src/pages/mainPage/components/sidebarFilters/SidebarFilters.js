@@ -144,6 +144,7 @@ class SidebarFilters extends Component {
                     .filter((item) => filters[key].includes(item.id))
                 }
                 title={filtersConfig[key].title}
+                filtersConfigKey={key}
               />
             );
           })

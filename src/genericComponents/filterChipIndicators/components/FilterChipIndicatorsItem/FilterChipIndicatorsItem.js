@@ -2,10 +2,9 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import style from './FilterChipIndicatorsItem.module.scss';
 import btnImg from 'Assets/close.svg';
+import { FILTERS } from "Utils/constants";
 
-const FilterChipIndicatorsItem = ({ data, onDelete }) => {
-  // console.log("data", data);
-
+const FilterChipIndicatorsItem = ({ data, onDelete, filtersConfigKey }) => {
   return (
     <div className={style["filter-chip-indicators-item"]}>
       <div className="value">
@@ -13,7 +12,12 @@ const FilterChipIndicatorsItem = ({ data, onDelete }) => {
           if (typeof item === 'number') {
             return <Fragment key={index}>
               <span>{item}</span>
-              {index < data.length-1 && <span>, </span>}
+              {index < data.length-1 &&
+                (filtersConfigKey === FILTERS.vaf
+                  ? <span> - </span>
+                  : <span>, </span>
+                )
+              }
             </Fragment>;
           }
           else if (typeof item === 'object') {
@@ -38,9 +42,12 @@ const FilterChipIndicatorsItem = ({ data, onDelete }) => {
 
 FilterChipIndicatorsItem.propTypes = {
   data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.number])).isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
+  filtersConfigKey: PropTypes.string
 };
 
-FilterChipIndicatorsItem.defaultProps = {};
+FilterChipIndicatorsItem.defaultProps = {
+  filtersConfigKey: ''
+};
 
 export default React.memo(FilterChipIndicatorsItem);

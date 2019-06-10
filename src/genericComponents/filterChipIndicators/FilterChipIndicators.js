@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FilterChipIndicatorsItem from './components/FilterChipIndicatorsItem';
 import style from './FilterChipIndicators.module.scss';
 
-const FilterChipIndicators = ({ title, data, onDelete }) => {
+const FilterChipIndicators = ({ title, data, onDelete, filtersConfigKey }) => {
   return (
     <div className={style["filter-chip-indicators"]}>
       <div className="indicators-title">{title}</div>
@@ -12,6 +12,7 @@ const FilterChipIndicators = ({ title, data, onDelete }) => {
         <FilterChipIndicatorsItem
           data={data}
           onDelete={onDelete}
+          filtersConfigKey={filtersConfigKey}
         />
       </div>
 
@@ -23,11 +24,13 @@ FilterChipIndicators.propTypes = {
   data: PropTypes.array,
   title: PropTypes.string,
   onDelete: PropTypes.func.isRequired,
+  filtersConfigKey: PropTypes.string
 };
 
 FilterChipIndicators.defaultProps = {
   data: [],
   title: '',
+  filtersConfigKey: ''
 };
 
 export default FilterChipIndicators;
