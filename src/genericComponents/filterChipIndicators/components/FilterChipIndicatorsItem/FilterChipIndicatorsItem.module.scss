@@ -3,8 +3,14 @@
 .filter-chip-indicators-item :global {
   display: flex;
   align-items: center;
-  background-color: $filter-list-item;
-  margin-right: 8px;
+  justify-content: space-between;
+
+  width: 168px;
+  max-width: 168px;
+
+  background-color: $select-option-selected;
+
+  margin-bottom: 7px;
   padding: 5px 8px;
   border-radius: 4px;
 
@@ -40,4 +46,12 @@
       border: 0;
     }
   }
+
+  .icon {
+    margin-right: 3px;
+  }
+}
+
+.filter-chip-indicators-item:hover {
+  background-color: $select-option-hovered;
 }

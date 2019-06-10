@@ -1,6 +1,26 @@
+@import "Css/Colors.scss";
+
 .sidebar-filters :global {
   .filters-range-slider {
     margin-left: -15px;
     width: 104%;
+  }
+
+  .filters-title {
+    color: $title_color;
+    font-weight: normal;
+    font-size: 16px;
+    text-align: left;
+    padding: 12px 0;
+    line-height: normal;
+  }
+
+  .clear-filters {
+    padding: 12px 0;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    color: $subtitle_color;
+    cursor: pointer;
   }
 }

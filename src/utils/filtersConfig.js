@@ -1,7 +1,7 @@
 import { Icon } from "antd";
 import React from "react";
 import { TAG_COLORS } from "Utils/constants";
-import { FILTERS, VARIANT_CLASS } from "Utils/constants";
+import { FILTERS, VARIANT_CLASS, SOMATIC_CLASS } from "Utils/constants";
 
 export default {
   [FILTERS.variantClass]: {
@@ -23,38 +23,32 @@ export default {
     type: ["somatic"],
     mode: "multiple",
     items: [
-      { id: "unclassified", tagColor: TAG_COLORS.white, label: "Unclassified" },
-      { id: "1", tagColor: TAG_COLORS.red, label: "Tier1" },
-      { id: "2", tagColor: TAG_COLORS.orange, label: "Tier2" },
-      { id: "3", tagColor: TAG_COLORS.yellow, label: "Tier3" },
-      { id: "4", tagColor: TAG_COLORS.blueLight, label: "Tier4" }
+      { id: SOMATIC_CLASS.unclassified.value, tagColor: TAG_COLORS.white, label: SOMATIC_CLASS.unclassified.label },
+      { id: SOMATIC_CLASS.tier1.value, tagColor: TAG_COLORS.red, label: SOMATIC_CLASS.tier1.label },
+      { id: SOMATIC_CLASS.tier2.value, tagColor: TAG_COLORS.orange, label: SOMATIC_CLASS.tier2.label },
+      { id: SOMATIC_CLASS.tier3.value, tagColor: TAG_COLORS.yellow, label: SOMATIC_CLASS.tier3.label },
+      { id: SOMATIC_CLASS.tier4.value, tagColor: TAG_COLORS.blueLight, label: SOMATIC_CLASS.tier4.label }
     ]
   },
 
-  ["variantPanels"]: {
-    title: "Variant panels",
+  [FILTERS.hotSpot]: {
+    title: "Hot Spot",
     type: ["somatic"],
-    children: {
-      [FILTERS.hotSpot]: {
-        title: "Hot Spot",
-        type: ["somatic"],
-        mode: "multiple",
-        items: [
-          { id: true, label: "True", icon: <Icon type="check" /> },
-          { id: false, label: "False", icon: <Icon type="close" /> }
-        ]
-      },
+    mode: "multiple",
+    items: [
+      { id: true, label: "True", icon: <Icon type="check" /> },
+      { id: false, label: "False", icon: <Icon type="close" /> }
+    ]
+  },
 
-      [FILTERS.snp]: {
-        title: "SNP",
-        type: ["somatic"],
-        mode: "multiple",
-        items: [
-          { id: true, label: "True", icon: <Icon type="check" /> },
-          { id: false, label: "False", icon: <Icon type="close" /> }
-        ]
-      }
-    }
+  [FILTERS.snp]: {
+    title: "SNP",
+    type: ["somatic"],
+    mode: "multiple",
+    items: [
+      { id: true, label: "True", icon: <Icon type="check" /> },
+      { id: false, label: "False", icon: <Icon type="close" /> }
+    ]
   },
 
   [FILTERS.roi]: {
@@ -77,7 +71,11 @@ export default {
     title: "Cancer DBs",
     type: ["somatic", "germline"],
     mode: "multiple",
-    items: [{ id: "clinvar", label: "Clinvar" }, { id: "cosmic", label: "Cosmic" }, { id: "omim", label: "Omim" }]
+    items: [
+      { id: "clinvar", label: "Clinvar" },
+      { id: "cosmic", label: "Cosmic" },
+      { id: "omim", label: "Omim" }
+    ]
   },
 
   [FILTERS.gnomAD]: {
