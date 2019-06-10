@@ -5,9 +5,9 @@ import { Resizable } from "react-resizable";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import Notes from "Pages/mainPage/components/notes";
 import {
-  ZYGOSITY_OPTIONS,
   GERMLINE_VARIANT_CLASS_OPTIONS,
-  SOMATIC_VARIANT_CLASS_OPTIONS
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  ZYGOSITY_OPTIONS
 } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
 
@@ -115,6 +115,10 @@ class VariantTable extends Component {
     }
   };
 
+  handelChrPosition = (e, data) => {
+    console.log({ e: e.target, data });
+  };
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -180,9 +184,15 @@ class VariantTable extends Component {
       }
 
       if (col.dataIndex === "chrPosition") {
-        column.render = (...data) => (
-          <ExternalLink data={data[1].chrPosition} />
-        );
+        column.render = (...data) => {
+          const { chrPosition } = data[1];
+          return (
+            <ExternalLink
+              data={chrPosition}
+              externalHandler={e => this.handelChrPosition(e, chrPosition)}
+            />
+          );
+        };
       }
 
       return column;

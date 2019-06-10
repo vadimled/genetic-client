@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import style from "./ExternalLink.module.scss";
 import { ReactComponent as ExternalLinkIcon } from "Assets/external_link.svg";
 
-function ExternalLink({ data }) {
+function ExternalLink({ data, externalHandler }) {
   const baseLink = `https://example.com?data=${data}`;
 
   const handelOnclick = () => {
@@ -12,7 +12,10 @@ function ExternalLink({ data }) {
 
   return (
     <div className={style["external-link-wrapper"]}>
-      <div className="external-link-set-wrapper" onClick={handelOnclick}>
+      <div
+        className="external-link-set-wrapper"
+        onClick={externalHandler || handelOnclick}
+      >
         <div className="icon">
           <ExternalLinkIcon />
         </div>
@@ -23,7 +26,8 @@ function ExternalLink({ data }) {
 }
 
 ExternalLink.propTypes = {
-  data: PropTypes.string
+  data: PropTypes.string,
+  externalHandler: PropTypes.func
 };
 
 export default ExternalLink;
