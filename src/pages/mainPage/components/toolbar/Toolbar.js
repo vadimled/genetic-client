@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { setMutationType } from "Store/actions/variantsActions";
 import { getMutationType } from "Store/selectors";
+import { Icon } from "antd";
 
 class Toolbar extends Component {
   state = {
@@ -45,18 +46,23 @@ class Toolbar extends Component {
         </div>
         <div>
           {isSearching ? (
-            <div>
-              <dv>Search input</dv>
+            <div className="search-field-wrapper">
+              <input
+                className="search-field"
+              />
+              <Icon
+                onClick={() => this.toggleIsSearching()}
+                type="search"
+                style={{color: "#96A2AA"}}
+              />
             </div>
           ) : (
-            <div className="flex justify-end">
-              <a className="navbar-search">
-                <img
-                  alt="search"
-                  className="search-icon"
-                  onClick={() => this.toggleIsSearching()}
-                />
-              </a>
+            <div className="search-icon flex">
+              <Icon
+                onClick={() => this.toggleIsSearching()}
+                type="search"
+                style={{color: "#96A2AA"}}
+              />
             </div>
           )}
         </div>
