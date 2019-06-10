@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Table } from "antd";
+import { Table, Tooltip } from "antd";
 import { Resizable } from "react-resizable";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import Notes from "Pages/mainPage/components/notes";
@@ -51,7 +51,25 @@ class VariantTable extends Component {
         title: "Allele change",
         dataIndex: "alleleChange",
         key: "6",
-        width: 80
+        width: 80,
+        onCell: (record, rowIndex) => {
+          return{
+            onClick: () => {
+              console.log("record: ", record)
+              console.log("rowIndex: ", rowIndex)
+            }
+          }
+        },
+        render: (text, record, index)=> {
+          console.log("-----text: ", text)
+          console.log("-----record: ", record)
+          console.log("-----index: ", index)
+          return (
+            <Tooltip placement="top" title={record.alleleChangeLong}>
+              <div>{text}</div>
+            </Tooltip>
+          )
+        }
       },
       {
         title: "coding",
@@ -196,6 +214,11 @@ class VariantTable extends Component {
         columns={columns}
         dataSource={data}
         scroll={{ x: "max-content" }}
+        // onRow={(record, rowIndex) => {
+        //   return {
+        //     onClick: () => {console.log(record, rowIndex)}, // click row
+        //   };
+        // }}
       />
     );
   }

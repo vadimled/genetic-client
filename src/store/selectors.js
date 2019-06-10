@@ -114,6 +114,8 @@ export const getFilteredData = createSelector(
       return filtersArray.every(filter => filter(item));
     });
 
+    console.log(filteredData)
+
     return filteredData;
   }
 );
