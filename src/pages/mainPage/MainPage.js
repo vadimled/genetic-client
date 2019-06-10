@@ -27,7 +27,7 @@ class MainPage extends Component {
     return (
       <div className={style["main-page"]}>
         <div className={cn(["sidebar-wrapper", { "sidebar-open": sidebarToggle }])}>
-          <SideBarLayout title={"Filters"} handleClick={this.handleClick} mode={sidebarToggle}>
+          <SideBarLayout handleClick={this.handleClick} mode={sidebarToggle}>
             <SidebarFilters />
           </SideBarLayout>
         </div>
