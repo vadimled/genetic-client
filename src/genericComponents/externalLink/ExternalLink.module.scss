@@ -24,12 +24,13 @@
     .icon {
       padding: 2px 5px 0;
     }
-    *:hover {
-      color: $brand_primary_color;
-    }
   }
 
   .external-link-set-wrapper:hover {
+    .external-link-text {
+      color: $brand_primary_color;
+    }
+
     svg path {
       stroke: $brand_primary_color;
     }
