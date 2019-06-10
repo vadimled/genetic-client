@@ -52,18 +52,8 @@ class VariantTable extends Component {
         dataIndex: "alleleChange",
         key: "6",
         width: 80,
-        onCell: (record, rowIndex) => {
-          return{
-            onClick: () => {
-              console.log("record: ", record)
-              console.log("rowIndex: ", rowIndex)
-            }
-          }
-        },
-        render: (text, record, index)=> {
-          console.log("-----text: ", text)
-          console.log("-----record: ", record)
-          console.log("-----index: ", index)
+
+        render: (text, record)=> {
           return (
             <Tooltip placement="top" title={record.alleleChangeLong}>
               <div>{text}</div>
@@ -75,7 +65,14 @@ class VariantTable extends Component {
         title: "coding",
         dataIndex: "coding",
         key: "7",
-        width: 80
+        width: 80,
+        render: (text, record)=> {
+          return (
+            <Tooltip placement="top" title={record.codingLong}>
+              <div>{text}</div>
+            </Tooltip>
+          )
+        }
       },
       {
         title: "Protein",
