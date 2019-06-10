@@ -14,12 +14,22 @@ import { setMutationType } from "Store/actions/variantsActions";
 import { getMutationType } from "Store/selectors";
 
 class Toolbar extends Component {
+
+  state = {
+    isSearching: false
+  }
+
+  toggleIsSearching = () => {
+    this.setState({isSearching: !this.state.isSearching})
+  }
+
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
   };
 
   render() {
     const { filtered, total, sidebarToggle, mutations } = this.props;
+    const {isSearching} = this.state;
 
     return (
       <div className={style["toolbar-wrapper"]}>
@@ -33,6 +43,23 @@ class Toolbar extends Component {
               disabled
             />
           </div>
+        </div>
+        <div>
+          {isSearching ? (
+            <div>
+              <dv>Search input</dv>
+            </div>
+          ) : (
+            <div className="flex justify-end">
+              <a className="navbar-search">
+                <img
+                  alt="search"
+                  className="search-icon"
+                  onClick={() => this.toggleIsSearching()}
+                />
+              </a>
+            </div>
+          )}
         </div>
         <div
           className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}
