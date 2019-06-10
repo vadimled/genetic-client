@@ -14,14 +14,13 @@ import { setMutationType } from "Store/actions/variantsActions";
 import { getMutationType } from "Store/selectors";
 
 class Toolbar extends Component {
-
   state = {
     isSearching: false
-  }
+  };
 
   toggleIsSearching = () => {
-    this.setState({isSearching: !this.state.isSearching})
-  }
+    this.setState({ isSearching: !this.state.isSearching });
+  };
 
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
@@ -29,7 +28,7 @@ class Toolbar extends Component {
 
   render() {
     const { filtered, total, sidebarToggle, mutations } = this.props;
-    const {isSearching} = this.state;
+    const { isSearching } = this.state;
 
     return (
       <div className={style["toolbar-wrapper"]}>
