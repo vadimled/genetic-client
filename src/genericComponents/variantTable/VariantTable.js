@@ -4,7 +4,12 @@ import { Table } from "antd";
 import { Resizable } from "react-resizable";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import Notes from "Pages/mainPage/components/notes";
-import { ZYGOSITY_OPTIONS, GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
+import {
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  ZYGOSITY_OPTIONS
+} from "Utils/constants";
+import ExternalLink from "GenericComponents/externalLink";
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -110,6 +115,10 @@ class VariantTable extends Component {
     }
   };
 
+  handelChrPosition = (e, data) => {
+    console.log({ e: e.target, data });
+  };
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -126,7 +135,12 @@ class VariantTable extends Component {
             <SimpleSelect
               value={data[1].zygosity}
               options={ZYGOSITY_OPTIONS}
-              onChange={e => this.props.handleZygosity({ item: data[1], value: e.target.value })}
+              onChange={e =>
+                this.props.handleZygosity({
+                  item: data[1],
+                  value: e.target.value
+                })
+              }
               isClearAvailable
             />
           </div>
@@ -144,9 +158,16 @@ class VariantTable extends Component {
                 <SimpleSelect
                   value={data[1].variantClass}
                   options={
-                    data[1].zygosity === "somatic" ? SOMATIC_VARIANT_CLASS_OPTIONS : GERMLINE_VARIANT_CLASS_OPTIONS
+                    data[1].zygosity === "somatic"
+                      ? SOMATIC_VARIANT_CLASS_OPTIONS
+                      : GERMLINE_VARIANT_CLASS_OPTIONS
                   }
-                  onChange={e => this.props.handleVariantClass({ item: data[1], value: e.target.value })}
+                  onChange={e =>
+                    this.props.handleVariantClass({
+                      item: data[1],
+                      value: e.target.value
+                    })
+                  }
                 />
               </div>
             ) : (
@@ -157,6 +178,22 @@ class VariantTable extends Component {
 
       if (col.dataIndex === "notes") {
         column.render = (...data) => <Notes key={data[1].id} id={data[1].id} />;
+      }
+
+      if (col.dataIndex === "transcript") {
+        column.render = (...data) => <ExternalLink data={data[1].transcript} />;
+      }
+
+      if (col.dataIndex === "chrPosition") {
+        column.render = (...data) => {
+          const { chrPosition } = data[1];
+          return (
+            <ExternalLink
+              data={chrPosition}
+              externalHandler={e => this.handelChrPosition(e, chrPosition)}
+            />
+          );
+        };
       }
 
       return column;

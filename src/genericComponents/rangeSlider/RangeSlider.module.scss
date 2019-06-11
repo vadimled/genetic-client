@@ -1,36 +1,39 @@
+@import "Css/Colors.scss";
+
 .range-slider :global {
   position: relative;
 
-  .ant-slider {
-    margin: 0;
-  }
-
-  .ant-slider-rail {
-    background-color: rgba(188, 156, 255, 0.25);
-  }
-
-  .ant-slider-handle {
-    background-color: #0e8ce6;
-    width: 10px;
-    height: 10px;
-    border: 0px;
-    margin-top: -3px;
-    margin-left: -6px;
-  }
-
-  .ant-slider-track {
-    background-color: #0e8ce6;
-  }
-
   .values {
     position: absolute;
-    top: -25px;
+    top: -10px;
     right: 0;
     color: #0e8ce6;
+    font-size: 16px;
   }
 
   .positions {
     display: flex;
     justify-content: space-between;
+    font-size: 16px;
+  }
+
+  .reset {
+    position: absolute;
+    top: -36px;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    margin: 0;
+    padding: 0;
+    color: $neutral_hover_20;
+    cursor: pointer;
+
+    &:hover {
+      color: $neutral_hover_30;
+    }
+  }
+
+  .ant-slider {
+    padding-top: 20px !important;
   }
 }
