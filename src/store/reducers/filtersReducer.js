@@ -39,7 +39,7 @@ const initialState = {
   [FILTERS.roi]: [],
   [FILTERS.vaf]: [], // [0, 100]
   [FILTERS.cancerDBs]: [],
-  [FILTERS.gnomAD]: []
+  [FILTERS.gnomAD]: [],
 };
 
 
@@ -149,23 +149,11 @@ const filtersReducer = createReducer(initialState, {
     return {
       ...state
     };
-  },
+  }
 
 });
 
 export default filtersReducer;
 
 
-// const initialState = {
-//   searchText: '',
-//   items: [ 'hello', 'wahhh', 'yo' ]
-// };
-//
-// export default function searchSimple(state = initialState, action) {
-//   switch (action.type) {
-//     case SEARCH_TEXT:
-//       return Object.assign({}, state, {
-//         searchText: action.text
-//       });
-//   }
-// }
+

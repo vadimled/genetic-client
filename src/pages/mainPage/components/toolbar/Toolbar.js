@@ -11,6 +11,7 @@ import {
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { setMutationType } from "Store/actions/variantsActions";
+import { updateSearch } from "Store/actions/tableActions";
 import { getMutationType } from "Store/selectors";
 import { Icon } from "antd";
 
@@ -27,8 +28,12 @@ class Toolbar extends Component {
     this.props.setMutationType(e.target.value);
   };
 
+  handleOnSearchChange = e => {
+    this.props.updateSearch(e.target.value);
+  }
+
   render() {
-    const { filtered, total, sidebarToggle, mutations } = this.props;
+    const { filtered, total, sidebarToggle, mutations, searchText } = this.props;
     const { isSearching } = this.state;
 
     return (
@@ -49,7 +54,10 @@ class Toolbar extends Component {
             <div className="search-field-wrapper">
               <input
                 className="search-field"
+                value={searchText}
+                onChange={this.handleOnSearchChange}
               />
+
               <Icon
                 onClick={() => this.toggleIsSearching()}
                 type="search"
@@ -83,16 +91,21 @@ Toolbar.propTypes = {
 };
 
 const mapStateToProps = state => {
+
+  console.log(state)
+
   return {
     filtered: getFilteredEntriesAmount(state),
     total: getTotalEntriesAmount(state),
-    mutations: getMutationType(state)
+    mutations: getMutationType(state),
+    searchText: state.table?.searchText
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    setMutationType: data => dispatch(setMutationType(data))
+    setMutationType: data => dispatch(setMutationType(data)),
+    updateSearch: data =>  dispatch(updateSearch(data))
   };
 }
 

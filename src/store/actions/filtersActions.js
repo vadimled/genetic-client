@@ -77,9 +77,4 @@ export const clearFilterSection = data => {
   };
 };
 
-export const search = data => {
-  return {
-    type: actionsTypes.SEARCH,
-    payload: data
-  };
-};
+

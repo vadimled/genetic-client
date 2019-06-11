@@ -4,7 +4,8 @@ import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 
 const initialState = {
   data: generateDNAVariantTableMockData(200),
-  selectedRowKeys: []
+  selectedRowKeys: [],
+  searchText: ""
 };
 
 const tableReducer = createReducer(initialState, {
@@ -59,7 +60,39 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state
     };
+  },
+
+  [actionsTypes.UPDATE_SEARCH]: (state, {payload}) => {
+
+    console.log("--payload: ", payload)
+
+    // return state
+
+    return Object.assign({}, state, {
+      searchText: payload
+    });
   }
+
+
+  // @action
+  // updateSearch = (e) => {
+  //   this.search = e.target.value
+  // }
+  //
 });
 
 export default tableReducer;
+
+// const initialState = {
+//   searchText: '',
+//   items: [ 'hello', 'wahhh', 'yo' ]
+// };
+//
+// export default function searchSimple(state = initialState, action) {
+//   switch (action.type) {
+//     case SEARCH_TEXT:
+//       return Object.assign({}, state, {
+//         searchText: action.text
+//       });
+//   }
+// }
