@@ -20,16 +20,17 @@ export const getSearchQuery = state => state?.table?.searchText;
 export const getSearchResult = createSelector(
   getTableData,
   getSearchQuery,
-  (data, searchQuery)=> {
-    console.log('--data: ', data)
-    console.log('--searchQuery: ', searchQuery)
-    return data.filter(
-      item => {
-        return item.gene.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
-        // item.lastName.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
-      })
+  (data, searchQuery) => {
+    console.log("--data: ", data);
+    console.log("--searchQuery: ", searchQuery);
+    return data.filter(item => {
+      return (
+        item.gene.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
+      );
+      // item.lastName.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
+    });
   }
-)
+);
 
 export const getNotes = (state, id) => state?.table?.data?.[id].notes;
 

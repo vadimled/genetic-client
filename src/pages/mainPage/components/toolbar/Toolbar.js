@@ -12,7 +12,11 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { setMutationType } from "Store/actions/variantsActions";
 import { updateSearch } from "Store/actions/tableActions";
-import { getMutationType, getSearchQuery, getSearchResult } from "Store/selectors";
+import {
+  getMutationType,
+  getSearchQuery,
+  getSearchResult
+} from "Store/selectors";
 import { Icon } from "antd";
 
 class Toolbar extends Component {
@@ -43,7 +47,7 @@ class Toolbar extends Component {
     } = this.props;
     const { isSearching } = this.state;
 
-    console.log("---filteredData: ", filteredData)
+    console.log("---filteredData: ", filteredData);
 
     return (
       <div className={style["toolbar-wrapper"]}>
