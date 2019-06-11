@@ -137,6 +137,26 @@ export const getFilteredData = createSelector(
   }
 );
 
+export const getSearchQueries = createSelector(
+  getFilteredData,
+  (data)=> {
+    const queriesArr = new Set([])
+    data.map(item => {
+      queriesArr.add(item.gene)
+      queriesArr.add(item.coding)
+      if(item.variantClass){
+        queriesArr.add(item.variantClass)
+      }
+
+      queriesArr.add(item.protein)
+    })
+
+
+
+    return Array.from(queriesArr)
+  }
+)
+
 export const getFilteredEntriesAmount = createSelector(
   getFilteredData,
   filteredData => filteredData?.length

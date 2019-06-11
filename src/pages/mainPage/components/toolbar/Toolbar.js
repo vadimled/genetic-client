@@ -12,13 +12,25 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { setMutationType } from "Store/actions/variantsActions";
 import { updateSearch } from "Store/actions/tableActions";
-import { getMutationType, getSearchQuery } from "Store/selectors";
+import { getMutationType, getSearchQuery, getSearchQueries } from "Store/selectors";
 import { Icon } from "antd";
 import closeBtn from "Assets/close.svg";
+import { AutoComplete } from 'antd';
+
 
 class Toolbar extends Component {
-  // state = {
-  //   isSearching: false
+  state = {
+    // dataSource: this.props.tableData,
+    dataSource: [],
+  };
+
+  // handleSearch = value => {
+  //   const {updateQueries} = this.props
+  //   console.log(value)
+  //   this.setState({
+  //     dataSource: !value ? [] : [value, value + value, value + value + value],
+  //   });
+  //   // updateQueries(value)
   // };
 
   // toggleIsSearching = () => {
@@ -30,7 +42,7 @@ class Toolbar extends Component {
   };
 
   handleOnSearchChange = e => {
-    this.props.updateSearch(e.target.value);
+    this.props.updateSearch(e);
   };
 
   clearSearch = () => {
@@ -44,10 +56,12 @@ class Toolbar extends Component {
       total,
       sidebarToggle,
       mutations,
-      searchText
+      searchText,
+      tableData
     } = this.props;
     // const { isSearching } = this.state;
-
+    // const { dataSource } = this.state;
+    console.log(tableData)
     return (
       <div className={style["toolbar-wrapper"]}>
         <div className="left-wrapper">
@@ -66,12 +80,15 @@ class Toolbar extends Component {
             {!searchText && (
               <Icon type="search" style={{ color: "#96A2AA" }} />
             )}
-            <input
-              className="search-field"
+
+            <AutoComplete
+              id="search-field"
+              dataSource={tableData}
+              style={{ width: 200 }}
+              // onSearch={this.handleSearch}
+              placeholder="input here"
               value={searchText}
               onChange={this.handleOnSearchChange}
-              // onClick={() => this.toggleIsSearching()}
-              placeholder="Search"
             />
 
             {searchText && (
@@ -104,7 +121,8 @@ const mapStateToProps = state => {
     filtered: getFilteredEntriesAmount(state),
     total: getTotalEntriesAmount(state),
     mutations: getMutationType(state),
-    searchText: getSearchQuery(state)
+    searchText: getSearchQuery(state),
+    tableData: getSearchQueries(state)
   };
 };
 
