@@ -14,13 +14,34 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &.info {
+      &:hover {
+        svg path {
+          fill: $panel-filled;
+        }
+      }
+    }
+
+    &.notification {
+      &:hover {
+        svg path {
+          fill: $orange;
+        }
+      }
+    }
   }
   .icon-active {
     @extend .icon;
-    svg path {
-      fill: $orange;
+    &.info {
+      svg path {
+        fill: $panel-filled;
+      }
     }
-  }
-  .icon-hovered {
+    &.notification {
+      svg path {
+        fill: $orange;
+      }
+    }
   }
 }

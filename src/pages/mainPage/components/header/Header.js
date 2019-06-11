@@ -32,13 +32,15 @@ class Header extends Component {
           <div className="right-side-item">
             <HeaderIcon
               // isActive
+              customClassName={"info"}
               icon={<InfoIcon />}
               handelOnClick={this.handelInfo}
             />
           </div>
           <div className="right-side-item">
             <HeaderIcon
-              isActive
+              // isActive
+              customClassName={"notification"}
               icon={<NotificationIcon />}
               handelOnClick={this.handelNotification}
             />

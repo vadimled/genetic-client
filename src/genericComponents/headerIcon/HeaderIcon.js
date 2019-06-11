@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import cn from "classnames";
 import style from "./HeaderIcon.module.scss";
 
-const HeaderIcon = ({ icon, isHovered, isActive, handelOnClick }) => {
+const HeaderIcon = ({ icon, isActive, handelOnClick, customClassName }) => {
   return (
     <div className={style["header-icon-wrapper"]} onClick={handelOnClick}>
       <div
         className={cn("icon", {
           "icon-active": isActive,
-          "icon-hovered": isHovered
+          [customClassName]: !!customClassName
         })}
       >
         {icon}
