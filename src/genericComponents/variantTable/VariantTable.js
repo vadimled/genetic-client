@@ -57,7 +57,7 @@ class VariantTable extends Component {
 
         render: (text, record) => {
           return (
-            <Tooltip placement="top" title={record.alleleChangeLong}>
+            <Tooltip placement="topLeft" title={record.alleleChangeLong}>
               <div>{text}</div>
             </Tooltip>
           );
@@ -70,7 +70,7 @@ class VariantTable extends Component {
         width: 80,
         render: (text, record) => {
           return (
-            <Tooltip placement="top" title={record.codingLong}>
+            <Tooltip placement="topLeft" title={record.codingLong}>
               <div>{text}</div>
             </Tooltip>
           );
