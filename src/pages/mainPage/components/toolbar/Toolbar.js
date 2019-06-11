@@ -19,23 +19,6 @@ import { AutoComplete } from 'antd';
 
 
 class Toolbar extends Component {
-  state = {
-    // dataSource: this.props.tableData,
-    dataSource: [],
-  };
-
-  // handleSearch = value => {
-  //   const {updateQueries} = this.props
-  //   console.log(value)
-  //   this.setState({
-  //     dataSource: !value ? [] : [value, value + value, value + value + value],
-  //   });
-  //   // updateQueries(value)
-  // };
-
-  // toggleIsSearching = () => {
-  //   this.setState({ isSearching: !this.state.isSearching });
-  // };
 
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
@@ -47,7 +30,6 @@ class Toolbar extends Component {
 
   clearSearch = () => {
     this.props.updateSearch("");
-    // this.toggleIsSearching();
   };
 
   render() {
@@ -59,9 +41,7 @@ class Toolbar extends Component {
       searchText,
       tableData
     } = this.props;
-    // const { isSearching } = this.state;
-    // const { dataSource } = this.state;
-    console.log(tableData);
+
     return (
       <div className={style["toolbar-wrapper"]}>
         <div className="left-wrapper">
@@ -78,18 +58,23 @@ class Toolbar extends Component {
         <div>
           <div className="search-field-wrapper flex items-center">
             {!searchText && (
-              <Icon type="search" style={{ color: "#96A2AA" }} />
+              <div className="flex items-center search-icons-wrapper">
+                <Icon type="search" style={{ color: "#96A2AA" }} />
+                <div className="placeholder">Search</div>
+              </div>
             )}
+
+
 
             <AutoComplete
               id="search-field"
-              dataSource={tableData}
-              style={{ width: 200 }}
-              // onSearch={this.handleSearch}
-              placeholder="input here"
+              dataSource={searchText && tableData}
               value={searchText}
               onChange={this.handleOnSearchChange}
+              placeholder="input here"
             />
+
+
 
             {searchText && (
               <button
