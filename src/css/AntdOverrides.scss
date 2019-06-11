@@ -566,3 +566,74 @@ th {
 .ant-table colgroup {
   min-width: 30px !important;
 }
+
+// ant-slider
+.ant-slider {
+  margin: 0 !important;
+
+  .ant-slider-rail {
+    background-color: $slider-rail;
+  }
+
+  .ant-slide2-step {
+    height: 3px;
+  }
+  .ant-slider-track {
+    height: 3px;
+  }
+  .ant-slider-rail {
+    height: 3px;
+  }
+
+  .ant-slider-handle {
+    background-color: white;
+    width: 9px;
+    height: 9px;
+    border: 1px solid $brand_primary_color;
+    margin-top: -3px;
+    margin-left: -6px;
+
+    &::after {
+      content: " ";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 18px;
+      height: 18px;
+      background-color: rgba(0, 0, 0, 0);
+      border: 5px solid rgba($brand_primary_color, 0.3);
+      border-radius: 50%;
+
+      display: none;
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      &::after {
+        display: block;
+      }
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .ant-slider-track {
+    background-color: $slider-bg;
+  }
+  &:hover {
+    // cursor: default !important;
+    .ant-slider-track {
+      background-color: $slider-bg-hover !important;
+    }
+    .ant-slider-handle {
+      border: 1px solid $brand_primary_color !important;
+    }
+    .ant-slider-rail {
+      background-color: $slider-rail-hover !important;
+    }
+  }
+}
