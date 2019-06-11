@@ -14,8 +14,7 @@ import { setMutationType } from "Store/actions/variantsActions";
 import { updateSearch } from "Store/actions/tableActions";
 import {
   getMutationType,
-  getSearchQuery,
-  getSearchResult
+  getSearchQuery
 } from "Store/selectors";
 import { Icon } from "antd";
 
@@ -43,11 +42,8 @@ class Toolbar extends Component {
       sidebarToggle,
       mutations,
       searchText,
-      filteredData
     } = this.props;
     const { isSearching } = this.state;
-
-    console.log("---filteredData: ", filteredData);
 
     return (
       <div className={style["toolbar-wrapper"]}>
@@ -104,14 +100,11 @@ Toolbar.propTypes = {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
-
   return {
     filtered: getFilteredEntriesAmount(state),
     total: getTotalEntriesAmount(state),
     mutations: getMutationType(state),
     searchText: getSearchQuery(state),
-    filteredData: getSearchResult(state)
   };
 };
 

@@ -21,13 +21,13 @@ export const getSearchResult = createSelector(
   getTableData,
   getSearchQuery,
   (data, searchQuery) => {
-    console.log("--data: ", data);
-    console.log("--searchQuery: ", searchQuery);
     return data.filter(item => {
       return (
-        item.gene.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
+        item.gene.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1 ||
+        item.variantClass.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1 ||
+        item.coding.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1 ||
+        item.protein.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
       );
-      // item.lastName.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
     });
   }
 );
@@ -35,7 +35,7 @@ export const getSearchResult = createSelector(
 export const getNotes = (state, id) => state?.table?.data?.[id].notes;
 
 export const getTableDataAsArray = createSelector(
-  getTableData,
+  getSearchResult,
   data => {
     let arrayData = [];
     for (let key in data) {
