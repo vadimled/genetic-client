@@ -181,6 +181,7 @@ class SidebarFilters extends Component {
                                 mode={childGroup.mode}
                                 items={childGroup.items}
                                 onChange={this.onChange.bind(this, key, childGroup.mode)}
+                                onReset={this.clearFilterSection.bind(this, key)}
                                 values={filters[key]}
                               />
                             </Panel>
@@ -194,6 +195,7 @@ class SidebarFilters extends Component {
                       mode={group.mode}
                       items={group.items}
                       onChange={this.onChange.bind(this, key, group.mode)}
+                      onReset={this.clearFilterSection.bind(this, key)}
                       values={filters[key]}
                     />
                   )}
