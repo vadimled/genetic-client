@@ -24,7 +24,8 @@ export const getSearchResult = createSelector(
     return data.filter(item => {
       return (
         item.gene.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1 ||
-        item.variantClass.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1 ||
+        item.variantClass.toLowerCase().indexOf(searchQuery.toLowerCase()) !==
+          -1 ||
         item.coding.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1 ||
         item.protein.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
       );
@@ -118,7 +119,6 @@ export const getFilteredData = createSelector(
   getTableDataAsArray,
   getAppliedFilters,
   (data, appliedFilters) => {
-
     if (isEmpty(appliedFilters)) {
       console.log("-No filters");
       return data;
@@ -132,30 +132,27 @@ export const getFilteredData = createSelector(
       return filtersArray.every(filter => filter(item));
     });
 
-
     return filteredData;
   }
 );
 
 export const getSearchQueries = createSelector(
   getFilteredData,
-  (data)=> {
-    const queriesArr = new Set([])
+  data => {
+    const queriesArr = new Set([]);
     data.map(item => {
-      queriesArr.add(item.gene)
-      queriesArr.add(item.coding)
-      if(item.variantClass){
-        queriesArr.add(item.variantClass)
+      queriesArr.add(item.gene);
+      queriesArr.add(item.coding);
+      if (item.variantClass) {
+        queriesArr.add(item.variantClass);
       }
 
-      queriesArr.add(item.protein)
-    })
+      queriesArr.add(item.protein);
+    });
 
-
-
-    return Array.from(queriesArr)
+    return Array.from(queriesArr);
   }
-)
+);
 
 export const getFilteredEntriesAmount = createSelector(
   getFilteredData,

@@ -61,7 +61,7 @@ class Toolbar extends Component {
     } = this.props;
     // const { isSearching } = this.state;
     // const { dataSource } = this.state;
-    console.log(tableData)
+    console.log(tableData);
     return (
       <div className={style["toolbar-wrapper"]}>
         <div className="left-wrapper">
