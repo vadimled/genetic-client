@@ -258,6 +258,10 @@ $sideBarWidth: 197px;
       top: 50%;
       transform: translate(-50%, -50%) !important;
     }
+
+    &:hover {
+      background-color: $select-option-hovered;
+    }
   }
 
   .anticon.anticon-down.ant-select-arrow-icon {
@@ -273,8 +277,34 @@ $sideBarWidth: 197px;
     }
   }
 
+  .select-close {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.5;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
   .ant-select-open .ant-select-arrow-icon svg {
     transform: none;
+  }
+
+  .ant-select-selection__clear {
+    opacity: 1;
+    &,
+    &:hover,
+    &:active {
+      display: none;
+    }
   }
 
   .ant-select-open {
@@ -294,6 +324,13 @@ $sideBarWidth: 197px;
 
     .ant-select-selection {
       background-color: white !important;
+    }
+
+    .ant-select-selection__clear {
+      display: block;
+      & + .ant-select-arrow {
+        display: none;
+      }
     }
   }
 

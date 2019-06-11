@@ -153,6 +153,7 @@ class VariantTable extends Component {
                   value: e.target.value
                 })
               }
+              isClearAvailable
             />
           </div>
         );
