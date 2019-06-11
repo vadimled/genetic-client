@@ -3,6 +3,7 @@ import style from "./Header.module.scss";
 import HeaderIcon from "GenericComponents/headerIcon";
 import { ReactComponent as NotificationIcon } from "Assets/notifications.svg";
 import { ReactComponent as InfoIcon } from "Assets/info.svg";
+import User from "Pages/mainPage/components/header/components/user";
 // import PropTypes from "prop-types";
 
 class Header extends Component {
@@ -43,8 +44,7 @@ class Header extends Component {
             />
           </div>
           <div className="right-wrapper">
-            {/* TODO: User profile place*/}
-            USR
+            <User />
           </div>
         </div>
       </div>
