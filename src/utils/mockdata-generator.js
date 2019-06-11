@@ -506,10 +506,18 @@ export const generateDNAVariantTableMockData = amount =>
       "ADH1B",
       "ADH1C"
     ]),
-    chrPosition: `Chr${faker.random.number({ min: 1, max: 5 })}:${faker.random.number({ min: 100000, max: 350000 })}`,
+    chrPosition: `Chr${faker.random.number({
+      min: 1,
+      max: 5
+    })}:${faker.random.number({ min: 100000, max: 350000 })}`,
     transcript: `NM_${faker.helpers.replaceSymbolWithNumber("######.#")}`,
     exon: faker.random.number({ min: 1, max: 9 }),
-    alleleChange: faker.random.arrayElement(["C > T", "G > A", "T > G", "A > C"]),
+    alleleChange: faker.random.arrayElement([
+      "C > T",
+      "G > A",
+      "T > G",
+      "A > C"
+    ]),
     alleleChangeLong: faker.random.arrayElement([
       "sdsdddshshh",
       "sghshsfghsfh",
@@ -517,6 +525,11 @@ export const generateDNAVariantTableMockData = amount =>
       "sfghsfhsfhsfhfsh"
     ]),
     coding: faker.random.arrayElement(["gCc/gTc", "aGc/tCg", "cAc/gTa"]),
+    codingLong: faker.random.arrayElement([
+      "gCc/gTc/drgdgdfgdfgdfg",
+      "aGc/tCg/zzzczzfzf",
+      "cAc/gTa/qwertyyuyuiyiyutyutyu"
+    ]),
     protein: faker.random.alphaNumeric(5),
     vaf: faker.random.number(100) ,
     hotSpot: faker.random.arrayElement([faker.random.boolean(), undefined]),
