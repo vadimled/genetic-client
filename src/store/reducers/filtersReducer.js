@@ -154,3 +154,18 @@ const filtersReducer = createReducer(initialState, {
 });
 
 export default filtersReducer;
+
+
+// const initialState = {
+//   searchText: '',
+//   items: [ 'hello', 'wahhh', 'yo' ]
+// };
+//
+// export default function searchSimple(state = initialState, action) {
+//   switch (action.type) {
+//     case SEARCH_TEXT:
+//       return Object.assign({}, state, {
+//         searchText: action.text
+//       });
+//   }
+// }

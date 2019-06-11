@@ -76,3 +76,10 @@ export const clearFilterSection = data => {
     payload: data
   };
 };
+
+export const search = data => {
+  return {
+    type: actionsTypes.SEARCH,
+    payload: data
+  };
+}
