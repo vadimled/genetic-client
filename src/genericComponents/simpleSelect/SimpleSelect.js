@@ -2,6 +2,7 @@ import React, { Fragment, memo } from "react";
 import { Select } from "antd";
 import PropTypes from "prop-types";
 import Tag from 'GenericComponents/tag';
+import { Icon } from "antd";
 
 // eslint-disable-next-line
 const Option = Select.Option;
@@ -15,6 +16,10 @@ const SimpleSelect = ({
   name,
   disabled
 }) => {
+  let showedOptions = options.slice();
+  if (!value && showedOptions.some((opt) => opt.value === '__reset__')) {
+    showedOptions = showedOptions.filter((opt) => opt.value !== '__reset__');
+  }
   return (
     <Fragment>
       {!!label && <label>{label}</label>}
@@ -33,8 +38,9 @@ const SimpleSelect = ({
         value={value}
         name={name}
       >
-        {options?.map(option => (
+        {showedOptions?.map(option => (
           <Option key={option.value} value={option.value}>
+            {!!value && option.value === '__reset__' && <Icon type="close" />}
             {option.tagColor && <Tag color={option.tagColor} />}
             <span
               style={option.label === "Unclassified" ? { color: "#96A2AA" } : null}
