@@ -20,12 +20,7 @@ const tableReducer = createReducer(initialState, {
   [actionsTypes.HANDLE_ZYGOSITY]: (state, { payload }) => {
     const {item, value} = payload;
     let data = state?.data;
-    if (value === '__reset__') {
-      data[item.id].zygosity = '';
-    }
-    else {
-      data[item.id].zygosity = value;
-    }
+    data[item.id].zygosity = value;
 
     // and always reset variantClass as a result of changing the zygosity
     // reset to

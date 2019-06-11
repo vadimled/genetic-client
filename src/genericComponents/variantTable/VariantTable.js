@@ -127,6 +127,7 @@ class VariantTable extends Component {
               value={data[1].zygosity}
               options={ZYGOSITY_OPTIONS}
               onChange={e => this.props.handleZygosity({ item: data[1], value: e.target.value })}
+              isClearAvailable
             />
           </div>
         );

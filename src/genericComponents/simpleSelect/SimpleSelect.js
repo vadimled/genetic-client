@@ -2,7 +2,8 @@ import React, { Fragment, memo } from "react";
 import { Select } from "antd";
 import PropTypes from "prop-types";
 import Tag from 'GenericComponents/tag';
-import { Icon } from "antd";
+import CloseIcon from 'Assets/close.svg';
+console.log("CloseIcon", CloseIcon);
 
 // eslint-disable-next-line
 const Option = Select.Option;
@@ -14,12 +15,9 @@ const SimpleSelect = ({
   options,
   value,
   name,
-  disabled
+  disabled,
+  isClearAvailable
 }) => {
-  let showedOptions = options.slice();
-  if (!value && showedOptions.some((opt) => opt.value === '__reset__')) {
-    showedOptions = showedOptions.filter((opt) => opt.value !== '__reset__');
-  }
   return (
     <Fragment>
       {!!label && <label>{label}</label>}
@@ -37,10 +35,16 @@ const SimpleSelect = ({
         }
         value={value}
         name={name}
+        allowClear={!!value && isClearAvailable}
+        clearIcon={<span
+          className="select-close"
+          style={{
+            backgroundImage: `url(${CloseIcon})`
+          }}
+        />}
       >
-        {showedOptions?.map(option => (
+        {options?.map(option => (
           <Option key={option.value} value={option.value}>
-            {!!value && option.value === '__reset__' && <Icon type="close" />}
             {option.tagColor && <Tag color={option.tagColor} />}
             <span
               style={option.label === "Unclassified" ? { color: "#96A2AA" } : null}
@@ -60,11 +64,13 @@ SimpleSelect.propTypes = {
   label: PropTypes.string,
   subLabel: PropTypes.string,
   value: PropTypes.string,
-  name: PropTypes.string
+  name: PropTypes.string,
+  isClearAvailable: PropTypes.bool
 };
 
 SimpleSelect.defaultProps = {
-  options: []
+  options: [],
+  isClearAvailable: false
 };
 
 export default memo(SimpleSelect);

@@ -36,7 +36,6 @@ export const MUTATION = [
 ];
 
 export const ZYGOSITY_OPTIONS = [
-  { value: '__reset__', label: 'Clear' },
   { value: 'homo', label: 'Homo' },
   { value: 'hetro', label: 'Hetro' },
   { value: 'hemi', label: 'Hemi' },
