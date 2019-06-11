@@ -21,6 +21,8 @@ const HeaderIcon = ({ icon, isActive, handelOnClick, customClassName }) => {
 HeaderIcon.propTypes = {
   icon: PropTypes.node,
   status: PropTypes.string,
+  isActive: PropTypes.bool,
+  customClassName: PropTypes.string,
   handelOnClick: PropTypes.func
 };
 
