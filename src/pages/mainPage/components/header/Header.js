@@ -38,13 +38,16 @@ class Header extends Component {
           </div>
           <div className="right-wrapper">
             <HeaderIcon
-              // isActive
+              isActive
               icon={<NotificationIcon />}
               handelOnClick={this.handelNotification}
             />
           </div>
           <div className="right-wrapper">
-            <User />
+            <User
+              userName={"vadim"}
+              avatarUrl={"https://randomuser.me/api/portraits/men/34.jpg"}
+            />
           </div>
         </div>
       </div>
