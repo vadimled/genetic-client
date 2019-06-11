@@ -67,6 +67,15 @@ const tableReducer = createReducer(initialState, {
       searchText: payload
     });
   }
+
+  // @computed get filteredPeople() {
+  //   return this.people.filter(
+  //     person => {
+  //       return person.firstName.toLowerCase().indexOf(this.search.toLowerCase()) !== -1 ||
+  //         person.lastName.toLowerCase().indexOf(this.search.toLowerCase()) !== -1
+  //     })
+  // }
+
 });
 
 export default tableReducer;
