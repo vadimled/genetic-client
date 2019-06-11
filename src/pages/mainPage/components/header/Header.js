@@ -30,14 +30,14 @@ class Header extends Component {
         <div className="flex justify-start flex-row">
           <div className="right-wrapper">
             <HeaderIcon
-              isActive
+              // isActive
               icon={<InfoIcon />}
               handelOnClick={this.handelInfo}
             />
           </div>
           <div className="right-wrapper">
             <HeaderIcon
-              isActive
+              // isActive
               icon={<NotificationIcon />}
               handelOnClick={this.handelNotification}
             />
