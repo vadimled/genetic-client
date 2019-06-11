@@ -1,0 +1,38 @@
+@import "Css/Colors.scss";
+
+.external-link-wrapper :global {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  .external-link-set-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+
+    .external-link-text {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 21px;
+      color: $icon_color;
+      padding-left: 4px;
+    }
+
+    .icon {
+      padding: 2px 5px 0;
+    }
+  }
+
+  .external-link-set-wrapper:hover {
+    .external-link-text {
+      color: $brand_primary_color;
+    }
+
+    svg path {
+      stroke: $brand_primary_color;
+    }
+  }
+}

@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Collapse } from "antd";
 import SelectionGroup from "GenericComponents/selectionGroup";
+import FilterChipIndicators from 'GenericComponents/filterChipIndicators';
 import filtersConfig from "Utils/filtersConfig";
 import {
   getFilterType,
@@ -23,7 +24,8 @@ import {
   setFilterRoi,
   setFilterVaf,
   setFilterCancerDBs,
-  setFilterGnomId
+  setFilterGnomId,
+  clearFilterSection
 } from "Actions/filtersActions";
 import { FILTERS } from "Utils/constants";
 import style from "./SidebarFilters.module.scss";
@@ -83,20 +85,80 @@ class SidebarFilters extends Component {
     }
   };
 
+  filtersConfigConverter = (initFilters) => {
+    return {
+      [FILTERS.variantClass]: initFilters[FILTERS.variantClass],
+      [FILTERS.somaticClass]: initFilters[FILTERS.somaticClass],
+      ["variantPanels"]: {
+        title: "Variant panels",
+        type: ["somatic"],
+        children: {
+          [FILTERS.hotSpot]: initFilters[FILTERS.hotSpot],
+          [FILTERS.snp]: initFilters[FILTERS.snp],
+        }
+      },
+      [FILTERS.roi]: initFilters[FILTERS.roi],
+      [FILTERS.vaf]: initFilters[FILTERS.vaf],
+      [FILTERS.cancerDBs]: initFilters[FILTERS.cancerDBs],
+      [FILTERS.gnomAD]: initFilters[FILTERS.gnomAD],
+    };
+  };
+
+  clearFilterSection = (filterSection) => {
+    const { clearFilterSection } = this.props;
+    clearFilterSection({ filtersKey: filterSection });
+  };
+
+  clearAllFilters = () => {
+    Object.keys(filtersConfig)
+      .forEach((key) => this.clearFilterSection(key));
+  };
+
   render() {
     const { filters, type } = this.props;
 
+    const transformedFiltersConfig = this.filtersConfigConverter(filtersConfig);
+    const filtersChipIndicators = Object.keys(filters).filter((key) => filters[key].length);
+
     return (
       <div className={style["sidebar-filters"]}>
+        {!filtersChipIndicators.length && <div className="filters-title">Filters</div>}
+        {!!filtersChipIndicators.length &&
+          <div
+            className="clear-filters"
+            onClick={this.clearAllFilters}
+          >
+            Clear filters ({filtersChipIndicators.length})
+          </div>
+        }
+
+        {filtersChipIndicators
+          .map((key) => {
+            return (
+              <FilterChipIndicators
+                key={key}
+                onDelete={this.clearFilterSection.bind(this, key)}
+                data={key === FILTERS.vaf
+                  ? filters[key]
+                  : filtersConfig[key].items
+                    .filter((item) => filters[key].includes(item.id))
+                }
+                title={filtersConfig[key].title}
+                filtersConfigKey={key}
+              />
+            );
+          })
+        }
+
         <Collapse
           defaultActiveKey={["1", "2", "3", "4", "5", "6", "7"]}
           onChange={callback}
           expandIcon={({ isActive }) => <Arrow dir={!isActive ? "right" : "down"} />}
         >
-          {Object.keys(filtersConfig)
-            .filter(key => filtersConfig[key].type.includes(type))
+          {Object.keys(transformedFiltersConfig)
+            .filter(key => transformedFiltersConfig[key].type.includes(type))
             .map((key, i) => {
-              let group = filtersConfig[key];
+              let group = transformedFiltersConfig[key];
 
               return (
                 <Panel header={group.title} key={i + 1}>
@@ -119,6 +181,7 @@ class SidebarFilters extends Component {
                                 mode={childGroup.mode}
                                 items={childGroup.items}
                                 onChange={this.onChange.bind(this, key, childGroup.mode)}
+                                onReset={this.clearFilterSection.bind(this, key)}
                                 values={filters[key]}
                               />
                             </Panel>
@@ -132,6 +195,7 @@ class SidebarFilters extends Component {
                       mode={group.mode}
                       items={group.items}
                       onChange={this.onChange.bind(this, key, group.mode)}
+                      onReset={this.clearFilterSection.bind(this, key)}
                       values={filters[key]}
                     />
                   )}
@@ -144,7 +208,7 @@ class SidebarFilters extends Component {
   }
 }
 
-SidebarFilters.propTypes = {};
+// SidebarFilters.propTypes = {};
 
 function mapStateToProps(state) {
   return {
@@ -171,7 +235,8 @@ function mapDispatchToProps(dispatch) {
     setFilterRoi: data => dispatch(setFilterRoi(data)),
     setFilterVaf: data => dispatch(setFilterVaf(data)),
     setFilterCancerDBs: data => dispatch(setFilterCancerDBs(data)),
-    setFilterGnomId: data => dispatch(setFilterGnomId(data))
+    setFilterGnomId: data => dispatch(setFilterGnomId(data)),
+    clearFilterSection: data => dispatch(clearFilterSection(data))
   };
 }
 export default connect(

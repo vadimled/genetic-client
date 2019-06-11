@@ -4,11 +4,9 @@ import { Table, Tooltip } from "antd";
 import { Resizable } from "react-resizable";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import Notes from "Pages/mainPage/components/notes";
-import {
-  ZYGOSITY_OPTIONS,
-  GERMLINE_VARIANT_CLASS_OPTIONS,
-  SOMATIC_VARIANT_CLASS_OPTIONS
-} from "Utils/constants";
+import { ZYGOSITY_OPTIONS, GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
+import ExternalLink from "GenericComponents/externalLink";
+
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -129,6 +127,10 @@ class VariantTable extends Component {
     }
   };
 
+  handelChrPosition = (e, data) => {
+    console.log({ e: e.target, data });
+  };
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -189,6 +191,22 @@ class VariantTable extends Component {
         column.render = (...data) => <Notes key={data[1].id} id={data[1].id} />;
       }
 
+      if (col.dataIndex === "transcript") {
+        column.render = (...data) => <ExternalLink data={data[1].transcript} />;
+      }
+
+      if (col.dataIndex === "chrPosition") {
+        column.render = (...data) => {
+          const { chrPosition } = data[1];
+          return (
+            <ExternalLink
+              data={chrPosition}
+              externalHandler={e => this.handelChrPosition(e, chrPosition)}
+            />
+          );
+        };
+      }
+
       return column;
     });
   };
@@ -227,11 +245,6 @@ class VariantTable extends Component {
         columns={columns}
         dataSource={data}
         scroll={{ x: "max-content" }}
-        // onRow={(record, rowIndex) => {
-        //   return {
-        //     onClick: () => {console.log(record, rowIndex)}, // click row
-        //   };
-        // }}
       />
     );
   }

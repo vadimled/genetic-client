@@ -37,7 +37,7 @@ const initialState = {
   [FILTERS.hotSpot]: [],
   [FILTERS.snp]: [],
   [FILTERS.roi]: [],
-  [FILTERS.vaf]: [0, 100],
+  [FILTERS.vaf]: [], // [0, 100]
   [FILTERS.cancerDBs]: [],
   [FILTERS.gnomAD]: []
 };
@@ -141,8 +141,15 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
-  // [actionsTypes]
+  [actionsTypes.CLEAR_FILTER_SECTION]: (state, {payload}) => {
+    const { filtersKey } = payload;
 
+    state[filtersKey] = [];
+
+    return {
+      ...state
+    };
+  },
 
 });
 
