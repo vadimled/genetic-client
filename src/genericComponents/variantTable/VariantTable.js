@@ -204,9 +204,6 @@ class VariantTable extends Component {
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
 
-    console.log(window.innerWidth);
-    console.log(window.outerWidth);
-    console.log(screen.width);
     return (
       <Table
         components={this.components}
