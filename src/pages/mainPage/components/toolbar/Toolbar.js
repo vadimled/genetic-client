@@ -12,11 +12,9 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { setMutationType } from "Store/actions/variantsActions";
 import { updateSearch } from "Store/actions/tableActions";
-import {
-  getMutationType,
-  getSearchQuery
-} from "Store/selectors";
+import { getMutationType, getSearchQuery } from "Store/selectors";
 import { Icon } from "antd";
+import closeBtn from "Assets/close.svg";
 
 class Toolbar extends Component {
   state = {
@@ -35,15 +33,20 @@ class Toolbar extends Component {
     this.props.updateSearch(e.target.value);
   };
 
+  clearSearch = () => {
+    this.props.updateSearch("");
+    this.toggleIsSearching();
+  };
+
   render() {
     const {
       filtered,
       total,
       sidebarToggle,
       mutations,
-      searchText,
+      searchText
     } = this.props;
-    const { isSearching } = this.state;
+    // const { isSearching } = this.state;
 
     return (
       <div className={style["toolbar-wrapper"]}>
@@ -59,29 +62,26 @@ class Toolbar extends Component {
           </div>
         </div>
         <div>
-          {isSearching ? (
-            <div className="search-field-wrapper">
-              <input
-                className="search-field"
-                value={searchText}
-                onChange={this.handleOnSearchChange}
-              />
+          <div className="search-field-wrapper flex items-center">
+            {!searchText && (
+              <Icon type="search" style={{ color: "#96A2AA" }} />
+            )}
+            <input
+              className="search-field"
+              value={searchText}
+              onChange={this.handleOnSearchChange}
+              onClick={() => this.toggleIsSearching()}
+              placeholder="Search"
+            />
 
-              <Icon
-                onClick={() => this.toggleIsSearching()}
-                type="search"
-                style={{ color: "#96A2AA" }}
+            {searchText && (
+              <button
+                className="clear-search-button"
+                style={{ backgroundImage: `url(${closeBtn})` }}
+                onClick={() => this.clearSearch()}
               />
-            </div>
-          ) : (
-            <div className="search-icon flex">
-              <Icon
-                onClick={() => this.toggleIsSearching()}
-                type="search"
-                style={{ color: "#96A2AA" }}
-              />
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <div
           className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}
@@ -104,7 +104,7 @@ const mapStateToProps = state => {
     filtered: getFilteredEntriesAmount(state),
     total: getTotalEntriesAmount(state),
     mutations: getMutationType(state),
-    searchText: getSearchQuery(state),
+    searchText: getSearchQuery(state)
   };
 };
 
