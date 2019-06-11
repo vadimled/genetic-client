@@ -17,13 +17,13 @@ import { Icon } from "antd";
 import closeBtn from "Assets/close.svg";
 
 class Toolbar extends Component {
-  state = {
-    isSearching: false
-  };
+  // state = {
+  //   isSearching: false
+  // };
 
-  toggleIsSearching = () => {
-    this.setState({ isSearching: !this.state.isSearching });
-  };
+  // toggleIsSearching = () => {
+  //   this.setState({ isSearching: !this.state.isSearching });
+  // };
 
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
@@ -35,7 +35,7 @@ class Toolbar extends Component {
 
   clearSearch = () => {
     this.props.updateSearch("");
-    this.toggleIsSearching();
+    // this.toggleIsSearching();
   };
 
   render() {
@@ -70,7 +70,7 @@ class Toolbar extends Component {
               className="search-field"
               value={searchText}
               onChange={this.handleOnSearchChange}
-              onClick={() => this.toggleIsSearching()}
+              // onClick={() => this.toggleIsSearching()}
               placeholder="Search"
             />
 
