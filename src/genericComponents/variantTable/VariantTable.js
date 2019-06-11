@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Table } from "antd";
+import { Table, Tooltip } from "antd";
 import { Resizable } from "react-resizable";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import Notes from "Pages/mainPage/components/notes";
-import {
-  GERMLINE_VARIANT_CLASS_OPTIONS,
-  SOMATIC_VARIANT_CLASS_OPTIONS,
-  ZYGOSITY_OPTIONS
-} from "Utils/constants";
+import { ZYGOSITY_OPTIONS, GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
+
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -56,13 +53,28 @@ class VariantTable extends Component {
         title: "Allele change",
         dataIndex: "alleleChange",
         key: "6",
-        width: 80
+        width: 80,
+
+        render: (text, record) => {
+          return (
+            <Tooltip placement="top" title={record.alleleChangeLong}>
+              <div>{text}</div>
+            </Tooltip>
+          );
+        }
       },
       {
         title: "coding",
         dataIndex: "coding",
         key: "7",
-        width: 80
+        width: 80,
+        render: (text, record) => {
+          return (
+            <Tooltip placement="top" title={record.codingLong}>
+              <div>{text}</div>
+            </Tooltip>
+          );
+        }
       },
       {
         title: "Protein",
@@ -141,6 +153,7 @@ class VariantTable extends Component {
                   value: e.target.value
                 })
               }
+              isClearAvailable
             />
           </div>
         );
