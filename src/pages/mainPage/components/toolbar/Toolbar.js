@@ -30,10 +30,16 @@ class Toolbar extends Component {
 
   handleOnSearchChange = e => {
     this.props.updateSearch(e.target.value);
-  }
+  };
 
   render() {
-    const { filtered, total, sidebarToggle, mutations, searchText } = this.props;
+    const {
+      filtered,
+      total,
+      sidebarToggle,
+      mutations,
+      searchText
+    } = this.props;
     const { isSearching } = this.state;
 
     return (
@@ -61,7 +67,7 @@ class Toolbar extends Component {
               <Icon
                 onClick={() => this.toggleIsSearching()}
                 type="search"
-                style={{color: "#96A2AA"}}
+                style={{ color: "#96A2AA" }}
               />
             </div>
           ) : (
@@ -69,7 +75,7 @@ class Toolbar extends Component {
               <Icon
                 onClick={() => this.toggleIsSearching()}
                 type="search"
-                style={{color: "#96A2AA"}}
+                style={{ color: "#96A2AA" }}
               />
             </div>
           )}
@@ -91,8 +97,7 @@ Toolbar.propTypes = {
 };
 
 const mapStateToProps = state => {
-
-  console.log(state)
+  console.log(state);
 
   return {
     filtered: getFilteredEntriesAmount(state),
@@ -105,7 +110,7 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     setMutationType: data => dispatch(setMutationType(data)),
-    updateSearch: data =>  dispatch(updateSearch(data))
+    updateSearch: data => dispatch(updateSearch(data))
   };
 }
 
