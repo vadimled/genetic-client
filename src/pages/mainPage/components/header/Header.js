@@ -29,24 +29,24 @@ class Header extends Component {
           </div>
         </div>
         <div className="flex justify-start flex-row">
-          <div className="right-wrapper">
+          <div className="right-side-item">
             <HeaderIcon
               // isActive
               icon={<InfoIcon />}
               handelOnClick={this.handelInfo}
             />
           </div>
-          <div className="right-wrapper">
+          <div className="right-side-item">
             <HeaderIcon
               isActive
               icon={<NotificationIcon />}
               handelOnClick={this.handelNotification}
             />
           </div>
-          <div className="right-wrapper">
+          <div className="right-side-item">
             <User
               userName={"vadim"}
-              avatarUrl={"https://randomuser.me/api/portraits/men/34.jpg"}
+              avatarUrl={`https://randomuser.me/api/portraits/men/34.jpg`}
             />
           </div>
         </div>

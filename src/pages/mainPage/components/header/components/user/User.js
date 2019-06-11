@@ -3,18 +3,17 @@ import style from "./User.module.scss";
 import PropTypes from "prop-types";
 
 class User extends Component {
+  handelAvatarClick = e => {
+    console.log(e.target);
+  };
+
   render() {
     const { userName, avatarUrl } = this.props;
     return (
-      <div className={style["user-wrapper"]}>
+      <div className={style["user-wrapper"]} onClick={this.handelAvatarClick}>
         {avatarUrl ? (
           <picture className="avatar">
-            <img
-              className="lazy"
-              src={avatarUrl}
-              data-src={avatarUrl}
-              alt="User's avatar"
-            />
+            <img src={avatarUrl} alt="User's avatar" />
           </picture>
         ) : (
           userName && (
