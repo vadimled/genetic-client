@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 import style from "./Header.module.scss";
+import HeaderIcon from "GenericComponents/headerIcon";
+import { ReactComponent as NotificationIcon } from "Assets/notifications.svg";
 // import PropTypes from "prop-types";
 
 class Header extends Component {
+  handelNotification = e => {
+    console.log(e.target);
+  };
+
   render() {
     return (
       <div className={style["header-wrapper"]}>
@@ -18,8 +24,10 @@ class Header extends Component {
         </div>
         <div className="flex justify-start flex-row">
           <div className="right-wrapper">
-            {/* TODO: Notification place*/}
-            NT
+            <HeaderIcon
+              icon={<NotificationIcon />}
+              handelOnClick={this.handelNotification}
+            />
           </div>
           <div className="right-wrapper">
             {/* TODO: User profile place*/}
