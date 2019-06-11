@@ -9,7 +9,7 @@ class Header extends Component {
   handelNotification = e => {
     console.log(e.target);
   };
-  
+
   handelInfo = e => {
     console.log(e.target);
   };
@@ -30,12 +30,14 @@ class Header extends Component {
         <div className="flex justify-start flex-row">
           <div className="right-wrapper">
             <HeaderIcon
+              isActive
               icon={<InfoIcon />}
               handelOnClick={this.handelInfo}
             />
           </div>
           <div className="right-wrapper">
             <HeaderIcon
+              isActive
               icon={<NotificationIcon />}
               handelOnClick={this.handelNotification}
             />
