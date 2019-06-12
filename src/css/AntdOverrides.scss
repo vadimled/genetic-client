@@ -591,6 +591,7 @@ th {
   cursor: col-resize;
 }
 
+// ant-table
 .ant-table-scroll {
   overflow-x: auto !important;
 
@@ -601,11 +602,15 @@ th {
   }
 }
 
+//.ant-table-body{
+//  max-height: 77vh;
+//}
+
 .ant-table-content {
   max-height: 84vh;
 
   .ant-table-body-inner {
-    max-height: 85vw;
+    max-height: 85vh;
   }
 }
 
