@@ -4,11 +4,15 @@ import { Table, Tooltip } from "antd";
 import { Resizable } from "react-resizable";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import Notes from "Pages/mainPage/components/notes";
-import { ZYGOSITY_OPTIONS, GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
+import {
+  ZYGOSITY_OPTIONS,
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS
+} from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
 // import activityLogIcon from "Assets/activityLogIcon.svg";
 import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
-import style from "./VariantTable.module.scss"
+import style from "./VariantTable.module.scss";
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -212,7 +216,7 @@ class VariantTable extends Component {
       if (col.dataIndex === "activityLog") {
         column.render = (...data) => {
           // const { chrPosition } = data[1];
-          console.log(data)
+          console.log(data);
           return (
             <div className="activity-icon-wrapper flex justify-center">
               <div className="icon">
