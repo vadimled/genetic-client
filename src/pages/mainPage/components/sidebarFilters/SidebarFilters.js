@@ -117,14 +117,10 @@ class SidebarFilters extends Component {
   render() {
     const { filters, type } = this.props;
 
-    // console.log("--filters: ", filters)
-
     const transformedFiltersConfig = this.filtersConfigConverter(filtersConfig);
     const filtersChipIndicators = Object.keys(filters).filter(
       key => filters[key].length && filters[key][0] !== ""
     );
-
-    console.log("--filtersChipIndicators: ", filtersChipIndicators);
 
     return (
       <div className={style["sidebar-filters"]}>

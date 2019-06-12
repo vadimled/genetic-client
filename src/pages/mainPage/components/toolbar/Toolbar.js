@@ -44,8 +44,6 @@ class Toolbar extends Component {
       tableData
     } = this.props;
 
-    console.log("--searchText: ", searchText);
-
     return (
       <div className={style["toolbar-wrapper"]}>
         <div className="left-wrapper">

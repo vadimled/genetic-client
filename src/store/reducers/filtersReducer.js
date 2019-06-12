@@ -174,7 +174,6 @@ const filtersReducer = createReducer(initialState, {
   },
 
   [actionsTypes.UPDATE_SEARCH]: (state, { payload }) => {
-    console.log("payload: ", payload);
     return Object.assign({}, state, {
       searchText: payload
     });

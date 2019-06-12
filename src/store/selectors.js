@@ -15,18 +15,13 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getSelectedRowKeys = state => state?.table?.selectedRowKeys,
   getMutationType = state => state.variants.mutations;
 
-export const getSearchQuery = state => {
-  // console.log(state.filters)
-  // return state?.filters?.searchText[0] ? state?.filters?.searchText[0] : "";
-  return state?.filters?.searchText;
-};
+export const getSearchQuery = state => state?.filters?.searchText;
 
 export const getSearchResult = createSelector(
   getTableData,
   getSearchQuery,
   (data, searchQuery) => {
     return data.filter(item => {
-      console.log("-----------searchQuery: ", searchQuery)
       return (
         item.gene.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.variantClass.toLowerCase().includes(searchQuery.toLowerCase()) ||

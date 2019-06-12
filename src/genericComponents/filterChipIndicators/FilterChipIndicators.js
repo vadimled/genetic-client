@@ -4,10 +4,6 @@ import FilterChipIndicatorsItem from './components/FilterChipIndicatorsItem';
 import style from './FilterChipIndicators.module.scss';
 
 const FilterChipIndicators = ({ title, data, onDelete, filtersConfigKey }) => {
-
-  console.log("-data: ", data)
-
-
   return (
     <div className={style["filter-chip-indicators"]}>
       <div className="indicators-title">{title}</div>

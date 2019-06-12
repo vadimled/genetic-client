@@ -29,8 +29,7 @@ const FilterChipIndicatorsItem = ({ data, onDelete, filtersConfigKey }) => {
             </Fragment>;
           }
           else if (typeof item === 'string') {
-            console.log("--item: ", item)
-            return <span>{item}</span>
+            return <span key={index}>{item}</span>
           }
           return '';
         })}
@@ -46,7 +45,7 @@ const FilterChipIndicatorsItem = ({ data, onDelete, filtersConfigKey }) => {
 };
 
 FilterChipIndicatorsItem.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.number])).isRequired,
+  data: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.string])).isRequired,
   onDelete: PropTypes.func.isRequired,
   filtersConfigKey: PropTypes.string
 };
