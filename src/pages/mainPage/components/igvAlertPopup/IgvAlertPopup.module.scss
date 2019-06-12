@@ -1,0 +1,110 @@
+@import "Css/Colors.scss";
+
+.igv-alert-popup :global {
+  width: 414px;
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+
+  .header {
+    background-color: $neutral_10;
+    padding: 0 25px;
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-close {
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .header-title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 21px;
+    color: $title_color;
+    display: flex;
+    align-items: center;
+  }
+
+  .warning-sign {
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 22px;
+    height: 19px;
+    display: inline-block;
+    margin-right: 13px;
+  }
+
+  .content {
+    padding: 18px 47px 32px 36px;
+  }
+
+  .text {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;
+    color: $neutral_hover_30;
+    margin-bottom: 44px;
+  }
+
+  .content-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .igv-alert-btn {
+    width: 64px;
+    height: 25px;
+    padding: 0 !important;
+    border-radius: 4px;
+    border: none;
+    font-size: 14px !important;
+    font-weight: normal !important;
+    line-height: 18px !important;
+
+    margin-left: 5px;
+
+    &:hover {
+      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+      color: white;
+      background-color: $brand_primary_color;
+    }
+  }
+
+  .chbx {
+    .ant-checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      font-weight: normal;
+      font-size: 14px !important;
+      line-height: 18px !important;
+
+      .ant-checkbox-inner {
+        border: none;
+
+        &::after {
+          left: 25%;
+        }
+      }
+
+      .ant-checkbox + span {
+        color: $neutral_hover_30;
+      }
+
+      .ant-checkbox-checked::after {
+        display: none;
+      }
+    }
+  }
+}

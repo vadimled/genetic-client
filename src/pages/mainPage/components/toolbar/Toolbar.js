@@ -37,8 +37,6 @@ class Toolbar extends Component {
       fetchBAMFileStatus
     } = this.props;
 
-    console.log("fetchBAMFileStatus", fetchBAMFileStatus);
-
     return (
       <div className={style["toolbar-wrapper"]}>
         <div className="left-wrapper">

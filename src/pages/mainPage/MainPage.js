@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import style from "./MainPage.module.scss";
 import cn from "classnames";
 import SideBarLayout from "./components/sideBarLayout";
 import Toolbar from "./components/toolbar";
 import SidebarFilters from "./components/sidebarFilters";
 import TableData from "./components/tableData";
+import IgvAlertPopup from './components/igvAlertPopup';
+import { getIgvIsFetchBAMFIleFailed } from "Store/selectors";
 
 class MainPage extends Component {
   constructor(props) {
@@ -23,6 +26,7 @@ class MainPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
+    const { isFetchBAMFIleFailed } = this.props;
 
     return (
       <div className={style["main-page"]}>
@@ -35,9 +39,24 @@ class MainPage extends Component {
           <Toolbar sidebarToggle={sidebarToggle} />
           <TableData />
         </div>
+        {isFetchBAMFIleFailed && <IgvAlertPopup />}
       </div>
     );
   }
 }
 
-export default MainPage;
+const mapStateToProps = state => {
+  return {
+    isFetchBAMFIleFailed: getIgvIsFetchBAMFIleFailed(state),
+  };
+};
+
+function mapDispatchToProps() {
+  return {};
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MainPage);
+
