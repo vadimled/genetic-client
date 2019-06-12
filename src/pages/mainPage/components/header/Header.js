@@ -1,8 +1,20 @@
 import React, { Component } from "react";
 import style from "./Header.module.scss";
+import HeaderIcon from "GenericComponents/headerIcon";
+import { ReactComponent as NotificationIcon } from "Assets/notifications.svg";
+import { ReactComponent as InfoIcon } from "Assets/info.svg";
+import User from "Pages/mainPage/components/header/components/user";
 // import PropTypes from "prop-types";
 
 class Header extends Component {
+  handelNotification = e => {
+    console.log(e.target);
+  };
+
+  handelInfo = e => {
+    console.log(e.target);
+  };
+
   render() {
     return (
       <div className={style["header-wrapper"]}>
@@ -17,13 +29,27 @@ class Header extends Component {
           </div>
         </div>
         <div className="flex justify-start flex-row">
-          <div className="right-wrapper">
-            {/* TODO: Notification place*/}
-            NT
+          <div className="right-side-item">
+            <HeaderIcon
+              // isActive
+              customClassName={"info"}
+              icon={<InfoIcon />}
+              handelOnClick={this.handelInfo}
+            />
           </div>
-          <div className="right-wrapper">
-            {/* TODO: User profile place*/}
-            USR
+          <div className="right-side-item">
+            <HeaderIcon
+              // isActive
+              customClassName={"notification"}
+              icon={<NotificationIcon />}
+              handelOnClick={this.handelNotification}
+            />
+          </div>
+          <div className="right-side-item">
+            <User
+              userName={"vadim malckin"}
+              avatarUrl={`https://randomuser.me/api/portraits/men/34.jpg`}
+            />
           </div>
         </div>
       </div>
