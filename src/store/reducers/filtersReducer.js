@@ -162,7 +162,11 @@ const filtersReducer = createReducer(initialState, {
   [actionsTypes.CLEAR_FILTER_SECTION]: (state, { payload }) => {
     const { filtersKey } = payload;
 
-    state[filtersKey] = [];
+    if(filtersKey === "searchText"){
+      state[filtersKey] = "";
+    }else {
+      state[filtersKey] = [];
+    }
 
     return {
       ...state

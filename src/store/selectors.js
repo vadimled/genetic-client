@@ -26,6 +26,7 @@ export const getSearchResult = createSelector(
   getSearchQuery,
   (data, searchQuery) => {
     return data.filter(item => {
+      console.log("-----------searchQuery: ", searchQuery)
       return (
         item.gene.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.variantClass.toLowerCase().includes(searchQuery.toLowerCase()) ||
