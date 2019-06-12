@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
 import { Button, Checkbox } from 'antd';
 import Portal from 'GenericComponents/portal';
 import styles from './IgvAlertPopup.module.scss';
 import btnImg from 'Assets/close-big.svg';
 import warningImg from 'Assets/warning-sign.svg';
+import {
+  setFetchBAMFileFailed,
+  fetchBAMFile
+} from 'Actions/igvActions';
 
-const IgvAlertPopup = () => {
+const IgvAlertPopup = ({ setFetchBAMFileFailed, retry }) => {
   return (
     <Portal>
       <div className={styles['igv-alert-popup']}>
@@ -21,6 +26,7 @@ const IgvAlertPopup = () => {
           <button
             className="header-close"
             style={{backgroundImage: `url(${btnImg})`}}
+            onClick={setFetchBAMFileFailed.bind(null, false)}
           />
         </div>
         <div className="content">
@@ -38,11 +44,13 @@ const IgvAlertPopup = () => {
             <div className="btns">
               <Button
                 className="igv-alert-btn"
+                onClick={setFetchBAMFileFailed.bind(null, false)}
               >
                 Cancel
               </Button>
               <Button
                 className="igv-alert-btn"
+                onClick={retry}
               >
                 Retry
               </Button>
@@ -62,4 +70,22 @@ IgvAlertPopup.defaultProps = {
   propName: 'DefaultProp'
 };
 
-export default React.memo(IgvAlertPopup);
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setFetchBAMFileFailed: () => dispatch(setFetchBAMFileFailed()),
+    retry: () => {
+      dispatch(setFetchBAMFileFailed(false));
+      dispatch(fetchBAMFile());
+    }
+  };
+};
+
+const mapStateToProps = () => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(IgvAlertPopup));

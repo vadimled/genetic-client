@@ -2,7 +2,7 @@ import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 
 const initialState = {
-  isFetchBAMFIleFailed: true,
+  isFetchBAMFIleFailed: false,
   fetchBAMFileStatus: null // null | 1 | 2 | 3
 };
 
@@ -11,7 +11,7 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       isFetchBAMFIleFailed: payload,
-      isFetchBAMFileLoading: null
+      fetchBAMFileStatus: null
     };
   },
 
