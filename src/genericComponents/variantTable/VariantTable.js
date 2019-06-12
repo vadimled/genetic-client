@@ -6,7 +6,8 @@ import SimpleSelect from "GenericComponents/simpleSelect";
 import Notes from "Pages/mainPage/components/notes";
 import { ZYGOSITY_OPTIONS, GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
-import activityLogIcon from "Assets/activityLogIcon.svg";
+// import activityLogIcon from "Assets/activityLogIcon.svg";
+import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
 import style from "./VariantTable.module.scss"
 
 const ResizeableTitle = props => {
@@ -214,7 +215,9 @@ class VariantTable extends Component {
           console.log(data)
           return (
             <div className="activity-icon-wrapper flex justify-center">
-              <img src={activityLogIcon} />
+              <div className="icon">
+                <ActivityLogIcon />
+              </div>
             </div>
           );
         };

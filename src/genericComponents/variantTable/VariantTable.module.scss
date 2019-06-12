@@ -2,5 +2,17 @@
   border: 3px dashed red;
   .activity-icon-wrapper {
     cursor: pointer;
+    .icon:hover {
+      padding: 2px 4px 0 4px;
+      background: #e7eef2;
+      border-radius: 4px;
+    }
+    .icon:active {
+      background: #0e8ce6;
+      border-radius: 4px;
+      path {
+        fill: #fff;
+      }
+    }
   }
 }
