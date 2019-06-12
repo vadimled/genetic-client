@@ -4,9 +4,12 @@ import { Table, Tooltip } from "antd";
 import { Resizable } from "react-resizable";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import Notes from "Pages/mainPage/components/notes";
-import { ZYGOSITY_OPTIONS, GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
+import {
+  ZYGOSITY_OPTIONS,
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS
+} from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
-
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -241,11 +244,12 @@ class VariantTable extends Component {
     return (
       <Table
         components={this.components}
+        pagination={{ pageSize: 20 }}
         rowSelection={rowSelection}
         bordered
         columns={columns}
         dataSource={data}
-        scroll={{ x: "max-content" }}
+        scroll={{ x: "max-content", y: "77vh" }}
       />
     );
   }

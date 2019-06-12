@@ -593,11 +593,24 @@ th {
 
 .ant-table-scroll {
   overflow-x: auto !important;
+  overflow-y: hidden !important;
+
   table {
     transition: 0.4s ease;
     transform: translate(0px, 0px);
     width: max-content;
   }
+}
+
+.ant-table-content {
+  max-height: 84vh;
+
+  .ant-table-body-inner {
+    max-height: 85vw;
+  }
+}
+.ant-table-wrapper {
+  width: 100vw !important;
 }
 
 .sidebar-open {
