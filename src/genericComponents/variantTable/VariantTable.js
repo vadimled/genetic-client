@@ -7,6 +7,7 @@ import Notes from "Pages/mainPage/components/notes";
 import { ZYGOSITY_OPTIONS, GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
 import activityLogIcon from "Assets/activityLogIcon.svg";
+import style from "./VariantTable.module.scss"
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -212,7 +213,9 @@ class VariantTable extends Component {
           // const { chrPosition } = data[1];
           console.log(data)
           return (
-            <img src={activityLogIcon}/>
+            <div className="activity-icon-wrapper flex justify-center">
+              <img src={activityLogIcon} />
+            </div>
           );
         };
       }
@@ -249,6 +252,7 @@ class VariantTable extends Component {
 
     return (
       <Table
+        className={style["variant-table-wrapper"]}
         components={this.components}
         rowSelection={rowSelection}
         bordered
