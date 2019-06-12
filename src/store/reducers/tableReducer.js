@@ -4,8 +4,7 @@ import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 
 const initialState = {
   data: generateDNAVariantTableMockData(200),
-  selectedRowKeys: [],
-  searchText: ""
+  selectedRowKeys: []
 };
 
 const tableReducer = createReducer(initialState, {
@@ -60,22 +59,7 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state
     };
-  },
-
-  [actionsTypes.UPDATE_SEARCH]: (state, {payload}) => {
-    return Object.assign({}, state, {
-      searchText: payload
-    });
   }
-
-  // @computed get filteredPeople() {
-  //   return this.people.filter(
-  //     person => {
-  //       return person.firstName.toLowerCase().indexOf(this.search.toLowerCase()) !== -1 ||
-  //         person.lastName.toLowerCase().indexOf(this.search.toLowerCase()) !== -1
-  //     })
-  // }
-
 });
 
 export default tableReducer;

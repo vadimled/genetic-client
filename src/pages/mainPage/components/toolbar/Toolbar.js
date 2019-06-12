@@ -25,6 +25,7 @@ class Toolbar extends Component {
   };
 
   handleOnSearchChange = e => {
+
     this.props.updateSearch(e);
   };
 
@@ -42,6 +43,8 @@ class Toolbar extends Component {
       tableData
     } = this.props;
 
+    console.log("--searchText: ", searchText)
+
     return (
       <div className={style["toolbar-wrapper"]}>
         <div className="left-wrapper">
@@ -57,7 +60,7 @@ class Toolbar extends Component {
         </div>
         <div>
           <div className="search-field-wrapper flex items-center">
-            {!searchText && (
+            {!searchText.length && (
               <div className="flex items-center search-icons-wrapper">
                 <Icon type="search" style={{ color: "#96A2AA" }} />
                 <div className="placeholder">Search</div>
@@ -68,15 +71,15 @@ class Toolbar extends Component {
 
             <AutoComplete
               id="search-field"
-              dataSource={searchText && tableData}
-              value={searchText}
+              dataSource={searchText.length && tableData}
+              value={searchText[0]}
               onChange={this.handleOnSearchChange}
               placeholder="input here"
             />
 
 
 
-            {searchText && (
+            {searchText.length && (
               <button
                 className="clear-search-button"
                 style={{ backgroundImage: `url(${closeBtn})` }}

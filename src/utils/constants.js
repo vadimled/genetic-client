@@ -17,6 +17,7 @@ export const FILTERS = {
   vaf: "vaf",
   gnomAD: "gnomAD",
   cancerDBs: "canserBDs",
+  searchText: "searchText"
 };
 
 export const TEXTS = {

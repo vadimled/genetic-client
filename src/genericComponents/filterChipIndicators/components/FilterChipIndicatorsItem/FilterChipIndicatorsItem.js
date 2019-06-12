@@ -5,6 +5,7 @@ import btnImg from 'Assets/close.svg';
 import { FILTERS } from "Utils/constants";
 
 const FilterChipIndicatorsItem = ({ data, onDelete, filtersConfigKey }) => {
+
   return (
     <div className={style["filter-chip-indicators-item"]}>
       <div className="value">

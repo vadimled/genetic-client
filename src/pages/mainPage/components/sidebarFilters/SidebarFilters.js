@@ -14,7 +14,8 @@ import {
   getFilterRoi,
   getFilterVaf,
   getFilterCancerDBs,
-  getFilterGnomId
+  getFilterGnomId,
+  getSearchQuery
 } from "Store/selectors";
 import {
   setFilterVariantClass,
@@ -117,8 +118,13 @@ class SidebarFilters extends Component {
   render() {
     const { filters, type } = this.props;
 
+    // console.log("--filters: ", filters)
+
     const transformedFiltersConfig = this.filtersConfigConverter(filtersConfig);
-    const filtersChipIndicators = Object.keys(filters).filter((key) => filters[key].length);
+    const filtersChipIndicators = Object.keys(filters).filter((key) => filters[key].length && filters[key][0] !== "");
+
+    console.log("--filtersChipIndicators: ", filtersChipIndicators)
+
 
     return (
       <div className={style["sidebar-filters"]}>
@@ -138,10 +144,9 @@ class SidebarFilters extends Component {
               <FilterChipIndicators
                 key={key}
                 onDelete={this.clearFilterSection.bind(this, key)}
-                data={key === FILTERS.vaf
-                  ? filters[key]
-                  : filtersConfig[key].items
-                    .filter((item) => filters[key].includes(item.id))
+                data={key === FILTERS.vaf ? filters[key]
+                  : key === FILTERS.searchText ? filters[key]
+                    : filtersConfig[key].items.filter((item) => filters[key].includes(item.id))
                 }
                 title={filtersConfig[key].title}
                 filtersConfigKey={key}
@@ -221,7 +226,8 @@ function mapStateToProps(state) {
       [FILTERS.roi]: getFilterRoi(state),
       [FILTERS.vaf]: getFilterVaf(state),
       [FILTERS.cancerDBs]: getFilterCancerDBs(state),
-      [FILTERS.gnomAD]: getFilterGnomId(state)
+      [FILTERS.gnomAD]: getFilterGnomId(state),
+      [FILTERS.searchText]: [getSearchQuery(state)],
     }
   };
 }
