@@ -23,11 +23,10 @@ export const getSearchResult = createSelector(
   (data, searchQuery) => {
     return data.filter(item => {
       return (
-        item.gene.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1 ||
-        item.variantClass.toLowerCase().indexOf(searchQuery.toLowerCase()) !==
-          -1 ||
-        item.coding.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1 ||
-        item.protein.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
+        item.gene.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.variantClass.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.coding.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.protein.toLowerCase().includes(searchQuery.toLowerCase())
       );
     });
   }
