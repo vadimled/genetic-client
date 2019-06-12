@@ -12,20 +12,21 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { setMutationType } from "Store/actions/variantsActions";
 import { updateSearch } from "Store/actions/tableActions";
-import { getMutationType, getSearchQuery, getSearchQueries } from "Store/selectors";
+import {
+  getMutationType,
+  getSearchQuery,
+  getSearchQueries
+} from "Store/selectors";
 import { Icon } from "antd";
 import closeBtn from "Assets/close.svg";
-import { AutoComplete } from 'antd';
-
+import { AutoComplete } from "antd";
 
 class Toolbar extends Component {
-
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
   };
 
   handleOnSearchChange = e => {
-
     this.props.updateSearch(e);
   };
 
@@ -43,7 +44,7 @@ class Toolbar extends Component {
       tableData
     } = this.props;
 
-    console.log("--searchText: ", searchText)
+    console.log("--searchText: ", searchText);
 
     return (
       <div className={style["toolbar-wrapper"]}>
@@ -67,8 +68,6 @@ class Toolbar extends Component {
               </div>
             )}
 
-
-
             <AutoComplete
               id="search-field"
               dataSource={searchText.length && tableData}
@@ -76,8 +75,6 @@ class Toolbar extends Component {
               onChange={this.handleOnSearchChange}
               placeholder="input here"
             />
-
-
 
             {searchText.length && (
               <button
