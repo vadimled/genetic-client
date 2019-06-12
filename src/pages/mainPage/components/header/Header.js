@@ -47,8 +47,8 @@ class Header extends Component {
           </div>
           <div className="right-side-item">
             <User
-              userName={"vadim"}
-              avatarUrl={`https://randomuser.me/api/portraits/men/34.jpg`}
+              userName={"vadim malckin"}
+              // avatarUrl={`https://randomuser.me/api/portraits/men/34.jpg`}
             />
           </div>
         </div>

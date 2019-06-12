@@ -7,6 +7,14 @@ class User extends Component {
     console.log(e.target);
   };
 
+  getInitiales = () => {
+    return this.props.userName
+      .toUpperCase()
+      .split(" ")
+      .map(item => item[0])
+      .join("");
+  };
+
   render() {
     const { userName, avatarUrl } = this.props;
     return (
@@ -17,12 +25,7 @@ class User extends Component {
           </picture>
         ) : (
           userName && (
-            <div className="avatar-fallback">
-              {[...userName]
-                .splice(0, 2)
-                .join("")
-                .toUpperCase()}
-            </div>
+            <div className="avatar-fallback">{this.getInitiales()}</div>
           )
         )}
       </div>
