@@ -3,7 +3,6 @@ import { Select } from "antd";
 import PropTypes from "prop-types";
 import Tag from 'GenericComponents/tag';
 import CloseIcon from 'Assets/close.svg';
-console.log("CloseIcon", CloseIcon);
 
 // eslint-disable-next-line
 const Option = Select.Option;

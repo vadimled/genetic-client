@@ -20,6 +20,9 @@ const HANDLE_VARIANT_CLASS = "HANDLE_VARIANT_CLASS";
 const SET_MUTATION_TYPE = "SET_MUTATION_TYPE";
 const SET_NOTES = "SET_NOTES";
 
+// BAM
+const FETCH_BAM_FILE = "FETCH_BAM_FILE";
+
 export default {
   // filters
   SET_FILTER_TYPE,
@@ -42,4 +45,7 @@ export default {
   // variants
   SET_MUTATION_TYPE,
   SET_NOTES,
+
+  // BAM
+  FETCH_BAM_FILE,
 };
