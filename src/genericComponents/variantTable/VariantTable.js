@@ -6,7 +6,7 @@ import SimpleSelect from "GenericComponents/simpleSelect";
 import Notes from "Pages/mainPage/components/notes";
 import { ZYGOSITY_OPTIONS, GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
-
+import activityLogIcon from "Assets/activityLogIcon.svg";
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -203,6 +203,16 @@ class VariantTable extends Component {
               data={chrPosition}
               externalHandler={e => this.handelChrPosition(e, chrPosition)}
             />
+          );
+        };
+      }
+
+      if (col.dataIndex === "activityLog") {
+        column.render = (...data) => {
+          // const { chrPosition } = data[1];
+          console.log(data)
+          return (
+            <img src={activityLogIcon}/>
           );
         };
       }
