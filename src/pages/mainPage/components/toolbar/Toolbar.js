@@ -61,7 +61,7 @@ class Toolbar extends Component {
         </div>
         <div>
           <div className="search-field-wrapper flex items-center">
-            {!searchText.length && (
+            {!searchText && (
               <div className="flex items-center search-icons-wrapper">
                 <Icon type="search" style={{ color: "#96A2AA" }} />
                 <div className="placeholder">Search</div>
@@ -70,13 +70,13 @@ class Toolbar extends Component {
 
             <AutoComplete
               id="search-field"
-              dataSource={searchText.length && tableData}
-              value={searchText[0]}
+              dataSource={searchText && tableData}
+              value={searchText}
               onChange={this.handleOnSearchChange}
               placeholder="input here"
             />
 
-            {searchText.length && (
+            {searchText && (
               <button
                 className="clear-search-button"
                 style={{ backgroundImage: `url(${closeBtn})` }}

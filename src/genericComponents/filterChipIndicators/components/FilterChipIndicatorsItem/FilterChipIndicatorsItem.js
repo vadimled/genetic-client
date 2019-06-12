@@ -28,6 +28,10 @@ const FilterChipIndicatorsItem = ({ data, onDelete, filtersConfigKey }) => {
               {index < data.length-1 && <span>, </span>}
             </Fragment>;
           }
+          else if (typeof item === 'string') {
+            console.log("--item: ", item)
+            return <span>{item}</span>
+          }
           return '';
         })}
       </div>

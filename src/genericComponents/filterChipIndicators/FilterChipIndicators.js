@@ -5,7 +5,7 @@ import style from './FilterChipIndicators.module.scss';
 
 const FilterChipIndicators = ({ title, data, onDelete, filtersConfigKey }) => {
 
-  // console.log("-data: ", data)
+  console.log("-data: ", data)
 
 
   return (

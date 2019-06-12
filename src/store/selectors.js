@@ -17,7 +17,8 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
 
 export const getSearchQuery = state => {
   // console.log(state.filters)
-  return state?.filters?.searchText[0] ? state?.filters?.searchText[0] : "";
+  // return state?.filters?.searchText[0] ? state?.filters?.searchText[0] : "";
+  return state?.filters?.searchText;
 };
 
 export const getSearchResult = createSelector(

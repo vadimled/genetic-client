@@ -39,7 +39,7 @@ const initialState = {
   [FILTERS.vaf]: [], // [0, 100]
   [FILTERS.cancerDBs]: [],
   [FILTERS.gnomAD]: [],
-  [FILTERS.searchText]: []
+  [FILTERS.searchText]: ""
 };
 
 const filtersReducer = createReducer(initialState, {
@@ -172,7 +172,7 @@ const filtersReducer = createReducer(initialState, {
   [actionsTypes.UPDATE_SEARCH]: (state, { payload }) => {
     console.log("payload: ", payload);
     return Object.assign({}, state, {
-      searchText: [payload]
+      searchText: payload
     });
   }
 });
