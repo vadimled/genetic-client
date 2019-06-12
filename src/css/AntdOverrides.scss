@@ -12,6 +12,61 @@ $sideBarWidth: 197px;
   align-items: center;
 }
 
+.avg-btn-wrapper {
+  .ant-btn {
+    font-size: 14px !important;
+    line-height: 18px !important;
+    padding: 0 !important;
+    width: 98px;
+    height: 28px;
+    border-color: $border_color;
+    border-radius: 4px;
+
+    position: relative;
+
+    &.ant-btn-primary,
+    &.ant-btn-primary[disabled] {
+      background-color: $brand_primary_color !important;
+      color: white !important;
+      border: none;
+    }
+
+    &.progress {
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        height: 4px;
+        width: 100%;
+        background-repeat: no-repeat;
+      }
+
+      &--2 {
+        &::after {
+          background-image: url("../assets/btn-progress-part.svg");
+          background-position: 0px calc(100% - 1px);
+        }
+      }
+
+      &--3 {
+        &::after {
+          background-image: url("../assets/btn-progress-full.svg");
+          background-position: 0px calc(100% - 1px);
+        }
+      }
+
+      & > span + .anticon {
+        margin-left: 5px;
+        font-size: 11px;
+        svg {
+          fill: white;
+        }
+      }
+    }
+  }
+}
+
 .ant-btn-primary {
   background: $brand_primary_color !important;
 

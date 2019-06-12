@@ -1,25 +1,25 @@
-import { call, put } from "redux-saga/effects";
-import types from "Store/actionsTypes";
+import { call, put, delay } from "redux-saga/effects";
+// import types from "Store/actionsTypes";
 import {
   fetchBAMFile,
 } from "Api";
+import {
+  setFetchBAMFileFailed,
+  setFetchBAMFileStatus,
+} from 'Actions/igvActions';
 
 export function* fetchBAMFileGenerator(data) {
   try {
-    // yield put(setLoading(true));
-    const response = yield call(fetchBAMFile, data.payload);
-    const respData = yield response.json();
-    console.log("respData", respData);
-    // if (respData.apiKey) {
-    //   setToken(respData.apiKey);
-    // }
-    // yield put(setLoginResultToStore(respData));
-    // if (!_.has(respData, "message")) {
-    //   document.location = "/";
-    // }
-    // yield put(setLoading(false));
+    yield put(setFetchBAMFileStatus(1));
+    yield call(fetchBAMFile, data.payload);
+    yield delay(1000);
+    yield put(setFetchBAMFileStatus(2));
+    yield delay(2000);
+    yield put(setFetchBAMFileStatus(3));
+    yield delay(3000);
+    yield put(setFetchBAMFileStatus(null));
   } catch (e) {
     console.log("e", e);
-    yield put({ type: types.FETCH_BAM_FILE_FAILED, payload: e.message });
+    yield put(setFetchBAMFileFailed(true));
   }
 }

@@ -20,6 +20,9 @@
   }
 
   .right-wrapper {
+    display: flex;
+    align-items: center;
+
     transform: translate(0px, 0px);
     transition: 0.4s ease;
 

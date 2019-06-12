@@ -22,6 +22,8 @@ const SET_NOTES = "SET_NOTES";
 
 // BAM
 const FETCH_BAM_FILE = "FETCH_BAM_FILE";
+const FETCH_BAM_FILE_FAILED = "FETCH_BAM_FILE_FAILED";
+const FETCH_BAM_FILE_STATUS = "FETCH_BAM_FILE_STATUS";
 
 export default {
   // filters
@@ -48,4 +50,6 @@ export default {
 
   // BAM
   FETCH_BAM_FILE,
+  FETCH_BAM_FILE_FAILED,
+  FETCH_BAM_FILE_STATUS,
 };
