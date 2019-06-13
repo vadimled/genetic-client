@@ -4,7 +4,8 @@ import actionsTypes from "../actionsTypes";
 const initialState = {
   fetchBAMFileStatus: null, // null | 1 | 2 | 3
   isIgvAlertShow: false,
-  isIgvAlertShowAgaing: true
+  isIgvAlertShowAgaing: true,
+  igvLastQuery: null, // null | { type: 'BAM_FILE' | 'CHR_POS', data }
 };
 
 const tableReducer = createReducer(initialState, {
@@ -19,7 +20,8 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       isIgvAlertShow: state.isIgvAlertShowAgaing ? payload : false,
-      fetchBAMFileStatus: null
+      fetchBAMFileStatus: null,
+      igvLastQuery: payload === false ? null : state.igvLastQuery
     };
   },
 
@@ -27,6 +29,13 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       isIgvAlertShowAgaing: payload
+    };
+  },
+
+  [actionsTypes.SET_IGV_LAST_QUERY]: (state, { payload }) => {
+    return {
+      ...state,
+      igvLastQuery: state.isIgvAlertShowAgaing ? payload : null,
     };
   },
 

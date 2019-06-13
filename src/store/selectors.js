@@ -19,7 +19,8 @@ export const
 
   getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
   getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
-  getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing;
+  getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
+  getIgvLastQuery = state => state?.igv?.igvLastQuery;
 
 export const getNotes = (state, id) => state?.table?.data?.[id].notes;
 

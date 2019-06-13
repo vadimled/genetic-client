@@ -8,14 +8,16 @@ import btnImg from 'Assets/close-big.svg';
 import warningImg from 'Assets/warning-sign.svg';
 import {
   fetchBAMFile,
+  goToChrPositionIgv,
   handleIgvAlertShow,
-  handleIgvAlertShowAgain
+  handleIgvAlertShowAgain,
 } from 'Actions/igvActions';
 import {
-  getIgvAlertShowAgaing
+  getIgvAlertShowAgaing,
+  getIgvLastQuery,
 } from "Store/selectors";
 
-const IgvAlertPopup = ({ retry, handleIgvAlertShow, handleIgvAlertShowAgain, isIgvAlertShowAgaing }) => {
+const IgvAlertPopup = ({ retry, handleIgvAlertShow, handleIgvAlertShowAgain, isIgvAlertShowAgaing, igvLastQuery }) => {
   return (
     <Portal>
       <div className={styles['igv-alert-popup']}>
@@ -55,7 +57,7 @@ const IgvAlertPopup = ({ retry, handleIgvAlertShow, handleIgvAlertShowAgain, isI
               </Button>
               <Button
                 className="igv-alert-btn"
-                onClick={retry}
+                onClick={retry.bind(null, igvLastQuery)}
               >
                 Retry
               </Button>
@@ -78,10 +80,18 @@ IgvAlertPopup.defaultProps = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleIgvAlertShow: () => dispatch(handleIgvAlertShow()),
-    retry: () => {
+    handleIgvAlertShow: (data) => dispatch(handleIgvAlertShow(data)),
+    retry: (igvLastQuery) => {
       dispatch(handleIgvAlertShow(false));
-      dispatch(fetchBAMFile());
+      if (igvLastQuery) {
+        const { type, data } = igvLastQuery;
+        if (type === 'BAM_FILE') {
+          dispatch(fetchBAMFile(data));
+        }
+        if (type === 'CHR_POS') {
+          dispatch(goToChrPositionIgv(data));
+        }
+      }
     },
     handleIgvAlertShowAgain: (e) => dispatch(handleIgvAlertShowAgain(!e.target.checked))
   };
@@ -89,7 +99,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = (state) => {
   return {
-    isIgvAlertShowAgaing: getIgvAlertShowAgaing(state)
+    isIgvAlertShowAgaing: getIgvAlertShowAgaing(state),
+    igvLastQuery: getIgvLastQuery(state),
   };
 };
 

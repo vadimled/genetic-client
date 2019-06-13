@@ -27,3 +27,17 @@ export const handleIgvAlertShowAgain = data => {
     payload: data
   };
 };
+
+export const goToChrPositionIgv = data => {
+  return {
+    type: actionsTypes.GO_TO_CHR_POSITION_IGV,
+    payload: data
+  };
+};
+
+export const setIgvLastQuery = data => {
+  return {
+    type: actionsTypes.SET_IGV_LAST_QUERY,
+    payload: data
+  };
+};
