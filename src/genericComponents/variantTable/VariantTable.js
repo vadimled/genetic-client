@@ -28,6 +28,34 @@ const ResizeableTitle = props => {
   );
 };
 
+const ActiveLogDetails = () => <div className="active-log-details">Details</div>
+
+class ActivityLog extends Component {
+
+  state = {
+    isActivityDetailsShow: false
+  }
+
+  showActivityDetails = () =>{
+    this.setState({isActivityDetailsShow: true})
+  }
+
+  render(){
+    return(
+      <div className="activity-icon-wrapper flex justify-center">
+        <div className="icon" onClick={this.showActivityDetails}>
+          <ActivityLogIcon />
+        </div>
+        {
+          this.state.isActivityDetailsShow &&
+          <ActiveLogDetails />
+        }
+
+      </div>
+    )
+  }
+}
+
 class VariantTable extends Component {
   state = {
     columns: [
@@ -124,7 +152,8 @@ class VariantTable extends Component {
         key: "14",
         width: 200
       }
-    ]
+    ],
+
   };
 
   components = {
@@ -218,11 +247,7 @@ class VariantTable extends Component {
           // const { chrPosition } = data[1];
           console.log(data);
           return (
-            <div className="activity-icon-wrapper flex justify-center">
-              <div className="icon">
-                <ActivityLogIcon />
-              </div>
-            </div>
+            <ActivityLog />
           );
         };
       }

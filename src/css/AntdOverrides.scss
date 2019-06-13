@@ -308,13 +308,13 @@ $sideBarWidth: 197px;
   display: none !important;
 }
 
-.ant-popover-placement-bottomRight {
-  width: 77px;
-  left: 562px;
-  top: 501.109px;
-  cursor: pointer;
-  position: relative;
-}
+//.ant-popover-placement-bottomRight {
+//  width: 77px;
+//  left: 562px;
+//  top: 501.109px;
+//  cursor: pointer;
+//  position: relative;
+//}
 
 .ant-checkbox-wrapper {
   font-size: 16px !important;
@@ -375,30 +375,30 @@ $sideBarWidth: 197px;
   }
 }
 
-.ant-popover {
-  position: fixed;
-
-  .ant-popover-hidden {
-    display: none !important;
-  }
-
-  .ant-popover-content {
-    width: 307px !important;
-    height: 114px !important;
-
-    .ant-popover-arrow {
-      display: block !important;
-    }
-
-    .ant-popover-inner .ant-popover-inner-content {
-      padding: 24px !important;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: normal;
-      color: $title_color !important;
-    }
-  }
-}
+//.ant-popover {
+//  position: fixed;
+//
+//  .ant-popover-hidden {
+//    display: none !important;
+//  }
+//
+//  .ant-popover-content {
+//    width: 307px !important;
+//    height: 114px !important;
+//
+//    .ant-popover-arrow {
+//      display: block !important;
+//    }
+//
+//    .ant-popover-inner .ant-popover-inner-content {
+//      padding: 24px !important;
+//      font-weight: normal;
+//      font-size: 14px;
+//      line-height: normal;
+//      color: $title_color !important;
+//    }
+//  }
+//}
 
 @keyframes progress {
   0% {
@@ -502,10 +502,10 @@ $sideBarWidth: 197px;
     }
   }
 }
-.ant-popover {
-  z-index: 99999 !important;
-  min-width: 200px !important;
-}
+//.ant-popover {
+//  z-index: 99999 !important;
+//  min-width: 200px !important;
+//}
 
 .ant-popover-inner {
   display: flex !important;
