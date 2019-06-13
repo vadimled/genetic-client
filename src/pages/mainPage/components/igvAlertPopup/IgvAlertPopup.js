@@ -50,7 +50,7 @@ const IgvAlertPopup = ({ retry, handleIgvAlertShow, handleIgvAlertShowAgain, isI
             </div>
             <div className="btns">
               <Button
-                className="igv-alert-btn"
+                className="igv-alert-btn igv-alert-btn--link"
                 onClick={handleIgvAlertShow.bind(null, false)}
               >
                 Cancel

@@ -9,7 +9,8 @@ import cn from "classnames";
 import {
   getFilteredEntriesAmount,
   getTotalEntriesAmount,
-  getIgvFetchBAMFileStatus
+  getIgvFetchBAMFileStatus,
+  getBAMFileUrl
 } from "Store/selectors";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -23,9 +24,8 @@ class Toolbar extends Component {
   };
 
   fetchBAMFile = () => {
-    // eslint-disable-next-line
-    const mockUrl = 'http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeUwRepliSeq/wgEncodeUwRepliSeqGm12801G1bAlnRep1.bam';
-    this.props.fetchBAMFile(mockUrl);
+    const { BAMFileUrl } = this.props;
+    this.props.fetchBAMFile(BAMFileUrl);
   };
 
   render() {
@@ -81,7 +81,8 @@ const mapStateToProps = state => {
     filtered: getFilteredEntriesAmount(state),
     total: getTotalEntriesAmount(state),
     mutations: getMutationType(state),
-    fetchBAMFileStatus: getIgvFetchBAMFileStatus(state)
+    fetchBAMFileStatus: getIgvFetchBAMFileStatus(state),
+    BAMFileUrl: getBAMFileUrl(state),
   };
 };
 
