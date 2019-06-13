@@ -1,3 +1,5 @@
+@import "Css/Colors.scss";
+
 .variant-table-wrapper :global {
   border: 3px dashed red;
   .activity-icon-wrapper {
@@ -20,7 +22,9 @@
     z-index: 9;
     right: 115px;
     min-width: 320px;
-    //min-height: 40px;
+    max-height: 121px;
+    overflow-y: -webkit-paged-y;
+    overflow-y: overlay;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
     border-radius: 4px;
     background: #fff;
@@ -37,10 +41,12 @@
       .record_time {
         min-width: 146px;
         text-align: center;
+        font-size: 14px;
+        color: $neutral_30;
       }
     }
     .divider {
-      border-right: 1px solid red;
+      border-right: 1px solid $border_color;
       height: 18px;
     }
     .record__item {
