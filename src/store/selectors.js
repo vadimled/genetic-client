@@ -153,6 +153,15 @@ export const getSearchQueries = createSelector(
   }
 );
 
+export const getFilteredSearchQueries = createSelector(
+  getSearchQueries,
+  getSearchQuery,
+  (queries, searchQuery) => {
+    const filteredSearchQueries = queries.filter(query => query.toLowerCase().includes(searchQuery.toLowerCase()))
+    return filteredSearchQueries
+  }
+)
+
 export const getFilteredEntriesAmount = createSelector(
   getFilteredData,
   filteredData => filteredData?.length

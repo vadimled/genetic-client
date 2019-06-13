@@ -15,7 +15,7 @@ import { updateSearch } from "Store/actions/tableActions";
 import {
   getMutationType,
   getSearchQuery,
-  getSearchQueries
+  getFilteredSearchQueries
 } from "Store/selectors";
 import { Icon } from "antd";
 import closeBtn from "Assets/close.svg";
@@ -105,7 +105,7 @@ const mapStateToProps = state => {
     total: getTotalEntriesAmount(state),
     mutations: getMutationType(state),
     searchText: getSearchQuery(state),
-    tableData: getSearchQueries(state)
+    tableData: getFilteredSearchQueries(state)
   };
 };
 
