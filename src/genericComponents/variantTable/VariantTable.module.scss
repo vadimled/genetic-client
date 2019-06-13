@@ -17,11 +17,39 @@
   }
   .active-log-details {
     position: absolute;
+    z-index: 9;
     right: 115px;
     min-width: 320px;
-    min-height: 40px;
+    //min-height: 40px;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
     border-radius: 4px;
     background: #fff;
+    .record {
+      border-bottom: 1px solid #dae1e6;
+      background: #fff;
+      .record__user {
+        min-width: 84px;
+      }
+      .record_changed-item {
+        min-width: 90px;
+        text-align: center;
+      }
+      .record_time {
+        min-width: 146px;
+        text-align: center;
+      }
+    }
+    .divider {
+      border-right: 1px solid red;
+      height: 18px;
+    }
+    .record__item {
+      //border: 1px solid red;
+      padding: 16px 10px;
+      .user-name {
+        margin-left: 11px;
+        margin-right: 11px;
+      }
+    }
   }
 }

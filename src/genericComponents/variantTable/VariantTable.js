@@ -12,6 +12,7 @@ import {
 import ExternalLink from "GenericComponents/externalLink";
 // import activityLogIcon from "Assets/activityLogIcon.svg";
 import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
+import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
 import style from "./VariantTable.module.scss";
 
 const ResizeableTitle = props => {
@@ -30,10 +31,17 @@ const ResizeableTitle = props => {
 
 const ActiveLogDetails = () => (
   <div className="active-log-details">
-    <div className="record flex justify-between">
-      <div className="user">user</div>
-      <div className="changed-item">item</div>
-      <div className="time">time</div>
+    <div className="record flex justify-between items-center">
+      <div className="record__user record__item">
+        <div className="divider flex items-center">
+          <AvatarName />
+          <span className="user-name">PA</span>
+        </div>
+      </div>
+      <div className="record_changed-item record__item">
+        <div className="divider flex items-center">Hemi</div>
+      </div>
+      <div className="record_time record__item">time</div>
     </div>
   </div>
 );

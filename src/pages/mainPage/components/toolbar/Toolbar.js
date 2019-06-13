@@ -21,6 +21,7 @@ import { Icon } from "antd";
 import closeBtn from "Assets/close.svg";
 import { AutoComplete } from "antd";
 
+
 class Toolbar extends Component {
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
