@@ -53,7 +53,7 @@ class Toolbar extends Component {
         <div
           className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}
         >
-          <div className="avg-btn-wrapper">
+          <div className="igv-btn-wrapper">
             <Button
               type={fetchBAMFileStatus ? 'primary' : ''}
               onClick={this.fetchBAMFile}

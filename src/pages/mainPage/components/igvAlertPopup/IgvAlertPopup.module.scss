@@ -63,6 +63,10 @@
     align-items: center;
   }
 
+  .btns {
+    display: flex;
+  }
+
   .igv-alert-btn {
     width: 64px;
     height: 25px;
@@ -72,6 +76,9 @@
     font-size: 14px !important;
     font-weight: normal !important;
     line-height: 18px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     margin-left: 5px;
 
