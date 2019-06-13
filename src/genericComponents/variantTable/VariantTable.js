@@ -29,7 +29,13 @@ const ResizeableTitle = props => {
 };
 
 const ActiveLogDetails = () => (
-  <div className="active-log-details">Details</div>
+  <div className="active-log-details">
+    <div className="record flex justify-between">
+      <div className="user">user</div>
+      <div className="changed-item">item</div>
+      <div className="time">time</div>
+    </div>
+  </div>
 );
 
 class ActivityLog extends Component {
@@ -44,10 +50,10 @@ class ActivityLog extends Component {
   render() {
     return (
       <div className="activity-icon-wrapper flex justify-center">
+        {this.state.isActivityDetailsShow && <ActiveLogDetails />}
         <div className="icon" onClick={this.showActivityDetails}>
           <ActivityLogIcon />
         </div>
-        {this.state.isActivityDetailsShow && <ActiveLogDetails />}
       </div>
     );
   }
