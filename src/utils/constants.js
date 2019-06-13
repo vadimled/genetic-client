@@ -50,8 +50,8 @@ export const VARIANT_CLASS = {
   path: { value: 'path', label: 'PATH', tagColor: TAG_COLORS.red },
   lpath: { value: 'lpath', label: 'LPATH', tagColor: TAG_COLORS.orange },
   vus: { value: 'vus', label: 'VUS', tagColor: TAG_COLORS.yellow },
-  ben: { value: 'ben', label: 'BEN', tagColor: TAG_COLORS.blueLight },
-  lben: { value: 'lben', label: 'LBEN', tagColor: TAG_COLORS.blue }
+  ben: { value: 'ben', label: 'BEN', tagColor: TAG_COLORS.blue },
+  lben: { value: 'lben', label: 'LBEN', tagColor: TAG_COLORS.blueLight }
 };
 
 export const SOMATIC_CLASS = {
@@ -67,8 +67,8 @@ export const GERMLINE_VARIANT_CLASS_OPTIONS = [
   { ...VARIANT_CLASS.path },
   { ...VARIANT_CLASS.lpath },
   { ...VARIANT_CLASS.vus },
-  { ...VARIANT_CLASS.ben },
   { ...VARIANT_CLASS.lben },
+  { ...VARIANT_CLASS.ben },
 ];
 
 export const SOMATIC_VARIANT_CLASS_OPTIONS = [
