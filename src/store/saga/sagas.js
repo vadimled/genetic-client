@@ -4,7 +4,7 @@ import {
   fetchBAMFile,
 } from "Api";
 import {
-  setFetchBAMFileFailed,
+  handleIgvAlertShow,
   setFetchBAMFileStatus,
 } from 'Actions/igvActions';
 
@@ -20,6 +20,6 @@ export function* fetchBAMFileGenerator(data) {
     yield put(setFetchBAMFileStatus(null));
   } catch (e) {
     console.log("e", e);
-    yield put(setFetchBAMFileFailed(true));
+    yield put(handleIgvAlertShow(true));
   }
 }

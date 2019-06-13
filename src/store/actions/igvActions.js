@@ -7,16 +7,23 @@ export const fetchBAMFile = data => {
   };
 };
 
-export const setFetchBAMFileFailed = data => {
+export const setFetchBAMFileStatus = data => {
   return {
-    type: actionsTypes.FETCH_BAM_FILE_FAILED,
+    type: actionsTypes.FETCH_BAM_FILE_STATUS,
     payload: data
   };
 };
 
-export const setFetchBAMFileStatus = data => {
+export const handleIgvAlertShow = data => {
   return {
-    type: actionsTypes.FETCH_BAM_FILE_STATUS,
+    type: actionsTypes.HANDLE_IGV_ALERT_SHOW,
+    payload: data
+  };
+};
+
+export const handleIgvAlertShowAgain = data => {
+  return {
+    type: actionsTypes.HANDLE_IGV_ALERT_SHOW_AGAIN,
     payload: data
   };
 };

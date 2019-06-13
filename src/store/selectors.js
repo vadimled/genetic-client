@@ -17,8 +17,9 @@ export const
   getSelectedRowKeys = state => state?.table?.selectedRowKeys,
   getMutationType = state => state.variants.mutations,
 
-  getIgvIsFetchBAMFIleFailed = state => state?.igv?.isFetchBAMFIleFailed,
-  getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus;
+  getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
+  getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
+  getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing;
 
 export const getNotes = (state, id) => state?.table?.data?.[id].notes;
 

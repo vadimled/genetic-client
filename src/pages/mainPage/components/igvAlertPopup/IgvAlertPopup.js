@@ -7,11 +7,15 @@ import styles from './IgvAlertPopup.module.scss';
 import btnImg from 'Assets/close-big.svg';
 import warningImg from 'Assets/warning-sign.svg';
 import {
-  setFetchBAMFileFailed,
-  fetchBAMFile
+  fetchBAMFile,
+  handleIgvAlertShow,
+  handleIgvAlertShowAgain
 } from 'Actions/igvActions';
+import {
+  getIgvAlertShowAgaing
+} from "Store/selectors";
 
-const IgvAlertPopup = ({ setFetchBAMFileFailed, retry }) => {
+const IgvAlertPopup = ({ retry, handleIgvAlertShow, handleIgvAlertShowAgain, isIgvAlertShowAgaing }) => {
   return (
     <Portal>
       <div className={styles['igv-alert-popup']}>
@@ -26,7 +30,7 @@ const IgvAlertPopup = ({ setFetchBAMFileFailed, retry }) => {
           <button
             className="header-close"
             style={{backgroundImage: `url(${btnImg})`}}
-            onClick={setFetchBAMFileFailed.bind(null, false)}
+            onClick={handleIgvAlertShow.bind(null, false)}
           />
         </div>
         <div className="content">
@@ -35,16 +39,17 @@ const IgvAlertPopup = ({ setFetchBAMFileFailed, retry }) => {
           </div>
           <div className="content-footer">
             <div className="chbx">
-              {// eslint-disable-next-line
-                <Checkbox checked={true} onChange={() => true}>
-                  Don’t show me again
-                </Checkbox>
-              }
+              <Checkbox
+                checked={!isIgvAlertShowAgaing}
+                onChange={handleIgvAlertShowAgain}
+              >
+                Don’t show me again
+              </Checkbox>
             </div>
             <div className="btns">
               <Button
                 className="igv-alert-btn"
-                onClick={setFetchBAMFileFailed.bind(null, false)}
+                onClick={handleIgvAlertShow.bind(null, false)}
               >
                 Cancel
               </Button>
@@ -73,16 +78,19 @@ IgvAlertPopup.defaultProps = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setFetchBAMFileFailed: () => dispatch(setFetchBAMFileFailed()),
+    handleIgvAlertShow: () => dispatch(handleIgvAlertShow()),
     retry: () => {
-      dispatch(setFetchBAMFileFailed(false));
+      dispatch(handleIgvAlertShow(false));
       dispatch(fetchBAMFile());
-    }
+    },
+    handleIgvAlertShowAgain: (e) => dispatch(handleIgvAlertShowAgain(!e.target.checked))
   };
 };
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = (state) => {
+  return {
+    isIgvAlertShowAgaing: getIgvAlertShowAgaing(state)
+  };
 };
 
 export default connect(

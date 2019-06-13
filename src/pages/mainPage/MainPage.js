@@ -7,7 +7,7 @@ import Toolbar from "./components/toolbar";
 import SidebarFilters from "./components/sidebarFilters";
 import TableData from "./components/tableData";
 import IgvAlertPopup from './components/igvAlertPopup';
-import { getIgvIsFetchBAMFIleFailed } from "Store/selectors";
+import { getIgvAlertShow } from "Store/selectors";
 
 class MainPage extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class MainPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { isFetchBAMFIleFailed } = this.props;
+    const { isIgvAlertShow } = this.props;
 
     return (
       <div className={style["main-page"]}>
@@ -39,7 +39,7 @@ class MainPage extends Component {
           <Toolbar sidebarToggle={sidebarToggle} />
           <TableData />
         </div>
-        {isFetchBAMFIleFailed && <IgvAlertPopup />}
+        {isIgvAlertShow && <IgvAlertPopup />}
       </div>
     );
   }
@@ -47,7 +47,7 @@ class MainPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    isFetchBAMFIleFailed: getIgvIsFetchBAMFIleFailed(state),
+    isIgvAlertShow: getIgvAlertShow(state),
   };
 };
 
