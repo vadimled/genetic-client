@@ -2,7 +2,8 @@ import { FILTERS, GNOM_AD } from "Utils/constants";
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
 
-export const getFilterType = state => state?.filters?.[FILTERS.type],
+export const
+  getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVariantClass = state => state?.filters?.[FILTERS.variantClass],
   getFilterSomaticClass = state => state?.filters?.[FILTERS.somaticClass],
   getFilterHotSpot = state => state?.filters?.[FILTERS.hotSpot],
@@ -11,9 +12,16 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVaf = state => state?.filters?.[FILTERS.vaf],
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
+
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
   getSelectedRowKeys = state => state?.table?.selectedRowKeys,
-  getMutationType = state => state.variants.mutations;
+  getMutationType = state => state.variants.mutations,
+
+  getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
+  getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
+  getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
+  getIgvLastQuery = state => state?.igv?.igvLastQuery,
+  getBAMFileUrl = state => state?.igv?.BAMFileUrl;
 
 export const getSearchQuery = state => state?.filters?.searchText;
 
