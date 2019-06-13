@@ -131,5 +131,9 @@ export default {
       { id: "rare", value: "rare", label: "rare (1-5%)" },
       { id: "common", value: "common", label: "common (>5%)" }
     ]
+  },
+
+  [FILTERS.searchText]: {
+    title: "Query"
   }
 };
