@@ -75,15 +75,15 @@ class ActivityLog extends Component {
     isActivityDetailsShow: false
   };
 
-  showActivityDetails = () => {
-    this.setState({ isActivityDetailsShow: true });
+  toggleActivityDetails = () => {
+    this.setState({ isActivityDetailsShow: !this.state.isActivityDetailsShow });
   };
 
   render() {
     return (
       <div className="activity-icon-wrapper flex justify-center">
         {this.state.isActivityDetailsShow && <ActiveLogDetails />}
-        <div className="icon" onClick={this.showActivityDetails}>
+        <div className="icon" onClick={this.toggleActivityDetails}>
           <ActivityLogIcon />
         </div>
       </div>

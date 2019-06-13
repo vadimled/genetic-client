@@ -31,6 +31,9 @@
     .record {
       border-bottom: 1px solid #dae1e6;
       background: #fff;
+      svg {
+        height: 27px;
+      }
       .record__user {
         min-width: 84px;
       }
@@ -50,8 +53,7 @@
       height: 18px;
     }
     .record__item {
-      //border: 1px solid red;
-      padding: 16px 10px;
+      padding: 10px 10px;
       .user-name {
         margin-left: 11px;
         margin-right: 11px;
