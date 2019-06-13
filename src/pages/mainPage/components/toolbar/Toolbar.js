@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Icon } from 'antd';
+import { Button, Icon, AutoComplete } from 'antd';
 
 import style from "./Toolbar.module.scss";
 import SimpleSelect from "GenericComponents/simpleSelect";
@@ -14,18 +14,33 @@ import {
 } from "Store/selectors";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { setMutationType } from "Actions/variantsActions";
 import { fetchBAMFile } from 'Actions/igvActions';
-import { getMutationType } from "Store/selectors";
+import { setMutationType } from "Actions/variantsActions";
+import { updateSearch } from "Actions/tableActions";
+import {
+  getMutationType,
+  getSearchQuery,
+  getFilteredSearchQueries
+} from "Store/selectors";
+import closeBtn from "Assets/close.svg";
 
 class Toolbar extends Component {
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
   };
 
+
   fetchBAMFile = () => {
     const { BAMFileUrl } = this.props;
     this.props.fetchBAMFile(BAMFileUrl);
+  };
+
+  handleOnSearchChange = e => {
+    this.props.updateSearch(e);
+  };
+
+  clearSearch = () => {
+    this.props.updateSearch("");
   };
 
   render() {
@@ -34,7 +49,9 @@ class Toolbar extends Component {
       total,
       sidebarToggle,
       mutations,
-      fetchBAMFileStatus
+      fetchBAMFileStatus,
+      searchText,
+      tableData
     } = this.props;
 
     return (
@@ -48,6 +65,32 @@ class Toolbar extends Component {
               value={mutations}
               disabled
             />
+          </div>
+        </div>
+        <div>
+          <div className="search-field-wrapper flex items-center">
+            {!searchText && (
+              <div className="flex items-center search-icons-wrapper">
+                <Icon type="search" style={{ color: "#96A2AA" }} />
+                <div className="placeholder">Search</div>
+              </div>
+            )}
+
+            <AutoComplete
+              id="search-field"
+              dataSource={searchText && tableData}
+              value={searchText}
+              onChange={this.handleOnSearchChange}
+              placeholder="input here"
+            />
+
+            {searchText && (
+              <button
+                className="clear-search-button"
+                style={{ backgroundImage: `url(${closeBtn})` }}
+                onClick={() => this.clearSearch()}
+              />
+            )}
           </div>
         </div>
         <div
@@ -83,13 +126,16 @@ const mapStateToProps = state => {
     mutations: getMutationType(state),
     fetchBAMFileStatus: getIgvFetchBAMFileStatus(state),
     BAMFileUrl: getBAMFileUrl(state),
+    searchText: getSearchQuery(state),
+    tableData: getFilteredSearchQueries(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     setMutationType: data => dispatch(setMutationType(data)),
-    fetchBAMFile: data => dispatch(fetchBAMFile(data))
+    fetchBAMFile: data => dispatch(fetchBAMFile(data)),
+    updateSearch: data => dispatch(updateSearch(data))
   };
 }
 
