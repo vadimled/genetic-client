@@ -4,6 +4,7 @@
   border: 3px dashed red;
   .activity-icon-wrapper {
     cursor: pointer;
+    position: relative;
     .icon:hover {
       padding: 2px 4px 0 4px;
       background: #e7eef2;
@@ -20,8 +21,8 @@
   .active-log-details {
     position: absolute;
     z-index: 9;
-    right: 115px;
-    top: 74px;
+    right: 98px;
+    top: -8px;
     min-width: 320px;
     max-height: 121px;
     overflow-y: -webkit-paged-y;
@@ -30,6 +31,7 @@
     border-radius: 4px;
     background: #fff;
     .record {
+      max-height: 40px;
       border-bottom: 1px solid #dae1e6;
       background: #fff;
       svg {
@@ -41,6 +43,7 @@
       .record_changed-item {
         min-width: 90px;
         text-align: center;
+        padding-left: 20px;
       }
       .record_time {
         min-width: 146px;
@@ -54,7 +57,8 @@
       height: 18px;
     }
     .record__item {
-      padding: 10px 10px;
+      padding: 10px 7px;
+      //border: 1px dashed red;
       .user-name {
         margin-left: 11px;
         margin-right: 11px;
