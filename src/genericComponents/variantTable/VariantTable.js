@@ -29,15 +29,11 @@ const ResizeableTitle = props => {
   );
 };
 
-class ActivityLogPopup extends Component{
-
-
-
+class ActivityLogPopup extends Component {
   render() {
+    console.log(this.props);
 
-    console.log(this.props)
-
-    return(
+    return (
       <Modal
         title="Basic Modal"
         visible={this.props.visible}
@@ -48,7 +44,7 @@ class ActivityLogPopup extends Component{
         <p>Some contents...</p>
         <p>Some contents...</p>
       </Modal>
-    )
+    );
   }
 }
 
@@ -60,7 +56,7 @@ class ActivityLog extends Component {
 
   showActivityPopup = () => {
     this.setState({
-      isActivityPopupShow: true,
+      isActivityPopupShow: true
     });
   };
 
@@ -75,33 +71,31 @@ class ActivityLog extends Component {
   handleOk = e => {
     console.log(e);
     this.setState({
-      isActivityPopupShow: false,
+      isActivityPopupShow: false
     });
   };
 
   handleCancel = e => {
     console.log(e);
     this.setState({
-      isActivityPopupShow: false,
+      isActivityPopupShow: false
     });
   };
 
   render() {
-
-    console.log("--activity props: ", this.props)
+    console.log("--activity props: ", this.props);
 
     return (
       <div className="activity-icon-wrapper flex justify-center">
         {this.state.isActivityDetailsShow && <ActiveLogDetails />}
-        {
-          this.state.isActivityPopupShow &&
+        {this.state.isActivityPopupShow && (
           <ActivityLogPopup
             visible={this.state.isActivityPopupShow}
             handleOk={this.handleOk}
             handleCancel={this.handleCancel}
             {...this.props}
           />
-        }
+        )}
         <div
           className="icon"
           onClick={this.showActivityPopup}
