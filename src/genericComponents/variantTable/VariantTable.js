@@ -14,6 +14,9 @@ import ExternalLink from "GenericComponents/externalLink";
 import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
 import style from "./VariantTable.module.scss";
 import ActiveLogDetails from "./components/ActivityLogDetails";
+import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
+import { ReactComponent as ArrowRight } from "Assets/arrowRight.svg";
+import Tag from "../tag";
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -30,15 +33,15 @@ const ResizeableTitle = props => {
 };
 
 class ActivityLogPopup extends Component {
-
   render() {
     console.log(this.props);
 
-    const {visible, handleOk, handleCancel} = this.props;
+    const { visible, handleOk, handleCancel } = this.props;
     const data = this.props[1];
 
     return (
       <Modal
+        width={640}
         title="Activity log"
         visible={visible}
         onOk={handleOk}
@@ -47,7 +50,7 @@ class ActivityLogPopup extends Component {
         footer={[
           <Button key="submit" type="primary" onClick={handleOk} size={"large"}>
             Close
-          </Button>,
+          </Button>
         ]}
       >
         <p>{data.gene}</p>
@@ -58,6 +61,26 @@ class ActivityLogPopup extends Component {
             <div className="cell header-cell border">Timestamp</div>
           </div>
           <div className="flex flex-wrap content-start">
+            <div className="cell border flex items-center">
+              <AvatarName />
+              <span className="user-name">Primary Analyst</span>
+            </div>
+            <div className="cell border flex items-center justify-between">
+              <div className="flex items-center checkbox-inner-content">
+                <Tag color="red" />
+                <span>
+                  PATH
+                </span>
+              </div>
+              <ArrowRight />
+              <div className="flex items-center checkbox-inner-content">
+                <Tag color="orange" />
+                <span>
+                  LPATH
+                </span>
+              </div>
+            </div>
+            <div className="cell border">Hamburger</div>
             <div className="cell border">Hamburger</div>
             <div className="cell border">Hamburger</div>
             <div className="cell border">Hamburger</div>
