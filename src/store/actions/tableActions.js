@@ -29,3 +29,9 @@ export const handleVariantClass = data => {
   };
 };
 
+export const updateSearch = data => {
+  return {
+    type: actionsTypes.UPDATE_SEARCH,
+    payload: data
+  };
+};

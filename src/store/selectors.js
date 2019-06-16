@@ -2,7 +2,8 @@ import { FILTERS, GNOM_AD } from "Utils/constants";
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
 
-export const getFilterType = state => state?.filters?.[FILTERS.type],
+export const
+  getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVariantClass = state => state?.filters?.[FILTERS.variantClass],
   getFilterSomaticClass = state => state?.filters?.[FILTERS.somaticClass],
   getFilterHotSpot = state => state?.filters?.[FILTERS.hotSpot],
@@ -11,14 +12,38 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVaf = state => state?.filters?.[FILTERS.vaf],
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
+
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
   getSelectedRowKeys = state => state?.table?.selectedRowKeys,
-  getMutationType = state => state.variants.mutations;
+  getMutationType = state => state.variants.mutations,
+
+  getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
+  getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
+  getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
+  getIgvLastQuery = state => state?.igv?.igvLastQuery,
+  getBAMFileUrl = state => state?.igv?.BAMFileUrl;
+
+export const getSearchQuery = state => state?.filters?.searchText;
+
+export const getSearchResult = createSelector(
+  getTableData,
+  getSearchQuery,
+  (data, searchQuery) => {
+    return data.filter(item => {
+      return (
+        item.gene.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.variantClass.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.coding.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.protein.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    });
+  }
+);
 
 export const getNotes = (state, id) => state?.table?.data?.[id].notes;
 
 export const getTableDataAsArray = createSelector(
-  getTableData,
+  getSearchResult,
   data => {
     let arrayData = [];
     for (let key in data) {
@@ -101,7 +126,6 @@ export const getFilteredData = createSelector(
   getTableDataAsArray,
   getAppliedFilters,
   (data, appliedFilters) => {
-
     if (isEmpty(appliedFilters)) {
       console.log("-No filters");
       return data;
@@ -115,8 +139,36 @@ export const getFilteredData = createSelector(
       return filtersArray.every(filter => filter(item));
     });
 
-
     return filteredData;
+  }
+);
+
+export const getSearchQueries = createSelector(
+  getFilteredData,
+  data => {
+    const queriesArr = new Set([]);
+    data.map(item => {
+      queriesArr.add(item.gene);
+      queriesArr.add(item.coding);
+      if (item.variantClass) {
+        queriesArr.add(item.variantClass);
+      }
+
+      queriesArr.add(item.protein);
+    });
+
+    return Array.from(queriesArr);
+  }
+);
+
+export const getFilteredSearchQueries = createSelector(
+  getSearchQueries,
+  getSearchQuery,
+  (queries, searchQuery) => {
+    const filteredSearchQueries = queries.filter(query =>
+      query.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    return filteredSearchQueries;
   }
 );
 

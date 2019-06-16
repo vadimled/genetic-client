@@ -130,10 +130,6 @@ class VariantTable extends Component {
     }
   };
 
-  handelChrPosition = (e, data) => {
-    console.log({ e: e.target, data });
-  };
-
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -205,7 +201,7 @@ class VariantTable extends Component {
           return (
             <ExternalLink
               data={chrPosition}
-              externalHandler={e => this.handelChrPosition(e, chrPosition)}
+              externalHandler={this.props.handelChrPosition.bind(null, chrPosition)}
             />
           );
         };
@@ -260,7 +256,8 @@ VariantTable.propTypes = {
   selectedRowKeys: PropTypes.array,
   onSelectRowKey: PropTypes.func.isRequired,
   handleZygosity: PropTypes.func.isRequired,
-  handleVariantClass: PropTypes.func.isRequired
+  handleVariantClass: PropTypes.func.isRequired,
+  handelChrPosition: PropTypes.func.isRequired,
 };
 
 VariantTable.defaultProps = {

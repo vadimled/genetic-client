@@ -1,11 +1,11 @@
-import createReducer from './createReducer';
-import actionsTypes from '../actionsTypes';
+import createReducer from "./createReducer";
+import actionsTypes from "../actionsTypes";
 import { FILTERS } from "Utils/constants";
 
 const changeValueAccordingOnMode = (stateValue, value, mode) => {
   let newValue;
 
-  if (mode === 'multiple') {
+  if (mode === "multiple") {
     newValue = stateValue.slice();
 
     // push or remove value
@@ -17,8 +17,7 @@ const changeValueAccordingOnMode = (stateValue, value, mode) => {
     }
 
     return newValue;
-  }
-  else if (mode === 'single') {
+  } else if (mode === "single") {
     newValue = value;
 
     // reset if clicked the same
@@ -31,7 +30,7 @@ const changeValueAccordingOnMode = (stateValue, value, mode) => {
 };
 
 const initialState = {
-  [FILTERS.type]: 'somatic', // 'somatic' | 'germline'
+  [FILTERS.type]: "somatic", // 'somatic' | 'germline'
   [FILTERS.variantClass]: [],
   [FILTERS.somaticClass]: [],
   [FILTERS.hotSpot]: [],
@@ -39,13 +38,12 @@ const initialState = {
   [FILTERS.roi]: [],
   [FILTERS.vaf]: [], // [0, 100]
   [FILTERS.cancerDBs]: [],
-  [FILTERS.gnomAD]: []
+  [FILTERS.gnomAD]: [],
+  [FILTERS.searchText]: ""
 };
 
-
-
 const filtersReducer = createReducer(initialState, {
-  [actionsTypes.SET_FILTER_TYPE]: (state, {payload}) => {
+  [actionsTypes.SET_FILTER_TYPE]: (state, { payload }) => {
     const { value } = payload;
     return {
       ...state,
@@ -53,10 +51,14 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_FILTER_VARIANT_CLASS]: (state, {payload}) => {
+  [actionsTypes.SET_FILTER_VARIANT_CLASS]: (state, { payload }) => {
     const { value, mode } = payload;
 
-    let newValue = changeValueAccordingOnMode(state[FILTERS.variantClass], value, mode);
+    let newValue = changeValueAccordingOnMode(
+      state[FILTERS.variantClass],
+      value,
+      mode
+    );
 
     return {
       ...state,
@@ -64,10 +66,14 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_FILTER_SOMATIC_CLASS]: (state, {payload}) => {
+  [actionsTypes.SET_FILTER_SOMATIC_CLASS]: (state, { payload }) => {
     const { value, mode } = payload;
 
-    let newValue = changeValueAccordingOnMode(state[FILTERS.somaticClass], value, mode);
+    let newValue = changeValueAccordingOnMode(
+      state[FILTERS.somaticClass],
+      value,
+      mode
+    );
 
     return {
       ...state,
@@ -75,10 +81,14 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_FILTER_HOT_SPOT]: (state, {payload}) => {
+  [actionsTypes.SET_FILTER_HOT_SPOT]: (state, { payload }) => {
     let { value, mode } = payload;
 
-    let newValue = changeValueAccordingOnMode(state[FILTERS.hotSpot], value, mode);
+    let newValue = changeValueAccordingOnMode(
+      state[FILTERS.hotSpot],
+      value,
+      mode
+    );
 
     return {
       ...state,
@@ -86,7 +96,7 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_FILTER_SNP]: (state, {payload}) => {
+  [actionsTypes.SET_FILTER_SNP]: (state, { payload }) => {
     let { value, mode } = payload;
 
     let newValue = changeValueAccordingOnMode(state[FILTERS.snp], value, mode);
@@ -97,7 +107,7 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_FILTER_ROI]: (state, {payload}) => {
+  [actionsTypes.SET_FILTER_ROI]: (state, { payload }) => {
     let { value, mode } = payload;
 
     let newValue = changeValueAccordingOnMode(state[FILTERS.roi], value, mode);
@@ -108,7 +118,7 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_FILTER_VAF]: (state, {payload}) => {
+  [actionsTypes.SET_FILTER_VAF]: (state, { payload }) => {
     let { value, mode } = payload;
 
     let newValue = changeValueAccordingOnMode(state[FILTERS.vaf], value, mode);
@@ -119,10 +129,14 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_FILTER_CANCER_DBS]: (state, {payload}) => {
+  [actionsTypes.SET_FILTER_CANCER_DBS]: (state, { payload }) => {
     let { value, mode } = payload;
 
-    let newValue = changeValueAccordingOnMode(state[FILTERS.cancerDBs], value, mode);
+    let newValue = changeValueAccordingOnMode(
+      state[FILTERS.cancerDBs],
+      value,
+      mode
+    );
 
     return {
       ...state,
@@ -130,10 +144,14 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_FILTER_GNOM_ID]: (state, {payload}) => {
+  [actionsTypes.SET_FILTER_GNOM_ID]: (state, { payload }) => {
     let { value, mode } = payload;
 
-    let newValue = changeValueAccordingOnMode(state[FILTERS.gnomAD], value, mode);
+    let newValue = changeValueAccordingOnMode(
+      state[FILTERS.gnomAD],
+      value,
+      mode
+    );
 
     return {
       ...state,
@@ -141,16 +159,25 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.CLEAR_FILTER_SECTION]: (state, {payload}) => {
+  [actionsTypes.CLEAR_FILTER_SECTION]: (state, { payload }) => {
     const { filtersKey } = payload;
 
-    state[filtersKey] = [];
+    if(filtersKey === "searchText"){
+      state[filtersKey] = "";
+    }else {
+      state[filtersKey] = [];
+    }
 
     return {
       ...state
     };
   },
 
+  [actionsTypes.UPDATE_SEARCH]: (state, { payload }) => {
+    return Object.assign({}, state, {
+      searchText: payload
+    });
+  }
 });
 
 export default filtersReducer;
