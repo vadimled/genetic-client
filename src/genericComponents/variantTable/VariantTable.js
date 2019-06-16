@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Table, Tooltip } from "antd";
+import { Table, Tooltip, Modal } from "antd";
 import { Resizable } from "react-resizable";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import Notes from "Pages/mainPage/components/notes";
@@ -12,8 +12,8 @@ import {
 import ExternalLink from "GenericComponents/externalLink";
 // import activityLogIcon from "Assets/activityLogIcon.svg";
 import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
-import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
 import style from "./VariantTable.module.scss";
+import ActiveLogDetails from "./components/ActivityLogDetails";
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -29,50 +29,39 @@ const ResizeableTitle = props => {
   );
 };
 
-const ActiveLogDetails = () => (
-  <div className="active-log-details">
-    <div className="record flex justify-between items-center">
-      <div className="record__user record__item">
-        <div className="divider flex items-center">
-          <AvatarName />
-          <span className="user-name">PA</span>
-        </div>
-      </div>
-      <div className="record_changed-item record__item">
-        <div className="divider flex items-center">Hemi</div>
-      </div>
-      <div className="record_time record__item">13:37, 4 June 2019</div>
-    </div>
-    <div className="record flex justify-between items-center">
-      <div className="record__user record__item">
-        <div className="divider flex items-center">
-          <AvatarName />
-          <span className="user-name">PA</span>
-        </div>
-      </div>
-      <div className="record_changed-item record__item">
-        <div className="divider flex items-center">Hemi</div>
-      </div>
-      <div className="record_time record__item">13:37, 4 June 2019</div>
-    </div>
-    <div className="record flex justify-between items-center">
-      <div className="record__user record__item">
-        <div className="divider flex items-center">
-          <AvatarName />
-          <span className="user-name">PA</span>
-        </div>
-      </div>
-      <div className="record_changed-item record__item">
-        <div className="divider flex items-center">Hemi</div>
-      </div>
-      <div className="record_time record__item">13:37, 4 June 2019</div>
-    </div>
-  </div>
-);
+class ActivityLogPopup extends Component{
+
+
+
+  render() {
+
+    console.log(this.props)
+
+    return(
+      <Modal
+        title="Basic Modal"
+        visible={this.props.visible}
+        onOk={this.props.handleOk}
+        onCancel={this.props.handleCancel}
+      >
+        <p>{this.props[1].gene}</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
+    )
+  }
+}
 
 class ActivityLog extends Component {
   state = {
-    isActivityDetailsShow: false
+    isActivityDetailsShow: false,
+    isActivityPopupShow: false
+  };
+
+  showActivityPopup = () => {
+    this.setState({
+      isActivityPopupShow: true,
+    });
   };
 
   showActivityDetails = () => {
@@ -83,15 +72,41 @@ class ActivityLog extends Component {
     this.setState({ isActivityDetailsShow: false });
   };
 
+  handleOk = e => {
+    console.log(e);
+    this.setState({
+      isActivityPopupShow: false,
+    });
+  };
+
+  handleCancel = e => {
+    console.log(e);
+    this.setState({
+      isActivityPopupShow: false,
+    });
+  };
+
   render() {
+
+    console.log("--activity props: ", this.props)
+
     return (
       <div className="activity-icon-wrapper flex justify-center">
         {this.state.isActivityDetailsShow && <ActiveLogDetails />}
+        {
+          this.state.isActivityPopupShow &&
+          <ActivityLogPopup
+            visible={this.state.isActivityPopupShow}
+            handleOk={this.handleOk}
+            handleCancel={this.handleCancel}
+            {...this.props}
+          />
+        }
         <div
           className="icon"
-          // onClick={this.showActivityDetails}
+          onClick={this.showActivityPopup}
           onMouseOver={this.showActivityDetails}
-          // onMouseLeave={this.hideActivityDetails}
+          onMouseLeave={this.hideActivityDetails}
         >
           <ActivityLogIcon />
         </div>
@@ -288,8 +303,8 @@ class VariantTable extends Component {
       if (col.dataIndex === "activityLog") {
         column.render = (...data) => {
           // const { chrPosition } = data[1];
-          console.log(data);
-          return <ActivityLog />;
+          // console.log(data);
+          return <ActivityLog {...data} />;
         };
       }
 
