@@ -32,6 +32,35 @@ const ResizeableTitle = props => {
   );
 };
 
+const ActivityLogPopupTableRecord = () => {
+  return(
+    <div className="flex flex-wrap content-start">
+      <div className="cell border flex items-center">
+        <AvatarName />
+        <span className="user-name">Primary Analyst</span>
+      </div>
+      <div className="cell border flex items-center justify-between">
+        <div className="flex items-center checkbox-inner-content">
+          <Tag color="red" />
+          <span>
+            PATH
+          </span>
+        </div>
+        <ArrowRight />
+        <div className="flex items-center checkbox-inner-content">
+          <Tag color="orange" />
+          <span>
+            LPATH
+          </span>
+        </div>
+      </div>
+      <div className="cell border flex items-center">
+        13:37, 4 June 2019
+      </div>
+    </div>
+  );
+};
+
 class ActivityLogPopup extends Component {
   render() {
     console.log(this.props);
@@ -60,43 +89,9 @@ class ActivityLogPopup extends Component {
             <div className="cell header-cell border">Action</div>
             <div className="cell header-cell border">Timestamp</div>
           </div>
-          <div className="flex flex-wrap content-start">
-            <div className="cell border flex items-center">
-              <AvatarName />
-              <span className="user-name">Primary Analyst</span>
-            </div>
-            <div className="cell border flex items-center justify-between">
-              <div className="flex items-center checkbox-inner-content">
-                <Tag color="red" />
-                <span>
-                  PATH
-                </span>
-              </div>
-              <ArrowRight />
-              <div className="flex items-center checkbox-inner-content">
-                <Tag color="orange" />
-                <span>
-                  LPATH
-                </span>
-              </div>
-            </div>
-            <div className="cell border">Hamburger</div>
-            <div className="cell border">Hamburger</div>
-            <div className="cell border">Hamburger</div>
-            <div className="cell border">Hamburger</div>
-            <div className="cell border">Hamburger</div>
-            <div className="cell border">Hamburger</div>
-            <div className="cell border">Hamburger</div>
-            <div className="cell border">Hamburger</div>
-            <div className="cell border">Hamburger</div>
-            <div className="cell border">Hamburger</div>
-            <div className="cell border">Hamburger</div>
-            <div className="cell border">Hamburger</div>
-            <div className="cell border">Hamburger</div>
-            <div className="cell border">Hamburger</div>
-            <div className="cell border">Hamburger</div>
-            <div className="cell border">Hamburger</div>
-          </div>
+          <ActivityLogPopupTableRecord />
+          <ActivityLogPopupTableRecord />
+          <ActivityLogPopupTableRecord />
         </div>
       </Modal>
     );
