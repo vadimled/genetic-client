@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Table, Tooltip, Modal } from "antd";
+import { Table, Tooltip, Modal, Button } from "antd";
 import { Resizable } from "react-resizable";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import Notes from "Pages/mainPage/components/notes";
@@ -30,19 +30,51 @@ const ResizeableTitle = props => {
 };
 
 class ActivityLogPopup extends Component {
+
   render() {
     console.log(this.props);
 
+    const {visible, handleOk, handleCancel} = this.props;
+    const data = this.props[1];
+
     return (
       <Modal
-        title="Basic Modal"
-        visible={this.props.visible}
-        onOk={this.props.handleOk}
-        onCancel={this.props.handleCancel}
+        title="Activity log"
+        visible={visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        centered
+        footer={[
+          <Button key="submit" type="primary" onClick={handleOk} size={"large"}>
+            Close
+          </Button>,
+        ]}
       >
-        <p>{this.props[1].gene}</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <p>{data.gene}</p>
+        <div className="activity-items-table">
+          <div className="table-header">
+            <div className="cell header-cell border">Role</div>
+            <div className="cell header-cell border">Action</div>
+            <div className="cell header-cell border">Timestamp</div>
+          </div>
+          <div className="flex flex-wrap content-start">
+            <div className="cell border">Hamburger</div>
+            <div className="cell border">Hamburger</div>
+            <div className="cell border">Hamburger</div>
+            <div className="cell border">Hamburger</div>
+            <div className="cell border">Hamburger</div>
+            <div className="cell border">Hamburger</div>
+            <div className="cell border">Hamburger</div>
+            <div className="cell border">Hamburger</div>
+            <div className="cell border">Hamburger</div>
+            <div className="cell border">Hamburger</div>
+            <div className="cell border">Hamburger</div>
+            <div className="cell border">Hamburger</div>
+            <div className="cell border">Hamburger</div>
+            <div className="cell border">Hamburger</div>
+            <div className="cell border">Hamburger</div>
+          </div>
+        </div>
       </Modal>
     );
   }
@@ -83,7 +115,7 @@ class ActivityLog extends Component {
   };
 
   render() {
-    console.log("--activity props: ", this.props);
+    // console.log("--activity props: ", this.props);
 
     return (
       <div className="activity-icon-wrapper flex justify-center">

@@ -308,14 +308,6 @@ $sideBarWidth: 197px;
   display: none !important;
 }
 
-//.ant-popover-placement-bottomRight {
-//  width: 77px;
-//  left: 562px;
-//  top: 501.109px;
-//  cursor: pointer;
-//  position: relative;
-//}
-
 .ant-checkbox-wrapper {
   font-size: 16px !important;
   line-height: 21px;
@@ -374,31 +366,6 @@ $sideBarWidth: 197px;
     }
   }
 }
-
-//.ant-popover {
-//  position: fixed;
-//
-//  .ant-popover-hidden {
-//    display: none !important;
-//  }
-//
-//  .ant-popover-content {
-//    width: 307px !important;
-//    height: 114px !important;
-//
-//    .ant-popover-arrow {
-//      display: block !important;
-//    }
-//
-//    .ant-popover-inner .ant-popover-inner-content {
-//      padding: 24px !important;
-//      font-weight: normal;
-//      font-size: 14px;
-//      line-height: normal;
-//      color: $title_color !important;
-//    }
-//  }
-//}
 
 @keyframes progress {
   0% {
@@ -635,5 +602,32 @@ th {
     .ant-slider-rail {
       background-color: $slider-rail-hover !important;
     }
+  }
+}
+
+// modal
+.ant-modal-body {
+  .activity-items-table {
+    max-height: 248px;
+    overflow-y: scroll;
+    .table-header {
+      position: sticky;
+      top: 0;
+      .header-cell {
+        display: inline-block;
+      }
+    }
+    .cell {
+      width: 33.3%;
+      padding: 12px 17px;
+    }
+    .header-cell {
+      background: #f2f6f8;
+      font-weight: 600;
+      font-size: 16px;
+    }
+  }
+  .border {
+    border: 1px solid #dae1e6;
   }
 }
