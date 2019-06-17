@@ -77,7 +77,8 @@ const tableReducer = createReducer(initialState, {
       time: 123
     };
 
-    let changesArr =  activityLog[item.id] && activityLog[item.id][changedField] ? activityLog[item.id][changedField] : [];
+    let changesArr =  activityLog[item.id] && activityLog[item.id][changedField]
+      ? activityLog[item.id][changedField] : [];
     console.log("--changesArr: ", changesArr);
 
     activityLog[item.id] = {
