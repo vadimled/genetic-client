@@ -4,7 +4,7 @@ import Tag from "../../tag";
 import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
 import { ReactComponent as ArrowRight } from "Assets/arrowRight.svg";
 import {connect} from "react-redux";
-import {getActivityLog} from "Store/selectors";
+import {getActivityLog, getActivityLogArray} from "Store/selectors";
 
 
 
@@ -81,6 +81,7 @@ function mapStateToProps(state, ownProps) {
 
   return {
     activityLog: getActivityLog(state, record.id),
+    activityLogArray: getActivityLogArray(state)
   };
 }
 

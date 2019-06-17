@@ -165,3 +165,21 @@ export const getTotalEntriesAmount = createSelector(
 
 // activity log
 export const getActivityLog = (state, recordId) => state?.table?.activityLog[recordId];
+
+export const getActivityLogArray = createSelector(
+  getActivityLog,
+  activityLog => {
+
+    console.log("activityLog: ", activityLog)
+
+
+    let activityLogArray = []
+
+    for(let record in activityLog){
+      activityLogArray = activityLogArray.concat(activityLog[record])
+      console.log(activityLogArray)
+      return activityLogArray;
+    }
+
+  }
+)
