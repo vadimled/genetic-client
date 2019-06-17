@@ -283,6 +283,20 @@ class VariantTable extends Component {
     updateActivityLog({prevValue, item, changedField: "zygosity"});
   }
 
+  handleVariantClass = data => {
+    console.log(data);
+
+    const {handleVariantClass, updateActivityLog} = this.props;
+    const {item, value, prevValue} = data;
+
+
+    handleVariantClass({
+      item,
+      value,
+    });
+    updateActivityLog({prevValue, item, changedField: "variantClass"});
+  }
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -327,9 +341,10 @@ class VariantTable extends Component {
                       : GERMLINE_VARIANT_CLASS_OPTIONS
                   }
                   onChange={e =>
-                    this.props.handleVariantClass({
+                    this.handleVariantClass({
                       item: data[1],
-                      value: e.target.value
+                      value: e.target.value,
+                      prevValue: data[1].variantClass
                     })
                   }
                 />
