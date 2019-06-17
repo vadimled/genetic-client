@@ -64,7 +64,7 @@ const tableReducer = createReducer(initialState, {
 
   [actionsTypes.UPDATE_ACTIVITY_LOG]: (state, {payload}) => {
 
-    console.log("--payload: ", payload);
+    // console.log("--payload: ", payload);
 
     const {item, prevValue, changedField} = payload;
 
@@ -77,11 +77,11 @@ const tableReducer = createReducer(initialState, {
       time: 123
     };
 
-    let changesArr =  activityLog[item.id] ? activityLog[item.id][changedField] : []
+    let changesArr =  activityLog[item.id] ? activityLog[item.id][changedField] : [];
 
     activityLog[item.id] = {
       [changedField]: [...changesArr, changes]
-    }
+    };
 
     return{
       ...state,

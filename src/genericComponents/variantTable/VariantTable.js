@@ -270,9 +270,9 @@ class VariantTable extends Component {
 
   handleZygosity = (data) =>{
 
-    console.log(data)
+    console.log(data);
 
-    const {handleZygosity, updateActivityLog} = this.props
+    const {handleZygosity, updateActivityLog} = this.props;
     const {item, value, prevValue} = data;
 
 
@@ -280,7 +280,7 @@ class VariantTable extends Component {
       item,
       value,
     });
-    updateActivityLog({prevValue, item, changedField: "zygosity"})
+    updateActivityLog({prevValue, item, changedField: "zygosity"});
   }
 
   columnsConverter = columns => {

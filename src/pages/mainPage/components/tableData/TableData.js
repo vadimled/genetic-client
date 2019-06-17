@@ -16,7 +16,14 @@ import {
 
 class TableData extends Component {
   render() {
-    const { filteredData, selectedRowKeys, onSelectRowKey, handleZygosity, handleVariantClass, updateActivityLog } = this.props;
+    const {
+      filteredData,
+      selectedRowKeys,
+      onSelectRowKey,
+      handleZygosity,
+      handleVariantClass,
+      updateActivityLog
+    } = this.props;
 
     return (
       <TableLayout>
