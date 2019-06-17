@@ -356,7 +356,13 @@ class VariantTable extends Component {
       }
 
       if (col.dataIndex === "notes") {
-        column.render = (...data) => <Notes key={data[1].id} id={data[1].id} />;
+        column.render = (...data) =>
+          <Notes
+            updateActivityLog={this.props.updateActivityLog}
+            key={data[1].id}
+            id={data[1].id}
+            {...data}
+          />;
       }
 
       if (col.dataIndex === "transcript") {
@@ -377,8 +383,6 @@ class VariantTable extends Component {
 
       if (col.dataIndex === "activityLog") {
         column.render = (...data) => {
-          // const { chrPosition } = data[1];
-          // console.log(data);
           return <ActivityLog {...data} />;
         };
       }

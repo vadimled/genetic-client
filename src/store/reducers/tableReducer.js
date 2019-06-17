@@ -74,7 +74,7 @@ const tableReducer = createReducer(initialState, {
     const changes = {
       titleCurr: item[changedField],
       titlePrev: prevValue,
-      time: 123
+      time: new Date()
     };
 
     let changesArr =  activityLog[item.id] && activityLog[item.id][changedField]
