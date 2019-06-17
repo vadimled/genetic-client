@@ -164,4 +164,4 @@ export const getTotalEntriesAmount = createSelector(
 );
 
 // activity log
-export const getActivityLog = state => state?.table;
+export const getActivityLog = (state, recordId) => state?.table?.activityLog[recordId];

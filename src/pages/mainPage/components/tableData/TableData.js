@@ -43,7 +43,7 @@ class TableData extends Component {
 function mapStateToProps(state) {
   return {
     selectedRowKeys: getSelectedRowKeys(state),
-    filteredData: getFilteredData(state)
+    filteredData: getFilteredData(state),
   };
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Table, Tooltip, Modal, Button } from "antd";
+import { Table, Tooltip } from "antd";
 import { Resizable } from "react-resizable";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import Notes from "Pages/mainPage/components/notes";
@@ -14,9 +14,8 @@ import ExternalLink from "GenericComponents/externalLink";
 import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
 import style from "./VariantTable.module.scss";
 import ActiveLogDetails from "./components/ActivityLogDetails";
-import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
-import { ReactComponent as ArrowRight } from "Assets/arrowRight.svg";
-import Tag from "../tag";
+import ActivityLogPopup from "./components/ActivityLogPopup";
+
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -32,71 +31,6 @@ const ResizeableTitle = props => {
   );
 };
 
-const ActivityLogPopupTableRecord = () => {
-  return(
-    <div className="flex flex-wrap content-start">
-      <div className="cell border flex items-center">
-        <AvatarName />
-        <span className="user-name">Primary Analyst</span>
-      </div>
-      <div className="cell border flex items-center justify-between">
-        <div className="flex items-center checkbox-inner-content">
-          <Tag color="red" />
-          <span>
-            PATH
-          </span>
-        </div>
-        <ArrowRight />
-        <div className="flex items-center checkbox-inner-content">
-          <Tag color="orange" />
-          <span>
-            LPATH
-          </span>
-        </div>
-      </div>
-      <div className="cell border flex items-center">
-        13:37, 4 June 2019
-      </div>
-    </div>
-  );
-};
-
-class ActivityLogPopup extends Component {
-  render() {
-    console.log(this.props);
-
-    const { visible, handleOk, handleCancel } = this.props;
-    const data = this.props[1];
-
-    return (
-      <Modal
-        width={640}
-        title="Activity log"
-        visible={visible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        centered
-        footer={[
-          <Button key="submit" type="primary" onClick={handleOk} size={"large"}>
-            Close
-          </Button>
-        ]}
-      >
-        <p>{data.gene}</p>
-        <div className="activity-items-table">
-          <div className="table-header">
-            <div className="cell header-cell border">Role</div>
-            <div className="cell header-cell border">Action</div>
-            <div className="cell header-cell border">Timestamp</div>
-          </div>
-          <ActivityLogPopupTableRecord />
-          <ActivityLogPopupTableRecord />
-          <ActivityLogPopupTableRecord />
-        </div>
-      </Modal>
-    );
-  }
-}
 
 class ActivityLog extends Component {
   state = {
