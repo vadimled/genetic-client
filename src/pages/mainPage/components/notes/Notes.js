@@ -63,13 +63,11 @@ class Notes extends Component {
       notes: this.state.editNotes
     });
 
-    console.log("--note props: ", this.props)
-
-    // const prevValue = getValue;
-
-    // updateActivityLog()
-    updateActivityLog({prevValue: getValue, item: data, changedField: "notes"});
-
+    updateActivityLog({
+      prevValue: getValue,
+      item: data,
+      changedField: "notes"
+    });
 
     this.cleanupState();
   };
