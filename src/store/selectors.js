@@ -162,3 +162,8 @@ export const getTotalEntriesAmount = createSelector(
   getTableDataAsArray,
   data => data?.length
 );
+
+
+
+// activity log
+// export const getCurrentZygosity = state => state?.table

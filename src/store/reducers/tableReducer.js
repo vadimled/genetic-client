@@ -4,7 +4,8 @@ import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 
 const initialState = {
   data: generateDNAVariantTableMockData(200),
-  selectedRowKeys: []
+  selectedRowKeys: [],
+  activityLog: {}
 };
 
 const tableReducer = createReducer(initialState, {
@@ -58,6 +59,32 @@ const tableReducer = createReducer(initialState, {
 
     return {
       ...state
+    };
+  },
+
+  [actionsTypes.UPDATE_ACTIVITY_LOG]: (state, {payload}) => {
+
+    console.log("--payload: ", payload);
+
+    const {item, prevValue, changedField} = payload;
+
+
+    let activityLog = state?.activityLog;
+
+    const changes = {
+      titleCurr: item[changedField],
+      titlePrev: prevValue,
+      time: 123
+    };
+
+    let changesArr =  activityLog[item.id] ? activityLog[item.id][changedField] : []
+
+    activityLog[item.id] = {
+      [changedField]: [...changesArr, changes]
+    }
+
+    return{
+      ...state,
     };
   }
 });

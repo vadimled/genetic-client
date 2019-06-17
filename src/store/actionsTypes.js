@@ -21,6 +21,9 @@ const HANDLE_VARIANT_CLASS = "HANDLE_VARIANT_CLASS";
 const SET_MUTATION_TYPE = "SET_MUTATION_TYPE";
 const SET_NOTES = "SET_NOTES";
 
+// activity log
+const UPDATE_ACTIVITY_LOG = "UPDATE_ACTIVITY_LOG";
+
 export default {
   // filters
   SET_FILTER_TYPE,
@@ -43,5 +46,8 @@ export default {
 
   // variants
   SET_MUTATION_TYPE,
-  SET_NOTES
+  SET_NOTES,
+
+  // activity log
+  UPDATE_ACTIVITY_LOG
 };

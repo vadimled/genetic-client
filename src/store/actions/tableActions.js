@@ -35,3 +35,13 @@ export const updateSearch = data => {
     payload: data
   };
 };
+
+export const updateActivityLog = data => {
+
+  console.log("-data: ", data)
+
+  return{
+    type: actionsTypes.UPDATE_ACTIVITY_LOG,
+    payload: data
+  }
+}

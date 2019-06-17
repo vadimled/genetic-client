@@ -268,6 +268,21 @@ class VariantTable extends Component {
     console.log({ e: e.target, data });
   };
 
+  handleZygosity = (data) =>{
+
+    console.log(data)
+
+    const {handleZygosity, updateActivityLog} = this.props
+    const {item, value, prevValue} = data;
+
+
+    handleZygosity({
+      item,
+      value,
+    });
+    updateActivityLog({prevValue, item, changedField: "zygosity"})
+  }
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -285,9 +300,10 @@ class VariantTable extends Component {
               value={data[1].zygosity}
               options={ZYGOSITY_OPTIONS}
               onChange={e =>
-                this.props.handleZygosity({
+                this.handleZygosity({
                   item: data[1],
-                  value: e.target.value
+                  value: e.target.value,
+                  prevValue: data[1].zygosity
                 })
               }
             />
