@@ -35,7 +35,10 @@ class ConfirmationTable extends Component {
             <div className="remover-cell">
               <span>{text}</span>
               <button
-                onClick={this.props.handleRemoveCell.bind(null, record?.key)}
+                onClick={this.props.handleSelectedRow.bind(null, {
+                  item: record,
+                  value: false
+                })}
               >
                 <img src={binImg} alt="bin"/>
               </button>
@@ -141,7 +144,7 @@ class ConfirmationTable extends Component {
 
 ConfirmationTable.propTypes = {
   data: PropTypes.array,
-  handleRemoveCell: PropTypes.func.isRequired
+  handleSelectedRow: PropTypes.func.isRequired
 };
 
 ConfirmationTable.defaultProps = {

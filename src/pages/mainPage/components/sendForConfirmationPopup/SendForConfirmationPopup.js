@@ -7,10 +7,10 @@ import ConfirmationTable from './components/confirmationTable';
 import styles from './SendForConfirmationPopup.module.scss';
 import btnImg from 'Assets/close-big.svg';
 import { handleOnConfirmation } from "Actions/confirmationActions";
-import { removeKeyFromSelectedRowKeys } from "Actions/tableActions";
+import { handleSelectedRow } from "Actions/tableActions";
 import { getSelectedRows } from "Store/selectors";
 
-const IgvAlertPopup = ({ handleOnConfirmation, data, removeKeyFromSelectedRowKeys }) => {
+const IgvAlertPopup = ({ handleOnConfirmation, data, handleSelectedRow }) => {
   return (
     <Portal>
       <div className={styles['send-for-confirmation-popup']}>
@@ -27,7 +27,7 @@ const IgvAlertPopup = ({ handleOnConfirmation, data, removeKeyFromSelectedRowKey
         <div className="confirmation-content">
           <ConfirmationTable
             data={data}
-            handleRemoveCell={removeKeyFromSelectedRowKeys}
+            handleSelectedRow={handleSelectedRow}
           />
         </div>
         <footer className="confirmation-footer">
@@ -63,7 +63,7 @@ IgvAlertPopup.defaultProps = {
 const mapDispatchToProps = (dispatch) => {
   return {
     handleOnConfirmation: data => dispatch(handleOnConfirmation(data)),
-    removeKeyFromSelectedRowKeys: data => dispatch(removeKeyFromSelectedRowKeys(data)),
+    handleSelectedRow: data => dispatch(handleSelectedRow(data)),
   };
 };
 

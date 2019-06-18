@@ -22,7 +22,7 @@ import {
   getMutationType,
   getSearchQuery,
   getFilteredSearchQueries,
-  getSelectedRowKeys
+  getSelectedRows
 } from "Store/selectors";
 import closeIcon from "Assets/close.svg";
 
@@ -54,13 +54,13 @@ class Toolbar extends Component {
       fetchBAMFileStatus,
       searchText,
       tableData,
-      selectedRowKeys,
+      selectedRows,
       handleOnConfirmation
     } = this.props;
 
     return (
       <div className={style["toolbar-wrapper"]}>
-        {!!selectedRowKeys?.length &&
+        {!!selectedRows?.length &&
           <button
             className={cn(["confirmation-button", { "sidebar-open": sidebarToggle }])}
             onClick={handleOnConfirmation.bind(null, true)}
@@ -68,7 +68,7 @@ class Toolbar extends Component {
             Send for confirmation
           </button>
         }
-        {!selectedRowKeys?.length && <Fragment>
+        {!selectedRows?.length && <Fragment>
           <div className="left-wrapper">
             <div className="mutation-select-wrapper">
               <SimpleSelect
@@ -142,7 +142,7 @@ const mapStateToProps = state => {
     BAMFileUrl: getBAMFileUrl(state),
     searchText: getSearchQuery(state),
     tableData: getFilteredSearchQueries(state),
-    selectedRowKeys: getSelectedRowKeys(state)
+    selectedRows: getSelectedRows(state)
   };
 };
 

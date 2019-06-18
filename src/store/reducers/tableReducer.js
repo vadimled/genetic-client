@@ -3,26 +3,21 @@ import actionsTypes from "../actionsTypes";
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 
 const initialState = {
-  data: generateDNAVariantTableMockData(200),
-  selectedRowKeys: [],
+  data: generateDNAVariantTableMockData(200)
 };
 
 const tableReducer = createReducer(initialState, {
-  [actionsTypes.SELECT_ROW_KEY]: (state, { payload }) => {
-    const selectedRowKeys = payload;
+  [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
+    const {item, value} = payload;
+    let data = state?.data;
+    // data[item.id] = {
+    //   ...data[item.id],
+    //   selected: value
+    // };
+    data[item.id].selected = value;
 
     return {
-      ...state,
-      selectedRowKeys
-    };
-  },
-
-  [actionsTypes.REMOVE_KEY_FROM_SELECTED_ROW_KEYS]: (state, { payload }) => {
-    const selectedRowKeys = state.selectedRowKeys.filter((key) => key !== payload);
-
-    return {
-      ...state,
-      selectedRowKeys
+      data: { ...data }
     };
   },
 

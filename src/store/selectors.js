@@ -14,7 +14,6 @@ export const
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
 
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
-  getSelectedRowKeys = state => state?.table?.selectedRowKeys, // also see getSelectedRows
 
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
 
@@ -188,8 +187,7 @@ export const getTotalEntriesAmount = createSelector(
 
 export const getSelectedRows = createSelector(
   getFilteredData,
-  getSelectedRowKeys,
-  (data, keys) => {
-    return data.filter(row => keys.includes(row.key));
+  (data) => {
+    return data.filter(row => row.selected);
   }
 );

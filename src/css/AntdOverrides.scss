@@ -429,6 +429,7 @@ $sideBarWidth: 197px;
   line-height: 21px;
   color: $title_color;
   display: flex !important;
+  align-items: center;
 
   .ant-checkbox {
     padding-top: 0;
@@ -445,6 +446,21 @@ $sideBarWidth: 197px;
       line-height: 0px;
       padding-left: 10px;
       padding-right: 0;
+    }
+  }
+
+  .ant-checkbox-inner {
+    &::after {
+      left: 25%;
+    }
+  }
+
+  .ant-checkbox-checked {
+    &::after {
+      display: none;
+    }
+    .ant-checkbox-inner {
+      border: none;
     }
   }
 }

@@ -8,16 +8,9 @@ export const setNotes = data => {
   };
 };
 
-export const onSelectRowKey = data => {
+export const handleSelectedRow = data => {
   return {
-    type: actionsTypes.SELECT_ROW_KEY,
-    payload: data
-  };
-};
-
-export const removeKeyFromSelectedRowKeys = data => {
-  return {
-    type: actionsTypes.REMOVE_KEY_FROM_SELECTED_ROW_KEYS,
+    type: actionsTypes.HANDLE_SELECTED_ROW,
     payload: data
   };
 };

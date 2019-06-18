@@ -4,11 +4,10 @@ import {connect} from "react-redux";
 import TableLayout from "../tableLayout";
 import VariantTable from "GenericComponents/variantTable";
 import {
-  getSelectedRowKeys,
   getFilteredData
 } from "Store/selectors";
 import {
-  onSelectRowKey,
+  handleSelectedRow,
   handleZygosity,
   handleVariantClass
 } from "Actions/tableActions";
@@ -20,8 +19,7 @@ class TableData extends Component {
   render() {
     const {
       filteredData,
-      selectedRowKeys,
-      onSelectRowKey,
+      handleSelectedRow,
       handleZygosity,
       handleVariantClass,
       goToChrPositionIgv
@@ -31,8 +29,7 @@ class TableData extends Component {
       <TableLayout>
         <VariantTable
           data={filteredData}
-          onSelectRowKey={onSelectRowKey}
-          selectedRowKeys={selectedRowKeys}
+          handleSelectedRow={handleSelectedRow}
           handleZygosity={handleZygosity}
           handleVariantClass={handleVariantClass}
           handelChrPosition={goToChrPositionIgv}
@@ -44,14 +41,13 @@ class TableData extends Component {
 
 function mapStateToProps(state) {
   return {
-    selectedRowKeys: getSelectedRowKeys(state),
     filteredData: getFilteredData(state)
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSelectRowKey: (data) => dispatch(onSelectRowKey(data)),
+    handleSelectedRow: (data) => dispatch(handleSelectedRow(data)),
     handleZygosity: (data) => dispatch(handleZygosity(data)),
     handleVariantClass: (data) => dispatch(handleVariantClass(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),

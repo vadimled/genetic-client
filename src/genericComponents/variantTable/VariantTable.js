@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Table, Tooltip } from "antd";
+import { Table, Tooltip, Checkbox } from "antd";
 import { Resizable } from "react-resizable";
 import SimpleSelect from "GenericComponents/simpleSelect";
+// import SimpleCheckBox from "GenericComponents/simpleCheckBox";
 import Notes from "Pages/mainPage/components/notes";
 import { ZYGOSITY_OPTIONS, GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
@@ -25,6 +26,25 @@ const ResizeableTitle = props => {
 class VariantTable extends Component {
   state = {
     columns: [
+      {
+        key: "1",
+        width: 60,
+        fixed: "left",
+        title: <div onClick={() => console.log('on title')}>title</div>,
+        render: (text, record) => {
+          return (
+            <div className="chbx">
+              <Checkbox
+                checked={record.selected}
+                onChange={this.props.handleSelectedRow.bind(null, {
+                  item: record,
+                  value: !record.selected
+                })}
+              />
+            </div>
+          );
+        }
+      },
       {
         title: "Gene",
         dataIndex: "gene",
@@ -220,16 +240,16 @@ class VariantTable extends Component {
   };
 
   render() {
-    const { selectedRowKeys, onSelectRowKey, data } = this.props;
+    const { data } = this.props;
 
-    // rowSelection object indicates the need for row selection
-    const rowSelection = {
-      onChange: selectedRowKeys => {
-        onSelectRowKey(selectedRowKeys);
-      },
-      selectedRowKeys,
-      fixed: "left"
-    };
+    // // rowSelection object indicates the need for row selection
+    // const rowSelection = {
+    //   onChange: selectedRowKeys => {
+    //     onSelectRowKey(selectedRowKeys);
+    //   },
+    //   selectedRowKeys,
+    //   fixed: "left"
+    // };
 
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
@@ -237,7 +257,7 @@ class VariantTable extends Component {
     return (
       <Table
         components={this.components}
-        rowSelection={rowSelection}
+        // rowSelection={rowSelection}
         bordered
         columns={columns}
         dataSource={data}
@@ -249,16 +269,14 @@ class VariantTable extends Component {
 
 VariantTable.propTypes = {
   data: PropTypes.array,
-  selectedRowKeys: PropTypes.array,
-  onSelectRowKey: PropTypes.func.isRequired,
+  handleSelectedRow: PropTypes.func.isRequired,
   handleZygosity: PropTypes.func.isRequired,
   handleVariantClass: PropTypes.func.isRequired,
   handelChrPosition: PropTypes.func.isRequired,
 };
 
 VariantTable.defaultProps = {
-  data: [],
-  selectedRowKeys: []
+  data: []
 };
 
 export default VariantTable;
