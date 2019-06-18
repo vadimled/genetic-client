@@ -360,8 +360,11 @@ class VariantTable extends Component {
         columns={columns}
         dataSource={data}
         scroll={{ x: "max-content" }}
+        pagination={{pageSize: 20}}
       />
+
     );
+
   }
 }
 
@@ -372,6 +375,7 @@ VariantTable.propTypes = {
   handleZygosity: PropTypes.func.isRequired,
   handleVariantClass: PropTypes.func.isRequired
 };
+
 
 VariantTable.defaultProps = {
   data: [],

@@ -4,11 +4,13 @@ import Tag from "../../tag";
 import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
 import { ReactComponent as ArrowRight } from "Assets/arrowRight.svg";
 import {connect} from "react-redux";
-import {getActivityLog, getActivityLogArray} from "Store/selectors";
+import {getActivityLog} from "Store/selectors";
+import dateFormat from "dateformat"
 
 
 
-const ActivityLogPopupTableRecord = () => {
+const ActivityLogPopupTableRecord = ({record}) => {
+  console.log(record.time.toString())
   return(
     <div className="flex flex-wrap content-start">
       <div className="cell border flex items-center">
@@ -19,19 +21,19 @@ const ActivityLogPopupTableRecord = () => {
         <div className="flex items-center checkbox-inner-content">
           <Tag color="red" />
           <span>
-            PATH
+            {record.titleCurr}
           </span>
         </div>
         <ArrowRight />
         <div className="flex items-center checkbox-inner-content">
           <Tag color="orange" />
           <span>
-            LPATH
+            {record.titlePrev}
           </span>
         </div>
       </div>
       <div className="cell border flex items-center">
-        13:37, 4 June 2019
+        {dateFormat(record.time, "H:MM, d mmmm yyyy")}
       </div>
     </div>
   );
@@ -40,10 +42,10 @@ const ActivityLogPopupTableRecord = () => {
 class ActivityLogPopup extends Component {
 
   render() {
-    console.log(this.props);
-
-    const { visible, handleOk, handleCancel } = this.props;
+    const { visible, handleOk, handleCancel, activityLog } = this.props;
     const data = this.props[1];
+
+    console.log("--activityLog: ", activityLog);
 
     return (
       <Modal
@@ -66,9 +68,10 @@ class ActivityLogPopup extends Component {
             <div className="cell header-cell border">Action</div>
             <div className="cell header-cell border">Timestamp</div>
           </div>
-          <ActivityLogPopupTableRecord />
-          <ActivityLogPopupTableRecord />
-          <ActivityLogPopupTableRecord />
+          {
+            activityLog.map((record, i)=> <ActivityLogPopupTableRecord key={i} record={record}/>)
+          }
+
         </div>
       </Modal>
     );
@@ -81,7 +84,6 @@ function mapStateToProps(state, ownProps) {
 
   return {
     activityLog: getActivityLog(state, record.id),
-    activityLogArray: getActivityLogArray(state)
   };
 }
 
