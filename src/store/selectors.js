@@ -14,7 +14,10 @@ export const
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
 
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
-  getSelectedRowKeys = state => state?.table?.selectedRowKeys,
+  getSelectedRowKeys = state => state?.table?.selectedRowKeys, // also see getSelectedRows
+
+  getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
+
   getMutationType = state => state.variants.mutations,
 
   getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
@@ -25,25 +28,10 @@ export const
 
 export const getSearchQuery = state => state?.filters?.searchText;
 
-export const getSearchResult = createSelector(
-  getTableData,
-  getSearchQuery,
-  (data, searchQuery) => {
-    return data.filter(item => {
-      return (
-        item.gene.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.variantClass.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.coding.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.protein.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    });
-  }
-);
-
 export const getNotes = (state, id) => state?.table?.data?.[id].notes;
 
 export const getTableDataAsArray = createSelector(
-  getSearchResult,
+  getTableData,
   data => {
     let arrayData = [];
     for (let key in data) {
@@ -52,6 +40,22 @@ export const getTableDataAsArray = createSelector(
       }
     }
     return arrayData;
+  }
+);
+
+export const getSearchResult = createSelector(
+  getTableDataAsArray,
+  getSearchQuery,
+  (data, searchQuery) => {
+    return data.filter(item => {
+      const searchQueryInLowerCase = searchQuery.toLowerCase();
+      return (
+        item.gene.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.variantClass.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.coding.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.protein.toLowerCase().includes(searchQueryInLowerCase)
+      );
+    });
   }
 );
 
@@ -123,7 +127,7 @@ const getAppliedFilters = createSelector(
 );
 
 export const getFilteredData = createSelector(
-  getTableDataAsArray,
+  getSearchResult,
   getAppliedFilters,
   (data, appliedFilters) => {
     if (isEmpty(appliedFilters)) {
@@ -180,4 +184,12 @@ export const getFilteredEntriesAmount = createSelector(
 export const getTotalEntriesAmount = createSelector(
   getTableDataAsArray,
   data => data?.length
+);
+
+export const getSelectedRows = createSelector(
+  getFilteredData,
+  getSelectedRowKeys,
+  (data, keys) => {
+    return data.filter(row => keys.includes(row.key));
+  }
 );

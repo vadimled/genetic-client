@@ -15,6 +15,13 @@ export const onSelectRowKey = data => {
   };
 };
 
+export const removeKeyFromSelectedRowKeys = data => {
+  return {
+    type: actionsTypes.REMOVE_KEY_FROM_SELECTED_ROW_KEYS,
+    payload: data
+  };
+};
+
 export const handleZygosity = data => {
   return {
     type: actionsTypes.HANDLE_ZYGOSITY,

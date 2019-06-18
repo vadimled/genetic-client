@@ -607,6 +607,17 @@ $sideBarWidth: 197px;
         padding: 0;
         position: relative;
       }
+
+      &:hover {
+        td {
+          background-color: $neutral_10;
+        }
+      }
+    }
+    .ant-table-row-hover {
+      td {
+        background-color: $neutral_10 !important;
+      }
     }
   }
 }

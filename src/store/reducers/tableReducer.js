@@ -4,12 +4,21 @@ import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 
 const initialState = {
   data: generateDNAVariantTableMockData(200),
-  selectedRowKeys: []
+  selectedRowKeys: [],
 };
 
 const tableReducer = createReducer(initialState, {
   [actionsTypes.SELECT_ROW_KEY]: (state, { payload }) => {
     const selectedRowKeys = payload;
+
+    return {
+      ...state,
+      selectedRowKeys
+    };
+  },
+
+  [actionsTypes.REMOVE_KEY_FROM_SELECTED_ROW_KEYS]: (state, { payload }) => {
+    const selectedRowKeys = state.selectedRowKeys.filter((key) => key !== payload);
 
     return {
       ...state,
@@ -59,7 +68,7 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state
     };
-  }
+  },
 });
 
 export default tableReducer;

@@ -124,7 +124,7 @@ class Notes extends Component {
 }
 
 Notes.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   valueNotes: PropTypes.string
 };
 

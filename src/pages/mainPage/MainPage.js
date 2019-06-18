@@ -7,7 +7,8 @@ import Toolbar from "./components/toolbar";
 import SidebarFilters from "./components/sidebarFilters";
 import TableData from "./components/tableData";
 import IgvAlertPopup from './components/igvAlertPopup';
-import { getIgvAlertShow } from "Store/selectors";
+import SendForConfirmationPopup from './components/sendForConfirmationPopup';
+import { getIgvAlertShow, getOnConfirmation } from "Store/selectors";
 
 class MainPage extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class MainPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { isIgvAlertShow } = this.props;
+    const { isIgvAlertShow, isOnConfirmation } = this.props;
 
     return (
       <div className={style["main-page"]}>
@@ -39,7 +40,8 @@ class MainPage extends Component {
           <Toolbar sidebarToggle={sidebarToggle} />
           <TableData />
         </div>
-        {isIgvAlertShow && <IgvAlertPopup />}
+        {!!isIgvAlertShow && <IgvAlertPopup />}
+        {!!isOnConfirmation && <SendForConfirmationPopup />}
       </div>
     );
   }
@@ -48,6 +50,7 @@ class MainPage extends Component {
 const mapStateToProps = state => {
   return {
     isIgvAlertShow: getIgvAlertShow(state),
+    isOnConfirmation: getOnConfirmation(state),
   };
 };
 
