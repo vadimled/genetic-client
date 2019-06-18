@@ -32,7 +32,7 @@ class VariantTable extends Component {
         title: "Gene",
         dataIndex: "gene",
         key: "2",
-        width: 100
+        width: 200
       },
       {
         title: "Chr: position",
@@ -44,19 +44,19 @@ class VariantTable extends Component {
         title: "Transcript",
         dataIndex: "transcript",
         key: "4",
-        width: 150
+        width: 200
       },
       {
         title: "Exon",
         dataIndex: "exon",
         key: "5",
-        width: 40
+        width: 100
       },
       {
         title: "Allele change",
         dataIndex: "alleleChange",
         key: "6",
-        width: 80,
+        width: 100,
 
         render: (text, record) => {
           return (
@@ -70,7 +70,7 @@ class VariantTable extends Component {
         title: "coding",
         dataIndex: "coding",
         key: "7",
-        width: 80,
+        width: 100,
         render: (text, record) => {
           return (
             <Tooltip placement="topLeft" title={record.codingLong}>
@@ -89,7 +89,7 @@ class VariantTable extends Component {
         title: "VAF",
         dataIndex: "vaf",
         key: "9",
-        width: 50
+        width: 100
       },
       {
         title: "Zygosity",
@@ -107,13 +107,13 @@ class VariantTable extends Component {
         title: "coverage",
         dataIndex: "coverage",
         key: "12",
-        width: 50
+        width: 100
       },
       {
         title: "Notes",
         dataIndex: "notes",
         key: "13",
-        width: 200
+        width: 532
       },
       {
         title: "Activity log",
@@ -134,10 +134,13 @@ class VariantTable extends Component {
     return columns.map((col, index) => {
       let column = {
         ...col,
-        onHeaderCell: column => ({
-          width: column.width,
-          onResize: this.handleResize(index)
-        })
+        onHeaderCell: column => {
+          console.log(column);
+          return {
+            width: column.width,
+            onResize: this.handleResize(index)
+          };
+        }
       };
 
       if (column.dataIndex === "zygosity") {

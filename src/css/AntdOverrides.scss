@@ -1,5 +1,6 @@
 @import "./Colors";
 $sideBarWidth: 197px;
+$toolBarAndHeader: 96px;
 
 // button
 .ant-btn {
@@ -660,7 +661,6 @@ th {
 // ant-table
 .ant-table-scroll {
   overflow-x: auto !important;
-  //height: calc(100vh - 96px) !important;
 
   table {
     transition: 0.4s ease;
@@ -671,7 +671,7 @@ th {
 
 .ant-table-body {
   max-height: 85vh;
-  height: calc(85vh - 96px) !important;
+  height: calc(85vh - #{$toolBarAndHeader}) !important;
 }
 
 .ant-table-content {
@@ -679,8 +679,13 @@ th {
 
   .ant-table-body-inner {
     max-height: 85vh;
-    height: calc(85vh - 96px) !important;
+    height: calc(85vh - #{$toolBarAndHeader}) !important;
   }
+}
+
+.ant-table-bordered .ant-table-thead > tr > th,
+.ant-table-bordered .ant-table-tbody > tr > td {
+  min-width: 90px;
 }
 
 .sidebar-open {
