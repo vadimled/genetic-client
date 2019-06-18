@@ -179,6 +179,6 @@ export const getActivityLog = (state, recordId) => {
   });
 
   return activityLogArray;
-}
+};
 
 

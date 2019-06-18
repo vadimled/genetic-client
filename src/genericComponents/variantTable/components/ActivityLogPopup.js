@@ -5,12 +5,12 @@ import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
 import { ReactComponent as ArrowRight } from "Assets/arrowRight.svg";
 import {connect} from "react-redux";
 import {getActivityLog} from "Store/selectors";
-import dateFormat from "dateformat"
+import dateFormat from "dateformat";
 
 
 
 const ActivityLogPopupTableRecord = ({record}) => {
-  console.log(record.time.toString())
+  console.log(record.time.toString());
   return(
     <div className="flex flex-wrap content-start">
       <div className="cell border flex items-center">
