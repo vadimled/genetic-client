@@ -558,7 +558,50 @@ $toolBarAndHeader: 96px;
   }
 }
 
-// table
+.ant-popover {
+  z-index: 99999 !important;
+  min-width: 200px !important;
+}
+
+.ant-popover-inner {
+  display: flex !important;
+  position: absolute !important;
+  //top: 0 !important;
+  //left: 0 !important;
+
+  //height: auto !important;
+  background-color: $white !important;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 4px !important;
+
+  &.ant-popover-inner-content {
+    padding: 0 !important;
+  }
+}
+
+.ant-popover-placement-bottom > .ant-popover-content > .ant-popover-arrow {
+  display: none !important;
+}
+
+th {
+  position: relative;
+}
+
+.react-resizable {
+  position: relative;
+}
+
+.react-resizable-handle {
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  bottom: 0;
+  right: -5px;
+  cursor: col-resize;
+}
+
+// ant-table
+
 .ant-table {
   .ant-table-thead {
     tr {
@@ -611,57 +654,23 @@ $toolBarAndHeader: 96px;
     }
   }
 }
-.ant-popover {
-  z-index: 99999 !important;
-  min-width: 200px !important;
-}
-
-.ant-popover-inner {
-  display: flex !important;
-  position: absolute !important;
-  //top: 0 !important;
-  //left: 0 !important;
-
-  //height: auto !important;
-  background-color: $white !important;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) !important;
-  border-radius: 4px !important;
-
-  &.ant-popover-inner-content {
-    padding: 0 !important;
-  }
-}
 
 .ant-table-pagination.ant-pagination {
   float: left !important;
   margin: 8px 16px !important;
 }
 
-.ant-popover-placement-bottom > .ant-popover-content > .ant-popover-arrow {
-  display: none !important;
+.ant-table-wrapper {
+  ul {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100% !important;
+  }
 }
 
-th {
-  position: relative;
-}
-
-.react-resizable {
-  position: relative;
-}
-
-.react-resizable-handle {
-  position: absolute;
-  width: 10px;
-  height: 100%;
-  bottom: 0;
-  right: -5px;
-  cursor: col-resize;
-}
-
-// ant-table
 .ant-table-scroll {
   overflow-x: auto !important;
-
   table {
     transition: 0.4s ease;
     transform: translate(0px, 0px);
@@ -675,7 +684,13 @@ th {
 }
 
 .ant-table-content {
-  max-height: 84vh;
+  max-height: calc(100vh - 150px);
+  .ant-table-scroll {
+    height: calc(100vh - 150px);
+  }
+  .ant-table-fixed-left {
+    height: calc(100vh - 160px);
+  }
 
   .ant-table-body-inner {
     max-height: 85vh;

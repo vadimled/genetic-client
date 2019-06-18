@@ -135,7 +135,6 @@ class VariantTable extends Component {
       let column = {
         ...col,
         onHeaderCell: column => {
-          console.log(column);
           return {
             width: column.width,
             onResize: this.handleResize(index)
