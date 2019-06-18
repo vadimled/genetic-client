@@ -51,13 +51,13 @@ class ActivityLogPopup extends Component {
 
   render() {
     const { visible, handleOk, handleCancel, activityLog } = this.props;
-    const data = this.props[1];
+    // const data = this.props[1];
 
     console.log("--activityLog: ", activityLog);
 
     return (
       <Modal
-        width={640}
+        width={1000}
         title="Activity log"
         visible={visible}
         onOk={handleOk}
@@ -69,7 +69,6 @@ class ActivityLogPopup extends Component {
           </Button>
         ]}
       >
-        <p>{data.gene}</p>
         <div className="activity-items-table">
           <div className="table-header">
             <div className="cell header-cell border">Role</div>
