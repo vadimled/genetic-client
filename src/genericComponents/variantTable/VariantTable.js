@@ -201,7 +201,10 @@ class VariantTable extends Component {
           return (
             <ExternalLink
               data={chrPosition}
-              externalHandler={this.props.handelChrPosition.bind(null, chrPosition)}
+              externalHandler={this.props.handelChrPosition.bind(
+                null,
+                chrPosition
+              )}
             />
           );
         };
@@ -245,7 +248,7 @@ class VariantTable extends Component {
         bordered
         columns={columns}
         dataSource={data}
-        scroll={{ x: "max-content", y: "77vh" }}
+        scroll={{ x: "max-content", y: "84vh" }}
       />
     );
   }
@@ -257,7 +260,7 @@ VariantTable.propTypes = {
   onSelectRowKey: PropTypes.func.isRequired,
   handleZygosity: PropTypes.func.isRequired,
   handleVariantClass: PropTypes.func.isRequired,
-  handelChrPosition: PropTypes.func.isRequired,
+  handelChrPosition: PropTypes.func.isRequired
 };
 
 VariantTable.defaultProps = {
