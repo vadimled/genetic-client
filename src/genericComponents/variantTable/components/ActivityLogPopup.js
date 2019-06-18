@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Button, Modal } from "antd";
 import Tag from "../../tag";
 import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
@@ -7,7 +7,29 @@ import {connect} from "react-redux";
 import {getActivityLog} from "Store/selectors";
 import dateFormat from "dateformat";
 
+const ActivityLogAction = ({record}) => (
+  <div className="cell border flex items-center justify-between">
+    {
+      record.titlePrev &&
+      <Fragment>
+        <div className="flex items-center action-item">
+          <Tag color="red" />
+          <span>
+            {record.titlePrev}
+          </span>
+        </div>
+        <ArrowRight />          
+      </Fragment>
+    }
 
+    <div className="flex items-center action-item">
+      <Tag color="orange" />
+      <span>
+        {record.titleCurr}
+      </span>
+    </div>
+  </div>
+);
 
 const ActivityLogPopupTableRecord = ({record}) => {
   console.log(record.time.toString());
@@ -17,21 +39,7 @@ const ActivityLogPopupTableRecord = ({record}) => {
         <AvatarName />
         <span className="user-name">Primary Analyst</span>
       </div>
-      <div className="cell border flex items-center justify-between">
-        <div className="flex items-center checkbox-inner-content">
-          <Tag color="red" />
-          <span>
-            {record.titleCurr}
-          </span>
-        </div>
-        <ArrowRight />
-        <div className="flex items-center checkbox-inner-content">
-          <Tag color="orange" />
-          <span>
-            {record.titlePrev}
-          </span>
-        </div>
-      </div>
+      <ActivityLogAction record={record} />
       <div className="cell border flex items-center">
         {dateFormat(record.time, "H:MM, d mmmm yyyy")}
       </div>

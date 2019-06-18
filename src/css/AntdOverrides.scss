@@ -633,4 +633,10 @@ th {
   .border {
     border: 1px solid #dae1e6;
   }
+  .action-item {
+    width: 67px;
+    //border: 1px solid red;
+    overflow-x: hidden;
+    margin: 0 auto;
+  }
 }
