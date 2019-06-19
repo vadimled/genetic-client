@@ -1,6 +1,8 @@
 @import "./Colors";
 $sideBarWidth: 197px;
 $toolBarAndHeader: 96px;
+$heightTableBody: 230px;
+$heightTableContent: 150px;
 
 // button
 .ant-btn {
@@ -669,32 +671,28 @@ th {
   }
 }
 
-.ant-table-scroll {
-  overflow-x: auto !important;
-  table {
-    transition: 0.4s ease;
-    transform: translate(0px, 0px);
-    width: max-content;
-  }
-}
-
-.ant-table-body {
-  max-height: 85vh;
-  height: calc(85vh - #{$toolBarAndHeader}) !important;
-}
-
 .ant-table-content {
-  max-height: calc(100vh - 150px);
+  max-height: calc(100vh - #{$heightTableContent});
+
   .ant-table-scroll {
-    height: calc(100vh - 150px);
+    height: calc(100vh - #{$heightTableContent});
+    overflow-x: auto !important;
+
+    .ant-table-body {
+      height: calc(100vh - #{$heightTableBody}) !important;
+    }
+    table {
+      transition: 0.4s ease;
+      transform: translate(0px, 0px);
+      width: max-content;
+    }
   }
   .ant-table-fixed-left {
-    height: calc(100vh - 160px);
+    height: calc(100vh - 171px);
   }
 
   .ant-table-body-inner {
-    max-height: 85vh;
-    height: calc(85vh - #{$toolBarAndHeader}) !important;
+    height: calc(100vh - #{$heightTableBody}) !important;
   }
 }
 

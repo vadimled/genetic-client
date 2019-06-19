@@ -250,7 +250,7 @@ class VariantTable extends Component {
         bordered
         columns={columns}
         dataSource={data}
-        scroll={{ x: "max-content", y: "84vh" }}
+        scroll={{ x: "max-content", y: "true" }}
       />
     );
   }
