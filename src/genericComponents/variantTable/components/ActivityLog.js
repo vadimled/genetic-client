@@ -57,7 +57,7 @@ class ActivityLog extends Component {
 
     return (
       <div className="activity-icon-wrapper flex justify-center">
-        {this.state.isActivityDetailsShow && <ActiveLogDetails />}
+        {this.state.isActivityDetailsShow && <ActiveLogDetails activityLog={activityLog} />}
         {this.state.isActivityPopupShow && (
           <ActivityLogPopup
             visible={this.state.isActivityPopupShow}
