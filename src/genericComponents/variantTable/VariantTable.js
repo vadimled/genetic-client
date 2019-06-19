@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Table, Tooltip, Checkbox } from "antd";
 import { Resizable } from "react-resizable";
 import SimpleSelect from "GenericComponents/simpleSelect";
-// import SimpleCheckBox from "GenericComponents/simpleCheckBox";
+import ConfirmationStatus from "GenericComponents/confirmationStatus";
 import Notes from "Pages/mainPage/components/notes";
 import { ZYGOSITY_OPTIONS, GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
@@ -31,7 +31,15 @@ class VariantTable extends Component {
         dataIndex: "selection",
         width: 40,
         fixed: "left",
+        className: "confirmation-cell",
         render: (text, record) => {
+          if (record.confirmationStatus) {
+            return (
+              <ConfirmationStatus
+                status={record.confirmationStatus}
+              />
+            );
+          }
           return (
             <div className="selection">
               <Checkbox

@@ -609,6 +609,9 @@ $sideBarWidth: 197px;
             transform: translate(-50%, -50%);
           }
         }
+        &.confirmation-cell {
+          padding: 0;
+        }
       }
     }
 
@@ -635,6 +638,9 @@ $sideBarWidth: 197px;
         background-color: $neutral_10 !important;
       }
     }
+  }
+  .ant-table-fixed-left {
+    overflow: visible;
   }
 }
 .ant-popover {

@@ -5,6 +5,7 @@ export const generateDNAVariantTableMockData = amount => {
   for (let i = 0; i < amount; i++) {
     let id = faker.random.alphaNumeric(25);
     data[id] = {
+      confirmationStatus: 'pending', // only for test
       id: id,
       key: id,
       gene: faker.random.arrayElement([

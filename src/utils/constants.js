@@ -1,3 +1,7 @@
+import ImgCircleOK from 'Assets/circle-ok.svg';
+import ImgCircleX from 'Assets/circle-x.svg';
+import ImgCircleClock from 'Assets/circle-clock.svg';
+
 export const TAG_COLORS = {
   white: "#fff",
   red: "#F11E2C",
@@ -85,4 +89,10 @@ export const GNOM_AD = {
   veryRare: "veryRare",
   rare: "rare",
   common: "common"
+};
+
+export const CONFIRMATION_VALUES = {
+  'confirmed': { value: 'confirmed', label: 'Confirmed', iconImg: ImgCircleOK },
+  'notConfirmed': { value: 'notConfirmed', label: 'Not Confirmed', iconImg: ImgCircleX },
+  'pending': { value: 'pending', label: 'Pending', iconImg: ImgCircleClock },
 };

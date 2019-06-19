@@ -1,0 +1,40 @@
+@import "Css/colors.scss";
+
+.confirmation-status-panel :global {
+  background: white;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  padding: 8px 0;
+
+  .status-item {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 8px;
+
+    .confirmation-panel-icon {
+      width: 17px;
+      height: 17px;
+      min-width: 17px;
+      min-height: 17px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      margin-right: 8px;
+    }
+
+    .confirmation-panel-label {
+      font-size: 16px;
+      line-height: 21px;
+      color: $title_color;
+      white-space: nowrap;
+    }
+
+    &:not(.selected) {
+      cursor: pointer;
+      &:hover {
+        background-color: $neutral_10;
+      }
+    }
+  }
+}
