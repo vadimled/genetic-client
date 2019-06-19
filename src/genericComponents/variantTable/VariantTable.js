@@ -10,12 +10,9 @@ import {
   SOMATIC_VARIANT_CLASS_OPTIONS
 } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
-// import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
 import style from "./VariantTable.module.scss";
 import ActivityLog from "./components/ActivityLog";
-// import ActiveLogDetails from "./components/ActivityLogDetails";
-// import ActivityLogPopup from "./components/ActivityLogPopup";
-// import isEmpty from "lodash.isempty";
+
 
 
 const ResizeableTitle = props => {

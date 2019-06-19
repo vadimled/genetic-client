@@ -42,10 +42,7 @@ class ActivityLog extends Component {
   };
 
   render() {
-    console.log("--activity props: ", this.props);
-
     const {activityLog} = this.props;
-
     if(!activityLog.length){
       return (
         <div className="activity-icon-wrapper__disabled flex justify-center">
@@ -55,7 +52,7 @@ class ActivityLog extends Component {
             <ActivityLogIcon />
           </div>
         </div>
-      )
+      );
     }
 
     return (
