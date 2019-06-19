@@ -10,10 +10,12 @@ import {
   SOMATIC_VARIANT_CLASS_OPTIONS
 } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
-import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
+// import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
 import style from "./VariantTable.module.scss";
-import ActiveLogDetails from "./components/ActivityLogDetails";
-import ActivityLogPopup from "./components/ActivityLogPopup";
+import ActivityLog from "./components/ActivityLog";
+// import ActiveLogDetails from "./components/ActivityLogDetails";
+// import ActivityLogPopup from "./components/ActivityLogPopup";
+// import isEmpty from "lodash.isempty";
 
 
 const ResizeableTitle = props => {
@@ -29,68 +31,6 @@ const ResizeableTitle = props => {
     </Resizable>
   );
 };
-
-
-class ActivityLog extends Component {
-  state = {
-    isActivityDetailsShow: false,
-    isActivityPopupShow: false
-  };
-
-  showActivityPopup = () => {
-    this.setState({
-      isActivityPopupShow: true
-    });
-  };
-
-  showActivityDetails = () => {
-    this.setState({ isActivityDetailsShow: true });
-  };
-
-  hideActivityDetails = () => {
-    this.setState({ isActivityDetailsShow: false });
-  };
-
-  handleOk = e => {
-    console.log(e);
-    this.setState({
-      isActivityPopupShow: false
-    });
-  };
-
-  handleCancel = e => {
-    console.log(e);
-    this.setState({
-      isActivityPopupShow: false
-    });
-  };
-
-  render() {
-    // console.log("--activity props: ", this.props);
-
-    return (
-      <div className="activity-icon-wrapper flex justify-center">
-        {this.state.isActivityDetailsShow && <ActiveLogDetails />}
-        {this.state.isActivityPopupShow && (
-          <ActivityLogPopup
-            visible={this.state.isActivityPopupShow}
-            handleOk={this.handleOk}
-            handleCancel={this.handleCancel}
-            {...this.props}
-          />
-        )}
-        <div
-          className="icon"
-          onClick={this.showActivityPopup}
-          onMouseOver={this.showActivityDetails}
-          onMouseLeave={this.hideActivityDetails}
-        >
-          <ActivityLogIcon />
-        </div>
-      </div>
-    );
-  }
-}
 
 class VariantTable extends Component {
   state = {
@@ -319,6 +259,7 @@ class VariantTable extends Component {
 
       if (col.dataIndex === "activityLog") {
         column.render = (...data) => {
+          // console.log(this.props.activityLog)
           return <ActivityLog {...data} />;
         };
       }
