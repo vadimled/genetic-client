@@ -15,6 +15,13 @@ export const handleSelectedRow = data => {
   };
 };
 
+export const handleSelectAllRows = data => {
+  return {
+    type: actionsTypes.HANDLE_SELECT_ALL_ROWS,
+    payload: data
+  };
+};
+
 export const handleZygosity = data => {
   return {
     type: actionsTypes.HANDLE_ZYGOSITY,

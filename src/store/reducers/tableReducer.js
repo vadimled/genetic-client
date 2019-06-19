@@ -10,13 +10,30 @@ const tableReducer = createReducer(initialState, {
   [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
     const {item, value} = payload;
     let data = state?.data;
-    // data[item.id] = {
-    //   ...data[item.id],
-    //   selected: value
-    // };
+
     data[item.id].selected = value;
 
     return {
+      ...state,
+      data: { ...data }
+    };
+  },
+
+  [actionsTypes.HANDLE_SELECT_ALL_ROWS]: (state, { payload }) => {
+    let data = state?.data;
+
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        data[key].selected = payload === true
+          // if all rows selected
+          ? false
+          // otherwise
+          : true;
+      }
+    }
+
+    return {
+      ...state,
       data: { ...data }
     };
   },

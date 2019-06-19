@@ -191,3 +191,11 @@ export const getSelectedRows = createSelector(
     return data.filter(row => row.selected);
   }
 );
+
+export const checkIsAllRowSelected = createSelector(
+  getTableDataAsArray,
+  getSelectedRows,
+  (allData, selectedData) => {
+    return allData?.length === selectedData?.length;
+  }
+);

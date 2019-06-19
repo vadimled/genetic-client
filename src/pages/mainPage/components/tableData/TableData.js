@@ -4,12 +4,14 @@ import {connect} from "react-redux";
 import TableLayout from "../tableLayout";
 import VariantTable from "GenericComponents/variantTable";
 import {
-  getFilteredData
+  getFilteredData,
+  checkIsAllRowSelected
 } from "Store/selectors";
 import {
   handleSelectedRow,
+  handleSelectAllRows,
   handleZygosity,
-  handleVariantClass
+  handleVariantClass,
 } from "Actions/tableActions";
 import {
   goToChrPositionIgv
@@ -20,9 +22,11 @@ class TableData extends Component {
     const {
       filteredData,
       handleSelectedRow,
+      handleSelectAllRows,
       handleZygosity,
       handleVariantClass,
-      goToChrPositionIgv
+      goToChrPositionIgv,
+      isAllRowSelected
     } = this.props;
 
     return (
@@ -30,9 +34,11 @@ class TableData extends Component {
         <VariantTable
           data={filteredData}
           handleSelectedRow={handleSelectedRow}
+          handleSelectAllRows={handleSelectAllRows}
           handleZygosity={handleZygosity}
           handleVariantClass={handleVariantClass}
           handelChrPosition={goToChrPositionIgv}
+          isAllRowSelected={isAllRowSelected}
         />
       </TableLayout>
     );
@@ -41,13 +47,15 @@ class TableData extends Component {
 
 function mapStateToProps(state) {
   return {
-    filteredData: getFilteredData(state)
+    filteredData: getFilteredData(state),
+    isAllRowSelected: checkIsAllRowSelected(state)
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     handleSelectedRow: (data) => dispatch(handleSelectedRow(data)),
+    handleSelectAllRows: (data) => dispatch(handleSelectAllRows(data)),
     handleZygosity: (data) => dispatch(handleZygosity(data)),
     handleVariantClass: (data) => dispatch(handleVariantClass(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),

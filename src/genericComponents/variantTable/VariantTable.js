@@ -28,12 +28,12 @@ class VariantTable extends Component {
     columns: [
       {
         key: "1",
-        width: 60,
+        dataIndex: "selection",
+        width: 40,
         fixed: "left",
-        title: <div onClick={() => console.log('on title')}>title</div>,
         render: (text, record) => {
           return (
-            <div className="chbx">
+            <div className="selection">
               <Checkbox
                 checked={record.selected}
                 onChange={this.props.handleSelectedRow.bind(null, {
@@ -157,6 +157,15 @@ class VariantTable extends Component {
         })
       };
 
+      if (column.dataIndex === "selection") {
+        column.title = <div className="selection">
+          <Checkbox
+            checked={this.props.isAllRowSelected}
+            onChange={this.props.handleSelectAllRows.bind(null, this.props.isAllRowSelected)}
+          />
+        </div>;
+      }
+
       if (column.dataIndex === "zygosity") {
         column.render = (...data) => (
           <div className="table-select-wrapper">
@@ -242,22 +251,12 @@ class VariantTable extends Component {
   render() {
     const { data } = this.props;
 
-    // // rowSelection object indicates the need for row selection
-    // const rowSelection = {
-    //   onChange: selectedRowKeys => {
-    //     onSelectRowKey(selectedRowKeys);
-    //   },
-    //   selectedRowKeys,
-    //   fixed: "left"
-    // };
-
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
 
     return (
       <Table
         components={this.components}
-        // rowSelection={rowSelection}
         bordered
         columns={columns}
         dataSource={data}
@@ -270,13 +269,16 @@ class VariantTable extends Component {
 VariantTable.propTypes = {
   data: PropTypes.array,
   handleSelectedRow: PropTypes.func.isRequired,
+  handleSelectAllRows: PropTypes.func.isRequired,
   handleZygosity: PropTypes.func.isRequired,
   handleVariantClass: PropTypes.func.isRequired,
   handelChrPosition: PropTypes.func.isRequired,
+  isAllRowSelected: PropTypes.bool,
 };
 
 VariantTable.defaultProps = {
-  data: []
+  data: [],
+  isAllRowSelected: false
 };
 
 export default VariantTable;
