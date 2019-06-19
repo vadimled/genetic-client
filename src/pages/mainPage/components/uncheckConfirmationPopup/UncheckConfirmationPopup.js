@@ -6,11 +6,12 @@ import Portal from 'GenericComponents/portal';
 import warningImg from 'Assets/warning-sign.svg';
 
 import styles from './UncheckConfirmationPopup.module.scss';
-// import { handleOnConfirmation, sendForConfirmation } from "Actions/confirmationActions";
-// import { handleSelectedRow } from "Actions/tableActions";
-// import { getUncheckConfirmationData } from "Store/selectors";
+import { handleUncheckConfirmationData } from "Actions/confirmationActions";
+import { handleConfirmationStatus } from "Actions/tableActions";
+import { getUncheckConfirmationData } from "Store/selectors";
 
-const UncheckConfirmationPopup = () => {
+const UncheckConfirmationPopup = (props) => {
+  const { handleUncheckConfirmationData, handleConfirmationStatus, uncheckConfirmationData } = props;
   return (
     <Portal>
       <div className={styles['uncheck-confirmation-popup']}>
@@ -30,13 +31,13 @@ const UncheckConfirmationPopup = () => {
           <div className="confirmation-btns">
             <Button
               className="confirmation-btn confirmation--link"
-              onClick={() => false}
+              onClick={handleUncheckConfirmationData.bind(null, null)}
             >
               No
             </Button>
             <Button
               className="confirmation-btn"
-              onClick={() => true}
+              onClick={handleConfirmationStatus.bind(null, uncheckConfirmationData)}
             >
               Yes
             </Button>
@@ -56,17 +57,19 @@ UncheckConfirmationPopup.defaultProps = {
 };
 
 
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    // handleOnConfirmation: data => dispatch(handleOnConfirmation(data)),
-    // handleSelectedRow: data => dispatch(handleSelectedRow(data)),
-    // sendForConfirmation: data => dispatch(sendForConfirmation(data))
+    handleUncheckConfirmationData: data => dispatch(handleUncheckConfirmationData(data)),
+    handleConfirmationStatus: (data) => {
+      dispatch(handleConfirmationStatus(data));
+      dispatch(handleUncheckConfirmationData(null));
+    },
   };
 };
 
-const mapStateToProps = () => {
+const mapStateToProps = (state) => {
   return {
-    // data: getSelectedRows(state)
+    uncheckConfirmationData: getUncheckConfirmationData(state)
   };
 };
 
