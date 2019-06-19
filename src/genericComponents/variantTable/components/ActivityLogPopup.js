@@ -67,33 +67,22 @@ const ActivityLogAction = ({record}) => {
       break;
   }
 
-  let titlePrev = ""
+  let titlePrev = "";
 
-  let titleCurr = ""
+  let titleCurr = "";
 
   if(type === "variantClass"){
-    titlePrev = VARIANT_CLASS[record.titlePrev].label
-    titleCurr = VARIANT_CLASS[record.titleCurr].label
-
+    titlePrev = VARIANT_CLASS[record.titlePrev].label;
+    titleCurr = VARIANT_CLASS[record.titleCurr].label;
   }
   else if(type === "zygosity"){
-    // console.log("--zygosityOption: ", zygosityOption)
     if(record.titlePrev){
-      titlePrev = ZYGOSITY_OPTIONS.find(option=> option.value === record.titlePrev).label
-      titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label
-      // console.log("--zygosityOption 1: ", zygosityOption)
-      // titlePrev = zygosityOption.label
+      titlePrev = ZYGOSITY_OPTIONS.find(option=> option.value === record.titlePrev).label;
+      titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label;
     }else{
-      titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label
-
+      titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label;
     }
-
-
-
   }
-
-
-  // console.log("--titlePrev: ", titlePrev)
 
   return(
     <div className="cell border flex items-center justify-between">
