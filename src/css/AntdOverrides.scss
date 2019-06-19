@@ -620,6 +620,7 @@ th {
     .cell {
       width: 33.3%;
       padding: 8px;
+      text-align: center;
     }
     .header-cell {
       background: #f2f6f8;
@@ -634,7 +635,7 @@ th {
     border: 1px solid #dae1e6;
   }
   .action-item {
-    width: 67px;
+    width: 100px;
     //border: 1px solid red;
     overflow-x: hidden;
     margin: 0 auto;

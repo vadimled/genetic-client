@@ -6,41 +6,103 @@ import { ReactComponent as ArrowRight } from "Assets/arrowRight.svg";
 import {connect} from "react-redux";
 import {getActivityLog} from "Store/selectors";
 import dateFormat from "dateformat";
+import { TAG_COLORS } from "../../../utils/constants";
 
-const ActivityLogAction = ({record}) => (
-  <div className="cell border flex items-center justify-between">
-    {
-      record.titlePrev &&
-      <Fragment>
-        <div className="flex items-center action-item">
-          <Tag color="red" />
-          <span>
-            {record.titlePrev}
-          </span>
-        </div>
-        <ArrowRight />          
-      </Fragment>
-    }
 
-    <div className="flex items-center action-item">
-      <Tag color="orange" />
-      <span>
-        {record.titleCurr}
-      </span>
+const ActivityLogAction = ({record}) => {
+
+  const {type} = record;
+
+  let prevTagColor = "";
+
+  let currTagColor = "";
+
+  switch (record.titlePrev) {
+    case "unclassified":
+      prevTagColor = TAG_COLORS.white;
+      break;
+    case "path":
+    case "tier1":
+      prevTagColor = TAG_COLORS.red;
+      break;
+    case "lath":
+    case "tier2":
+      prevTagColor = TAG_COLORS.orange;
+      break;
+    case "vus":
+    case "tier3":
+      prevTagColor = TAG_COLORS.yellow;
+      break;
+    case "lben":
+    case "tier4":
+      prevTagColor = TAG_COLORS.blueLight;
+      break;
+    case "ben":
+      prevTagColor = TAG_COLORS.blue;
+      break;
+  }
+
+  switch (record.titleCurr) {
+    case "unclassified":
+      currTagColor = TAG_COLORS.white;
+      break;
+    case "path":
+    case "tier1":
+      currTagColor = TAG_COLORS.red;
+      break;
+    case "lath":
+    case "tier2":
+      currTagColor = TAG_COLORS.orange;
+      break;
+    case "vus":
+    case "tier3":
+      currTagColor = TAG_COLORS.yellow;
+      break;
+    case "lben":
+    case "tier4":
+      currTagColor = TAG_COLORS.blueLight;
+      break;
+    case "ben":
+      currTagColor = TAG_COLORS.blue;
+      break;
+  }
+
+  return(
+    <div className="cell border flex items-center justify-between">
+      {
+        record.titlePrev &&
+          <Fragment>
+            <div className="flex items-center action-item">
+              {type === "variantClass" && <Tag color={prevTagColor} />}
+              <span>
+                {record.titlePrev}
+              </span>
+            </div>
+            <ArrowRight />
+          </Fragment>
+      }
+
+      <div className="flex items-center action-item justify-center">
+        {type === "variantClass" && <Tag color={currTagColor} />}
+        <span>
+          {record.titleCurr}
+        </span>
+      </div>
     </div>
-  </div>
-);
+  );
+  
+};
 
 const ActivityLogPopupTableRecord = ({record}) => {
-  console.log(record.time.toString());
+  console.log(record);
   return(
     <div className="flex flex-wrap content-start">
-      <div className="cell border flex items-center">
+      <div className="cell border flex items-center justify-center">
         <AvatarName />
         <span className="user-name">Primary Analyst</span>
       </div>
       <ActivityLogAction record={record} />
-      <div className="cell border flex items-center">
+      <div className="cell border flex items-center justify-center">
         {dateFormat(record.time, "H:MM, d mmmm yyyy")}
       </div>
     </div>
