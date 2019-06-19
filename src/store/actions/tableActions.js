@@ -42,3 +42,10 @@ export const updateSearch = data => {
     payload: data
   };
 };
+
+export const applyConfirmation = data => {
+  return {
+    type: actionsTypes.APPLY_CONFIRMATION,
+    payload: data
+  };
+};

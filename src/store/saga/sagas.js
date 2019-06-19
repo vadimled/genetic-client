@@ -8,7 +8,13 @@ import {
   handleIgvAlertShow,
   setFetchBAMFileStatus,
   setIgvLastQuery,
-} from 'Actions/igvActions';
+} from "Actions/igvActions";
+import {
+  applyConfirmation,
+} from "Actions/tableActions";
+import {
+  handleOnConfirmation
+} from "Actions/confirmationActions";
 
 export function* fetchBAMFileGenerator(data) {
   try {
@@ -23,7 +29,7 @@ export function* fetchBAMFileGenerator(data) {
     yield put(setFetchBAMFileStatus(null));
     yield put(setIgvLastQuery(null));
   } catch (e) {
-    console.log("e", e);
+    console.error("e", e);
     yield put(handleIgvAlertShow(true));
   }
 }
@@ -33,7 +39,19 @@ export function* goToChrPositionIgvGenerator(data) {
     yield call(goToChrPositionIgv, data.payload);
     yield put(setIgvLastQuery(null));
   } catch (e) {
-    console.log("e", e);
+    console.error("e", e);
     yield put(handleIgvAlertShow(true));
+  }
+}
+
+export function* sendForConfirmationGenerator(data) {
+  try {
+    // -> API request
+
+    yield put(applyConfirmation(data.payload));
+    yield put(handleOnConfirmation(false)); // hide confirmation popup
+  }
+  catch(e) {
+    console.error("e", e);
   }
 }

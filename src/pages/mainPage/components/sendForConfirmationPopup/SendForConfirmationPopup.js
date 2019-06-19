@@ -6,11 +6,11 @@ import Portal from 'GenericComponents/portal';
 import ConfirmationTable from './components/confirmationTable';
 import styles from './SendForConfirmationPopup.module.scss';
 import btnImg from 'Assets/close-big.svg';
-import { handleOnConfirmation } from "Actions/confirmationActions";
+import { handleOnConfirmation, sendForConfirmation } from "Actions/confirmationActions";
 import { handleSelectedRow } from "Actions/tableActions";
 import { getSelectedRows } from "Store/selectors";
 
-const IgvAlertPopup = ({ handleOnConfirmation, data, handleSelectedRow }) => {
+const IgvAlertPopup = ({ handleOnConfirmation, data, handleSelectedRow, sendForConfirmation }) => {
   return (
     <Portal>
       <div className={styles['send-for-confirmation-popup']}>
@@ -40,7 +40,7 @@ const IgvAlertPopup = ({ handleOnConfirmation, data, handleSelectedRow }) => {
             </Button>
             <Button
               className="confirmation-btn"
-              onClick={() => console.log('Close')}
+              onClick={sendForConfirmation.bind(null, data)}
             >
               Send
             </Button>
@@ -64,6 +64,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleOnConfirmation: data => dispatch(handleOnConfirmation(data)),
     handleSelectedRow: data => dispatch(handleSelectedRow(data)),
+    sendForConfirmation: data => dispatch(sendForConfirmation(data))
   };
 };
 

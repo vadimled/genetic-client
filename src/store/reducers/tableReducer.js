@@ -25,7 +25,7 @@ const tableReducer = createReducer(initialState, {
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
         data[key].selected = payload === true
-          // if all rows selected
+          // if all rows selected or on discarding
           ? false
           // otherwise
           : true;
@@ -79,6 +79,22 @@ const tableReducer = createReducer(initialState, {
 
     return {
       ...state
+    };
+  },
+
+  [actionsTypes.APPLY_CONFIRMATION]: (state, { payload }) => {
+    let data = state?.data;
+
+    // payload includes confirmed rows
+    payload.forEach((row) => {
+      let dataRow = data[row.id];
+      dataRow.confirmationStatus = 'pending';
+      dataRow.selected = false;
+    });
+
+    return {
+      ...state,
+      data: { ...data }
     };
   },
 });

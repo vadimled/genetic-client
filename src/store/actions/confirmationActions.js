@@ -6,3 +6,10 @@ export const handleOnConfirmation = data => {
     payload: data
   };
 };
+
+export const sendForConfirmation = data => {
+  return {
+    type: actionsTypes.SEND_FOR_CONFIRMATION,
+    payload: data
+  };
+};
