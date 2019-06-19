@@ -72,9 +72,9 @@ const ActivityLogAction = ({record}) => {
       {
         record.titlePrev &&
           <Fragment>
-            <div className="flex items-center action-item">
+            <div className="flex items-center action-item justify-center">
               {type === "variantClass" && <Tag color={prevTagColor} />}
-              <span>
+              <span className="title-prev">
                 {record.titlePrev}
               </span>
             </div>
@@ -84,7 +84,7 @@ const ActivityLogAction = ({record}) => {
 
       <div className="flex items-center action-item justify-center">
         {type === "variantClass" && <Tag color={currTagColor} />}
-        <span>
+        <span className="title-curr">
           {record.titleCurr}
         </span>
       </div>

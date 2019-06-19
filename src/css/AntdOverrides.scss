@@ -639,5 +639,10 @@ th {
     //border: 1px solid red;
     overflow-x: hidden;
     margin: 0 auto;
+    .title-prev {
+      opacity: 0.5;
+    }
+    .title-curr {
+    }
   }
 }
