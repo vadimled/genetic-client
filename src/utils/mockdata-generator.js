@@ -5,7 +5,6 @@ export const generateDNAVariantTableMockData = amount => {
   for (let i = 0; i < amount; i++) {
     let id = faker.random.alphaNumeric(25);
     data[id] = {
-      confirmationStatus: 'pending', // only for test
       id: id,
       key: id,
       gene: faker.random.arrayElement([
@@ -551,7 +550,8 @@ export const generateDNAVariantTableMockData = amount => {
       zygosity: "",
       variantClass: "",
       coverage: faker.random.number({ min: 100, max: 500 }),
-      notes: faker.lorem.sentence()
+      notes: faker.lorem.sentence(),
+      confirmationStatus: faker.random.arrayElement(["confirmed", "notConfirmed", "pending", null]),
     };
   }
   return data;
