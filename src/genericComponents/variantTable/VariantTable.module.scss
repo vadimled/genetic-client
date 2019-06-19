@@ -18,6 +18,12 @@
       }
     }
   }
+  .activity-icon-wrapper__disabled {
+    cursor: not-allowed;
+    svg {
+      opacity: 0.5;
+    }
+  }
   .active-log-details {
     position: absolute;
     z-index: 9;
