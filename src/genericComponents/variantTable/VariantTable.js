@@ -4,9 +4,12 @@ import { Table, Tooltip } from "antd";
 import { Resizable } from "react-resizable";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import Notes from "Pages/mainPage/components/notes";
-import { ZYGOSITY_OPTIONS, GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
+import {
+  ZYGOSITY_OPTIONS,
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS
+} from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
-
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -29,7 +32,7 @@ class VariantTable extends Component {
         title: "Gene",
         dataIndex: "gene",
         key: "2",
-        width: 100
+        width: 200
       },
       {
         title: "Chr: position",
@@ -41,19 +44,19 @@ class VariantTable extends Component {
         title: "Transcript",
         dataIndex: "transcript",
         key: "4",
-        width: 150
+        width: 200
       },
       {
         title: "Exon",
         dataIndex: "exon",
         key: "5",
-        width: 40
+        width: 100
       },
       {
         title: "Allele change",
         dataIndex: "alleleChange",
         key: "6",
-        width: 80,
+        width: 100,
 
         render: (text, record) => {
           return (
@@ -67,7 +70,7 @@ class VariantTable extends Component {
         title: "coding",
         dataIndex: "coding",
         key: "7",
-        width: 80,
+        width: 100,
         render: (text, record) => {
           return (
             <Tooltip placement="topLeft" title={record.codingLong}>
@@ -86,7 +89,7 @@ class VariantTable extends Component {
         title: "VAF",
         dataIndex: "vaf",
         key: "9",
-        width: 50
+        width: 100
       },
       {
         title: "Zygosity",
@@ -104,13 +107,13 @@ class VariantTable extends Component {
         title: "coverage",
         dataIndex: "coverage",
         key: "12",
-        width: 50
+        width: 100
       },
       {
         title: "Notes",
         dataIndex: "notes",
         key: "13",
-        width: 200
+        width: 532
       },
       {
         title: "Activity log",
@@ -131,10 +134,12 @@ class VariantTable extends Component {
     return columns.map((col, index) => {
       let column = {
         ...col,
-        onHeaderCell: column => ({
-          width: column.width,
-          onResize: this.handleResize(index)
-        })
+        onHeaderCell: column => {
+          return {
+            width: column.width,
+            onResize: this.handleResize(index)
+          };
+        }
       };
 
       if (column.dataIndex === "zygosity") {
@@ -198,7 +203,10 @@ class VariantTable extends Component {
           return (
             <ExternalLink
               data={chrPosition}
-              externalHandler={this.props.handelChrPosition.bind(null, chrPosition)}
+              externalHandler={this.props.handelChrPosition.bind(
+                null,
+                chrPosition
+              )}
             />
           );
         };
@@ -237,11 +245,12 @@ class VariantTable extends Component {
     return (
       <Table
         components={this.components}
+        pagination={{ pageSize: 20 }}
         rowSelection={rowSelection}
         bordered
         columns={columns}
         dataSource={data}
-        scroll={{ x: "max-content" }}
+        scroll={{ x: "max-content", y: "true" }}
       />
     );
   }
@@ -253,7 +262,7 @@ VariantTable.propTypes = {
   onSelectRowKey: PropTypes.func.isRequired,
   handleZygosity: PropTypes.func.isRequired,
   handleVariantClass: PropTypes.func.isRequired,
-  handelChrPosition: PropTypes.func.isRequired,
+  handelChrPosition: PropTypes.func.isRequired
 };
 
 VariantTable.defaultProps = {
