@@ -10,7 +10,6 @@ import {
   SOMATIC_VARIANT_CLASS_OPTIONS
 } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
-// import activityLogIcon from "Assets/activityLogIcon.svg";
 import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
 import style from "./VariantTable.module.scss";
 import ActiveLogDetails from "./components/ActivityLogDetails";
@@ -100,7 +99,7 @@ class VariantTable extends Component {
         title: "Gene",
         dataIndex: "gene",
         key: "2",
-        width: 100
+        width: 200
       },
       {
         title: "Chr: position",
@@ -112,23 +111,23 @@ class VariantTable extends Component {
         title: "Transcript",
         dataIndex: "transcript",
         key: "4",
-        width: 150
+        width: 200
       },
       {
         title: "Exon",
         dataIndex: "exon",
         key: "5",
-        width: 40
+        width: 100
       },
       {
         title: "Allele change",
         dataIndex: "alleleChange",
         key: "6",
-        width: 80,
+        width: 100,
 
         render: (text, record) => {
           return (
-            <Tooltip placement="top" title={record.alleleChangeLong}>
+            <Tooltip placement="topLeft" title={record.alleleChangeLong}>
               <div>{text}</div>
             </Tooltip>
           );
@@ -138,10 +137,10 @@ class VariantTable extends Component {
         title: "coding",
         dataIndex: "coding",
         key: "7",
-        width: 80,
+        width: 100,
         render: (text, record) => {
           return (
-            <Tooltip placement="top" title={record.codingLong}>
+            <Tooltip placement="topLeft" title={record.codingLong}>
               <div>{text}</div>
             </Tooltip>
           );
@@ -157,7 +156,7 @@ class VariantTable extends Component {
         title: "VAF",
         dataIndex: "vaf",
         key: "9",
-        width: 50
+        width: 100
       },
       {
         title: "Zygosity",
@@ -175,13 +174,13 @@ class VariantTable extends Component {
         title: "coverage",
         dataIndex: "coverage",
         key: "12",
-        width: 50
+        width: 100
       },
       {
         title: "Notes",
         dataIndex: "notes",
         key: "13",
-        width: 200
+        width: 532
       },
       {
         title: "Activity log",
@@ -253,6 +252,7 @@ class VariantTable extends Component {
                   prevValue: data[1].zygosity
                 })
               }
+              isClearAvailable
             />
           </div>
         );
@@ -308,7 +308,10 @@ class VariantTable extends Component {
           return (
             <ExternalLink
               data={chrPosition}
-              externalHandler={e => this.handelChrPosition(e, chrPosition)}
+              externalHandler={this.props.handelChrPosition.bind(
+                null,
+                chrPosition
+              )}
             />
           );
         };
@@ -354,16 +357,14 @@ class VariantTable extends Component {
       <Table
         className={style["variant-table-wrapper"]}
         components={this.components}
+        pagination={{ pageSize: 20 }}
         rowSelection={rowSelection}
         bordered
         columns={columns}
         dataSource={data}
-        scroll={{ x: "max-content" }}
-        pagination={{pageSize: 20}}
+        scroll={{ x: "max-content", y: "true" }}
       />
-
     );
-
   }
 }
 
@@ -372,9 +373,9 @@ VariantTable.propTypes = {
   selectedRowKeys: PropTypes.array,
   onSelectRowKey: PropTypes.func.isRequired,
   handleZygosity: PropTypes.func.isRequired,
-  handleVariantClass: PropTypes.func.isRequired
+  handleVariantClass: PropTypes.func.isRequired,
+  handelChrPosition: PropTypes.func.isRequired
 };
-
 
 VariantTable.defaultProps = {
   data: [],

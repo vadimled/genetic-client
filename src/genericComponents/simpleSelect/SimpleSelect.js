@@ -2,6 +2,7 @@ import React, { Fragment, memo } from "react";
 import { Select } from "antd";
 import PropTypes from "prop-types";
 import Tag from 'GenericComponents/tag';
+import CloseIcon from 'Assets/close.svg';
 
 // eslint-disable-next-line
 const Option = Select.Option;
@@ -13,7 +14,8 @@ const SimpleSelect = ({
   options,
   value,
   name,
-  disabled
+  disabled,
+  isClearAvailable
 }) => {
   return (
     <Fragment>
@@ -32,6 +34,13 @@ const SimpleSelect = ({
         }
         value={value}
         name={name}
+        allowClear={!!value && isClearAvailable}
+        clearIcon={<span
+          className="select-close"
+          style={{
+            backgroundImage: `url(${CloseIcon})`
+          }}
+        />}
       >
         {options?.map(option => (
           <Option key={option.value} value={option.value}>
@@ -54,11 +63,13 @@ SimpleSelect.propTypes = {
   label: PropTypes.string,
   subLabel: PropTypes.string,
   value: PropTypes.string,
-  name: PropTypes.string
+  name: PropTypes.string,
+  isClearAvailable: PropTypes.bool
 };
 
 SimpleSelect.defaultProps = {
-  options: []
+  options: [],
+  isClearAvailable: false
 };
 
 export default memo(SimpleSelect);

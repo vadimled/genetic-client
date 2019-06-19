@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Button, Icon, AutoComplete } from 'antd';
+
 import style from "./Toolbar.module.scss";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import { MUTATION } from "Utils/constants";
@@ -6,25 +8,32 @@ import NumberVariants from "Pages/mainPage/components/numberVariants";
 import cn from "classnames";
 import {
   getFilteredEntriesAmount,
-  getTotalEntriesAmount
+  getTotalEntriesAmount,
+  getIgvFetchBAMFileStatus,
+  getBAMFileUrl
 } from "Store/selectors";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { setMutationType } from "Store/actions/variantsActions";
-import { updateSearch } from "Store/actions/tableActions";
+import { fetchBAMFile } from 'Actions/igvActions';
+import { setMutationType } from "Actions/variantsActions";
+import { updateSearch } from "Actions/tableActions";
 import {
   getMutationType,
   getSearchQuery,
-  getSearchQueries
+  getFilteredSearchQueries
 } from "Store/selectors";
-import { Icon } from "antd";
 import closeBtn from "Assets/close.svg";
-import { AutoComplete } from "antd";
 
 
 class Toolbar extends Component {
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
+  };
+
+
+  fetchBAMFile = () => {
+    const { BAMFileUrl } = this.props;
+    this.props.fetchBAMFile(BAMFileUrl);
   };
 
   handleOnSearchChange = e => {
@@ -41,6 +50,7 @@ class Toolbar extends Component {
       total,
       sidebarToggle,
       mutations,
+      fetchBAMFileStatus,
       searchText,
       tableData
     } = this.props;
@@ -87,6 +97,16 @@ class Toolbar extends Component {
         <div
           className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}
         >
+          <div className="igv-btn-wrapper">
+            <Button
+              type={fetchBAMFileStatus ? 'primary' : ''}
+              onClick={this.fetchBAMFile}
+              disabled={fetchBAMFileStatus}
+              className={fetchBAMFileStatus ? `progress progress--${fetchBAMFileStatus}` : ''}
+            >
+              Load BAM{fetchBAMFileStatus === 3 && <Icon type="check" />}
+            </Button>
+          </div>
           <NumberVariants filtered={filtered} total={total} />
         </div>
       </div>
@@ -105,14 +125,17 @@ const mapStateToProps = state => {
     filtered: getFilteredEntriesAmount(state),
     total: getTotalEntriesAmount(state),
     mutations: getMutationType(state),
+    fetchBAMFileStatus: getIgvFetchBAMFileStatus(state),
+    BAMFileUrl: getBAMFileUrl(state),
     searchText: getSearchQuery(state),
-    tableData: getSearchQueries(state)
+    tableData: getFilteredSearchQueries(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     setMutationType: data => dispatch(setMutationType(data)),
+    fetchBAMFile: data => dispatch(fetchBAMFile(data)),
     updateSearch: data => dispatch(updateSearch(data))
   };
 }

@@ -13,6 +13,9 @@ import {
   handleVariantClass,
   updateActivityLog
 } from "Actions/tableActions";
+import {
+  goToChrPositionIgv
+} from "Actions/igvActions";
 
 class TableData extends Component {
   render() {
@@ -22,7 +25,8 @@ class TableData extends Component {
       onSelectRowKey,
       handleZygosity,
       handleVariantClass,
-      updateActivityLog
+      updateActivityLog,
+      goToChrPositionIgv
     } = this.props;
 
     return (
@@ -33,6 +37,7 @@ class TableData extends Component {
           selectedRowKeys={selectedRowKeys}
           handleZygosity={handleZygosity}
           handleVariantClass={handleVariantClass}
+          handelChrPosition={goToChrPositionIgv}
           updateActivityLog={updateActivityLog}
         />
       </TableLayout>
@@ -43,7 +48,7 @@ class TableData extends Component {
 function mapStateToProps(state) {
   return {
     selectedRowKeys: getSelectedRowKeys(state),
-    filteredData: getFilteredData(state),
+    filteredData: getFilteredData(state)
   };
 }
 
@@ -52,7 +57,8 @@ function mapDispatchToProps(dispatch) {
     onSelectRowKey: (data) => dispatch(onSelectRowKey(data)),
     handleZygosity: (data) => dispatch(handleZygosity(data)),
     handleVariantClass: (data) => dispatch(handleVariantClass(data)),
-    updateActivityLog: data => dispatch(updateActivityLog(data))
+    updateActivityLog: data => dispatch(updateActivityLog(data)),
+    goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
   };
 }
 

@@ -25,7 +25,7 @@ const ActivityLogAction = ({record}) => {
     case "tier1":
       prevTagColor = TAG_COLORS.red;
       break;
-    case "lath":
+    case "lpath":
     case "tier2":
       prevTagColor = TAG_COLORS.orange;
       break;
@@ -50,7 +50,7 @@ const ActivityLogAction = ({record}) => {
     case "tier1":
       currTagColor = TAG_COLORS.red;
       break;
-    case "lath":
+    case "lpath":
     case "tier2":
       currTagColor = TAG_COLORS.orange;
       break;
