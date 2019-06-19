@@ -6,7 +6,7 @@ import { ReactComponent as ArrowRight } from "Assets/arrowRight.svg";
 import {connect} from "react-redux";
 import {getActivityLog} from "Store/selectors";
 import dateFormat from "dateformat";
-import { TAG_COLORS } from "../../../utils/constants";
+import { TAG_COLORS, VARIANT_CLASS, ZYGOSITY_OPTIONS } from "../../../utils/constants";
 
 
 const ActivityLogAction = ({record}) => {
@@ -67,6 +67,34 @@ const ActivityLogAction = ({record}) => {
       break;
   }
 
+  let titlePrev = ""
+
+  let titleCurr = ""
+
+  if(type === "variantClass"){
+    titlePrev = VARIANT_CLASS[record.titlePrev].label
+    titleCurr = VARIANT_CLASS[record.titleCurr].label
+
+  }
+  else if(type === "zygosity"){
+    // console.log("--zygosityOption: ", zygosityOption)
+    if(record.titlePrev){
+      titlePrev = ZYGOSITY_OPTIONS.find(option=> option.value === record.titlePrev).label
+      titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label
+      // console.log("--zygosityOption 1: ", zygosityOption)
+      // titlePrev = zygosityOption.label
+    }else{
+      titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label
+
+    }
+
+
+
+  }
+
+
+  // console.log("--titlePrev: ", titlePrev)
+
   return(
     <div className="cell border flex items-center justify-between">
       {
@@ -75,7 +103,7 @@ const ActivityLogAction = ({record}) => {
             <div className="flex items-center action-item justify-center">
               {type === "variantClass" && <Tag color={prevTagColor} />}
               <span className="title-prev">
-                {record.titlePrev}
+                {titlePrev}
               </span>
             </div>
             <ArrowRight />
@@ -85,7 +113,7 @@ const ActivityLogAction = ({record}) => {
       <div className="flex items-center action-item justify-center">
         {type === "variantClass" && <Tag color={currTagColor} />}
         <span className="title-curr">
-          {record.titleCurr}
+          {titleCurr}
         </span>
       </div>
     </div>
