@@ -6,7 +6,7 @@ import { ReactComponent as ArrowRight } from "Assets/arrowRight.svg";
 import {connect} from "react-redux";
 import {getActivityLog} from "Store/selectors";
 import dateFormat from "dateformat";
-import { TAG_COLORS, VARIANT_CLASS, ZYGOSITY_OPTIONS } from "../../../utils/constants";
+import { SOMATIC_CLASS, TAG_COLORS, VARIANT_CLASS, ZYGOSITY_OPTIONS } from "../../../utils/constants";
 
 
 const ActivityLogAction = ({record}) => {
@@ -72,9 +72,10 @@ const ActivityLogAction = ({record}) => {
   let titleCurr = "";
 
   if(type === "variantClass"){
-    titlePrev = VARIANT_CLASS[record.titlePrev].label;
-    titleCurr = VARIANT_CLASS[record.titleCurr].label;
+    titlePrev = VARIANT_CLASS[record.titlePrev]?.label || SOMATIC_CLASS[record.titlePrev].label;
+    titleCurr = VARIANT_CLASS[record.titleCurr]?.label || SOMATIC_CLASS[record.titleCurr].label;
   }
+
   else if(type === "zygosity"){
     if(record.titlePrev){
       titlePrev = ZYGOSITY_OPTIONS.find(option=> option.value === record.titlePrev).label;
