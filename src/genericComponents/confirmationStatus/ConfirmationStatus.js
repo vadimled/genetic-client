@@ -5,14 +5,7 @@ import { CONFIRMATION_VALUES } from 'Utils/constants';
 import ConfirmationStatusPanel from './components/confirmationStatusPanel';
 import style from './ConfirmationStatus.module.scss';
 
-export default class ConfirmationStatus extends PureComponent {
-  static propTypes = {
-    status: PropTypes.string
-  };
-  static defaultProps = {
-    status: 'pending'
-  };
-
+class ConfirmationStatus extends PureComponent {
   constructor() {
     super();
 
@@ -46,7 +39,7 @@ export default class ConfirmationStatus extends PureComponent {
   };
 
   render() {
-    const { status } = this.props;
+    const { status, handleStatus } = this.props;
 
     return (
       <div
@@ -73,7 +66,8 @@ export default class ConfirmationStatus extends PureComponent {
 
         {!!this.state.isPanelOpen && <div className="confirmation-config-panel">
           <ConfirmationStatusPanel
-            handleStatus={(status) => console.log('status', status)}
+            handleStatus={handleStatus}
+            selected={status}
           />
         </div>}
 
@@ -81,3 +75,14 @@ export default class ConfirmationStatus extends PureComponent {
     );
   }
 }
+
+ConfirmationStatus.propTypes = {
+  status: PropTypes.string,
+  handleStatus: PropTypes.func.isRequired
+};
+
+ConfirmationStatus.defaultProps = {
+  status: 'pending'
+};
+
+export default ConfirmationStatus;

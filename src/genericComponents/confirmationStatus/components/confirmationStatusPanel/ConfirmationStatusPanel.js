@@ -4,14 +4,17 @@ import { CONFIRMATION_VALUES } from 'Utils/constants';
 import style from './ConfirmationStatusPanel.module.scss';
 import rectangleImg from 'Assets/rectangle.svg';
 
-const ConfirmationStatusPanel = ({ handleStatus }) => {
+const ConfirmationStatusPanel = ({ handleStatus, selected }) => {
   return (
     <div className={style["confirmation-status-panel"]}>
       {Object.keys(CONFIRMATION_VALUES)?.map((status) => {
         return (
           <div
             key={status}
-            className="status-item"
+            className={[
+              "status-item",
+              selected === status ? 'selected' : ''
+            ].join(' ')}
             onClick={handleStatus.bind(null, status)}
           >
             <div
@@ -45,7 +48,12 @@ const ConfirmationStatusPanel = ({ handleStatus }) => {
 };
 
 ConfirmationStatusPanel.propTypes = {
-  handleStatus: PropTypes.func.isRequired
+  handleStatus: PropTypes.func.isRequired,
+  selected: PropTypes.string
+};
+
+ConfirmationStatusPanel.defaultProps = {
+  selected: ''
 };
 
 export default React.memo(ConfirmationStatusPanel);

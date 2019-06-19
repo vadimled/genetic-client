@@ -36,5 +36,13 @@
         background-color: $neutral_10;
       }
     }
+
+    &.selected {
+      cursor: default;
+      pointer-events: none;
+      .confirmation-panel-label {
+        color: $neutral_30;
+      }
+    }
   }
 }

@@ -31,25 +31,27 @@ class VariantTable extends Component {
         dataIndex: "selection",
         width: 40,
         fixed: "left",
-        className: "confirmation-cell",
+        className: "selection-cell",
         render: (text, record) => {
           if (record.confirmationStatus) {
             return (
               <ConfirmationStatus
                 status={record.confirmationStatus}
+                handleStatus={(status) => this.props.handleConfirmationStatus({
+                  id: record.id,
+                  status
+                })}
               />
             );
           }
           return (
-            <div className="selection">
-              <Checkbox
-                checked={record.selected}
-                onChange={this.props.handleSelectedRow.bind(null, {
-                  item: record,
-                  value: !record.selected
-                })}
-              />
-            </div>
+            <Checkbox
+              checked={record.selected}
+              onChange={this.props.handleSelectedRow.bind(null, {
+                item: record,
+                value: !record.selected
+              })}
+            />
           );
         }
       },
@@ -281,6 +283,7 @@ VariantTable.propTypes = {
   handleZygosity: PropTypes.func.isRequired,
   handleVariantClass: PropTypes.func.isRequired,
   handelChrPosition: PropTypes.func.isRequired,
+  handleConfirmationStatus: PropTypes.func.isRequired,
   isAllRowSelected: PropTypes.bool,
 };
 

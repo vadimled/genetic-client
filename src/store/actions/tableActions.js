@@ -36,6 +36,13 @@ export const handleVariantClass = data => {
   };
 };
 
+export const handleConfirmationStatus = data => {
+  return {
+    type: actionsTypes.HANDLE_CONFIRMATION_STATUS,
+    payload: data
+  };
+};
+
 export const updateSearch = data => {
   return {
     type: actionsTypes.UPDATE_SEARCH,

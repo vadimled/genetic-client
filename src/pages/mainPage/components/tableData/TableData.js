@@ -12,6 +12,7 @@ import {
   handleSelectAllRows,
   handleZygosity,
   handleVariantClass,
+  handleConfirmationStatus,
 } from "Actions/tableActions";
 import {
   goToChrPositionIgv
@@ -25,6 +26,7 @@ class TableData extends Component {
       handleSelectAllRows,
       handleZygosity,
       handleVariantClass,
+      handleConfirmationStatus,
       goToChrPositionIgv,
       isAllRowSelected
     } = this.props;
@@ -38,6 +40,7 @@ class TableData extends Component {
           handleZygosity={handleZygosity}
           handleVariantClass={handleVariantClass}
           handelChrPosition={goToChrPositionIgv}
+          handleConfirmationStatus={handleConfirmationStatus}
           isAllRowSelected={isAllRowSelected}
         />
       </TableLayout>
@@ -58,6 +61,7 @@ function mapDispatchToProps(dispatch) {
     handleSelectAllRows: (data) => dispatch(handleSelectAllRows(data)),
     handleZygosity: (data) => dispatch(handleZygosity(data)),
     handleVariantClass: (data) => dispatch(handleVariantClass(data)),
+    handleConfirmationStatus: (data) => dispatch(handleConfirmationStatus(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
   };
 }

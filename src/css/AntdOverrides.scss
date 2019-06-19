@@ -609,8 +609,16 @@ $sideBarWidth: 197px;
             transform: translate(-50%, -50%);
           }
         }
-        &.confirmation-cell {
+        &.selection-cell {
           padding: 0;
+          position: relative;
+
+          .ant-checkbox-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
         }
       }
     }
