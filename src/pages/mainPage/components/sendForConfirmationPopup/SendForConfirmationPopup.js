@@ -10,7 +10,7 @@ import { handleOnConfirmation, sendForConfirmation } from "Actions/confirmationA
 import { handleSelectedRow } from "Actions/tableActions";
 import { getSelectedRows } from "Store/selectors";
 
-const IgvAlertPopup = ({ handleOnConfirmation, data, handleSelectedRow, sendForConfirmation }) => {
+const SendForConfirmationPopup = ({ handleOnConfirmation, data, handleSelectedRow, sendForConfirmation }) => {
   return (
     <Portal>
       <div className={styles['send-for-confirmation-popup']}>
@@ -51,11 +51,11 @@ const IgvAlertPopup = ({ handleOnConfirmation, data, handleSelectedRow, sendForC
   );
 };
 
-IgvAlertPopup.propTypes = {
+SendForConfirmationPopup.propTypes = {
   propName: PropTypes.string
 };
 
-IgvAlertPopup.defaultProps = {
+SendForConfirmationPopup.defaultProps = {
   propName: 'DefaultProp'
 };
 
@@ -77,4 +77,4 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(React.memo(IgvAlertPopup));
+)(React.memo(SendForConfirmationPopup));

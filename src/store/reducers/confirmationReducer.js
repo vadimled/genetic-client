@@ -3,6 +3,7 @@ import actionsTypes from "../actionsTypes";
 
 const initialState = {
   isOnConfirmation: false,
+  uncheckConfirmationData: null
 };
 
 const confirmationReducer = createReducer(initialState, {
@@ -10,6 +11,13 @@ const confirmationReducer = createReducer(initialState, {
     return {
       ...state,
       isOnConfirmation: payload
+    };
+  },
+
+  [actionsTypes.HANDLE_UNCHECK_CONFIRMATION_DATA]: (state, { payload }) => {
+    return {
+      ...state,
+      uncheckConfirmationData: payload
     };
   },
 });

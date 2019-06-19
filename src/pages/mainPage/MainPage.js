@@ -8,7 +8,8 @@ import SidebarFilters from "./components/sidebarFilters";
 import TableData from "./components/tableData";
 import IgvAlertPopup from './components/igvAlertPopup';
 import SendForConfirmationPopup from './components/sendForConfirmationPopup';
-import { getIgvAlertShow, getOnConfirmation } from "Store/selectors";
+import UncheckConfirmationPopup from './components/uncheckConfirmationPopup';
+import { getIgvAlertShow, getOnConfirmation, getUncheckConfirmationData } from "Store/selectors";
 
 class MainPage extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class MainPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { isIgvAlertShow, isOnConfirmation } = this.props;
+    const { isIgvAlertShow, isOnConfirmation, uncheckConfirmationData } = this.props;
 
     return (
       <div className={style["main-page"]}>
@@ -42,6 +43,7 @@ class MainPage extends Component {
         </div>
         {!!isIgvAlertShow && <IgvAlertPopup />}
         {!!isOnConfirmation && <SendForConfirmationPopup />}
+        {!!uncheckConfirmationData && <UncheckConfirmationPopup />}
       </div>
     );
   }
@@ -51,6 +53,7 @@ const mapStateToProps = state => {
   return {
     isIgvAlertShow: getIgvAlertShow(state),
     isOnConfirmation: getOnConfirmation(state),
+    uncheckConfirmationData: getUncheckConfirmationData(state),
   };
 };
 

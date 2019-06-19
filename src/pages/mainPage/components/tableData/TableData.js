@@ -17,6 +17,9 @@ import {
 import {
   goToChrPositionIgv
 } from "Actions/igvActions";
+import {
+  handleUncheckConfirmationData
+} from "Actions/confirmationActions";
 
 class TableData extends Component {
   render() {
@@ -61,7 +64,14 @@ function mapDispatchToProps(dispatch) {
     handleSelectAllRows: (data) => dispatch(handleSelectAllRows(data)),
     handleZygosity: (data) => dispatch(handleZygosity(data)),
     handleVariantClass: (data) => dispatch(handleVariantClass(data)),
-    handleConfirmationStatus: (data) => dispatch(handleConfirmationStatus(data)),
+    handleConfirmationStatus: (data) => {
+      if (data?.status) {
+        dispatch(handleConfirmationStatus(data));
+      }
+      else if (data?.status === null) {
+        dispatch(handleUncheckConfirmationData(data));
+      }
+    },
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
   };
 }

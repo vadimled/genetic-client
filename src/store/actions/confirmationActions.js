@@ -13,3 +13,11 @@ export const sendForConfirmation = data => {
     payload: data
   };
 };
+
+export const handleUncheckConfirmationData = data => {
+  return {
+    type: actionsTypes.HANDLE_UNCHECK_CONFIRMATION_DATA,
+    payload: data
+  };
+};
+

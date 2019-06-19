@@ -1,52 +1,50 @@
 @import "Css/Colors.scss";
 
-.send-for-confirmation-popup :global {
-  width: 910px;
+.uncheck-confirmation-popup :global {
+  width: 400px;
+  padding: 15px;
   background-color: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   overflow: hidden;
 
   .confirmation-header {
-    background-color: $neutral_10;
-    padding: 0 25px;
-    height: 64px;
+    height: 53px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-  }
-
-  .header-close {
-    border: none;
-    background-color: rgba(0, 0, 0, 0);
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 24px;
-    height: 24px;
-    padding: 0;
-    cursor: pointer;
+    border-bottom: 1px solid $border_color;
   }
 
   .header-title {
     font-weight: 600;
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 21px;
     color: $title_color;
+    display: flex;
+    align-items: center;
+  }
+
+  .warning-sign {
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 22px;
+    height: 19px;
+    display: inline-block;
+    margin-right: 13px;
   }
 
   .confirmation-content {
-    padding: 32px 111px;
-    height: 343px;
-    overflow: auto;
+    font-size: 14px;
+    line-height: 18px;
+    color: $title_color;
+    padding: 17px 0;
   }
 
   .confirmation-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 68px;
-    padding: 0 23px;
-    border-top: 1px solid $border_color;
+    margin-top: 10px;
   }
 
   .confirmation-btns {
@@ -55,14 +53,14 @@
   }
 
   .confirmation-btn {
-    width: 120px;
-    height: 44px;
+    width: 64px;
+    height: 25px;
     padding: 0 !important;
     border-radius: 4px;
     border: none;
-    font-size: 16px !important;
+    font-size: 14px !important;
     font-weight: normal !important;
-    line-height: 21px !important;
+    line-height: 18px !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -72,7 +70,6 @@
     &:not(.confirmation--link) {
       box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
       color: white;
-      font-weight: 600 !important;
       background-color: $brand_primary_color;
     }
   }

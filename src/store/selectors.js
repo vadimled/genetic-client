@@ -16,6 +16,7 @@ export const
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
 
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
+  getUncheckConfirmationData = state => state?.confirmation?.uncheckConfirmationData,
 
   getMutationType = state => state.variants.mutations,
 
