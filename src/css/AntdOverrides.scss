@@ -750,6 +750,10 @@ th {
 .ant-table-bordered .ant-table-thead > tr > th,
 .ant-table-bordered .ant-table-tbody > tr > td {
   min-width: 90px;
+
+  &.selection-cell {
+    min-width: 50px;
+  }
 }
 
 .sidebar-open {
