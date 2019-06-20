@@ -85,6 +85,24 @@ const ActivityLogAction = ({record}) => {
     }
   }
 
+  else if(type === "notes"){
+    if(record.titlePrev){
+      titlePrev = record.titlePrev;
+      titleCurr = record.titleCurr;
+    }else{
+      titleCurr = record.titleCurr;
+    }
+  }
+
+  if(type === "notes"){
+    return (
+      <div className="cell border">
+        <div>{titleCurr.length > 42 ? titleCurr.slice(0, 41) + "... " : titleCurr}</div>
+        {titlePrev && <div className="prev-note">{titlePrev.length > 42 ? titlePrev.slice(0, 41) + "..." : titlePrev}</div>}
+      </div>
+    )
+  }
+
   return(
     <div className="cell border flex items-center justify-between">
       {
