@@ -726,12 +726,10 @@ th {
     }
   }
   .ant-table-fixed-left {
-    overflow: visible;
     height: calc(100vh - 171px);
   }
 
   .ant-table-body-inner {
-    // overflow: visible !important;
     height: calc(100vh - #{$heightTableBody}) !important;
   }
   .ant-table-fixed {

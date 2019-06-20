@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ArrowDown from 'Assets/arrow-down.svg';
 import { CONFIRMATION_VALUES } from 'Utils/constants';
 import ConfirmationStatusPanel from './components/confirmationStatusPanel';
+import Portal from 'GenericComponents/portal';
 import style from './ConfirmationStatus.module.scss';
 
 class ConfirmationStatus extends PureComponent {
@@ -38,6 +39,25 @@ class ConfirmationStatus extends PureComponent {
     });
   };
 
+  getPanelChords = () => {
+    const wrapperChords = this?.confStatusComponent?.current?.getBoundingClientRect();
+    const docHeight = document?.documentElement?.clientHeight;
+
+    let data = {
+      left: wrapperChords?.right
+    };
+
+    // consider that the panel dosn't hide behind the lower border of the screen
+    if (wrapperChords?.top + 150 > docHeight) {
+      data.bottom = 10;
+    }
+    else {
+      data.top = wrapperChords?.top;
+    }
+
+    return data;
+  };
+
   render() {
     const { status, handleStatus } = this.props;
 
@@ -64,12 +84,20 @@ class ConfirmationStatus extends PureComponent {
           />
         </div>
 
-        {!!this.state.isPanelOpen && <div className="confirmation-config-panel">
-          <ConfirmationStatusPanel
-            handleStatus={handleStatus}
-            selected={status}
-          />
-        </div>}
+        {!!this.state.isPanelOpen && <Portal pure>
+          <div
+            className="confirmation-config-panel"
+            style={{
+              position: "fixed",
+              ...this.getPanelChords()
+            }}
+          >
+            <ConfirmationStatusPanel
+              handleStatus={handleStatus}
+              selected={status}
+            />
+          </div>
+        </Portal>}
 
       </div>
     );
