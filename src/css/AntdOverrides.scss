@@ -693,6 +693,17 @@ th {
       }
     }
   }
+
+  .selection-cell {
+    position: relative;
+
+    .table-header-selection-chbx {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
 }
 
 .ant-table-pagination.ant-pagination {

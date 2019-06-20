@@ -173,7 +173,7 @@ class VariantTable extends Component {
       };
 
       if (column.dataIndex === "selection") {
-        column.title = <div className="selection">
+        column.title = <div className="table-header-selection-chbx">
           <Checkbox
             checked={this.props.isAllRowSelected}
             onChange={this.props.handleSelectAllRows.bind(null, this.props.isAllRowSelected)}
