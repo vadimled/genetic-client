@@ -9,8 +9,6 @@ const LogRecord = ({record}) => {
 
   const {type} = record;
 
-  // let prevTagColor = "";
-
   let currTagColor = "";
 
   switch (record.titleCurr) {
@@ -66,8 +64,8 @@ const LogRecord = ({record}) => {
         {dateFormat(record.time, "H:MM, d mmmm yyyy")}
       </div>
     </div>
-  )
-}
+  );
+};
 
 
 const ActiveLogDetails = ({activityLog}) => (
