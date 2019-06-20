@@ -756,6 +756,11 @@ th {
   }
 }
 
+.ant-table-bordered .ant-table-thead > tr > th,
+.ant-table-bordered .ant-table-tbody > tr > td {
+  min-width: 90px;
+}
+
 .sidebar-open {
   .ant-table-wrapper {
     width: calc(100vw - #{$sideBarWidth}) !important;
