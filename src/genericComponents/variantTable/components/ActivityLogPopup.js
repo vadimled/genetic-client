@@ -3,15 +3,18 @@ import { Button, Modal } from "antd";
 import Tag from "../../tag";
 import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
 import { ReactComponent as ArrowRight } from "Assets/arrowRight.svg";
-import {connect} from "react-redux";
-import {getActivityLog} from "Store/selectors";
+import { connect } from "react-redux";
+import { getActivityLog } from "Store/selectors";
 import dateFormat from "dateformat";
-import { SOMATIC_CLASS, TAG_COLORS, VARIANT_CLASS, ZYGOSITY_OPTIONS } from "../../../utils/constants";
+import {
+  SOMATIC_CLASS,
+  TAG_COLORS,
+  VARIANT_CLASS,
+  ZYGOSITY_OPTIONS
+} from "../../../utils/constants";
 
-
-const ActivityLogAction = ({record}) => {
-
-  const {type} = record;
+const ActivityLogAction = ({ record }) => {
+  const { type } = record;
 
   let prevTagColor = "";
 
@@ -71,67 +74,73 @@ const ActivityLogAction = ({record}) => {
 
   let titleCurr = "";
 
-  if(type === "variantClass"){
-    titlePrev = VARIANT_CLASS[record.titlePrev]?.label || SOMATIC_CLASS[record.titlePrev].label;
-    titleCurr = VARIANT_CLASS[record.titleCurr]?.label || SOMATIC_CLASS[record.titleCurr].label;
-  }
-
-  else if(type === "zygosity"){
-    if(record.titlePrev){
-      titlePrev = ZYGOSITY_OPTIONS.find(option=> option.value === record.titlePrev).label;
-      titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label;
-    }else{
-      titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label;
+  if (type === "variantClass") {
+    titlePrev =
+      VARIANT_CLASS[record.titlePrev]?.label ||
+      SOMATIC_CLASS[record.titlePrev].label;
+    titleCurr =
+      VARIANT_CLASS[record.titleCurr]?.label ||
+      SOMATIC_CLASS[record.titleCurr].label;
+  } else if (type === "zygosity") {
+    if (record.titlePrev) {
+      titlePrev = ZYGOSITY_OPTIONS.find(
+        option => option.value === record.titlePrev
+      ).label;
+      titleCurr = ZYGOSITY_OPTIONS.find(
+        option => option.value === record.titleCurr
+      ).label;
+    } else {
+      titleCurr = ZYGOSITY_OPTIONS.find(
+        option => option.value === record.titleCurr
+      ).label;
     }
-  }
-
-  else if(type === "notes"){
-    if(record.titlePrev){
+  } else if (type === "notes") {
+    if (record.titlePrev) {
       titlePrev = record.titlePrev;
       titleCurr = record.titleCurr;
-    }else{
+    } else {
       titleCurr = record.titleCurr;
     }
   }
 
-  if(type === "notes"){
+  if (type === "notes") {
     return (
       <div className="cell border">
-        <div>{titleCurr.length > 42 ? titleCurr.slice(0, 41) + "... " : titleCurr}</div>
-        {titlePrev && <div className="prev-note">{titlePrev.length > 42 ? titlePrev.slice(0, 41) + "..." : titlePrev}</div>}
+        <div>
+          {titleCurr.length > 42 ? titleCurr.slice(0, 41) + "... " : titleCurr}
+        </div>
+        {titlePrev && (
+          <div className="prev-note">
+            {titlePrev.length > 42 ? titlePrev.slice(0, 41) + "..." : titlePrev}
+          </div>
+        )}
       </div>
-    )
+    );
   }
 
-  return(
+  return (
     <div className="cell border flex items-center justify-between">
-      {
-        record.titlePrev &&
-          <Fragment>
-            <div className="flex items-center action-item justify-center">
-              {type === "variantClass" && <Tag color={prevTagColor} />}
-              <span className="title-prev">
-                {titlePrev}
-              </span>
-            </div>
-            <ArrowRight />
-          </Fragment>
-      }
+      {record.titlePrev && (
+        <Fragment>
+          <div className="flex items-center action-item justify-center">
+            {type === "variantClass" && <Tag color={prevTagColor} />}
+            <span className="title-prev">{titlePrev}</span>
+          </div>
+          <ArrowRight />
+        </Fragment>
+      )}
 
       <div className="flex items-center action-item justify-center">
         {type === "variantClass" && <Tag color={currTagColor} />}
-        <span className="title-curr">
-          {titleCurr}
-        </span>
+        <span className="title-curr">{titleCurr}</span>
       </div>
     </div>
   );
-  
 };
 
-const ActivityLogPopupTableRecord = ({record}) => {
+const ActivityLogPopupTableRecord = ({ record }) => {
   console.log(record);
-  return(
+  return (
     <div className="flex flex-wrap content-start">
       <div className="cell border flex items-center justify-center">
         <AvatarName />
@@ -146,7 +155,6 @@ const ActivityLogPopupTableRecord = ({record}) => {
 };
 
 class ActivityLogPopup extends Component {
-
   render() {
     const { visible, handleOk, handleCancel, activityLog } = this.props;
     // const data = this.props[1];
@@ -173,10 +181,9 @@ class ActivityLogPopup extends Component {
             <div className="cell header-cell border">Action</div>
             <div className="cell header-cell border">Timestamp</div>
           </div>
-          {
-            activityLog.map((record, i)=> <ActivityLogPopupTableRecord key={i} record={record}/>)
-          }
-
+          {activityLog.map((record, i) => (
+            <ActivityLogPopupTableRecord key={i} record={record} />
+          ))}
         </div>
       </Modal>
     );
@@ -184,11 +191,10 @@ class ActivityLogPopup extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-
   const record = ownProps[1];
 
   return {
-    activityLog: getActivityLog(state, record.id),
+    activityLog: getActivityLog(state, record.id)
   };
 }
 
@@ -201,4 +207,7 @@ function mapStateToProps(state, ownProps) {
 //   };
 // }
 
-export default connect(mapStateToProps, {})(ActivityLogPopup);
+export default connect(
+  mapStateToProps,
+  {}
+)(ActivityLogPopup);
