@@ -1,5 +1,5 @@
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import "jest-dom/extend-expect";
@@ -7,8 +7,8 @@ import SidebarFilters from "Pages/mainPage/components/sidebarFilters/SidebarFilt
 import actionsTypes from "Store/actionsTypes";
 import { FILTERS } from "Utils/constants";
 
-
-afterEach(cleanup);
+// afterEach(cleanup);
+beforeEach(() => {});
 
 const startingState = {
   filters: {
@@ -43,11 +43,32 @@ function renderWithRedux(
   };
 }
 
-it("renders a message", () => {
-  const { asFragment/* , fireEvent, container*/, getByText } = renderWithRedux(
-    <SidebarFilters />
-  );
-
-  expect(getByText("PATH")).toBeInTheDocument();
+test("create snapshot", () => {
+  const { asFragment } = renderWithRedux(<SidebarFilters />);
   expect(asFragment()).toMatchSnapshot();
+});
+
+test("if filter PATH exists", () => {
+  const { getByText } = renderWithRedux(<SidebarFilters />);
+  expect(getByText("PATH")).toBeInTheDocument();
+});
+
+test("if filter LPATH exists", () => {
+  const { getByText } = renderWithRedux(<SidebarFilters />);
+  expect(getByText("LPATH")).toBeInTheDocument();
+});
+
+test("if filter VUS exists", () => {
+  const { getByText } = renderWithRedux(<SidebarFilters />);
+  expect(getByText("VUS")).toBeInTheDocument();
+});
+
+test("if filter LBEN exists", () => {
+  const { getByText } = renderWithRedux(<SidebarFilters />);
+  expect(getByText("LBEN")).toBeInTheDocument();
+});
+
+test("if filter BEN exists", () => {
+  const { getByText } = renderWithRedux(<SidebarFilters />);
+  expect(getByText("BEN")).toBeInTheDocument();
 });
