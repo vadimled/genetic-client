@@ -70,7 +70,7 @@ class ActivityLog extends Component {
           className="icon"
           onClick={this.showActivityPopup}
           onMouseOver={this.showActivityDetails}
-          onMouseLeave={this.hideActivityDetails}
+          // onMouseLeave={this.hideActivityDetails}
         >
           <ActivityLogIcon />
         </div>
