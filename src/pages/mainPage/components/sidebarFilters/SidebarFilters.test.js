@@ -1,11 +1,12 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import "jest-dom/extend-expect";
 import SidebarFilters from "Pages/mainPage/components/sidebarFilters/SidebarFilters";
 import actionsTypes from "Store/actionsTypes";
 import { FILTERS } from "Utils/constants";
+// import { changeValueAccordingOnMode } from "Store/reducers/filtersReducer";
 
 // afterEach(cleanup);
 beforeEach(() => {});
@@ -26,9 +27,26 @@ const startingState = {
 };
 
 function reducer(state = startingState, action) {
+  // const { value, mode } = action.payload;
+  // let newValue;
+
   switch (action.type) {
     case actionsTypes.SET_FILTER_VARIANT_CLASS:
-      break;
+      return {
+        ...state,
+        [FILTERS.variantClass]: true
+      };
+      /* newValue = changeValueAccordingOnMode(
+        state[FILTERS.variantClass],
+        value,
+        mode
+      );
+
+      return {
+        ...state,
+        [FILTERS.variantClass]: newValue
+      };*/
+
     default:
       return state;
   }
@@ -48,9 +66,12 @@ test("create snapshot", () => {
   expect(asFragment()).toMatchSnapshot();
 });
 
-test("if filter PATH exists", () => {
-  const { getByText } = renderWithRedux(<SidebarFilters />);
-  expect(getByText("PATH")).toBeInTheDocument();
+test("if filter clicked", () => {
+  const { getByLabelText } = renderWithRedux(<SidebarFilters />);
+  const checkbox = getByLabelText("PATH");
+  // console.log(checkbox);
+  fireEvent.click(checkbox);
+  expect(checkbox.checked).toEqual(true);
 });
 
 test("if filter LPATH exists", () => {
