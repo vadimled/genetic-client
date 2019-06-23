@@ -42,7 +42,9 @@ const LogRecord = ({record}) => {
   let titleCurr = "";
 
   if(type === "variantClass"){
+    // console.log("Here: ", VARIANT_CLASS[record.titleCurr]?.label || SOMATIC_CLASS[record.titleCurr].label)
     titleCurr = VARIANT_CLASS[record.titleCurr]?.label || SOMATIC_CLASS[record.titleCurr].label;
+    console.log("--titleCurr: ", titleCurr);
   }
   else if(type === "zygosity"){
     titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label;
@@ -72,18 +74,20 @@ const LogRecord = ({record}) => {
         </div>
       </div>
       <div className="record_changed-item record__item">
-        <div className="divider flex items-center">
-          {type === "variantClass" && <Tag color={currTagColor} />}
-          {
-            type === "notes" ?
+        {
+          type === "notes" ?
+            <div className="divider flex items-center notes">
               <Tooltip placement="topLeft" title={titleCurr}>
                 {titleCurr}
               </Tooltip>
-              :
-              titleCurr
-          }
-          {titleCurr}
-        </div>
+            </div>
+            :
+            <div className="divider flex items-center">
+              {type === "variantClass" && <Tag color={currTagColor} />}
+              <div>{titleCurr}</div>
+            </div>
+        }
+
       </div>
       <div className="record_time record__item">
         {dateFormat(record.time, "H:MM, d mmmm yyyy")}
