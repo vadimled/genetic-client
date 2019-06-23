@@ -811,5 +811,13 @@ th {
   .prev-note {
     color: #96a2aa;
     //overflow: overflow;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .curr-note {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

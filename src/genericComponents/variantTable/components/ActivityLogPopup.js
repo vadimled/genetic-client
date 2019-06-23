@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Button, Modal } from "antd";
+import { Button, Modal, Tooltip } from "antd";
 import Tag from "../../tag";
 import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
 import { ReactComponent as ArrowRight } from "Assets/arrowRight.svg";
@@ -106,13 +106,17 @@ const ActivityLogAction = ({ record }) => {
   if (type === "notes") {
     return (
       <div className="cell border">
-        <div>
-          {titleCurr.length > 40 ? titleCurr.slice(0, 39) + "... " : titleCurr}
-        </div>
-        {titlePrev && (
-          <div className="prev-note">
-            {titlePrev.length > 40 ? titlePrev.slice(0, 39) + "..." : titlePrev}
+        <Tooltip placement="topLeft" title={titleCurr}>
+          <div className="curr-note">
+            {titleCurr}
           </div>
+        </Tooltip>
+        {titlePrev && (
+          <Tooltip placement="topLeft" title={titlePrev}>
+            <div className="prev-note">
+              {titlePrev}
+            </div>
+          </Tooltip>
         )}
       </div>
     );
