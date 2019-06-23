@@ -1,68 +1,72 @@
 import React from "react";
 import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
+// import { ReactComponent as StatusConfirmed } from "Assets/statusConfirmed.svg";
+// import { ReactComponent as StatusNotConfirmed } from "Assets/statusNotConfirmed.svg";
+// import { ReactComponent as StatusPending } from "Assets/statusPending.svg";
 import dateFormat from "dateformat";
-import { SOMATIC_CLASS, TAG_COLORS, VARIANT_CLASS, ZYGOSITY_OPTIONS } from "../../../utils/constants";
+// import { SOMATIC_CLASS, TAG_COLORS, VARIANT_CLASS, ZYGOSITY_OPTIONS } from "../../../utils/constants";
 import Tag from "../../tag/Tag";
 import { Tooltip } from "antd";
-// import { Tooltip } from "antd";
 
+
+// const StatusIcon = ({status}) => {
+//   if(status === "pending"){
+//     return <StatusPending/>;
+//   }
+//   if(status === "confirmed"){
+//     return <StatusConfirmed/>;
+//   }
+//   if(status === "notConfirmed"){
+//     return <StatusNotConfirmed/>;
+//   }
+//   return null;
+// };
 
 const LogRecord = ({record}) => {
 
-  const {type} = record;
+  const {type, status, currTagColor} = record;
 
-  let currTagColor = "";
+  console.log("--record: ", record);
+  console.log("--status: ", status);
 
-  switch (record.titleCurr) {
-    case "unclassified":
-      currTagColor = TAG_COLORS.white;
-      break;
-    case "path":
-    case "tier1":
-      currTagColor = TAG_COLORS.red;
-      break;
-    case "lpath":
-    case "tier2":
-      currTagColor = TAG_COLORS.orange;
-      break;
-    case "vus":
-    case "tier3":
-      currTagColor = TAG_COLORS.yellow;
-      break;
-    case "lben":
-    case "tier4":
-      currTagColor = TAG_COLORS.blueLight;
-      break;
-    case "ben":
-      currTagColor = TAG_COLORS.blue;
-      break;
-  }
-
-
-  let titleCurr = "";
-
-  if(type === "variantClass"){
-    // console.log("Here: ", VARIANT_CLASS[record.titleCurr]?.label || SOMATIC_CLASS[record.titleCurr].label)
-    titleCurr = VARIANT_CLASS[record.titleCurr]?.label || SOMATIC_CLASS[record.titleCurr].label;
-    console.log("--titleCurr: ", titleCurr);
-  }
-  else if(type === "zygosity"){
-    titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label;
-  }else if (type === "notes") {
-    titleCurr = record.titleCurr;
-  }
+  // let currTagColor = "";
+  //
+  // switch (record.titleCurr) {
+  //   case "unclassified":
+  //     currTagColor = TAG_COLORS.white;
+  //     break;
+  //   case "path":
+  //   case "tier1":
+  //     currTagColor = TAG_COLORS.red;
+  //     break;
+  //   case "lpath":
+  //   case "tier2":
+  //     currTagColor = TAG_COLORS.orange;
+  //     break;
+  //   case "vus":
+  //   case "tier3":
+  //     currTagColor = TAG_COLORS.yellow;
+  //     break;
+  //   case "lben":
+  //   case "tier4":
+  //     currTagColor = TAG_COLORS.blueLight;
+  //     break;
+  //   case "ben":
+  //     currTagColor = TAG_COLORS.blue;
+  //     break;
+  // }
 
 
-  // if (type === "notes") {
-  //   return (
-  //     <div className="cell border">
-  //       <Tooltip placement="topLeft" title={titleCurr}>
-  //         <div className="curr-note">
-  //           {titleCurr}
-  //         </div>
-  //       </Tooltip>
-  //     </div>
-  //   );
+  // let titleCurr = "";
+  //
+  // if(type === "variantClass"){
+  //   titleCurr = VARIANT_CLASS[record.titleCurr]?.label || SOMATIC_CLASS[record.titleCurr].label;
+  //   console.log("--titleCurr: ", titleCurr);
+  // }
+  // else if(type === "zygosity"){
+  //   titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label;
+  // }else if (type === "notes") {
+  //   titleCurr = record.titleCurr;
   // }
 
   return (
@@ -77,14 +81,14 @@ const LogRecord = ({record}) => {
         {
           type === "notes" ?
             <div className="divider flex items-center notes">
-              <Tooltip placement="topLeft" title={titleCurr}>
-                {titleCurr}
+              <Tooltip placement="topLeft" title={record.titleCurr}>
+                {record.titleCurr}
               </Tooltip>
             </div>
             :
             <div className="divider flex items-center">
               {type === "variantClass" && <Tag color={currTagColor} />}
-              <div>{titleCurr}</div>
+              <div>{record.titleCurr}</div>
             </div>
         }
 
