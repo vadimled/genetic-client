@@ -107,11 +107,11 @@ const ActivityLogAction = ({ record }) => {
     return (
       <div className="cell border">
         <div>
-          {titleCurr.length > 42 ? titleCurr.slice(0, 41) + "... " : titleCurr}
+          {titleCurr.length > 40 ? titleCurr.slice(0, 39) + "... " : titleCurr}
         </div>
         {titlePrev && (
           <div className="prev-note">
-            {titlePrev.length > 42 ? titlePrev.slice(0, 41) + "..." : titlePrev}
+            {titlePrev.length > 40 ? titlePrev.slice(0, 39) + "..." : titlePrev}
           </div>
         )}
       </div>
