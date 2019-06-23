@@ -279,8 +279,6 @@ class VariantTable extends Component {
   render() {
     const { selectedRowKeys, onSelectRowKey, data } = this.props;
 
-    console.log(data)
-
     // rowSelection object indicates the need for row selection
     const rowSelection = {
       onChange: selectedRowKeys => {
