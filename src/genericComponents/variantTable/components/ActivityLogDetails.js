@@ -4,7 +4,6 @@ import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
 // import { ReactComponent as StatusNotConfirmed } from "Assets/statusNotConfirmed.svg";
 // import { ReactComponent as StatusPending } from "Assets/statusPending.svg";
 import dateFormat from "dateformat";
-// import { SOMATIC_CLASS, TAG_COLORS, VARIANT_CLASS, ZYGOSITY_OPTIONS } from "../../../utils/constants";
 import Tag from "../../tag/Tag";
 import { Tooltip } from "antd";
 
@@ -24,50 +23,7 @@ import { Tooltip } from "antd";
 
 const LogRecord = ({record}) => {
 
-  const {type, status, currTagColor} = record;
-
-  console.log("--record: ", record);
-  console.log("--status: ", status);
-
-  // let currTagColor = "";
-  //
-  // switch (record.titleCurr) {
-  //   case "unclassified":
-  //     currTagColor = TAG_COLORS.white;
-  //     break;
-  //   case "path":
-  //   case "tier1":
-  //     currTagColor = TAG_COLORS.red;
-  //     break;
-  //   case "lpath":
-  //   case "tier2":
-  //     currTagColor = TAG_COLORS.orange;
-  //     break;
-  //   case "vus":
-  //   case "tier3":
-  //     currTagColor = TAG_COLORS.yellow;
-  //     break;
-  //   case "lben":
-  //   case "tier4":
-  //     currTagColor = TAG_COLORS.blueLight;
-  //     break;
-  //   case "ben":
-  //     currTagColor = TAG_COLORS.blue;
-  //     break;
-  // }
-
-
-  // let titleCurr = "";
-  //
-  // if(type === "variantClass"){
-  //   titleCurr = VARIANT_CLASS[record.titleCurr]?.label || SOMATIC_CLASS[record.titleCurr].label;
-  //   console.log("--titleCurr: ", titleCurr);
-  // }
-  // else if(type === "zygosity"){
-  //   titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label;
-  // }else if (type === "notes") {
-  //   titleCurr = record.titleCurr;
-  // }
+  const {type, currTagColor, titleCurr} = record;
 
   return (
     <div className="record flex justify-between items-center">
@@ -81,14 +37,14 @@ const LogRecord = ({record}) => {
         {
           type === "notes" ?
             <div className="divider flex items-center notes">
-              <Tooltip placement="topLeft" title={record.titleCurr}>
-                {record.titleCurr}
+              <Tooltip placement="topLeft" title={titleCurr}>
+                {titleCurr}
               </Tooltip>
             </div>
             :
             <div className="divider flex items-center">
               {type === "variantClass" && <Tag color={currTagColor} />}
-              <div>{record.titleCurr}</div>
+              <div>{titleCurr}</div>
             </div>
         }
 

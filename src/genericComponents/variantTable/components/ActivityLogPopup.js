@@ -6,102 +6,10 @@ import { ReactComponent as ArrowRight } from "Assets/arrowRight.svg";
 import { connect } from "react-redux";
 import { getActivityLog } from "Store/selectors";
 import dateFormat from "dateformat";
-// import {
-//   SOMATIC_CLASS,
-//   TAG_COLORS,
-//   VARIANT_CLASS,
-//   ZYGOSITY_OPTIONS
-// } from "../../../utils/constants";
+
 
 const ActivityLogAction = ({ record }) => {
   const { type, prevTagColor, currTagColor, titleCurr, titlePrev } = record;
-
-  // let prevTagColor = "";
-  //
-  // let currTagColor = "";
-
-  // switch (record.titlePrev) {
-  //   case "unclassified":
-  //     prevTagColor = TAG_COLORS.white;
-  //     break;
-  //   case "path":
-  //   case "tier1":
-  //     prevTagColor = TAG_COLORS.red;
-  //     break;
-  //   case "lpath":
-  //   case "tier2":
-  //     prevTagColor = TAG_COLORS.orange;
-  //     break;
-  //   case "vus":
-  //   case "tier3":
-  //     prevTagColor = TAG_COLORS.yellow;
-  //     break;
-  //   case "lben":
-  //   case "tier4":
-  //     prevTagColor = TAG_COLORS.blueLight;
-  //     break;
-  //   case "ben":
-  //     prevTagColor = TAG_COLORS.blue;
-  //     break;
-  // }
-  //
-  // switch (record.titleCurr) {
-  //   case "unclassified":
-  //     currTagColor = TAG_COLORS.white;
-  //     break;
-  //   case "path":
-  //   case "tier1":
-  //     currTagColor = TAG_COLORS.red;
-  //     break;
-  //   case "lpath":
-  //   case "tier2":
-  //     currTagColor = TAG_COLORS.orange;
-  //     break;
-  //   case "vus":
-  //   case "tier3":
-  //     currTagColor = TAG_COLORS.yellow;
-  //     break;
-  //   case "lben":
-  //   case "tier4":
-  //     currTagColor = TAG_COLORS.blueLight;
-  //     break;
-  //   case "ben":
-  //     currTagColor = TAG_COLORS.blue;
-  //     break;
-  // }
-
-  // let titlePrev = "";
-  //
-  // let titleCurr = "";
-
-  // if (type === "variantClass") {
-  //   titlePrev =
-  //     VARIANT_CLASS[record.titlePrev]?.label ||
-  //     SOMATIC_CLASS[record.titlePrev].label;
-  //   titleCurr =
-  //     VARIANT_CLASS[record.titleCurr]?.label ||
-  //     SOMATIC_CLASS[record.titleCurr].label;
-  // } else if (type === "zygosity") {
-  //   if (record.titlePrev) {
-  //     titlePrev = ZYGOSITY_OPTIONS.find(
-  //       option => option.value === record.titlePrev
-  //     ).label;
-  //     titleCurr = ZYGOSITY_OPTIONS.find(
-  //       option => option.value === record.titleCurr
-  //     ).label;
-  //   } else {
-  //     titleCurr = ZYGOSITY_OPTIONS.find(
-  //       option => option.value === record.titleCurr
-  //     ).label;
-  //   }
-  // } else if (type === "notes") {
-  //   if (record.titlePrev) {
-  //     titlePrev = record.titlePrev;
-  //     titleCurr = record.titleCurr;
-  //   } else {
-  //     titleCurr = record.titleCurr;
-  //   }
-  // }
 
   if (type === "notes") {
     return (
@@ -161,7 +69,6 @@ const ActivityLogPopupTableRecord = ({ record }) => {
 class ActivityLogPopup extends Component {
   render() {
     const { visible, handleOk, handleCancel, activityLog } = this.props;
-    // const data = this.props[1];
 
     console.log("--activityLog: ", activityLog);
 
@@ -201,15 +108,6 @@ function mapStateToProps(state, ownProps) {
     activityLog: getActivityLog(state, record.id)
   };
 }
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     onSelectRowKey: (data) => dispatch(onSelectRowKey(data)),
-//     handleZygosity: (data) => dispatch(handleZygosity(data)),
-//     handleVariantClass: (data) => dispatch(handleVariantClass(data)),
-//     updateActivityLog: data => dispatch(updateActivityLog(data))
-//   };
-// }
 
 export default connect(
   mapStateToProps,
