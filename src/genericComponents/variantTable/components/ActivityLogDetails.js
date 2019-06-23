@@ -3,6 +3,8 @@ import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
 import dateFormat from "dateformat";
 import { SOMATIC_CLASS, TAG_COLORS, VARIANT_CLASS, ZYGOSITY_OPTIONS } from "../../../utils/constants";
 import Tag from "../../tag/Tag";
+import { Tooltip } from "antd";
+// import { Tooltip } from "antd";
 
 
 const LogRecord = ({record}) => {
@@ -44,7 +46,22 @@ const LogRecord = ({record}) => {
   }
   else if(type === "zygosity"){
     titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label;
+  }else if (type === "notes") {
+    titleCurr = record.titleCurr;
   }
+
+
+  // if (type === "notes") {
+  //   return (
+  //     <div className="cell border">
+  //       <Tooltip placement="topLeft" title={titleCurr}>
+  //         <div className="curr-note">
+  //           {titleCurr}
+  //         </div>
+  //       </Tooltip>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="record flex justify-between items-center">
@@ -57,6 +74,14 @@ const LogRecord = ({record}) => {
       <div className="record_changed-item record__item">
         <div className="divider flex items-center">
           {type === "variantClass" && <Tag color={currTagColor} />}
+          {
+            type === "notes" ?
+              <Tooltip placement="topLeft" title={titleCurr}>
+                {titleCurr}
+              </Tooltip>
+              :
+              titleCurr
+          }
           {titleCurr}
         </div>
       </div>

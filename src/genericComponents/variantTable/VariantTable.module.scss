@@ -46,9 +46,14 @@
         min-width: 84px;
       }
       .record_changed-item {
-        min-width: 90px;
+        width: 81px;
         text-align: center;
-        //padding-left: 20px;
+        div {
+          display: block;
+          white-space: nowrap !important;
+          overflow: hidden !important;
+          text-overflow: ellipsis !important;
+        }
       }
       .record_time {
         min-width: 146px;
