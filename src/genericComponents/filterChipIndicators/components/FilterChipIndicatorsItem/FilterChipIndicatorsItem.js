@@ -12,7 +12,7 @@ const FilterChipIndicatorsItem = ({ data, onDelete, filtersConfigKey }) => {
           if (typeof item === "number") {
             return (
               <Fragment key={index}>
-                <span>{item}</span>
+                <span data-testid={`filter-${item}`}>{item}</span>
                 {index < data.length - 1 &&
                   (filtersConfigKey === FILTERS.vaf ? (
                     <span> - </span>
@@ -25,7 +25,7 @@ const FilterChipIndicatorsItem = ({ data, onDelete, filtersConfigKey }) => {
             return (
               <Fragment key={item.id}>
                 {!!item.icon && <span className="icon">{item.icon}</span>}
-                <span>{item.label}</span>
+                <span data-testid={`filter-${item.label}`}>{item.label}</span>
                 {index < data.length - 1 && <span>, </span>}
               </Fragment>
             );

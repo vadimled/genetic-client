@@ -2,12 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Checkbox } from "antd";
 import style from "./FilterCheckboxItem.module.scss";
-import Tag from 'GenericComponents/tag';
+import Tag from "GenericComponents/tag";
 
 const FilterCheckboxItem = ({ item, onChange, value }) => (
   <div className={`${style["filter-item-wrapper"]} filter-item`}>
-
-    <Checkbox checked={value} onChange={onChange}>
+    <Checkbox
+      checked={value}
+      onChange={onChange}
+      data-testid={`filter-checkbox-${item.label}`}
+    >
       <div className="flex items-center checkbox-inner-content">
         {!!item.icon && item.icon}
         {!!item.tagColor && <Tag color={item.tagColor} />}
@@ -18,14 +21,13 @@ const FilterCheckboxItem = ({ item, onChange, value }) => (
         </span>
       </div>
     </Checkbox>
-
   </div>
 );
 
 FilterCheckboxItem.propTypes = {
   item: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.bool,
+  value: PropTypes.bool
 };
 
 FilterCheckboxItem.defaultProps = {
