@@ -73,4 +73,106 @@ describe("SideBarFilters component test", () => {
     expect(indicator4).not.toBeInTheDocument();
     expect(indicator6).not.toBeInTheDocument();
   });
+
+  test("if filter 'hotSpot' clicked; if indicator 'hotSpot' delete clicked", () => {
+    const { getByTestId } = renderWithRedux(<SidebarFilters />);
+    
+    fireEvent.click(getByTestId("filter-checkbox-hotSpot-True"));
+    fireEvent.click(getByTestId("filter-checkbox-hotSpot-False"));
+    
+    const
+      indicator1 = getByTestId("filter-hotSpot-True"),
+      indicator2 = getByTestId("filter-hotSpot-False");
+    
+    expect(indicator1).toBeInTheDocument();
+    expect(indicator2).toBeInTheDocument();
+  
+    fireEvent.click(getByTestId("button-hotSpot"));
+    expect(indicator1).not.toBeInTheDocument();
+    expect(indicator2).not.toBeInTheDocument();
+  });
+
+  test("if filter 'snp' clicked; if indicator 'snp' delete clicked", () => {
+    const { getByTestId } = renderWithRedux(<SidebarFilters />);
+    
+    fireEvent.click(getByTestId("filter-checkbox-snp-True"));
+    fireEvent.click(getByTestId("filter-checkbox-snp-False"));
+    
+    const
+      indicator1 = getByTestId("filter-snp-True"),
+      indicator2 = getByTestId("filter-snp-False");
+    
+    expect(indicator1).toBeInTheDocument();
+    expect(indicator2).toBeInTheDocument();
+  
+    fireEvent.click(getByTestId("button-snp"));
+    expect(indicator1).not.toBeInTheDocument();
+    expect(indicator2).not.toBeInTheDocument();
+  });
+
+  test("if filter 'roi' clicked; if indicator 'roi' delete clicked", () => {
+    const { getByTestId } = renderWithRedux(<SidebarFilters />);
+    
+    fireEvent.click(getByTestId("filter-checkbox-roi-True"));
+    fireEvent.click(getByTestId("filter-checkbox-roi-False"));
+    
+    const
+      indicator1 = getByTestId("filter-roi-True"),
+      indicator2 = getByTestId("filter-roi-False");
+    
+    expect(indicator1).toBeInTheDocument();
+    expect(indicator2).toBeInTheDocument();
+  
+    fireEvent.click(getByTestId("button-roi"));
+    expect(indicator1).not.toBeInTheDocument();
+    expect(indicator2).not.toBeInTheDocument();
+  });
+
+  test("if filter 'canserBDs' clicked; if indicator 'canserBDs' delete clicked", () => {
+    const { getByTestId } = renderWithRedux(<SidebarFilters />);
+    
+    fireEvent.click(getByTestId("filter-checkbox-canserBDs-Clinvar"));
+    fireEvent.click(getByTestId("filter-checkbox-canserBDs-Cosmic"));
+    fireEvent.click(getByTestId("filter-checkbox-canserBDs-Omim"));
+    
+    const
+      indicator1 = getByTestId("filter-canserBDs-Clinvar"),
+      indicator2 = getByTestId("filter-canserBDs-Cosmic"),
+      indicator3 = getByTestId("filter-canserBDs-Omim");
+    
+    expect(indicator1).toBeInTheDocument();
+    expect(indicator2).toBeInTheDocument();
+    expect(indicator3).toBeInTheDocument();
+  
+    fireEvent.click(getByTestId("button-canserBDs"));
+    expect(indicator1).not.toBeInTheDocument();
+    expect(indicator2).not.toBeInTheDocument();
+    expect(indicator3).not.toBeInTheDocument();
+  });
+
+  test("if filter 'gnomAD' clicked; if indicator 'gnomAD' delete clicked", () => {
+    const { getByTestId } = renderWithRedux(<SidebarFilters />);
+    
+    fireEvent.click(getByTestId("filter-checkbox-gnomAD-NA"));
+    fireEvent.click(getByTestId("filter-checkbox-gnomAD-very rare(0-1%)"));
+    fireEvent.click(getByTestId("filter-checkbox-gnomAD-rare (1-5%)"));
+    fireEvent.click(getByTestId("filter-checkbox-gnomAD-common (>5%)"));
+    
+    const
+      indicator1 = getByTestId("filter-gnomAD-NA"),
+      indicator2 = getByTestId("filter-gnomAD-very rare(0-1%)"),
+      indicator3 = getByTestId("filter-gnomAD-rare (1-5%)"),
+      indicator4 = getByTestId("filter-gnomAD-common (>5%)");
+    
+    expect(indicator1).toBeInTheDocument();
+    expect(indicator2).toBeInTheDocument();
+    expect(indicator3).toBeInTheDocument();
+    expect(indicator4).toBeInTheDocument();
+  
+    fireEvent.click(getByTestId("button-gnomAD"));
+    expect(indicator1).not.toBeInTheDocument();
+    expect(indicator2).not.toBeInTheDocument();
+    expect(indicator3).not.toBeInTheDocument();
+    expect(indicator4).not.toBeInTheDocument();
+  });
 });
