@@ -28,8 +28,8 @@ export const getPrevTagColor = title => {
       break;
   }
 
-  return prevTagColor
-}
+  return prevTagColor;
+};
 
 export const getCurrTagColor = title => {
   let currTagColor = "";
@@ -59,8 +59,8 @@ export const getCurrTagColor = title => {
       break;
   }
 
-  return currTagColor
-}
+  return currTagColor;
+};
 
 export const getTitlePrev = (type, record) =>{
   let titlePrev = "";
@@ -82,8 +82,8 @@ export const getTitlePrev = (type, record) =>{
     }
   }
 
-  return titlePrev
-}
+  return titlePrev;
+};
 
 export const getTitleCurr = (type, record) =>{
   let titleCurr = "";
@@ -112,4 +112,4 @@ export const getTitleCurr = (type, record) =>{
 
   return titleCurr;
 
-}
+};

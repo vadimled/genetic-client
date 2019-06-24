@@ -4,7 +4,6 @@ import { Tooltip } from "antd";
 import Tag from "../../../tag/Tag";
 import { ReactComponent as ArrowRight } from "Assets/arrowRight.svg";
 import PropTypes from 'prop-types';
-import ActivityLogPopupTableRecord from "./ActivityLogPopupTableRecord";
 
 
 const ActivityLogAction = ({ record }) => {
@@ -49,7 +48,7 @@ const ActivityLogAction = ({ record }) => {
   );
 };
 
-ActivityLogPopupTableRecord.propTypes = {
+ActivityLogAction.propTypes = {
   record: PropTypes.object,
 };
 
