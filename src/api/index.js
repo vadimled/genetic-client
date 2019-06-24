@@ -1,4 +1,1 @@
-export {
-  fetchBAMFile,
-  goToChrPositionIgv,
-} from './Api';
+export { default } from './Api';

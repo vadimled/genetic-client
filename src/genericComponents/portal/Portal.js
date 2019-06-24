@@ -2,7 +2,12 @@ import {Component} from 'react';
 import ReactDom from 'react-dom';
 import './style.scss';
 
-const portalRoot = document.getElementById('portal');
+let portalRoot = document.getElementById('portal');
+if (!portalRoot) {
+  portalRoot = document.createElement('div');
+  portalRoot.id = 'portal';
+  document.body.appendChild(portalRoot);
+}
 
 class Portal extends Component {
   constructor(props) {
@@ -13,15 +18,15 @@ class Portal extends Component {
     this.elin.classList.add('portal');
     this.el.appendChild(this.elin);
   }
-  
+
   componentDidMount() {
     portalRoot.appendChild(this.el);
   }
-  
+
   componentWillUnmount() {
     portalRoot.removeChild(this.el);
   }
-  
+
   render() {
     const {children} = this.props;
     return ReactDom.createPortal(children, this.el);

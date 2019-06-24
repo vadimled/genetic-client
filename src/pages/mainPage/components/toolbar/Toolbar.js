@@ -29,7 +29,6 @@ class Toolbar extends Component {
     this.props.setMutationType(e.target.value);
   };
 
-
   fetchBAMFile = () => {
     const { BAMFileUrl } = this.props;
     this.props.fetchBAMFile(BAMFileUrl);
@@ -102,6 +101,7 @@ class Toolbar extends Component {
               onClick={this.fetchBAMFile}
               disabled={fetchBAMFileStatus}
               className={fetchBAMFileStatus ? `progress progress--${fetchBAMFileStatus}` : ''}
+              data-testid="open-igv-btn"
             >
               Load BAM{fetchBAMFileStatus === 3 && <Icon type="check" />}
             </Button>
