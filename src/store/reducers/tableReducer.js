@@ -26,8 +26,8 @@ const tableReducer = createReducer(initialState, {
       if (data.hasOwnProperty(key)) {
         let item = data[key];
 
-        // if an item has already confirmationStatus we cannot select it to send for confirmation
-        if (!item.confirmationStatus) {
+        // if an item has already status we cannot select it to send for confirmation
+        if (!item.status) {
           item.selected = payload === true
             // if all rows selected or on discarding
             ? false
@@ -94,7 +94,7 @@ const tableReducer = createReducer(initialState, {
     // payload includes confirmed rows
     payload.forEach((row) => {
       let dataRow = data[row.id];
-      dataRow.confirmationStatus = 'pending';
+      dataRow.status = 'pending';
       dataRow.selected = false;
     });
 
@@ -107,7 +107,7 @@ const tableReducer = createReducer(initialState, {
   [actionsTypes.HANDLE_CONFIRMATION_STATUS]: (state, { payload }) => {
     const { id, status } = payload;
     let data = state?.data;
-    data[id].confirmationStatus = status;
+    data[id].status = status;
 
     return {
       ...state,

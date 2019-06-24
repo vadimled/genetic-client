@@ -36,10 +36,10 @@ class VariantTable extends Component {
         fixed: "left",
         className: "selection-cell",
         render: (text, record) => {
-          if (record.confirmationStatus) {
+          if (record.status) {
             return (
               <ConfirmationStatus
-                status={record.confirmationStatus}
+                status={record.status}
                 handleStatus={(status) => this.props.handleConfirmationStatus({
                   id: record.id,
                   status
