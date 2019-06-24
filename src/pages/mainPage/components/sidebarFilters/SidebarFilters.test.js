@@ -43,4 +43,34 @@ describe("SideBarFilters component test", () => {
     expect(indicator5).not.toBeInTheDocument();
     expect(indicator6).not.toBeInTheDocument();
   });
+
+  test("if filter 'somaticClass' clicked; if indicator 'somaticClass' delete clicked", () => {
+    const { getByTestId } = renderWithRedux(<SidebarFilters />);
+    
+    fireEvent.click(getByTestId("filter-checkbox-somaticClass-Tier1"));
+    fireEvent.click(getByTestId("filter-checkbox-somaticClass-Tier2"));
+    fireEvent.click(getByTestId("filter-checkbox-somaticClass-Tier3"));
+    fireEvent.click(getByTestId("filter-checkbox-somaticClass-Tier4"));
+    fireEvent.click(getByTestId("filter-checkbox-somaticClass-Unclassified"));
+    
+    const
+      indicator1 = getByTestId("filter-somaticClass-Tier1"),
+      indicator2 = getByTestId("filter-somaticClass-Tier2"),
+      indicator3 = getByTestId("filter-somaticClass-Tier3"),
+      indicator4 = getByTestId("filter-somaticClass-Tier4"),
+      indicator6 = getByTestId("filter-somaticClass-Unclassified");
+    
+    expect(indicator1).toBeInTheDocument();
+    expect(indicator2).toBeInTheDocument();
+    expect(indicator3).toBeInTheDocument();
+    expect(indicator4).toBeInTheDocument();
+    expect(indicator6).toBeInTheDocument();
+  
+    fireEvent.click(getByTestId("button-somaticClass"));
+    expect(indicator1).not.toBeInTheDocument();
+    expect(indicator2).not.toBeInTheDocument();
+    expect(indicator3).not.toBeInTheDocument();
+    expect(indicator4).not.toBeInTheDocument();
+    expect(indicator6).not.toBeInTheDocument();
+  });
 });
