@@ -10,28 +10,30 @@ describe("SideBarFilters component test", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("if filter variantClass-PATH clicked", () => {
-    const { getByTestId } = renderWithRedux(<SidebarFilters />);
-    const checkbox = getByTestId("filter-checkbox-PATH");
-    fireEvent.click(checkbox);
-
-    const indicator = getByTestId("filter-variantClass-PATH");
-    expect(indicator).toBeInTheDocument();
-  });
-
-  test("if indicator variantClass delete clicked", () => {
+  test("if filter 'variantClass' clicked; if indicator 'variantClass' delete clicked", () => {
     const { getByTestId } = renderWithRedux(<SidebarFilters />);
     
     fireEvent.click(getByTestId("filter-checkbox-PATH"));
     fireEvent.click(getByTestId("filter-checkbox-LPATH"));
+    fireEvent.click(getByTestId("filter-checkbox-VUS"));
+    fireEvent.click(getByTestId("filter-checkbox-LBEN"));
+    fireEvent.click(getByTestId("filter-checkbox-BEN"));
     
-    const indicator = getByTestId("filter-variantClass-PATH");
-    expect(indicator).toBeInTheDocument();
-    const indicator1 = getByTestId("filter-variantClass-LPATH");
+    const
+      indicator1 = getByTestId("filter-variantClass-PATH"),
+      indicator2 = getByTestId("filter-variantClass-LPATH"),
+      indicator3 = getByTestId("filter-variantClass-VUS"),
+      indicator4 = getByTestId("filter-variantClass-LBEN"),
+      indicator5 = getByTestId("filter-variantClass-BEN");
+    
     expect(indicator1).toBeInTheDocument();
+    expect(indicator2).toBeInTheDocument();
+    expect(indicator3).toBeInTheDocument();
+    expect(indicator4).toBeInTheDocument();
+    expect(indicator5).toBeInTheDocument();
   
     fireEvent.click(getByTestId("button-variantClass"));
-    expect(indicator).not.toBeInTheDocument();
     expect(indicator1).not.toBeInTheDocument();
+    expect(indicator2).not.toBeInTheDocument();
   });
 });
