@@ -19,7 +19,7 @@ function renderWithRedux(
   return {
     ...render(<Provider store={store}>{component}</Provider>),
     store,
-  }
+  };
 }
 
 describe('IgvAlertPopup', () => {
@@ -76,7 +76,10 @@ describe('IgvAlertPopup', () => {
 
   it('handle retry btn with BAM_FILE', () => {
     const sagaMiddleware = createSagaMiddleware();
-    const { getByTestId, store } = renderWithRedux(<IgvAlertPopup />, createStore(reducers, applyMiddleware(sagaMiddleware)));
+    const { getByTestId, store } = renderWithRedux(
+      <IgvAlertPopup />,
+      createStore(reducers, applyMiddleware(sagaMiddleware))
+    );
     sagaMiddleware.run(watchSaga);
 
     const retryBtn = getByTestId('retry-btn');
@@ -101,7 +104,10 @@ describe('IgvAlertPopup', () => {
 
   it('handle retry btn with BAM_FILE', () => {
     const sagaMiddleware = createSagaMiddleware();
-    const { getByTestId, store } = renderWithRedux(<IgvAlertPopup />, createStore(reducers, applyMiddleware(sagaMiddleware)));
+    const { getByTestId, store } = renderWithRedux(
+      <IgvAlertPopup />,
+      createStore(reducers, applyMiddleware(sagaMiddleware))
+    );
     sagaMiddleware.run(watchSaga);
 
     const retryBtn = getByTestId('retry-btn');

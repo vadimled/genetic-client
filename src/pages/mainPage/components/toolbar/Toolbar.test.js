@@ -18,7 +18,7 @@ function renderWithRedux(
   return {
     ...render(<Provider store={store}>{component}</Provider>),
     store,
-  }
+  };
 }
 
 describe('Toolbar', () => {
