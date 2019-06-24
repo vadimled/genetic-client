@@ -1,15 +1,6 @@
 import axios from 'axios';
 
-export const ApiMock = {
-  fetchBAMFile() {
-    return true;
-  },
-  goToChrPositionIgv() {
-    return true;
-  }
-};
-
-export const ApiReal = {
+export default {
   fetchBAMFile (BAMFileUrl) {
     return axios.get(`http://localhost:60151/load?file=${BAMFileUrl}`);
   },
@@ -17,5 +8,3 @@ export const ApiReal = {
     return axios.get(`http://localhost:60151/goto?locus=${chrPosition}`);
   }
 };
-
-export default process?.env?.NODE_ENV === 'test' ? ApiMock : ApiReal;

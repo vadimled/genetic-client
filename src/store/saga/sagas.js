@@ -13,6 +13,12 @@ function* onDelay(time) {
     : yield delay(time);
 }
 
+function* consoleErrors(e) {
+  process?.env?.NODE_ENV === 'test'
+    ? yield true
+    : console.log("e", e);
+}
+
 export function* fetchBAMFileGenerator(data) {
   try {
     yield put(setIgvLastQuery({ type: 'BAM_FILE', data: data.payload }));
@@ -26,7 +32,7 @@ export function* fetchBAMFileGenerator(data) {
     yield put(setFetchBAMFileStatus(null));
     yield put(setIgvLastQuery(null));
   } catch (e) {
-    console.log("e", e);
+    consoleErrors(e);
     yield put(handleIgvAlertShow(true));
   }
 }
@@ -36,7 +42,7 @@ export function* goToChrPositionIgvGenerator(data) {
     yield call(Api.goToChrPositionIgv, data.payload);
     yield put(setIgvLastQuery(null));
   } catch (e) {
-    console.log("e", e);
+    consoleErrors(e);
     yield put(handleIgvAlertShow(true));
   }
 }

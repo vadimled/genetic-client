@@ -102,7 +102,7 @@ describe('IgvAlertPopup', () => {
     expect(igvStore3.igvLastQuery).toEqual(null);
   });
 
-  it('handle retry btn with BAM_FILE', () => {
+  it('handle retry btn with CHR_POS', () => {
     const sagaMiddleware = createSagaMiddleware();
     const { getByTestId, store } = renderWithRedux(
       <IgvAlertPopup />,
@@ -128,6 +128,74 @@ describe('IgvAlertPopup', () => {
     expect(igvStore3.isIgvAlertShow).toEqual(false);
     expect(igvStore3.fetchBAMFileStatus).toEqual(null);
     expect(igvStore3.igvLastQuery).toEqual(null);
+  });
+
+  it('handle retry btn with BAM_FILE with no working api', () => {
+    const sagaMiddleware = createSagaMiddleware();
+    const { getByTestId, store } = renderWithRedux(
+      <IgvAlertPopup />,
+      createStore(reducers, applyMiddleware(sagaMiddleware))
+    );
+    sagaMiddleware.run(watchSaga);
+
+    const retryBtn = getByTestId('retry-btn');
+
+    // when popup has opened, isIgvAlertShow must be true
+    store.dispatch(handleIgvAlertShow(true));
+    const igvStore = store.getState().igv;
+    expect(igvStore.isIgvAlertShow).toEqual(true);
+
+    const mockIgvQuery = 'http://mock.bam';
+    store.dispatch(setIgvLastQuery({ type: 'BAM_FILE', data: mockIgvQuery }));
+    const igvStore2 = store.getState().igv;
+    expect(igvStore2.igvLastQuery).toEqual({type: "BAM_FILE", data: "http://mock.bam"});
+
+    // define the api response
+    process.env.FETCH_BEM_FILE_RESPONSE = 'error';
+
+    fireEvent.click(retryBtn);
+
+    // remove defined api response
+    delete process.env.FETCH_BEM_FILE_RESPONSE;
+
+    const igvStore3 = store.getState().igv;
+    expect(igvStore3.isIgvAlertShow).toEqual(true);
+    expect(igvStore3.fetchBAMFileStatus).toEqual(null);
+    expect(igvStore3.igvLastQuery).toBeDefined();
+  });
+
+  it('handle retry btn with CHR_POS with no working api', () => {
+    const sagaMiddleware = createSagaMiddleware();
+    const { getByTestId, store } = renderWithRedux(
+      <IgvAlertPopup />,
+      createStore(reducers, applyMiddleware(sagaMiddleware))
+    );
+    sagaMiddleware.run(watchSaga);
+
+    const retryBtn = getByTestId('retry-btn');
+
+    // when popup has opened, isIgvAlertShow must be true
+    store.dispatch(handleIgvAlertShow(true));
+    const igvStore = store.getState().igv;
+    expect(igvStore.isIgvAlertShow).toEqual(true);
+
+    const mockIgvQuery = 'http://mock2.bam?locus=Chr5:341309';
+    store.dispatch(setIgvLastQuery({ type: 'CHR_POS', data: mockIgvQuery }));
+    const igvStore2 = store.getState().igv;
+    expect(igvStore2.igvLastQuery).toEqual({type: "CHR_POS", data: "http://mock2.bam?locus=Chr5:341309"});
+
+    // define the api response
+    process.env.GO_TO_CHR_POSITION_IGV_RESPONSE = 'error';
+
+    fireEvent.click(retryBtn);
+
+    // remove defined api response
+    delete process.env.GO_TO_CHR_POSITION_IGV_RESPONSE;
+
+    const igvStore3 = store.getState().igv;
+    expect(igvStore3.isIgvAlertShow).toEqual(true);
+    expect(igvStore3.fetchBAMFileStatus).toEqual(null);
+    expect(igvStore3.igvLastQuery).toBeDefined();
   });
 
 });
