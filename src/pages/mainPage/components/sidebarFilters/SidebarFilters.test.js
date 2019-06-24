@@ -35,5 +35,8 @@ describe("SideBarFilters component test", () => {
     fireEvent.click(getByTestId("button-variantClass"));
     expect(indicator1).not.toBeInTheDocument();
     expect(indicator2).not.toBeInTheDocument();
+    expect(indicator3).not.toBeInTheDocument();
+    expect(indicator4).not.toBeInTheDocument();
+    expect(indicator5).not.toBeInTheDocument();
   });
 });
