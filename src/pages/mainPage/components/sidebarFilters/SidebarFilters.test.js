@@ -1,17 +1,8 @@
 import React from "react";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
 import SidebarFilters from "Pages/mainPage/components/sidebarFilters/SidebarFilters";
-import reducers from "Store/reducers";
-
-function renderWithRedux(component, store = createStore(reducers)) {
-  return {
-    ...render(<Provider store={store}>{component}</Provider>),
-    store
-  };
-}
+import { renderWithRedux } from "Utils/test_helpers";
 
 describe("SideBarFilters component test", () => {
   test("create snapshot", () => {
@@ -19,15 +10,28 @@ describe("SideBarFilters component test", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("if filter clicked", () => {
-    const { getByTestId, store } = renderWithRedux(<SidebarFilters />);
+  test("if filter variantClass-PATH clicked", () => {
+    const { getByTestId } = renderWithRedux(<SidebarFilters />);
     const checkbox = getByTestId("filter-checkbox-PATH");
     fireEvent.click(checkbox);
 
-    const mStore = store.getState().filters;
-    console.log(mStore);
+    const indicator = getByTestId("filter-variantClass-PATH");
+    expect(indicator).toBeInTheDocument();
+  });
 
-    const ancestor = getByTestId("filter-PATH");
-    expect(ancestor).toBeInTheDocument();
+  test("if indicator variantClass delete clicked", () => {
+    const { getByTestId } = renderWithRedux(<SidebarFilters />);
+    
+    fireEvent.click(getByTestId("filter-checkbox-PATH"));
+    fireEvent.click(getByTestId("filter-checkbox-LPATH"));
+    
+    const indicator = getByTestId("filter-variantClass-PATH");
+    expect(indicator).toBeInTheDocument();
+    const indicator1 = getByTestId("filter-variantClass-LPATH");
+    expect(indicator1).toBeInTheDocument();
+  
+    fireEvent.click(getByTestId("button-variantClass"));
+    expect(indicator).not.toBeInTheDocument();
+    expect(indicator1).not.toBeInTheDocument();
   });
 });

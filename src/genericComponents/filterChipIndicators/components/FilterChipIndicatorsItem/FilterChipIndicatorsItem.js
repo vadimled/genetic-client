@@ -12,7 +12,7 @@ const FilterChipIndicatorsItem = ({ data, onDelete, filtersConfigKey }) => {
           if (typeof item === "number") {
             return (
               <Fragment key={index}>
-                <span data-testid={`filter-${item}`}>{item}</span>
+                <span data-testid={`filter-${filtersConfigKey}-${item}`}>{item}</span>
                 {index < data.length - 1 &&
                   (filtersConfigKey === FILTERS.vaf ? (
                     <span> - </span>
@@ -25,18 +25,19 @@ const FilterChipIndicatorsItem = ({ data, onDelete, filtersConfigKey }) => {
             return (
               <Fragment key={item.id}>
                 {!!item.icon && <span className="icon">{item.icon}</span>}
-                <span data-testid={`filter-${item.label}`}>{item.label}</span>
+                <span data-testid={`filter-${filtersConfigKey}-${item.label}`}>{item.label}</span>
                 {index < data.length - 1 && <span>, </span>}
               </Fragment>
             );
           } else if (typeof item === "string") {
-            return <span key={index}>{item}</span>;
+            return <span key={index} data-testid={`filter-${filtersConfigKey}-${item}`}>{item}</span>;
           }
           return "";
         })}
       </div>
 
       <button
+        data-testid={`button-${filtersConfigKey}`}
         className="button"
         style={{ backgroundImage: `url(${btnImg})` }}
         onClick={onDelete}
