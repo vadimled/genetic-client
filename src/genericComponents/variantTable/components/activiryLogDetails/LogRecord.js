@@ -1,11 +1,15 @@
 import React from "react";
-import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
 import dateFormat from "dateformat";
-import { SOMATIC_CLASS, TAG_COLORS, VARIANT_CLASS, ZYGOSITY_OPTIONS } from "../../../utils/constants";
-import Tag from "../../tag/Tag";
+import {
+  SOMATIC_CLASS,
+  TAG_COLORS,
+  VARIANT_CLASS,
+  ZYGOSITY_OPTIONS
+} from "../../../../utils/constants";
+import PropTypes from 'prop-types';
+import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
+import Tag from "../../../tag/Tag";
 import { Tooltip } from "antd";
-// import { Tooltip } from "antd";
-
 
 const LogRecord = ({record}) => {
 
@@ -92,19 +96,8 @@ const LogRecord = ({record}) => {
   );
 };
 
+LogRecord.propTypes = {
+  record: PropTypes.object,
+};
 
-const ActiveLogDetails = ({activityLog, hideActivityDetails}) => (
-  <div className="active-log-details" onMouseLeave={hideActivityDetails}>
-    {
-      activityLog.map((record, i) => (
-        <LogRecord key={i} record={record} />
-      ))
-    }
-  </div>
-    
-
-
-
-);
-
-export default ActiveLogDetails;
+export default LogRecord;
