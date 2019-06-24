@@ -4,12 +4,12 @@ import { Checkbox } from "antd";
 import style from "./FilterCheckboxItem.module.scss";
 import Tag from "GenericComponents/tag";
 
-const FilterCheckboxItem = ({ item, onChange, value }) => (
+const FilterCheckboxItem = ({groupName, item, onChange, value }) => (
   <div className={`${style["filter-item-wrapper"]} filter-item`}>
     <Checkbox
       checked={value}
       onChange={onChange}
-      data-testid={`filter-checkbox-${item.label}`}
+      data-testid={`filter-checkbox-${groupName}-${item.label}`}
     >
       <div className="flex items-center checkbox-inner-content">
         {!!item.icon && item.icon}
@@ -27,7 +27,8 @@ const FilterCheckboxItem = ({ item, onChange, value }) => (
 FilterCheckboxItem.propTypes = {
   item: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.bool
+  value: PropTypes.bool,
+  groupName: PropTypes.string
 };
 
 FilterCheckboxItem.defaultProps = {
