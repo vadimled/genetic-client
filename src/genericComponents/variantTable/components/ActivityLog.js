@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import ActiveLogDetails from "./ActivityLogDetails";
-import ActivityLogPopup from "./ActivityLogPopup";
+import ActiveLogDetails from "./activiryLogDetails/ActivityLogDetails";
+import ActivityLogPopup from "./activityLogPopup/ActivityLogPopup";
 import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
 import {connect} from "react-redux";
 import {getActivityLog} from "Store/selectors";
+import PropTypes from 'prop-types';
 
 
 
@@ -94,5 +95,8 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
+ActivityLog.propTypes = {
+  activityLog: PropTypes.array
+};
 
 export default connect(mapStateToProps, {})(ActivityLog);
