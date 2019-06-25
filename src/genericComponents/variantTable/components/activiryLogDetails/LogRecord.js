@@ -2,7 +2,6 @@ import React from "react";
 import dateFormat from "dateformat";
 import {
   SOMATIC_CLASS,
-  TAG_COLORS,
   VARIANT_CLASS,
   ZYGOSITY_OPTIONS
 } from "../../../../utils/constants";
@@ -10,38 +9,11 @@ import PropTypes from 'prop-types';
 import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
 import Tag from "../../../tag/Tag";
 import { Tooltip } from "antd";
+import { getCurrTagColor } from "../../../../utils/helpers";
 
 const LogRecord = ({record}) => {
 
   const {type} = record;
-
-  let currTagColor = "";
-
-  switch (record.titleCurr) {
-    case "unclassified":
-      currTagColor = TAG_COLORS.white;
-      break;
-    case "path":
-    case "tier1":
-      currTagColor = TAG_COLORS.red;
-      break;
-    case "lpath":
-    case "tier2":
-      currTagColor = TAG_COLORS.orange;
-      break;
-    case "vus":
-    case "tier3":
-      currTagColor = TAG_COLORS.yellow;
-      break;
-    case "lben":
-    case "tier4":
-      currTagColor = TAG_COLORS.blueLight;
-      break;
-    case "ben":
-      currTagColor = TAG_COLORS.blue;
-      break;
-  }
-
 
   let titleCurr = "";
 
@@ -77,7 +49,7 @@ const LogRecord = ({record}) => {
       </div>
       <div className="record_changed-item record__item">
         <div className="divider flex items-center">
-          {type === "variantClass" && <Tag color={currTagColor} />}
+          {type === "variantClass" && <Tag color={getCurrTagColor(record.titleCurr)} />}
           {
             type === "notes" ?
               <Tooltip placement="topLeft" title={titleCurr}>
@@ -86,7 +58,6 @@ const LogRecord = ({record}) => {
               :
               titleCurr
           }
-          {titleCurr}
         </div>
       </div>
       <div className="record_time record__item">
