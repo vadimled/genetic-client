@@ -54,7 +54,7 @@ describe('Toolbar', () => {
 
     const openIgvBtn = getByTestId('open-igv-btn');
 
-    axiosMock.get = () => {throw new Error();}
+    axiosMock.get = () => {throw new Error();};
 
     fireEvent.click(openIgvBtn);
 

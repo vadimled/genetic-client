@@ -155,7 +155,7 @@ describe('IgvAlertPopup', () => {
     const igvStore2 = store.getState().igv;
     expect(igvStore2.igvLastQuery).toEqual({type: "BAM_FILE", data: "http://mock.bam"});
 
-    axiosMock.get = () => {throw new Error();}
+    axiosMock.get = () => {throw new Error();};
 
     fireEvent.click(retryBtn);
 
@@ -185,7 +185,7 @@ describe('IgvAlertPopup', () => {
     const igvStore2 = store.getState().igv;
     expect(igvStore2.igvLastQuery).toEqual({type: "CHR_POS", data: "http://mock2.bam?locus=Chr5:341309"});
 
-    axiosMock.get = () => {throw new Error();}
+    axiosMock.get = () => {throw new Error();};
 
     fireEvent.click(retryBtn);
 
