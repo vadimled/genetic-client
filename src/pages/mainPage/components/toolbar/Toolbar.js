@@ -78,6 +78,7 @@ class Toolbar extends Component {
 
             <AutoComplete
               id="search-field"
+              data-testid={`search-field`}
               dataSource={searchText && tableData}
               value={searchText}
               onChange={this.handleOnSearchChange}
