@@ -198,4 +198,27 @@ describe("SideBarFilters component test", () => {
     expect(indicator1).not.toBeInTheDocument();
     expect(indicator2).not.toBeInTheDocument();
   });
+  
+  test("if several filters selected and 'clear-filters-button' clicked", () => {
+    const { getByTestId } = renderWithRedux(<SidebarFilters />);
+    
+    fireEvent.click(getByTestId("filter-checkbox-gnomAD-NA"));
+    fireEvent.click(getByTestId("filter-checkbox-gnomAD-very rare(0-1%)"));
+    fireEvent.click(getByTestId("filter-checkbox-canserBDs-Clinvar"));
+    fireEvent.click(getByTestId("filter-checkbox-canserBDs-Cosmic"));
+    
+    const
+      indicator1 = getByTestId("filter-gnomAD-NA"),
+      indicator2 = getByTestId("filter-gnomAD-very rare(0-1%)"),
+      indicator3 = getByTestId("filter-canserBDs-Clinvar"),
+      indicator4 = getByTestId("filter-canserBDs-Cosmic");
+    
+    fireEvent.click(getByTestId("clear-filters-button"));
+    
+    expect(indicator1).not.toBeInTheDocument();
+    expect(indicator2).not.toBeInTheDocument();
+    expect(indicator3).not.toBeInTheDocument();
+    expect(indicator4).not.toBeInTheDocument();
+  });
+  
 });
