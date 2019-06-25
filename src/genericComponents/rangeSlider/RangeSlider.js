@@ -12,12 +12,14 @@ const RangeSlider = ({ onChange, onReset, rangeValue, title, subTitle, className
       {subTitle && <span className="sub-label">{subTitle}</span>}
 
       {!!rangeValue && !!rangeValue.length &&
-        <div className="values">
+        <div className="values" data-testid={`rangeSlider-${rangeValue[0]}-${rangeValue[1]}`}>
           {rangeValue[0]}-{rangeValue[1]}
         </div>
       }
 
-      {!!onReset && !!rangeValue && !!rangeValue.length && <button
+      {!!onReset && !!rangeValue && !!rangeValue.length &&
+      <button
+        data-testid={`button-reset-rangeSlider`}
         className="reset"
         onClick={onReset}
       >
