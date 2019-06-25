@@ -1,6 +1,9 @@
 import { call, put, delay } from "redux-saga/effects";
 // import types from "Store/actionsTypes";
-import Api from "Api/index";
+import {
+  fetchBAMFile,
+  goToChrPositionIgv
+} from "Api/index";
 import {
   handleIgvAlertShow,
   setFetchBAMFileStatus,
@@ -23,7 +26,7 @@ export function* fetchBAMFileGenerator(data) {
   try {
     yield put(setIgvLastQuery({ type: 'BAM_FILE', data: data.payload }));
     yield put(setFetchBAMFileStatus(1));
-    yield call(Api.fetchBAMFile, data.payload);
+    yield call(fetchBAMFile, data.payload);
     yield onDelay(1000);
     yield put(setFetchBAMFileStatus(2));
     yield onDelay(2000);
@@ -39,7 +42,7 @@ export function* fetchBAMFileGenerator(data) {
 export function* goToChrPositionIgvGenerator(data) {
   try {
     yield put(setIgvLastQuery({ type: 'CHR_POS', data: data.payload }));
-    yield call(Api.goToChrPositionIgv, data.payload);
+    yield call(goToChrPositionIgv, data.payload);
     yield put(setIgvLastQuery(null));
   } catch (e) {
     consoleErrors(e);

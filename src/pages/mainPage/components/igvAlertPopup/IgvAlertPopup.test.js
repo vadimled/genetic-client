@@ -6,6 +6,7 @@ import "jest-dom/extend-expect";
 import IgvAlertPopup from './IgvAlertPopup';
 import reducers from "Store/reducers";
 import { handleIgvAlertShow, setIgvLastQuery } from 'Actions/igvActions';
+import axiosMock from 'axios';
 
 import createSagaMiddleware from 'redux-saga';
 import { watchSaga } from "Store/saga";
@@ -82,6 +83,8 @@ describe('IgvAlertPopup', () => {
     );
     sagaMiddleware.run(watchSaga);
 
+    axiosMock.get = () => true;
+
     const retryBtn = getByTestId('retry-btn');
 
     // when popup has opened, isIgvAlertShow must be true
@@ -122,6 +125,8 @@ describe('IgvAlertPopup', () => {
     const igvStore2 = store.getState().igv;
     expect(igvStore2.igvLastQuery).toEqual({type: "CHR_POS", data: "http://mock2.bam?locus=Chr5:341309"});
 
+    axiosMock.get = () => true;
+
     fireEvent.click(retryBtn);
 
     const igvStore3 = store.getState().igv;
@@ -150,13 +155,9 @@ describe('IgvAlertPopup', () => {
     const igvStore2 = store.getState().igv;
     expect(igvStore2.igvLastQuery).toEqual({type: "BAM_FILE", data: "http://mock.bam"});
 
-    // define the api response
-    process.env.FETCH_BEM_FILE_RESPONSE = 'error';
+    axiosMock.get = () => {throw new Error();}
 
     fireEvent.click(retryBtn);
-
-    // remove defined api response
-    delete process.env.FETCH_BEM_FILE_RESPONSE;
 
     const igvStore3 = store.getState().igv;
     expect(igvStore3.isIgvAlertShow).toEqual(true);
@@ -184,13 +185,9 @@ describe('IgvAlertPopup', () => {
     const igvStore2 = store.getState().igv;
     expect(igvStore2.igvLastQuery).toEqual({type: "CHR_POS", data: "http://mock2.bam?locus=Chr5:341309"});
 
-    // define the api response
-    process.env.GO_TO_CHR_POSITION_IGV_RESPONSE = 'error';
+    axiosMock.get = () => {throw new Error();}
 
     fireEvent.click(retryBtn);
-
-    // remove defined api response
-    delete process.env.GO_TO_CHR_POSITION_IGV_RESPONSE;
 
     const igvStore3 = store.getState().igv;
     expect(igvStore3.isIgvAlertShow).toEqual(true);

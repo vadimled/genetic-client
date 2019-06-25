@@ -5,6 +5,7 @@ import { render, cleanup, fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import Toolbar from './Toolbar';
 import reducers from "Store/reducers";
+import axiosMock from 'axios';
 
 import createSagaMiddleware from 'redux-saga';
 import { watchSaga } from "Store/saga";
@@ -36,13 +37,9 @@ describe('Toolbar', () => {
 
     const openIgvBtn = getByTestId('open-igv-btn');
 
-    // define the api response
-    process.env.FETCH_BEM_FILE_RESPONSE = true;
+    axiosMock.get = () => true;
 
     fireEvent.click(openIgvBtn);
-
-    // remove defined api response
-    delete process.env.FETCH_BEM_FILE_RESPONSE;
 
     const igvStore = store.getState().igv;
     expect(igvStore.isIgvAlertShow).toEqual(false);
@@ -57,13 +54,9 @@ describe('Toolbar', () => {
 
     const openIgvBtn = getByTestId('open-igv-btn');
 
-    // define the api response
-    process.env.FETCH_BEM_FILE_RESPONSE = 'error';
+    axiosMock.get = () => {throw new Error();}
 
     fireEvent.click(openIgvBtn);
-
-    // remove defined api response
-    delete process.env.FETCH_BEM_FILE_RESPONSE;
 
     const igvStore = store.getState().igv;
     expect(igvStore.isIgvAlertShow).toEqual(true);

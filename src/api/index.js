@@ -1,3 +1,9 @@
-import ApiMock from './ApiMock';
-import ApiReal from './ApiReal';
-export default process?.env?.NODE_ENV === 'test' ? ApiMock : ApiReal;
+import axios from 'axios';
+
+export function fetchBAMFile (BAMFileUrl) {
+  return axios.get(`http://localhost:60151/load?file=${BAMFileUrl}`);
+}
+
+export function goToChrPositionIgv (chrPosition) {
+  return axios.get(`http://localhost:60151/goto?locus=${chrPosition}`);
+}
