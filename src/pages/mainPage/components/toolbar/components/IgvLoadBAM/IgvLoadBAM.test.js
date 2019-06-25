@@ -3,7 +3,7 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import Toolbar from './Toolbar';
+import IgvLoadBAM from './IgvLoadBAM';
 import reducers from "Store/reducers";
 import axiosMock from 'axios';
 
@@ -22,9 +22,14 @@ function renderWithRedux(
   };
 }
 
-describe('Toolbar', () => {
+describe('IgvLoadBAM', () => {
+  it('IgvLoadBAM snapshot', () => {
+    const { asFragment } = renderWithRedux(<IgvLoadBAM />);
+    expect(asFragment()).toMatchSnapshot();
+  });
+
   it('open igv btn', () => {
-    const { getByTestId } = renderWithRedux(<Toolbar />);
+    const { getByTestId } = renderWithRedux(<IgvLoadBAM />);
     const openIgvBtn = getByTestId('open-igv-btn');
 
     expect(openIgvBtn).toHaveTextContent("Load BAM");
@@ -32,7 +37,7 @@ describe('Toolbar', () => {
 
   it('handle open-igv-btn true', () => {
     const sagaMiddleware = createSagaMiddleware();
-    const { getByTestId, store } = renderWithRedux(<Toolbar />, createStore(reducers, applyMiddleware(sagaMiddleware)));
+    const { getByTestId, store } = renderWithRedux(<IgvLoadBAM />, createStore(reducers, applyMiddleware(sagaMiddleware)));
     sagaMiddleware.run(watchSaga);
 
     const openIgvBtn = getByTestId('open-igv-btn');
@@ -49,7 +54,7 @@ describe('Toolbar', () => {
 
   it('handle open-igv-btn false', () => {
     const sagaMiddleware = createSagaMiddleware();
-    const { getByTestId, store } = renderWithRedux(<Toolbar />, createStore(reducers, applyMiddleware(sagaMiddleware)));
+    const { getByTestId, store } = renderWithRedux(<IgvLoadBAM />, createStore(reducers, applyMiddleware(sagaMiddleware)));
     sagaMiddleware.run(watchSaga);
 
     const openIgvBtn = getByTestId('open-igv-btn');
