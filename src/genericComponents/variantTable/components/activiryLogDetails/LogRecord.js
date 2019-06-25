@@ -53,7 +53,7 @@ const LogRecord = ({record}) => {
           {
             type === "notes" ?
               <Tooltip placement="topLeft" title={titleCurr}>
-                {titleCurr}
+                <div className="notes">{titleCurr}</div>
               </Tooltip>
               :
               titleCurr
