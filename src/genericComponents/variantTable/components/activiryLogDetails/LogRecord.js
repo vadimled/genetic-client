@@ -41,26 +41,23 @@ const LogRecord = ({record}) => {
 
   return (
     <div className="record flex justify-between items-center">
-      <div className="record__user record__item">
-        <div className="divider flex items-center">
-          <AvatarName/>
-          <span className="user-name">PA</span>
-        </div>
+      <div className="record__user record__item flex items-center justify-center">
+        <AvatarName/>
+        <span className="user-name">PA</span>
+
       </div>
-      <div className="record_changed-item record__item">
-        <div className="divider flex items-center">
-          {type === "variantClass" && <Tag color={getCurrTagColor(record.titleCurr)} />}
-          {
-            type === "notes" ?
-              <Tooltip placement="topLeft" title={titleCurr}>
-                <div className="notes">{titleCurr}</div>
-              </Tooltip>
-              :
-              titleCurr
-          }
-        </div>
+      <div className="record_changed-item record__item flex items-center justify-center">
+        {type === "variantClass" && <Tag color={getCurrTagColor(record.titleCurr)} />}
+        {
+          type === "notes" ?
+            <Tooltip placement="topLeft" title={titleCurr}>
+              <div className="notes">{titleCurr}</div>
+            </Tooltip>
+            :
+            titleCurr
+        }
       </div>
-      <div className="record_time record__item">
+      <div className="record_time record__item flex items-center">
         {dateFormat(record.time, "H:MM, d mmmm yyyy")}
       </div>
     </div>

@@ -36,7 +36,6 @@
     border-radius: 4px;
     background: #fff;
     .record {
-      max-height: 40px;
       border-bottom: 1px solid #dae1e6;
       background: #fff;
       svg {
@@ -44,10 +43,13 @@
       }
       .record__user {
         min-width: 84px;
+        border-right: 1px solid violet;
       }
       .record_changed-item {
-        width: 81px;
+        width: 100px;
         text-align: center;
+
+        border-right: 1px solid violet;
         .notes {
           display: block;
           white-space: nowrap !important;
@@ -62,13 +64,9 @@
         color: $neutral_30;
       }
     }
-    .divider {
-      border-right: 1px solid $border_color;
-      height: 18px;
-    }
     .record__item {
-      padding: 10px 7px;
-      //border: 1px dashed red;
+      margin: 10px 0;
+      height: 18px;
       .user-name {
         margin-left: 11px;
         margin-right: 11px;
