@@ -1,76 +1,14 @@
-import React, { Component, Fragment } from "react";
-import { Button, Modal, Tooltip } from "antd";
-import Tag from "../../tag";
-import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
-import { ReactComponent as ArrowRight } from "Assets/arrowRight.svg";
+import React, { Component } from "react";
+import { Button, Modal } from "antd";
 import { connect } from "react-redux";
 import { getActivityLog } from "Store/selectors";
-import dateFormat from "dateformat";
+import ActivityLogPopupTableRecord from "./activityLogPopup/ActivityLogPopupTableRecord";
 
 
-const ActivityLogAction = ({ record }) => {
-  const { type, prevTagColor, currTagColor, titleCurr, titlePrev } = record;
-
-  if (type === "notes") {
-    return (
-      <div className="cell border">
-        <Tooltip placement="topLeft" title={titleCurr}>
-          <div className="curr-note">
-            {titleCurr}
-          </div>
-        </Tooltip>
-        {titlePrev && (
-          <Tooltip placement="topLeft" title={titlePrev}>
-            <div className="prev-note">
-              {titlePrev}
-            </div>
-          </Tooltip>
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <div className="cell border flex items-center justify-between">
-      {record.titlePrev && (
-        <Fragment>
-          <div className="flex items-center action-item justify-center">
-            {type === "variantClass" && <Tag color={prevTagColor} />}
-            <span className="title-prev">{titlePrev}</span>
-          </div>
-          <ArrowRight />
-        </Fragment>
-      )}
-
-      <div className="flex items-center action-item justify-center">
-        {type === "variantClass" && <Tag color={currTagColor} />}
-        <span className="title-curr">{titleCurr}</span>
-      </div>
-    </div>
-  );
-};
-
-const ActivityLogPopupTableRecord = ({ record }) => {
-  console.log(record);
-  return (
-    <div className="flex flex-wrap content-start">
-      <div className="cell border flex items-center justify-center">
-        <AvatarName />
-        <span className="user-name">Primary Analyst</span>
-      </div>
-      <ActivityLogAction record={record} />
-      <div className="cell border flex items-center justify-center">
-        {dateFormat(record.time, "H:MM, d mmmm yyyy")}
-      </div>
-    </div>
-  );
-};
 
 class ActivityLogPopup extends Component {
   render() {
     const { visible, handleOk, handleCancel, activityLog } = this.props;
-
-    console.log("--activityLog: ", activityLog);
 
     return (
       <Modal
