@@ -3,6 +3,7 @@ import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import SidebarFilters from "Pages/mainPage/components/sidebarFilters/SidebarFilters";
 import { renderWithRedux } from "Utils/test_helpers";
+import { setFilterVaf } from "Store/actions/filtersActions";
 
 describe("SideBarFilters component test", () => {
   test("create snapshot", () => {
@@ -174,5 +175,27 @@ describe("SideBarFilters component test", () => {
     expect(indicator2).not.toBeInTheDocument();
     expect(indicator3).not.toBeInTheDocument();
     expect(indicator4).not.toBeInTheDocument();
+  });
+  
+  test("if filter 'Vaf' position; if indicator 'Vaf' delete clicked", () => {
+    const
+      { store, container, getByTestId } = renderWithRedux(<SidebarFilters />),
+      sliderTrack = container.querySelector(".ant-slider");
+    
+    fireEvent.click(sliderTrack);
+    store.dispatch(setFilterVaf( { value: [5, 6], mode: "range" }));
+    
+    const
+      sliderTrack1 = container.querySelector(".ant-slider-track") ,
+      indicator1 = getByTestId("filter-vaf-5"),
+      indicator2 = getByTestId("filter-vaf-6");
+    
+    expect(sliderTrack1).toBeInTheDocument();
+    expect(indicator1).toBeInTheDocument();
+    expect(indicator2).toBeInTheDocument();
+
+    fireEvent.click(getByTestId("button-reset-rangeSlider"));
+    expect(indicator1).not.toBeInTheDocument();
+    expect(indicator2).not.toBeInTheDocument();
   });
 });
