@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import LogRecord from "./LogRecord";
 
 
-const ActiveLogDetails = ({activityLog}) => (
-  <div className="active-log-details">
+const ActiveLogDetails = ({activityLog, hideActivityDetails}) => (
+  <div className="active-log-details" onMouseLeave={hideActivityDetails}>
     {
       activityLog.map((record, i) => (
         <LogRecord key={i} record={record} />
