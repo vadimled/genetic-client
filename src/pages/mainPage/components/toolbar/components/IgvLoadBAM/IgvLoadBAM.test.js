@@ -37,7 +37,10 @@ describe('IgvLoadBAM', () => {
 
   it('handle open-igv-btn true', () => {
     const sagaMiddleware = createSagaMiddleware();
-    const { getByTestId, store } = renderWithRedux(<IgvLoadBAM />, createStore(reducers, applyMiddleware(sagaMiddleware)));
+    const { getByTestId, store } = renderWithRedux(
+      <IgvLoadBAM />,
+      createStore(reducers, applyMiddleware(sagaMiddleware))
+    );
     sagaMiddleware.run(watchSaga);
 
     const openIgvBtn = getByTestId('open-igv-btn');
@@ -54,7 +57,10 @@ describe('IgvLoadBAM', () => {
 
   it('handle open-igv-btn false', () => {
     const sagaMiddleware = createSagaMiddleware();
-    const { getByTestId, store } = renderWithRedux(<IgvLoadBAM />, createStore(reducers, applyMiddleware(sagaMiddleware)));
+    const { getByTestId, store } = renderWithRedux(
+      <IgvLoadBAM />,
+      createStore(reducers, applyMiddleware(sagaMiddleware))
+    );
     sagaMiddleware.run(watchSaga);
 
     const openIgvBtn = getByTestId('open-igv-btn');
