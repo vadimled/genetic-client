@@ -1,7 +1,6 @@
 import React from "react";
 import { createStore, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import IgvAlertPopup from './IgvAlertPopup';
 import reducers from "Store/reducers";
@@ -11,17 +10,7 @@ import axiosMock from 'axios';
 import createSagaMiddleware from 'redux-saga';
 import { watchSaga } from "Store/saga";
 
-afterEach(cleanup);
-
-function renderWithRedux(
-  component,
-  store = createStore(reducers)
-) {
-  return {
-    ...render(<Provider store={store}>{component}</Provider>),
-    store,
-  };
-}
+import { renderWithRedux } from "Utils/test_helpers";
 
 describe('IgvAlertPopup', () => {
 
