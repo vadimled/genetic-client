@@ -15,7 +15,8 @@ const SimpleSelect = ({
   value,
   name,
   disabled,
-  isClearAvailable
+  isClearAvailable,
+  ...props
 }) => {
   return (
     <Fragment>
@@ -41,6 +42,7 @@ const SimpleSelect = ({
             backgroundImage: `url(${CloseIcon})`
           }}
         />}
+        { ...props }
       >
         {options?.map(option => (
           <Option key={option.value} value={option.value}>

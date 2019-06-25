@@ -155,6 +155,7 @@ class VariantTable extends Component {
                 })
               }
               isClearAvailable
+              data-testid="zygosity-select"
             />
           </div>
         );
