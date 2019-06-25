@@ -140,8 +140,6 @@ class VariantTable extends Component {
 
   handleZygosity = (data) =>{
 
-    console.log(data);
-
     const {handleZygosity, updateActivityLog} = this.props;
     const {item, value, prevValue} = data;
 
@@ -154,8 +152,6 @@ class VariantTable extends Component {
   }
 
   handleVariantClass = data => {
-    console.log(data);
-
     const {handleVariantClass, updateActivityLog} = this.props;
     const {item, value, prevValue} = data;
 
@@ -256,7 +252,6 @@ class VariantTable extends Component {
 
       if (col.dataIndex === "activityLog") {
         column.render = (...data) => {
-          // console.log(this.props.activityLog)
           return <ActivityLog {...data} />;
         };
       }

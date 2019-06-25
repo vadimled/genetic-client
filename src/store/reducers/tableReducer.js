@@ -64,10 +64,7 @@ const tableReducer = createReducer(initialState, {
 
   [actionsTypes.UPDATE_ACTIVITY_LOG]: (state, {payload}) => {
 
-    console.log("--payload: ", payload);
-
     const {item, prevValue, changedField} = payload;
-
 
     let activityLog = state?.activityLog;
 

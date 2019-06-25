@@ -28,23 +28,19 @@ class ActivityLog extends Component {
     this.setState({ isActivityDetailsShow: false });
   };
 
-  handleOk = e => {
-    console.log(e);
+  handleOk = () => {
     this.setState({
       isActivityPopupShow: false
     });
   };
 
-  handleCancel = e => {
-    console.log(e);
+  handleCancel = () => {
     this.setState({
       isActivityPopupShow: false
     });
   };
 
   render() {
-
-    // console.log(this.props[1])
 
     const {activityLog} = this.props;
 
