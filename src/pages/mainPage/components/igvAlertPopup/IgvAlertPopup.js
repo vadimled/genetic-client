@@ -33,6 +33,7 @@ const IgvAlertPopup = ({ retry, handleIgvAlertShow, handleIgvAlertShowAgain, isI
             className="header-close"
             style={{backgroundImage: `url(${btnImg})`}}
             onClick={handleIgvAlertShow.bind(null, false)}
+            data-testid="header-close-btn"
           />
         </div>
         <div className="content">
@@ -44,6 +45,7 @@ const IgvAlertPopup = ({ retry, handleIgvAlertShow, handleIgvAlertShowAgain, isI
               <Checkbox
                 checked={!isIgvAlertShowAgaing}
                 onChange={handleIgvAlertShowAgain}
+                data-testid="igv-alert-dont-show-again-chbx"
               >
                 Don’t show me again
               </Checkbox>
@@ -52,12 +54,14 @@ const IgvAlertPopup = ({ retry, handleIgvAlertShow, handleIgvAlertShowAgain, isI
               <Button
                 className="igv-alert-btn igv-alert-btn--link"
                 onClick={handleIgvAlertShow.bind(null, false)}
+                data-testid="close-btn"
               >
                 Cancel
               </Button>
               <Button
                 className="igv-alert-btn"
                 onClick={retry.bind(null, igvLastQuery)}
+                data-testid="retry-btn"
               >
                 Retry
               </Button>
