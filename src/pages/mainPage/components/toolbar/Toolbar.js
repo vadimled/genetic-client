@@ -80,31 +80,31 @@ class Toolbar extends Component {
               />
             </div>
           </div>
-          <div>
-            <div className="search-field-wrapper flex items-center">
-              {!searchText && (
-                <div className="flex items-center search-icons-wrapper">
-                  <Icon type="search" style={{ color: "#96A2AA" }} />
-                  <div className="placeholder">Search</div>
-                </div>
-              )}
 
-              <AutoComplete
-                id="search-field"
-                dataSource={searchText && tableData}
-                value={searchText}
-                onChange={this.handleOnSearchChange}
-                placeholder="input here"
+          <div className="search-field-wrapper flex items-center">
+            {!searchText && (
+              <div className="flex items-center search-icons-wrapper">
+                <Icon type="search" style={{ color: "#96A2AA" }} />
+                <div className="placeholder">Search</div>
+              </div>
+            )}
+
+            <AutoComplete
+              id="search-field"
+              data-testid={`search-field`}
+              dataSource={searchText && tableData}
+              value={searchText}
+              onChange={this.handleOnSearchChange}
+              placeholder="input here"
+            />
+
+            {searchText && (
+              <button
+                className="clear-search-button"
+                style={{ backgroundImage: `url(${closeIcon})` }}
+                onClick={() => this.clearSearch()}
               />
-
-              {searchText && (
-                <button
-                  className="clear-search-button"
-                  style={{ backgroundImage: `url(${closeIcon})` }}
-                  onClick={() => this.clearSearch()}
-                />
-              )}
-            </div>
+            )}
           </div>
           <div
             className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}

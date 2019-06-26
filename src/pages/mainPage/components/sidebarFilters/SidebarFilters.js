@@ -128,7 +128,10 @@ class SidebarFilters extends Component {
           <div className="filters-title">Filters</div>
         )}
         {!!filtersChipIndicators.length && (
-          <div className="clear-filters" onClick={this.clearAllFilters}>
+          <div
+            className="clear-filters"
+            data-testid="clear-filters-button"
+            onClick={this.clearAllFilters}>
             Clear filters ({filtersChipIndicators.length})
           </div>
         )}
@@ -188,6 +191,7 @@ class SidebarFilters extends Component {
                               key={i + 1 + "inner"}
                             >
                               <SelectionGroup
+                                name={key}
                                 mode={childGroup.mode}
                                 items={childGroup.items}
                                 onChange={this.onChange.bind(
@@ -209,6 +213,7 @@ class SidebarFilters extends Component {
 
                   {!group.children && (
                     <SelectionGroup
+                      name={key}
                       mode={group.mode}
                       items={group.items}
                       onChange={this.onChange.bind(this, key, group.mode)}
