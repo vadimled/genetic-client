@@ -57,7 +57,7 @@ const LogRecord = ({record}) => {
             titleCurr
         }
       </div>
-      <div className="record_time record__item flex items-center">
+      <div className="record_time record__item flex items-center justify-center">
         {dateFormat(record.time, "H:MM, d mmmm yyyy")}
       </div>
     </div>
