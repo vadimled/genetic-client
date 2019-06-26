@@ -127,7 +127,6 @@ export const getFilteredData = createSelector(
   getAppliedFilters,
   (data, appliedFilters) => {
     if (isEmpty(appliedFilters)) {
-      console.log("-No filters");
       return data;
     }
 
