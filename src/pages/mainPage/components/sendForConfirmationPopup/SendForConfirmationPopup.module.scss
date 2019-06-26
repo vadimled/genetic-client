@@ -35,9 +35,12 @@
   }
 
   .confirmation-content {
-    padding: 32px 111px;
     height: 343px;
     overflow: auto;
+  }
+
+  .confirmation-table {
+    padding: 32px 111px;
   }
 
   .confirmation-footer {
@@ -69,15 +72,16 @@
 
     margin-left: 5px;
 
-    &[disabled] {
-      background-color: $button-disabled;
-    }
-
     &:not(.confirmation--link) {
       box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
       color: white;
       font-weight: 600 !important;
       background-color: $brand_primary_color;
+    }
+
+    &[disabled] {
+      background-color: $button-disabled !important;
+      color: white !important;
     }
   }
 }

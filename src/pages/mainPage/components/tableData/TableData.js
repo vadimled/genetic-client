@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 
 import TableLayout from "../tableLayout";
 import VariantTable from "GenericComponents/variantTable";
+import EmptyState from "GenericComponents/emptyState";
 import {
   getFilteredData,
   checkIsAllRowSelected
@@ -36,16 +37,19 @@ class TableData extends Component {
 
     return (
       <TableLayout>
-        <VariantTable
-          data={filteredData}
-          handleSelectedRow={handleSelectedRow}
-          handleSelectAllRows={handleSelectAllRows}
-          handleZygosity={handleZygosity}
-          handleVariantClass={handleVariantClass}
-          handelChrPosition={goToChrPositionIgv}
-          handleConfirmationStatus={handleConfirmationStatus}
-          isAllRowSelected={isAllRowSelected}
-        />
+        {!!filteredData?.length &&
+          <VariantTable
+            data={filteredData}
+            handleSelectedRow={handleSelectedRow}
+            handleSelectAllRows={handleSelectAllRows}
+            handleZygosity={handleZygosity}
+            handleVariantClass={handleVariantClass}
+            handelChrPosition={goToChrPositionIgv}
+            handleConfirmationStatus={handleConfirmationStatus}
+            isAllRowSelected={isAllRowSelected}
+          />
+        }
+        {!filteredData?.length && <EmptyState/>}
       </TableLayout>
     );
   }

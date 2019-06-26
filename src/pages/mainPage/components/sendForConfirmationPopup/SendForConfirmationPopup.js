@@ -26,10 +26,12 @@ const SendForConfirmationPopup = ({ handleOnConfirmation, data, handleSelectedRo
           />
         </header>
         <div className="confirmation-content">
-          {!!data.length && <ConfirmationTable
-            data={data}
-            handleSelectedRow={handleSelectedRow}
-          />}
+          {!!data.length && <div className="confirmation-table">
+            <ConfirmationTable
+              data={data}
+              handleSelectedRow={handleSelectedRow}
+            />
+          </div>}
           {!data.length && <EmptyState description="" title="No data for sending"/>}
         </div>
         <footer className="confirmation-footer">

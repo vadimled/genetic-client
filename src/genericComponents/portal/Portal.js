@@ -3,7 +3,12 @@ import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-const portalRoot = document.getElementById('portal');
+let portalRoot = document.getElementById('portal');
+if (!portalRoot) {
+  portalRoot = document.createElement('div');
+  portalRoot.id = 'portal';
+  document.body.appendChild(portalRoot);
+}
 
 class Portal extends PureComponent {
   constructor(props) {

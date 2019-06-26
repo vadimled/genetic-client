@@ -1,20 +1,17 @@
 import React, { Component, Fragment } from "react";
-import { Button, Icon, AutoComplete } from 'antd';
-
-import style from "./Toolbar.module.scss";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { Icon, AutoComplete } from 'antd';
 import SimpleSelect from "GenericComponents/simpleSelect";
+import style from "./Toolbar.module.scss";
 import { MUTATION } from "Utils/constants";
 import NumberVariants from "Pages/mainPage/components/numberVariants";
+import IgvLoadBAM from './components/IgvLoadBAM';
 import cn from "classnames";
 import {
   getFilteredEntriesAmount,
   getTotalEntriesAmount,
-  getIgvFetchBAMFileStatus,
-  getBAMFileUrl
 } from "Store/selectors";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { fetchBAMFile } from "Actions/igvActions";
 import { setMutationType } from "Actions/variantsActions";
 import { updateSearch } from "Actions/tableActions";
 import { handleOnConfirmation } from "Actions/confirmationActions";
@@ -31,12 +28,6 @@ class Toolbar extends Component {
     this.props.setMutationType(e.target.value);
   };
 
-
-  fetchBAMFile = () => {
-    const { BAMFileUrl } = this.props;
-    this.props.fetchBAMFile(BAMFileUrl);
-  };
-
   handleOnSearchChange = e => {
     this.props.updateSearch(e);
   };
@@ -51,7 +42,6 @@ class Toolbar extends Component {
       total,
       sidebarToggle,
       mutations,
-      fetchBAMFileStatus,
       searchText,
       tableData,
       selectedRows,
@@ -106,21 +96,12 @@ class Toolbar extends Component {
               />
             )}
           </div>
-          <div
-            className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}
-          >
-            <div className="igv-btn-wrapper">
-              <Button
-                type={fetchBAMFileStatus ? 'primary' : ''}
-                onClick={this.fetchBAMFile}
-                disabled={fetchBAMFileStatus}
-                className={fetchBAMFileStatus ? `progress progress--${fetchBAMFileStatus}` : ''}
-              >
-                Load BAM{fetchBAMFileStatus === 3 && <Icon type="check" />}
-              </Button>
-            </div>
+
+          <div className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}>
+            <IgvLoadBAM />
             <NumberVariants filtered={filtered} total={total} />
           </div>
+
         </Fragment>}
       </div>
     );
@@ -138,8 +119,6 @@ const mapStateToProps = state => {
     filtered: getFilteredEntriesAmount(state),
     total: getTotalEntriesAmount(state),
     mutations: getMutationType(state),
-    fetchBAMFileStatus: getIgvFetchBAMFileStatus(state),
-    BAMFileUrl: getBAMFileUrl(state),
     searchText: getSearchQuery(state),
     tableData: getFilteredSearchQueries(state),
     selectedRows: getSelectedRows(state)
@@ -149,9 +128,8 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     setMutationType: data => dispatch(setMutationType(data)),
-    fetchBAMFile: data => dispatch(fetchBAMFile(data)),
-    updateSearch: data => dispatch(updateSearch(data)),
     handleOnConfirmation: data => dispatch(handleOnConfirmation(data)),
+    updateSearch: data => dispatch(updateSearch(data))
   };
 }
 
