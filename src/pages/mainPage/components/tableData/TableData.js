@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 
 import TableLayout from "../tableLayout";
 import VariantTable from "GenericComponents/variantTable";
+import EmptyState from "GenericComponents/emptyState";
 import {
   getSelectedRowKeys,
   getFilteredData
@@ -29,14 +30,17 @@ class TableData extends Component {
 
     return (
       <TableLayout>
-        <VariantTable
-          data={filteredData}
-          onSelectRowKey={onSelectRowKey}
-          selectedRowKeys={selectedRowKeys}
-          handleZygosity={handleZygosity}
-          handleVariantClass={handleVariantClass}
-          handelChrPosition={goToChrPositionIgv}
-        />
+        {!!filteredData?.length &&
+          <VariantTable
+            data={filteredData}
+            onSelectRowKey={onSelectRowKey}
+            selectedRowKeys={selectedRowKeys}
+            handleZygosity={handleZygosity}
+            handleVariantClass={handleVariantClass}
+            handelChrPosition={goToChrPositionIgv}
+          />
+        }
+        {!filteredData?.length && <EmptyState/>}
       </TableLayout>
     );
   }
