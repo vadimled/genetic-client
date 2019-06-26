@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { Button } from 'antd';
 import Portal from 'GenericComponents/portal';
+import EmptyState from 'GenericComponents/emptyState';
 import ConfirmationTable from './components/confirmationTable';
 import styles from './SendForConfirmationPopup.module.scss';
 import btnImg from 'Assets/close-big.svg';
@@ -25,10 +26,11 @@ const SendForConfirmationPopup = ({ handleOnConfirmation, data, handleSelectedRo
           />
         </header>
         <div className="confirmation-content">
-          <ConfirmationTable
+          {!!data.length && <ConfirmationTable
             data={data}
             handleSelectedRow={handleSelectedRow}
-          />
+          />}
+          {!data.length && <EmptyState description="" title="No data for sending"/>}
         </div>
         <footer className="confirmation-footer">
           <div className="confirmation-btns">
@@ -41,6 +43,7 @@ const SendForConfirmationPopup = ({ handleOnConfirmation, data, handleSelectedRo
             <Button
               className="confirmation-btn"
               onClick={sendForConfirmation.bind(null, data)}
+              disabled={!data.length}
             >
               Send
             </Button>

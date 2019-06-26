@@ -1,4 +1,5 @@
 import faker from "faker";
+import { CONFIRMATION_VALUES } from 'Utils/constants';
 
 export const generateDNAVariantTableMockData = amount => {
   let data = {};
@@ -551,7 +552,12 @@ export const generateDNAVariantTableMockData = amount => {
       variantClass: "",
       coverage: faker.random.number({ min: 100, max: 500 }),
       notes: faker.lorem.sentence(),
-      status: faker.random.arrayElement(["confirmed", "notConfirmed", "pending", null]),
+      status: faker.random.arrayElement([
+        CONFIRMATION_VALUES.CONFIRMED.value,
+        CONFIRMATION_VALUES.NOT_CONFIRMED.value,
+        CONFIRMATION_VALUES.PENDING.value,
+        null
+      ]),
     };
   }
   return data;

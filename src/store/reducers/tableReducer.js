@@ -1,6 +1,7 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
+import { CONFIRMATION_VALUES } from 'Utils/constants';
 
 const initialState = {
   data: generateDNAVariantTableMockData(200)
@@ -94,7 +95,7 @@ const tableReducer = createReducer(initialState, {
     // payload includes confirmed rows
     payload.forEach((row) => {
       let dataRow = data[row.id];
-      dataRow.status = 'pending';
+      dataRow.status = CONFIRMATION_VALUES.PENDING.value;
       dataRow.selected = false;
     });
 

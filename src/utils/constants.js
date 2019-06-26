@@ -92,7 +92,7 @@ export const GNOM_AD = {
 };
 
 export const CONFIRMATION_VALUES = {
-  'confirmed': { value: 'confirmed', label: 'Confirmed', iconImg: ImgCircleOK },
-  'notConfirmed': { value: 'notConfirmed', label: 'Not Confirmed', iconImg: ImgCircleX },
-  'pending': { value: 'pending', label: 'Pending', iconImg: ImgCircleClock },
+  'CONFIRMED': { value: 'CONFIRMED', label: 'Confirmed', iconImg: ImgCircleOK },
+  'NOT_CONFIRMED': { value: 'NOT_CONFIRMED', label: 'Not Confirmed', iconImg: ImgCircleX },
+  'PENDING': { value: 'PENDING', label: 'Pending', iconImg: ImgCircleClock },
 };

@@ -1,6 +1,6 @@
 /**
   * Usage Example
-  import EmptyState from 'GenericComponents/EmptyState';
+  import EmptyState from 'GenericComponents/emptyState';
   <EmptyState />
 */
 
