@@ -112,7 +112,10 @@ class Notes extends Component {
               <div className="notes-content">{getValue}</div>
             </Tooltip>
 
-            <div className="notes-icon" onClick={this.handelEditClick}>
+            <div
+              data-testid={`edit-icon`}
+              className="notes-icon"
+              onClick={this.handelEditClick}>
               <EditIcon />
             </div>
           </Fragment>
