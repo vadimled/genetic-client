@@ -6,3 +6,10 @@ export const setMutationType = data => {
     payload: data
   };
 };
+
+export const setTumorInfoMode = data => {
+  return {
+    type: actionsTypes.SET_TUMOR_INFO_MODE,
+    payload: data
+  };
+};

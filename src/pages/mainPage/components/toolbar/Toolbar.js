@@ -11,6 +11,7 @@ import cn from "classnames";
 import {
   getFilteredEntriesAmount,
   getTotalEntriesAmount,
+  getTumorInfoMode
 } from "Store/selectors";
 import { setMutationType } from "Actions/variantsActions";
 import { updateSearch } from "Actions/tableActions";
@@ -106,6 +107,7 @@ const mapStateToProps = state => {
     filtered: getFilteredEntriesAmount(state),
     total: getTotalEntriesAmount(state),
     mutations: getMutationType(state),
+    isTumorInfo: getTumorInfoMode(state),
     searchText: getSearchQuery(state),
     tableData: getFilteredSearchQueries(state)
   };

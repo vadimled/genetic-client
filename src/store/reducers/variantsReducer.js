@@ -2,7 +2,8 @@ import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 
 const initialState = {
-  mutations: "dna"
+  mutations: "dna",
+  tumorInfo: false
 };
 
 const variantsReducer = createReducer(initialState, {
@@ -12,7 +13,13 @@ const variantsReducer = createReducer(initialState, {
       mutations: payload
     };
   },
- 
+
+  [actionsTypes.SET_TUMOR_INFO_MODE]: (state, {payload}) => {
+    return {
+      ...state,
+      tumorInfo: payload
+    };
+  },
 });
 
 export default variantsReducer;
