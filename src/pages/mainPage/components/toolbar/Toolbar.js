@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Icon, AutoComplete } from 'antd';
+import { Icon, AutoComplete } from "antd";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import style from "./Toolbar.module.scss";
 import { MUTATION } from "Utils/constants";
 import NumberVariants from "Pages/mainPage/components/numberVariants";
-import IgvLoadBAM from './components/IgvLoadBAM';
+import IgvLoadBAM from "./components/IgvLoadBAM";
 import cn from "classnames";
 import {
   getFilteredEntriesAmount,
@@ -35,7 +35,7 @@ class Toolbar extends Component {
     this.props.updateSearch("");
   };
 
-  render() {
+  renderStartToolbar = () => {
     const {
       filtered,
       total,
@@ -46,7 +46,7 @@ class Toolbar extends Component {
     } = this.props;
 
     return (
-      <div className={style["toolbar-wrapper"]}>
+      <>
         <div className="left-wrapper">
           <div className="mutation-select-wrapper">
             <SimpleSelect
@@ -91,6 +91,20 @@ class Toolbar extends Component {
           <IgvLoadBAM />
           <NumberVariants filtered={filtered} total={total} />
         </div>
+      </>
+    );
+  };
+
+  renderTumorInfoToolbar = () => {
+    return <h3>Tumor Info</h3>;
+  };
+
+  render() {
+    return (
+      <div className={style["toolbar-wrapper"]}>
+        {!this.props.isTumorInfo
+          ? this.renderStartToolbar()
+          : this.renderTumorInfoToolbar()}
       </div>
     );
   }
