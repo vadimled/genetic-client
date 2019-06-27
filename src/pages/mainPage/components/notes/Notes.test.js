@@ -5,20 +5,14 @@ import { renderWithRedux } from "Utils/test_helpers";
 import Notes from "Pages/mainPage/components/notes/Notes";
 
 describe("Notes", () => {
-  let getByTestId, icon, store, asFragment;
+  let getByTestId, icon, store;
   
   beforeEach(() => {
     const queries = renderWithRedux(<Notes id={0} />);
     getByTestId = queries.getByTestId;
-    asFragment = queries.asFragment;
     store = queries.store;
     icon = getByTestId("edit-icon");
   });
-  
-  it("create snapshot", () => {
-    expect(asFragment()).toMatchSnapshot();
-  });
-  
   
   it("if EditIcon clicked", () => {
     fireEvent.click(icon);

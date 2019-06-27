@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Edit Notes popup create snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="edit-notes-wrapper"
+    data-testid="edit-text-box"
+  >
+    <form
+      class="ant-form ant-form-horizontal"
+    >
+      <div
+        class="ant-row ant-form-item"
+      >
+        <div
+          class="ant-col ant-form-item-control-wrapper"
+        >
+          <div
+            class="ant-form-item-control has-success"
+          >
+            <span
+              class="ant-form-item-children"
+            >
+              <textarea
+                class="ant-input"
+                data-testid="edit-text-box-textarea"
+                style="height: 0px; min-height: -9007199254740991px; max-height: 9007199254740991px;"
+              >
+                editNotes - test text
+              </textarea>
+              <div
+                class="divider"
+              >
+                <div
+                  class="counter"
+                >
+                  500/150
+                </div>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+    </form>
+    <footer
+      class="actions-footer-wrapper"
+    >
+      <button
+        class="button-cancel"
+        data-testid="footer-button-cancel"
+        id="button-cancel"
+      >
+        Cancel
+      </button>
+      <button
+        class="ant-btn ant-btn-primary"
+        data-testid="footer-button-done"
+        id="button-done"
+        type="button"
+      >
+        <span>
+          Done
+        </span>
+      </button>
+    </footer>
+  </div>
+</DocumentFragment>
+`;
