@@ -6,13 +6,11 @@ import SimpleSelect from "GenericComponents/simpleSelect";
 import style from "./Toolbar.module.scss";
 import { MUTATION } from "Utils/constants";
 import NumberVariants from "Pages/mainPage/components/numberVariants";
-import TumorHeader from "Pages/mainPage/components/tumorToolbar";
 import IgvLoadBAM from "./components/IgvLoadBAM";
 import cn from "classnames";
 import {
   getFilteredEntriesAmount,
-  getTotalEntriesAmount,
-  getTumorInfoMode
+  getTotalEntriesAmount
 } from "Store/selectors";
 import { setMutationType } from "Actions/variantsActions";
 import { updateSearch } from "Actions/tableActions";
@@ -36,7 +34,7 @@ class Toolbar extends Component {
     this.props.updateSearch("");
   };
 
-  renderStartToolbar = () => {
+  render() {
     const {
       filtered,
       total,
@@ -47,7 +45,7 @@ class Toolbar extends Component {
     } = this.props;
 
     return (
-      <>
+      <div className={style["toolbar-wrapper"]}>
         <div className="left-wrapper">
           <div className="mutation-select-wrapper">
             <SimpleSelect
@@ -92,20 +90,6 @@ class Toolbar extends Component {
           <IgvLoadBAM />
           <NumberVariants filtered={filtered} total={total} />
         </div>
-      </>
-    );
-  };
-
-  renderTumorInfoToolbar = () => {
-    return <TumorHeader />;
-  };
-
-  render() {
-    return (
-      <div className={style["toolbar-wrapper"]}>
-        {!this.props.isTumorInfo
-          ? this.renderStartToolbar()
-          : this.renderTumorInfoToolbar()}
       </div>
     );
   }
@@ -122,7 +106,6 @@ const mapStateToProps = state => {
     filtered: getFilteredEntriesAmount(state),
     total: getTotalEntriesAmount(state),
     mutations: getMutationType(state),
-    isTumorInfo: getTumorInfoMode(state),
     searchText: getSearchQuery(state),
     tableData: getFilteredSearchQueries(state)
   };

@@ -10,7 +10,9 @@
   font-style: normal;
   font-size: 14px;
   padding: 10px 25px;
-  border-bottom: $border_color solid 1px;
+  z-index: 2;
+  //border-bottom: $border_color solid 1px;
+  box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.1);
 
   .mutation-select-wrapper {
     display: block;
