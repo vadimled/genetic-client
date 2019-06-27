@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Icon, Button, Input, AutoComplete } from 'antd';
+import { AutoComplete, Icon, Input } from "antd";
 
 import cn from "classnames";
 import style from "./TumorToolbar.module.scss";
@@ -46,14 +46,9 @@ class TumorToolbar extends Component {
       <Option key={item.category} text={item.category}>
         <div className="global-search-item">
           <span className="global-search-item-desc">
-          Found {item.query} on
-            <a
-              href={`https://s.taobao.com/search?q=${item.query}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {item.category}
-            </a>
+          
+            {item.category}
+          
           </span>
           <span className="global-search-item-count">{item.count} results</span>
         </div>
@@ -81,18 +76,7 @@ class TumorToolbar extends Component {
               placeholder="input here"
               optionLabelProp="text"
             >
-              <Input
-                suffix={
-                  <Button
-                    className="search-btn"
-                    style={{ marginRight: -12 }}
-                    size="large"
-                    type="primary"
-                  >
-                    <Icon type="search" />
-                  </Button>
-                }
-              />
+              <Input suffix={<Icon type="close" className="certain-category-icon" />} />
             </AutoComplete>
           </div>
         </div>
