@@ -6,6 +6,7 @@ import SimpleSelect from "GenericComponents/simpleSelect";
 import style from "./Toolbar.module.scss";
 import { MUTATION } from "Utils/constants";
 import NumberVariants from "Pages/mainPage/components/numberVariants";
+import TumorHeader from "Pages/mainPage/components/tumorToolbar";
 import IgvLoadBAM from "./components/IgvLoadBAM";
 import cn from "classnames";
 import {
@@ -96,7 +97,7 @@ class Toolbar extends Component {
   };
 
   renderTumorInfoToolbar = () => {
-    return <h3>Tumor Info</h3>;
+    return <TumorHeader />;
   };
 
   render() {
