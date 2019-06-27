@@ -45,21 +45,6 @@ class ActivityLog extends Component {
 
     const {activityLog, id} = this.props;
 
-    // if(!activityLog.length){
-    //   return (
-    //     <div
-    //       data-testid={`activity-log-icon-${id}`}
-    //       className="activity-icon-wrapper__disabled flex justify-center"
-    //     >
-    //       <div
-    //         className="icon"
-    //       >
-    //         <ActivityLogIcon />
-    //       </div>
-    //     </div>
-    //   );
-    // }
-
     return (
       <div
         data-testid={`activity-log-icon-${id}`}

@@ -160,9 +160,6 @@ class VariantTable extends Component {
       value,
     });
 
-    console.log("prevValue: ", prevValue)
-    console.log("item: ", item)
-
     updateActivityLog({prevValue, item, changedField: "variantClass"});
   }
 
