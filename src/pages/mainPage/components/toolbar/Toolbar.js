@@ -98,7 +98,8 @@ class Toolbar extends Component {
 Toolbar.propTypes = {
   filtered: PropTypes.number,
   total: PropTypes.number,
-  mutations: PropTypes.string
+  mutations: PropTypes.string,
+  sidebarToggle: PropTypes.bool
 };
 
 const mapStateToProps = state => {
