@@ -159,6 +159,10 @@ class VariantTable extends Component {
       item,
       value,
     });
+
+    console.log("prevValue: ", prevValue)
+    console.log("item: ", item)
+
     updateActivityLog({prevValue, item, changedField: "variantClass"});
   }
 
@@ -252,7 +256,7 @@ class VariantTable extends Component {
 
       if (col.dataIndex === "activityLog") {
         column.render = (...data) => {
-          return <ActivityLog data-testid={`activity-icon`} {...data} />;
+          return <ActivityLog data-testid={`activity-icon`} {...data} id={data[1].id} />;
         };
       }
 

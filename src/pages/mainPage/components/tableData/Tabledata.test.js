@@ -3,12 +3,50 @@ import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { renderWithRedux } from "Utils/test_helpers";
 import TableData from "./TableData";
+import { updateActivityLog } from "../../../../store/actions/tableActions";
 
 describe("Activity Log", () => {
-  let getByTestId, asFragment;
+  let getByTestId, activityLogIcon, store;
+
+  const data = [{
+    id: 0,
+    key: 0,
+    gene: "ABCD1P4",
+    chrPosition: "Chr2:176882",
+    transcript: "NM_119875.6",
+    exon: 5,
+    alleleChange: "C > T",
+    alleleChangeLong: "fsghfsghsfghsfsfhsfh",
+    coding: "cAc/gTa",
+    codingLong: "aGc/tCg/zzzczzfzf",
+    protein: "nuo7b",
+    vaf: 76,
+    roi: true,
+    clinvar: "",
+    gnomAD: 3,
+    zygosity: "",
+    variantClass: "",
+    coverage: 151,
+    notes: "Sed recusandae in sint.",
+    status: "pending"
+  }];
 
   beforeEach(() => {
-    const data = [{
+    const queries = renderWithRedux(<TableData data={data} />);
+    getByTestId = queries.getByTestId;
+    // asFragment = queries.asFragment;
+    store = queries.store;
+    activityLogIcon = getByTestId("activity-log-icon-0");
+  });
+
+  // it("create snapshot", () => {
+  //   expect(asFragment()).toMatchSnapshot();
+  // });
+
+
+  it("if activityLogIcon clicked", () => {
+
+    const data = {
       id: 0,
       key: 0,
       gene: "ABCD1P4",
@@ -29,29 +67,23 @@ describe("Activity Log", () => {
       coverage: 151,
       notes: "Sed recusandae in sint.",
       status: "pending"
-    }];
-
-    const queries = renderWithRedux(<TableData data={data} />);
-    getByTestId = queries.getByTestId;
-    asFragment = queries.asFragment;
-    // store = queries.store;
-    // activityLogIcon = getByTestId("activity-icon");
-  });
-
-  it("create snapshot", () => {
-    expect(asFragment()).toMatchSnapshot();
-  });
+    };
 
 
-  it("if activityLogIcon clicked", () => {
+    expect(activityLogIcon).toHaveClass('activity-icon-wrapper disabled');
 
-    // ant-select-selection
-    // ant-select-selection--single
+    store.dispatch(updateActivityLog({
+      prevValue: "LATH",
+      item: data,
+      changedField: "variantClass"
+    }));
 
+    expect(activityLogIcon).not.toHaveClass('disabled');
 
-    fireEvent.click(icon);
-    const editTextBox = getByTestId("activity-log-popup");
-    expect(editTextBox).toBeInTheDocument();
+    fireEvent.click(activityLogIcon);
+
+    const activityLogPopup = getByTestId("activity-log-popup");
+    expect(activityLogPopup).toBeInTheDocument();
 
     // fireEvent.click(getByTestId("footer-button-done"));
     // expect(editTextBox).not.toBeInTheDocument();

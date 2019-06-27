@@ -17,7 +17,7 @@
       }
     }
   }
-  .activity-icon-wrapper__disabled {
+  .activity-icon-wrapper.disabled {
     cursor: not-allowed;
     svg {
       opacity: 0.5;
