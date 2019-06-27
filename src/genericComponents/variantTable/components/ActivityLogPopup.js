@@ -12,6 +12,7 @@ class ActivityLogPopup extends Component {
 
     return (
       <Modal
+        data-testid={`activity-log-popup`}
         width={1000}
         title="Activity log"
         visible={visible}
