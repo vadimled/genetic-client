@@ -28,8 +28,6 @@ export const
 
 export const getSearchQuery = state => state?.filters?.searchText;
 
-export const getNotes = (state, id) => state?.table?.data?.[id].notes;
-
 export const getTableDataAsArray = createSelector(
   getTableData,
   data => {

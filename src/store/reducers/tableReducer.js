@@ -85,7 +85,8 @@ const tableReducer = createReducer(initialState, {
     data[id].notes = notes;
 
     return {
-      ...state
+      ...state,
+      data: { ...data }
     };
   },
 

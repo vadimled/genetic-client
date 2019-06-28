@@ -14,6 +14,7 @@ import {
   handleZygosity,
   handleVariantClass,
   handleConfirmationStatus,
+  setNotes
 } from "Actions/tableActions";
 import {
   goToChrPositionIgv
@@ -32,7 +33,8 @@ class TableData extends Component {
       handleVariantClass,
       handleConfirmationStatus,
       goToChrPositionIgv,
-      isAllRowSelected
+      isAllRowSelected,
+      setNotes
     } = this.props;
 
     return (
@@ -47,6 +49,7 @@ class TableData extends Component {
             handelChrPosition={goToChrPositionIgv}
             handleConfirmationStatus={handleConfirmationStatus}
             isAllRowSelected={isAllRowSelected}
+            setNotes={setNotes}
           />
         }
         {!filteredData?.length && <EmptyState/>}
@@ -58,7 +61,8 @@ class TableData extends Component {
 function mapStateToProps(state) {
   return {
     filteredData: getFilteredData(state),
-    isAllRowSelected: checkIsAllRowSelected(state)
+    isAllRowSelected: checkIsAllRowSelected(state),
+    // notes: getNotes(state, owenProps?.id)
   };
 }
 
@@ -77,6 +81,7 @@ function mapDispatchToProps(dispatch) {
       }
     },
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
+    setNotes: data => dispatch(setNotes(data))
   };
 }
 

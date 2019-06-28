@@ -1,13 +1,10 @@
 import React, { Component, Fragment, createRef } from "react";
-import { connect } from "react-redux";
 import { Tooltip } from "antd";
 import style from "./Notes.module.scss";
 import { LIMITS, TEXTS } from "Utils/constants";
 import { ReactComponent as EditIcon } from "Assets/edit.svg";
 import PropTypes from "prop-types";
-import EditNotes from "Pages/mainPage/components/notes/components/editNotes";
-import { setNotes } from "Store/actions/tableActions";
-import { getNotes } from "Store/selectors";
+import EditNotes from "./components/editNotes";
 
 class Notes extends Component {
   constructor(props) {
@@ -15,7 +12,7 @@ class Notes extends Component {
 
     this.initialState = {
       isEdit: false,
-      editNotes: props.getValue,
+      editNotes: props.value,
       limit: {
         value: 0
       }
@@ -54,11 +51,8 @@ class Notes extends Component {
   };
 
   handleDone = () => {
-    const { id, setNotes } = this.props;
-    setNotes({
-      id,
-      notes: this.state.editNotes
-    });
+    const { setNotes } = this.props;
+    setNotes(this.state.editNotes);
     this.cleanupState();
   };
 
@@ -67,8 +61,8 @@ class Notes extends Component {
   };
 
   handelEditClick = () => {
-    const { getValue } = this.props;
-    this.setState({ editNotes: getValue, isEdit: true });
+    const { value } = this.props;
+    this.setState({ editNotes: value, isEdit: true });
   };
 
   handleEditNotesOnChange = e => {
@@ -98,18 +92,18 @@ class Notes extends Component {
   };
 
   render() {
-    const { getValue } = this.props;
+    const { value } = this.props;
 
     return (
       <div ref={this.notes} className={style["notes-wrapper"]}>
-        {!getValue ? (
+        {!value ? (
           <div className="notes-content-empty" onClick={this.handelEditClick}>
             {TEXTS.addNote}
           </div>
         ) : (
           <Fragment>
-            <Tooltip placement="topLeft" title={getValue}>
-              <div className="notes-content">{getValue}</div>
+            <Tooltip placement="topLeft" title={value}>
+              <div className="notes-content">{value}</div>
             </Tooltip>
 
             <div className="notes-icon" onClick={this.handelEditClick}>
@@ -124,23 +118,12 @@ class Notes extends Component {
 }
 
 Notes.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  valueNotes: PropTypes.string
+  setNotes: PropTypes.func.isRequired,
+  value: PropTypes.string
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setNotes: data => dispatch(setNotes(data))
-  };
+Notes.defaultProps = {
+  value: ""
 };
 
-const mapStateToProps = (state, owenProps) => {
-  return {
-    getValue: getNotes(state, owenProps?.id)
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Notes);
+export default React.memo(Notes);

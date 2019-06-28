@@ -30,6 +30,7 @@ const SendForConfirmationPopup = ({ handleOnConfirmation, data, handleSelectedRo
             <ConfirmationTable
               data={data}
               handleSelectedRow={handleSelectedRow}
+              handelChrPosition={() => true}
             />
           </div>}
           {!data.length && <EmptyState description="" title="No data for sending"/>}

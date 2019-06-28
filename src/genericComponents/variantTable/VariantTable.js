@@ -4,7 +4,7 @@ import { Table, Tooltip, Checkbox } from "antd";
 import { Resizable } from "react-resizable";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import ConfirmationStatus from "GenericComponents/confirmationStatus";
-import Notes from "Pages/mainPage/components/notes";
+import Notes from "GenericComponents/notes";
 import {
   ZYGOSITY_OPTIONS,
   GERMLINE_VARIANT_CLASS_OPTIONS,
@@ -229,7 +229,13 @@ class VariantTable extends Component {
       }
 
       if (col.dataIndex === "notes") {
-        column.render = (...data) => <Notes key={data[1].id} id={data[1].id} />;
+        column.render = (...data) => <Notes
+          setNotes={notes => this.props.setNotes({
+            id: data[1].id,
+            notes
+          })}
+          value={data[1].notes}
+        />;
       }
 
       if (col.dataIndex === "transcript") {
@@ -294,6 +300,7 @@ VariantTable.propTypes = {
   handelChrPosition: PropTypes.func.isRequired,
   handleConfirmationStatus: PropTypes.func.isRequired,
   isAllRowSelected: PropTypes.bool,
+  setNotes: PropTypes.func.isRequired,
 };
 
 VariantTable.defaultProps = {
