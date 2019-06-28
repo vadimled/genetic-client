@@ -31,12 +31,19 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
-
+      svg {
+        overflow: visible;
+        ellipse {
+          transition: all 0.4s;
+          stroke: $subtitle_color;
+          stroke-opacity: 0;
+        }
+      }
       &:hover {
         svg {
-          overflow: visible;
           ellipse {
-            stroke: $subtitle_color;
+            transition: stroke-opacity 0.5s ease;
+            stroke-opacity: 1;
             stroke-width: 2px;
             fill: none;
           }
