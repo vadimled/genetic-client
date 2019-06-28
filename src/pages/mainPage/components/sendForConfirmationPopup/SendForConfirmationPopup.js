@@ -45,7 +45,8 @@ const SendForConfirmationPopup = (props) => {
               removeConfirmationRow={removeConfirmationRow}
               handelChrPosition={goToChrPositionIgv}
               handleConfirmationNotes={handleConfirmationNotes}
-              handlePrimer={(data) => console.log(data)}
+              handleConfirmationPrimer={(data) => console.log(data)}
+              handleConfirmationFragmentSize={(data) => console.log(data)}
             />
           </div>}
           {!data.length && <EmptyState description="" title="No data for sending"/>}

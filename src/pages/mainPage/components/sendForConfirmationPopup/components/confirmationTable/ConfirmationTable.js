@@ -79,13 +79,19 @@ class ConfirmationTable extends Component {
         title: "Primer*",
         dataIndex: "primer",
         key: "16",
-        width: 532
+        width: 150
+      },
+      {
+        title: "Fragment size*",
+        dataIndex: "fragmentSize",
+        key: "17",
+        width: 150
       },
       {
         title: "Special Note",
         dataIndex: "confirmationNotes",
         key: "13",
-        width: 532
+        width: 200
       }
     ]
   };
@@ -122,30 +128,73 @@ class ConfirmationTable extends Component {
       }
 
       if (column.dataIndex === "primer") {
-        column.render = (...data) => (
-          <div className="table-input-wrapper">
-            <Input
-              value={data[1].primer}
-              onChange={e =>
-                this.props.handlePrimer({
-                  item: data[1],
-                  value: e.target.value
-                })
-              }
-            />
-          </div>
-        );
+        column.render = (value, row) => {
+          return row.additionConfirmationData.map((item) =>
+            <div
+              key={`primer-${item.keyId}`}
+              className="table-multiple-row"
+            >
+              <div className="table-input-wrapper">
+                <Input
+                  value={item.primer}
+                  onChange={e =>
+                    this.props.handleConfirmationPrimer({
+                      id: row.id,
+                      value: e.target.value
+                    })
+                  }
+                />
+              </div>
+            </div>
+          );
+        };
+        column.className = "input";
+      }
+
+      if (column.dataIndex === "fragmentSize") {
+        column.render = (value, row) => {
+          return row.additionConfirmationData.map((item) =>
+            <div
+              key={`fsize-${item.keyId}`}
+              className="table-multiple-row"
+            >
+              <div className="table-input-wrapper">
+                <Input
+                  value={item.fragmentSize}
+                  onChange={e =>
+                    this.props.handleConfirmationFragmentSize({
+                      id: row.id,
+                      value: e.target.value
+                    })
+                  }
+                />
+              </div>
+            </div>
+          );
+        };
         column.className = "input";
       }
 
       if (col.dataIndex === "confirmationNotes") {
-        column.render = (...data) => <Notes
-          setNotes={notes => this.props.handleConfirmationNotes({
-            id: data[1].id,
-            notes
-          })}
-          value={data[1].confirmationNotes}
-        />;
+        column.render = (value, row) => {
+          return row.additionConfirmationData.map((item) =>
+            <div
+              key={`notes-${item.keyId}`}
+              className="table-multiple-row"
+            >
+              <div className="table-input-wrapper">
+                <Notes
+                  value={item.notes}
+                  setNotes={notes => this.props.handleConfirmationNotes({
+                    id: value.id,
+                    notes
+                  })}
+                />
+              </div>
+            </div>
+          );
+        };
+        column.className = "input";
       }
 
       return column;
@@ -187,7 +236,8 @@ ConfirmationTable.propTypes = {
   removeConfirmationRow: PropTypes.func.isRequired,
   handelChrPosition: PropTypes.func.isRequired,
   handleConfirmationNotes: PropTypes.func.isRequired,
-  handlePrimer: PropTypes.func.isRequired
+  handleConfirmationPrimer: PropTypes.func.isRequired,
+  handleConfirmationFragmentSize: PropTypes.func.isRequired,
 };
 
 ConfirmationTable.defaultProps = {

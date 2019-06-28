@@ -635,7 +635,6 @@ th {
 }
 
 // ant-table
-
 .ant-table {
   .ant-table-thead {
     tr {
@@ -722,6 +721,14 @@ th {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+    }
+  }
+
+  .table-multiple-row {
+    height: 37px;
+
+    &:not(:first-child) {
+      border-top: 1px solid $neutral_10;
     }
   }
 }

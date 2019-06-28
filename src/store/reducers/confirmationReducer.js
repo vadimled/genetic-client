@@ -23,9 +23,33 @@ const confirmationReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_CONFIRMATION_DATA]: (state, { payload }) => {
+    let preparedData = [];
+    if (payload) {
+      preparedData = payload.map(row => {
+        if (!row.additionConfirmationData || !row.additionConfirmationData.length) {
+          // initialize required to fill out data
+          row.additionConfirmationData = [
+            {
+              keyId: Math.random(),
+              primer: "123",
+              fragmentSize: "234",
+              notes: "some note"
+            },
+            {
+              keyId: Math.random(),
+              primer: "123",
+              fragmentSize: "234",
+              notes: "some note"
+            },
+          ];
+        }
+        return row;
+      });
+    }
+
     return {
       ...state,
-      data: payload
+      data: preparedData
     };
   },
 
