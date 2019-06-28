@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Table, Tooltip } from "antd";
+import { Table, Tooltip, Input } from "antd";
 import { Resizable } from "react-resizable";
 import style from './ConfirmationTable.module.scss';
 // import Tag from 'GenericComponents/tag';
@@ -36,10 +36,7 @@ class ConfirmationTable extends Component {
             <div className="remover-cell">
               <span>{text}</span>
               <button
-                onClick={this.props.handleSelectedRow.bind(null, {
-                  item: record,
-                  value: false
-                })}
+                onClick={this.props.removeConfirmationRow.bind(null, record.id)}
               >
                 <img src={binImg} alt="bin"/>
               </button>
@@ -79,41 +76,17 @@ class ConfirmationTable extends Component {
         width: 100
       },
       {
+        title: "Primer*",
+        dataIndex: "primer",
+        key: "16",
+        width: 532
+      },
+      {
         title: "Special Note",
         dataIndex: "confirmationNotes",
         key: "13",
         width: 532
-      },
-      // {
-      //   title: "Variant Class",
-      //   dataIndex: "variantClass",
-      //   key: "11",
-      //   width: 178,
-      //   render: (text, record) => {
-      //     let variantClass = VARIANT_CLASS[record.variantClass] || SOMATIC_CLASS[record.variantClass];
-      //     return variantClass
-      //       ? (
-      //         <div className="flex items-center">
-      //           <Tag color={variantClass.tagColor} />
-      //           {variantClass.label}
-      //         </div>
-      //       )
-      //       : '';
-      //   }
-      // },
-      // {
-      //   title: "Allele change",
-      //   dataIndex: "alleleChange",
-      //   key: "6",
-      //   width: 178,
-      //   render: (text, record) => {
-      //     return (
-      //       <Tooltip placement="topLeft" title={record.alleleChangeLong}>
-      //         <div>{text}</div>
-      //       </Tooltip>
-      //     );
-      //   }
-      // },
+      }
     ]
   };
 
@@ -146,6 +119,23 @@ class ConfirmationTable extends Component {
             />
           );
         };
+      }
+
+      if (column.dataIndex === "primer") {
+        column.render = (...data) => (
+          <div className="table-input-wrapper">
+            <Input
+              value={data[1].primer}
+              onChange={e =>
+                this.props.handlePrimer({
+                  item: data[1],
+                  value: e.target.value
+                })
+              }
+            />
+          </div>
+        );
+        column.className = "input";
       }
 
       if (col.dataIndex === "confirmationNotes") {
@@ -194,9 +184,10 @@ class ConfirmationTable extends Component {
 
 ConfirmationTable.propTypes = {
   data: PropTypes.array,
-  handleSelectedRow: PropTypes.func.isRequired,
+  removeConfirmationRow: PropTypes.func.isRequired,
   handelChrPosition: PropTypes.func.isRequired,
-  handleConfirmationNotes: PropTypes.func.isRequired
+  handleConfirmationNotes: PropTypes.func.isRequired,
+  handlePrimer: PropTypes.func.isRequired
 };
 
 ConfirmationTable.defaultProps = {

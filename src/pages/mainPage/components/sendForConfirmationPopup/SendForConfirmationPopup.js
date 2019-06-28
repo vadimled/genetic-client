@@ -7,16 +7,20 @@ import EmptyState from 'GenericComponents/emptyState';
 import ConfirmationTable from './components/confirmationTable';
 import styles from './SendForConfirmationPopup.module.scss';
 import btnImg from 'Assets/close-big.svg';
-import { handleOnConfirmation, sendForConfirmation } from "Actions/confirmationActions";
-import { handleSelectedRow, handleConfirmationNotes } from "Actions/tableActions";
+import {
+  handleOnConfirmation,
+  handleConfirmationNotes,
+  sendForConfirmation,
+  removeConfirmationRow
+} from "Actions/confirmationActions";
 import { goToChrPositionIgv } from "Actions/igvActions";
-import { getSelectedRows } from "Store/selectors";
+import { getConfirmationData } from "Store/selectors";
 
 const SendForConfirmationPopup = (props) => {
   const {
     data,
     handleOnConfirmation,
-    handleSelectedRow,
+    removeConfirmationRow,
     sendForConfirmation,
     handleConfirmationNotes
   } = props;
@@ -38,9 +42,10 @@ const SendForConfirmationPopup = (props) => {
           {!!data.length && <div className="confirmation-table">
             <ConfirmationTable
               data={data}
-              handleSelectedRow={handleSelectedRow}
+              removeConfirmationRow={removeConfirmationRow}
               handelChrPosition={goToChrPositionIgv}
               handleConfirmationNotes={handleConfirmationNotes}
+              handlePrimer={(data) => console.log(data)}
             />
           </div>}
           {!data.length && <EmptyState description="" title="No data for sending"/>}
@@ -79,7 +84,7 @@ SendForConfirmationPopup.defaultProps = {
 const mapDispatchToProps = (dispatch) => {
   return {
     handleOnConfirmation: data => dispatch(handleOnConfirmation(data)),
-    handleSelectedRow: data => dispatch(handleSelectedRow(data)),
+    removeConfirmationRow: data => dispatch(removeConfirmationRow(data)),
     sendForConfirmation: data => dispatch(sendForConfirmation(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
     handleConfirmationNotes: (data) => dispatch(handleConfirmationNotes(data)),
@@ -88,7 +93,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    data: getSelectedRows(state)
+    data: getConfirmationData(state)
   };
 };
 

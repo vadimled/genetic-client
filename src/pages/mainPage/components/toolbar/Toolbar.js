@@ -14,7 +14,10 @@ import {
 } from "Store/selectors";
 import { setMutationType } from "Actions/variantsActions";
 import { updateSearch } from "Actions/tableActions";
-import { handleOnConfirmation } from "Actions/confirmationActions";
+import {
+  handleOnConfirmation,
+  setConfirmationData
+} from "Actions/confirmationActions";
 import {
   getMutationType,
   getSearchQuery,
@@ -45,7 +48,7 @@ class Toolbar extends Component {
       searchText,
       tableData,
       selectedRows,
-      handleOnConfirmation
+      openConfirmationPopup
     } = this.props;
 
     return (
@@ -53,7 +56,7 @@ class Toolbar extends Component {
         {!!selectedRows?.length &&
           <button
             className={cn(["confirmation-button", { "sidebar-open": sidebarToggle }])}
-            onClick={handleOnConfirmation.bind(null, true)}
+            onClick={openConfirmationPopup.bind(null, selectedRows)}
           >
             Send for confirmation
           </button>
@@ -128,7 +131,10 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     setMutationType: data => dispatch(setMutationType(data)),
-    handleOnConfirmation: data => dispatch(handleOnConfirmation(data)),
+    openConfirmationPopup: data => {
+      dispatch(handleOnConfirmation(true));
+      dispatch(setConfirmationData(data));
+    },
     updateSearch: data => dispatch(updateSearch(data))
   };
 }

@@ -117,16 +117,6 @@ const tableReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.HANDLE_CONFIRMATION_NOTES]: (state, { payload }) => {
-    const { id, notes } = payload;
-    let data = state?.data;
-    data[id].confirmationNotes = notes;
-
-    return {
-      ...state,
-      data: { ...data }
-    };
-  },
 });
 
 export default tableReducer;

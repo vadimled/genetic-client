@@ -21,3 +21,25 @@ export const handleUncheckConfirmationData = data => {
   };
 };
 
+export const setConfirmationData = data => {
+  return {
+    type: actionsTypes.SET_CONFIRMATION_DATA,
+    payload: data
+  };
+};
+
+export const removeConfirmationRow = data => {
+  return {
+    type: actionsTypes.REMOVE_CONFIRMATION_ROW,
+    payload: data
+  };
+};
+
+export const handleConfirmationNotes = data => {
+  return {
+    type: actionsTypes.HANDLE_CONFIRMATION_NOTES,
+    payload: data
+  };
+};
+
+

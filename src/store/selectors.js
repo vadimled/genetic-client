@@ -17,6 +17,7 @@ export const
 
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
   getUncheckConfirmationData = state => state?.confirmation?.uncheckConfirmationData,
+  getConfirmationData = state => state?.confirmation?.data,
 
   getMutationType = state => state.variants.mutations,
 
