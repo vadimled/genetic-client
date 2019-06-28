@@ -42,4 +42,24 @@ export const handleConfirmationNotes = data => {
   };
 };
 
+export const handleConfirmationPrimer = data => {
+  return {
+    type: actionsTypes.HANDLE_CONFIRMATION_PRIMER,
+    payload: data
+  };
+};
+
+export const handleConfirmationFragmentSize = data => {
+  return {
+    type: actionsTypes.HANDLE_CONFIRMATION_FRAGMENT_SIZE,
+    payload: data
+  };
+};
+
+export const addAdditionalConfirmationData = data => {
+  return {
+    type: actionsTypes.ADD_ADDITIONAL_CONFIRMATION_DATA,
+    payload: data
+  };
+};
 

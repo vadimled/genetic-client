@@ -7,6 +7,13 @@ const initialState = {
   data: []
 };
 
+const generateAdditionalConfirmationData = () => ({
+  keyId: Math.random(),
+  primer: "",
+  fragmentSize: "",
+  notes: ""
+});
+
 const confirmationReducer = createReducer(initialState, {
   [actionsTypes.HANDLE_ON_CONFIRMATION]: (state, { payload }) => {
     return {
@@ -27,21 +34,8 @@ const confirmationReducer = createReducer(initialState, {
     if (payload) {
       preparedData = payload.map(row => {
         if (!row.additionConfirmationData || !row.additionConfirmationData.length) {
-          // initialize required to fill out data
-          row.additionConfirmationData = [
-            {
-              keyId: Math.random(),
-              primer: "123",
-              fragmentSize: "234",
-              notes: "some note"
-            },
-            {
-              keyId: Math.random(),
-              primer: "123",
-              fragmentSize: "234",
-              notes: "some note"
-            },
-          ];
+          // initialize required filling out data
+          row.additionConfirmationData = [generateAdditionalConfirmationData()];
         }
         return row;
       });
@@ -63,9 +57,55 @@ const confirmationReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_CONFIRMATION_NOTES]: (state, { payload }) => {
+    const { id, index, notes } = payload;
     const updatedData = state.data.map(row => {
-      if (row.id !== payload.id) return row;
-      row.confirmationNotes = payload.notes;
+      if (row.id === id) {
+        row.additionConfirmationData[index].notes = notes;
+      }
+      return row;
+    });
+
+    return {
+      ...state,
+      data: updatedData
+    };
+  },
+
+  [actionsTypes.HANDLE_CONFIRMATION_PRIMER]: (state, { payload }) => {
+    const { id, index, value } = payload;
+    const updatedData = state.data.map(row => {
+      if (row.id === id) {
+        row.additionConfirmationData[index].primer = value;
+      }
+      return row;
+    });
+
+    return {
+      ...state,
+      data: updatedData
+    };
+  },
+
+  [actionsTypes.HANDLE_CONFIRMATION_FRAGMENT_SIZE]: (state, { payload }) => {
+    const { id, index, value } = payload;
+    const updatedData = state.data.map(row => {
+      if (row.id === id) {
+        row.additionConfirmationData[index].fragmentSize = value;
+      }
+      return row;
+    });
+
+    return {
+      ...state,
+      data: updatedData
+    };
+  },
+
+  [actionsTypes.ADD_ADDITIONAL_CONFIRMATION_DATA]: (state, { payload }) => {
+    const updatedData = state.data.map(row => {
+      if (row.id === payload) {
+        row.additionConfirmationData.push(generateAdditionalConfirmationData());
+      }
       return row;
     });
 

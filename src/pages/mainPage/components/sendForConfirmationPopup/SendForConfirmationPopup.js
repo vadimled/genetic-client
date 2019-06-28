@@ -10,8 +10,11 @@ import btnImg from 'Assets/close-big.svg';
 import {
   handleOnConfirmation,
   handleConfirmationNotes,
+  handleConfirmationPrimer,
+  handleConfirmationFragmentSize,
   sendForConfirmation,
-  removeConfirmationRow
+  removeConfirmationRow,
+  addAdditionalConfirmationData
 } from "Actions/confirmationActions";
 import { goToChrPositionIgv } from "Actions/igvActions";
 import { getConfirmationData } from "Store/selectors";
@@ -22,7 +25,10 @@ const SendForConfirmationPopup = (props) => {
     handleOnConfirmation,
     removeConfirmationRow,
     sendForConfirmation,
-    handleConfirmationNotes
+    handleConfirmationNotes,
+    handleConfirmationPrimer,
+    handleConfirmationFragmentSize,
+    addAdditionalConfirmationData
   } = props;
 
   return (
@@ -45,8 +51,9 @@ const SendForConfirmationPopup = (props) => {
               removeConfirmationRow={removeConfirmationRow}
               handelChrPosition={goToChrPositionIgv}
               handleConfirmationNotes={handleConfirmationNotes}
-              handleConfirmationPrimer={(data) => console.log(data)}
-              handleConfirmationFragmentSize={(data) => console.log(data)}
+              handleConfirmationPrimer={handleConfirmationPrimer}
+              handleConfirmationFragmentSize={handleConfirmationFragmentSize}
+              addAdditionalConfirmationData={addAdditionalConfirmationData}
             />
           </div>}
           {!data.length && <EmptyState description="" title="No data for sending"/>}
@@ -89,6 +96,9 @@ const mapDispatchToProps = (dispatch) => {
     sendForConfirmation: data => dispatch(sendForConfirmation(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
     handleConfirmationNotes: (data) => dispatch(handleConfirmationNotes(data)),
+    handleConfirmationPrimer: (data) => dispatch(handleConfirmationPrimer(data)),
+    handleConfirmationFragmentSize: (data) => dispatch(handleConfirmationFragmentSize(data)),
+    addAdditionalConfirmationData: (data) => dispatch(addAdditionalConfirmationData(data)),
   };
 };
 

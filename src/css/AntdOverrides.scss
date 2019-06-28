@@ -700,6 +700,10 @@ th {
         padding: 0;
       }
 
+      td.add-cell {
+        padding: 0;
+      }
+
       &:hover {
         td {
           background-color: $neutral_10;
@@ -729,6 +733,22 @@ th {
 
     &:not(:first-child) {
       border-top: 1px solid $neutral_10;
+    }
+  }
+
+  .table-act-plus {
+    width: 35px;
+    height: 100%;
+    background-image: url("../assets/circle-plus-grey.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: $brand_primary_color;
+      background-image: url("../assets/circle-plus-white.svg");
     }
   }
 }
@@ -781,11 +801,10 @@ th {
   &.selection-cell {
     min-width: 50px;
   }
-}
 
-.ant-table-bordered .ant-table-thead > tr > th,
-.ant-table-bordered .ant-table-tbody > tr > td {
-  min-width: 90px;
+  &.add-cell {
+    min-width: 35px;
+  }
 }
 
 .sidebar-open {

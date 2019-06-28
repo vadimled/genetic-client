@@ -48,19 +48,19 @@ class ConfirmationTable extends Component {
         title: "Chr: position",
         dataIndex: "chrPosition",
         key: "3",
-        width: 128
+        width: 156
       },
       {
         title: "Exon",
         dataIndex: "exon",
         key: "5",
-        width: 100
+        width: 75
       },
       {
         title: "coding",
         dataIndex: "coding",
         key: "7",
-        width: 178,
+        width: 131,
         render: (text, record) => {
           return (
             <Tooltip placement="topLeft" title={record.codingLong}>
@@ -73,25 +73,31 @@ class ConfirmationTable extends Component {
         title: "Protein",
         dataIndex: "protein",
         key: "8",
-        width: 100
+        width: 121
       },
       {
         title: "Primer*",
         dataIndex: "primer",
         key: "16",
-        width: 150
+        width: 132
       },
       {
         title: "Fragment size*",
         dataIndex: "fragmentSize",
         key: "17",
-        width: 150
+        width: 220
       },
       {
         title: "Special Note",
         dataIndex: "confirmationNotes",
         key: "13",
-        width: 200
+        width: 212
+      },
+      {
+        title: "",
+        dataIndex: "addConfirmationAdditionData",
+        key: "23",
+        width: 35
       }
     ]
   };
@@ -129,7 +135,7 @@ class ConfirmationTable extends Component {
 
       if (column.dataIndex === "primer") {
         column.render = (value, row) => {
-          return row.additionConfirmationData.map((item) =>
+          return row.additionConfirmationData.map((item, index) =>
             <div
               key={`primer-${item.keyId}`}
               className="table-multiple-row"
@@ -140,6 +146,7 @@ class ConfirmationTable extends Component {
                   onChange={e =>
                     this.props.handleConfirmationPrimer({
                       id: row.id,
+                      index,
                       value: e.target.value
                     })
                   }
@@ -153,7 +160,7 @@ class ConfirmationTable extends Component {
 
       if (column.dataIndex === "fragmentSize") {
         column.render = (value, row) => {
-          return row.additionConfirmationData.map((item) =>
+          return row.additionConfirmationData.map((item, index) =>
             <div
               key={`fsize-${item.keyId}`}
               className="table-multiple-row"
@@ -164,6 +171,7 @@ class ConfirmationTable extends Component {
                   onChange={e =>
                     this.props.handleConfirmationFragmentSize({
                       id: row.id,
+                      index,
                       value: e.target.value
                     })
                   }
@@ -177,7 +185,7 @@ class ConfirmationTable extends Component {
 
       if (col.dataIndex === "confirmationNotes") {
         column.render = (value, row) => {
-          return row.additionConfirmationData.map((item) =>
+          return row.additionConfirmationData.map((item, index) =>
             <div
               key={`notes-${item.keyId}`}
               className="table-multiple-row"
@@ -186,7 +194,8 @@ class ConfirmationTable extends Component {
                 <Notes
                   value={item.notes}
                   setNotes={notes => this.props.handleConfirmationNotes({
-                    id: value.id,
+                    id: row.id,
+                    index,
                     notes
                   })}
                 />
@@ -195,6 +204,23 @@ class ConfirmationTable extends Component {
           );
         };
         column.className = "input";
+      }
+
+      if (col.dataIndex === "addConfirmationAdditionData") {
+        column.render = (value, row) => {
+          return row.additionConfirmationData.map((item) =>
+            <div
+              key={`notes-${item.keyId}`}
+              className="table-multiple-row"
+            >
+              <div
+                className="table-act-plus"
+                onClick={this.props.addAdditionalConfirmationData.bind(null, row.id)}
+              />
+            </div>
+          );
+        };
+        column.className = "add-cell";
       }
 
       return column;
@@ -238,6 +264,7 @@ ConfirmationTable.propTypes = {
   handleConfirmationNotes: PropTypes.func.isRequired,
   handleConfirmationPrimer: PropTypes.func.isRequired,
   handleConfirmationFragmentSize: PropTypes.func.isRequired,
+  addAdditionalConfirmationData: PropTypes.func.isRequired,
 };
 
 ConfirmationTable.defaultProps = {
