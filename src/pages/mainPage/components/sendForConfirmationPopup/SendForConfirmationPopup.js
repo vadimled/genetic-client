@@ -8,10 +8,19 @@ import ConfirmationTable from './components/confirmationTable';
 import styles from './SendForConfirmationPopup.module.scss';
 import btnImg from 'Assets/close-big.svg';
 import { handleOnConfirmation, sendForConfirmation } from "Actions/confirmationActions";
-import { handleSelectedRow } from "Actions/tableActions";
+import { handleSelectedRow, handleConfirmationNotes } from "Actions/tableActions";
+import { goToChrPositionIgv } from "Actions/igvActions";
 import { getSelectedRows } from "Store/selectors";
 
-const SendForConfirmationPopup = ({ handleOnConfirmation, data, handleSelectedRow, sendForConfirmation }) => {
+const SendForConfirmationPopup = (props) => {
+  const {
+    data,
+    handleOnConfirmation,
+    handleSelectedRow,
+    sendForConfirmation,
+    handleConfirmationNotes
+  } = props;
+
   return (
     <Portal>
       <div className={styles['send-for-confirmation-popup']}>
@@ -30,7 +39,8 @@ const SendForConfirmationPopup = ({ handleOnConfirmation, data, handleSelectedRo
             <ConfirmationTable
               data={data}
               handleSelectedRow={handleSelectedRow}
-              handelChrPosition={() => true}
+              handelChrPosition={goToChrPositionIgv}
+              handleConfirmationNotes={handleConfirmationNotes}
             />
           </div>}
           {!data.length && <EmptyState description="" title="No data for sending"/>}
@@ -70,7 +80,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     handleOnConfirmation: data => dispatch(handleOnConfirmation(data)),
     handleSelectedRow: data => dispatch(handleSelectedRow(data)),
-    sendForConfirmation: data => dispatch(sendForConfirmation(data))
+    sendForConfirmation: data => dispatch(sendForConfirmation(data)),
+    goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
+    handleConfirmationNotes: (data) => dispatch(handleConfirmationNotes(data)),
   };
 };
 

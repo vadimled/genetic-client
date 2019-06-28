@@ -56,3 +56,10 @@ export const applyConfirmation = data => {
     payload: data
   };
 };
+
+export const handleConfirmationNotes = data => {
+  return {
+    type: actionsTypes.HANDLE_CONFIRMATION_NOTES,
+    payload: data
+  };
+};

@@ -149,7 +149,13 @@ class ConfirmationTable extends Component {
       }
 
       if (col.dataIndex === "confirmationNotes") {
-        column.render = (...data) => <Notes id={data[1].id} />;
+        column.render = (...data) => <Notes
+          setNotes={notes => this.props.handleConfirmationNotes({
+            id: data[1].id,
+            notes
+          })}
+          value={data[1].confirmationNotes}
+        />;
       }
 
       return column;
@@ -190,6 +196,7 @@ ConfirmationTable.propTypes = {
   data: PropTypes.array,
   handleSelectedRow: PropTypes.func.isRequired,
   handelChrPosition: PropTypes.func.isRequired,
+  handleConfirmationNotes: PropTypes.func.isRequired
 };
 
 ConfirmationTable.defaultProps = {
