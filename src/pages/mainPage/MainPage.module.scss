@@ -66,25 +66,25 @@
         box-shadow: 0 2px 3px 1px #dae1e680;
       }
     }
+  }
 
-    .sidebar-wrapper {
-      display: flex;
-      //width: 192px;
-      height: 100%;
-      z-index: 2;
+  .sidebar-wrapper {
+    display: flex;
+    //width: 192px;
+    height: 100%;
+    z-index: 2;
+    transition: 0.4s ease;
+    transform: translate(-155px, 0px);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &.sidebar-open {
       transition: 0.4s ease;
-      transform: translate(-155px, 0px);
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-
-      &.sidebar-open {
-        transition: 0.4s ease;
-        transform: translate(0px, 0px);
-      }
+      transform: translate(0px, 0px);
     }
   }
 }
