@@ -38,25 +38,55 @@
       transition: 0.4s ease;
       transform: translate(0px, 0px);
     }
-  }
 
-  .sidebar-wrapper {
-    display: flex;
-    //width: 192px;
-    height: 100%;
-    z-index: 2;
-    transition: 0.4s ease;
-    transform: translate(-155px, 0px);
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    .tumor-toolbar-collapse {
+      display: flex;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      -webkit-transition: all 0.4s ease-in-out;
+      -moz-transition: all 0.4s ease-in-out;
+      -ms-transition: all 0.4s ease-in-out;
+      -o-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
 
-    &.sidebar-open {
+      &.out {
+        max-height: 48px;
+        height: auto;
+        transition: all 0.4s ease-in-out;
+        overflow: hidden;
+      }
+    }
+
+    .toolbar-collapse {
+      display: flex;
+      width: 100%;
+      z-index: 2;
+
+      &.shadow {
+        border-bottom: none;
+        box-shadow: 0 2px 3px 1px #dae1e680;
+      }
+    }
+
+    .sidebar-wrapper {
+      display: flex;
+      //width: 192px;
+      height: 100%;
+      z-index: 2;
       transition: 0.4s ease;
-      transform: translate(0px, 0px);
+      transform: translate(-155px, 0px);
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      &.sidebar-open {
+        transition: 0.4s ease;
+        transform: translate(0px, 0px);
+      }
     }
   }
 }
