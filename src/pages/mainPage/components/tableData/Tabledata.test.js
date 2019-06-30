@@ -4,6 +4,14 @@ import "jest-dom/extend-expect";
 import { renderWithRedux } from "Utils/test_helpers";
 import TableData from "./TableData";
 import { updateActivityLog } from "../../../../store/actions/tableActions";
+import ActivityLog from "../../../../genericComponents/variantTable/components/ActivityLog";
+import { shallow, configure } from "enzyme";
+import Adapter from 'enzyme-adapter-react-16';
+
+
+configure({ adapter: new Adapter() });
+
+
 
 describe("Activity Log", () => {
   let getByTestId, activityLogIcon, store;
@@ -44,7 +52,7 @@ describe("Activity Log", () => {
   // });
 
 
-  it("if activityLogIcon clicked", () => {
+  it("if activityLogIcon clicked",  () => {
 
     const data = {
       id: 0,
@@ -69,6 +77,7 @@ describe("Activity Log", () => {
       status: "pending"
     };
 
+    const activityLog = shallow(renderWithRedux(<ActivityLog />))
 
     expect(activityLogIcon).toHaveClass('activity-icon-wrapper disabled');
 
@@ -80,10 +89,31 @@ describe("Activity Log", () => {
 
     expect(activityLogIcon).not.toHaveClass('disabled');
 
-    fireEvent.click(activityLogIcon);
+    fireEvent.mouseEnter(activityLogIcon);
 
-    const activityLogPopup = getByTestId("activity-log-popup");
-    expect(activityLogPopup).toBeInTheDocument();
+    expect(activityLog.state("isActivityDetailsShow")).toBe(true)
+
+    // console.log(document.querySelector(".ant-table").outerHTML)
+
+    // const activityLogDetails = document.querySelector(".active-log-details")
+    // const activityLogDetails = getByTestId("activity-log-details")
+
+
+    // expect(activityLogDetails).toBeInTheDocument();
+
+
+    // fireEvent.click(activityLogIcon);
+
+    // const activityLogPopup = getByTestId("activity-log-popup");
+
+
+
+
+    // const activityLogPopup = await waitForElement(() => getByTestId("activity-log-popup"));
+    //
+    // console.log("--activityLogPopup: ", activityLogPopup)
+    //
+    // expect(activityLogPopup).toBeInTheDocument();
 
     // fireEvent.click(getByTestId("footer-button-done"));
     // expect(editTextBox).not.toBeInTheDocument();

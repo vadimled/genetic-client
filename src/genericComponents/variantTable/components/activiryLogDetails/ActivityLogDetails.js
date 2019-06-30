@@ -4,7 +4,7 @@ import LogRecord from "./LogRecord";
 
 
 const ActiveLogDetails = ({activityLog, hideActivityDetails}) => (
-  <div className="active-log-details" onMouseLeave={hideActivityDetails}>
+  <div className="active-log-details" onMouseLeave={hideActivityDetails} data-testid={`activity-log-details`}>
     {
       activityLog.map((record, i) => (
         <LogRecord key={i} record={record} />
