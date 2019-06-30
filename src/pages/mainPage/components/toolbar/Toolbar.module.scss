@@ -3,7 +3,7 @@
 .toolbar-wrapper :global {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  //align-items: center;
   width: 100%;
   height: 48px;
   background-color: $white;
@@ -47,7 +47,6 @@
   }
   .search-field:focus {
     border: none;
-    //border-bottom: 1px solid $brand_primary_color;
   }
   input:focus {
     outline-offset: 0px !important;
@@ -59,15 +58,21 @@
     padding: 4px;
   }
   .search-field-wrapper {
+    position: fixed;
+    left: 25%;
+    max-width: 345px;
     .anticon.anticon-search {
-      position: relative;
+      position: absolute;
+      left: 15px;
       z-index: 2;
-      margin-right: 5px;
     }
-    .search-icons-wrapper {
-      position: relative;
-      left: 75px;
+    .placeholder {
+      position: absolute;
+      left: 35px;
+      z-index: 100000;
+      color: $subtitle_color;
     }
+
     .clear-search-button {
       position: relative;
       right: 30px;
@@ -93,11 +98,6 @@
         border: 0;
       }
     }
-  }
-  .placeholder {
-    //position: relative;
-    z-index: 100000;
-    color: $subtitle_color;
   }
   .anticon-close svg {
     color: $subtitle_color;

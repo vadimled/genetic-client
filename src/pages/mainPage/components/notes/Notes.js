@@ -54,11 +54,21 @@ class Notes extends Component {
   };
 
   handleDone = () => {
-    const { id, setNotes } = this.props;
+    const { id, setNotes, updateActivityLog, getValue } = this.props;
+
+    const data = this.props[1];
+
     setNotes({
       id,
       notes: this.state.editNotes
     });
+
+    updateActivityLog({
+      prevValue: getValue,
+      item: data,
+      changedField: "notes"
+    });
+
     this.cleanupState();
   };
 

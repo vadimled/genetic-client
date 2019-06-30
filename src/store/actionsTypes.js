@@ -21,6 +21,9 @@ const HANDLE_VARIANT_CLASS = "HANDLE_VARIANT_CLASS";
 const SET_MUTATION_TYPE = "SET_MUTATION_TYPE";
 const SET_NOTES = "SET_NOTES";
 
+// activity log
+const UPDATE_ACTIVITY_LOG = "UPDATE_ACTIVITY_LOG";
+
 // IGV
 const FETCH_BAM_FILE = "FETCH_BAM_FILE";
 const FETCH_BAM_FILE_STATUS = "FETCH_BAM_FILE_STATUS";
@@ -52,6 +55,10 @@ export default {
   // variants
   SET_MUTATION_TYPE,
   SET_NOTES,
+
+  // activity log
+  UPDATE_ACTIVITY_LOG,
+
 
   // IGV
   FETCH_BAM_FILE,
