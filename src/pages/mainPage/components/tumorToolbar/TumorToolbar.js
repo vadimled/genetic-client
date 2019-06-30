@@ -26,9 +26,13 @@ class TumorToolbar extends Component {
   handelTumorLocationSelect = val => {
     this.props.setTumorInfo({ location: val });
   };
+  
+  handelTumorPercentSelect = val => {
+    this.props.setTumorInfo({ percent: val });
+  };
 
   render() {
-    const { type, location, sidebarToggle } = this.props;
+    const { type, location, percent, sidebarToggle } = this.props;
     return (
       <div className={style["tumor-toolbar-wrapper"]}>
         <div className="tumor-info-wrapper">
@@ -45,6 +49,12 @@ class TumorToolbar extends Component {
             info={location}
             placeholder="Missing location"
             onAction={this.handelTumorLocationSelect}
+          />
+          <TumorInfoSelect
+            label={"% Cancer Cells: "}
+            info={percent}
+            placeholder="Missing percent"
+            onAction={this.handelTumorPercentSelect}
           />
         </div>
         <div

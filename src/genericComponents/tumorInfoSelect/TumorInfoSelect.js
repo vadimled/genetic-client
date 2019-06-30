@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { AutoComplete, Tooltip } from "antd";
+import { AutoComplete, InputNumber, Tooltip } from "antd";
 import style from "./TumorInfoSelect.module.scss";
 import { ReactComponent as CloseIcon } from "Assets/close.svg";
 
@@ -39,10 +39,9 @@ const TumorInfoSelect = ({
     });
   };
 
-  return (
-    <div className={style["tumor-info-select-wrapper"]}>
-      {label && <div className="label">{label}</div>}
-      {!info ? (
+  const renderInput = () => {
+    if (dataSource && !info) {
+      return (
         <div className="tumor-info-select flex items-center">
           <AutoComplete
             id="tumor-info-select"
@@ -60,20 +59,38 @@ const TumorInfoSelect = ({
             </div>
           )}
         </div>
-      ) : (
+      );
+    } else if (info) {
+      return (
         <Tooltip placement="topLeft" title={insertedText}>
           <div className="static-text" onClick={onEdit}>
             {info}
           </div>
         </Tooltip>
-      )}
+      );
+    } else if (!dataSource) {
+      return (
+        <InputNumber
+          min={0}
+          max={100}
+          placeholder={placeholder}
+          onChange={handleOnSearchChange}
+        />
+      );
+    }
+  };
+
+  return (
+    <div className={style["tumor-info-select-wrapper"]}>
+      {label && <div className="label">{label}</div>}
+      {renderInput()}
     </div>
   );
 };
 
 TumorInfoSelect.propTypes = {
   label: PropTypes.string,
-  dataSource: PropTypes.array.isRequired
+  dataSource: PropTypes.array
 };
 
 export default TumorInfoSelect;
