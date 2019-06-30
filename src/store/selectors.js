@@ -16,7 +16,10 @@ export const
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
   getSelectedRowKeys = state => state?.table?.selectedRowKeys,
   getMutationType = state => state.variants.mutations,
-  getTumorInfoMode = state => state.variants.tumorInfo,
+  getTumorInfoMode = state => state.variants.isTumorInfo,
+  getTumorInfoType = state => state.variants.tumorInfo?.type,
+  getTumorInfoLocation = state => state.variants.tumorInfo?.location,
+  getTumorInfoPercent = state => state.variants.tumorInfo?.percent,
 
   getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
   getIgvAlertShow = state => state?.igv?.isIgvAlertShow,

@@ -3,7 +3,8 @@ import actionsTypes from "../actionsTypes";
 
 const initialState = {
   mutations: "dna",
-  tumorInfo: false
+  isTumorInfo: false,
+  tumorInfo: null
 };
 
 const variantsReducer = createReducer(initialState, {
@@ -17,7 +18,18 @@ const variantsReducer = createReducer(initialState, {
   [actionsTypes.SET_TUMOR_INFO_MODE]: (state, {payload}) => {
     return {
       ...state,
-      tumorInfo: payload
+      isTumorInfo: payload
+    };
+  },
+  
+  [actionsTypes.SET_TUMOR_INFO]: (state, {payload}) => {
+    // const {type: [val](|| location || percent)} = payload;
+    return {
+      ...state,
+      tumorInfo:{
+        ...state.tumorInfo,
+        ...payload
+      }
     };
   },
 });

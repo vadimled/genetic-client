@@ -13,3 +13,10 @@ export const setTumorInfoMode = data => {
     payload: data
   };
 };
+
+export const setTumorInfo = data => {
+  return {
+    type: actionsTypes.SET_TUMOR_INFO,
+    payload: data
+  };
+};

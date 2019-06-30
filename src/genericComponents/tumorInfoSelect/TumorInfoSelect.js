@@ -6,12 +6,14 @@ import { ReactComponent as CloseIcon } from "Assets/close.svg";
 
 const { Option } = AutoComplete;
 
-const TumorInfoSelect = ({ label, dataSource }) => {
+const TumorInfoSelect = ({
+  label,
+  dataSource,
+  onSelect,
+  info,
+  placeholder
+}) => {
   const [insertedText, updateText] = useState("");
-
-  const onSelect = value => {
-    console.log("onSelect", value);
-  };
 
   const handleOnSearchChange = value => {
     updateText(value);
@@ -36,23 +38,27 @@ const TumorInfoSelect = ({ label, dataSource }) => {
   return (
     <div className={style["tumor-info-select-wrapper"]}>
       {label && <div className="label">{label}</div>}
-      <div className="tumor-info-select flex items-center">
-        <AutoComplete
-          id="tumor-info-select"
-          data-testid={`tumor-info-select`}
-          dataSource={renderOptions()}
-          value={insertedText}
-          onChange={handleOnSearchChange}
-          onSelect={onSelect}
-          placeholder="Missing type"
-        />
+      {!info ? (
+        <div className="tumor-info-select flex items-center">
+          <AutoComplete
+            id="tumor-info-select"
+            data-testid={`tumor-info-select`}
+            dataSource={renderOptions()}
+            value={insertedText}
+            onChange={handleOnSearchChange}
+            onSelect={onSelect}
+            placeholder={placeholder}
+          />
 
-        {insertedText && (
-          <div className="clear-info-button" onClick={clearSearch}>
-            <CloseIcon />
-          </div>
-        )}
-      </div>
+          {insertedText && (
+            <div className="clear-info-button" onClick={clearSearch}>
+              <CloseIcon />
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="static-text">{info}</div>
+      )}
     </div>
   );
 };
@@ -63,10 +69,3 @@ TumorInfoSelect.propTypes = {
 };
 
 export default TumorInfoSelect;
-{/*
-<button
-  className="clear-info-button"
-  style={{ backgroundImage: `url(${closeBtn})` }}
-  onClick={clearSearch}
-/>
-*/}
