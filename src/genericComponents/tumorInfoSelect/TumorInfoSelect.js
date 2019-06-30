@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { AutoComplete } from "antd";
+import { AutoComplete, Tooltip } from "antd";
 import style from "./TumorInfoSelect.module.scss";
 import { ReactComponent as CloseIcon } from "Assets/close.svg";
 
@@ -61,9 +61,11 @@ const TumorInfoSelect = ({
           )}
         </div>
       ) : (
-        <div className="static-text" onClick={onEdit}>
-          {info}
-        </div>
+        <Tooltip placement="topLeft" title={insertedText}>
+          <div className="static-text" onClick={onEdit}>
+            {info}
+          </div>
+        </Tooltip>
       )}
     </div>
   );

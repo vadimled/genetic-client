@@ -21,8 +21,11 @@
   }
 
   .static-text {
-    width: 285px;
+    width: 253px;
     text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: $title_color;
     cursor: pointer;
 
