@@ -9,15 +9,22 @@ import { ReactComponent as CloseIcon } from "Assets/close.svg";
 const TumorInfoSelect = ({
   label,
   dataSource,
-  onSelect,
+  onAction,
   info,
-  placeholder,
-  onEdit
+  placeholder
 }) => {
   const [insertedText, updateText] = useState("");
 
   const handleOnSearchChange = value => {
     updateText(value);
+  };
+
+  const onEdit = () => {
+    onAction("");
+  };
+
+  const onSelect = val => {
+    onAction(val);
   };
 
   const clearSearch = () => {

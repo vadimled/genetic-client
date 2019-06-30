@@ -37,16 +37,14 @@ class TumorToolbar extends Component {
             dataSource={TUMOR_TYPE}
             info={type}
             placeholder="Missing type"
-            onSelect={this.handelTumorTypeSelect}
-            onEdit={() => this.handelTumorTypeSelect("")}
+            onAction={this.handelTumorTypeSelect}
           />
           <TumorInfoSelect
             label={"Location: "}
             dataSource={TUMOR_LOCATION}
             info={location}
             placeholder="Missing location"
-            onSelect={this.handelTumorLocationSelect}
-            onEdit={() => this.handelTumorLocationSelect("")}
+            onAction={this.handelTumorLocationSelect}
           />
         </div>
         <div
