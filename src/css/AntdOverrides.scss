@@ -780,3 +780,10 @@ th {
     }
   }
 }
+.tumor-info-wrapper {
+  .ant-input-suffix {
+    svg path {
+      fill: $subtitle_color !important;
+    }
+  }
+}
