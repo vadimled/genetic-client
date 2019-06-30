@@ -77,7 +77,7 @@ describe("Activity Log", () => {
       status: "pending"
     };
 
-    const activityLog = shallow(renderWithRedux(<ActivityLog />))
+    const activityLog = shallow(renderWithRedux(<ActivityLog />));
 
     expect(activityLogIcon).toHaveClass('activity-icon-wrapper disabled');
 
@@ -91,7 +91,7 @@ describe("Activity Log", () => {
 
     fireEvent.mouseEnter(activityLogIcon);
 
-    expect(activityLog.state("isActivityDetailsShow")).toBe(true)
+    expect(activityLog.state("isActivityDetailsShow")).toBe(true);
 
     // console.log(document.querySelector(".ant-table").outerHTML)
 
