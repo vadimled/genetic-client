@@ -24,6 +24,11 @@
     width: 285px;
     text-align: left;
     color: $title_color;
+    cursor: pointer;
+
+    &:hover {
+      color: $slider-bg;
+    }
   }
   .tumor-info-select {
     width: 253px !important;

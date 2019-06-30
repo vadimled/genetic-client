@@ -11,7 +11,8 @@ const TumorInfoSelect = ({
   dataSource,
   onSelect,
   info,
-  placeholder
+  placeholder,
+  onEdit
 }) => {
   const [insertedText, updateText] = useState("");
 
@@ -53,7 +54,9 @@ const TumorInfoSelect = ({
           )}
         </div>
       ) : (
-        <div className="static-text">{info}</div>
+        <div className="static-text" onClick={onEdit}>
+          {info}
+        </div>
       )}
     </div>
   );
