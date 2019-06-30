@@ -8,7 +8,7 @@
   height: 48px;
   font-style: normal;
   font-size: 14px;
-  padding: 9px 50px 9px 9px;
+  padding: 9px;
   border-bottom: $border_color solid 1px;
 
   .label {
@@ -21,9 +21,10 @@
   }
 
   .static-text {
+    width: 285px;
+    text-align: left;
     color: $title_color;
   }
-
   .tumor-info-select {
     width: 253px !important;
     height: 24px !important;

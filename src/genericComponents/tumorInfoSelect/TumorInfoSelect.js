@@ -4,7 +4,7 @@ import { AutoComplete } from "antd";
 import style from "./TumorInfoSelect.module.scss";
 import { ReactComponent as CloseIcon } from "Assets/close.svg";
 
-const { Option } = AutoComplete;
+// const { Option } = AutoComplete;
 
 const TumorInfoSelect = ({
   label,
@@ -24,13 +24,9 @@ const TumorInfoSelect = ({
   };
 
   const renderOptions = () => {
-    return Object.keys(dataSource).filter(item => {
-      if (dataSource[item].indexOf(insertedText) !== -1) {
-        return (
-          <Option key={item} text={dataSource[item]}>
-            {item}
-          </Option>
-        );
+    return dataSource.filter(item => {
+      if (item.indexOf(insertedText) !== -1) {
+        return item;
       }
     });
   };
@@ -65,7 +61,7 @@ const TumorInfoSelect = ({
 
 TumorInfoSelect.propTypes = {
   label: PropTypes.string,
-  dataSource: PropTypes.object.isRequired
+  dataSource: PropTypes.array.isRequired
 };
 
 export default TumorInfoSelect;
