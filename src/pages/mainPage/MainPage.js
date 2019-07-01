@@ -44,12 +44,10 @@ class MainPage extends Component {
             { "sidebar-open": sidebarToggle }
           ])}
         >
-          <div className={cn(["tumor-toolbar-collapse", { "out": isTumorInfo }])}>
-            {isTumorInfo &&
-                <TumorToolbar sidebarToggle={sidebarToggle} />
-            }
+          <div className={cn(["tumor-toolbar-collapse", { out: isTumorInfo }])}>
+            <TumorToolbar sidebarToggle={sidebarToggle} />
           </div>
-          <div className={cn(["toolbar-collapse", { "shadow": isTumorInfo }])}>
+          <div className={cn(["toolbar-collapse", { shadow: isTumorInfo }])}>
             <Toolbar sidebarToggle={sidebarToggle} />
           </div>
           <TableData />
