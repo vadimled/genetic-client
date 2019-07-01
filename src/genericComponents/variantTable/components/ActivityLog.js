@@ -5,6 +5,7 @@ import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
 import {connect} from "react-redux";
 import {getActivityLog} from "Store/selectors";
 import PropTypes from 'prop-types';
+import cn from "classnames";
 
 
 
@@ -42,22 +43,16 @@ class ActivityLog extends Component {
 
   render() {
 
-    const {activityLog} = this.props;
-
-    if(!activityLog.length){
-      return (
-        <div className="activity-icon-wrapper__disabled flex justify-center">
-          <div
-            className="icon"
-          >
-            <ActivityLogIcon />
-          </div>
-        </div>
-      );
-    }
+    const {activityLog, id} = this.props;
 
     return (
-      <div className="activity-icon-wrapper flex justify-center">
+      <div
+        data-testid={`activity-log-icon-${id}`}
+        className={cn([
+          "activity-icon-wrapper flex justify-center",
+          { "disabled": !activityLog.length }
+        ])}
+      >
         {this.state.isActivityDetailsShow &&
         <ActiveLogDetails activityLog={activityLog} hideActivityDetails={this.hideActivityDetails} />}
         {this.state.isActivityPopupShow && (
