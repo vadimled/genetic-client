@@ -23,7 +23,10 @@ class ActivityLogPopup extends Component {
           </Button>
         ]}
       >
-        <div className="activity-items-table">
+        <div
+          className="activity-items-table"
+          data-testid={`activity-log-popup`}
+        >
           <div className="table-header">
             <div className="cell header-cell border">Role</div>
             <div className="cell header-cell border">Action</div>

@@ -101,6 +101,12 @@ describe("Activity Log", () => {
     //
     expect(activityLogDetails).not.toBeInTheDocument();
 
+    fireEvent.click(activityLogIcon);
+
+    const activityLogPopup = getByTestId("activity-log-popup");
+
+    expect(activityLogPopup).toBeInTheDocument();
+
   });
 
   xit("activityLogIcon click", ()=> {
@@ -143,7 +149,6 @@ describe("Activity Log", () => {
     const activityLogPopup = getByTestId("activity-log-popup");
 
     expect(activityLogPopup).toBeInTheDocument();
-
 
     const btnClose = document.querySelector(".ant-modal-close");
 
