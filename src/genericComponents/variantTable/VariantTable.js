@@ -253,7 +253,6 @@ class VariantTable extends Component {
 
       if (col.dataIndex === "activityLog") {
         column.render = (...data) => {
-          console.log(data)
           return <ActivityLog data-testid={`activity-icon`} {...data} id={data[1].id} />;
         };
       }

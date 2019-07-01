@@ -45,9 +45,6 @@ class ActivityLog extends Component {
 
     const {activityLog, id} = this.props;
 
-
-    console.log("-activityLog: ", activityLog)
-
     return (
       <div
         data-testid={`activity-log-wrapper-${id}`}
