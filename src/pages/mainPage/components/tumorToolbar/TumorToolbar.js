@@ -75,7 +75,7 @@ TumorToolbar.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    isTumorInfo: getTumorInfoMode(state),
+    showTumorInfo: getTumorInfoMode(state),
     type: getTumorInfoType(state),
     location: getTumorInfoLocation(state),
     percent: getTumorInfoPercent(state)

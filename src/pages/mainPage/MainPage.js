@@ -27,7 +27,7 @@ class MainPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { isIgvAlertShow, isTumorInfo } = this.props;
+    const { isIgvAlertShow, showTumorInfo } = this.props;
 
     return (
       <div className={style["main-page"]}>
@@ -44,10 +44,10 @@ class MainPage extends Component {
             { "sidebar-open": sidebarToggle }
           ])}
         >
-          <div className={cn(["tumor-toolbar-collapse", { out: isTumorInfo }])}>
+          <div className={cn(["tumor-toolbar-collapse", { out: showTumorInfo }])}>
             <TumorToolbar sidebarToggle={sidebarToggle} />
           </div>
-          <div className={cn(["toolbar-collapse", { shadow: isTumorInfo }])}>
+          <div className={cn(["toolbar-collapse", { shadow: showTumorInfo }])}>
             <Toolbar sidebarToggle={sidebarToggle} />
           </div>
           <TableData />
@@ -61,7 +61,7 @@ class MainPage extends Component {
 const mapStateToProps = state => {
   return {
     isIgvAlertShow: getIgvAlertShow(state),
-    isTumorInfo: getTumorInfoMode(state)
+    showTumorInfo: getTumorInfoMode(state)
   };
 };
 

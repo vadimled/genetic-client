@@ -34,7 +34,7 @@ class Header extends Component {
         <div className="flex justify-start flex-row">
           <div className="right-side-item">
             <HeaderIcon
-              isActive={this.props.isTumorInfo}
+              isActive={this.props.showTumorInfo}
               customClassName={"info"}
               icon={<InfoIcon />}
               handelOnClick={this.handelInfo}
@@ -64,7 +64,7 @@ class Header extends Component {
 
 const mapStateToProps = state => {
   return {
-    isTumorInfo: getTumorInfoMode(state),
+    showTumorInfo: getTumorInfoMode(state),
   };
 };
 
