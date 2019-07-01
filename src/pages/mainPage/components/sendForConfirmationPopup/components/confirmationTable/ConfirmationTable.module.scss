@@ -7,14 +7,13 @@
     }
   }
 
-  .ant-table-thead > tr > th,
-  .ant-table-tbody > tr > td {
-    // padding: 10px 15px;
-  }
-
   .remover-cell {
     position: relative;
     padding-right: 27px;
+
+    span {
+      white-space: nowrap;
+    }
 
     button {
       position: absolute;

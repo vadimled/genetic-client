@@ -420,8 +420,34 @@ $heightTableContent: 150px;
 
   .ant-input {
     color: $neutral_30;
-    border: none;
+    border: 1px solid rgba(0, 0, 0, 0);
     background-color: inherit;
+    height: 28px;
+    font-size: 16px;
+    color: $title_color;
+
+    &::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      color: $placeholder-color;
+    }
+    &::-moz-placeholder {
+      /* Firefox 19+ */
+      color: $placeholder-color;
+    }
+    &:-ms-input-placeholder {
+      /* IE 10+ */
+      color: $placeholder-color;
+    }
+    &:-moz-placeholder {
+      /* Firefox 18- */
+      color: $placeholder-color;
+    }
+
+    &:hover,
+    &:active {
+      border-color: $brand_primary_color !important;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+    }
   }
 }
 
@@ -696,12 +722,23 @@ th {
         position: relative;
       }
 
-      td.input {
+      td.no-padding {
         padding: 0;
       }
 
-      td.add-cell {
-        padding: 0;
+      .cell-padding {
+        padding: 0 15px;
+      }
+
+      .full-cell {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .bg-white {
+        background-color: white;
       }
 
       &:hover {
@@ -731,6 +768,41 @@ th {
   .table-multiple-row {
     height: 37px;
 
+    .notes-confirmation-wrapper {
+      padding: 0 4px;
+
+      & > div {
+        padding: 0 11px !important;
+        border: 1px solid rgba(0, 0, 0, 0);
+        height: 28px;
+        border-radius: 4px;
+
+        &:hover,
+        &:active {
+          border-color: $brand_primary_color !important;
+          box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+        }
+      }
+    }
+
+    &.hovered {
+      background-color: $neutral_10;
+
+      .table-input-wrapper {
+        .ant-input {
+          background-color: white;
+          border: 1px solid $neutral_hover_20;
+        }
+      }
+
+      .notes-confirmation-wrapper {
+        & > div {
+          background-color: white;
+          border: 1px solid $neutral_hover_20;
+        }
+      }
+    }
+
     &:not(:first-child) {
       border-top: 1px solid $neutral_10;
     }
@@ -749,6 +821,22 @@ th {
     &:hover {
       background-color: $brand_primary_color;
       background-image: url("../assets/circle-plus-white.svg");
+    }
+  }
+
+  .table-act-remove {
+    width: 35px;
+    height: 100%;
+    background-image: url("../assets/circle-minus-red.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: $remove-btn;
+      background-image: url("../assets/circle-minus-white.svg");
     }
   }
 }

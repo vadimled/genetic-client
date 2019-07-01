@@ -63,3 +63,10 @@ export const addAdditionalConfirmationData = data => {
   };
 };
 
+export const removeAdditionalConfirmationData = data => {
+  return {
+    type: actionsTypes.REMOVE_ADDITIONAL_CONFIRMATION_DATA,
+    payload: data
+  };
+};
+

@@ -25,24 +25,14 @@ const ResizeableTitle = props => {
 
 class ConfirmationTable extends Component {
   state = {
+    hoveredAdditionalConfirmationRow: {},
+
     columns: [
       {
         title: "Gene",
         dataIndex: "gene",
         key: "2",
-        width: 128,
-        render: (text, record) => {
-          return (
-            <div className="remover-cell">
-              <span>{text}</span>
-              <button
-                onClick={this.props.removeConfirmationRow.bind(null, record.id)}
-              >
-                <img src={binImg} alt="bin"/>
-              </button>
-            </div>
-          );
-        }
+        width: 128
       },
       {
         title: "Chr: position",
@@ -60,14 +50,7 @@ class ConfirmationTable extends Component {
         title: "coding",
         dataIndex: "coding",
         key: "7",
-        width: 131,
-        render: (text, record) => {
-          return (
-            <Tooltip placement="topLeft" title={record.codingLong}>
-              <div>{text}</div>
-            </Tooltip>
-          );
-        }
+        width: 131
       },
       {
         title: "Protein",
@@ -108,7 +91,37 @@ class ConfirmationTable extends Component {
     }
   };
 
+  onOverAdditionalConfirmationRow = data => {
+    this.setState({
+      hoveredAdditionalConfirmationRow: data
+    });
+  };
+
+  onLeaveAdditionalConfirmationRow = () => {
+    this.setState({
+      hoveredAdditionalConfirmationRow: {}
+    });
+  };
+
   columnsConverter = columns => {
+    const { hoveredAdditionalConfirmationRow } = this.state;
+
+    const getAdditionClassesOnAdditionRow = (row, index) => {
+      return [
+        hoveredAdditionalConfirmationRow?.id === row?.id
+        && (hoveredAdditionalConfirmationRow?.index === index
+          || hoveredAdditionalConfirmationRow?.indexToRemove === index
+        )
+          ? "hovered"
+          : '',
+        hoveredAdditionalConfirmationRow?.id === row?.id
+        && hoveredAdditionalConfirmationRow?.index !== index
+        && hoveredAdditionalConfirmationRow?.indexToRemove !== index
+          ? "bg-white"
+          : ''
+      ].join(' ');
+    };
+
     return columns.map((col, index) => {
       let column = {
         ...col,
@@ -118,19 +131,108 @@ class ConfirmationTable extends Component {
         })
       };
 
-      if (col.dataIndex === "chrPosition") {
-        column.render = (...data) => {
-          const { chrPosition } = data[1];
+      if (col.dataIndex === "gene") {
+        column.render = (value, row) => {
           return (
-            <ExternalLink
-              data={chrPosition}
-              externalHandler={this.props.handelChrPosition.bind(
-                null,
-                chrPosition
-              )}
-            />
+            <div
+              className={[
+                "remover-cell cell-padding full-cell",
+                hoveredAdditionalConfirmationRow?.id === row?.id
+                  ? "bg-white"
+                  : ''
+              ].join(' ')}
+            >
+              <span>{value}</span>
+              <button
+                onClick={this.props.removeConfirmationRow.bind(null, row.id)}
+              >
+                <img src={binImg} alt="bin"/>
+              </button>
+            </div>
           );
         };
+        column.className = "no-padding";
+      }
+
+      if (col.dataIndex === "chrPosition") {
+        column.render = (value, row) => {
+          const { chrPosition } = row;
+          return (
+            <div
+              className={[
+                "remover-cell cell-padding full-cell",
+                hoveredAdditionalConfirmationRow?.id === row?.id
+                  ? "bg-white"
+                  : ''
+              ].join(' ')}
+            >
+              <ExternalLink
+                data={chrPosition}
+                externalHandler={this.props.handelChrPosition.bind(
+                  null,
+                  chrPosition
+                )}
+              />
+            </div>
+          );
+        };
+        column.className = "no-padding";
+      }
+
+      if (col.dataIndex === "exon") {
+        column.render = (value, row) => {
+          return (
+            <div
+              className={[
+                "remover-cell cell-padding full-cell",
+                hoveredAdditionalConfirmationRow?.id === row?.id
+                  ? "bg-white"
+                  : ''
+              ].join(' ')}
+            >
+              {value}
+            </div>
+          );
+        };
+        column.className = "no-padding";
+      }
+
+      if (col.dataIndex === "coding") {
+        column.render = (value, row) => {
+          return (
+            <div
+              className={[
+                "remover-cell cell-padding full-cell",
+                hoveredAdditionalConfirmationRow?.id === row?.id
+                  ? "bg-white"
+                  : ''
+              ].join(' ')}
+            >
+              <Tooltip placement="topLeft" title={row.codingLong}>
+                <div>{value}</div>
+              </Tooltip>
+            </div>
+          );
+        };
+        column.className = "no-padding";
+      }
+
+      if (col.dataIndex === "protein") {
+        column.render = (value, row) => {
+          return (
+            <div
+              className={[
+                "remover-cell cell-padding full-cell",
+                hoveredAdditionalConfirmationRow?.id === row?.id
+                  ? "bg-white"
+                  : ''
+              ].join(' ')}
+            >
+              {value}
+            </div>
+          );
+        };
+        column.className = "no-padding";
       }
 
       if (column.dataIndex === "primer") {
@@ -138,7 +240,15 @@ class ConfirmationTable extends Component {
           return row.additionConfirmationData.map((item, index) =>
             <div
               key={`primer-${item.keyId}`}
-              className="table-multiple-row"
+              className={[
+                "table-multiple-row",
+                getAdditionClassesOnAdditionRow(row, index)
+              ].join(' ')}
+              onMouseOver={this.onOverAdditionalConfirmationRow.bind(null, {
+                id: row.id,
+                index
+              })}
+              onMouseLeave={this.onLeaveAdditionalConfirmationRow}
             >
               <div className="table-input-wrapper">
                 <Input
@@ -150,12 +260,13 @@ class ConfirmationTable extends Component {
                       value: e.target.value
                     })
                   }
+                  placeholder="Edit"
                 />
               </div>
             </div>
           );
         };
-        column.className = "input";
+        column.className = "input no-padding";
       }
 
       if (column.dataIndex === "fragmentSize") {
@@ -163,7 +274,15 @@ class ConfirmationTable extends Component {
           return row.additionConfirmationData.map((item, index) =>
             <div
               key={`fsize-${item.keyId}`}
-              className="table-multiple-row"
+              className={[
+                "table-multiple-row",
+                getAdditionClassesOnAdditionRow(row, index)
+              ].join(' ')}
+              onMouseOver={this.onOverAdditionalConfirmationRow.bind(null, {
+                id: row.id,
+                index
+              })}
+              onMouseLeave={this.onLeaveAdditionalConfirmationRow}
             >
               <div className="table-input-wrapper">
                 <Input
@@ -175,12 +294,13 @@ class ConfirmationTable extends Component {
                       value: e.target.value
                     })
                   }
+                  placeholder="Edit"
                 />
               </div>
             </div>
           );
         };
-        column.className = "input";
+        column.className = "input no-padding";
       }
 
       if (col.dataIndex === "confirmationNotes") {
@@ -188,9 +308,17 @@ class ConfirmationTable extends Component {
           return row.additionConfirmationData.map((item, index) =>
             <div
               key={`notes-${item.keyId}`}
-              className="table-multiple-row"
+              className={[
+                "table-multiple-row",
+                getAdditionClassesOnAdditionRow(row, index)
+              ].join(' ')}
+              onMouseOver={this.onOverAdditionalConfirmationRow.bind(null, {
+                id: row.id,
+                index
+              })}
+              onMouseLeave={this.onLeaveAdditionalConfirmationRow}
             >
-              <div className="table-input-wrapper">
+              <div className="table-input-wrapper notes-confirmation-wrapper">
                 <Notes
                   value={item.notes}
                   setNotes={notes => this.props.handleConfirmationNotes({
@@ -203,24 +331,43 @@ class ConfirmationTable extends Component {
             </div>
           );
         };
-        column.className = "input";
+        column.className = "input no-padding";
       }
 
       if (col.dataIndex === "addConfirmationAdditionData") {
         column.render = (value, row) => {
-          return row.additionConfirmationData.map((item) =>
+          return row.additionConfirmationData.map((item, index) =>
             <div
-              key={`notes-${item.keyId}`}
-              className="table-multiple-row"
+              key={`adtnl-btn-${item.keyId}`}
+              className="table-multiple-row bg-white"
             >
-              <div
+              {index === 0 && <div
                 className="table-act-plus"
-                onClick={this.props.addAdditionalConfirmationData.bind(null, row.id)}
-              />
+                onClick={this.props.addAdditionalConfirmationData.bind(null, {
+                  id: row.id
+                })}
+                onMouseOver={this.onOverAdditionalConfirmationRow.bind(null, {
+                  id: row.id,
+                  indexToAdd: index
+                })}
+                onMouseLeave={this.onLeaveAdditionalConfirmationRow}
+              />}
+              {index > 0 && <div
+                className="table-act-remove"
+                onClick={this.props.removeAdditionalConfirmationData.bind(null, {
+                  id: row.id,
+                  index
+                })}
+                onMouseOver={this.onOverAdditionalConfirmationRow.bind(null, {
+                  id: row.id,
+                  indexToRemove: index
+                })}
+                onMouseLeave={this.onLeaveAdditionalConfirmationRow}
+              />}
             </div>
           );
         };
-        column.className = "add-cell";
+        column.className = "add-cell no-padding";
       }
 
       return column;
@@ -265,6 +412,7 @@ ConfirmationTable.propTypes = {
   handleConfirmationPrimer: PropTypes.func.isRequired,
   handleConfirmationFragmentSize: PropTypes.func.isRequired,
   addAdditionalConfirmationData: PropTypes.func.isRequired,
+  removeAdditionalConfirmationData: PropTypes.func.isRequired,
 };
 
 ConfirmationTable.defaultProps = {

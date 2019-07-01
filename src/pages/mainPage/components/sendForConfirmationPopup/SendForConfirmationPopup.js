@@ -14,7 +14,8 @@ import {
   handleConfirmationFragmentSize,
   sendForConfirmation,
   removeConfirmationRow,
-  addAdditionalConfirmationData
+  addAdditionalConfirmationData,
+  removeAdditionalConfirmationData
 } from "Actions/confirmationActions";
 import { goToChrPositionIgv } from "Actions/igvActions";
 import { getConfirmationData } from "Store/selectors";
@@ -28,7 +29,8 @@ const SendForConfirmationPopup = (props) => {
     handleConfirmationNotes,
     handleConfirmationPrimer,
     handleConfirmationFragmentSize,
-    addAdditionalConfirmationData
+    addAdditionalConfirmationData,
+    removeAdditionalConfirmationData
   } = props;
 
   return (
@@ -54,6 +56,7 @@ const SendForConfirmationPopup = (props) => {
               handleConfirmationPrimer={handleConfirmationPrimer}
               handleConfirmationFragmentSize={handleConfirmationFragmentSize}
               addAdditionalConfirmationData={addAdditionalConfirmationData}
+              removeAdditionalConfirmationData={removeAdditionalConfirmationData}
             />
           </div>}
           {!data.length && <EmptyState description="" title="No data for sending"/>}
@@ -99,6 +102,7 @@ const mapDispatchToProps = (dispatch) => {
     handleConfirmationPrimer: (data) => dispatch(handleConfirmationPrimer(data)),
     handleConfirmationFragmentSize: (data) => dispatch(handleConfirmationFragmentSize(data)),
     addAdditionalConfirmationData: (data) => dispatch(addAdditionalConfirmationData(data)),
+    removeAdditionalConfirmationData: (data) => dispatch(removeAdditionalConfirmationData(data)),
   };
 };
 

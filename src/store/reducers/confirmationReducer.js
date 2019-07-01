@@ -102,9 +102,25 @@ const confirmationReducer = createReducer(initialState, {
   },
 
   [actionsTypes.ADD_ADDITIONAL_CONFIRMATION_DATA]: (state, { payload }) => {
+    const { id } = payload;
     const updatedData = state.data.map(row => {
-      if (row.id === payload) {
+      if (row.id === id) {
         row.additionConfirmationData.push(generateAdditionalConfirmationData());
+      }
+      return row;
+    });
+
+    return {
+      ...state,
+      data: updatedData
+    };
+  },
+
+  [actionsTypes.REMOVE_ADDITIONAL_CONFIRMATION_DATA]: (state, { payload }) => {
+    const { id, index } = payload;
+    const updatedData = state.data.map(row => {
+      if (row.id === id) {
+        row.additionConfirmationData.splice(index, 1);
       }
       return row;
     });
