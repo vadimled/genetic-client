@@ -34,6 +34,9 @@ describe("Activity Log", () => {
 
   beforeEach(() => {
     const queries = renderWithRedux(<TableData data={data} />);
+
+    console.log("-queries: ", queries);
+
     getByTestId = queries.getByTestId;
     // asFragment = queries.asFragment;
     store = queries.store;
