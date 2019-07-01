@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { AutoComplete, InputNumber, Tooltip } from "antd";
-import style from "./TumorInfoSelect.module.scss";
+import style from "Pages/mainPage/components/tumorToolbar/components/tumorInfoSelect/TumorInfoSelect.module.scss";
 import cn from "classnames";
 import { ReactComponent as CloseIcon } from "Assets/close.svg";
 import { ReactComponent as SaveIcon } from "Assets/save.svg";

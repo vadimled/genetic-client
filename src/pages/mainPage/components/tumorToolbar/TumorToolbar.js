@@ -11,7 +11,7 @@ import {
   getTumorInfoType
 } from "Store/selectors";
 import { setTumorInfo, setTumorInfoMode } from "Actions/variantsActions";
-import TumorInfoSelect from "GenericComponents/tumorInfoSelect";
+import TumorInfoSelect from "Pages/mainPage/components/tumorToolbar/components/tumorInfoSelect";
 import { TUMOR_LOCATION, TUMOR_TYPE } from "Utils/constants";
 
 class TumorToolbar extends Component {
