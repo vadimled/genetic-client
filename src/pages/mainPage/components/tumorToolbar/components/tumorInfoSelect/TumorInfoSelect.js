@@ -106,7 +106,9 @@ const TumorInfoSelect = ({
 
 TumorInfoSelect.propTypes = {
   label: PropTypes.string,
-  dataSource: PropTypes.array
+  dataSource: PropTypes.array,
+  onAction: PropTypes.func,
+  placeholder: PropTypes.string
 };
 
 export default TumorInfoSelect;
