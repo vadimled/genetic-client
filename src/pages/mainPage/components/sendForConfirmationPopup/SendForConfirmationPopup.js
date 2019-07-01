@@ -30,7 +30,8 @@ const SendForConfirmationPopup = (props) => {
     handleConfirmationPrimer,
     handleConfirmationFragmentSize,
     addAdditionalConfirmationData,
-    removeAdditionalConfirmationData
+    removeAdditionalConfirmationData,
+    goToChrPositionIgv
   } = props;
 
   return (
@@ -90,7 +91,6 @@ SendForConfirmationPopup.propTypes = {
 SendForConfirmationPopup.defaultProps = {
   propName: 'DefaultProp'
 };
-
 
 const mapDispatchToProps = (dispatch) => {
   return {

@@ -13,7 +13,8 @@ import {
   applyConfirmation,
 } from "Actions/tableActions";
 import {
-  handleOnConfirmation
+  handleOnConfirmation,
+  setConfirmationData
 } from "Actions/confirmationActions";
 
 function* onDelay(time) {
@@ -26,6 +27,36 @@ function* consoleErrors(e) {
   process?.env?.NODE_ENV === 'test'
     ? yield true
     : console.log("e", e);
+}
+
+function* confirmationDataValidation(data) {
+  try {
+    let errorMessage = null;
+
+    data.forEach((item) => {
+      item.additionConfirmationData.forEach((crow) => {
+        crow.validationFaildFields = [];
+        if (!crow.primer) {
+          errorMessage = {title: 'Data is missing', text: 'Please fill the Primer field'};
+          crow.validationFaildFields.push('primer');
+        }
+        if (!crow.fragmentSize) {
+          errorMessage = {title: 'Data is missing', text: 'Please fill the Fragment size field'};
+          crow.validationFaildFields.push('fragmentSize');
+        }
+      });
+    });
+
+    if (errorMessage) {
+      // apply new data with validation errors
+      yield put(setConfirmationData(data));
+
+      throw new Error('Validation error');
+    }
+  }
+  catch(err) {
+    consoleErrors(e);
+  }
 }
 
 export function* fetchBAMFileGenerator(data) {
@@ -60,10 +91,13 @@ export function* sendForConfirmationGenerator(data) {
   try {
     // -> API request
 
+    yield confirmationDataValidation(data.payload);
+
     yield put(applyConfirmation(data.payload));
+    yield put(setConfirmationData(null));
     yield put(handleOnConfirmation(false)); // hide confirmation popup
   }
   catch(e) {
-    console.error("e", e);
+    consoleErrors(e);
   }
 }

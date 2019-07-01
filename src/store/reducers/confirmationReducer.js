@@ -3,7 +3,6 @@ import actionsTypes from "../actionsTypes";
 
 const initialState = {
   isOnConfirmation: false,
-  uncheckConfirmationData: null,
   data: []
 };
 
@@ -22,22 +21,16 @@ const confirmationReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.HANDLE_UNCHECK_CONFIRMATION_DATA]: (state, { payload }) => {
-    return {
-      ...state,
-      uncheckConfirmationData: payload
-    };
-  },
-
   [actionsTypes.SET_CONFIRMATION_DATA]: (state, { payload }) => {
     let preparedData = [];
     if (payload) {
       preparedData = payload.map(row => {
-        if (!row.additionConfirmationData || !row.additionConfirmationData.length) {
+        let newRow = {...row};
+        if (!newRow.additionConfirmationData || !newRow.additionConfirmationData.length) {
           // initialize required filling out data
-          row.additionConfirmationData = [generateAdditionalConfirmationData()];
+          newRow.additionConfirmationData = [generateAdditionalConfirmationData()];
         }
-        return row;
+        return newRow;
       });
     }
 

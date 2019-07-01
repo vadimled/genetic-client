@@ -235,14 +235,17 @@ class ConfirmationTable extends Component {
         column.className = "no-padding";
       }
 
-      if (column.dataIndex === "primer") {
+      if (col.dataIndex === "primer") {
         column.render = (value, row) => {
           return row.additionConfirmationData.map((item, index) =>
             <div
               key={`primer-${item.keyId}`}
               className={[
                 "table-multiple-row",
-                getAdditionClassesOnAdditionRow(row, index)
+                getAdditionClassesOnAdditionRow(row, index),
+                item?.validationFaildFields?.includes(col.dataIndex)
+                  ? "validation-error"
+                  : ''
               ].join(' ')}
               onMouseOver={this.onOverAdditionalConfirmationRow.bind(null, {
                 id: row.id,
@@ -269,14 +272,17 @@ class ConfirmationTable extends Component {
         column.className = "input no-padding";
       }
 
-      if (column.dataIndex === "fragmentSize") {
+      if (col.dataIndex === "fragmentSize") {
         column.render = (value, row) => {
           return row.additionConfirmationData.map((item, index) =>
             <div
               key={`fsize-${item.keyId}`}
               className={[
                 "table-multiple-row",
-                getAdditionClassesOnAdditionRow(row, index)
+                getAdditionClassesOnAdditionRow(row, index, col.dataIndex),
+                item?.validationFaildFields?.includes(col.dataIndex)
+                  ? "validation-error"
+                  : ''
               ].join(' ')}
               onMouseOver={this.onOverAdditionalConfirmationRow.bind(null, {
                 id: row.id,

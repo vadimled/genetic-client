@@ -14,9 +14,9 @@ export const
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
 
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
+  getUncheckConfirmationData = state => state?.table?.uncheckConfirmationData,
 
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
-  getUncheckConfirmationData = state => state?.confirmation?.uncheckConfirmationData,
   getConfirmationData = state => state?.confirmation?.data,
 
   getMutationType = state => state.variants.mutations,

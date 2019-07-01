@@ -6,8 +6,7 @@ import Portal from 'GenericComponents/portal';
 import warningImg from 'Assets/warning-sign.svg';
 
 import styles from './UncheckConfirmationPopup.module.scss';
-import { handleUncheckConfirmationData } from "Actions/confirmationActions";
-import { handleConfirmationStatus } from "Actions/tableActions";
+import { handleConfirmationStatus, handleUncheckConfirmationData } from "Actions/tableActions";
 import { getUncheckConfirmationData } from "Store/selectors";
 
 const UncheckConfirmationPopup = (props) => {

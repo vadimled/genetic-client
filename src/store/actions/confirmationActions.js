@@ -14,13 +14,6 @@ export const sendForConfirmation = data => {
   };
 };
 
-export const handleUncheckConfirmationData = data => {
-  return {
-    type: actionsTypes.HANDLE_UNCHECK_CONFIRMATION_DATA,
-    payload: data
-  };
-};
-
 export const setConfirmationData = data => {
   return {
     type: actionsTypes.SET_CONFIRMATION_DATA,

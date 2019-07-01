@@ -14,14 +14,12 @@ import {
   handleZygosity,
   handleVariantClass,
   handleConfirmationStatus,
+  handleUncheckConfirmationData,
   setNotes
 } from "Actions/tableActions";
 import {
   goToChrPositionIgv
 } from "Actions/igvActions";
-import {
-  handleUncheckConfirmationData
-} from "Actions/confirmationActions";
 
 class TableData extends Component {
   render() {

@@ -839,6 +839,11 @@ th {
       background-image: url("../assets/circle-minus-white.svg");
     }
   }
+
+  .validation-error {
+    background-color: $main-bg-color;
+    outline: 1px solid $validation-error;
+  }
 }
 
 .ant-table-pagination.ant-pagination {

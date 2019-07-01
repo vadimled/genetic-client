@@ -4,7 +4,8 @@ import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { CONFIRMATION_VALUES } from 'Utils/constants';
 
 const initialState = {
-  data: generateDNAVariantTableMockData(200)
+  data: generateDNAVariantTableMockData(200),
+  uncheckConfirmationData: null,
 };
 
 const tableReducer = createReducer(initialState, {
@@ -114,6 +115,13 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       data: { ...data }
+    };
+  },
+
+  [actionsTypes.HANDLE_UNCHECK_CONFIRMATION_DATA]: (state, { payload }) => {
+    return {
+      ...state,
+      uncheckConfirmationData: payload
     };
   },
 
