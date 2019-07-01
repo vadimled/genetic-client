@@ -18,7 +18,7 @@ const LogRecord = ({record}) => {
   let titleCurr = "";
 
   if(type === "variantClass"){
-    titleCurr = VARIANT_CLASS[record.titleCurr]?.label || SOMATIC_CLASS[record.titleCurr].label;
+    titleCurr = VARIANT_CLASS[record.titleCurr]?.label || SOMATIC_CLASS[record.titleCurr]?.label;
   }
   else if(type === "zygosity"){
     titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label;
