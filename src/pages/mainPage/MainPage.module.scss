@@ -44,15 +44,15 @@
       width: 100%;
       max-height: 0;
       overflow: hidden;
-      -webkit-transition: all 0.4s ease-out;
-      -moz-transition: all 0.4s ease-out;
-      transition: all 0.4s ease-out;
+      -webkit-transition: all 0.4s ease-in-out;
+      -moz-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
 
       &.out {
         max-height: 48px;
-        -webkit-transition: all 0.4s ease-in;
-        -moz-transition: all 0.4s ease-in;
-        transition: all 0.4s ease-in;
+        -webkit-transition: all 0.4s ease-in-out;
+        -moz-transition: all 0.4s ease-in-out;
+        transition: all 0.4s ease-in-out;
       }
     }
 

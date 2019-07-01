@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { AutoComplete, InputNumber, Tooltip } from "antd";
 import style from "./TumorInfoSelect.module.scss";
+import cn from "classnames";
 import { ReactComponent as CloseIcon } from "Assets/close.svg";
+import { ReactComponent as SaveIcon } from "Assets/save.svg";
 
 // const { Option } = AutoComplete;
 
@@ -63,26 +65,40 @@ const TumorInfoSelect = ({
     } else if (info) {
       return (
         <Tooltip placement="topLeft" title={insertedText}>
-          <div className="static-text" onClick={onEdit}>
-            {info}
+          <div
+            className={cn("static-text", { "input-number": !dataSource })}
+            onClick={onEdit}
+          >
+            {!dataSource ? `${info}%` : info}
           </div>
         </Tooltip>
       );
     } else if (!dataSource) {
       return (
-        <InputNumber
-          min={0}
-          max={100}
-          placeholder={placeholder}
-          onChange={handleOnSearchChange}
-        />
+        <Fragment>
+          <InputNumber
+            min={0}
+            max={100}
+            value={insertedText}
+            placeholder={placeholder}
+            onChange={handleOnSearchChange}
+          />
+          <SaveIcon
+            className="save-icon"
+            onClick={() => onSelect(insertedText)}
+          />
+        </Fragment>
       );
     }
   };
 
   return (
     <div className={style["tumor-info-select-wrapper"]}>
-      {label && <div className="label">{label}</div>}
+      {label && (
+        <div className={cn("label", { "input-number": !dataSource })}>
+          {label}
+        </div>
+      )}
       {renderInput()}
     </div>
   );
