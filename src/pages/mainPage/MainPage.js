@@ -6,8 +6,9 @@ import SideBarLayout from "./components/sideBarLayout";
 import Toolbar from "./components/toolbar";
 import SidebarFilters from "./components/sidebarFilters";
 import TableData from "./components/tableData";
-import IgvAlertPopup from './components/igvAlertPopup';
-import { getIgvAlertShow } from "Store/selectors";
+import IgvAlertPopup from "./components/igvAlertPopup";
+import { getIgvAlertShow, getTumorInfoMode } from "Store/selectors";
+import TumorToolbar from "Pages/mainPage/components/tumorToolbar";
 
 class MainPage extends Component {
   constructor(props) {
@@ -26,17 +27,29 @@ class MainPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { isIgvAlertShow } = this.props;
+    const { isIgvAlertShow, showTumorInfo } = this.props;
 
     return (
       <div className={style["main-page"]}>
-        <div className={cn(["sidebar-wrapper", { "sidebar-open": sidebarToggle }])}>
+        <div
+          className={cn(["sidebar-wrapper", { "sidebar-open": sidebarToggle }])}
+        >
           <SideBarLayout handleClick={this.handleClick} mode={sidebarToggle}>
             <SidebarFilters />
           </SideBarLayout>
         </div>
-        <div className={cn(["main-content-wrapper", { "sidebar-open": sidebarToggle }])}>
-          <Toolbar sidebarToggle={sidebarToggle} />
+        <div
+          className={cn([
+            "main-content-wrapper",
+            { "sidebar-open": sidebarToggle }
+          ])}
+        >
+          <div className={cn(["tumor-toolbar-collapse", { out: showTumorInfo }])}>
+            <TumorToolbar sidebarToggle={sidebarToggle} />
+          </div>
+          <div className={cn(["toolbar-collapse", { shadow: showTumorInfo }])}>
+            <Toolbar sidebarToggle={sidebarToggle} />
+          </div>
           <TableData />
         </div>
         {isIgvAlertShow && <IgvAlertPopup />}
@@ -48,6 +61,7 @@ class MainPage extends Component {
 const mapStateToProps = state => {
   return {
     isIgvAlertShow: getIgvAlertShow(state),
+    showTumorInfo: getTumorInfoMode(state)
   };
 };
 
@@ -59,4 +73,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(MainPage);
-
