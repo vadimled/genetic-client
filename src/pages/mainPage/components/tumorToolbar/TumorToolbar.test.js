@@ -6,7 +6,6 @@ import App from "../../../../App";
 import { BrowserRouter as Router } from "react-router-dom";
 import TumorToolbar from "Pages/mainPage/components/tumorToolbar/TumorToolbar";
 import { setTumorInfo } from "Actions/variantsActions";
-import TumorInfoSelect from "Pages/mainPage/components/tumorToolbar/components/tumorInfoSelect";
 
 describe("Tumor Toolbar", () => {
   it("if Icon Info reacted to click", () => {
@@ -23,53 +22,40 @@ describe("Tumor Toolbar", () => {
 
   it("if TumorToolbar opened, check 'Type' select ", () => {
     const { getByTestId, store } = renderWithRedux(<TumorToolbar />);
-    
+
     const locationSelect = getByTestId("tumor-type-select");
     expect(locationSelect).toBeInTheDocument();
-    store.dispatch(setTumorInfo({type: "0"}));
+    store.dispatch(setTumorInfo({ type: "0" }));
     expect(locationSelect).not.toBeInTheDocument();
     expect(getByTestId("tumor-type-static-text")).toBeInTheDocument();
   });
 
   it("if TumorToolbar opened, check 'Location' select ", () => {
     const { getByTestId, store } = renderWithRedux(<TumorToolbar />);
-    
+
     const locationSelect = getByTestId("tumor-location-select");
     expect(locationSelect).toBeInTheDocument();
-    store.dispatch(setTumorInfo({location: "0"}));
+    store.dispatch(setTumorInfo({ location: "0" }));
     expect(locationSelect).not.toBeInTheDocument();
     expect(getByTestId("tumor-location-static-text")).toBeInTheDocument();
   });
 
   it("if TumorToolbar opened, check 'Percent' select ", () => {
     const { getByTestId, store } = renderWithRedux(<TumorToolbar />);
-    
+
     const inputNumber = getByTestId("tumor-percent-inputNumber");
     expect(inputNumber).toBeInTheDocument();
-    store.dispatch(setTumorInfo({percent: "1"}));
+    store.dispatch(setTumorInfo({ percent: "1" }));
     expect(inputNumber).not.toBeInTheDocument();
     expect(getByTestId("tumor-percent-static-text")).toBeInTheDocument();
   });
 
   it("if TumorToolbar opened, check 'tumor-panel-close-icon clicked", () => {
     const { getByTestId } = renderWithRedux(<TumorToolbar />);
-    
+
     const closeIcon = getByTestId("tumor-save-inputNumber");
     expect(closeIcon).toBeInTheDocument();
     fireEvent.click(closeIcon);
     expect(document.querySelector(".out")).not.toBeInTheDocument();
-  });
-  
-  it("if TumorToolbar opened, check 'Save' data from inputNumber ", () => {
-    
-    const handelAction = jest.fn(() => 2);
-    
-    const { getByTestId, store } = renderWithRedux(<TumorInfoSelect onAction={handelAction}/>);
-    const saveIcon = getByTestId("tumor-save-inputNumber");
-    expect(saveIcon).toBeInTheDocument();
-    fireEvent.click(saveIcon);
-  
-    console.log(store.getState().variants.tumorInfo);
-    // expect(saveIcon).not.toBeInTheDocument();
   });
 });

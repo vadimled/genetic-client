@@ -79,6 +79,7 @@ const TumorInfoSelect = ({
       return (
         <div data-testid={`tumor-${name}-inputNumber`}>
           <InputNumber
+            data-testid={`tumor-inputNumber-textField`}
             min={0}
             max={100}
             value={insertedText}
