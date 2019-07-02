@@ -9,6 +9,7 @@ import TableData from "./components/tableData";
 import IgvAlertPopup from './components/igvAlertPopup';
 import SendForConfirmationPopup from './components/sendForConfirmationPopup';
 import UncheckConfirmationPopup from './components/uncheckConfirmationPopup';
+import Alert from 'GenericComponents/alert';
 import { getIgvAlertShow, getOnConfirmation, getUncheckConfirmationData } from "Store/selectors";
 
 class MainPage extends Component {
@@ -44,6 +45,7 @@ class MainPage extends Component {
         {!!isIgvAlertShow && <IgvAlertPopup />}
         {!!isOnConfirmation && <SendForConfirmationPopup />}
         {!!uncheckConfirmationData && <UncheckConfirmationPopup />}
+        <Alert status="error" onClose={() => true}/>
       </div>
     );
   }
