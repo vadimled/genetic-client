@@ -14,8 +14,6 @@ import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
 import ActivityLog from "./components/ActivityLog";
 
-
-
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
 
@@ -58,6 +56,8 @@ class VariantTable extends Component {
                 item: record,
                 value: !record.selected
               })}
+              data-testid="selection-checkbox"
+              data-testitemid={record.id}
             />
           );
         }
