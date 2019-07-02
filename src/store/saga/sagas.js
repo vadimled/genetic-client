@@ -1,5 +1,5 @@
 import { call, put, delay } from "redux-saga/effects";
-// import types from "Store/actionsTypes";
+import { ALERT_STATUSES } from 'Utils/constants';
 import {
   fetchBAMFile,
   goToChrPositionIgv
@@ -16,6 +16,9 @@ import {
   handleOnConfirmation,
   setConfirmationData
 } from "Actions/confirmationActions";
+import {
+  setAlert
+} from "Actions/alertActions";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === 'test'
@@ -31,31 +34,42 @@ function* consoleErrors(e) {
 
 function* confirmationDataValidation(data) {
   try {
-    let errorMessage = null;
+    let alertData = null;
 
     data.forEach((item) => {
       item.additionConfirmationData.forEach((crow) => {
         crow.validationFaildFields = [];
         if (!crow.primer) {
-          errorMessage = {title: 'Data is missing', text: 'Please fill the Primer field'};
+          alertData = {
+            status: ALERT_STATUSES.warning,
+            title: 'Data is missing',
+            message: 'Please fill the Primer field'
+          };
           crow.validationFaildFields.push('primer');
         }
         if (!crow.fragmentSize) {
-          errorMessage = {title: 'Data is missing', text: 'Please fill the Fragment size field'};
+          alertData = {
+            status: ALERT_STATUSES.warning,
+            title: 'Data is missing',
+            message: 'Please fill the Fragment size field'
+          };
           crow.validationFaildFields.push('fragmentSize');
         }
       });
     });
 
-    if (errorMessage) {
+    if (alertData) {
       // apply new data with validation errors
       yield put(setConfirmationData(data));
+      // show appropriate alert
+      yield put(setAlert(alertData));
 
       throw new Error('Validation error');
     }
   }
-  catch(err) {
+  catch(e) {
     consoleErrors(e);
+    throw new Error(e);
   }
 }
 
@@ -98,6 +112,13 @@ export function* sendForConfirmationGenerator(data) {
     yield put(handleOnConfirmation(false)); // hide confirmation popup
   }
   catch(e) {
+    if (e.message !== 'Error: Validation error') {
+      yield put(setAlert({
+        status: ALERT_STATUSES.error,
+        title: 'Sending email is failed,',
+        message: 'Please try again.'
+      }));
+    }
     consoleErrors(e);
   }
 }
