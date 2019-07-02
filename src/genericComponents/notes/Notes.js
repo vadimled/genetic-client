@@ -114,7 +114,7 @@ class Notes extends Component {
             </Tooltip>
 
             <div
-              data-testid={`edit-icon`}
+              data-testid="edit-icon"
               className="notes-icon"
               onClick={this.handelEditClick}>
               <EditIcon />
