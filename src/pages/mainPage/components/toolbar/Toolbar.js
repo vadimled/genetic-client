@@ -57,6 +57,7 @@ class Toolbar extends Component {
           <button
             className={cn(["confirmation-button", { "sidebar-open": sidebarToggle }])}
             onClick={openConfirmationPopup.bind(null, selectedRows)}
+            data-testid="confirmation-button"
           >
             Send for confirmation
           </button>

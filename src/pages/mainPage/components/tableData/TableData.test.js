@@ -7,7 +7,7 @@ import { renderWithRedux } from "Utils/test_helpers";
 
 describe('IgvAlertPopup', () => {
 
-  it('handle header close btn', () => {
+  it('handle selection-checkbox', () => {
     const { getAllByTestId, store } = renderWithRedux(<TableData />);
     const chbxs = getAllByTestId('selection-checkbox');
     const firstChbx = chbxs[0];
