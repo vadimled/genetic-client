@@ -12,6 +12,7 @@ import {
 } from "Store/selectors";
 import { setTumorInfo, setTumorInfoMode } from "Actions/variantsActions";
 import TumorInfoSelect from "Pages/mainPage/components/tumorToolbar/components/tumorInfoSelect";
+import TumorInfoPercent from "Pages/mainPage/components/tumorToolbar/components/tumorInfoPercent";
 import { TUMOR_LOCATION, TUMOR_TYPE } from "Utils/constants";
 
 class TumorToolbar extends Component {
@@ -40,7 +41,7 @@ class TumorToolbar extends Component {
             name={"type"}
             label={"Tumor type: "}
             dataSource={TUMOR_TYPE}
-            info={type}
+            value={type}
             placeholder="Missing type"
             onAction={this.handelTumorTypeSelect}
           />
@@ -48,14 +49,13 @@ class TumorToolbar extends Component {
             name={"location"}
             label={"Location: "}
             dataSource={TUMOR_LOCATION}
-            info={location}
+            value={location}
             placeholder="Missing location"
             onAction={this.handelTumorLocationSelect}
           />
-          <TumorInfoSelect
-            name={"percent"}
+          <TumorInfoPercent
             label={"% Cancer Cells: "}
-            info={percent}
+            value={percent}
             placeholder="Missing %"
             onAction={this.handelTumorPercentSelect}
           />

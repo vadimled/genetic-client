@@ -4,7 +4,11 @@ import actionsTypes from "../actionsTypes";
 const initialState = {
   mutations: "dna",
   showTumorInfo: false,
-  tumorInfo: null
+  tumorInfo: {
+    type: "",
+    location: "",
+    percent: -1
+  }
 };
 
 const variantsReducer = createReducer(initialState, {

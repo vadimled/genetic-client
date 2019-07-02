@@ -16,12 +16,8 @@
     font-size: 16px;
     color: $subtitle_color;
     margin-right: 4px;
-    min-width: 7em;
+    min-width: 6em;
     text-align: right;
-
-    &.input-number {
-      margin-left: 35px;
-    }
   }
 
   .static-text {
@@ -32,10 +28,6 @@
     text-overflow: ellipsis;
     color: $title_color;
     cursor: pointer;
-
-    &.input-number {
-      width: 3em;
-    }
 
     &:hover {
       color: $slider-bg;

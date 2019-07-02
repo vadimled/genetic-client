@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { AutoComplete, InputNumber, Tooltip } from "antd";
-import style from "Pages/mainPage/components/tumorToolbar/components/tumorInfoSelect/TumorInfoSelect.module.scss";
-import cn from "classnames";
+import { AutoComplete, Tooltip } from "antd";
+import style from "./TumorInfoSelect.module.scss";
 import { ReactComponent as CloseIcon } from "Assets/close.svg";
-import { ReactComponent as SaveIcon } from "Assets/save.svg";
-
-// const { Option } = AutoComplete;
 
 const TumorInfoSelect = ({
   name,
   label,
   dataSource,
   onAction,
-  info,
+  value,
   placeholder
 }) => {
   const [insertedText, updateText] = useState("");
@@ -43,7 +39,7 @@ const TumorInfoSelect = ({
   };
 
   const renderInput = () => {
-    if (dataSource && !info) {
+    if (!value) {
       return (
         <div className="tumor-info-select flex items-center">
           <AutoComplete
@@ -63,46 +59,24 @@ const TumorInfoSelect = ({
           )}
         </div>
       );
-    } else if (info) {
+    } else {
       return (
         <Tooltip placement="topLeft" title={insertedText}>
           <div
             data-testid={`tumor-${name}-static-text`}
-            className={cn("static-text", { "input-number": !dataSource })}
+            className="static-text"
             onClick={onEdit}
           >
-            {!dataSource ? `${info}%` : info}
+            {value}
           </div>
         </Tooltip>
-      );
-    } else if (!dataSource) {
-      return (
-        <div data-testid={`tumor-${name}-inputNumber`}>
-          <InputNumber
-            data-testid={`tumor-inputNumber-textField`}
-            min={0}
-            max={100}
-            value={insertedText}
-            placeholder={placeholder}
-            onChange={handleOnSearchChange}
-          />
-          <SaveIcon
-            data-testid={`tumor-save-inputNumber`}
-            className="save-icon"
-            onClick={() => onSelect(insertedText)}
-          />
-        </div>
       );
     }
   };
 
   return (
     <div className={style["tumor-info-select-wrapper"]}>
-      {label && (
-        <div className={cn("label", { "input-number": !dataSource })}>
-          {label}
-        </div>
-      )}
+      {label && <div className="label">{label}</div>}
       {renderInput()}
     </div>
   );
@@ -110,6 +84,7 @@ const TumorInfoSelect = ({
 
 TumorInfoSelect.propTypes = {
   name: PropTypes.string,
+  value: PropTypes.string,
   label: PropTypes.string,
   dataSource: PropTypes.array,
   onAction: PropTypes.func,
