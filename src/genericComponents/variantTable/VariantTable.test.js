@@ -5,7 +5,7 @@ import { renderWithRedux } from "Utils/test_helpers";
 import VariantTable from "./VariantTable";
 
 describe("Variant Table Test", () => {
-  let getByTestId, zygosity;
+  let getByTestId, zygosity, getByText;
 
   const data = [
     {
@@ -51,7 +51,33 @@ describe("Variant Table Test", () => {
 
   });
 
-  it("zygosity click", () => {
+  it("activityLogNotes change", ()=> {
+
+    const notes = document.getElementsByClassName("notes-content")[0];
+
+    expect(notes).toBeInTheDocument();
+
+    const currNote = notes.innerHTML;
+    const prevNote = notes.innerHTML = `${notes.innerHTML} test`;
+
+    console.log(notes.innerHTML);
+
+    const activityLogIcon  = getByTestId("activity-log-icon-0");
+
+    expect(activityLogIcon).toBeInTheDocument();
+
+    fireEvent.click(activityLogIcon);
+
+    const activityLogPopup = getByTestId("activity-log-popup");
+
+    expect(activityLogPopup).toBeInTheDocument();
+
+    expect(getByText(currNote)).toBeInTheDocument();
+    expect(getByText(prevNote)).toBeInTheDocument();
+
+  });
+
+  xit("zygosity click", () => {
 
     expect(zygosity).toBeInTheDocument();
 
@@ -73,8 +99,4 @@ describe("Variant Table Test", () => {
 
 
   });
-
-
-
-
 });
