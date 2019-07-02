@@ -10,7 +10,17 @@ import IgvAlertPopup from './components/igvAlertPopup';
 import SendForConfirmationPopup from './components/sendForConfirmationPopup';
 import UncheckConfirmationPopup from './components/uncheckConfirmationPopup';
 import Alert from 'GenericComponents/alert';
-import { getIgvAlertShow, getOnConfirmation, getUncheckConfirmationData } from "Store/selectors";
+import {
+  getIgvAlertShow,
+  getOnConfirmation,
+  getUncheckConfirmationData ,
+  getAlertStatus,
+  getAlertTitle,
+  getAlertMessage
+} from "Store/selectors";
+import {
+  setAlert
+} from "Actions/alertActions";
 
 class MainPage extends Component {
   constructor(props) {
@@ -29,7 +39,15 @@ class MainPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { isIgvAlertShow, isOnConfirmation, uncheckConfirmationData } = this.props;
+    const {
+      isIgvAlertShow,
+      isOnConfirmation,
+      uncheckConfirmationData,
+      alertStatus,
+      alertTitle,
+      alertMessage,
+      setAlert
+    } = this.props;
 
     return (
       <div className={style["main-page"]}>
@@ -45,7 +63,12 @@ class MainPage extends Component {
         {!!isIgvAlertShow && <IgvAlertPopup />}
         {!!isOnConfirmation && <SendForConfirmationPopup />}
         {!!uncheckConfirmationData && <UncheckConfirmationPopup />}
-        <Alert status="error" onClose={() => true}/>
+        {!!alertStatus && <Alert
+          status={alertStatus}
+          title={alertTitle}
+          message={alertMessage}
+          onClose={setAlert.bind(null, null)}
+        />}
       </div>
     );
   }
@@ -56,11 +79,16 @@ const mapStateToProps = state => {
     isIgvAlertShow: getIgvAlertShow(state),
     isOnConfirmation: getOnConfirmation(state),
     uncheckConfirmationData: getUncheckConfirmationData(state),
+    alertStatus: getAlertStatus(state),
+    alertTitle: getAlertTitle(state),
+    alertMessage: getAlertMessage(state)
   };
 };
 
-function mapDispatchToProps() {
-  return {};
+function mapDispatchToProps(dispatch) {
+  return {
+    setAlert: data => dispatch(setAlert(data))
+  };
 }
 
 export default connect(

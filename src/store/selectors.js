@@ -25,7 +25,11 @@ export const
   getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
   getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
   getIgvLastQuery = state => state?.igv?.igvLastQuery,
-  getBAMFileUrl = state => state?.igv?.BAMFileUrl;
+  getBAMFileUrl = state => state?.igv?.BAMFileUrl,
+
+  getAlertStatus = state => state?.alert?.status,
+  getAlertTitle = state => state?.alert?.title,
+  getAlertMessage = state => state?.alert?.message;
 
 export const getSearchQuery = state => state?.filters?.searchText;
 

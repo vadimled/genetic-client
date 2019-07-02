@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import Portal from 'GenericComponents/portal';
+import { ALERT_STATUSES } from 'Utils/constants';
 
 import style from './Alert.module.scss';
 
@@ -9,7 +10,7 @@ const Alert = ({ status, title, message, onClose }) => {
     <Portal pure>
       <div className={style["alert"]}>
         <div className="wrapper">
-          <div className={`sign ${status}`}/>
+          <div className={`sign ${ALERT_STATUSES[status]}`}/>
           <div className="content">
             <div className="title">{title}</div>
             <div className="message">{message}</div>

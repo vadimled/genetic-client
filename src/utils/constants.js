@@ -96,3 +96,9 @@ export const CONFIRMATION_VALUES = {
   'NOT_CONFIRMED': { value: 'NOT_CONFIRMED', label: 'Not Confirmed', iconImg: ImgCircleX },
   'PENDING': { value: 'PENDING', label: 'Pending', iconImg: ImgCircleClock },
 };
+
+export const ALERT_STATUSES = {
+  'error': 'error',
+  'warning': 'warning',
+  'default': 'default'
+};
