@@ -10,6 +10,10 @@ import {
   SOMATIC_VARIANT_CLASS_OPTIONS
 } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
+import style from "./VariantTable.module.scss";
+import ActivityLog from "./components/ActivityLog";
+
+
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -130,16 +134,42 @@ class VariantTable extends Component {
     }
   };
 
+  handelChrPosition = (e, data) => {
+    console.log({ e: e.target, data });
+  };
+
+  handleZygosity = (data) =>{
+
+    const {handleZygosity, updateActivityLog} = this.props;
+    const {item, value, prevValue} = data;
+
+
+    handleZygosity({
+      item,
+      value,
+    });
+    updateActivityLog({prevValue, item, changedField: "zygosity"});
+  }
+
+  handleVariantClass = data => {
+    const {handleVariantClass, updateActivityLog} = this.props;
+    const {item, value, prevValue} = data;
+
+    handleVariantClass({
+      item,
+      value,
+    });
+    updateActivityLog({prevValue, item, changedField: "variantClass"});
+  }
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
         ...col,
-        onHeaderCell: column => {
-          return {
-            width: column.width,
-            onResize: this.handleResize(index)
-          };
-        }
+        onHeaderCell: column => ({
+          width: column.width,
+          onResize: this.handleResize(index)
+        })
       };
 
       if (column.dataIndex === "zygosity") {
@@ -149,9 +179,10 @@ class VariantTable extends Component {
               value={data[1].zygosity}
               options={ZYGOSITY_OPTIONS}
               onChange={e =>
-                this.props.handleZygosity({
+                this.handleZygosity({
                   item: data[1],
-                  value: e.target.value
+                  value: e.target.value,
+                  prevValue: data[1].zygosity
                 })
               }
               isClearAvailable
@@ -176,9 +207,10 @@ class VariantTable extends Component {
                       : GERMLINE_VARIANT_CLASS_OPTIONS
                   }
                   onChange={e =>
-                    this.props.handleVariantClass({
+                    this.handleVariantClass({
                       item: data[1],
-                      value: e.target.value
+                      value: e.target.value,
+                      prevValue: data[1].variantClass
                     })
                   }
                 />
@@ -190,7 +222,13 @@ class VariantTable extends Component {
       }
 
       if (col.dataIndex === "notes") {
-        column.render = (...data) => <Notes key={data[1].id} id={data[1].id} />;
+        column.render = (...data) =>
+          <Notes
+            updateActivityLog={this.props.updateActivityLog}
+            key={data[1].id}
+            id={data[1].id}
+            {...data}
+          />;
       }
 
       if (col.dataIndex === "transcript") {
@@ -209,6 +247,12 @@ class VariantTable extends Component {
               )}
             />
           );
+        };
+      }
+
+      if (col.dataIndex === "activityLog") {
+        column.render = (...data) => {
+          return <ActivityLog {...data} />;
         };
       }
 
@@ -244,6 +288,7 @@ class VariantTable extends Component {
 
     return (
       <Table
+        className={style["variant-table-wrapper"]}
         components={this.components}
         pagination={{ pageSize: 20 }}
         rowSelection={rowSelection}
