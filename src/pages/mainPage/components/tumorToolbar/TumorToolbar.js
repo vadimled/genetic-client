@@ -56,7 +56,7 @@ class TumorToolbar extends Component {
             name={"percent"}
             label={"% Cancer Cells: "}
             info={percent}
-            placeholder="Missing percent"
+            placeholder="Missing %"
             onAction={this.handelTumorPercentSelect}
           />
         </div>
