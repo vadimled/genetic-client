@@ -6,6 +6,7 @@ import { CONFIRMATION_VALUES } from 'Utils/constants';
 const initialState = {
   data: generateDNAVariantTableMockData(200),
   uncheckConfirmationData: null,
+  activityLog: {}
 };
 
 const tableReducer = createReducer(initialState, {
@@ -124,6 +125,34 @@ const tableReducer = createReducer(initialState, {
       uncheckConfirmationData: payload
     };
   },
+
+  [actionsTypes.UPDATE_ACTIVITY_LOG]: (state, {payload}) => {
+
+    const {item, prevValue, changedField} = payload;
+
+    let activityLog = state?.activityLog;
+
+    const changes = {
+      titleCurr: item[changedField],
+      titlePrev: prevValue,
+      time: new Date(),
+      type: changedField
+    };
+
+    let changesArr =  activityLog[item.id] && activityLog[item.id][changedField]
+      ? activityLog[item.id][changedField] : [];
+    console.log("--changesArr: ", changesArr);
+
+    activityLog[item.id] = {
+      ...activityLog[item.id],
+      [changedField]: [...changesArr, changes]
+    };
+
+    return{
+      ...state,
+      activityLog
+    };
+  }
 
 });
 

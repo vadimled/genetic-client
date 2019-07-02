@@ -51,8 +51,15 @@ class Notes extends Component {
   };
 
   handleDone = () => {
-    const { setNotes } = this.props;
+    // <<<<<<< HEAD:src/genericComponents/notes/Notes.js
+    const { setNotes, updateActivityLog, value: prevValue, tableRow } = this.props;
     setNotes(this.state.editNotes);
+    updateActivityLog({
+      prevValue,
+      item: tableRow,
+      changedField: "notes"
+    });
+
     this.cleanupState();
   };
 
@@ -106,7 +113,10 @@ class Notes extends Component {
               <div className="notes-content">{value}</div>
             </Tooltip>
 
-            <div className="notes-icon" onClick={this.handelEditClick}>
+            <div
+              data-testid={`edit-icon`}
+              className="notes-icon"
+              onClick={this.handelEditClick}>
               <EditIcon />
             </div>
           </Fragment>
@@ -119,11 +129,15 @@ class Notes extends Component {
 
 Notes.propTypes = {
   setNotes: PropTypes.func.isRequired,
-  value: PropTypes.string
+  updateActivityLog: PropTypes.func,
+  value: PropTypes.string,
+  tableRow: PropTypes.object
 };
 
 Notes.defaultProps = {
-  value: ""
+  value: "",
+  tableRow: {},
+  updateActivityLog: () => false
 };
 
 export default React.memo(Notes);

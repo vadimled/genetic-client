@@ -15,7 +15,8 @@ import {
   handleVariantClass,
   handleConfirmationStatus,
   handleUncheckConfirmationData,
-  setNotes
+  setNotes,
+  updateActivityLog,
 } from "Actions/tableActions";
 import {
   goToChrPositionIgv
@@ -32,7 +33,8 @@ class TableData extends Component {
       handleConfirmationStatus,
       goToChrPositionIgv,
       isAllRowSelected,
-      setNotes
+      setNotes,
+      updateActivityLog,
     } = this.props;
 
     return (
@@ -48,6 +50,7 @@ class TableData extends Component {
             handleConfirmationStatus={handleConfirmationStatus}
             isAllRowSelected={isAllRowSelected}
             setNotes={setNotes}
+            updateActivityLog={updateActivityLog}
           />
         }
         {!filteredData?.length && <EmptyState/>}
@@ -60,7 +63,6 @@ function mapStateToProps(state) {
   return {
     filteredData: getFilteredData(state),
     isAllRowSelected: checkIsAllRowSelected(state),
-    // notes: getNotes(state, owenProps?.id)
   };
 }
 
@@ -78,6 +80,7 @@ function mapDispatchToProps(dispatch) {
         dispatch(handleUncheckConfirmationData(data));
       }
     },
+    updateActivityLog: data => dispatch(updateActivityLog(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
     setNotes: data => dispatch(setNotes(data))
   };

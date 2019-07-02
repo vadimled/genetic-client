@@ -134,7 +134,6 @@ export const getFilteredData = createSelector(
   getAppliedFilters,
   (data, appliedFilters) => {
     if (isEmpty(appliedFilters)) {
-      console.log("-No filters");
       return data;
     }
 
@@ -204,3 +203,20 @@ export const checkIsAllRowSelected = createSelector(
     return !!selectedData?.length && notConfirmedData?.length === selectedData?.length;
   }
 );
+
+// activity log
+export const getActivityLog = (state, recordId) => {
+  const activityLog = state?.table?.activityLog[recordId];
+
+  let activityLogArray = [];
+
+  for (let record in activityLog) {
+    activityLogArray = activityLogArray.concat(activityLog[record]);
+  }
+
+  activityLogArray.sort((a,b) => {
+    return new Date(b.time) - new Date(a.time);
+  });
+
+  return activityLogArray;
+};
