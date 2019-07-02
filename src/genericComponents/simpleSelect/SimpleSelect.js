@@ -15,7 +15,8 @@ const SimpleSelect = ({
   value,
   name,
   disabled,
-  isClearAvailable
+  isClearAvailable,
+  testId
 }) => {
   return (
     <Fragment>
@@ -23,6 +24,7 @@ const SimpleSelect = ({
       {!!subLabel && <span className="sub-label">{subLabel}</span>}
 
       <Select
+        data-testid={testId}
         disabled={disabled}
         onChange={val =>
           onChange({

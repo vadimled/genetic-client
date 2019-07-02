@@ -9,7 +9,7 @@ import ActivityLog from "./ActivityLog";
 describe("Activity Log", () => {
   let getByTestId, activityLogIcon, store, activityLogWrapper;
 
-  const data = [
+  const activityLog = [
     undefined,
     {
       id: 0,
@@ -36,56 +36,28 @@ describe("Activity Log", () => {
     0];
 
   beforeEach(() => {
-    const queries = renderWithRedux(<ActivityLog {...data} id={0} />);
-
-    // console.log("-queries: ", queries);
+    const queries = renderWithRedux(<ActivityLog {...activityLog} id={0} />);
 
     getByTestId = queries.getByTestId;
 
-    // asFragment = queries.asFragment;
     store = queries.store;
+
     activityLogIcon = getByTestId("activity-log-icon-0");
+
     activityLogWrapper = getByTestId("activity-log-wrapper-0");
   });
 
-  // it("create snapshot", () => {
-  //   expect(asFragment()).toMatchSnapshot();
-  // });
-
-
   it("activityLogIcon hover", () => {
-    const data = {
-      id: 0,
-      key: 0,
-      gene: "ABCD1P4",
-      chrPosition: "Chr2:176882",
-      transcript: "NM_119875.6",
-      exon: 5,
-      alleleChange: "C > T",
-      alleleChangeLong: "fsghfsghsfghsfsfhsfh",
-      coding: "cAc/gTa",
-      codingLong: "aGc/tCg/zzzczzfzf",
-      protein: "nuo7b",
-      vaf: 76,
-      roi: true,
-      clinvar: "",
-      gnomAD: 3,
-      zygosity: "",
-      variantClass: "",
-      coverage: 151,
-      notes: "Sed recusandae in sint.",
-      status: "pending"
-    };
-
 
     expect(activityLogIcon).toBeInTheDocument();
+
     expect(activityLogWrapper).toBeInTheDocument();
 
     expect(activityLogWrapper).toHaveClass('activity-icon-wrapper');
 
     store.dispatch(updateActivityLog({
       prevValue: "LATH",
-      item: data,
+      item: activityLog[1],
       changedField: "variantClass"
     }));
 
@@ -98,51 +70,26 @@ describe("Activity Log", () => {
     expect(activityLogDetails).toBeInTheDocument();
 
     fireEvent.mouseLeave(activityLogDetails);
-    //
+
     expect(activityLogDetails).not.toBeInTheDocument();
-
-    fireEvent.click(activityLogIcon);
-
-    const activityLogPopup = getByTestId("activity-log-popup");
-
-    expect(activityLogPopup).toBeInTheDocument();
 
   });
 
-  xit("activityLogIcon click", ()=> {
-    const data = {
-      id: 0,
-      key: 0,
-      gene: "ABCD1P4",
-      chrPosition: "Chr2:176882",
-      transcript: "NM_119875.6",
-      exon: 5,
-      alleleChange: "C > T",
-      alleleChangeLong: "fsghfsghsfghsfsfhsfh",
-      coding: "cAc/gTa",
-      codingLong: "aGc/tCg/zzzczzfzf",
-      protein: "nuo7b",
-      vaf: 76,
-      roi: true,
-      clinvar: "",
-      gnomAD: 3,
-      zygosity: "",
-      variantClass: "",
-      coverage: 151,
-      notes: "Sed recusandae in sint.",
-      status: "pending"
-    };
+  it("activityLogIcon click", ()=> {
 
+    expect(activityLogIcon).toBeInTheDocument();
 
-    expect(activityLogIcon).toHaveClass('activity-icon-wrapper disabled');
+    expect(activityLogWrapper).toBeInTheDocument();
+
+    expect(activityLogWrapper).toHaveClass('activity-icon-wrapper');
 
     store.dispatch(updateActivityLog({
       prevValue: "LATH",
-      item: data,
+      item: activityLog[1],
       changedField: "variantClass"
     }));
 
-    expect(activityLogIcon).not.toHaveClass('disabled');
+    expect(activityLogWrapper).not.toHaveClass('disabled');
 
     fireEvent.click(activityLogIcon);
 
@@ -150,11 +97,12 @@ describe("Activity Log", () => {
 
     expect(activityLogPopup).toBeInTheDocument();
 
-    const btnClose = document.querySelector(".ant-modal-close");
+    const popupCloseBtn = document.querySelector(".ant-modal-close");
 
-    fireEvent.click(btnClose);
+    fireEvent.click(popupCloseBtn);
 
     expect(activityLogPopup).not.toBeInTheDocument();
+
 
   });
 

@@ -177,6 +177,7 @@ class VariantTable extends Component {
         column.render = (...data) => (
           <div className="table-select-wrapper">
             <SimpleSelect
+              testId={`zygosity-select-${data[2]}`}
               value={data[1].zygosity}
               options={ZYGOSITY_OPTIONS}
               onChange={e =>
@@ -201,6 +202,7 @@ class VariantTable extends Component {
           data[1].zygosity !== "unknown" ? (
               <div className="table-select-wrapper">
                 <SimpleSelect
+                  testId={`variant-сlass-select-${data[2]}`}
                   value={data[1].variantClass}
                   options={
                     data[1].zygosity === "somatic"
