@@ -37,6 +37,7 @@ class TumorToolbar extends Component {
       <div className={style["tumor-toolbar-wrapper"]}>
         <div className="tumor-info-wrapper">
           <TumorInfoSelect
+            name={"type"}
             label={"Tumor type: "}
             dataSource={TUMOR_TYPE}
             info={type}
@@ -44,6 +45,7 @@ class TumorToolbar extends Component {
             onAction={this.handelTumorTypeSelect}
           />
           <TumorInfoSelect
+            name={"location"}
             label={"Location: "}
             dataSource={TUMOR_LOCATION}
             info={location}
@@ -51,6 +53,7 @@ class TumorToolbar extends Component {
             onAction={this.handelTumorLocationSelect}
           />
           <TumorInfoSelect
+            name={"percent"}
             label={"% Cancer Cells: "}
             info={percent}
             placeholder="Missing percent"
@@ -60,7 +63,7 @@ class TumorToolbar extends Component {
         <div
           className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}
         >
-          <div className="icon" onClick={this.handelClose}>
+          <div className="icon" data-testid={`tumor-panel-close-icon`} onClick={this.handelClose}>
             <CloseIcon />
           </div>
         </div>

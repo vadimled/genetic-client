@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { AutoComplete, InputNumber, Tooltip } from "antd";
 import style from "Pages/mainPage/components/tumorToolbar/components/tumorInfoSelect/TumorInfoSelect.module.scss";
@@ -9,6 +9,7 @@ import { ReactComponent as SaveIcon } from "Assets/save.svg";
 // const { Option } = AutoComplete;
 
 const TumorInfoSelect = ({
+  name,
   label,
   dataSource,
   onAction,
@@ -46,8 +47,8 @@ const TumorInfoSelect = ({
       return (
         <div className="tumor-info-select flex items-center">
           <AutoComplete
-            id="tumor-info-select"
-            data-testid={`tumor-info-select`}
+            id={`tumor-${name}-select`}
+            data-testid={`tumor-${name}-select`}
             dataSource={renderOptions()}
             value={insertedText}
             onChange={handleOnSearchChange}
@@ -66,6 +67,7 @@ const TumorInfoSelect = ({
       return (
         <Tooltip placement="topLeft" title={insertedText}>
           <div
+            data-testid={`tumor-${name}-static-text`}
             className={cn("static-text", { "input-number": !dataSource })}
             onClick={onEdit}
           >
@@ -75,7 +77,7 @@ const TumorInfoSelect = ({
       );
     } else if (!dataSource) {
       return (
-        <Fragment>
+        <div data-testid={`tumor-${name}-inputNumber`}>
           <InputNumber
             min={0}
             max={100}
@@ -84,10 +86,11 @@ const TumorInfoSelect = ({
             onChange={handleOnSearchChange}
           />
           <SaveIcon
+            data-testid={`tumor-save-inputNumber`}
             className="save-icon"
             onClick={() => onSelect(insertedText)}
           />
-        </Fragment>
+        </div>
       );
     }
   };
@@ -105,6 +108,7 @@ const TumorInfoSelect = ({
 };
 
 TumorInfoSelect.propTypes = {
+  name: PropTypes.string,
   label: PropTypes.string,
   dataSource: PropTypes.array,
   onAction: PropTypes.func,
