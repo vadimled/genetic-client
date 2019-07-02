@@ -36,7 +36,7 @@ const SendForConfirmationPopup = (props) => {
 
   return (
     <Portal>
-      <div className={styles['send-for-confirmation-popup']}>
+      <div className={styles['send-for-confirmation-popup']} data-testid="send-for-confirmation-popup">
         <header className="confirmation-header">
           <div className="header-title">
             Send for confirmation
