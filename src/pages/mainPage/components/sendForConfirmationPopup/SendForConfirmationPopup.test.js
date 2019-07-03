@@ -48,7 +48,7 @@ const initSteps = () => {
   const selectedRows1 = getSelectedRows(store.getState());
   expect(selectedRows1.length).toEqual(0);
 
-  // find first item in table data and select one
+  // find first item with no status in table data and select one
   const tableData1 = store.getState().table.data;
   let itemId; // = tableData1[Object.keys(tableData1)[0]].id;
   for (let key in tableData1) {
