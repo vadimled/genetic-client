@@ -31,12 +31,14 @@ const UncheckConfirmationPopup = (props) => {
             <Button
               className="confirmation-btn confirmation--link"
               onClick={handleUncheckConfirmationData.bind(null, null)}
+              data-testid="no-btn"
             >
               No
             </Button>
             <Button
               className="confirmation-btn"
               onClick={handleConfirmationStatus.bind(null, uncheckConfirmationData)}
+              data-testid="yes-btn"
             >
               Yes
             </Button>

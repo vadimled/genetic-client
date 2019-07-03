@@ -4,7 +4,8 @@ import "jest-dom/extend-expect";
 import TableData from './TableData';
 import { CONFIRMATION_VALUES } from 'Utils/constants';
 import {
-  handleConfirmationStatus
+  handleConfirmationStatus,
+  handleUncheckConfirmationData
 } from "Actions/tableActions";
 import {
   getUncheckConfirmationData
@@ -12,7 +13,7 @@ import {
 
 import { renderWithRedux } from "Utils/test_helpers";
 
-describe('IgvAlertPopup', () => {
+describe('TableData', () => {
 
   it('handle selection-checkbox', () => {
     const { getAllByTestId, store } = renderWithRedux(<TableData />);
@@ -79,12 +80,15 @@ describe('IgvAlertPopup', () => {
     const uncheckConfirmationData1 = getUncheckConfirmationData(store.getState());
     expect(uncheckConfirmationData1).toEqual(null);
 
-    store.dispatch(handleConfirmationStatus({
+    store.dispatch(handleUncheckConfirmationData({
       id: itemId,
       status: null
     }));
 
     const uncheckConfirmationData2 = getUncheckConfirmationData(store.getState());
-    expect(uncheckConfirmationData2).toBeDefined();
+    expect(uncheckConfirmationData2).toEqual({
+      id: itemId,
+      status: null
+    });
   });
 });
