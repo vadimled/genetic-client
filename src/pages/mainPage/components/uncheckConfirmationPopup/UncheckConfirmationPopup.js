@@ -13,7 +13,7 @@ const UncheckConfirmationPopup = (props) => {
   const { handleUncheckConfirmationData, handleConfirmationStatus, uncheckConfirmationData } = props;
   return (
     <Portal>
-      <div className={styles['uncheck-confirmation-popup']}>
+      <div className={styles['uncheck-confirmation-popup']} data-testid="uncheck-confirmation-popup">
         <header className="confirmation-header">
           <div className="header-title">
             <span
