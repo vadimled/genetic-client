@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Icon, AutoComplete } from "antd";
@@ -22,6 +22,37 @@ import {
 import closeBtn from "Assets/close.svg";
 
 class Toolbar extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.state={
+      searchField: createRef()
+    };
+  }
+  
+  static getDerivedStateFromProps(props) {
+    const { tableData } = props;
+    // console.log(state.searchField.current?.select);
+    if(tableData.length === 0){
+      let node =  document.querySelector(".ant-select-search__field");
+      // console.log(document.querySelector(".ant-select-search__field"));
+      // node?.addEventListener("onKeyDown", e => console.log(e.target.value) );
+      // document.querySelector(".ant-select-search__field")?.focus();
+      node.focus();
+      console.log(node.value);
+      node.value = "1";
+      /*
+      console.log(document.querySelector(".ant-select-search__field__mirror"));
+
+      document.querySelector(".ant-select-search__field").select();
+      // document.querySelector(".ant-select-search__field__mirror").focus();
+      // console.log(state.searchField.current?.select.rcSelect);
+      state.searchField.current?.select.rcSelect.focus();*/
+    }
+    
+    return null;
+  }
+  
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
   };
@@ -68,6 +99,7 @@ class Toolbar extends Component {
 
             <AutoComplete
               id="search-field"
+              ref={this.state.searchField}
               data-testid={`search-field`}
               dataSource={searchText && tableData}
               value={searchText}
