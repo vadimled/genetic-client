@@ -87,7 +87,7 @@ const initSteps = () => {
   expect(confirmationData2.length).toEqual(1);
 
   return {store, getByTestId, getAllByTestId};
-}
+};
 
 describe('SendForConfirmationPopup', () => {
 
