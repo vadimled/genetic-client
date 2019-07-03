@@ -20,6 +20,10 @@ export const
   getConfirmationData = state => state?.confirmation?.data,
 
   getMutationType = state => state.variants.mutations,
+  getTumorInfoMode = state => state.variants.showTumorInfo,
+  getTumorInfoType = state => state.variants.tumorInfo?.type,
+  getTumorInfoLocation = state => state.variants.tumorInfo?.location,
+  getTumorInfoPercent = state => parseInt(state.variants.tumorInfo?.percent, 10),
 
   getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
   getIgvAlertShow = state => state?.igv?.isIgvAlertShow,

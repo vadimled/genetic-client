@@ -10,13 +10,15 @@ import IgvAlertPopup from './components/igvAlertPopup';
 import SendForConfirmationPopup from './components/sendForConfirmationPopup';
 import UncheckConfirmationPopup from './components/uncheckConfirmationPopup';
 import Alert from 'GenericComponents/alert';
+import TumorToolbar from "Pages/mainPage/components/tumorToolbar";
 import {
   getIgvAlertShow,
   getOnConfirmation,
   getUncheckConfirmationData ,
   getAlertStatus,
   getAlertTitle,
-  getAlertMessage
+  getAlertMessage,
+  getTumorInfoMode
 } from "Store/selectors";
 import {
   setAlert
@@ -46,18 +48,31 @@ class MainPage extends Component {
       alertStatus,
       alertTitle,
       alertMessage,
-      setAlert
+      setAlert,
+      showTumorInfo
     } = this.props;
 
     return (
       <div className={style["main-page"]}>
-        <div className={cn(["sidebar-wrapper", { "sidebar-open": sidebarToggle }])}>
+        <div
+          className={cn(["sidebar-wrapper", { "sidebar-open": sidebarToggle }])}
+        >
           <SideBarLayout handleClick={this.handleClick} mode={sidebarToggle}>
             <SidebarFilters />
           </SideBarLayout>
         </div>
-        <div className={cn(["main-content-wrapper", { "sidebar-open": sidebarToggle }])}>
-          <Toolbar sidebarToggle={sidebarToggle} />
+        <div
+          className={cn([
+            "main-content-wrapper",
+            { "sidebar-open": sidebarToggle }
+          ])}
+        >
+          <div className={cn(["tumor-toolbar-collapse", { out: showTumorInfo }])}>
+            <TumorToolbar sidebarToggle={sidebarToggle} />
+          </div>
+          <div className={cn(["toolbar-collapse", { shadow: showTumorInfo }])}>
+            <Toolbar sidebarToggle={sidebarToggle} />
+          </div>
           <TableData />
         </div>
         {!!isIgvAlertShow && <IgvAlertPopup />}
@@ -81,7 +96,8 @@ const mapStateToProps = state => {
     uncheckConfirmationData: getUncheckConfirmationData(state),
     alertStatus: getAlertStatus(state),
     alertTitle: getAlertTitle(state),
-    alertMessage: getAlertMessage(state)
+    alertMessage: getAlertMessage(state),
+    showTumorInfo: getTumorInfoMode(state)
   };
 };
 
@@ -95,4 +111,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(MainPage);
-

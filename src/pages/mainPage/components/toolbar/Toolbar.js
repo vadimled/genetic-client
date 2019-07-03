@@ -1,16 +1,16 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Icon, AutoComplete } from 'antd';
+import { Icon, AutoComplete } from "antd";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import style from "./Toolbar.module.scss";
 import { MUTATION } from "Utils/constants";
 import NumberVariants from "Pages/mainPage/components/numberVariants";
-import IgvLoadBAM from './components/IgvLoadBAM';
+import IgvLoadBAM from "./components/IgvLoadBAM";
 import cn from "classnames";
 import {
   getFilteredEntriesAmount,
-  getTotalEntriesAmount,
+  getTotalEntriesAmount
 } from "Store/selectors";
 import { setMutationType } from "Actions/variantsActions";
 import { updateSearch } from "Actions/tableActions";
@@ -115,7 +115,8 @@ class Toolbar extends Component {
 Toolbar.propTypes = {
   filtered: PropTypes.number,
   total: PropTypes.number,
-  mutations: PropTypes.string
+  mutations: PropTypes.string,
+  sidebarToggle: PropTypes.bool
 };
 
 const mapStateToProps = state => {
