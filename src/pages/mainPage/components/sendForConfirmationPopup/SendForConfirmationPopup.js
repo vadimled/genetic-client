@@ -15,7 +15,8 @@ import {
   sendForConfirmation,
   removeConfirmationRow,
   addAdditionalConfirmationData,
-  removeAdditionalConfirmationData
+  removeAdditionalConfirmationData,
+  setConfirmationData
 } from "Actions/confirmationActions";
 import { goToChrPositionIgv } from "Actions/igvActions";
 import { getConfirmationData } from "Store/selectors";
@@ -45,6 +46,7 @@ const SendForConfirmationPopup = (props) => {
             className="header-close"
             style={{backgroundImage: `url(${btnImg})`}}
             onClick={handleOnConfirmation.bind(null, false)}
+            data-testid="header-close"
           />
         </header>
         <div className="confirmation-content">
@@ -67,6 +69,7 @@ const SendForConfirmationPopup = (props) => {
             <Button
               className="confirmation-btn confirmation--link"
               onClick={handleOnConfirmation.bind(null, false)}
+              data-testid="footer-close"
             >
               Close
             </Button>
@@ -74,6 +77,7 @@ const SendForConfirmationPopup = (props) => {
               className="confirmation-btn"
               onClick={sendForConfirmation.bind(null, data)}
               disabled={!data.length}
+              data-testid="send-btn"
             >
               Send
             </Button>
@@ -94,7 +98,14 @@ SendForConfirmationPopup.defaultProps = {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleOnConfirmation: data => dispatch(handleOnConfirmation(data)),
+    handleOnConfirmation: data => {
+      // which means that we close popup
+      if (data === false) {
+        // clear confirmation data
+        dispatch(setConfirmationData(data));
+      }
+      dispatch(handleOnConfirmation(data));
+    },
     removeConfirmationRow: data => dispatch(removeConfirmationRow(data)),
     sendForConfirmation: data => dispatch(sendForConfirmation(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),

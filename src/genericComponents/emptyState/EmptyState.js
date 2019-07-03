@@ -11,7 +11,7 @@ import style from './EmptyState.module.scss';
 
 const EmptyState = ({image, title, description}) => {
   return (
-    <div className={style["empty-state"]}>
+    <div className={style["empty-state"]} data-testid="empty-state">
       <div
         className="image"
         style={{

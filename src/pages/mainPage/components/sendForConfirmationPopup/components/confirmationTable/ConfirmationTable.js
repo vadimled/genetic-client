@@ -145,6 +145,7 @@ class ConfirmationTable extends Component {
               <span>{value}</span>
               <button
                 onClick={this.props.removeConfirmationRow.bind(null, row.id)}
+                data-testid="remove-row"
               >
                 <img src={binImg} alt="bin"/>
               </button>
@@ -264,6 +265,9 @@ class ConfirmationTable extends Component {
                     })
                   }
                   placeholder="Edit"
+                  data-testid="primer-input"
+                  data-testrowid={row.id}
+                  data-testindex={index}
                 />
               </div>
             </div>
@@ -301,6 +305,9 @@ class ConfirmationTable extends Component {
                     })
                   }
                   placeholder="Edit"
+                  data-testid="fragmentSize-input"
+                  data-testrowid={row.id}
+                  data-testindex={index}
                 />
               </div>
             </div>
@@ -357,6 +364,9 @@ class ConfirmationTable extends Component {
                   indexToAdd: index
                 })}
                 onMouseLeave={this.onLeaveAdditionalConfirmationRow}
+                data-testid="additional-plus"
+                data-testrowid={row.id}
+                data-testindex={index}
               />}
               {index > 0 && <div
                 className="table-act-remove"
@@ -369,6 +379,9 @@ class ConfirmationTable extends Component {
                   indexToRemove: index
                 })}
                 onMouseLeave={this.onLeaveAdditionalConfirmationRow}
+                data-testid="additional-minus"
+                data-testrowid={row.id}
+                data-testindex={index}
               />}
             </div>
           );
