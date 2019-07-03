@@ -3,11 +3,8 @@ import PropTypes from "prop-types";
 import { Table, Tooltip, Input } from "antd";
 import { Resizable } from "react-resizable";
 import style from './ConfirmationTable.module.scss';
-// import Tag from 'GenericComponents/tag';
 import ExternalLink from "GenericComponents/externalLink";
 import Notes from "GenericComponents/notes";
-// import { VARIANT_CLASS, SOMATIC_CLASS } from "Utils/constants";
-import binImg from "Assets/bin.svg";
 
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
@@ -146,9 +143,7 @@ class ConfirmationTable extends Component {
               <button
                 onClick={this.props.removeConfirmationRow.bind(null, row.id)}
                 data-testid="remove-row"
-              >
-                <img src={binImg} alt="bin"/>
-              </button>
+              />
             </div>
           );
         };
