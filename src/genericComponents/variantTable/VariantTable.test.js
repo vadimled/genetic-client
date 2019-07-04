@@ -46,9 +46,6 @@ describe("Variant Table Test", () => {
     getByText = queries.getByText;
 
     zygosity = getByTestId("zygosity-select-0");
-
-
-
   });
 
   it("activityLogNotes change", ()=> {
