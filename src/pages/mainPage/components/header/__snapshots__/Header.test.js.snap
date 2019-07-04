@@ -30,6 +30,7 @@ exports[`renders 1`] = `
         >
           <div
             class="icon info"
+            data-testid="header-icon-info"
           >
             <svg>
               info.svg
@@ -45,6 +46,7 @@ exports[`renders 1`] = `
         >
           <div
             class="icon notification"
+            data-testid="header-icon-notification"
           >
             <svg>
               notifications.svg

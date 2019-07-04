@@ -3,7 +3,7 @@
 exports[`VariantTable VariantTable snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="ant-table-wrapper"
+    class="ant-table-wrapper variant-table-wrapper"
   >
     <div
       class="ant-spin-nested-loading"
