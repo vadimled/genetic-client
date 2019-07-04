@@ -754,7 +754,6 @@ th {
 
     &.hovered {
       background-color: $neutral_10;
-
       .table-input-wrapper {
         .ant-input {
           background-color: white;
@@ -768,6 +767,9 @@ th {
           border: 1px solid $neutral_hover_20;
         }
       }
+    }
+    &.toremove {
+      background-color: $light-red;
     }
 
     &:not(:first-child) {

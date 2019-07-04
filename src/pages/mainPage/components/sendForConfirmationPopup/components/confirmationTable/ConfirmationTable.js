@@ -106,16 +106,14 @@ class ConfirmationTable extends Component {
     const getAdditionClassesOnAdditionRow = (row, index) => {
       return [
         hoveredAdditionalConfirmationRow?.id === row?.id
-        && (hoveredAdditionalConfirmationRow?.index === index
-          || hoveredAdditionalConfirmationRow?.indexToRemove === index
-        )
-          ? "hovered"
-          : '',
+          && hoveredAdditionalConfirmationRow?.index === index
+          ? 'hovered' : '',
+        hoveredAdditionalConfirmationRow?.indexToRemove === index
+          ? 'toremove' : '',
         hoveredAdditionalConfirmationRow?.id === row?.id
-        && hoveredAdditionalConfirmationRow?.index !== index
-        && hoveredAdditionalConfirmationRow?.indexToRemove !== index
-          ? "bg-white"
-          : ''
+          && hoveredAdditionalConfirmationRow?.index !== index
+          && hoveredAdditionalConfirmationRow?.indexToRemove !== index
+          ? 'bg-white' : '',
       ].join(' ');
     };
 
