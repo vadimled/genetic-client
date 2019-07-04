@@ -55,6 +55,13 @@ export const getTableDataAsArray = createSelector(
         arrayData.push(data[key]);
       }
     }
+
+    console.log("--arrayData: ", arrayData)
+
+    // const defaultFiltration = arrayData.filter(record => record.variantClass !== "tier4")
+
+    // console.log("--defaultFiltration: ", defaultFiltration)
+
     return arrayData;
   }
 );
@@ -130,6 +137,7 @@ export const getFilteredData = createSelector(
   getTableDataAsArray,
   getAppliedFilters,
   (data, appliedFilters) => {
+
     if (isEmpty(appliedFilters)) {
       return data;
     }
@@ -141,6 +149,10 @@ export const getFilteredData = createSelector(
     const filteredData = data.filter(item => {
       return filtersArray.every(filter => filter(item));
     });
+
+    const defaultFiltration = filteredData.filter(record => record.variantClass !== "tier4")
+
+    console.log("--defaultFiltration: ", defaultFiltration)
 
     return filteredData;
   }
