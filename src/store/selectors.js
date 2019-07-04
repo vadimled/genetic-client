@@ -16,6 +16,10 @@ export const
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
   getSelectedRowKeys = state => state?.table?.selectedRowKeys,
   getMutationType = state => state.variants.mutations,
+  getTumorInfoMode = state => state.variants.showTumorInfo,
+  getTumorInfoType = state => state.variants.tumorInfo?.type,
+  getTumorInfoLocation = state => state.variants.tumorInfo?.location,
+  getTumorInfoPercent = state => parseInt(state.variants.tumorInfo?.percent, 10),
 
   getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
   getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
@@ -127,7 +131,6 @@ export const getFilteredData = createSelector(
   getAppliedFilters,
   (data, appliedFilters) => {
     if (isEmpty(appliedFilters)) {
-      console.log("-No filters");
       return data;
     }
 
@@ -181,3 +184,23 @@ export const getTotalEntriesAmount = createSelector(
   getTableDataAsArray,
   data => data?.length
 );
+
+// activity log
+export const getActivityLog = (state, recordId) => {
+  const activityLog = state?.table?.activityLog[recordId];
+
+  let activityLogArray = [];
+
+  for (let record in activityLog) {
+    activityLogArray = activityLogArray.concat(activityLog[record]);
+
+  }
+
+  activityLogArray.sort((a,b) => {
+    return new Date(b.time) - new Date(a.time);
+  });
+
+  return activityLogArray;
+};
+
+

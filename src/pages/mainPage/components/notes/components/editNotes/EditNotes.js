@@ -15,7 +15,7 @@ const EditNotes = ({
   validateStatus
 }) => {
   return (
-    <div className={style["edit-notes-wrapper"]}>
+    <div data-testid={`edit-text-box`} className={style["edit-notes-wrapper"]}>
       <Form>
         <Form.Item
           validateStatus={validateStatus.validateStatus}
@@ -26,6 +26,7 @@ const EditNotes = ({
             autoFocus
             value={notesValue}
             onChange={handleOnChange}
+            data-testid={`edit-text-box-textarea`}
           />
           <div className="divider">
             <div className="counter">{`${validateStatus.value}/${

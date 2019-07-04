@@ -7,6 +7,7 @@ const HeaderIcon = ({ icon, isActive, handelOnClick, customClassName }) => {
   return (
     <div className={style["header-icon-wrapper"]} onClick={handelOnClick}>
       <div
+        data-testid={`header-icon-${customClassName}`}
         className={cn("icon", {
           "icon-active": isActive,
           [customClassName]: !!customClassName

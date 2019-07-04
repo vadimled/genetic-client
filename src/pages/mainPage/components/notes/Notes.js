@@ -54,11 +54,21 @@ class Notes extends Component {
   };
 
   handleDone = () => {
-    const { id, setNotes } = this.props;
+    const { id, setNotes, updateActivityLog, getValue } = this.props;
+
+    const data = this.props[1];
+
     setNotes({
       id,
       notes: this.state.editNotes
     });
+
+    updateActivityLog({
+      prevValue: getValue,
+      item: data,
+      changedField: "notes"
+    });
+
     this.cleanupState();
   };
 
@@ -112,7 +122,10 @@ class Notes extends Component {
               <div className="notes-content">{getValue}</div>
             </Tooltip>
 
-            <div className="notes-icon" onClick={this.handelEditClick}>
+            <div
+              data-testid={`edit-icon`}
+              className="notes-icon"
+              onClick={this.handelEditClick}>
               <EditIcon />
             </div>
           </Fragment>

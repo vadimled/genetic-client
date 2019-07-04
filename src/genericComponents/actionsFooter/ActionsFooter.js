@@ -8,7 +8,9 @@ const ActionsFooter = ({disabled, doneHandler, cancelHandler, disableCancel}) =>
   return (
     <footer className={`${style["actions-footer-wrapper"]}`}>
       {!disableCancel &&
-      <button className='button-cancel'
+      <button
+        data-testid={`footer-button-cancel`}
+        className='button-cancel'
         disabled={disableCancel}
         onClick={cancelHandler}
         id="button-cancel"
@@ -16,6 +18,7 @@ const ActionsFooter = ({disabled, doneHandler, cancelHandler, disableCancel}) =>
         {TEXTS.cancel}
       </button>}
       <Button
+        data-testid={`footer-button-done`}
         disabled={disabled}
         onClick={doneHandler}
         type={disabled ? "default" : "primary"}

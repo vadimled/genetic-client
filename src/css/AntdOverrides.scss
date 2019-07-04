@@ -419,14 +419,6 @@ $heightTableContent: 150px;
   display: none !important;
 }
 
-.ant-popover-placement-bottomRight {
-  width: 77px;
-  left: 562px;
-  top: 501.109px;
-  cursor: pointer;
-  position: relative;
-}
-
 .ant-checkbox-wrapper {
   font-size: 16px !important;
   line-height: 21px;
@@ -482,31 +474,6 @@ $heightTableContent: 150px;
         color: #0e8ce6 !important;
         box-shadow: none !important;
       }
-    }
-  }
-}
-
-.ant-popover {
-  position: fixed;
-
-  .ant-popover-hidden {
-    display: none !important;
-  }
-
-  .ant-popover-content {
-    width: 307px !important;
-    height: 114px !important;
-
-    .ant-popover-arrow {
-      display: block !important;
-    }
-
-    .ant-popover-inner .ant-popover-inner-content {
-      padding: 24px !important;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: normal;
-      color: $title_color !important;
     }
   }
 }
@@ -656,6 +623,26 @@ th {
     }
   }
 }
+//.ant-popover {
+//  z-index: 99999 !important;
+//  min-width: 200px !important;
+//}
+
+.ant-popover-inner {
+  display: flex !important;
+  position: absolute !important;
+  //top: 0 !important;
+  //left: 0 !important;
+
+  //height: auto !important;
+  background-color: $white !important;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 4px !important;
+
+  &.ant-popover-inner-content {
+    padding: 0 !important;
+  }
+}
 
 .ant-table-pagination.ant-pagination {
   float: left !important;
@@ -778,5 +765,66 @@ th {
     .ant-slider-rail {
       background-color: $slider-rail-hover !important;
     }
+  }
+}
+.tumor-info-wrapper {
+  .ant-input-suffix {
+    svg path {
+      fill: $subtitle_color !important;
+    }
+  }
+}
+
+// modal
+.ant-modal-body {
+  .activity-items-table {
+    max-height: 248px;
+    overflow-y: scroll;
+    .table-header {
+      position: sticky;
+      top: 0;
+      .header-cell {
+        display: inline-block;
+      }
+    }
+    .cell {
+      width: 33.3%;
+      padding: 8px;
+      text-align: center;
+    }
+    .header-cell {
+      background: #f2f6f8;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .user-name {
+      margin-left: 8px;
+    }
+  }
+  .border {
+    border: 1px solid #dae1e6;
+  }
+  .action-item {
+    width: 100px;
+    overflow-x: hidden;
+    margin: 0 auto;
+    .title-prev {
+      opacity: 0.5;
+    }
+    .title-curr {
+    }
+  }
+  .prev-note {
+    color: #96a2aa;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+  }
+  .curr-note {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
   }
 }
