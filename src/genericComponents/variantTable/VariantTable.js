@@ -31,8 +31,103 @@ const ResizeableTitle = props => {
 
 class VariantTable extends Component {
   state = {
+    columns: [
+      {
+        title: "Gene",
+        dataIndex: "gene",
+        key: "2",
+        width: 200
+      },
+      {
+        title: "Chr: position",
+        dataIndex: "chrPosition",
+        key: "3",
+        width: 200
+      },
+      {
+        title: "Transcript",
+        dataIndex: "transcript",
+        key: "4",
+        width: 200
+      },
+      {
+        title: "Exon",
+        dataIndex: "exon",
+        key: "5",
+        width: 100
+      },
+      {
+        title: "Allele change",
+        dataIndex: "alleleChange",
+        key: "6",
+        width: 100,
 
-    sortedInfo: null
+        render: (text, record) => {
+          return (
+            <Tooltip placement="topLeft" title={record.alleleChangeLong}>
+              <div>{text}</div>
+            </Tooltip>
+          );
+        }
+      },
+      {
+        title: "coding",
+        dataIndex: "coding",
+        key: "7",
+        width: 100,
+        render: (text, record) => {
+          return (
+            <Tooltip placement="topLeft" title={record.codingLong}>
+              <div>{text}</div>
+            </Tooltip>
+          );
+        }
+      },
+      {
+        title: "Protein",
+        dataIndex: "protein",
+        key: "8",
+        width: 100
+      },
+      {
+        title: "VAF",
+        dataIndex: "vaf",
+        key: "9",
+        width: 100,
+        sorter: (a, b) => a.vaf - b.vaf,
+        // sortOrder: sortedInfo.columnKey === 'vaf' && sortedInfo.order,
+      },
+      {
+        title: "Zygosity",
+        dataIndex: "zygosity",
+        key: "10",
+        width: 150
+      },
+      {
+        title: "Variant Class",
+        dataIndex: "variantClass",
+        key: "11",
+        width: 170
+      },
+      {
+        title: "coverage",
+        dataIndex: "coverage",
+        key: "12",
+        width: 100
+      },
+      {
+        title: "Notes",
+        dataIndex: "notes",
+        key: "13",
+        width: 532
+      },
+      {
+        title: "Activity log",
+        dataIndex: "activityLog",
+        key: "14",
+        width: 200
+      }
+    ],
   };
 
   components = {
@@ -44,23 +139,12 @@ class VariantTable extends Component {
     }
   };
 
-
-
-  setVafSort = () => {
-    this.setState({
-      sortedInfo: {
-        order: 'descend',
-        columnKey: 'vaf',
-      },
-    });
-  };
-
-  handleChange = (pagination, filters, sorter) => {
-    console.log('Various parameters', pagination, filters, sorter);
-    this.setState({
-      sortedInfo: sorter,
-    });
-  };
+  // handleChange = (pagination, filters, sorter) => {
+  //   console.log('Various parameters',  sorter);
+  //   this.setState({
+  //     sortedInfo: sorter,
+  //   });
+  // };
 
   handelChrPosition = (e, data) => {
     console.log({ e: e.target, data });
@@ -203,108 +287,6 @@ class VariantTable extends Component {
   render() {
     const { selectedRowKeys, onSelectRowKey, data } = this.props;
 
-    let { sortedInfo } = this.state;
-
-    sortedInfo = sortedInfo || {};
-
-    const columnsArr = [
-      {
-        title: "Gene",
-        dataIndex: "gene",
-        key: "2",
-        width: 200
-      },
-      {
-        title: "Chr: position",
-        dataIndex: "chrPosition",
-        key: "3",
-        width: 200
-      },
-      {
-        title: "Transcript",
-        dataIndex: "transcript",
-        key: "4",
-        width: 200
-      },
-      {
-        title: "Exon",
-        dataIndex: "exon",
-        key: "5",
-        width: 100
-      },
-      {
-        title: "Allele change",
-        dataIndex: "alleleChange",
-        key: "6",
-        width: 100,
-
-        render: (text, record) => {
-          return (
-            <Tooltip placement="topLeft" title={record.alleleChangeLong}>
-              <div>{text}</div>
-            </Tooltip>
-          );
-        }
-      },
-      {
-        title: "coding",
-        dataIndex: "coding",
-        key: "7",
-        width: 100,
-        render: (text, record) => {
-          return (
-            <Tooltip placement="topLeft" title={record.codingLong}>
-              <div>{text}</div>
-            </Tooltip>
-          );
-        }
-      },
-      {
-        title: "Protein",
-        dataIndex: "protein",
-        key: "8",
-        width: 100
-      },
-      {
-        title: "VAF",
-        dataIndex: "vaf",
-        key: "9",
-        width: 100,
-        sorter: (a, b) => a.vaf - b.vaf,
-        sortOrder: sortedInfo.columnKey === 'vaf' && sortedInfo.order,
-      },
-      {
-        title: "Zygosity",
-        dataIndex: "zygosity",
-        key: "10",
-        width: 150
-      },
-      {
-        title: "Variant Class",
-        dataIndex: "variantClass",
-        key: "11",
-        width: 170
-      },
-      {
-        title: "coverage",
-        dataIndex: "coverage",
-        key: "12",
-        width: 100
-      },
-      {
-        title: "Notes",
-        dataIndex: "notes",
-        key: "13",
-        width: 532
-      },
-      {
-        title: "Activity log",
-        dataIndex: "activityLog",
-        key: "14",
-        width: 200
-      }
-    ];
-
     // rowSelection object indicates the need for row selection
     const rowSelection = {
       onChange: selectedRowKeys => {
@@ -315,7 +297,7 @@ class VariantTable extends Component {
     };
 
     // add options to columns
-    const columns = this.columnsConverter(columnsArr);
+    const columns = this.columnsConverter(this.state.columns);
 
     return (
       <Table
@@ -327,7 +309,6 @@ class VariantTable extends Component {
         columns={columns}
         dataSource={data}
         scroll={{ x: "max-content", y: "true" }}
-        // rowClassName={ (record, index) => {  your code here }   }
       />
     );
   }
