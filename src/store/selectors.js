@@ -56,11 +56,9 @@ export const getTableDataAsArray = createSelector(
       }
     }
 
-    console.log("--arrayData: ", arrayData);
 
     // const defaultFiltration = arrayData.filter(record => record.variantClass !== "tier4")
 
-    // console.log("--defaultFiltration: ", defaultFiltration)
 
     return arrayData;
   }
