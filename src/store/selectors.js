@@ -56,7 +56,7 @@ export const getTableDataAsArray = createSelector(
       }
     }
 
-    console.log("--arrayData: ", arrayData)
+    console.log("--arrayData: ", arrayData);
 
     // const defaultFiltration = arrayData.filter(record => record.variantClass !== "tier4")
 
@@ -150,9 +150,9 @@ export const getFilteredData = createSelector(
       return filtersArray.every(filter => filter(item));
     });
 
-    const defaultFiltration = filteredData.filter(record => record.variantClass !== "tier4")
+    const defaultFiltration = filteredData.filter(record => record.variantClass !== "tier4");
 
-    console.log("--defaultFiltration: ", defaultFiltration)
+    console.log("--defaultFiltration: ", defaultFiltration);
 
     return filteredData;
   }
