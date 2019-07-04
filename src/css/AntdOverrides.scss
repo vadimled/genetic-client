@@ -634,6 +634,10 @@ th {
       background-color: $table-header-bg;
     }
 
+    .ant-table-column-title {
+      white-space: nowrap;
+    }
+
     .ant-table-selection-column {
       position: relative;
 

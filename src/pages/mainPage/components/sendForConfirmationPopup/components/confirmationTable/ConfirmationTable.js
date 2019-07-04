@@ -38,13 +38,19 @@ class ConfirmationTable extends Component {
         width: 156
       },
       {
+        title: "Transcript",
+        dataIndex: "transcript",
+        key: "4",
+        width: 156
+      },
+      {
         title: "Exon",
         dataIndex: "exon",
         key: "5",
         width: 75
       },
       {
-        title: "coding",
+        title: "Coding",
         dataIndex: "coding",
         key: "7",
         width: 131
@@ -68,10 +74,10 @@ class ConfirmationTable extends Component {
         width: 220
       },
       {
-        title: "Special Note",
+        title: "Instructions",
         dataIndex: "confirmationNotes",
         key: "13",
-        width: 212
+        width: 150
       },
       {
         title: "",
@@ -154,7 +160,7 @@ class ConfirmationTable extends Component {
           return (
             <div
               className={[
-                "remover-cell cell-padding full-cell",
+                "cell-padding full-cell",
                 hoveredAdditionalConfirmationRow?.id === row?.id
                   ? "bg-white"
                   : ''
@@ -173,12 +179,30 @@ class ConfirmationTable extends Component {
         column.className = "no-padding";
       }
 
+      if (col.dataIndex === "transcript") {
+        column.render = (value, row) => {
+          return (
+            <div
+              className={[
+                "cell-padding full-cell",
+                hoveredAdditionalConfirmationRow?.id === row?.id
+                  ? "bg-white"
+                  : ''
+              ].join(' ')}
+            >
+              <ExternalLink data={row.transcript} />
+            </div>
+          );
+        };
+        column.className = "no-padding";
+      }
+
       if (col.dataIndex === "exon") {
         column.render = (value, row) => {
           return (
             <div
               className={[
-                "remover-cell cell-padding full-cell",
+                "cell-padding full-cell",
                 hoveredAdditionalConfirmationRow?.id === row?.id
                   ? "bg-white"
                   : ''
@@ -196,7 +220,7 @@ class ConfirmationTable extends Component {
           return (
             <div
               className={[
-                "remover-cell cell-padding full-cell",
+                "cell-padding full-cell",
                 hoveredAdditionalConfirmationRow?.id === row?.id
                   ? "bg-white"
                   : ''
@@ -216,7 +240,7 @@ class ConfirmationTable extends Component {
           return (
             <div
               className={[
-                "remover-cell cell-padding full-cell",
+                "cell-padding full-cell",
                 hoveredAdditionalConfirmationRow?.id === row?.id
                   ? "bg-white"
                   : ''
