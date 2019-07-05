@@ -24,35 +24,24 @@ import closeBtn from "Assets/close.svg";
 class Toolbar extends Component {
   constructor(props) {
     super(props);
-    
-    this.state={
+
+    this.state = {
       searchField: createRef()
     };
   }
-  
-  static getDerivedStateFromProps(props) {
-    const { tableData } = props;
-    // console.log(state.searchField.current?.select);
-    if(tableData.length === 0){
-      let node =  document.querySelector(".ant-select-search__field");
-      // console.log(document.querySelector(".ant-select-search__field"));
-      // node?.addEventListener("onKeyDown", e => console.log(e.target.value) );
-      // document.querySelector(".ant-select-search__field")?.focus();
-      node.focus();
-      console.log(node.value);
-      node.value = "1";
-      /*
-      console.log(document.querySelector(".ant-select-search__field__mirror"));
 
-      document.querySelector(".ant-select-search__field").select();
-      // document.querySelector(".ant-select-search__field__mirror").focus();
-      // console.log(state.searchField.current?.select.rcSelect);
-      state.searchField.current?.select.rcSelect.focus();*/
+  static getDerivedStateFromProps(props, state) {
+    const { tableData } = props;
+    if (tableData?.length === 0) {
+      let node = document.querySelector(".ant-input.ant-select-search__field");
+      node.setAttribute("key", "select-search-autocomplete");
+      console.log(node);
+      state.searchField.current.focus();
     }
-    
+
     return null;
   }
-  
+
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
   };
@@ -90,21 +79,23 @@ class Toolbar extends Component {
         </div>
         <div>
           <div className="search-field-wrapper flex items-center">
-            {!searchText && (
+            {!searchText ? (
               <div className="flex items-center search-icons-wrapper">
                 <Icon type="search" style={{ color: "#96A2AA" }} />
                 <div className="placeholder">Search</div>
               </div>
+            ) : (
+              <span />
             )}
 
             <AutoComplete
               id="search-field"
               ref={this.state.searchField}
               data-testid={`search-field`}
-              dataSource={searchText && tableData}
+              dataSource={tableData}
               value={searchText}
               onChange={this.handleOnSearchChange}
-              placeholder="input here"
+              autoFocus
             />
 
             {searchText && (
