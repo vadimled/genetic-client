@@ -1,0 +1,57 @@
+@import "Css/Colors.scss";
+
+.variant-page-wrapper :global {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  z-index: 0;
+  width: 100%;
+  height: 100vh;
+
+  .links-wrapper {
+    display: flex;
+    min-width: 200px;
+    flex: 2 2 6em;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-right: 20px;
+    border: 1px solid green;
+
+    h2 {
+      margin: 12px auto;
+    }
+
+    ul {
+      padding-left: 20px;
+      text-align: left;
+      list-style: none;
+    }
+  }
+
+  .main-wrapper {
+    display: flex;
+    flex: 10 2 30em;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-right: 20px;
+    border: 1px solid green;
+
+    .main-header-data {
+      display: flex;
+      border: 1px dashed gray;
+    }
+
+    .main-data {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: column;
+      border: 1px dashed #42adfa;
+
+      .history {
+      }
+
+      .evidence {
+      }
+    }
+  }
+}
