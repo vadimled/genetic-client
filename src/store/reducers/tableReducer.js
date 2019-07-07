@@ -45,7 +45,7 @@ const tableReducer = createReducer(initialState, {
 
   [actionsTypes.HANDLE_VARIANT_CLASS]: (state, { payload }) => {
 
-    console.log("-payload: ", payload)
+    console.log("-payload: ", payload);
 
 
 
@@ -54,7 +54,7 @@ const tableReducer = createReducer(initialState, {
 
     const priority = PRIORITY[value];
 
-    console.log("-priority: ", priority)
+    console.log("-priority: ", priority);
 
     let data = state?.data;
 
