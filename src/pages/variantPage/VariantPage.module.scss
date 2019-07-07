@@ -48,9 +48,15 @@
       border: 1px dashed #42adfa;
 
       .history {
+        display: flex;
+        height: 100px;
+        border: 1px dotted blueviolet;
       }
 
       .evidence {
+        display: flex;
+        height: 100px;
+        border: 1px dotted #424d55;
       }
     }
   }
