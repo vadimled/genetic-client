@@ -4,10 +4,11 @@ import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { PRIORITY } from "../../utils/constants";
 
 const initialState = {
-  data: generateDNAVariantTableMockData(200),
+  data: generateDNAVariantTableMockData(20),
   selectedRowKeys: [],
   activityLog: {}
 };
+
 
 const tableReducer = createReducer(initialState, {
   [actionsTypes.SELECT_ROW_KEY]: (state, { payload }) => {
@@ -24,6 +25,8 @@ const tableReducer = createReducer(initialState, {
     let data = state?.data;
     data[item.id].zygosity = value;
 
+    console.log("-zygosity payload: ", payload);
+
     // and always reset variantClass as a result of changing the zygosity
     // reset to
     if (
@@ -33,10 +36,17 @@ const tableReducer = createReducer(initialState, {
     ) {
       // unclassified is default for somatic & germline
       data[item.id].variantClass = 'unclassified';
+      data[item.id].priority = PRIORITY['unclassified'];
+
+      console.log(data)
     }
     else {
       data[item.id].variantClass = '';
     }
+
+    const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
+
+    state.data = sortedData
 
     return {
       ...state
@@ -58,9 +68,17 @@ const tableReducer = createReducer(initialState, {
 
     let data = state?.data;
 
+    // console.log("-===data: ", data);
+
     data[item.id].variantClass = value;
 
     data[item.id].priority = priority;
+
+    const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
+
+    console.log(sortedData);
+
+    state.data = sortedData
 
     return {
       ...state
@@ -92,7 +110,6 @@ const tableReducer = createReducer(initialState, {
 
     let changesArr =  activityLog[item.id] && activityLog[item.id][changedField]
       ? activityLog[item.id][changedField] : [];
-    console.log("--changesArr: ", changesArr);
 
     activityLog[item.id] = {
       ...activityLog[item.id],

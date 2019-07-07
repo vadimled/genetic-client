@@ -13,7 +13,17 @@ export const
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
 
-  getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
+  getTableData = state => {
+
+
+    const data = state?.table?.data;
+
+
+
+    console.log("init data: ", state?.table?.data)
+
+    return data
+  }, // use getTableDataAsArray instead this
   getSelectedRowKeys = state => state?.table?.selectedRowKeys,
   getMutationType = state => state.variants.mutations,
   getTumorInfoMode = state => state.variants.showTumorInfo,
@@ -131,6 +141,9 @@ export const getFilteredData = createSelector(
   getAppliedFilters,
   (data, appliedFilters) => {
     if (isEmpty(appliedFilters)) {
+
+
+      // console.log("--data: ", data)
       return data;
     }
 
@@ -141,6 +154,7 @@ export const getFilteredData = createSelector(
     const filteredData = data.filter(item => {
       return filtersArray.every(filter => filter(item));
     });
+
 
     return filteredData;
   }

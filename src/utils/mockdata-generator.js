@@ -3,6 +3,7 @@ import faker from "faker";
 export const generateDNAVariantTableMockData = amount =>
   Array.from(new Array(amount), (item, index) => ({
     id: index,
+    // id: id: Math.floor((Math.random() * 10000) + 1),,
     key: index,
     gene: faker.random.arrayElement([
       "A1BG",
@@ -549,7 +550,7 @@ export const generateDNAVariantTableMockData = amount =>
     coverage: faker.random.number({ min: 100, max: 500 }),
     notes: faker.lorem.sentence(),
     status: faker.random.arrayElement(["unchecked", "pending", "confirmed", "notConfirmed"]),
-    priority: null
+    priority: 0
   }));
 
 

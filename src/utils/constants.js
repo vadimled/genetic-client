@@ -248,14 +248,14 @@ export const TUMOR_LOCATION = [
 ];
 
 export const PRIORITY = {
-  "path": 1,
+  path: 1,
   tier1: 2,
-  "lpath": 3,
-  "tier2": 4,
-  "vus": 5,
-  "tier3": 6,
-  "unclassified": 7,
-  "lben": 8,
-  "ben": 9,
-  "tier4": 10
+  lpath: 3,
+  tier2: 4,
+  vus: 5,
+  tier3: 6,
+  unclassified: 7,
+  lben: 8,
+  ben: 9,
+  tier4: 10
 };
