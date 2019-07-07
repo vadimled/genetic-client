@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import LogRecord from "./LogRecord";
 
 
-const ActiveLogDetails = ({activityLog, hideActivityDetails}) => (
+const ActiveLogDetails = ({activityLog}) => (
   <div
     className="activity-log-details"
-    onMouseLeave={hideActivityDetails}
+    // onMouseLeave={hideActivityDetails}
     data-testid={`activity-log-details`}
   >
     {

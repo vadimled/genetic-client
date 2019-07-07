@@ -19,6 +19,7 @@ class ActivityLog extends Component {
     this.setState({
       isActivityPopupShow: true
     });
+    this.hideActivityDetails();
   };
 
   showActivityDetails = () => {
@@ -52,6 +53,7 @@ class ActivityLog extends Component {
           "activity-icon-wrapper flex justify-center",
           { "disabled": !activityLog.length }
         ])}
+        onMouseLeave={this.hideActivityDetails}
       >
         {this.state.isActivityDetailsShow &&
         <ActiveLogDetails activityLog={activityLog} hideActivityDetails={this.hideActivityDetails} />}
