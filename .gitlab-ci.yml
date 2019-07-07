@@ -30,6 +30,8 @@ build:
       - dist
   tags:
     - build
+  dependencies:
+    - install_dependencies
 
 test:
   stage: test
@@ -43,7 +45,7 @@ deploy_preview:
     - install_netlify_cli
     - install_jq
     - install_curl
-    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --json |& tee deploy_draft.json
+    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --json | tee deploy_draft.json
     - set_env_url
   artifacts:
     paths:
@@ -62,7 +64,7 @@ deploy_dev:
   stage: deploy
   script:
     - install_netlify_cli
-    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod --json |& tee deploy_dev.json
+    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod --json | tee deploy_dev.json
   artifacts:
     paths:
       - deploy_dev.json
