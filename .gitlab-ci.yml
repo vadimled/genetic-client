@@ -3,9 +3,9 @@ image: node:10.16.0-alpine
 stages:
   - install_dependencies
   - build
-  - deploy_draft
+  #- deploy_draft
   - test
-  - deploy
+  #- deploy
 
 cache:
   paths:
