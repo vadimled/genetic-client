@@ -1,0 +1,29 @@
+image: node:10.16.0-alpine
+
+stages:
+  - build
+  - test
+
+cache:
+  paths:
+    - node_modules/
+
+install_dependencies:
+  stage: build
+  script:
+    - yarn install
+  artifacts:
+    paths:
+      - node_modules/
+  only:
+    - merge_requests
+  tags:
+    - build
+
+test:
+  stage: test
+  script: yarn test
+  tags:
+    - test
+  only:
+    - merge_requests
