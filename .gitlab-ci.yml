@@ -3,9 +3,9 @@ image: node:10.16.0-alpine
 stages:
   - install_dependencies
   - build
-  # - deploy_draft
+  - deploy_draft
   - test
-  # - deploy
+  - deploy
 
 cache:
   paths:
@@ -39,44 +39,44 @@ test:
   tags:
     - test
 
-deploy_preview:
-  stage: deploy_draft
-  script:
-    - install_netlify_cli
-    - install_jq
-    - install_curl
-    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --json | tee deploy_draft.json
-    - set_env_url
-  artifacts:
-    paths:
-      - deploy_draft.json
-  dependencies:
-    - build
-  environment:
-    name: $CI_COMMIT_REF_NAME/$CI_COMMIT_SHORT_SHA
-  tags:
-    - build
-  except:
-    - dev
-    - master
+# deploy_preview:
+#   stage: deploy_draft
+#   script:
+#     - install_netlify_cli
+#     - install_jq
+#     - install_curl
+#     - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --json | tee deploy_draft.json
+#     - set_env_url
+#   artifacts:
+#     paths:
+#       - deploy_draft.json
+#   dependencies:
+#     - build
+#   environment:
+#     name: $CI_COMMIT_REF_NAME/$CI_COMMIT_SHORT_SHA
+#   tags:
+#     - build
+#   except:
+#     - dev
+#     - master
 
-deploy_dev:
-  stage: deploy
-  script:
-    - install_netlify_cli
-    - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod --json | tee deploy_dev.json
-  artifacts:
-    paths:
-      - deploy_dev.json
-  environment:
-    name: dev
-    url: https://anaid.netlify.com
-  dependencies:
-    - build
-  tags:
-    - build
-  only:
-    - dev
+# deploy_dev:
+#   stage: deploy
+#   script:
+#     - install_netlify_cli
+#     - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod --json | tee deploy_dev.json
+#   artifacts:
+#     paths:
+#       - deploy_dev.json
+#   environment:
+#     name: dev
+#     url: https://anaid.netlify.com
+#   dependencies:
+#     - build
+#   tags:
+#     - build
+#   only:
+#     - dev
 
 .helper_functions: &helper_functions |
   function install_jq() {
