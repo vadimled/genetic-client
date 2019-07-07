@@ -27,7 +27,7 @@ cache:
 #     - yarn build
 #   artifacts:
 #     paths:
-#       - dist
+#       - public
 #   tags:
 #     - build
 #   dependencies:
