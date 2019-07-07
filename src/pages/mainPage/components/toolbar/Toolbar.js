@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Icon, AutoComplete } from "antd";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import style from "./Toolbar.module.scss";
 import { MUTATION } from "Utils/constants";
@@ -10,39 +9,19 @@ import IgvLoadBAM from "./components/IgvLoadBAM";
 import cn from "classnames";
 import {
   getFilteredEntriesAmount,
+  getMutationType,
   getTotalEntriesAmount
 } from "Store/selectors";
 import { setMutationType } from "Actions/variantsActions";
-import { updateSearch } from "Actions/tableActions";
-import {
-  getMutationType,
-  getSearchQuery,
-  getFilteredSearchQueries
-} from "Store/selectors";
-import closeBtn from "Assets/close.svg";
+import Search from "GenericComponents/search";
 
 class Toolbar extends Component {
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
   };
 
-  handleOnSearchChange = e => {
-    this.props.updateSearch(e);
-  };
-
-  clearSearch = () => {
-    this.props.updateSearch("");
-  };
-
   render() {
-    const {
-      filtered,
-      total,
-      sidebarToggle,
-      mutations,
-      searchText,
-      tableData
-    } = this.props;
+    const { filtered, total, sidebarToggle, mutations } = this.props;
 
     return (
       <div className={style["toolbar-wrapper"]}>
@@ -57,32 +36,8 @@ class Toolbar extends Component {
             />
           </div>
         </div>
-        <div>
-          <div className="search-field-wrapper flex items-center">
-            {!searchText && (
-              <div className="flex items-center search-icons-wrapper">
-                <Icon type="search" style={{ color: "#96A2AA" }} />
-                <div className="placeholder">Search</div>
-              </div>
-            )}
-
-            <AutoComplete
-              id="search-field"
-              data-testid={`search-field`}
-              dataSource={searchText && tableData}
-              value={searchText}
-              onChange={this.handleOnSearchChange}
-              placeholder="input here"
-            />
-
-            {searchText && (
-              <button
-                className="clear-search-button"
-                style={{ backgroundImage: `url(${closeBtn})` }}
-                onClick={() => this.clearSearch()}
-              />
-            )}
-          </div>
+        <div className="search-field-wrapper flex items-center">
+          <Search />
         </div>
         <div
           className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}
@@ -106,16 +61,13 @@ const mapStateToProps = state => {
   return {
     filtered: getFilteredEntriesAmount(state),
     total: getTotalEntriesAmount(state),
-    mutations: getMutationType(state),
-    searchText: getSearchQuery(state),
-    tableData: getFilteredSearchQueries(state)
+    mutations: getMutationType(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    setMutationType: data => dispatch(setMutationType(data)),
-    updateSearch: data => dispatch(updateSearch(data))
+    setMutationType: data => dispatch(setMutationType(data))
   };
 }
 
