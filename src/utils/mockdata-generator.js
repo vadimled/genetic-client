@@ -549,7 +549,7 @@ export const generateDNAVariantTableMockData = amount =>
     coverage: faker.random.number({ min: 100, max: 500 }),
     notes: faker.lorem.sentence(),
     status: faker.random.arrayElement(["unchecked", "pending", "confirmed", "notConfirmed"]),
-    priority: 7
+    priority: null
   }));
 
 

@@ -152,6 +152,9 @@ class VariantTable extends Component {
   }
 
   handleVariantClass = data => {
+
+    console.log("--data: ", data)
+
     const {handleVariantClass, updateActivityLog} = this.props;
     const {item, value, prevValue} = data;
 
@@ -159,6 +162,7 @@ class VariantTable extends Component {
       item,
       value,
     });
+
     updateActivityLog({prevValue, item, changedField: "variantClass"});
   }
 

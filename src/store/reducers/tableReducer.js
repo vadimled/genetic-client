@@ -1,6 +1,7 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
+import { PRIORITY } from "../../utils/constants";
 
 const initialState = {
   data: generateDNAVariantTableMockData(200),
@@ -43,9 +44,23 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_VARIANT_CLASS]: (state, { payload }) => {
+
+    console.log("-payload: ", payload)
+
+
+
     const {item, value} = payload;
+
+
+    const priority = PRIORITY[value];
+
+    console.log("-priority: ", priority)
+
     let data = state?.data;
+
     data[item.id].variantClass = value;
+
+    data[item.id].priority = priority;
 
     return {
       ...state
