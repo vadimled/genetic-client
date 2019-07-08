@@ -30,6 +30,7 @@ class VariantPage extends Component {
             { "links-wrapper-open": sidebarToggle }
           ])}
         >
+          
           <SideBarLayout handleClick={this.handleClick} mode={sidebarToggle}>
             <div className="links">
               <h2>Links</h2>
