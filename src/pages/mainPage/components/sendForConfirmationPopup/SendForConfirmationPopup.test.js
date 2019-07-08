@@ -163,7 +163,7 @@ describe('SendForConfirmationPopup', () => {
     expect(selectedRows9.length).toEqual(0);
   });
 
-  it('SendForConfirmationPopup data flow validation failed on no fragmentSize', () => {
+  it('SendForConfirmationPopup data flow validation failed on no fragment size', () => {
     const { store, getByTestId, getAllByTestId } = initSteps();
     const sendBtn = getByTestId('send-btn');
 
@@ -201,6 +201,62 @@ describe('SendForConfirmationPopup', () => {
     expect(alertStatus).toEqual(ALERT_STATUSES.warning);
     expect(alertTitle).toEqual('Data is missing');
     expect(alertMessage).toEqual('Please fill the Fragment size field');
+  });
+
+  it('SendForConfirmationPopup data flow validation failed on when primer is a text', () => {
+    const { store, getByTestId, getAllByTestId } = initSteps();
+    const sendBtn = getByTestId('send-btn');
+
+    // primer test
+    const primerInputs = getAllByTestId('primer-input');
+    const primerFirstInput = primerInputs[0];
+    const primerFirstInputRowId = primerFirstInput.dataset['testrowid'];
+    const primerFirstInputindex = primerFirstInput.dataset['testindex'];
+
+    const confirmationData5 = getConfirmationData(store.getState());
+    const row1 = confirmationData5.find((row) => row.id === primerFirstInputRowId);
+    expect(row1.additionConfirmationData[primerFirstInputindex].primer).toEqual('');
+
+    fireEvent.change(primerFirstInput, { target: { value: 'abc' } });
+
+    const confirmationData6 = getConfirmationData(store.getState());
+    const row2 = confirmationData6.find((row) => row.id === primerFirstInputRowId);
+    expect(row2.additionConfirmationData[primerFirstInputindex].primer).toEqual('abc');
+
+    // fragment size test
+    const fSizeInputs = getAllByTestId('fragmentSize-input');
+    const fSizeFirstInput = fSizeInputs[0];
+    const fSizeFirstInputRowId = fSizeFirstInput.dataset['testrowid'];
+    const fSizeFirstInputindex = fSizeFirstInput.dataset['testindex'];
+
+    const confirmationData7 = getConfirmationData(store.getState());
+    const row3 = confirmationData7.find((row) => row.id === fSizeFirstInputRowId);
+    expect(row3.additionConfirmationData[fSizeFirstInputindex].fragmentSize).toEqual('');
+
+    fireEvent.change(fSizeFirstInput, { target: { value: 123 } });
+
+    const confirmationData8 = getConfirmationData(store.getState());
+    const row4 = confirmationData8.find((row) => row.id === fSizeFirstInputRowId);
+    expect(row4.additionConfirmationData[fSizeFirstInputindex].fragmentSize).toEqual('123');
+
+    // when only primer field has filled out, try to send
+    fireEvent.click(sendBtn);
+    const confirmationData9 = getConfirmationData(store.getState());
+    const isOnConfirmation9 = getOnConfirmation(store.getState());
+    expect(isOnConfirmation9).toEqual(true);
+    expect(confirmationData9.length).toEqual(1);
+
+    // after all selectedRows should be empty
+    const selectedRows9 = getSelectedRows(store.getState());
+    expect(selectedRows9.length).toEqual(1);
+
+    // check alert information
+    const alertStatus = getAlertStatus(store.getState());
+    const alertTitle = getAlertTitle(store.getState());
+    const alertMessage = getAlertMessage(store.getState());
+    expect(alertStatus).toEqual(ALERT_STATUSES.warning);
+    expect(alertTitle).toEqual('Data is not valid');
+    expect(alertMessage).toEqual('Primer field must be a number');
   });
 
   it('SendForConfirmationPopup data flow validation failed on no primer', () => {
@@ -241,6 +297,62 @@ describe('SendForConfirmationPopup', () => {
     expect(alertStatus).toEqual(ALERT_STATUSES.warning);
     expect(alertTitle).toEqual('Data is missing');
     expect(alertMessage).toEqual('Please fill the Primer field');
+  });
+
+  it('SendForConfirmationPopup data flow validation failed on when fragment size is a text', () => {
+    const { store, getByTestId, getAllByTestId } = initSteps();
+    const sendBtn = getByTestId('send-btn');
+
+    // primer test
+    const primerInputs = getAllByTestId('primer-input');
+    const primerFirstInput = primerInputs[0];
+    const primerFirstInputRowId = primerFirstInput.dataset['testrowid'];
+    const primerFirstInputindex = primerFirstInput.dataset['testindex'];
+
+    const confirmationData5 = getConfirmationData(store.getState());
+    const row1 = confirmationData5.find((row) => row.id === primerFirstInputRowId);
+    expect(row1.additionConfirmationData[primerFirstInputindex].primer).toEqual('');
+
+    fireEvent.change(primerFirstInput, { target: { value: 123 } });
+
+    const confirmationData6 = getConfirmationData(store.getState());
+    const row2 = confirmationData6.find((row) => row.id === primerFirstInputRowId);
+    expect(row2.additionConfirmationData[primerFirstInputindex].primer).toEqual('123');
+
+    // fragment size test
+    const fSizeInputs = getAllByTestId('fragmentSize-input');
+    const fSizeFirstInput = fSizeInputs[0];
+    const fSizeFirstInputRowId = fSizeFirstInput.dataset['testrowid'];
+    const fSizeFirstInputindex = fSizeFirstInput.dataset['testindex'];
+
+    const confirmationData7 = getConfirmationData(store.getState());
+    const row3 = confirmationData7.find((row) => row.id === fSizeFirstInputRowId);
+    expect(row3.additionConfirmationData[fSizeFirstInputindex].fragmentSize).toEqual('');
+
+    fireEvent.change(fSizeFirstInput, { target: { value: 'abc' } });
+
+    const confirmationData8 = getConfirmationData(store.getState());
+    const row4 = confirmationData8.find((row) => row.id === fSizeFirstInputRowId);
+    expect(row4.additionConfirmationData[fSizeFirstInputindex].fragmentSize).toEqual('abc');
+
+    // when only primer field has filled out, try to send
+    fireEvent.click(sendBtn);
+    const confirmationData9 = getConfirmationData(store.getState());
+    const isOnConfirmation9 = getOnConfirmation(store.getState());
+    expect(isOnConfirmation9).toEqual(true);
+    expect(confirmationData9.length).toEqual(1);
+
+    // after all selectedRows should be empty
+    const selectedRows9 = getSelectedRows(store.getState());
+    expect(selectedRows9.length).toEqual(1);
+
+    // check alert information
+    const alertStatus = getAlertStatus(store.getState());
+    const alertTitle = getAlertTitle(store.getState());
+    const alertMessage = getAlertMessage(store.getState());
+    expect(alertStatus).toEqual(ALERT_STATUSES.warning);
+    expect(alertTitle).toEqual('Data is not valid');
+    expect(alertMessage).toEqual('Fragment size field must be a number');
   });
 
   it('SendForConfirmationPopup remove row', () => {
