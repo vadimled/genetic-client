@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Table, Tooltip, Checkbox } from "antd";
-import { Resizable } from "react-resizable";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import ConfirmationStatus from "GenericComponents/confirmationStatus";
 import Notes from "GenericComponents/notes";
@@ -13,20 +12,7 @@ import {
 import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
 import ActivityLog from "./components/ActivityLog";
-
-const ResizeableTitle = props => {
-  const { onResize, width, ...restProps } = props;
-
-  if (!width) {
-    return <th {...restProps} />;
-  }
-
-  return (
-    <Resizable width={width} height={0} onResize={onResize}>
-      <th {...restProps} />
-    </Resizable>
-  );
-};
+import ResizeableTitle from "./components/resizeableTitle";
 
 class VariantTable extends Component {
   state = {

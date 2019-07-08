@@ -2,24 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 import { Table, Tooltip, Input } from "antd";
-import { Resizable } from "react-resizable";
 import style from './ConfirmationTable.module.scss';
 import ExternalLink from "GenericComponents/externalLink";
 import Notes from "GenericComponents/notes";
-
-const ResizeableTitle = props => {
-  const { onResize, width, ...restProps } = props;
-
-  if (!width) {
-    return <th {...restProps} />;
-  }
-
-  return (
-    <Resizable width={width} height={0} onResize={onResize}>
-      <th {...restProps} />
-    </Resizable>
-  );
-};
+import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
 
 class ConfirmationTable extends Component {
   state = {
