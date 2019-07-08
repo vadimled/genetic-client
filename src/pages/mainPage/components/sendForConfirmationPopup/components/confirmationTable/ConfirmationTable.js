@@ -114,7 +114,8 @@ class ConfirmationTable extends Component {
       return cn({
         'hovered': hoveredAdditionalConfirmationRow?.id === row?.id
           && hoveredAdditionalConfirmationRow?.index === index,
-        'toremove': hoveredAdditionalConfirmationRow?.indexToRemove === index,
+        'toremove': hoveredAdditionalConfirmationRow?.id === row?.id
+          && hoveredAdditionalConfirmationRow?.indexToRemove === index,
         'bg-white': hoveredAdditionalConfirmationRow?.id === row?.id
           && hoveredAdditionalConfirmationRow?.index !== index
           && hoveredAdditionalConfirmationRow?.indexToRemove !== index
