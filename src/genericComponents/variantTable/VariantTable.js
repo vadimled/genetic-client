@@ -13,8 +13,6 @@ import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
 import ActivityLog from "./components/ActivityLog";
 
-
-
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
 
@@ -93,7 +91,9 @@ class VariantTable extends Component {
         title: "VAF",
         dataIndex: "vaf",
         key: "9",
-        width: 100
+        width: 100,
+        sorter: (a, b) => a.vaf - b.vaf,
+        // sortOrder: sortedInfo.columnKey === 'vaf' && sortedInfo.order,
       },
       {
         title: "Zygosity",
@@ -125,14 +125,24 @@ class VariantTable extends Component {
         key: "14",
         width: 200
       }
-    ]
+    ],
   };
 
   components = {
     header: {
       cell: ResizeableTitle
+    },
+    body: {
+      // row: ()=> <tr class="ant-table-row ant-table-row-level-0"></tr>
     }
   };
+
+  // handleChange = (pagination, filters, sorter) => {
+  //   console.log('Various parameters',  sorter);
+  //   this.setState({
+  //     sortedInfo: sorter,
+  //   });
+  // };
 
   handelChrPosition = (e, data) => {
     console.log({ e: e.target, data });
@@ -187,6 +197,8 @@ class VariantTable extends Component {
                 })
               }
               isClearAvailable
+              testId="zygosity-select"
+              data-testitemid={data[1].id}
             />
           </div>
         );
