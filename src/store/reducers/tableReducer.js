@@ -2,7 +2,6 @@ import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { PRIORITY } from "../../utils/constants";
-// import clonedeep from "lodash.clonedeep";
 
 const initialState = {
   data: generateDNAVariantTableMockData(200),
@@ -25,14 +24,11 @@ const tableReducer = createReducer(initialState, {
     const {item, value} = payload;
     let data = state?.data;
 
-
-
-
     data[item.id].zygosity = value;
 
-    const newData = Object.assign({}, data)
+    const newData = Object.assign({}, data);
 
-    state.data = newData
+    state.data = newData;
 
     console.log("-data: ", data);
     console.log("-zygosity payload: ", payload);
@@ -47,23 +43,10 @@ const tableReducer = createReducer(initialState, {
       // unclassified is default for somatic & germline
       data[item.id].variantClass = 'unclassified';
       data[item.id].priority = PRIORITY['unclassified'];
-
-      // const newData = {
-      //   ...data[item.id],
-      //   variantClass: 'unclassified',
-      //   priority: PRIORITY['unclassified']
-      // }
-
-      // console.log(data);
     }
     else {
       data[item.id].variantClass = '';
     }
-
-
-    // const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
-    //
-    // state.data = sortedData;
 
     return {
       ...state

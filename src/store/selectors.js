@@ -13,17 +13,7 @@ export const
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
 
-  getTableData = state => {
-
-
-    const data = state?.table?.data;
-
-
-
-    console.log("init data: ", state?.table?.data)
-
-    return data
-  }, // use getTableDataAsArray instead this
+  getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
   getSelectedRowKeys = state => state?.table?.selectedRowKeys,
   getMutationType = state => state.variants.mutations,
   getTumorInfoMode = state => state.variants.showTumorInfo,
@@ -48,9 +38,6 @@ export const getTableDataAsArray = createSelector(
         arrayData.push(data[key]);
       }
     }
-
-
-
     return arrayData;
   }
 );
