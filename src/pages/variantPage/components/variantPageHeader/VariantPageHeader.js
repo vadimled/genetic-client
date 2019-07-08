@@ -1,11 +1,24 @@
-import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import React from "react";
+import style from "./VariantPageHeader.module.scss";
+// import PropTypes from "prop-types";
 
-class VariantPageHeader extends Component {
-  render() {
-    return <div>VariantPageHeader</div>;
-  }
-}
+const VariantPageHeader = () => {
+  return (
+    <div className={style["variant-page-header-wrapper"]}>
+      <div className="left-data-wrapper">
+        <div className="left-data">
+          <div className="gene">{"Allele Change: A>C"}</div>
+          <div className="gene">{"Allele Change: A>C"}</div>
+          <div className="gene">{"Allele Change: A>C"}</div>
+          <div className="gene">{"Allele Change: A>C"}</div>
+          <div className="gene">{"Allele Change: A>C"}</div>
+          <div className="gene">{"Allele Change: A>C"}</div>
+        </div>
+      </div>
+      <div className="right-data" />
+    </div>
+  );
+};
 
 VariantPageHeader.propTypes = {};
 

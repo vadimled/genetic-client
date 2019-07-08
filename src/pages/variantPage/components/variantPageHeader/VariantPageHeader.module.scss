@@ -1,0 +1,45 @@
+@import "Css/Colors.scss";
+
+.variant-page-header-wrapper :global {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+
+  .left-data-wrapper {
+    flex: 3 10 750px;
+    height: 100%;
+
+    .left-data {
+      display: grid;
+      width: 100%;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-auto-rows: minmax(auto, auto);
+      grid-gap: 10px;
+      height: 100%;
+
+      .gene {
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 1em;
+        background-color: #96a2aa;
+        border: 1px solid green;
+      }
+    }
+  }
+
+  .right-data {
+    flex: 5 5 300px;
+    background-color: #aa4079;
+    //align-items: center;
+
+    transform: translate(0px, 0px);
+    transition: 0.4s ease;
+
+    &.sidebar-open {
+      transform: translate(-175px, 0px);
+    }
+  }
+}
