@@ -10,7 +10,8 @@ const generateAdditionalConfirmationData = () => ({
   keyId: Math.random(),
   primer: "",
   fragmentSize: "",
-  notes: ""
+  notes: "",
+  validationFaildFields: []
 });
 
 const confirmationReducer = createReducer(initialState, {
@@ -68,7 +69,15 @@ const confirmationReducer = createReducer(initialState, {
     const { id, index, value } = payload;
     const updatedData = state.data.map(row => {
       if (row.id === id) {
-        row.additionConfirmationData[index].primer = value;
+        let cRow = row.additionConfirmationData[index];
+        cRow.primer = value;
+
+        if (!cRow.primer || !/^[\d]*$/.test(cRow.primer)) {
+          !cRow.validationFaildFields.includes('primer') && cRow.validationFaildFields.push('primer');
+        }
+        else {
+          cRow.validationFaildFields = cRow.validationFaildFields.filter((key) => key !== 'primer');
+        }
       }
       return row;
     });
@@ -83,7 +92,15 @@ const confirmationReducer = createReducer(initialState, {
     const { id, index, value } = payload;
     const updatedData = state.data.map(row => {
       if (row.id === id) {
-        row.additionConfirmationData[index].fragmentSize = value;
+        let cRow = row.additionConfirmationData[index];
+        cRow.fragmentSize = value;
+
+        if (!cRow.fragmentSize || !/^[\d]*$/.test(cRow.fragmentSize)) {
+          !cRow.validationFaildFields.includes('fragmentSize') && cRow.validationFaildFields.push('fragmentSize');
+        }
+        else {
+          cRow.validationFaildFields = cRow.validationFaildFields.filter((key) => key !== 'fragmentSize');
+        }
       }
       return row;
     });

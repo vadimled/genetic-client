@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import cn from "classnames";
 import { Table, Tooltip, Input } from "antd";
 import { Resizable } from "react-resizable";
 import style from './ConfirmationTable.module.scss';
@@ -110,17 +111,14 @@ class ConfirmationTable extends Component {
     const { hoveredAdditionalConfirmationRow } = this.state;
 
     const getAdditionClassesOnAdditionRow = (row, index) => {
-      return [
-        hoveredAdditionalConfirmationRow?.id === row?.id
-          && hoveredAdditionalConfirmationRow?.index === index
-          ? 'hovered' : '',
-        hoveredAdditionalConfirmationRow?.indexToRemove === index
-          ? 'toremove' : '',
-        hoveredAdditionalConfirmationRow?.id === row?.id
+      return cn({
+        'hovered': hoveredAdditionalConfirmationRow?.id === row?.id
+          && hoveredAdditionalConfirmationRow?.index === index,
+        'toremove': hoveredAdditionalConfirmationRow?.indexToRemove === index,
+        'bg-white': hoveredAdditionalConfirmationRow?.id === row?.id
           && hoveredAdditionalConfirmationRow?.index !== index
           && hoveredAdditionalConfirmationRow?.indexToRemove !== index
-          ? 'bg-white' : '',
-      ].join(' ');
+      });
     };
 
     return columns.map((col, index) => {
@@ -136,12 +134,9 @@ class ConfirmationTable extends Component {
         column.render = (value, row) => {
           return (
             <div
-              className={[
-                "remover-cell cell-padding full-cell",
-                hoveredAdditionalConfirmationRow?.id === row?.id
-                  ? "bg-white"
-                  : ''
-              ].join(' ')}
+              className={cn("remover-cell cell-padding full-cell", {
+                'bg-white': hoveredAdditionalConfirmationRow?.id === row?.id
+              })}
             >
               <span>{value}</span>
               <button
@@ -159,12 +154,9 @@ class ConfirmationTable extends Component {
           const { chrPosition } = row;
           return (
             <div
-              className={[
-                "cell-padding full-cell",
-                hoveredAdditionalConfirmationRow?.id === row?.id
-                  ? "bg-white"
-                  : ''
-              ].join(' ')}
+              className={cn("cell-padding full-cell", {
+                'bg-white': hoveredAdditionalConfirmationRow?.id === row?.id
+              })}
             >
               <ExternalLink
                 data={chrPosition}
@@ -183,12 +175,9 @@ class ConfirmationTable extends Component {
         column.render = (value, row) => {
           return (
             <div
-              className={[
-                "cell-padding full-cell",
-                hoveredAdditionalConfirmationRow?.id === row?.id
-                  ? "bg-white"
-                  : ''
-              ].join(' ')}
+              className={cn("cell-padding full-cell", {
+                'bg-white': hoveredAdditionalConfirmationRow?.id === row?.id
+              })}
             >
               <ExternalLink data={row.transcript} />
             </div>
@@ -201,12 +190,9 @@ class ConfirmationTable extends Component {
         column.render = (value, row) => {
           return (
             <div
-              className={[
-                "cell-padding full-cell",
-                hoveredAdditionalConfirmationRow?.id === row?.id
-                  ? "bg-white"
-                  : ''
-              ].join(' ')}
+              className={cn("cell-padding full-cell", {
+                'bg-white': hoveredAdditionalConfirmationRow?.id === row?.id
+              })}
             >
               {value}
             </div>
@@ -219,12 +205,9 @@ class ConfirmationTable extends Component {
         column.render = (value, row) => {
           return (
             <div
-              className={[
-                "cell-padding full-cell",
-                hoveredAdditionalConfirmationRow?.id === row?.id
-                  ? "bg-white"
-                  : ''
-              ].join(' ')}
+              className={cn("cell-padding full-cell", {
+                'bg-white': hoveredAdditionalConfirmationRow?.id === row?.id
+              })}
             >
               <Tooltip placement="topLeft" title={row.codingLong}>
                 <div>{value}</div>
@@ -239,12 +222,9 @@ class ConfirmationTable extends Component {
         column.render = (value, row) => {
           return (
             <div
-              className={[
-                "cell-padding full-cell",
-                hoveredAdditionalConfirmationRow?.id === row?.id
-                  ? "bg-white"
-                  : ''
-              ].join(' ')}
+              className={cn("cell-padding full-cell", {
+                'bg-white': hoveredAdditionalConfirmationRow?.id === row?.id
+              })}
             >
               {value}
             </div>
@@ -258,13 +238,13 @@ class ConfirmationTable extends Component {
           return row.additionConfirmationData.map((item, index) =>
             <div
               key={`primer-${item.keyId}`}
-              className={[
+              className={cn(
                 "table-multiple-row",
                 getAdditionClassesOnAdditionRow(row, index),
-                item?.validationFaildFields?.includes(col.dataIndex)
-                  ? "validation-error"
-                  : ''
-              ].join(' ')}
+                {
+                  'validation-error': item?.validationFaildFields?.includes(col.dataIndex)
+                }
+              )}
               onMouseOver={this.onOverAdditionalConfirmationRow.bind(null, {
                 id: row.id,
                 index
@@ -298,13 +278,13 @@ class ConfirmationTable extends Component {
           return row.additionConfirmationData.map((item, index) =>
             <div
               key={`fsize-${item.keyId}`}
-              className={[
+              className={cn(
                 "table-multiple-row",
-                getAdditionClassesOnAdditionRow(row, index, col.dataIndex),
-                item?.validationFaildFields?.includes(col.dataIndex)
-                  ? "validation-error"
-                  : ''
-              ].join(' ')}
+                getAdditionClassesOnAdditionRow(row, index),
+                {
+                  'validation-error': item?.validationFaildFields?.includes(col.dataIndex)
+                }
+              )}
               onMouseOver={this.onOverAdditionalConfirmationRow.bind(null, {
                 id: row.id,
                 index
@@ -338,10 +318,10 @@ class ConfirmationTable extends Component {
           return row.additionConfirmationData.map((item, index) =>
             <div
               key={`notes-${item.keyId}`}
-              className={[
+              className={cn(
                 "table-multiple-row",
                 getAdditionClassesOnAdditionRow(row, index)
-              ].join(' ')}
+              )}
               onMouseOver={this.onOverAdditionalConfirmationRow.bind(null, {
                 id: row.id,
                 index

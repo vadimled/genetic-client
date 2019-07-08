@@ -37,23 +37,39 @@ function* confirmationDataValidation(data) {
     let alertData = null;
 
     data.forEach((item) => {
-      item.additionConfirmationData.forEach((crow) => {
-        crow.validationFaildFields = [];
-        if (!crow.primer) {
+      item.additionConfirmationData.forEach((cRow) => {
+        cRow.validationFaildFields = [];
+        if (!cRow.primer) {
           alertData = {
             status: ALERT_STATUSES.warning,
             title: 'Data is missing',
             message: 'Please fill the Primer field'
           };
-          crow.validationFaildFields.push('primer');
+          cRow.validationFaildFields.push('primer');
         }
-        if (!crow.fragmentSize) {
+        if (!/^[\d]*$/.test(cRow.primer)) {
+          alertData = {
+            status: ALERT_STATUSES.warning,
+            title: 'Data is not valid',
+            message: 'Primer field must be a number'
+          };
+          cRow.validationFaildFields.push('primer');
+        }
+        if (!cRow.fragmentSize) {
           alertData = {
             status: ALERT_STATUSES.warning,
             title: 'Data is missing',
             message: 'Please fill the Fragment size field'
           };
-          crow.validationFaildFields.push('fragmentSize');
+          cRow.validationFaildFields.push('fragmentSize');
+        }
+        if (!/^[\d]*$/.test(cRow.fragmentSize)) {
+          alertData = {
+            status: ALERT_STATUSES.warning,
+            title: 'Data is not valid',
+            message: 'Fragment size field must be a number'
+          };
+          cRow.validationFaildFields.push('fragmentSize');
         }
       });
     });

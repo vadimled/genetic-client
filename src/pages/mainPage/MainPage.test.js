@@ -6,7 +6,7 @@ import { handleOnConfirmation } from "Actions/confirmationActions";
 import { handleUncheckConfirmationData } from "Actions/tableActions";
 import { getOnConfirmation, getUncheckConfirmationData } from "Store/selectors";
 
-describe('IgvAlertPopup', () => {
+describe('MainPage', () => {
 
   it('showing send-for-confirmation-popup', () => {
     const { getByTestId, store } = renderWithRedux(<MainPage />);
