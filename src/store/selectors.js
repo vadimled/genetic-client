@@ -207,6 +207,7 @@ export const getActivityLog = (state, recordId) => {
     return new Date(b.time) - new Date(a.time);
   });
 
+
   return activityLogArray;
 };
 
