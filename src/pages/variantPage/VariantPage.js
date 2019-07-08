@@ -23,8 +23,8 @@ class VariantPage extends Component {
   render() {
     const { sidebarToggle } = this.state;
     return (
-      <article className={style["variant-page-wrapper"]}>
-        <aside
+      <div className={style["variant-page-wrapper"]}>
+        <div
           className={cn([
             "links-wrapper",
             { "links-wrapper-open": sidebarToggle }
@@ -46,21 +46,21 @@ class VariantPage extends Component {
               </ul>
             </div>
           </SideBarLayout>
-        </aside>
+        </div>
 
-        <section
+        <div
           className={cn([
             "main-wrapper",
             { "links-wrapper-open": sidebarToggle }
           ])}
         >
-          <header className="main-header-data">GENEXYZ</header>
-          <section className="main-data">
+          <div className="main-header-data">GENEXYZ</div>
+          <div className="main-data">
             <div className="history">History</div>
             <div className="evidence">Evidence</div>
-          </section>
-        </section>
-      </article>
+          </div>
+        </div>
+      </div>
     );
   }
 }
