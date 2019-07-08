@@ -3,6 +3,7 @@ import "Css/App.scss";
 import { Route, Switch } from "react-router-dom";
 import MainPage from "Pages/mainPage";
 import Header from "Pages/mainPage/components/header";
+import ResultConfig from "Pages/mainPage/components/resultConfig";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Switch>
         <Route path="/" exact component={MainPage} />
       </Switch>
+      <ResultConfig />
     </div>
   );
 }
