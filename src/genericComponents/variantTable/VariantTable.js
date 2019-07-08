@@ -272,8 +272,19 @@ class VariantTable extends Component {
     });
   };
 
+  // shouldComponentUpdate(nextProps, nextState, nextContext){
+  //   console.log("nextProps: ", nextProps)
+  //   console.log("nextState: ", nextState)
+  //   console.log("nextContext: ", nextContext)
+  // }
+
   render() {
+
     const { selectedRowKeys, onSelectRowKey, data } = this.props;
+
+    console.log("rendering....");
+
+    // const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
 
     // rowSelection object indicates the need for row selection
     const rowSelection = {

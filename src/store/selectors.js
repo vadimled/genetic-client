@@ -39,8 +39,24 @@ export const
 
 export const getSearchQuery = state => state?.filters?.searchText;
 
-export const getSearchResult = createSelector(
+export const getTableDataAsArray = createSelector(
   getTableData,
+  data => {
+    let arrayData = [];
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        arrayData.push(data[key]);
+      }
+    }
+
+
+
+    return arrayData;
+  }
+);
+
+export const getSearchResult = createSelector(
+  getTableDataAsArray,
   getSearchQuery,
   (data, searchQuery) => {
     return data.filter(item => {
@@ -56,18 +72,7 @@ export const getSearchResult = createSelector(
 
 export const getNotes = (state, id) => state?.table?.data?.[id].notes;
 
-export const getTableDataAsArray = createSelector(
-  getSearchResult,
-  data => {
-    let arrayData = [];
-    for (let key in data) {
-      if (data.hasOwnProperty(key)) {
-        arrayData.push(data[key]);
-      }
-    }
-    return arrayData;
-  }
-);
+
 
 const getAppliedFilters = createSelector(
   getFilterType,
@@ -137,14 +142,16 @@ const getAppliedFilters = createSelector(
 );
 
 export const getFilteredData = createSelector(
-  getTableDataAsArray,
+  getSearchResult,
   getAppliedFilters,
   (data, appliedFilters) => {
     if (isEmpty(appliedFilters)) {
 
 
       // console.log("--data: ", data)
-      return data;
+      const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
+
+      return sortedData;
     }
 
     const filtersArray = Object.keys(appliedFilters).map(key => {
@@ -156,7 +163,9 @@ export const getFilteredData = createSelector(
     });
 
 
-    return filteredData;
+    const sortedData = filteredData.sort((a, b) => b.priority - a.priority).slice();
+
+    return sortedData;
   }
 );
 

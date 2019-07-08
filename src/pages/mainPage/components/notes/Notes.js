@@ -137,8 +137,9 @@ class Notes extends Component {
 }
 
 Notes.propTypes = {
-  id: PropTypes.number.isRequired,
-  valueNotes: PropTypes.string
+  id: PropTypes.string.isRequired,
+  valueNotes: PropTypes.string,
+  updateActivityLog: PropTypes.func
 };
 
 const mapDispatchToProps = dispatch => {
