@@ -3,6 +3,7 @@ import "Css/App.scss";
 import { Route, Switch } from "react-router-dom";
 import MainPage from "Pages/mainPage";
 import Header from "Pages/mainPage/components/header";
+import VariantPage from "variantPage/";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       </div>
       <Switch>
         <Route path="/" exact component={MainPage} />
+        <Route path="/variant" exact component={VariantPage} />
       </Switch>
     </div>
   );

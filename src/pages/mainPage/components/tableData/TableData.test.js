@@ -1,17 +1,23 @@
 import React from "react";
 import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
+import { renderWithRedux } from "Utils/test_helpers";
 import TableData from './TableData';
-import { CONFIRMATION_VALUES } from 'Utils/constants';
 import {
+  CONFIRMATION_VALUES,
+  ZYGOSITY_OPTIONS,
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS
+} from "Utils/constants";
+import {
+  handleZygosity,
+  handleVariantClass,
   handleConfirmationStatus,
   handleUncheckConfirmationData
 } from "Actions/tableActions";
 import {
   getUncheckConfirmationData
 } from "Store/selectors";
-
-import { renderWithRedux } from "Utils/test_helpers";
 
 describe('TableData', () => {
 
@@ -90,5 +96,38 @@ describe('TableData', () => {
       id: itemId,
       status: null
     });
+  });
+
+  it('zygosity and variant class change', () => {
+    const { getAllByTestId, store } = renderWithRedux(<TableData/>);
+    const select = getAllByTestId('zygosity-select');
+    const firstSelect = select[0];
+    const rowId = firstSelect.dataset['testitemid'];
+    const zygosityValue = ZYGOSITY_OPTIONS?.[0]?.value;
+    const germlineVariantClassValue = GERMLINE_VARIANT_CLASS_OPTIONS?.[0]?.value;
+    const somaticVariantClassValue = SOMATIC_VARIANT_CLASS_OPTIONS?.[0]?.value;
+
+    expect(firstSelect).toBeDefined();
+    expect(rowId).toBeDefined();
+    expect(zygosityValue).toBeDefined();
+
+    const row1 = store.getState().table.data[rowId];
+    expect(row1.zygosity).toBeFalsy();
+    expect(row1.variantClass).toBeFalsy();
+
+    store.dispatch(handleZygosity({ item: { id: rowId }, value: zygosityValue }));
+
+    const row2 = store.getState().table.data[rowId];
+    expect(row2.zygosity).toEqual(zygosityValue);
+
+    store.dispatch(handleVariantClass({ item: { id: rowId }, value: germlineVariantClassValue }));
+
+    const row3 = store.getState().table.data[rowId];
+    expect(row3.variantClass).toEqual(germlineVariantClassValue);
+
+    store.dispatch(handleVariantClass({ item: { id: rowId }, value: somaticVariantClassValue }));
+
+    const row4 = store.getState().table.data[rowId];
+    expect(row4.variantClass).toEqual(somaticVariantClassValue);
   });
 });
