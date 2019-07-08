@@ -68,17 +68,20 @@ const tableReducer = createReducer(initialState, {
 
     let data = state?.data;
 
-    // console.log("-===data: ", data);
 
     data[item.id].variantClass = value;
 
     data[item.id].priority = priority;
 
-    const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
+    const newData = Object.assign({}, data);
 
-    console.log(sortedData);
+    state.data = newData
 
-    state.data = sortedData;
+    // const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
+
+    // console.log(sortedData);
+
+    // state.data = sortedData;
 
     return {
       ...state
