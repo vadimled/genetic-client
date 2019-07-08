@@ -1,10 +1,10 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import Search from './Search';
+import React from "react";
+import { renderWithRedux } from "Utils/test_helpers";
+import Search from "./Search";
 
-describe('<Search />', () => {
-  test('renders', () => {
-    const wrapper = shallow(<Search />);
-    expect(wrapper).toMatchSnapshot();
+describe("<Search />", () => {
+  it("snapshot", () => {
+    const { asFragment } = renderWithRedux(<Search />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });
