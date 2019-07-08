@@ -1,29 +1,106 @@
 image: node:10.16.0-alpine
 
 stages:
+  - install_dependencies
   - build
+  - deploy_draft
   - test
+  - deploy
 
 cache:
   paths:
     - node_modules/
 
 install_dependencies:
-  stage: build
+  stage: install_dependencies
   script:
     - yarn install
   artifacts:
     paths:
       - node_modules/
-  only:
-    - merge_requests
   tags:
     - build
+
+# build:
+#   stage: build
+#   script:
+#     - yarn build
+#   artifacts:
+#     paths:
+#       - public
+#   tags:
+#     - build
+#   dependencies:
+#     - install_dependencies
 
 test:
   stage: test
   script: yarn test
   tags:
     - test
-  only:
-    - merge_requests
+
+# deploy_preview:
+#   stage: deploy_draft
+#   script:
+#     - install_netlify_cli
+#     - install_jq
+#     - install_curl
+#     - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --json | tee deploy_draft.json
+#     - set_env_url
+#   artifacts:
+#     paths:
+#       - deploy_draft.json
+#   dependencies:
+#     - build
+#   environment:
+#     name: $CI_COMMIT_REF_NAME/$CI_COMMIT_SHORT_SHA
+#   tags:
+#     - build
+#   except:
+#     - dev
+#     - master
+
+# deploy_dev:
+#   stage: deploy
+#   script:
+#     - install_netlify_cli
+#     - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod --json | tee deploy_dev.json
+#   artifacts:
+#     paths:
+#       - deploy_dev.json
+#   environment:
+#     name: dev
+#     url: https://anaid.netlify.com
+#   dependencies:
+#     - build
+#   tags:
+#     - build
+#   only:
+#     - dev
+
+.helper_functions: &helper_functions |
+  function install_jq() {
+    apk add jq
+  }
+
+  function install_curl() {
+    apk add curl
+  }
+
+  function install_netlify_cli() {
+    yarn global add netlify-cli
+  }
+
+  function set_env_url() {
+    export GITLAB_URL='https://gitlab.com'
+    export ENVIRONMENT_REQ_HEADER="PRIVATE-TOKEN:"" "$GL_PRIVATE_TOKEN
+    export GET_ENVS_URL=$GITLAB_URL"/api/v4/projects/$CI_PROJECT_ID/environments"
+    export ENV_NAME="$CI_COMMIT_REF_NAME/$CI_COMMIT_SHORT_SHA"
+    export ENV_ID=$(curl -sSL --header "$ENVIRONMENT_REQ_HEADER" "$GET_ENVS_URL" | jq '.[] | select(.name==env.ENV_NAME) | .id')
+    export ENVURL=$(cat deploy.json | jq --raw-output '.deploy_url')
+    export ENV_SET_URL=$GITLAB_URL"/api/v4/projects/$CI_PROJECT_ID/environments/$ENV_ID"
+    curl --request PUT --data "external_url=$ENVURL" --header "$ENVIRONMENT_REQ_HEADER" "$ENV_SET_URL"
+  }
+
+before_script:
+  - *helper_functions
