@@ -1,11 +1,10 @@
 import React from "react";
 import { renderWithRedux } from "Utils/test_helpers";
-import "jest-dom/extend-expect";
-import Header from "./Header";
+import Search from "./Search";
 
-describe("<Header />", () => {
+describe("<Search />", () => {
   it("snapshot", () => {
-    const { asFragment } = renderWithRedux(<Header />);
+    const { asFragment } = renderWithRedux(<Search />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

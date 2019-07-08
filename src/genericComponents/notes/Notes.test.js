@@ -24,9 +24,9 @@ describe("Notes", () => {
     fireEvent.click(getByTestId("footer-button-done"));
     expect(editTextBox).not.toBeInTheDocument();
 
-    fireEvent.click(icon);
-    fireEvent.click(getByTestId("footer-button-cancel"));
-    expect(editTextBox).not.toBeInTheDocument();
+    //   fireEvent.click(icon);
+    //   fireEvent.click(getByTestId("footer-button-cancel"));
+    //   expect(editTextBox).not.toBeInTheDocument();
   });
 
   it("if edit-text-box opened", () => {
@@ -39,8 +39,7 @@ describe("Notes", () => {
   it("if TextArea has more then 150 chars", () => {
     fireEvent.click(icon);
 
-    let
-      done = getByTestId("footer-button-done"),
+    let done = getByTestId("footer-button-done"),
       textEditBox = getByTestId("edit-text-box-textarea"),
       value = "";
 
@@ -50,14 +49,13 @@ describe("Notes", () => {
 
     fireEvent.change(textEditBox, { target: { value } });
     expect(done).toBeDisabled();
-    expect(document.querySelector('.ant-form-explain')).toBeInTheDocument();
+    expect(document.querySelector(".ant-form-explain")).toBeInTheDocument();
   });
 
   it("if TextArea has less then 150 chars", () => {
     fireEvent.click(icon);
 
-    let
-      done = getByTestId("footer-button-done"),
+    let done = getByTestId("footer-button-done"),
       textEditBox = getByTestId("edit-text-box-textarea"),
       value = "";
 
@@ -67,6 +65,6 @@ describe("Notes", () => {
 
     fireEvent.change(textEditBox, { target: { value } });
     expect(done).not.toBeDisabled();
-    expect(document.querySelector('.ant-form-explain')).not.toBeInTheDocument();
+    expect(document.querySelector(".ant-form-explain")).not.toBeInTheDocument();
   });
 });
