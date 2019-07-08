@@ -8,25 +8,27 @@ describe("Notes", () => {
   let getByTestId, icon, store;
 
   beforeEach(() => {
-    const queries = renderWithRedux(<Notes id={0} />);
+    const queries = renderWithRedux(
+      <Notes id={0} updateActivityLog={() => {}} />
+    );
     getByTestId = queries.getByTestId;
     store = queries.store;
     icon = getByTestId("edit-icon");
   });
 
-  // TODO: Fix this test
-  // it("if EditIcon clicked", () => {
-  //   fireEvent.click(icon);
-  //   const editTextBox = getByTestId("edit-text-box");
-  //   expect(editTextBox).toBeInTheDocument();
+  it("if EditIcon clicked", () => {
+    fireEvent.click(icon);
+    const editTextBox = getByTestId("edit-text-box");
+    expect(editTextBox).toBeInTheDocument();
 
-  //   fireEvent.click(getByTestId("footer-button-done"));
-  //   expect(editTextBox).not.toBeInTheDocument();
+    const done = getByTestId("footer-button-done");
+    fireEvent.click(done);
+    expect(editTextBox).not.toBeInTheDocument();
 
-  //   fireEvent.click(icon);
-  //   fireEvent.click(getByTestId("footer-button-cancel"));
-  //   expect(editTextBox).not.toBeInTheDocument();
-  // });
+    fireEvent.click(icon);
+    fireEvent.click(getByTestId("footer-button-cancel"));
+    expect(editTextBox).not.toBeInTheDocument();
+  });
 
   it("if edit-text-box opened", () => {
     fireEvent.click(icon);
