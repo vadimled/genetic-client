@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import style from "./VariantPage.module.scss";
 import cn from "classnames";
 import SideBarLayout from "Pages/mainPage/components/sideBarLayout";
+import VariantPageHeader from "variantComponents/variantPageHeader";
 
 // import PropTypes from 'prop-types';
 
@@ -55,7 +56,9 @@ class VariantPage extends Component {
             { "links-wrapper-open": sidebarToggle }
           ])}
         >
-          <div className="main-header-data">GENEXYZ</div>
+          <div className="main-header-data">
+            <VariantPageHeader />
+          </div>
           <div className="main-data">
             <div className="history">History</div>
             <div className="evidence">Evidence</div>
