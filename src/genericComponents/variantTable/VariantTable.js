@@ -13,8 +13,6 @@ import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
 import ActivityLog from "./components/ActivityLog";
 
-
-
 const ResizeableTitle = props => {
   const { onResize, width, ...restProps } = props;
 
@@ -198,7 +196,7 @@ class VariantTable extends Component {
                 })
               }
               isClearAvailable
-              data-testid="zygosity-select"
+              testId="zygosity-select"
               data-testitemid={data[1].id}
             />
           </div>
