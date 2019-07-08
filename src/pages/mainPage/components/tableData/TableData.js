@@ -21,7 +21,6 @@ import {
 
 class TableData extends Component {
 
-
   render() {
     const {
       filteredData,
@@ -32,7 +31,6 @@ class TableData extends Component {
       updateActivityLog,
       goToChrPositionIgv
     } = this.props;
-    console.log(filteredData);
 
     return (
       <TableLayout>

@@ -134,8 +134,6 @@ export const getFilteredData = createSelector(
   (data, appliedFilters) => {
     if (isEmpty(appliedFilters)) {
 
-
-      // console.log("--data: ", data)
       const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
 
       return sortedData;
@@ -148,7 +146,6 @@ export const getFilteredData = createSelector(
     const filteredData = data.filter(item => {
       return filtersArray.every(filter => filter(item));
     });
-
 
     const sortedData = filteredData.sort((a, b) => b.priority - a.priority).slice();
 

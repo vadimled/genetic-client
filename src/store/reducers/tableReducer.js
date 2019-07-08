@@ -30,9 +30,6 @@ const tableReducer = createReducer(initialState, {
 
     state.data = newData;
 
-    console.log("-data: ", data);
-    console.log("-zygosity payload: ", payload);
-
     // and always reset variantClass as a result of changing the zygosity
     // reset to
     if (
@@ -48,6 +45,15 @@ const tableReducer = createReducer(initialState, {
       data[item.id].variantClass = '';
     }
 
+    switch (value) {
+      case "unknown": data[item.id].priority = PRIORITY['unknown'];
+        break;
+      case "notReal": data[item.id].priority = PRIORITY['notReal'];
+        break;
+      case "insignificant": data[item.id].priority = PRIORITY['insignificant'];
+        break;
+    }
+
     return {
       ...state
     };
@@ -55,19 +61,11 @@ const tableReducer = createReducer(initialState, {
 
   [actionsTypes.HANDLE_VARIANT_CLASS]: (state, { payload }) => {
 
-    console.log("-payload: ", payload);
-
-
-
     const {item, value} = payload;
-
 
     const priority = PRIORITY[value];
 
-    console.log("-priority: ", priority);
-
     let data = state?.data;
-
 
     data[item.id].variantClass = value;
 
@@ -75,13 +73,7 @@ const tableReducer = createReducer(initialState, {
 
     const newData = Object.assign({}, data);
 
-    state.data = newData
-
-    // const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
-
-    // console.log(sortedData);
-
-    // state.data = sortedData;
+    state.data = newData;
 
     return {
       ...state
