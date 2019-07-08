@@ -15,17 +15,17 @@
     .left-data {
       display: grid;
       width: 100%;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-auto-rows: minmax(auto, auto);
+      grid-template-columns: minmax(210px, 350px) minmax(210px, 350px) minmax(
+          210px,
+          350px
+        );
+      grid-auto-rows: minmax(auto, 48%);
       grid-gap: 10px;
       height: 100%;
+      padding: 10px 57px;
 
       .gene {
-        border-radius: 5px;
         padding: 10px;
-        font-size: 1em;
-        background-color: #96a2aa;
-        border: 1px solid green;
       }
     }
   }
