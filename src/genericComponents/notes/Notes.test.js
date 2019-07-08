@@ -11,7 +11,9 @@ describe("Notes", () => {
     const queries = renderWithRedux(<Notes
       value={initValue}
       setNotes={() => true}
+      updateActivityLog={() => {}}
     />);
+
     getByTestId = queries.getByTestId;
     icon = getByTestId("edit-icon");
   });
@@ -24,9 +26,9 @@ describe("Notes", () => {
     fireEvent.click(getByTestId("footer-button-done"));
     expect(editTextBox).not.toBeInTheDocument();
 
-    //   fireEvent.click(icon);
-    //   fireEvent.click(getByTestId("footer-button-cancel"));
-    //   expect(editTextBox).not.toBeInTheDocument();
+    fireEvent.click(icon);
+    fireEvent.click(getByTestId("footer-button-cancel"));
+    expect(editTextBox).not.toBeInTheDocument();
   });
 
   it("if edit-text-box opened", () => {
