@@ -4,7 +4,7 @@ import cn from "classnames";
 
 import style from './SlideBar.module.scss';
 
-const SlideBar = ({ isOpen, onClose, children }) => {
+const SlideBar = ({ isOpen, onClose, children, title }) => {
   return (
     <div className={style['slidebar']}>
       <div className={cn('slidebar-wrapper', {
@@ -16,6 +16,11 @@ const SlideBar = ({ isOpen, onClose, children }) => {
           onClick={onClose}
         />
         <div className="slidebar-content">
+          <header className="slidebar-header">
+            <div className="slidebar-title">
+              {title}
+            </div>
+          </header>
           <div
             className="slidebar-close"
             onClick={onClose}
@@ -29,7 +34,12 @@ const SlideBar = ({ isOpen, onClose, children }) => {
 
 SlideBar.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  title: PropTypes.string
+};
+
+SlideBar.defaultProps = {
+  title: ''
 };
 
 export default React.memo(SlideBar);

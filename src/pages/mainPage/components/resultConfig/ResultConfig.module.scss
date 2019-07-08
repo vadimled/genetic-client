@@ -1,0 +1,186 @@
+@import "Css/Colors.scss";
+
+.result-config :global {
+  .content {
+    padding: 39px 47px;
+    text-align: left;
+  }
+
+  .rcinput {
+    width: 100%;
+    height: 44px;
+    border: 1px solid $input-border-color;
+    border-radius: 4px;
+    padding: 16px;
+
+    font-size: 16px;
+    line-height: 21px;
+    color: $title_color;
+  }
+
+  .label {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: $title_color;
+  }
+
+  .gene-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+
+    .label {
+      margin-right: 8px;
+    }
+  }
+
+  .chr-pos-row {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 29px;
+
+    .label {
+      margin-bottom: 5px;
+    }
+  }
+
+  .chr-block {
+    width: 130px;
+  }
+
+  .pos-block {
+    flex: 1;
+  }
+
+  .chr-pos-div {
+    margin: 0 12px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 21px;
+    color: $title_color;
+  }
+
+  .allele-block {
+    .label {
+      margin-bottom: 7px;
+    }
+    margin-bottom: 30px;
+  }
+
+  .allele-radios {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+
+  .allele-radio {
+    width: 126px;
+    height: 44px;
+    border-radius: 4px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 131.99%;
+    color: $title_color;
+
+    transition: 0.25s;
+
+    &.active,
+    &:hover {
+      background-color: $brand_primary_color;
+      color: white;
+    }
+  }
+
+  .allele-from-to-div {
+    font-size: 16px;
+    line-height: 21px;
+    color: $title_color;
+    margin: 5px;
+  }
+
+  .vaf-covarage-row {
+    display: flex;
+    margin-bottom: 22px;
+  }
+
+  .vaf,
+  .covarage {
+    display: flex;
+
+    .label {
+      margin-right: 25px;
+    }
+  }
+  .vaf {
+    margin-right: 65px;
+  }
+
+  .allele-divider {
+    height: 0px;
+    width: 100%;
+    border-top: 1px solid $border_color;
+  }
+
+  .allele-btn {
+    width: 100%;
+    height: 44px;
+    border-radius: 4px;
+    background-color: white;
+    border: 1px solid $brand_primary_color;
+    cursor: pointer;
+
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 21px;
+
+    transition: 0.25s;
+
+    &--hgvs {
+      background-color: white;
+      color: $brand_primary_color;
+      margin: 41px 0 46px;
+
+      &:hover {
+        background: linear-gradient(
+          180deg,
+          rgba(14, 140, 230, 0) 0%,
+          #31a7fc 0.01%,
+          #0e8ce6 100%
+        );
+        color: white;
+      }
+    }
+
+    &--add {
+      background-color: $brand_primary_color;
+      color: white;
+      margin: 43px 0 0;
+
+      &:hover {
+        background: $brand_primary_hover_color;
+      }
+    }
+  }
+
+  .cp-row {
+    display: flex;
+    margin-bottom: 27px;
+
+    .label {
+      margin-right: 14px;
+    }
+  }
+
+  .cp-result {
+    font-size: 16px;
+    line-height: 21px;
+    color: $title_color;
+  }
+}
