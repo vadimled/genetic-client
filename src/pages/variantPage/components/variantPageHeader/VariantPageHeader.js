@@ -6,33 +6,31 @@ import GeneType from "variantComponents/geneType";
 import cn from "classnames";
 // import PropTypes from "prop-types";
 
-const VariantPageHeader = ({sidebarToggle}) => {
+const VariantPageHeader = ({ sidebarToggle }) => {
   return (
     <div className={style["variant-page-header-wrapper"]}>
       <div className="left-data-wrapper">
         <div className="left-data">
           <div className="gene">
-            <InformField label={"Gene Name"} text={"ARHGEF10L"} />
+            <InformField text={"ARHGEF10L"} />
           </div>
           <div className="gene">
-            <InformField label={"Protein"} text={"p.=Pro7Ser"} />
+            <InformField text={"p.=Pro7Ser"} />
           </div>
           <div className="gene">
             <InformField
-              label={"chr position"}
               text={"chr3:16976109"}
               icon={<ExternalLink data={""} />}
             />
           </div>
           <div className="gene">
-            <InformField label={"Allele Change"} text={"A>C"} />
+            <InformField text={"A>C"} />
           </div>
           <div className="gene">
-            <InformField label={"Coding"} text={"c.3548 A>A"} />
+            <InformField text={"c.3548 A>A"} />
           </div>
           <div className="gene">
             <InformField
-              label={"Transcript"}
               text={" NM_009786.2"}
               icon={<ExternalLink data={""} />}
             />

@@ -9,20 +9,20 @@
   height: 100%;
 
   .left-data-wrapper {
-    flex: 3 10 750px;
+    flex: 1 1 500px;
     height: 100%;
 
     .left-data {
       display: grid;
       width: 100%;
-      grid-template-columns: minmax(210px, 350px) minmax(210px, 350px) minmax(
-          210px,
-          350px
+      grid-template-columns: minmax(150px, 200px) minmax(150px, 200px) minmax(
+          150px,
+          200px
         );
       grid-auto-rows: minmax(auto, 48%);
-      grid-gap: 10px;
+      grid-gap: 5px;
       height: 100%;
-      padding: 30px 57px;
+      padding: 40px 5px 30px 50px;
 
       .gene {
         padding: 10px;
@@ -31,7 +31,7 @@
   }
 
   .right-data {
-    flex: 5 1 300px;
+    flex: 1 1 300px;
     align-items: center;
 
     transform: translate(0px, 0px);
