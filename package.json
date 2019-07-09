@@ -168,6 +168,7 @@
       "^Reducers[/](.+)": "<rootDir>/src/store/reducers/$1",
       "^Sagas[/](.+)": "<rootDir>/src/store/sagas/$1",
       "^Pages[/](.+)": "<rootDir>/src/pages/$1",
+      "^variantPage[/](.*)": "<rootDir>/src/pages/variantPage/$1",
       "^Assets[/](.+)": "<rootDir>/src/assets/$1"
     },
     "moduleFileExtensions": [

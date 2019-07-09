@@ -1,12 +1,13 @@
-// import React from "react";
-// import { renderWithRedux } from "Utils/test_helpers";
-// import ActivityLogPopup from "./ActivityLogPopup";
+import React from "react";
+import { renderWithRedux } from "Utils/test_helpers";
+import ActivityLogPopup from "./ActivityLogPopup";
 import "jest-dom/extend-expect";
 
-describe("<ActivityLogPopup />", () => {
-  it("snapshot", () => {
-    // const { asFragment } = renderWithRedux(<ActivityLogPopup />);
-    // expect(asFragment()).toMatchSnapshot();
-    expect(true).toBeTruthy();
-  });
+it("renders", ()=> {
+  const initProps = {
+    "1": {id: 1}
+  };
+  const {asFragment} = renderWithRedux(<ActivityLogPopup {...initProps}/>);
+  expect(asFragment()).toMatchSnapshot();
 });
+

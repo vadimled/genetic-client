@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Table, Tooltip } from "antd";
-import { Resizable } from "react-resizable";
+import { Table, Tooltip, Checkbox } from "antd";
+import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect";
-import Notes from "Pages/mainPage/components/notes";
+import ConfirmationStatus from "GenericComponents/confirmationStatus";
+import Notes from "GenericComponents/notes";
 import {
   ZYGOSITY_OPTIONS,
   GERMLINE_VARIANT_CLASS_OPTIONS,
@@ -12,26 +13,42 @@ import {
 import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
 import ActivityLog from "./components/ActivityLog";
-
-
-
-const ResizeableTitle = props => {
-  const { onResize, width, ...restProps } = props;
-
-  if (!width) {
-    return <th {...restProps} />;
-  }
-
-  return (
-    <Resizable width={width} height={0} onResize={onResize}>
-      <th {...restProps} />
-    </Resizable>
-  );
-};
+import ResizeableTitle from "./components/resizeableTitle";
 
 class VariantTable extends Component {
   state = {
     columns: [
+      {
+        key: "1",
+        dataIndex: "selection",
+        width: 40,
+        fixed: "left",
+        className: "selection-cell",
+        render: (text, record) => {
+          if (record.status) {
+            return (
+              <ConfirmationStatus
+                status={record.status}
+                handleStatus={(status) => this.props.handleConfirmationStatus({
+                  id: record.id,
+                  status
+                })}
+              />
+            );
+          }
+          return (
+            <Checkbox
+              checked={record.selected}
+              onChange={this.props.handleSelectedRow.bind(null, {
+                item: record,
+                value: !record.selected
+              })}
+              data-testid="selection-checkbox"
+              data-testitemid={record.id}
+            />
+          );
+        }
+      },
       {
         title: "Gene",
         dataIndex: "gene",
@@ -151,10 +168,8 @@ class VariantTable extends Component {
   };
 
   handleZygosity = (data) =>{
-
     const {handleZygosity, updateActivityLog} = this.props;
     const {item, value, prevValue} = data;
-
 
     handleZygosity({
       item,
@@ -184,6 +199,17 @@ class VariantTable extends Component {
         })
       };
 
+      if (column.dataIndex === "selection") {
+        column.title = <div className={cn("table-header-selection-chbx", {
+          'partly': !!this.props.selectedRows.length && !this.props.isAllRowSelected
+        })}>
+          <Checkbox
+            checked={this.props.isAllRowSelected}
+            onChange={this.props.handleSelectAllRows.bind(null, this.props.isAllRowSelected)}
+          />
+        </div>;
+      }
+
       if (column.dataIndex === "zygosity") {
         column.render = (...data) => (
           <div className="table-select-wrapper">
@@ -198,6 +224,8 @@ class VariantTable extends Component {
                 })
               }
               isClearAvailable
+              testId="zygosity-select"
+              data-testitemid={data[1].id}
             />
           </div>
         );
@@ -234,13 +262,15 @@ class VariantTable extends Component {
       }
 
       if (col.dataIndex === "notes") {
-        column.render = (...data) =>
-          <Notes
-            updateActivityLog={this.props.updateActivityLog}
-            key={data[1].id}
-            id={data[1].id}
-            {...data}
-          />;
+        column.render = (...data) => <Notes
+          updateActivityLog={this.props.updateActivityLog}
+          setNotes={notes => this.props.setNotes({
+            id: data[1].id,
+            notes,
+          })}
+          value={data[1].notes}
+          tableRow={data[1]}
+        />;
       }
 
       if (col.dataIndex === "transcript") {
@@ -285,16 +315,7 @@ class VariantTable extends Component {
 
 
   render() {
-    const { selectedRowKeys, onSelectRowKey, data } = this.props;
-
-    // rowSelection object indicates the need for row selection
-    const rowSelection = {
-      onChange: selectedRowKeys => {
-        onSelectRowKey(selectedRowKeys);
-      },
-      selectedRowKeys,
-      fixed: "left"
-    };
+    const { data } = this.props;
 
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
@@ -304,7 +325,6 @@ class VariantTable extends Component {
         className={style["variant-table-wrapper"]}
         components={this.components}
         pagination={{ pageSize: 20 }}
-        rowSelection={rowSelection}
         bordered
         columns={columns}
         dataSource={data}
@@ -316,16 +336,22 @@ class VariantTable extends Component {
 
 VariantTable.propTypes = {
   data: PropTypes.array,
-  selectedRowKeys: PropTypes.array,
-  onSelectRowKey: PropTypes.func.isRequired,
+  handleSelectedRow: PropTypes.func.isRequired,
+  handleSelectAllRows: PropTypes.func.isRequired,
   handleZygosity: PropTypes.func.isRequired,
   handleVariantClass: PropTypes.func.isRequired,
-  handelChrPosition: PropTypes.func.isRequired
+  handelChrPosition: PropTypes.func.isRequired,
+  handleConfirmationStatus: PropTypes.func.isRequired,
+  updateActivityLog: PropTypes.func.isRequired,
+  isAllRowSelected: PropTypes.bool,
+  selectedRows: PropTypes.array,
+  setNotes: PropTypes.func.isRequired,
 };
 
 VariantTable.defaultProps = {
   data: [],
-  selectedRowKeys: []
+  isAllRowSelected: false,
+  selectedRows: []
 };
 
 export default VariantTable;
