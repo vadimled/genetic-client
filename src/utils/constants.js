@@ -272,9 +272,9 @@ export const PRIORITY = {
   tier3: 8,
   unclassified: 7,
   lben: 6,
-  ben: 5,
-  tier4: 4,
-  unknown: 3,
-  insignificant: 2,
-  notReal: 1
+  unknown: 5,
+  insignificant: 4,
+  notReal: 3,
+  ben: 2,
+  tier4: 1
 };
