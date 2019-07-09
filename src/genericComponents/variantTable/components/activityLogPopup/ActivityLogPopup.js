@@ -53,7 +53,6 @@ ActivityLogPopup.propTypes = {
   activityLog: PropTypes.array
 };
 
-
 export default connect(
   mapStateToProps,
   {}

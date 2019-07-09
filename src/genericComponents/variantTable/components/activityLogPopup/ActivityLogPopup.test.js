@@ -10,3 +10,4 @@ it("renders", ()=> {
   const {asFragment} = renderWithRedux(<ActivityLogPopup {...initProps}/>);
   expect(asFragment()).toMatchSnapshot();
 });
+

@@ -28,7 +28,7 @@ exports[`VariantTable VariantTable snapshot 1`] = `
                 >
                   <colgroup>
                     <col
-                      class="ant-table-selection-col"
+                      style="width: 40px; min-width: 40px;"
                     />
                     <col
                       style="width: 200px; min-width: 200px;"
@@ -75,7 +75,7 @@ exports[`VariantTable VariantTable snapshot 1`] = `
                   >
                     <tr>
                       <th
-                        class="ant-table-fixed-columns-in-body ant-table-selection-column"
+                        class="ant-table-fixed-columns-in-body selection-cell react-resizable"
                       >
                         <span
                           class="ant-table-header-column"
@@ -85,17 +85,16 @@ exports[`VariantTable VariantTable snapshot 1`] = `
                               class="ant-table-column-title"
                             >
                               <div
-                                class="ant-table-selection"
+                                class="table-header-selection-chbx"
                               >
                                 <label
-                                  class="ant-checkbox-wrapper ant-checkbox-wrapper-disabled"
+                                  class="ant-checkbox-wrapper"
                                 >
                                   <span
-                                    class="ant-checkbox ant-checkbox-disabled"
+                                    class="ant-checkbox"
                                   >
                                     <input
                                       class="ant-checkbox-input"
-                                      disabled=""
                                       type="checkbox"
                                       value=""
                                     />
@@ -111,6 +110,9 @@ exports[`VariantTable VariantTable snapshot 1`] = `
                             />
                           </div>
                         </span>
+                        <span
+                          class="react-resizable-handle react-resizable-handle-se"
+                        />
                       </th>
                       <th
                         class="react-resizable"
@@ -444,7 +446,7 @@ exports[`VariantTable VariantTable snapshot 1`] = `
                 >
                   <colgroup>
                     <col
-                      class="ant-table-selection-col"
+                      style="width: 40px; min-width: 40px;"
                     />
                     <col
                       style="width: 200px; min-width: 200px;"
@@ -524,7 +526,7 @@ exports[`VariantTable VariantTable snapshot 1`] = `
                 >
                   <colgroup>
                     <col
-                      class="ant-table-selection-col"
+                      style="width: 40px; min-width: 40px;"
                     />
                   </colgroup>
                   <thead
@@ -532,7 +534,7 @@ exports[`VariantTable VariantTable snapshot 1`] = `
                   >
                     <tr>
                       <th
-                        class="ant-table-selection-column"
+                        class="selection-cell react-resizable"
                       >
                         <span
                           class="ant-table-header-column"
@@ -542,17 +544,16 @@ exports[`VariantTable VariantTable snapshot 1`] = `
                               class="ant-table-column-title"
                             >
                               <div
-                                class="ant-table-selection"
+                                class="table-header-selection-chbx"
                               >
                                 <label
-                                  class="ant-checkbox-wrapper ant-checkbox-wrapper-disabled"
+                                  class="ant-checkbox-wrapper"
                                 >
                                   <span
-                                    class="ant-checkbox ant-checkbox-disabled"
+                                    class="ant-checkbox"
                                   >
                                     <input
                                       class="ant-checkbox-input"
-                                      disabled=""
                                       type="checkbox"
                                       value=""
                                     />
@@ -568,6 +569,9 @@ exports[`VariantTable VariantTable snapshot 1`] = `
                             />
                           </div>
                         </span>
+                        <span
+                          class="react-resizable-handle react-resizable-handle-se"
+                        />
                       </th>
                     </tr>
                   </thead>
@@ -585,7 +589,7 @@ exports[`VariantTable VariantTable snapshot 1`] = `
                   >
                     <colgroup>
                       <col
-                        class="ant-table-selection-col"
+                        style="width: 40px; min-width: 40px;"
                       />
                     </colgroup>
                     <tbody
