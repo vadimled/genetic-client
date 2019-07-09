@@ -136,7 +136,7 @@ class VariantTable extends Component {
         title: "Notes",
         dataIndex: "notes",
         key: "13",
-        width: 532
+        width: 700
       },
       {
         title: "Activity log",
