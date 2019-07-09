@@ -2,7 +2,7 @@ import React from "react";
 import "jest-dom/extend-expect";
 import VariantTable from './VariantTable';
 import { renderWithRedux } from "../../utils/test_helpers";
-import { updateActivityLog } from "../../store/actions/tableActions";
+import { handleZygosity } from "../../store/actions/tableActions";
 import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 
@@ -34,31 +34,7 @@ describe("Variant Table Test", () => {
       priority: null
     }];
 
-  // const activityLog = [
-  //   undefined,
-  //   {
-  //     id: 0,
-  //     key: 0,
-  //     gene: "ABCD1P4",
-  //     chrPosition: "Chr2:176882",
-  //     transcript: "NM_119875.6",
-  //     exon: 5,
-  //     alleleChange: "C > T",
-  //     alleleChangeLong: "fsghfsghsfghsfsfhsfh",
-  //     coding: "cAc/gTa",
-  //     codingLong: "aGc/tCg/zzzczzfzf",
-  //     protein: "nuo7b",
-  //     vaf: 76,
-  //     roi: true,
-  //     clinvar: "",
-  //     gnomAD: 3,
-  //     zygosity: "",
-  //     variantClass: "",
-  //     coverage: 151,
-  //     notes: "Sed recusandae in sint.",
-  //     status: "pending"
-  //   },
-  //   0];
+
 
   beforeEach(() => {
     const queries = renderWithRedux(<VariantTable
@@ -75,7 +51,6 @@ describe("Variant Table Test", () => {
       updateActivityLog={()=>{}}
     />);
 
-    getByTestId = queries.getByTestId;
 
     store = queries.store;
 
@@ -103,17 +78,24 @@ describe("Variant Table Test", () => {
     // const activityLogPopup = getByTestId("activity-log-popup");
 
 
-    store.dispatch(updateActivityLog({
-      prevValue: "LATH",
+    // store.dispatch(updateActivityLog({
+    //   prevValue: "LATH",
+    //   item: data,
+    //   changedField: "variantClass"
+    // }));
+
+    store.dispatch(handleZygosity({
       item: data,
-      changedField: "variantClass"
+      value: "hetro",
+      prevValue: ""
     }));
 
-    console.log(store.getState());
+    console.log(store.getState().table);
 
 
 
     // expect(activityLogPopup).toBeInTheDocument();
+
     //
     // expect(getByText(currNote)).toBeInTheDocument();
     // expect(getByText(prevNote)).toBeInTheDocument();
