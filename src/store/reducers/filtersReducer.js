@@ -54,8 +54,6 @@ const filtersReducer = createReducer(initialState, {
   [actionsTypes.SET_FILTER_VARIANT_CLASS]: (state, { payload }) => {
     const { value, mode } = payload;
 
-    console.log(payload);
-
     let newValue = changeValueAccordingOnMode(
       state[FILTERS.variantClass],
       value,

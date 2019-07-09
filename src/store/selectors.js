@@ -96,7 +96,7 @@ const getAppliedFilters = createSelector(
       }),
       ...(somaticClass.length && {
         somaticClass: item =>
-          somaticClass.some(filter => item.somaticClass === filter)
+          somaticClass.some(filter => item.variantClass === filter)
       }),
       ...(hotSpot.length && {
         hotSpot: item => hotSpot.some(filter => item.hotSpot === filter)
@@ -143,11 +143,9 @@ export const getFilteredData = createSelector(
 
       const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
 
-      // const filtered = sortedData.filter(record => record.variantClass !== "tier4")
+      return sortedData.filter(record => record.variantClass !== "tier4")
+        .filter(record => record.variantClass !== "ben")
 
-      return sortedData;
-
-      // return sortedData;
     }
 
     const filtersArray = Object.keys(appliedFilters).map(key => {
@@ -159,9 +157,6 @@ export const getFilteredData = createSelector(
     });
 
     const sortedData = filteredData.sort((a, b) => b.priority - a.priority).slice();
-
-    console.log("filtersArray: ", filtersArray);
-
 
     return sortedData;
   }
