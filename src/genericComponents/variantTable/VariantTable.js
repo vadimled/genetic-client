@@ -215,7 +215,7 @@ class VariantTable extends Component {
         column.render = (...data) => (
           <div className="table-select-wrapper">
             <SimpleSelect
-              testId={`zygosity-select-${data[2]}`}
+              // testId={`zygosity-select-${data[2]}`}
               value={data[1].zygosity}
               options={ZYGOSITY_OPTIONS}
               onChange={e =>
