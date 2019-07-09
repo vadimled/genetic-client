@@ -3,9 +3,10 @@ import style from "./VariantPageHeader.module.scss";
 import InformField from "GenericComponents/informField";
 import ExternalLink from "GenericComponents/externalLink";
 import GeneType from "variantComponents/geneType";
+import cn from "classnames";
 // import PropTypes from "prop-types";
 
-const VariantPageHeader = () => {
+const VariantPageHeader = ({sidebarToggle}) => {
   return (
     <div className={style["variant-page-header-wrapper"]}>
       <div className="left-data-wrapper">
@@ -38,7 +39,7 @@ const VariantPageHeader = () => {
           </div>
         </div>
       </div>
-      <div className="right-data">
+      <div className={cn(["right-data", { "sidebar-open": sidebarToggle }])}>
         <GeneType germlineClass={"LPATH"} />
       </div>
     </div>

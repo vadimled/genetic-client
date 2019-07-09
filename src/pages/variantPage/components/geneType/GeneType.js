@@ -37,7 +37,7 @@ class GeneType extends React.Component {
                 options={GERMLINE_VARIANT_CLASS_OPTIONS}
                 onChange={handleVariantClass}
               />
-            ) : null}
+            ) : "Germline"}
           </Radio>
           <Radio value={2}>
             {this.state.value === 2 ? (
@@ -46,7 +46,7 @@ class GeneType extends React.Component {
                 options={SOMATIC_VARIANT_CLASS_OPTIONS}
                 onChange={handleVariantClass}
               />
-            ) : null}
+            ) : "Somatic"}
           </Radio>
         </Radio.Group>
       </div>
