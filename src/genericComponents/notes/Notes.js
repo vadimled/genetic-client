@@ -99,13 +99,13 @@ class Notes extends Component {
   };
 
   render() {
-    const { value } = this.props;
+    const { value, placeholder } = this.props;
 
     return (
       <div ref={this.notes} className={style["notes-wrapper"]}>
         {!value ? (
           <div className="notes-content-empty" onClick={this.handelEditClick}>
-            {TEXTS.addNote}
+            {placeholder || TEXTS.addNote}
           </div>
         ) : (
           <Fragment>
@@ -131,7 +131,8 @@ Notes.propTypes = {
   setNotes: PropTypes.func.isRequired,
   updateActivityLog: PropTypes.func,
   value: PropTypes.string,
-  tableRow: PropTypes.object
+  tableRow: PropTypes.object,
+  placeholder: PropTypes.string
 };
 
 Notes.defaultProps = {

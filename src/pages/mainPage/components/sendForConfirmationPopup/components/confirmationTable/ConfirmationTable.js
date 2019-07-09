@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
-import { Table, Tooltip, Input } from "antd";
+import { Table, Tooltip, InputNumber } from "antd";
 import style from './ConfirmationTable.module.scss';
 import ExternalLink from "GenericComponents/externalLink";
 import Notes from "GenericComponents/notes";
@@ -239,13 +239,13 @@ class ConfirmationTable extends Component {
               onMouseLeave={this.onLeaveAdditionalConfirmationRow}
             >
               <div className="table-input-wrapper">
-                <Input
+                <InputNumber
                   value={item.primer}
-                  onChange={e =>
+                  onChange={value =>
                     this.props.handleConfirmationPrimer({
                       id: row.id,
                       index,
-                      value: e.target.value
+                      value
                     })
                   }
                   placeholder="Edit"
@@ -279,13 +279,13 @@ class ConfirmationTable extends Component {
               onMouseLeave={this.onLeaveAdditionalConfirmationRow}
             >
               <div className="table-input-wrapper">
-                <Input
+                <InputNumber
                   value={item.fragmentSize}
-                  onChange={e =>
+                  onChange={value =>
                     this.props.handleConfirmationFragmentSize({
                       id: row.id,
                       index,
-                      value: e.target.value
+                      value
                     })
                   }
                   placeholder="Edit"
@@ -323,6 +323,7 @@ class ConfirmationTable extends Component {
                     index,
                     notes
                   })}
+                  placeholder="Add"
                 />
               </div>
             </div>

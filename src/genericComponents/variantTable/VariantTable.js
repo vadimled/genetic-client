@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Table, Tooltip, Checkbox } from "antd";
+import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import ConfirmationStatus from "GenericComponents/confirmationStatus";
 import Notes from "GenericComponents/notes";
@@ -199,7 +200,9 @@ class VariantTable extends Component {
       };
 
       if (column.dataIndex === "selection") {
-        column.title = <div className="table-header-selection-chbx">
+        column.title = <div className={cn("table-header-selection-chbx", {
+          'partly': !!this.props.selectedRows.length && !this.props.isAllRowSelected
+        })}>
           <Checkbox
             checked={this.props.isAllRowSelected}
             onChange={this.props.handleSelectAllRows.bind(null, this.props.isAllRowSelected)}
@@ -341,12 +344,14 @@ VariantTable.propTypes = {
   handleConfirmationStatus: PropTypes.func.isRequired,
   updateActivityLog: PropTypes.func.isRequired,
   isAllRowSelected: PropTypes.bool,
+  selectedRows: PropTypes.array,
   setNotes: PropTypes.func.isRequired,
 };
 
 VariantTable.defaultProps = {
   data: [],
-  isAllRowSelected: false
+  isAllRowSelected: false,
+  selectedRows: []
 };
 
 export default VariantTable;

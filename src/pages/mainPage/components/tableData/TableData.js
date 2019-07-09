@@ -6,7 +6,8 @@ import VariantTable from "GenericComponents/variantTable";
 import EmptyState from "GenericComponents/emptyState";
 import {
   getFilteredData,
-  checkIsAllRowSelected
+  checkIsAllRowSelected,
+  getSelectedRows
 } from "Store/selectors";
 import {
   handleSelectedRow,
@@ -33,6 +34,7 @@ class TableData extends Component {
       handleConfirmationStatus,
       goToChrPositionIgv,
       isAllRowSelected,
+      selectedRows,
       setNotes,
       updateActivityLog,
     } = this.props;
@@ -49,6 +51,7 @@ class TableData extends Component {
             handelChrPosition={goToChrPositionIgv}
             handleConfirmationStatus={handleConfirmationStatus}
             isAllRowSelected={isAllRowSelected}
+            selectedRows={selectedRows}
             setNotes={setNotes}
             updateActivityLog={updateActivityLog}
           />
@@ -63,6 +66,7 @@ function mapStateToProps(state) {
   return {
     filteredData: getFilteredData(state),
     isAllRowSelected: checkIsAllRowSelected(state),
+    selectedRows: getSelectedRows(state)
   };
 }
 

@@ -418,35 +418,42 @@ $heightTableContent: 150px;
   align-items: center;
   padding: 0 4px;
 
-  .ant-input {
-    color: $neutral_30;
-    border: 1px solid rgba(0, 0, 0, 0);
-    background-color: inherit;
-    height: 28px;
-    font-size: 16px;
-    color: $title_color;
-
-    &::-webkit-input-placeholder {
-      /* Chrome/Opera/Safari */
-      color: $placeholder-color;
-    }
-    &::-moz-placeholder {
-      /* Firefox 19+ */
-      color: $placeholder-color;
-    }
-    &:-ms-input-placeholder {
-      /* IE 10+ */
-      color: $placeholder-color;
-    }
-    &:-moz-placeholder {
-      /* Firefox 18- */
-      color: $placeholder-color;
+  .ant-input,
+  .ant-input-number {
+    &,
+    .ant-input-number-input {
+      border: 1px solid rgba(0, 0, 0, 0);
+      background-color: inherit;
+      height: 28px;
+      width: 100%;
+      font-size: 16px;
+      color: $title_color;
     }
 
-    &:hover,
-    &:active {
-      border-color: $brand_primary_color !important;
-      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+    &,
+    input {
+      &::-webkit-input-placeholder {
+        /* Chrome/Opera/Safari */
+        color: $placeholder-color;
+      }
+      &::-moz-placeholder {
+        /* Firefox 19+ */
+        color: $placeholder-color;
+      }
+      &:-ms-input-placeholder {
+        /* IE 10+ */
+        color: $placeholder-color;
+      }
+      &:-moz-placeholder {
+        /* Firefox 18- */
+        color: $placeholder-color;
+      }
+
+      &:hover,
+      &:active {
+        border-color: $brand_primary_color !important;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+      }
     }
   }
 }
@@ -733,6 +740,19 @@ th {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+
+      &.partly {
+        &::after {
+          content: "";
+          position: absolute;
+          top: 2px;
+          left: 4px;
+          width: 8px;
+          height: 8px;
+          background-color: $brand_primary_color;
+          border-radius: 2px;
+        }
+      }
     }
   }
 
@@ -759,7 +779,8 @@ th {
     &.hovered {
       background-color: $neutral_10;
       .table-input-wrapper {
-        .ant-input {
+        .ant-input,
+        .ant-input-number {
           background-color: white;
           border: 1px solid $neutral_hover_20;
         }
