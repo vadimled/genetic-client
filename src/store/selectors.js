@@ -14,7 +14,11 @@ export const
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
 
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
-  getSelectedRowKeys = state => state?.table?.selectedRowKeys,
+  getUncheckConfirmationData = state => state?.table?.uncheckConfirmationData,
+
+  getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
+  getConfirmationData = state => state?.confirmation?.data,
+
   getMutationType = state => state.variants.mutations,
   getTumorInfoMode = state => state.variants.showTumorInfo,
   getTumorInfoType = state => state.variants.tumorInfo?.type,
@@ -25,29 +29,16 @@ export const
   getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
   getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
   getIgvLastQuery = state => state?.igv?.igvLastQuery,
-  getBAMFileUrl = state => state?.igv?.BAMFileUrl;
+  getBAMFileUrl = state => state?.igv?.BAMFileUrl,
+
+  getAlertStatus = state => state?.alert?.status,
+  getAlertTitle = state => state?.alert?.title,
+  getAlertMessage = state => state?.alert?.message;
 
 export const getSearchQuery = state => state?.filters?.searchText;
 
-export const getSearchResult = createSelector(
-  getTableData,
-  getSearchQuery,
-  (data, searchQuery) => {
-    return data.filter(item => {
-      return (
-        item.gene.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.variantClass.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.coding.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.protein.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    });
-  }
-);
-
-export const getNotes = (state, id) => state?.table?.data?.[id].notes;
-
 export const getTableDataAsArray = createSelector(
-  getSearchResult,
+  getTableData,
   data => {
     let arrayData = [];
     for (let key in data) {
@@ -61,6 +52,22 @@ export const getTableDataAsArray = createSelector(
 
 
     return arrayData;
+  }
+);
+
+export const getSearchResult = createSelector(
+  getTableDataAsArray,
+  getSearchQuery,
+  (data, searchQuery) => {
+    return data.filter(item => {
+      const searchQueryInLowerCase = searchQuery.toLowerCase();
+      return (
+        item.gene.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.variantClass.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.coding.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.protein.toLowerCase().includes(searchQueryInLowerCase)
+      );
+    });
   }
 );
 
@@ -132,7 +139,7 @@ const getAppliedFilters = createSelector(
 );
 
 export const getFilteredData = createSelector(
-  getTableDataAsArray,
+  getSearchResult,
   getAppliedFilters,
   (data, appliedFilters) => {
 
@@ -191,6 +198,22 @@ export const getTotalEntriesAmount = createSelector(
   data => data?.length
 );
 
+export const getSelectedRows = createSelector(
+  getFilteredData,
+  (data) => {
+    return data.filter(row => row.selected);
+  }
+);
+
+export const checkIsAllRowSelected = createSelector(
+  getTableDataAsArray,
+  getSelectedRows,
+  (allData, selectedData) => {
+    const notConfirmedData = allData?.filter((item) => !item.status);
+    return !!selectedData?.length && notConfirmedData?.length === selectedData?.length;
+  }
+);
+
 // activity log
 export const getActivityLog = (state, recordId) => {
   const activityLog = state?.table?.activityLog[recordId];
@@ -199,7 +222,6 @@ export const getActivityLog = (state, recordId) => {
 
   for (let record in activityLog) {
     activityLogArray = activityLogArray.concat(activityLog[record]);
-
   }
 
   activityLogArray.sort((a,b) => {
@@ -208,5 +230,3 @@ export const getActivityLog = (state, recordId) => {
 
   return activityLogArray;
 };
-
-

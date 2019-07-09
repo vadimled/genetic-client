@@ -1,0 +1,69 @@
+@import "Css/Colors.scss";
+
+.alert :global {
+  position: fixed;
+  right: 15px;
+  top: 15px;
+  z-index: 9999;
+
+  .wrapper {
+    display: flex;
+    background-color: white;
+    min-width: 333px;
+    min-height: 78px;
+    box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 18px;
+    height: 18px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("../../assets/close-big.svg");
+    opacity: 0.7;
+    cursor: pointer;
+
+    transition: all 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .sign {
+    width: 40px;
+    background-position: center;
+    background-color: $table-header-bg;
+    background-repeat: no-repeat;
+    background-size: 17px 17px;
+
+    &.error {
+      background-image: url("../../assets/circle-x.svg");
+    }
+    &.warning {
+      background-image: url("../../assets/warning-sign.svg");
+    }
+  }
+
+  .content {
+    flex: 1;
+    padding: 20px;
+  }
+
+  .title {
+    font-weight: 600;
+    font-size: 16px;
+    color: $title_color;
+  }
+
+  .message {
+    font-size: 16px;
+    color: $title_color;
+  }
+}

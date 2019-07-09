@@ -11,6 +11,11 @@ describe('VariantTable', () => {
         handleZygosity={() => true}
         handleVariantClass={() => true}
         handelChrPosition={() => true}
+        handleSelectedRow={() => true}
+        handleSelectAllRows={() => true}
+        handleConfirmationStatus={() => true}
+        updateActivityLog={() => true}
+        setNotes={() => true}
       />
     );
     expect(asFragment()).toMatchSnapshot();
