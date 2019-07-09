@@ -5,14 +5,19 @@ import TableLayout from "../tableLayout";
 import VariantTable from "GenericComponents/variantTable";
 import EmptyState from "GenericComponents/emptyState";
 import {
-  getSelectedRowKeys,
-  getFilteredData
+  getFilteredData,
+  checkIsAllRowSelected,
+  getSelectedRows
 } from "Store/selectors";
 import {
-  onSelectRowKey,
+  handleSelectedRow,
+  handleSelectAllRows,
   handleZygosity,
   handleVariantClass,
-  updateActivityLog
+  handleConfirmationStatus,
+  handleUncheckConfirmationData,
+  setNotes,
+  updateActivityLog,
 } from "Actions/tableActions";
 import {
   goToChrPositionIgv
@@ -24,26 +29,34 @@ class TableData extends Component {
   render() {
     const {
       filteredData,
-      selectedRowKeys,
-      onSelectRowKey,
+      handleSelectedRow,
+      handleSelectAllRows,
       handleZygosity,
       handleVariantClass,
+      handleConfirmationStatus,
+      goToChrPositionIgv,
+      isAllRowSelected,
+      selectedRows,
+      setNotes,
       updateActivityLog,
-      goToChrPositionIgv
     } = this.props;
 
     return (
       <TableLayout>
         {!!filteredData?.length &&
-        <VariantTable
-          data={filteredData}
-          onSelectRowKey={onSelectRowKey}
-          selectedRowKeys={selectedRowKeys}
-          handleZygosity={handleZygosity}
-          handleVariantClass={handleVariantClass}
-          handelChrPosition={goToChrPositionIgv}
-          updateActivityLog={updateActivityLog}
-        />
+          <VariantTable
+            data={filteredData}
+            handleSelectedRow={handleSelectedRow}
+            handleSelectAllRows={handleSelectAllRows}
+            handleZygosity={handleZygosity}
+            handleVariantClass={handleVariantClass}
+            handelChrPosition={goToChrPositionIgv}
+            handleConfirmationStatus={handleConfirmationStatus}
+            isAllRowSelected={isAllRowSelected}
+            selectedRows={selectedRows}
+            setNotes={setNotes}
+            updateActivityLog={updateActivityLog}
+          />
         }
 
         {!filteredData?.length && <EmptyState/>}
@@ -54,18 +67,29 @@ class TableData extends Component {
 
 function mapStateToProps(state) {
   return {
-    selectedRowKeys: getSelectedRowKeys(state),
     filteredData: getFilteredData(state),
+    isAllRowSelected: checkIsAllRowSelected(state),
+    selectedRows: getSelectedRows(state)
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSelectRowKey: (data) => dispatch(onSelectRowKey(data)),
+    handleSelectedRow: (data) => dispatch(handleSelectedRow(data)),
+    handleSelectAllRows: (data) => dispatch(handleSelectAllRows(data)),
     handleZygosity: (data) => dispatch(handleZygosity(data)),
     handleVariantClass: (data) => dispatch(handleVariantClass(data)),
+    handleConfirmationStatus: (data) => {
+      if (data?.status) {
+        dispatch(handleConfirmationStatus(data));
+      }
+      else if (data?.status === null) {
+        dispatch(handleUncheckConfirmationData(data));
+      }
+    },
     updateActivityLog: data => dispatch(updateActivityLog(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
+    setNotes: data => dispatch(setNotes(data))
   };
 }
 

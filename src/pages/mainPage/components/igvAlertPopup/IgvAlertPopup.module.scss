@@ -97,23 +97,8 @@
       font-size: 14px !important;
       line-height: 18px !important;
 
-      .ant-checkbox-inner {
-        &::after {
-          left: 25%;
-        }
-      }
-
       .ant-checkbox + span {
         color: $neutral_hover_30;
-      }
-
-      .ant-checkbox-checked {
-        &::after {
-          display: none;
-        }
-        .ant-checkbox-inner {
-          border: none;
-        }
       }
     }
   }

@@ -280,6 +280,7 @@ module.exports = function(webpackEnv) {
         Reducers: path.resolve(__dirname, "../src/store/reducers/"),
         Sagas: path.resolve(__dirname, "../src/store/sagas/"),
         Pages: path.resolve(__dirname, "../src/pages/"),
+        variantPage: path.resolve(__dirname, "../src/pages/variantPage/"),
         Assets: path.resolve(__dirname, "../src/assets/")
       },
       plugins: [

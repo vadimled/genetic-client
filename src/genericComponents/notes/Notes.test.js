@@ -2,23 +2,27 @@ import React from "react";
 import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { renderWithRedux } from "Utils/test_helpers";
-import Notes from "Pages/mainPage/components/notes/Notes";
+import Notes from "./Notes";
 
 describe("Notes", () => {
-  let getByTestId, icon, store;
-  
+  let getByTestId, icon, initValue = "test string";
+
   beforeEach(() => {
-    const queries = renderWithRedux(<Notes id={0} />);
+    const queries = renderWithRedux(<Notes
+      value={initValue}
+      setNotes={() => true}
+      updateActivityLog={() => {}}
+    />);
+
     getByTestId = queries.getByTestId;
-    store = queries.store;
     icon = getByTestId("edit-icon");
   });
-  
+
   it("if EditIcon clicked", () => {
     fireEvent.click(icon);
     const editTextBox = getByTestId("edit-text-box");
     expect(editTextBox).toBeInTheDocument();
-    
+
     fireEvent.click(getByTestId("footer-button-done"));
     expect(editTextBox).not.toBeInTheDocument();
 
@@ -30,44 +34,39 @@ describe("Notes", () => {
   it("if edit-text-box opened", () => {
     fireEvent.click(icon);
 
-    const
-      storeNotes = store.getState().table?.data?.[0].notes,
-      textEditBox = getByTestId("edit-text-box-textarea").value;
-
-    expect (storeNotes).toEqual(textEditBox);
+    const textEditBox = getByTestId("edit-text-box-textarea").value;
+    expect (initValue).toEqual(textEditBox);
   });
 
   it("if TextArea has more then 150 chars", () => {
     fireEvent.click(icon);
 
-    let
-      done = getByTestId("footer-button-done"),
+    let done = getByTestId("footer-button-done"),
       textEditBox = getByTestId("edit-text-box-textarea"),
       value = "";
-    
+
     for (let i = 0; i < 151; i++) {
       value += "a";
     }
-  
+
     fireEvent.change(textEditBox, { target: { value } });
     expect(done).toBeDisabled();
-    expect(document.querySelector('.ant-form-explain')).toBeInTheDocument();
+    expect(document.querySelector(".ant-form-explain")).toBeInTheDocument();
   });
 
   it("if TextArea has less then 150 chars", () => {
     fireEvent.click(icon);
 
-    let
-      done = getByTestId("footer-button-done"),
+    let done = getByTestId("footer-button-done"),
       textEditBox = getByTestId("edit-text-box-textarea"),
       value = "";
-    
+
     for (let i = 0; i < 150; i++) {
       value += "a";
     }
-  
+
     fireEvent.change(textEditBox, { target: { value } });
     expect(done).not.toBeDisabled();
-    expect(document.querySelector('.ant-form-explain')).not.toBeInTheDocument();
+    expect(document.querySelector(".ant-form-explain")).not.toBeInTheDocument();
   });
 });

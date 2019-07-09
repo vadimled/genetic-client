@@ -1,13 +1,10 @@
 import React, { Component, Fragment, createRef } from "react";
-import { connect } from "react-redux";
 import { Tooltip } from "antd";
 import style from "./Notes.module.scss";
 import { LIMITS, TEXTS } from "Utils/constants";
 import { ReactComponent as EditIcon } from "Assets/edit.svg";
 import PropTypes from "prop-types";
-import EditNotes from "Pages/mainPage/components/notes/components/editNotes";
-import { setNotes } from "Store/actions/tableActions";
-import { getNotes } from "Store/selectors";
+import EditNotes from "./components/editNotes";
 
 class Notes extends Component {
   constructor(props) {
@@ -15,7 +12,7 @@ class Notes extends Component {
 
     this.initialState = {
       isEdit: false,
-      editNotes: props.getValue,
+      editNotes: props.value,
       limit: {
         value: 0
       }
@@ -54,9 +51,7 @@ class Notes extends Component {
   };
 
   handleDone = () => {
-    const { id, setNotes, updateActivityLog, getValue } = this.props;
-
-    const data = this.props[1];
+    const { setNotes, updateActivityLog, value: prevValue, tableRow } = this.props;
 
     setNotes({
       id,
@@ -64,8 +59,8 @@ class Notes extends Component {
     });
 
     updateActivityLog({
-      prevValue: getValue,
-      item: data,
+      prevValue,
+      item: tableRow,
       changedField: "notes"
     });
 
@@ -77,8 +72,8 @@ class Notes extends Component {
   };
 
   handelEditClick = () => {
-    const { getValue } = this.props;
-    this.setState({ editNotes: getValue, isEdit: true });
+    const { value } = this.props;
+    this.setState({ editNotes: value, isEdit: true });
   };
 
   handleEditNotesOnChange = e => {
@@ -108,22 +103,22 @@ class Notes extends Component {
   };
 
   render() {
-    const { getValue } = this.props;
+    const { value, placeholder } = this.props;
 
     return (
       <div ref={this.notes} className={style["notes-wrapper"]}>
-        {!getValue ? (
+        {!value ? (
           <div className="notes-content-empty" onClick={this.handelEditClick}>
-            {TEXTS.addNote}
+            {placeholder || TEXTS.addNote}
           </div>
         ) : (
           <Fragment>
-            <Tooltip placement="topLeft" title={getValue}>
-              <div className="notes-content">{getValue}</div>
+            <Tooltip placement="topLeft" title={value}>
+              <div className="notes-content">{value}</div>
             </Tooltip>
 
             <div
-              data-testid={`edit-icon`}
+              data-testid="edit-icon"
               className="notes-icon"
               onClick={this.handelEditClick}>
               <EditIcon />
@@ -137,24 +132,17 @@ class Notes extends Component {
 }
 
 Notes.propTypes = {
-  id: PropTypes.string.isRequired,
-  valueNotes: PropTypes.string,
-  updateActivityLog: PropTypes.func
+  setNotes: PropTypes.func.isRequired,
+  updateActivityLog: PropTypes.func,
+  value: PropTypes.string,
+  tableRow: PropTypes.object,
+  placeholder: PropTypes.string
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setNotes: data => dispatch(setNotes(data))
-  };
+Notes.defaultProps = {
+  value: "",
+  tableRow: {},
+  updateActivityLog: () => false
 };
 
-const mapStateToProps = (state, owenProps) => {
-  return {
-    getValue: getNotes(state, owenProps?.id)
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Notes);
+export default React.memo(Notes);
