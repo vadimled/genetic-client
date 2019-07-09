@@ -69,7 +69,7 @@ describe("Activity Log", () => {
 
     expect(activityLogDetails).toBeInTheDocument();
 
-    fireEvent.mouseLeave(activityLogDetails);
+    fireEvent.mouseLeave(activityLogWrapper);
 
     expect(activityLogDetails).not.toBeInTheDocument();
 
