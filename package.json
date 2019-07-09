@@ -71,7 +71,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "jest",
+    "test": "jest --verbose",
     "test:watch": "jest --watchAll",
     "fix:other": "yarn prettier --write",
     "fix:js": "yarn lint:js --fix",
@@ -169,6 +169,7 @@
       "^Reducers[/](.+)": "<rootDir>/src/store/reducers/$1",
       "^Sagas[/](.+)": "<rootDir>/src/store/sagas/$1",
       "^Pages[/](.+)": "<rootDir>/src/pages/$1",
+      "^variantPage[/](.*)": "<rootDir>/src/pages/variantPage/$1",
       "^Assets[/](.+)": "<rootDir>/src/assets/$1"
     },
     "moduleFileExtensions": [

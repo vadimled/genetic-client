@@ -16,7 +16,8 @@ const SimpleSelect = ({
   name,
   disabled,
   isClearAvailable,
-  testId
+  testId,
+  ...props
 }) => {
   return (
     <Fragment>
@@ -24,7 +25,6 @@ const SimpleSelect = ({
       {!!subLabel && <span className="sub-label">{subLabel}</span>}
 
       <Select
-        data-testid={testId}
         disabled={disabled}
         onChange={val =>
           onChange({
@@ -43,6 +43,8 @@ const SimpleSelect = ({
             backgroundImage: `url(${CloseIcon})`
           }}
         />}
+        data-testid={testId}
+        {...props}
       >
         {options?.map(option => (
           <Option key={option.value} value={option.value}>
@@ -66,7 +68,8 @@ SimpleSelect.propTypes = {
   subLabel: PropTypes.string,
   value: PropTypes.string,
   name: PropTypes.string,
-  isClearAvailable: PropTypes.bool
+  isClearAvailable: PropTypes.bool,
+  testId: PropTypes.string
 };
 
 SimpleSelect.defaultProps = {

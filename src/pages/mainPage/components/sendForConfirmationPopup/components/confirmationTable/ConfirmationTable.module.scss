@@ -1,0 +1,64 @@
+@import "Css/Colors.scss";
+
+.confirmation-table :global {
+  .ant-table-empty {
+    .ant-table-body {
+      overflow: hidden !important;
+    }
+  }
+
+  .remover-cell {
+    position: relative;
+    padding-right: 27px !important;
+
+    span {
+      white-space: nowrap;
+    }
+
+    button {
+      position: absolute;
+      right: 0px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px;
+      border: none;
+      background-color: rgba(0, 0, 0, 0);
+      background-image: url("../../../../../../assets/bin.svg");
+      background-size: 12px 15px;
+      background-position: center;
+      background-repeat: no-repeat;
+      cursor: pointer;
+
+      &:active,
+      &:focus {
+        outline: none;
+      }
+      &::-moz-focus-inner {
+        border: 0;
+      }
+
+      &,
+      * {
+        transition: all 0.15s;
+      }
+      &:hover {
+        background-image: url("../../../../../../assets/bin-red.svg");
+      }
+
+      display: none;
+    }
+  }
+
+  .ant-table-row:hover {
+    .remover-cell {
+      button {
+        display: flex;
+      }
+    }
+  }
+}

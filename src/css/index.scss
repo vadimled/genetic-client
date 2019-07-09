@@ -4,11 +4,10 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Source Sans Pro, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: Source Sans Pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -47,7 +46,7 @@ Not supports in Firefox and IE */
 
 /* div box */
 .scrollbar {
-  min-width: 150px;
+  //min-width: 150px;
   overflow-y: scroll;
 
   &.sidebar-closed {
