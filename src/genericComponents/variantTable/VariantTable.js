@@ -77,7 +77,7 @@ class VariantTable extends Component {
         title: "Allele change",
         dataIndex: "alleleChange",
         key: "6",
-        width: 100,
+        width: 200,
 
         render: (text, record) => {
           return (
@@ -136,7 +136,7 @@ class VariantTable extends Component {
         title: "Notes",
         dataIndex: "notes",
         key: "13",
-        width: 532
+        width: 700
       },
       {
         title: "Activity log",
@@ -144,24 +144,16 @@ class VariantTable extends Component {
         key: "14",
         width: 200
       }
-    ],
+    ]
   };
 
   components = {
     header: {
       cell: ResizeableTitle
-    },
-    body: {
-      // row: ()=> <tr class="ant-table-row ant-table-row-level-0"></tr>
     }
   };
 
-  // handleChange = (pagination, filters, sorter) => {
-  //   console.log('Various parameters',  sorter);
-  //   this.setState({
-  //     sortedInfo: sorter,
-  //   });
-  // };
+
 
   handelChrPosition = (e, data) => {
     console.log({ e: e.target, data });

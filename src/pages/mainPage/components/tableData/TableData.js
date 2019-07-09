@@ -22,8 +22,10 @@ import {
 import {
   goToChrPositionIgv
 } from "Actions/igvActions";
+// import VariantTable2 from "../../../../genericComponents/variantTable/VariantTable2";
 
 class TableData extends Component {
+
   render() {
     const {
       filteredData,
@@ -56,6 +58,7 @@ class TableData extends Component {
             updateActivityLog={updateActivityLog}
           />
         }
+
         {!filteredData?.length && <EmptyState/>}
       </TableLayout>
     );

@@ -1,11 +1,13 @@
 import React from "react";
+import "jest-dom/extend-expect";
+import VariantTable from './VariantTable';
+import { renderWithRedux } from "../../utils/test_helpers";
+import { handleZygosity } from "../../store/actions/tableActions";
 import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import { renderWithRedux } from "Utils/test_helpers";
-import VariantTable from "./VariantTable";
 
 describe("Variant Table Test", () => {
-  let getByTestId, zygosity;
+  let zygosity, store;
 
   const data = [
     {
@@ -28,8 +30,11 @@ describe("Variant Table Test", () => {
       variantClass: "",
       coverage: 151,
       notes: "Sed recusandae in sint.",
-      status: "pending"
+      status: "pending",
+      priority: null
     }];
+
+
 
   beforeEach(() => {
     const queries = renderWithRedux(<VariantTable
@@ -46,12 +51,13 @@ describe("Variant Table Test", () => {
       updateActivityLog={()=>{}}
     />);
 
-    getByTestId = queries.getByTestId;
+
+    store = queries.store;
 
     // zygosity = getByTestId("zygosity-select-0");
   });
 
-  it("activityLogNotes change", ()=> {
+  xit("activityLogNotes change", ()=> {
 
     // const notes = getByTestId("notes");
     const notes = document.getElementsByClassName("notes-content")[0];
@@ -63,15 +69,33 @@ describe("Variant Table Test", () => {
 
     console.log(notes.innerHTML);
     //
-    const activityLogIcon  = getByTestId("activity-log-icon-0");
-
-    expect(activityLogIcon).toBeInTheDocument();
-
-    fireEvent.click(activityLogIcon);
-
-    const activityLogPopup = getByTestId("activity-log-popup");
+    // const activityLogIcon  = getByTestId("activity-log-icon-0");
     //
-    expect(activityLogPopup).toBeInTheDocument();
+    // expect(activityLogIcon).toBeInTheDocument();
+    //
+    // fireEvent.click(activityLogIcon);
+    //
+    // const activityLogPopup = getByTestId("activity-log-popup");
+
+
+    // store.dispatch(updateActivityLog({
+    //   prevValue: "LATH",
+    //   item: data,
+    //   changedField: "variantClass"
+    // }));
+
+    store.dispatch(handleZygosity({
+      item: data,
+      value: "hetro",
+      prevValue: ""
+    }));
+
+    console.log(store.getState().table);
+
+
+
+    // expect(activityLogPopup).toBeInTheDocument();
+
     //
     // expect(getByText(currNote)).toBeInTheDocument();
     // expect(getByText(prevNote)).toBeInTheDocument();
@@ -101,3 +125,4 @@ describe("Variant Table Test", () => {
 
   });
 });
+

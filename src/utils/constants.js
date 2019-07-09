@@ -69,10 +69,10 @@ export const SOMATIC_CLASS = {
     label: "Unclassified",
     tagColor: TAG_COLORS.white
   },
-  tier1: { value: "tier1", label: "Tier1", tagColor: TAG_COLORS.red },
-  tier2: { value: "tier2", label: "Tier2", tagColor: TAG_COLORS.orange },
-  tier3: { value: "tier3", label: "Tier3", tagColor: TAG_COLORS.yellow },
-  tier4: { value: "tier4", label: "Tier4", tagColor: TAG_COLORS.blueLight }
+  tier1: { value: "tier1", label: "Tier1", tagColor: TAG_COLORS.red},
+  tier2: { value: "tier2", label: "Tier2", tagColor: TAG_COLORS.orange},
+  tier3: { value: "tier3", label: "Tier3", tagColor: TAG_COLORS.yellow},
+  tier4: { value: "tier4", label: "Tier4", tagColor: TAG_COLORS.blueLight}
 };
 
 export const GERMLINE_VARIANT_CLASS_OPTIONS = [
@@ -262,3 +262,19 @@ export const TUMOR_LOCATION = [
   "Cervical",
   "Endo-Cervical"
 ];
+
+export const PRIORITY = {
+  path: 13,
+  tier1: 12,
+  lpath: 11,
+  tier2: 10,
+  vus: 9,
+  tier3: 8,
+  unclassified: 7,
+  lben: 6,
+  unknown: 5,
+  insignificant: 4,
+  notReal: 3,
+  ben: 2,
+  tier4: 1
+};

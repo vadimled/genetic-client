@@ -46,11 +46,6 @@ export const getTableDataAsArray = createSelector(
         arrayData.push(data[key]);
       }
     }
-
-
-    // const defaultFiltration = arrayData.filter(record => record.variantClass !== "tier4")
-
-
     return arrayData;
   }
 );
@@ -60,12 +55,11 @@ export const getSearchResult = createSelector(
   getSearchQuery,
   (data, searchQuery) => {
     return data.filter(item => {
-      const searchQueryInLowerCase = searchQuery.toLowerCase();
       return (
-        item.gene.toLowerCase().includes(searchQueryInLowerCase) ||
-        item.variantClass.toLowerCase().includes(searchQueryInLowerCase) ||
-        item.coding.toLowerCase().includes(searchQueryInLowerCase) ||
-        item.protein.toLowerCase().includes(searchQueryInLowerCase)
+        item.gene.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.variantClass.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.coding.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.protein.toLowerCase().includes(searchQuery.toLowerCase())
       );
     });
   }
@@ -142,9 +136,11 @@ export const getFilteredData = createSelector(
   getSearchResult,
   getAppliedFilters,
   (data, appliedFilters) => {
-
     if (isEmpty(appliedFilters)) {
-      return data;
+
+      const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
+
+      return sortedData;
     }
 
     const filtersArray = Object.keys(appliedFilters).map(key => {
@@ -155,7 +151,9 @@ export const getFilteredData = createSelector(
       return filtersArray.every(filter => filter(item));
     });
 
-    return filteredData;
+    const sortedData = filteredData.sort((a, b) => b.priority - a.priority).slice();
+
+    return sortedData;
   }
 );
 
@@ -222,6 +220,7 @@ export const getActivityLog = (state, recordId) => {
 
   for (let record in activityLog) {
     activityLogArray = activityLogArray.concat(activityLog[record]);
+
   }
 
   activityLogArray.sort((a,b) => {
@@ -230,3 +229,5 @@ export const getActivityLog = (state, recordId) => {
 
   return activityLogArray;
 };
+
+
