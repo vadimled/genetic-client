@@ -57,7 +57,9 @@ class VariantPage extends Component {
           ])}
         >
           <div className="main-header-data">
-            <VariantPageHeader sidebarToggle={sidebarToggle}/>
+            <VariantPageHeader
+              id={"k5wp5amernh84pvsygjji9ljz"}
+              sidebarToggle={sidebarToggle}/>
           </div>
           <div className="main-data">
             <div className="history">History</div>

@@ -52,6 +52,9 @@ const SET_IGV_LAST_QUERY = "SET_IGV_LAST_QUERY";
 // alert
 const SET_ALERT = "SET_ALERT";
 
+// Variant page
+const SET_GENE_VALUE = "SET_GENE_VALUE";
+
 export default {
   // filters
   SET_FILTER_TYPE,
@@ -106,5 +109,8 @@ export default {
   SET_IGV_LAST_QUERY,
 
   // alert
-  SET_ALERT
+  SET_ALERT,
+  
+  // Variant page
+  SET_GENE_VALUE
 };
