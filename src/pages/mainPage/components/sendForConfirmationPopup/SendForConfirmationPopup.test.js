@@ -133,7 +133,7 @@ describe('SendForConfirmationPopup', () => {
 
     const confirmationData6 = getConfirmationData(store.getState());
     const row2 = confirmationData6.find((row) => row.id === primerFirstInputRowId);
-    expect(row2.additionConfirmationData[primerFirstInputindex].primer).toEqual('123');
+    expect(row2.additionConfirmationData[primerFirstInputindex].primer).toEqual(123);
 
     // fragment size test
     const fSizeInputs = getAllByTestId('fragmentSize-input');
@@ -149,7 +149,7 @@ describe('SendForConfirmationPopup', () => {
 
     const confirmationData8 = getConfirmationData(store.getState());
     const row4 = confirmationData8.find((row) => row.id === fSizeFirstInputRowId);
-    expect(row4.additionConfirmationData[fSizeFirstInputindex].fragmentSize).toEqual('123');
+    expect(row4.additionConfirmationData[fSizeFirstInputindex].fragmentSize).toEqual(123);
 
     // when all required fields have filled out, try to send
     fireEvent.click(sendBtn);
@@ -181,7 +181,7 @@ describe('SendForConfirmationPopup', () => {
 
     const confirmationData6 = getConfirmationData(store.getState());
     const row2 = confirmationData6.find((row) => row.id === primerFirstInputRowId);
-    expect(row2.additionConfirmationData[primerFirstInputindex].primer).toEqual('123');
+    expect(row2.additionConfirmationData[primerFirstInputindex].primer).toEqual(123);
 
     // when only primer field has filled out, try to send
     fireEvent.click(sendBtn);
@@ -237,7 +237,7 @@ describe('SendForConfirmationPopup', () => {
 
     const confirmationData8 = getConfirmationData(store.getState());
     const row4 = confirmationData8.find((row) => row.id === fSizeFirstInputRowId);
-    expect(row4.additionConfirmationData[fSizeFirstInputindex].fragmentSize).toEqual('123');
+    expect(row4.additionConfirmationData[fSizeFirstInputindex].fragmentSize).toEqual(123);
 
     // when only primer field has filled out, try to send
     fireEvent.click(sendBtn);
@@ -277,7 +277,7 @@ describe('SendForConfirmationPopup', () => {
 
     const confirmationData8 = getConfirmationData(store.getState());
     const row4 = confirmationData8.find((row) => row.id === fSizeFirstInputRowId);
-    expect(row4.additionConfirmationData[fSizeFirstInputindex].fragmentSize).toEqual('123');
+    expect(row4.additionConfirmationData[fSizeFirstInputindex].fragmentSize).toEqual(123);
 
     // when only primer field has filled out, try to send
     fireEvent.click(sendBtn);
@@ -317,7 +317,7 @@ describe('SendForConfirmationPopup', () => {
 
     const confirmationData6 = getConfirmationData(store.getState());
     const row2 = confirmationData6.find((row) => row.id === primerFirstInputRowId);
-    expect(row2.additionConfirmationData[primerFirstInputindex].primer).toEqual('123');
+    expect(row2.additionConfirmationData[primerFirstInputindex].primer).toEqual(123);
 
     // fragment size test
     const fSizeInputs = getAllByTestId('fragmentSize-input');
