@@ -215,7 +215,6 @@ export const TUMOR_TYPE = [
 ];
 
 export const TUMOR_LOCATION = [
-
   "adrenal_gland",
   "bile_duct",
   "gallbladder",
@@ -262,3 +261,17 @@ export const TUMOR_LOCATION = [
   "Cervical",
   "Endo-Cervical"
 ];
+
+export const CHROMOSOME_OPTIONS = [
+  ...([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22].map((i) => ({
+    value: i.toString(), label: i.toString()
+  }))),
+  { value: "X", label: "X" },
+  { value: "Y", label: "Y" },
+];
+
+export const ALLELE_TYPES = {
+  'change': {value: 'change', label: 'Change'},
+  'insertion': {value: 'insertion', label: 'Insertion'},
+  'deletion': {value: 'deletion', label: 'Deletion'}
+};

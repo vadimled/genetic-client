@@ -5,6 +5,7 @@ import variantsReducer from "./variantsReducer";
 import igvReducer from "./igvReducer";
 import confirmationReducer from "./confirmationReducer";
 import alertReducer from "./alertReducer";
+import resultConfigReducer from "./resultConfigReducer";
 
 export default combineReducers({
   filters: filtersReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   variants: variantsReducer,
   igv: igvReducer,
   confirmation: confirmationReducer,
-  alert: alertReducer
+  alert: alertReducer,
+  resultConfig: resultConfigReducer
 });

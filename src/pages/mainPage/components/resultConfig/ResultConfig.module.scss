@@ -16,6 +16,11 @@
     font-size: 16px;
     line-height: 21px;
     color: $title_color;
+
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
   }
 
   .label {
@@ -182,5 +187,37 @@
     font-size: 16px;
     line-height: 21px;
     color: $title_color;
+  }
+
+  .chromosome-select-wrapper {
+    .ant-select {
+      width: 100%;
+      height: 44px;
+
+      .ant-select-selection {
+        border: 1px solid $input-border-color;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .position-input-wrapper {
+    height: 44px;
+    .ant-input-number {
+      height: 44px;
+      width: 100%;
+      border: 1px solid $input-border-color;
+      border-radius: 4px;
+    }
+
+    input {
+      width: 100%;
+      height: 44px;
+      padding: 16px;
+
+      font-size: 16px;
+      line-height: 21px;
+      color: $title_color;
+    }
   }
 }

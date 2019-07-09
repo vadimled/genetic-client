@@ -13,12 +13,12 @@
     &.hidden {
       pointer-events: none;
 
-      .c-slidebar__background {
+      .slidebar-background {
         opacity: 0;
       }
 
-      .c-slidebar__content {
-        right: -400px;
+      .slidebar-content {
+        right: -491px;
       }
     }
   }
@@ -47,7 +47,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    overflow: auto;
+    overflow: hidden;
 
     transition: all 0.5s;
   }
@@ -70,11 +70,17 @@
     align-items: center;
     padding: 20px 47px;
     border-bottom: 1px solid $border_color;
+    height: 63px;
   }
 
   .slidebar-title {
     font-weight: 600;
     font-size: 18px;
     color: $title_color;
+  }
+
+  .slidebar-inner {
+    height: calc(100% - 63px);
+    overflow: auto;
   }
 }

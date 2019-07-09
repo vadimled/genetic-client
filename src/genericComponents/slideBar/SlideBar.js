@@ -25,7 +25,9 @@ const SlideBar = ({ isOpen, onClose, children, title }) => {
             className="slidebar-close"
             onClick={onClose}
           />
-          {children}
+          <div className="slidebar-inner">
+            {children}
+          </div>
         </div>
       </div>
     </div>

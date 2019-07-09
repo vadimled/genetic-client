@@ -31,6 +31,14 @@ export const
   getIgvLastQuery = state => state?.igv?.igvLastQuery,
   getBAMFileUrl = state => state?.igv?.BAMFileUrl,
 
+  getResultConfigIsOpen = state => state?.resultConfig?.isOpen,
+  getResultConfigGene = state => state?.resultConfig?.gene,
+  getResultConfigChromosome = state => state?.resultConfig?.chromosome,
+  getResultConfigPosition = state => state?.resultConfig?.position,
+  getResultConfigAlleleType = state => state?.resultConfig?.alleleType,
+  getResultConfigAlleleReference = state => state?.resultConfig?.alleleReference,
+  getResultConfigAlleleAlternative = state => state?.resultConfig?.alleleAlternative,
+
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,
   getAlertMessage = state => state?.alert?.message;
