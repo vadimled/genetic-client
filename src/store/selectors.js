@@ -5,6 +5,7 @@ import isEmpty from "lodash.isempty";
 export const
   getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVariantClass = state => state?.filters?.[FILTERS.variantClass],
+  // getFilterVariantClassBen = state => state?.filters?.[FILTERS.variantClass],
   getFilterSomaticClass = state => state?.filters?.[FILTERS.somaticClass],
   getFilterHotSpot = state => state?.filters?.[FILTERS.hotSpot],
   getFilterSnp = state => state?.filters?.[FILTERS.snp],
@@ -34,6 +35,8 @@ export const
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,
   getAlertMessage = state => state?.alert?.message;
+
+
 
 export const getSearchQuery = state => state?.filters?.searchText;
 
@@ -140,7 +143,11 @@ export const getFilteredData = createSelector(
 
       const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
 
+      // const filtered = sortedData.filter(record => record.variantClass !== "tier4")
+
       return sortedData;
+
+      // return sortedData;
     }
 
     const filtersArray = Object.keys(appliedFilters).map(key => {
@@ -152,6 +159,9 @@ export const getFilteredData = createSelector(
     });
 
     const sortedData = filteredData.sort((a, b) => b.priority - a.priority).slice();
+
+    console.log("filtersArray: ", filtersArray);
+
 
     return sortedData;
   }
