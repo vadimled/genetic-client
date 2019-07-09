@@ -7,7 +7,8 @@ import {
   CONFIRMATION_VALUES,
   ZYGOSITY_OPTIONS,
   GERMLINE_VARIANT_CLASS_OPTIONS,
-  SOMATIC_VARIANT_CLASS_OPTIONS
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  PRIORITY
 } from "Utils/constants";
 import {
   handleZygosity,
@@ -104,8 +105,11 @@ describe('TableData', () => {
     const firstSelect = select[0];
     const rowId = firstSelect.dataset['testitemid'];
     const zygosityValue = ZYGOSITY_OPTIONS?.[0]?.value;
+    const notReal = ZYGOSITY_OPTIONS?.[5]?.value;
     const germlineVariantClassValue = GERMLINE_VARIANT_CLASS_OPTIONS?.[0]?.value;
     const somaticVariantClassValue = SOMATIC_VARIANT_CLASS_OPTIONS?.[0]?.value;
+    const tier2 = SOMATIC_VARIANT_CLASS_OPTIONS?.[2]?.value;
+    const path = GERMLINE_VARIANT_CLASS_OPTIONS?.[1]?.value;
 
     expect(firstSelect).toBeDefined();
     expect(rowId).toBeDefined();
@@ -117,17 +121,42 @@ describe('TableData', () => {
 
     store.dispatch(handleZygosity({ item: { id: rowId }, value: zygosityValue }));
 
+
+    expect(row1.priority).toEqual(PRIORITY[germlineVariantClassValue]);
+
     const row2 = store.getState().table.data[rowId];
     expect(row2.zygosity).toEqual(zygosityValue);
 
     store.dispatch(handleVariantClass({ item: { id: rowId }, value: germlineVariantClassValue }));
 
     const row3 = store.getState().table.data[rowId];
+
+    expect(row3.priority).toEqual(PRIORITY[germlineVariantClassValue]);
+
     expect(row3.variantClass).toEqual(germlineVariantClassValue);
+
 
     store.dispatch(handleVariantClass({ item: { id: rowId }, value: somaticVariantClassValue }));
 
     const row4 = store.getState().table.data[rowId];
     expect(row4.variantClass).toEqual(somaticVariantClassValue);
+
+    store.dispatch(handleVariantClass({ item: { id: rowId }, value: notReal }));
+
+    const row5 = store.getState().table.data[rowId];
+
+    expect(row5.priority).toEqual(PRIORITY[notReal]);
+
+    store.dispatch(handleVariantClass({ item: { id: rowId }, value: tier2 }));
+
+    const row6 = store.getState().table.data[rowId];
+
+    expect(row6.priority).toEqual(PRIORITY[tier2]);
+
+    store.dispatch(handleVariantClass({ item: { id: rowId }, value: path }));
+
+    const row7 = store.getState().table.data[rowId];
+
+    expect(row7.priority).toEqual(PRIORITY[path]);
   });
 });
