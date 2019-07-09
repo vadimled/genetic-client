@@ -51,7 +51,6 @@ class Notes extends Component {
   };
 
   handleDone = () => {
-    // <<<<<<< HEAD:src/genericComponents/notes/Notes.js
     const { setNotes, updateActivityLog, value: prevValue, tableRow } = this.props;
     setNotes(this.state.editNotes);
     updateActivityLog({
