@@ -47,7 +47,6 @@ describe("Variant Table Test", () => {
     />);
 
     getByTestId = queries.getByTestId;
-    getByText = queries.getByText;
 
     // zygosity = getByTestId("zygosity-select-0");
   });
