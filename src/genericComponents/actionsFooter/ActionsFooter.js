@@ -21,7 +21,7 @@ const ActionsFooter = ({disabled, doneHandler, cancelHandler, disableCancel}) =>
         data-testid={`footer-button-done`}
         disabled={disabled}
         onClick={doneHandler}
-        type={disabled ? "default" : "primary"}
+        type={disabled ? "GeneType" : "primary"}
         id="button-done"
       >
         {TEXTS.done}

@@ -32,8 +32,8 @@
 
   .right-data {
     flex: 5 5 300px;
-    background-color: #aa4079;
-    //align-items: center;
+    border: 1px solid #aa4079;
+    align-items: center;
 
     transform: translate(0px, 0px);
     transition: 0.4s ease;

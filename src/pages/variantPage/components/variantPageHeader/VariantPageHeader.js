@@ -2,6 +2,7 @@ import React from "react";
 import style from "./VariantPageHeader.module.scss";
 import InformField from "GenericComponents/informField";
 import ExternalLink from "GenericComponents/externalLink";
+import GeneType from "variantComponents/geneType";
 // import PropTypes from "prop-types";
 
 const VariantPageHeader = () => {
@@ -37,7 +38,9 @@ const VariantPageHeader = () => {
           </div>
         </div>
       </div>
-      <div className="right-data" />
+      <div className="right-data">
+        <GeneType germlineClass={"LPATH"} />
+      </div>
     </div>
   );
 };
