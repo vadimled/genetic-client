@@ -18,7 +18,7 @@ const LogRecord = ({record}) => {
   let titleCurr = "";
 
   if(type === "variantClass"){
-    titleCurr = VARIANT_CLASS[record.titleCurr]?.label || SOMATIC_CLASS[record.titleCurr].label;
+    titleCurr = VARIANT_CLASS[record.titleCurr]?.label || SOMATIC_CLASS[record.titleCurr]?.label;
   }
   else if(type === "zygosity"){
     titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label;
@@ -57,7 +57,7 @@ const LogRecord = ({record}) => {
             titleCurr
         }
       </div>
-      <div className="record_time record__item flex items-center">
+      <div className="record_time record__item flex items-center justify-center">
         {dateFormat(record.time, "H:MM, d mmmm yyyy")}
       </div>
     </div>

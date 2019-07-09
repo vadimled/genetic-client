@@ -17,13 +17,13 @@
       }
     }
   }
-  .activity-icon-wrapper__disabled {
+  .activity-icon-wrapper.disabled {
     cursor: not-allowed;
     svg {
       opacity: 0.5;
     }
   }
-  .active-log-details {
+  .activity-log-details {
     position: absolute;
     z-index: 9;
     right: 98px;
@@ -43,22 +43,23 @@
       }
       .record__user {
         min-width: 84px;
-        border-right: 1px solid violet;
+        border-right: 1px solid $border_color;
       }
       .record_changed-item {
         width: 100px;
         text-align: center;
 
-        border-right: 1px solid violet;
+        border-right: 1px solid $border_color;
         .notes {
           display: block;
           white-space: nowrap !important;
           overflow: hidden !important;
           text-overflow: ellipsis !important;
+          padding: 0 6px;
         }
       }
       .record_time {
-        min-width: 146px;
+        min-width: 160px;
         text-align: center;
         font-size: 14px;
         color: $neutral_30;
