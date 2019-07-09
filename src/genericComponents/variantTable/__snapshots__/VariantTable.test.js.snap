@@ -43,7 +43,7 @@ exports[`VariantTable VariantTable snapshot 1`] = `
                       style="width: 100px; min-width: 100px;"
                     />
                     <col
-                      style="width: 100px; min-width: 100px;"
+                      style="width: 200px; min-width: 200px;"
                     />
                     <col
                       style="width: 100px; min-width: 100px;"
@@ -64,7 +64,7 @@ exports[`VariantTable VariantTable snapshot 1`] = `
                       style="width: 100px; min-width: 100px;"
                     />
                     <col
-                      style="width: 532px; min-width: 532px;"
+                      style="width: 700px; min-width: 700px;"
                     />
                     <col
                       style="width: 200px; min-width: 200px;"
@@ -461,7 +461,7 @@ exports[`VariantTable VariantTable snapshot 1`] = `
                       style="width: 100px; min-width: 100px;"
                     />
                     <col
-                      style="width: 100px; min-width: 100px;"
+                      style="width: 200px; min-width: 200px;"
                     />
                     <col
                       style="width: 100px; min-width: 100px;"
@@ -482,7 +482,7 @@ exports[`VariantTable VariantTable snapshot 1`] = `
                       style="width: 100px; min-width: 100px;"
                     />
                     <col
-                      style="width: 532px; min-width: 532px;"
+                      style="width: 700px; min-width: 700px;"
                     />
                     <col
                       style="width: 200px; min-width: 200px;"
