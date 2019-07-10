@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import style from "./InformField.module.scss";
 
@@ -18,4 +18,4 @@ InformField.propTypes = {
   icon: PropTypes.node
 };
 
-export default InformField;
+export default memo(InformField);

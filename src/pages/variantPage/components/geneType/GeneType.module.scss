@@ -7,11 +7,32 @@
   height: 100%;
   padding-right: 4vw;
   align-items: center;
+  cursor: pointer;
 
   .gene-type-radio-group {
     display: flex;
     width: 100%;
     justify-content: flex-end;
+    margin-top: 7px;
+
+    .select-non-active {
+      width: 200px;
+      height: 54px;
+      background: none;
+      //border: #ca1717 solid 1px;
+
+      .select-non-active-title {
+        margin: 4px 0;
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 100%;
+        text-align: center;
+        color: $neutral_30;
+      }
+
+      .select-non-active-class {
+      }
+    }
   }
   //.gene-type-text{
   //  display: flex;

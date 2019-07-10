@@ -54,6 +54,8 @@ const SET_ALERT = "SET_ALERT";
 
 // Variant page
 const SET_GENE_VALUE = "SET_GENE_VALUE";
+const SET_GENE_TYPE = "SET_GENE_TYPE";
+const SET_GENE = "SET_GENE";
 
 export default {
   // filters
@@ -112,5 +114,7 @@ export default {
   SET_ALERT,
   
   // Variant page
-  SET_GENE_VALUE
+  SET_GENE,
+  SET_GENE_VALUE,
+  SET_GENE_TYPE
 };

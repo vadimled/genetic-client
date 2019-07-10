@@ -33,7 +33,10 @@ export const
 
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,
-  getAlertMessage = state => state?.alert?.message;
+  getAlertMessage = state => state?.alert?.message,
+  
+  getGeneType = state => state.variantPage.type,
+  getGeneValue = state => state.variantPage.value;
 
 export const getSearchQuery = state => state?.filters?.searchText;
 
