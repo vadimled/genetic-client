@@ -9,7 +9,11 @@ const initialState = {
   position: '',
   alleleType: ALLELE_TYPES.change.value,
   alleleReference: '',
-  alleleAlternative: ''
+  alleleAlternative: '',
+  vaf: 0,
+  coverage: 0,
+  coding: '',
+  proteint: ''
 };
 
 const tableReducer = createReducer(initialState, {
@@ -61,6 +65,34 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       alleleAlternative: payload
+    };
+  },
+
+  [actionsTypes.HANDLE_RESULT_CONFIG_VAF]: (state, { payload }) => {
+    return {
+      ...state,
+      vaf: payload
+    };
+  },
+
+  [actionsTypes.HANDLE_RESULT_CONFIG_COVERAGE]: (state, { payload }) => {
+    return {
+      ...state,
+      coverage: payload
+    };
+  },
+
+  [actionsTypes.HANDLE_RESULT_CONFIG_CODING]: (state, { payload }) => {
+    return {
+      ...state,
+      coding: payload
+    };
+  },
+
+  [actionsTypes.HANDLE_RESULT_CONFIG_PROTEIN]: (state, { payload }) => {
+    return {
+      ...state,
+      proteint: payload
     };
   },
 

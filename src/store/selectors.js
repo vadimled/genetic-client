@@ -38,6 +38,10 @@ export const
   getResultConfigAlleleType = state => state?.resultConfig?.alleleType,
   getResultConfigAlleleReference = state => state?.resultConfig?.alleleReference,
   getResultConfigAlleleAlternative = state => state?.resultConfig?.alleleAlternative,
+  getResultConfigVaf = state => state?.resultConfig?.vaf,
+  getResultConfigCoverage = state => state?.resultConfig?.coverage,
+  getResultConfigCoding = state => state?.resultConfig?.coding,
+  getResultConfigProtein = state => state?.resultConfig?.proteint,
 
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,

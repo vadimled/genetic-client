@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from "react-redux";
 import cn from 'classnames';
+import { InputNumber } from "antd";
 import SlideBar from "GenericComponents/slideBar";
 import SimpleSelect from "GenericComponents/simpleSelect";
-import { InputNumber } from "antd";
+import GeneSelect from "./components/geneSelect";
 import style from './ResultConfig.module.scss';
 import {
   CHROMOSOME_OPTIONS,
@@ -25,7 +26,11 @@ import {
   getResultConfigPosition,
   getResultConfigAlleleType,
   getResultConfigAlleleReference,
-  getResultConfigAlleleAlternative
+  getResultConfigAlleleAlternative,
+  getResultConfigVaf,
+  getResultConfigCoverage,
+  getResultConfigCoding,
+  getResultConfigProtein,
 } from "Store/selectors";
 
 const ResultConfig = (props) => {
@@ -37,6 +42,10 @@ const ResultConfig = (props) => {
     alleleType,
     alleleReference,
     alleleAlternative,
+    vaf,
+    coverage,
+    coding,
+    protein,
 
     handleClose,
     handleGene,
@@ -57,10 +66,10 @@ const ResultConfig = (props) => {
         <div className="content">
           <div className="gene-row">
             <div className="label">Gene</div>
-            <input
-              className="rcinput"
+            <GeneSelect
+              dataSource={['one', 'two']}
               value={gene}
-              onChange={(e) => handleGene(e.target.value)}
+              onChange={handleGene}
             />
           </div>
           <div className="chr-pos-row">
@@ -134,22 +143,22 @@ const ResultConfig = (props) => {
           <div className="vaf-covarage-row">
             <div className="vaf">
               <div className="label">VAF:</div>
-              <div className="vaf-covarage-result">11</div>
+              <div className="vaf-covarage-result">{vaf}</div>
             </div>
             <div className="covarage">
-              <div className="label">Covarage:</div>
-              <div className="vaf-covarage-result">11</div>
+              <div className="label">Coverage:</div>
+              <div className="vaf-covarage-result">{coverage}</div>
             </div>
           </div>
           <div className="allele-divider"/>
           <button className="allele-btn allele-btn--hgvs">Load HGVS</button>
           <div className="cp-row">
             <div className="label">Coding:</div>
-            <div className="cp-result">123</div>
+            <div className="cp-result">{coding}</div>
           </div>
           <div className="cp-row">
             <div className="label">Protein:</div>
-            <div className="cp-result">123</div>
+            <div className="cp-result">{protein}</div>
           </div>
           <div className="allele-divider"/>
           <button className="allele-btn allele-btn--add">Add result</button>
@@ -184,7 +193,11 @@ const mapStateToProps = (state) => {
     position: getResultConfigPosition(state),
     alleleType: getResultConfigAlleleType(state),
     alleleReference: getResultConfigAlleleReference(state),
-    alleleAlternative: getResultConfigAlleleAlternative(state)
+    alleleAlternative: getResultConfigAlleleAlternative(state),
+    vaf: getResultConfigVaf(state),
+    coverage: getResultConfigCoverage(state),
+    coding: getResultConfigCoding(state),
+    protein: getResultConfigProtein(state),
   };
 };
 

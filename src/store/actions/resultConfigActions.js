@@ -48,3 +48,31 @@ export const handleResultConfigAlleleAlternative = data => {
     payload: data
   };
 };
+
+export const handleResultConfigVaf = data => {
+  return {
+    type: actionsTypes.HANDLE_RESULT_CONFIG_VAF,
+    payload: data
+  };
+};
+
+export const handleResultConfigCoverage = data => {
+  return {
+    type: actionsTypes.HANDLE_RESULT_CONFIG_COVERAGE,
+    payload: data
+  };
+};
+
+export const handleResultConfigCoding = data => {
+  return {
+    type: actionsTypes.HANDLE_RESULT_CONFIG_CODING,
+    payload: data
+  };
+};
+
+export const handleResultConfigProtein = data => {
+  return {
+    type: actionsTypes.HANDLE_RESULT_CONFIG_PROTEIN,
+    payload: data
+  };
+};
