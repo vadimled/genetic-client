@@ -39,6 +39,7 @@ const VariantPageHeader = ({ sidebarToggle /* , id*/ }) => {
           </div>
         </div>
       </div>
+      
       <div className={cn(["right-data", { "sidebar-open": sidebarToggle }])}>
         <GeneType />
       </div>

@@ -1,19 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import { Radio } from "antd";
 import SimpleSelect from "GenericComponents/simpleSelect/SimpleSelect";
-import { GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS, TEXTS } from "Utils/constants";
+import {
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  TEXTS
+} from "Utils/constants";
 import style from "./GeneType.module.scss";
 import { ReactComponent as EditIcon } from "Assets/edit.svg";
 import { connect } from "react-redux";
 import { setGeneType, setGeneValue } from "Actions/variantPageActions";
-import { getGeneType, getGermlineValue, getSomaticValue } from "Store/selectors";
+import {
+  getGeneType,
+  getGermlineValue,
+  getSomaticValue
+} from "Store/selectors";
 import NonActiveButton from "variantComponents/nonActiveButton";
 
 class GeneType extends React.Component {
   onChangeType = (e, id) => {
-    const { value, name } = e.target;
-    const { setValue, setType } = this.props;
+    const { value, name } = e.target,
+      { setValue, setType } = this.props;
+
     !value ? setType(id) : setValue({ value, name });
   };
 
@@ -38,8 +46,8 @@ class GeneType extends React.Component {
               title={"Germline:"}
               onClick={this.onChangeType}
               type={TEXTS.germline}
-              somaticValue={somaticValue}
-              germlineValue={germlineValue}
+              typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
+              currValue={germlineValue}
             />
           )}
           {currentType === TEXTS.somatic ? (
@@ -58,8 +66,8 @@ class GeneType extends React.Component {
               title={"Somatic:"}
               onClick={this.onChangeType}
               type={TEXTS.somatic}
-              somaticValue={somaticValue}
-              germlineValue={germlineValue}
+              typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
+              currValue={somaticValue}
             />
           )}
         </div>
