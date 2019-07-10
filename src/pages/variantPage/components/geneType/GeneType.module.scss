@@ -13,7 +13,22 @@
     display: flex;
     width: 100%;
     justify-content: flex-end;
-    margin-top: 7px;
+    margin-top: 12px;
+
+    .select-wrapper {
+      position: relative;
+
+      .select-title {
+        display: block;
+        position: absolute;
+        right: 34%;
+        top: 4px;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 100%;
+        color: $white !important;
+      }
+    }
 
     .select-non-active {
       width: 200px;
@@ -21,7 +36,6 @@
       background: none;
       display: flex;
       flex-direction: column;
-      //border: #ca1717 solid 1px;
 
       .select-non-active-title {
         margin: 4px 0;

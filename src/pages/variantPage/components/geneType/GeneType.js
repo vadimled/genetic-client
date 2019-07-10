@@ -74,13 +74,16 @@ class GeneType extends React.Component {
       <div className={style["gene-type-wrapper"]}>
         <div className="gene-type-radio-group">
           {currentType === "germline" ? (
-            <SimpleSelect
-              name={"germline"}
-              value={germlineValue}
-              options={GERMLINE_VARIANT_CLASS_OPTIONS}
-              onChange={this.onChangeType}
-              suffixIcon={<EditIcon />}
-            />
+            <div className="select-wrapper">
+              <SimpleSelect
+                name={"germline"}
+                value={germlineValue}
+                options={GERMLINE_VARIANT_CLASS_OPTIONS}
+                onChange={this.onChangeType}
+                suffixIcon={<EditIcon />}
+              />
+              <div className="select-title">Germline:</div>
+            </div>
           ) : (
             <div
               id="germline"
@@ -94,13 +97,16 @@ class GeneType extends React.Component {
             </div>
           )}
           {currentType === "somatic" ? (
-            <SimpleSelect
-              name={"somatic"}
-              value={somaticValue}
-              options={SOMATIC_VARIANT_CLASS_OPTIONS}
-              onChange={this.onChangeType}
-              suffixIcon={<EditIcon />}
-            />
+            <div className="select-wrapper">
+              <SimpleSelect
+                name={"somatic"}
+                value={somaticValue}
+                options={SOMATIC_VARIANT_CLASS_OPTIONS}
+                onChange={this.onChangeType}
+                suffixIcon={<EditIcon />}
+              />
+              <div className="select-title">Somatic:</div>
+            </div>
           ) : (
             <div
               id="somatic"
