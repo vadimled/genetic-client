@@ -68,13 +68,13 @@ export const getTitlePrev = (type, record) =>{
   if (type === "variantClass") {
     titlePrev =
       VARIANT_CLASS[record.titlePrev]?.label ||
-      SOMATIC_CLASS[record.titlePrev].label;
+      SOMATIC_CLASS[record.titlePrev]?.label;
 
   } else if (type === "zygosity") {
     if (record.titlePrev) {
       titlePrev = ZYGOSITY_OPTIONS.find(
         option => option.value === record.titlePrev
-      ).label;
+      )?.label;
     }
   } else if (type === "notes") {
     if (record.titlePrev) {
@@ -91,7 +91,7 @@ export const getTitleCurr = (type, record) =>{
   if (type === "variantClass") {
     titleCurr =
       VARIANT_CLASS[record.titleCurr]?.label ||
-      SOMATIC_CLASS[record.titleCurr].label;
+      SOMATIC_CLASS[record.titleCurr]?.label;
   } else if (type === "zygosity") {
     if (record.titlePrev) {
       titleCurr = ZYGOSITY_OPTIONS.find(
@@ -100,7 +100,7 @@ export const getTitleCurr = (type, record) =>{
     } else {
       titleCurr = ZYGOSITY_OPTIONS.find(
         option => option.value === record.titleCurr
-      ).label;
+      )?.label;
     }
   } else if (type === "notes") {
     if (record.titlePrev) {

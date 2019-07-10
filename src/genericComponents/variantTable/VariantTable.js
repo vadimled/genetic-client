@@ -178,6 +178,7 @@ class VariantTable extends Component {
       item,
       value,
     });
+
     updateActivityLog({prevValue, item, changedField: "variantClass"});
   }
 
@@ -206,6 +207,7 @@ class VariantTable extends Component {
         column.render = (...data) => (
           <div className="table-select-wrapper">
             <SimpleSelect
+              // testId={`zygosity-select-${data[2]}`}
               value={data[1].zygosity}
               options={ZYGOSITY_OPTIONS}
               onChange={e =>
@@ -232,6 +234,7 @@ class VariantTable extends Component {
           data[1].zygosity !== "unknown" ? (
               <div className="table-select-wrapper">
                 <SimpleSelect
+                  testId={`variant-сlass-select-${data[2]}`}
                   value={data[1].variantClass}
                   options={
                     data[1].zygosity === "somatic"
@@ -286,7 +289,7 @@ class VariantTable extends Component {
 
       if (col.dataIndex === "activityLog") {
         column.render = (...data) => {
-          return <ActivityLog {...data} />;
+          return <ActivityLog data-testid={`activity-icon`} {...data} id={data[1].id} />;
         };
       }
 
@@ -328,16 +331,16 @@ class VariantTable extends Component {
 
 VariantTable.propTypes = {
   data: PropTypes.array,
-  handleSelectedRow: PropTypes.func.isRequired,
-  handleSelectAllRows: PropTypes.func.isRequired,
+  handleSelectedRow: PropTypes.func,
+  handleSelectAllRows: PropTypes.func,
   handleZygosity: PropTypes.func.isRequired,
   handleVariantClass: PropTypes.func.isRequired,
-  handelChrPosition: PropTypes.func.isRequired,
-  handleConfirmationStatus: PropTypes.func.isRequired,
+  handelChrPosition: PropTypes.func,
+  handleConfirmationStatus: PropTypes.func,
   updateActivityLog: PropTypes.func.isRequired,
   isAllRowSelected: PropTypes.bool,
   selectedRows: PropTypes.array,
-  setNotes: PropTypes.func.isRequired,
+  setNotes: PropTypes.func,
 };
 
 VariantTable.defaultProps = {

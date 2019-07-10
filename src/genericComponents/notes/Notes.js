@@ -101,7 +101,11 @@ class Notes extends Component {
     const { value, placeholder } = this.props;
 
     return (
-      <div ref={this.notes} className={style["notes-wrapper"]}>
+      <div
+        ref={this.notes}
+        className={style["notes-wrapper"]}
+        data-testid={`notes`}
+      >
         {!value ? (
           <div className="notes-content-empty" onClick={this.handelEditClick}>
             {placeholder || TEXTS.addNote}
