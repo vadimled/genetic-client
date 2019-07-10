@@ -18,15 +18,6 @@ import {
 import Tag from "GenericComponents/tag";
 
 class GeneType extends React.Component {
-  constructor(props) {
-    super(props);
-    const { germlineClass } = props;
-
-    this.state = {
-      value: germlineClass ? 1 : 2
-    };
-  }
-
   onChangeType = (e, id) => {
     const { value, name } = e.target;
     const { setValue, setType } = this.props;
