@@ -13,7 +13,8 @@ const initialState = {
   vaf: 0,
   coverage: 0,
   coding: '',
-  proteint: ''
+  proteint: '',
+  validationFaildFields: []
 };
 
 const tableReducer = createReducer(initialState, {
@@ -27,21 +28,24 @@ const tableReducer = createReducer(initialState, {
   [actionsTypes.HANDLE_RESULT_CONFIG_GENE]: (state, { payload }) => {
     return {
       ...state,
-      gene: payload
+      gene: payload,
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'gene')
     };
   },
 
   [actionsTypes.HANDLE_RESULT_CONFIG_CHROMOSOME]: (state, { payload }) => {
     return {
       ...state,
-      chromosome: payload
+      chromosome: payload,
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'chromosome')
     };
   },
 
   [actionsTypes.HANDLE_RESULT_CONFIG_POSITION]: (state, { payload }) => {
     return {
       ...state,
-      position: payload
+      position: payload,
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'position')
     };
   },
 
@@ -50,21 +54,25 @@ const tableReducer = createReducer(initialState, {
       ...state,
       alleleType: payload,
       alleleReference: '', // drop on change
-      alleleAlternative: '' // drop on change
+      alleleAlternative: '', // drop on change,
+      validationFaildFields: state.validationFaildFields
+        .filter((f) => f !== 'alleleReference' && f !== 'alleleAlternative')
     };
   },
 
   [actionsTypes.HANDLE_RESULT_CONFIG_ALLELE_REFERENCE]: (state, { payload }) => {
     return {
       ...state,
-      alleleReference: payload
+      alleleReference: payload,
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'alleleReference')
     };
   },
 
   [actionsTypes.HANDLE_RESULT_CONFIG_ALLELE_ALTERNATIVE]: (state, { payload }) => {
     return {
       ...state,
-      alleleAlternative: payload
+      alleleAlternative: payload,
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'alleleAlternative')
     };
   },
 
@@ -93,6 +101,13 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       proteint: payload
+    };
+  },
+
+  [actionsTypes.HANDLE_RESULT_CONFIG_VALIDATION_FAILD_FIELDS]: (state, { payload }) => {
+    return {
+      ...state,
+      validationFaildFields: payload
     };
   },
 

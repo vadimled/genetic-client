@@ -83,3 +83,10 @@ export const resultConfigLoadHgvs = data => {
     payload: data
   };
 };
+
+export const handleResultConfigValidationFaildFields = data => {
+  return {
+    type: actionsTypes.HANDLE_RESULT_CONFIG_VALIDATION_FAILD_FIELDS,
+    payload: data
+  };
+};

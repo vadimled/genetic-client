@@ -6,6 +6,7 @@ import { InputNumber } from "antd";
 import SlideBar from "GenericComponents/slideBar";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import GeneSelect from "./components/geneSelect";
+import ValidationWrapper from "./components/validationWrapper";
 import style from './ResultConfig.module.scss';
 import {
   CHROMOSOME_OPTIONS,
@@ -33,6 +34,7 @@ import {
   getResultConfigCoverage,
   getResultConfigCoding,
   getResultConfigProtein,
+  getResultConfigValidationFaildFields,
 } from "Store/selectors";
 
 const ResultConfig = (props) => {
@@ -48,6 +50,7 @@ const ResultConfig = (props) => {
     coverage,
     coding,
     protein,
+    validationFaildFields,
 
     handleClose,
     handleGene,
@@ -82,34 +85,49 @@ const ResultConfig = (props) => {
         <div className="content">
           <div className="gene-row">
             <div className="label">Gene</div>
-            <GeneSelect
-              dataSource={['one', 'two']}
-              value={gene}
-              onChange={handleGene}
-            />
+            <ValidationWrapper
+              isOnError={validationFaildFields?.includes('gene')}
+              errorMessage="This field is not valid"
+            >
+              <GeneSelect
+                dataSource={['one', 'two']}
+                value={gene}
+                onChange={handleGene}
+              />
+            </ValidationWrapper>
           </div>
           <div className="chr-pos-row">
             <div className="chr-block">
               <div className="label">Chromosome</div>
-              <div className="chromosome-select-wrapper">
-                <SimpleSelect
-                  value={chromosome}
-                  options={CHROMOSOME_OPTIONS}
-                  onChange={(e) => handleChromosome(e.target.value)}
-                />
-              </div>
+              <ValidationWrapper
+                isOnError={validationFaildFields?.includes('chromosome')}
+                errorMessage="This field is not valid"
+              >
+                <div className="chromosome-select-wrapper">
+                  <SimpleSelect
+                    value={chromosome}
+                    options={CHROMOSOME_OPTIONS}
+                    onChange={(e) => handleChromosome(e.target.value)}
+                  />
+                </div>
+              </ValidationWrapper>
             </div>
             <div className="chr-pos-div">:</div>
             <div className="pos-block">
               <div className="label">Position</div>
-              <div className="position-input-wrapper">
-                <InputNumber
-                  value={position}
-                  onChange={(value) => handlePosition(value)}
-                  min={0}
-                  max={999999999}
-                />
-              </div>
+              <ValidationWrapper
+                isOnError={validationFaildFields?.includes('position')}
+                errorMessage="This field is not valid"
+              >
+                <div className="position-input-wrapper">
+                  <InputNumber
+                    value={position}
+                    onChange={(value) => handlePosition(value)}
+                    min={0}
+                    max={999999999}
+                  />
+                </div>
+              </ValidationWrapper>
             </div>
           </div>
           <div className="allele-block">
@@ -140,21 +158,31 @@ const ResultConfig = (props) => {
                 {ALLELE_TYPES.deletion.label}
               </button>
             </div>
-            <input
-              className={cn("rcinput", {
-                'disabled': alleleType === ALLELE_TYPES.insertion.value
-              })}
-              value={alleleReference}
-              onChange={(e) => handleAlleleReference(e.target.value)}
-            />
+            <ValidationWrapper
+              isOnError={validationFaildFields?.includes('alleleReference')}
+              errorMessage="This field is not valid"
+            >
+              <input
+                className={cn("rcinput", {
+                  'disabled': alleleType === ALLELE_TYPES.insertion.value
+                })}
+                value={alleleReference}
+                onChange={(e) => handleAlleleReference(e.target.value)}
+              />
+            </ValidationWrapper>
             <div className="allele-from-to-div">&gt;</div>
-            <input
-              className={cn("rcinput", {
-                'disabled': alleleType === ALLELE_TYPES.deletion.value
-              })}
-              value={alleleAlternative}
-              onChange={(e) => handleAlleleAlternative(e.target.value)}
-            />
+            <ValidationWrapper
+              isOnError={validationFaildFields?.includes('alleleAlternative')}
+              errorMessage="This field is not valid"
+            >
+              <input
+                className={cn("rcinput", {
+                  'disabled': alleleType === ALLELE_TYPES.deletion.value
+                })}
+                value={alleleAlternative}
+                onChange={(e) => handleAlleleAlternative(e.target.value)}
+              />
+            </ValidationWrapper>
           </div>
           <div className="vaf-covarage-row">
             <div className="vaf">
@@ -167,12 +195,19 @@ const ResultConfig = (props) => {
             </div>
           </div>
           <div className="allele-divider"/>
-          <button
-            className="allele-btn allele-btn--hgvs"
-            onClick={onLoadHgvs}
-          >
-            Load HGVS
-          </button>
+          <div className="allele-btn-hgvs-wrapper">
+            <ValidationWrapper
+              isOnError={validationFaildFields?.includes('loadHgvs')}
+              errorMessage="No HGVS has loaded!"
+            >
+              <button
+                className="allele-btn allele-btn--hgvs"
+                onClick={onLoadHgvs}
+              >
+                Load HGVS
+              </button>
+            </ValidationWrapper>
+          </div>
           <div className="cp-row">
             <div className="label">Coding:</div>
             <div className="cp-result">{coding}</div>
@@ -201,6 +236,7 @@ ResultConfig.propTypes = {
   coverage: PropTypes.number,
   coding: PropTypes.string,
   proteint: PropTypes.string,
+  validationFaildFields: PropTypes.array,
 
   handleClose: PropTypes.func.isRequired,
   handleGene: PropTypes.func.isRequired,
@@ -222,7 +258,8 @@ ResultConfig.defaultProps = {
   vaf: 0,
   coverage: 0,
   coding: '',
-  proteint: ''
+  proteint: '',
+  validationFaildFields: []
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -251,6 +288,7 @@ const mapStateToProps = (state) => {
     coverage: getResultConfigCoverage(state),
     coding: getResultConfigCoding(state),
     protein: getResultConfigProtein(state),
+    validationFaildFields: getResultConfigValidationFaildFields(state),
   };
 };
 

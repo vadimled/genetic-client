@@ -133,6 +133,10 @@
     border-top: 1px solid $border_color;
   }
 
+  .allele-btn-hgvs-wrapper {
+    margin: 41px 0 46px;
+  }
+
   .allele-btn {
     width: 100%;
     height: 44px;
@@ -150,7 +154,6 @@
     &--hgvs {
       background-color: white;
       color: $brand_primary_color;
-      margin: 41px 0 46px;
 
       &:hover {
         background: linear-gradient(

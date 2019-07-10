@@ -1,5 +1,5 @@
 import { call, put, delay } from "redux-saga/effects";
-import { ALERT_STATUSES } from 'Utils/constants';
+import { ALERT_STATUSES, ALLELE_TYPES } from 'Utils/constants';
 import {
   fetchBAMFile,
   goToChrPositionIgv,
@@ -22,7 +22,8 @@ import {
 } from "Actions/alertActions";
 import {
   handleResultConfigCoding,
-  handleResultConfigProtein
+  handleResultConfigProtein,
+  handleResultConfigValidationFaildFields
 } from "Actions/resultConfigActions";
 
 function* onDelay(time) {
@@ -94,6 +95,61 @@ function* confirmationDataValidation(data) {
   }
 }
 
+function* resultConfigValidation(data) {
+  try {
+    let validationFaildFields = [];
+    const {
+      gene,
+      chromosome,
+      position,
+      alleleType,
+      alleleReference,
+      alleleAlternative
+    } = data;
+
+    if (!gene) {
+      validationFaildFields.push('gene');
+    }
+    if (!chromosome) {
+      validationFaildFields.push('chromosome');
+    }
+    if (position === null || position === undefined || position === '') {
+      validationFaildFields.push('position');
+    }
+    if (alleleType === ALLELE_TYPES.change.value) {
+      if (!alleleReference) {
+        validationFaildFields.push('alleleReference');
+      }
+      if (!alleleAlternative) {
+        validationFaildFields.push('alleleAlternative');
+      }
+    }
+    else if (alleleType === ALLELE_TYPES.insertion.value) {
+      if (!alleleAlternative) {
+        validationFaildFields.push('alleleAlternative');
+      }
+    }
+    else if (alleleType === ALLELE_TYPES.deletion.value) {
+      if (!alleleReference) {
+        validationFaildFields.push('alleleReference');
+      }
+    }
+
+    if (validationFaildFields.length) {
+      // mark that it has happened on loadHgvs event
+      validationFaildFields.push('loadHgvs');
+      // set validation faild fields
+      yield put(handleResultConfigValidationFaildFields(validationFaildFields));
+
+      throw new Error('Validation error');
+    }
+  }
+  catch(e) {
+    consoleErrors(e);
+    throw new Error(e);
+  }
+}
+
 export function* fetchBAMFileGenerator(data) {
   try {
     yield put(setIgvLastQuery({ type: 'BAM_FILE', data: data.payload }));
@@ -147,6 +203,8 @@ export function* sendForConfirmationGenerator(data) {
 
 export function* resultConfigLoadHgvsGenerator(data) {
   try {
+    yield resultConfigValidation(data.payload);
+
     const result = yield call(loadHgvs, data.payload);
 
     yield put(handleResultConfigCoding(result.coding));
