@@ -16,6 +16,7 @@ import {
   getSomaticValue
 } from "Store/selectors";
 import Tag from "GenericComponents/tag";
+import NonActiveButton from "variantComponents/nonActiveButton";
 
 class GeneType extends React.Component {
   onChangeType = (e, id) => {
@@ -76,16 +77,13 @@ class GeneType extends React.Component {
               <div className="select-title">Germline:</div>
             </div>
           ) : (
-            <div
-              id="germline"
-              className="select-non-active"
-              onClick={e => this.onChangeType(e, "germline")}
-            >
-              <div className="select-non-active-title"> Germline: </div>
-              <div className="select-non-active-class">
-                {this.renderVariantClass("germline")}
-              </div>
-            </div>
+            <NonActiveButton
+              title={"Germline:"}
+              onClick={this.onChangeType}
+              type={"germline"}
+              somaticValue={somaticValue}
+              germlineValue={germlineValue}
+            />
           )}
           {currentType === "somatic" ? (
             <div className="select-wrapper">
@@ -99,16 +97,13 @@ class GeneType extends React.Component {
               <div className="select-title">Somatic:</div>
             </div>
           ) : (
-            <div
-              id="somatic"
-              className="select-non-active"
-              onClick={e => this.onChangeType(e, "somatic")}
-            >
-              <div className="select-non-active-title"> Somatic: </div>
-              <div className="select-non-active-class">
-                {this.renderVariantClass("somatic")}
-              </div>
-            </div>
+            <NonActiveButton
+              title={"Somatic:"}
+              onClick={this.onChangeType}
+              type={"somatic"}
+              somaticValue={somaticValue}
+              germlineValue={germlineValue}
+            />
           )}
         </div>
       </div>
