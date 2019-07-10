@@ -6,7 +6,7 @@ const initialState = {
   isOpen: true,
   gene: '',
   chromosome: '',
-  position: '',
+  position: null,
   alleleType: ALLELE_TYPES.change.value,
   alleleReference: '',
   alleleAlternative: '',

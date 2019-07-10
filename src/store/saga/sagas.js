@@ -2,7 +2,8 @@ import { call, put, delay } from "redux-saga/effects";
 import { ALERT_STATUSES } from 'Utils/constants';
 import {
   fetchBAMFile,
-  goToChrPositionIgv
+  goToChrPositionIgv,
+  loadHgvs
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -19,6 +20,10 @@ import {
 import {
   setAlert
 } from "Actions/alertActions";
+import {
+  handleResultConfigCoding,
+  handleResultConfigProtein
+} from "Actions/resultConfigActions";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === 'test'
@@ -106,6 +111,7 @@ export function* fetchBAMFileGenerator(data) {
     yield put(handleIgvAlertShow(true));
   }
 }
+
 export function* goToChrPositionIgvGenerator(data) {
   try {
     yield put(setIgvLastQuery({ type: 'CHR_POS', data: data.payload }));
@@ -135,6 +141,18 @@ export function* sendForConfirmationGenerator(data) {
         message: 'Please try again.'
       }));
     }
+    consoleErrors(e);
+  }
+}
+
+export function* resultConfigLoadHgvsGenerator(data) {
+  try {
+    const result = yield call(loadHgvs, data.payload);
+
+    yield put(handleResultConfigCoding(result.coding));
+    yield put(handleResultConfigProtein(result.proteint));
+  }
+  catch (e) {
     consoleErrors(e);
   }
 }

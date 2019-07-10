@@ -18,7 +18,8 @@ import {
   handleResultConfigPosition,
   handleResultConfigAlleleType,
   handleResultConfigAlleleReference,
-  handleResultConfigAlleleAlternative
+  handleResultConfigAlleleAlternative,
+  resultConfigLoadHgvs
 } from "Actions/resultConfigActions";
 import {
   getResultConfigIsOpen,
@@ -54,8 +55,22 @@ const ResultConfig = (props) => {
     handlePosition,
     handleAlleleType,
     handleAlleleReference,
-    handleAlleleAlternative
+    handleAlleleAlternative,
+    loadHgvs
   } = props;
+
+  const onLoadHgvs = () => {
+    loadHgvs({
+      gene,
+      chromosome,
+      position,
+      alleleType,
+      alleleReference,
+      alleleAlternative,
+      vaf,
+      coverage,
+    });
+  };
 
   return (
     <SlideBar
@@ -152,7 +167,12 @@ const ResultConfig = (props) => {
             </div>
           </div>
           <div className="allele-divider"/>
-          <button className="allele-btn allele-btn--hgvs">Load HGVS</button>
+          <button
+            className="allele-btn allele-btn--hgvs"
+            onClick={onLoadHgvs}
+          >
+            Load HGVS
+          </button>
           <div className="cp-row">
             <div className="label">Coding:</div>
             <div className="cp-result">{coding}</div>
@@ -170,24 +190,10 @@ const ResultConfig = (props) => {
 };
 
 ResultConfig.propTypes = {
-  isOpen: false,
-  gene: '',
-  chromosome: '',
-  position: '',
-  alleleType: ALLELE_TYPES.change.value,
-  alleleReference: '',
-  alleleAlternative: '',
-  vaf: 0,
-  coverage: 0,
-  coding: '',
-  proteint: ''
-};
-
-ResultConfig.defaultProps = {
   isOpen: PropTypes.bool,
   gene: PropTypes.string,
   chromosome: PropTypes.string,
-  position: PropTypes.string,
+  position: PropTypes.number,
   alleleType: PropTypes.string,
   alleleReference: PropTypes.string,
   alleleAlternative: PropTypes.string,
@@ -205,6 +211,20 @@ ResultConfig.defaultProps = {
   handleAlleleAlternative: PropTypes.func.isRequired,
 };
 
+ResultConfig.defaultProps = {
+  isOpen: false,
+  gene: '',
+  chromosome: '',
+  position: null,
+  alleleType: ALLELE_TYPES.change.value,
+  alleleReference: '',
+  alleleAlternative: '',
+  vaf: 0,
+  coverage: 0,
+  coding: '',
+  proteint: ''
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     handleClose: () => dispatch(handleResultConfigIsOpen(false)),
@@ -214,6 +234,7 @@ const mapDispatchToProps = (dispatch) => {
     handleAlleleType: data => dispatch(handleResultConfigAlleleType(data)),
     handleAlleleReference: data => dispatch(handleResultConfigAlleleReference(data)),
     handleAlleleAlternative: data => dispatch(handleResultConfigAlleleAlternative(data)),
+    loadHgvs: data => dispatch(resultConfigLoadHgvs(data)),
   };
 };
 

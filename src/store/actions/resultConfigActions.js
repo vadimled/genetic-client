@@ -76,3 +76,10 @@ export const handleResultConfigProtein = data => {
     payload: data
   };
 };
+
+export const resultConfigLoadHgvs = data => {
+  return {
+    type: actionsTypes.RESULT_CONFIG_LOAD_HGVS,
+    payload: data
+  };
+};
