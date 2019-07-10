@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import cn from 'classnames';
 import { InputNumber } from "antd";
@@ -168,9 +169,40 @@ const ResultConfig = (props) => {
   );
 };
 
-ResultConfig.defaultProps = {
+ResultConfig.propTypes = {
   isOpen: false,
-  gene: ''
+  gene: '',
+  chromosome: '',
+  position: '',
+  alleleType: ALLELE_TYPES.change.value,
+  alleleReference: '',
+  alleleAlternative: '',
+  vaf: 0,
+  coverage: 0,
+  coding: '',
+  proteint: ''
+};
+
+ResultConfig.defaultProps = {
+  isOpen: PropTypes.bool,
+  gene: PropTypes.string,
+  chromosome: PropTypes.string,
+  position: PropTypes.string,
+  alleleType: PropTypes.string,
+  alleleReference: PropTypes.string,
+  alleleAlternative: PropTypes.string,
+  vaf: PropTypes.number,
+  coverage: PropTypes.number,
+  coding: PropTypes.string,
+  proteint: PropTypes.string,
+
+  handleClose: PropTypes.func.isRequired,
+  handleGene: PropTypes.func.isRequired,
+  handleChromosome: PropTypes.func.isRequired,
+  handlePosition: PropTypes.func.isRequired,
+  handleAlleleType: PropTypes.func.isRequired,
+  handleAlleleReference: PropTypes.func.isRequired,
+  handleAlleleAlternative: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => {
