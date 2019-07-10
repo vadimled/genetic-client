@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 // import { Radio } from "antd";
 import SimpleSelect from "GenericComponents/simpleSelect/SimpleSelect";
@@ -10,7 +10,12 @@ import style from "./GeneType.module.scss";
 import { ReactComponent as EditIcon } from "Assets/edit.svg";
 import { connect } from "react-redux";
 import { setGeneType, setGeneValue } from "Actions/variantPageActions";
-import { getGeneType, getGeneValue } from "Store/selectors";
+import {
+  getGeneType,
+  getGermlineValue,
+  getSomaticValue
+} from "Store/selectors";
+import Tag from "GenericComponents/tag";
 
 class GeneType extends React.Component {
   constructor(props) {
@@ -23,19 +28,55 @@ class GeneType extends React.Component {
   }
 
   onChangeType = (e, id) => {
-    const { value } = e.target;
+    const { value, name } = e.target;
     const { setValue, setType } = this.props;
-    !value ? setType(id) : setValue(value);
+    !value ? setType(id) : setValue({ value, name });
+  };
+
+  getLabel = (value, typeData) => {
+    for (let item in typeData) {
+      if (typeData[item].value === value) return typeData[item].label;
+    }
+    return "Path";
+  };
+
+  getTagColor = (value, typeData) => {
+    for (let item in typeData) {
+      if (typeData[item].value === value) return typeData[item].tagColor;
+    }
+    return "#F11E2C";
+  };
+
+  renderVariantClass = type => {
+    const { somaticValue, germlineValue } = this.props;
+    let typeData = {},
+      currValue;
+
+    if (type === "germline") {
+      typeData = GERMLINE_VARIANT_CLASS_OPTIONS;
+      currValue = germlineValue;
+    } else if (type === "somatic") {
+      typeData = SOMATIC_VARIANT_CLASS_OPTIONS;
+      currValue = somaticValue;
+    }
+
+    return (
+      <Fragment>
+        <Tag color={this.getTagColor(currValue, typeData)} />
+        <span>{this.getLabel(currValue, typeData)}</span>
+      </Fragment>
+    );
   };
 
   render() {
-    const { germlineClass, somaticClass, currentType } = this.props;
+    const { currentType, somaticValue, germlineValue } = this.props;
     return (
       <div className={style["gene-type-wrapper"]}>
         <div className="gene-type-radio-group">
           {currentType === "germline" ? (
             <SimpleSelect
-              value={`Germline: ${germlineClass || "PATH"}`}
+              name={"germline"}
+              value={germlineValue}
               options={GERMLINE_VARIANT_CLASS_OPTIONS}
               onChange={this.onChangeType}
               suffixIcon={<EditIcon />}
@@ -48,13 +89,14 @@ class GeneType extends React.Component {
             >
               <div className="select-non-active-title"> Germline: </div>
               <div className="select-non-active-class">
-                {germlineClass || "PATH"}
+                {this.renderVariantClass("germline")}
               </div>
             </div>
           )}
           {currentType === "somatic" ? (
             <SimpleSelect
-              value={`Somatic: ${somaticClass || "TIER1"}`}
+              name={"somatic"}
+              value={somaticValue}
               options={SOMATIC_VARIANT_CLASS_OPTIONS}
               onChange={this.onChangeType}
               suffixIcon={<EditIcon />}
@@ -67,7 +109,7 @@ class GeneType extends React.Component {
             >
               <div className="select-non-active-title"> Somatic: </div>
               <div className="select-non-active-class">
-                {somaticClass || "TIER1"}
+                {this.renderVariantClass("somatic")}
               </div>
             </div>
           )}
@@ -85,7 +127,8 @@ GeneType.propTypes = {
 const mapStateToProps = state => {
   return {
     currentType: getGeneType(state),
-    currentValue: getGeneValue(state)
+    somaticValue: getSomaticValue(state),
+    germlineValue: getGermlineValue(state)
   };
 };
 

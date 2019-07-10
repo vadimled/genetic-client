@@ -2,23 +2,26 @@ import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 
 const initialState = {
-  gene: "k5wp5amernh84pvsygjji9ljz", // null,
+  dataId: "k5wp5amernh84pvsygjji9ljz", // null,
   type: "somatic",
-  value: null
+  valueSomatic: "unclassified",
+  valueGermline: "unclassified"
 };
 
 const variantPageReducer = createReducer(initialState, {
   [actionsTypes.SET_GENE]: (state, { payload }) => {
     return {
       ...state,
-      gene: payload
+      dataId: payload
     };
   },
 
   [actionsTypes.SET_GENE_VALUE]: (state, { payload }) => {
+    const { value, name } = payload;
     return {
       ...state,
-      value: payload
+      valueSomatic: name === "somatic" ? value : state.valueSomatic,
+      valueGermline: name === "germline" ? value : state.valueGermline
     };
   },
 

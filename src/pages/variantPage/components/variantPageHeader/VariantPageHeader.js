@@ -9,9 +9,11 @@ import { getTableData } from "Store/selectors";
 // import PropTypes from "prop-types";
 
 const VariantPageHeader = ({ sidebarToggle /* , id*/ }) => {
-  const data = useSelector(getTableData);// [id];
+  const data = useSelector(getTableData); // [id];
   // ------ for dev
-  const {gene, protein, chrPosition, alleleChange, coding, transcript}  = data[Object.keys(data)[3]];
+  const { gene, protein, chrPosition, alleleChange, coding, transcript } = data[
+    Object.keys(data)[3]
+  ];
   // ------ for dev
   return (
     <div className={style["variant-page-header-wrapper"]}>
@@ -24,10 +26,7 @@ const VariantPageHeader = ({ sidebarToggle /* , id*/ }) => {
             <InformField text={protein} />
           </div>
           <div className="gene">
-            <InformField
-              text={chrPosition}
-              icon={<ExternalLink data={""} />}
-            />
+            <InformField text={chrPosition} icon={<ExternalLink data={""} />} />
           </div>
           <div className="gene">
             <InformField text={alleleChange} />
@@ -36,15 +35,12 @@ const VariantPageHeader = ({ sidebarToggle /* , id*/ }) => {
             <InformField text={coding} />
           </div>
           <div className="gene">
-            <InformField
-              text={transcript}
-              icon={<ExternalLink data={""} />}
-            />
+            <InformField text={transcript} icon={<ExternalLink data={""} />} />
           </div>
         </div>
       </div>
       <div className={cn(["right-data", { "sidebar-open": sidebarToggle }])}>
-        <GeneType germlineClass={"LPATH"} />
+        <GeneType />
       </div>
     </div>
   );
