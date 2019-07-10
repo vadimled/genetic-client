@@ -27,7 +27,9 @@ export const FILTERS = {
 export const TEXTS = {
   addNote: "Add a note",
   cancel: "Cancel",
-  done: "Done"
+  done: "Done",
+  somatic: "somatic",
+  germline: "germline"
 };
 
 export const LIMITS = {

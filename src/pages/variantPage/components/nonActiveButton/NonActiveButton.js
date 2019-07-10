@@ -1,7 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, memo } from "react";
 import PropTypes from "prop-types";
 import style from "./NonActiveButton.module.scss";
-import { GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
+import { GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS, TEXTS } from "Utils/constants";
 import Tag from "GenericComponents/tag";
 
 const NonActiveButton = ({title, type, onClick, somaticValue, germlineValue}) => {
@@ -23,10 +23,10 @@ const NonActiveButton = ({title, type, onClick, somaticValue, germlineValue}) =>
     let typeData = {},
       currValue;
   
-    if (type === "germline") {
+    if (type === TEXTS.germline) {
       typeData = GERMLINE_VARIANT_CLASS_OPTIONS;
       currValue = germlineValue;
-    } else if (type === "somatic") {
+    } else if (type === TEXTS.somatic) {
       typeData = SOMATIC_VARIANT_CLASS_OPTIONS;
       currValue = somaticValue;
     }
@@ -42,7 +42,7 @@ const NonActiveButton = ({title, type, onClick, somaticValue, germlineValue}) =>
   
   return (
     <div
-      id="somatic"
+      id={type}
       className={style["select-non-active-wrapper"]}
       onClick={e => onClick(e, type)}
     >
@@ -61,4 +61,4 @@ NonActiveButton.propTypes = {
   onClick: PropTypes.func
 };
 
-export default NonActiveButton;
+export default memo(NonActiveButton);

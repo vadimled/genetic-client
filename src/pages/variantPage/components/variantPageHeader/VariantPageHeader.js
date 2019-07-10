@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useSelector } from "react-redux";
 import style from "./VariantPageHeader.module.scss";
 import InformField from "GenericComponents/informField";
@@ -6,7 +6,7 @@ import ExternalLink from "GenericComponents/externalLink";
 import GeneType from "variantComponents/geneType";
 import cn from "classnames";
 import { getTableData } from "Store/selectors";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 const VariantPageHeader = ({ sidebarToggle /* , id*/ }) => {
   const data = useSelector(getTableData); // [id];
@@ -46,6 +46,8 @@ const VariantPageHeader = ({ sidebarToggle /* , id*/ }) => {
   );
 };
 
-VariantPageHeader.propTypes = {};
+VariantPageHeader.propTypes = {
+  sidebarToggle: PropTypes.bool
+};
 
-export default VariantPageHeader;
+export default memo(VariantPageHeader);
