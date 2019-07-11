@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { AutoComplete } from "antd";
 import style from "./GeneSelect.module.scss";
@@ -9,14 +9,9 @@ const GeneSelect = ({
   value,
   placeholder
 }) => {
-  const [insertedText, updateText] = useState(value);
-
-  const handleOnSearchChange = value => {
-    updateText(value);
-  };
 
   const renderOptions = () => {
-    return dataSource.filter(item => item.includes(insertedText));
+    return dataSource.filter(item => item.toLowerCase().includes(value.toLowerCase()));
   };
 
   return (
@@ -24,8 +19,8 @@ const GeneSelect = ({
       <AutoComplete
         data-testid={`gene-select`}
         dataSource={renderOptions()}
-        value={insertedText}
-        onChange={handleOnSearchChange}
+        value={value}
+        onChange={onChange}
         onSelect={onChange}
         placeholder={placeholder}
       />

@@ -44,7 +44,6 @@ export const
   getResultConfigProtein = state => state?.resultConfig?.proteint,
   getResultConfigValidationFaildFields = state => state?.resultConfig?.validationFaildFields,
 
-
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,
   getAlertMessage = state => state?.alert?.message;
@@ -66,6 +65,14 @@ export const getTableDataAsArray = createSelector(
 
 
     return arrayData;
+  }
+);
+
+export const getTableDataGenes = createSelector(
+  getTableDataAsArray,
+  data => {
+    let allGenes = data ? data.map(row => row?.gene) : [];
+    return [...new Set(allGenes)];
   }
 );
 

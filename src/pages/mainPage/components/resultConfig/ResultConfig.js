@@ -35,6 +35,7 @@ import {
   getResultConfigCoding,
   getResultConfigProtein,
   getResultConfigValidationFaildFields,
+  getTableDataGenes
 } from "Store/selectors";
 
 const ResultConfig = (props) => {
@@ -51,6 +52,7 @@ const ResultConfig = (props) => {
     coding,
     protein,
     validationFaildFields,
+    geneDataSource,
 
     handleClose,
     handleGene,
@@ -90,7 +92,7 @@ const ResultConfig = (props) => {
               errorMessage="This field is not valid"
             >
               <GeneSelect
-                dataSource={['one', 'two']}
+                dataSource={geneDataSource}
                 value={gene}
                 onChange={handleGene}
               />
@@ -259,7 +261,8 @@ ResultConfig.defaultProps = {
   coverage: 0,
   coding: '',
   proteint: '',
-  validationFaildFields: []
+  validationFaildFields: [],
+  geneDataSource: []
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -289,6 +292,7 @@ const mapStateToProps = (state) => {
     coding: getResultConfigCoding(state),
     protein: getResultConfigProtein(state),
     validationFaildFields: getResultConfigValidationFaildFields(state),
+    geneDataSource: getTableDataGenes(state),
   };
 };
 
