@@ -6,9 +6,128 @@ exports[`SideBarFilters component test create snapshot 1`] = `
     class="sidebar-filters"
   >
     <div
-      class="filters-title"
+      class="clear-filters"
+      data-testid="clear-filters-button"
     >
-      Filters
+      Clear filters (2)
+    </div>
+    <div
+      class="filter-chip-indicators"
+    >
+      <div
+        class="indicators-title"
+      >
+        Germline Class
+      </div>
+      <div
+        class="indicators-items"
+      >
+        <div
+          class="filter-chip-indicators-item"
+        >
+          <div
+            class="value"
+          >
+            <span
+              data-testid="filter-variantClass-Unclassified"
+            >
+              Unclassified
+            </span>
+            <span>
+              , 
+            </span>
+            <span
+              data-testid="filter-variantClass-PATH"
+            >
+              PATH
+            </span>
+            <span>
+              , 
+            </span>
+            <span
+              data-testid="filter-variantClass-LPATH"
+            >
+              LPATH
+            </span>
+            <span>
+              , 
+            </span>
+            <span
+              data-testid="filter-variantClass-VUS"
+            >
+              VUS
+            </span>
+            <span>
+              , 
+            </span>
+            <span
+              data-testid="filter-variantClass-LBEN"
+            >
+              LBEN
+            </span>
+          </div>
+          <button
+            class="button"
+            data-testid="button-variantClass"
+            style="background-image: url(close.svg);"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="filter-chip-indicators"
+    >
+      <div
+        class="indicators-title"
+      >
+        Somatic Class
+      </div>
+      <div
+        class="indicators-items"
+      >
+        <div
+          class="filter-chip-indicators-item"
+        >
+          <div
+            class="value"
+          >
+            <span
+              data-testid="filter-somaticClass-Unclassified"
+            >
+              Unclassified
+            </span>
+            <span>
+              , 
+            </span>
+            <span
+              data-testid="filter-somaticClass-Tier1"
+            >
+              Tier1
+            </span>
+            <span>
+              , 
+            </span>
+            <span
+              data-testid="filter-somaticClass-Tier2"
+            >
+              Tier2
+            </span>
+            <span>
+              , 
+            </span>
+            <span
+              data-testid="filter-somaticClass-Tier3"
+            >
+              Tier3
+            </span>
+          </div>
+          <button
+            class="button"
+            data-testid="button-somaticClass"
+            style="background-image: url(close.svg);"
+          />
+        </div>
+      </div>
     </div>
     <div
       class="ant-collapse ant-collapse-icon-position-left"
@@ -40,12 +159,13 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                 class="filter-item-wrapper filter-item"
               >
                 <label
-                  class="ant-checkbox-wrapper"
+                  class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
                 >
                   <span
-                    class="ant-checkbox"
+                    class="ant-checkbox ant-checkbox-checked"
                   >
                     <input
+                      checked=""
                       class="ant-checkbox-input"
                       data-testid="filter-checkbox-variantClass-Unclassified"
                       type="checkbox"
@@ -76,12 +196,13 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                 class="filter-item-wrapper filter-item"
               >
                 <label
-                  class="ant-checkbox-wrapper"
+                  class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
                 >
                   <span
-                    class="ant-checkbox"
+                    class="ant-checkbox ant-checkbox-checked"
                   >
                     <input
+                      checked=""
                       class="ant-checkbox-input"
                       data-testid="filter-checkbox-variantClass-PATH"
                       type="checkbox"
@@ -110,12 +231,13 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                 class="filter-item-wrapper filter-item"
               >
                 <label
-                  class="ant-checkbox-wrapper"
+                  class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
                 >
                   <span
-                    class="ant-checkbox"
+                    class="ant-checkbox ant-checkbox-checked"
                   >
                     <input
+                      checked=""
                       class="ant-checkbox-input"
                       data-testid="filter-checkbox-variantClass-LPATH"
                       type="checkbox"
@@ -144,12 +266,13 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                 class="filter-item-wrapper filter-item"
               >
                 <label
-                  class="ant-checkbox-wrapper"
+                  class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
                 >
                   <span
-                    class="ant-checkbox"
+                    class="ant-checkbox ant-checkbox-checked"
                   >
                     <input
+                      checked=""
                       class="ant-checkbox-input"
                       data-testid="filter-checkbox-variantClass-VUS"
                       type="checkbox"
@@ -178,12 +301,13 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                 class="filter-item-wrapper filter-item"
               >
                 <label
-                  class="ant-checkbox-wrapper"
+                  class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
                 >
                   <span
-                    class="ant-checkbox"
+                    class="ant-checkbox ant-checkbox-checked"
                   >
                     <input
+                      checked=""
                       class="ant-checkbox-input"
                       data-testid="filter-checkbox-variantClass-LBEN"
                       type="checkbox"
@@ -273,12 +397,13 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                 class="filter-item-wrapper filter-item"
               >
                 <label
-                  class="ant-checkbox-wrapper"
+                  class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
                 >
                   <span
-                    class="ant-checkbox"
+                    class="ant-checkbox ant-checkbox-checked"
                   >
                     <input
+                      checked=""
                       class="ant-checkbox-input"
                       data-testid="filter-checkbox-somaticClass-Unclassified"
                       type="checkbox"
@@ -309,12 +434,13 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                 class="filter-item-wrapper filter-item"
               >
                 <label
-                  class="ant-checkbox-wrapper"
+                  class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
                 >
                   <span
-                    class="ant-checkbox"
+                    class="ant-checkbox ant-checkbox-checked"
                   >
                     <input
+                      checked=""
                       class="ant-checkbox-input"
                       data-testid="filter-checkbox-somaticClass-Tier1"
                       type="checkbox"
@@ -343,12 +469,13 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                 class="filter-item-wrapper filter-item"
               >
                 <label
-                  class="ant-checkbox-wrapper"
+                  class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
                 >
                   <span
-                    class="ant-checkbox"
+                    class="ant-checkbox ant-checkbox-checked"
                   >
                     <input
+                      checked=""
                       class="ant-checkbox-input"
                       data-testid="filter-checkbox-somaticClass-Tier2"
                       type="checkbox"
@@ -377,12 +504,13 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                 class="filter-item-wrapper filter-item"
               >
                 <label
-                  class="ant-checkbox-wrapper"
+                  class="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
                 >
                   <span
-                    class="ant-checkbox"
+                    class="ant-checkbox ant-checkbox-checked"
                   >
                     <input
+                      checked=""
                       class="ant-checkbox-input"
                       data-testid="filter-checkbox-somaticClass-Tier3"
                       type="checkbox"
