@@ -42,7 +42,7 @@ export const MUTATION = [
 
 export const SORTING = [
   {value: "default", label: "Default"}
-]
+];
 
 export const ZYGOSITY_OPTIONS = [
   { value: "homo", label: "Homo" },

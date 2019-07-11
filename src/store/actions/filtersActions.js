@@ -80,5 +80,5 @@ export const clearFilterSection = data => {
 export const setDefaultFilters = () =>{
   return {
     type: actionsTypes.SET_DEFAULT_FILTERS
-  }
-}
+  };
+};
