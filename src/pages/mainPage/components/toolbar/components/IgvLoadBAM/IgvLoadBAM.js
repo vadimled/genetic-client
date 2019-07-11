@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { Button, Icon } from 'antd';
+import cn from 'classnames';
+import style from './IgvLoadBAM.module.scss';
 import {
   getIgvFetchBAMFileStatus,
   getBAMFileUrl
@@ -17,7 +19,10 @@ const IgvLoadBAM = (props) => {
   } = props;
 
   return (
-    <div className="igv-btn-wrapper">
+    <div className={cn(
+      "toolbar-btn-wrapper",
+      style["igv-btn"]
+    )}>
       <Button
         type={fetchBAMFileStatus ? 'primary' : ''}
         onClick={fetchBAMFile.bind(null, BAMFileUrl)}

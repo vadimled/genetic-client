@@ -144,4 +144,12 @@
       background-color: $brand_primary_color;
     }
   }
+
+  .toolbar-divider-line {
+    height: 18px;
+    width: 1px;
+    background: $border_color;
+    margin-left: 21px;
+    margin-right: 21px;
+  }
 }

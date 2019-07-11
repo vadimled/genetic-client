@@ -8,6 +8,7 @@ import style from "./Toolbar.module.scss";
 import { MUTATION } from "Utils/constants";
 import NumberVariants from "Pages/mainPage/components/numberVariants";
 import IgvLoadBAM from "./components/IgvLoadBAM";
+import AddResult from "./components/addResult";
 import {
   setMutationType
 } from "Actions/variantsActions";
@@ -70,6 +71,9 @@ class Toolbar extends Component {
 
           <div className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}>
             <IgvLoadBAM />
+            <div className="toolbar-divider-line"/>
+            <AddResult />
+            <div className="toolbar-divider-line"/>
             <NumberVariants filtered={filtered} total={total} />
           </div>
 
