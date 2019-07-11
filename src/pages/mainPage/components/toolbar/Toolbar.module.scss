@@ -150,8 +150,8 @@ $bg-img: url("../assets/sort-arrows.png");
     .ant-select {
       min-width: 72px;
       max-height: 28px;
+      margin-right: 12px;
       .anticon.anticon-down.ant-select-arrow-icon {
-        //border: 1px solid;
         width: 20px;
         height: 20px;
         background-image: url("../../../../assets/sort-arrows.png");
@@ -172,10 +172,16 @@ $bg-img: url("../assets/sort-arrows.png");
             padding-right: 0 !important;
             color: #424d55;
           }
+          .ant-select-selection__placeholder {
+            top: 13px;
+            right: -2px;
+            left: unset;
+            color: #424d55;
+          }
         }
         .ant-select-arrow {
           top: 9px;
-          right: 41px;
+          right: 43px;
         }
       }
       .ant-select-selection-selected-value {
