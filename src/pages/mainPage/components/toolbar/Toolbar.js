@@ -24,6 +24,10 @@ import {
   getSelectedRows,
   getTotalEntriesAmount
 } from "Store/selectors";
+import Sort from "./components/Sort";
+
+
+
 
 class Toolbar extends Component {
   handleOnChange = e => {
@@ -59,7 +63,7 @@ class Toolbar extends Component {
                 onChange={this.handleOnChange}
                 name="mutation"
                 value={mutations}
-                disabled
+                // disabled
               />
             </div>
           </div>
@@ -69,6 +73,7 @@ class Toolbar extends Component {
           </div>
 
           <div className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}>
+            <Sort />
             <IgvLoadBAM />
             <NumberVariants filtered={filtered} total={total} />
           </div>

@@ -1,4 +1,5 @@
 @import "Css/Colors.scss";
+$bg-img: url("../assets/sort-arrows.png");
 
 .toolbar-wrapper :global {
   display: flex;
@@ -142,6 +143,57 @@
       color: white;
       background-image: url("../../../../assets/mail-white.svg");
       background-color: $brand_primary_color;
+    }
+  }
+
+  .sort-wrapper {
+    .ant-select {
+      min-width: 72px;
+      max-height: 28px;
+      .anticon.anticon-down.ant-select-arrow-icon {
+        //border: 1px solid;
+        width: 20px;
+        height: 20px;
+        background-image: url("../../../../assets/sort-arrows.png");
+        svg {
+          display: none !important;
+        }
+      }
+      .ant-select-selection {
+        border: none;
+        transition: none;
+      }
+      .ant-select-selection--single {
+        height: 28px;
+        .ant-select-selection__rendered {
+          line-height: unset !important;
+          padding-top: 2px;
+          .ant-select-selection-selected-value {
+            padding-right: 0 !important;
+            color: #424d55;
+          }
+        }
+        .ant-select-arrow {
+          top: 9px;
+          right: 41px;
+        }
+      }
+      .ant-select-selection-selected-value {
+        float: right;
+      }
+    }
+    //svg{
+    //  position: absolute;
+    //  z-index: 1;
+    //  top: 4px;
+    //  left: 7px;
+    //}
+
+    border-radius: 4px;
+    & :hover {
+      background: $neutral_10;
+      border-radius: 4px;
+      //background: red;
     }
   }
 }
