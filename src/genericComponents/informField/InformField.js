@@ -2,12 +2,12 @@ import React, { memo } from "react";
 import PropTypes from "prop-types";
 import style from "./InformField.module.scss";
 
-function InformField({ label, text, icon }) {
+function InformField({ label, text, icon, name }) {
   return (
     <div className={style["inform-field-wrapper"]}>
       <div className="icon">{!!icon && icon}</div>
       <label>{!!label && label}</label>
-      <div className="text">{text}</div>
+      <div data-testid={name} className="text">{text}</div>
     </div>
   );
 }

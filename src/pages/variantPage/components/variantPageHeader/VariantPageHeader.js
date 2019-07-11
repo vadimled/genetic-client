@@ -20,26 +20,26 @@ const VariantPageHeader = ({ sidebarToggle /* , id*/ }) => {
       <div className="left-data-wrapper">
         <div className="left-data">
           <div className="gene">
-            <InformField text={gene} />
+            <InformField name="inform-field-gene" text={gene} />
           </div>
           <div className="gene">
-            <InformField text={protein} />
+            <InformField name="inform-field-protein" text={protein} />
           </div>
           <div className="gene">
-            <InformField text={chrPosition} icon={<ExternalLink data={""} />} />
+            <InformField name="inform-field-chrPosition" text={chrPosition} icon={<ExternalLink data={""} />} />
           </div>
           <div className="gene">
-            <InformField text={alleleChange} />
+            <InformField name="inform-field-alleleChange" text={alleleChange} />
           </div>
           <div className="gene">
-            <InformField text={coding} />
+            <InformField name="inform-field-coding" text={coding} />
           </div>
           <div className="gene">
-            <InformField text={transcript} icon={<ExternalLink data={""} />} />
+            <InformField name="inform-field-transcript" text={transcript} icon={<ExternalLink data={""} />} />
           </div>
         </div>
       </div>
-      
+
       <div className={cn(["right-data", { "sidebar-open": sidebarToggle }])}>
         <GeneType />
       </div>
