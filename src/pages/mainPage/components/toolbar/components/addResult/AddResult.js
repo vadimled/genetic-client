@@ -1,22 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { Button } from 'antd';
 import cn from 'classnames';
 import style from './AddResult.module.scss';
-// import {
-//   getIgvFetchBAMFileStatus,
-//   getBAMFileUrl
-// } from "Store/selectors";
-// import {
-//   fetchBAMFile
-// } from 'Actions/igvActions';
+import {
+  handleResultConfigIsOpen
+} from 'Actions/resultConfigActions';
 
-const AddResult = () => {
-  // const {
-  //   fetchBAMFileStatus,
-  //   BAMFileUrl,
-  //   fetchBAMFile
-  // } = props;
+const AddResult = ({
+  handleResultConfigIsOpen
+}) => {
 
   return (
     <div className={cn(
@@ -24,7 +18,7 @@ const AddResult = () => {
       style["add-result-btn"]
     )}>
       <Button
-        onClick={() => true}
+        onClick={handleResultConfigIsOpen.bind(null, true)}
         data-testid="add-result-btn"
       >
         <div className="btn-icon"/>
@@ -34,15 +28,17 @@ const AddResult = () => {
   );
 };
 
-const mapStateToProps = () => {
-  return {
-
-  };
+AddResult.propTypes = {
+  handleResultConfigIsOpen: PropTypes.func.isRequired
 };
 
-function mapDispatchToProps() {
+const mapStateToProps = () => {
+  return {};
+};
+
+function mapDispatchToProps(dispatch) {
   return {
-    // fetchBAMFile: data => dispatch(fetchBAMFile(data)),
+    handleResultConfigIsOpen: data => dispatch(handleResultConfigIsOpen(data)),
   };
 }
 
