@@ -1,4 +1,5 @@
 import React from "react";
+import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { renderWithRedux } from "Utils/test_helpers";
 import VariantPageHeader from "./VariantPageHeader";
@@ -59,5 +60,30 @@ describe("VariantPageHeader ", () => {
 
   it("should - default Button is Somatic and exists ", () => {
     expect(getByTestId("select-title-Somatic")).toBeInTheDocument();
+  });
+
+  it("should - non active Button is Germline and exists ", () => {
+    const nonActiveButton = getByTestId("non-active-button-germline");
+    expect(nonActiveButton).toBeInTheDocument();
+  });
+
+  it("should - inactive Button after click going to active state", () => {
+    const nonActiveButton = getByTestId("non-active-button-germline");
+    expect(nonActiveButton).toBeInTheDocument();
+  
+    fireEvent.click(nonActiveButton);
+    
+    expect(getByTestId("non-active-button-somatic")).toBeInTheDocument();
+    expect(nonActiveButton).not.toBeInTheDocument();
+    expect(store.getState().variantPage.type).toEqual("germline");
+  });
+
+  // error - The given element does not have a value setter
+  xit("should - active Button is Select", () => {
+    const activeButton = getByTestId("gene-type-select-somatic");
+    expect(activeButton).toBeInTheDocument();
+  
+    fireEvent.change(activeButton, { target: { value: "tier2" } });
+    expect(store.getState().variantPage.valueSomatic).toEqual("tier2");
   });
 });

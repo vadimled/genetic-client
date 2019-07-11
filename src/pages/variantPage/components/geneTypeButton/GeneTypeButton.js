@@ -16,6 +16,7 @@ function GeneTypeButton({
   return currentType === type ? (
     <div className={style["gene-type-button-wrapper"]}>
       <SimpleSelect
+        testId={`gene-type-select-${type}`}
         name={type}
         value={currValue}
         options={typeData}

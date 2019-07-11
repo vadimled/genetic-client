@@ -28,6 +28,7 @@ const NonActiveButton = ({ title, type, onClick, typeData, currValue }) => {
 
   return (
     <div
+      data-testid={`non-active-button-${type}`}
       id={type}
       className={style["select-non-active-wrapper"]}
       onClick={e => onClick(e, type)}
