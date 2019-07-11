@@ -104,3 +104,10 @@ export const resultConfigAddResult = data => {
     payload: data
   };
 };
+
+export const resultConfigSetInitialState = data => {
+  return {
+    type: actionsTypes.RESULT_CONFIG_SET_INITIAL_STATE,
+    payload: data
+  };
+};

@@ -21,7 +21,8 @@ import {
   handleResultConfigAlleleReference,
   handleResultConfigAlleleAlternative,
   resultConfigLoadHgvs,
-  resultConfigAddResult
+  resultConfigAddResult,
+  resultConfigSetInitialState,
 } from "Actions/resultConfigActions";
 import {
   getResultConfigIsOpen,
@@ -65,7 +66,7 @@ const ResultConfig = (props) => {
     handleAlleleReference,
     handleAlleleAlternative,
     loadHgvs,
-    addResult
+    addResult,
   } = props;
 
   const onLoadHgvs = () => {
@@ -275,6 +276,8 @@ ResultConfig.propTypes = {
   handleAlleleType: PropTypes.func.isRequired,
   handleAlleleReference: PropTypes.func.isRequired,
   handleAlleleAlternative: PropTypes.func.isRequired,
+  loadHgvs: PropTypes.func.isRequired,
+  addResult: PropTypes.func.isRequired,
 };
 
 ResultConfig.defaultProps = {
@@ -296,7 +299,10 @@ ResultConfig.defaultProps = {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleClose: () => dispatch(handleResultConfigIsOpen(false)),
+    handleClose: () => {
+      dispatch(handleResultConfigIsOpen(false));
+      dispatch(resultConfigSetInitialState());
+    },
     handleGene: data => dispatch(handleResultConfigGene(data)),
     handleChromosome: data => dispatch(handleResultConfigChromosome(data)),
     handlePosition: data => dispatch(handleResultConfigPosition(data)),

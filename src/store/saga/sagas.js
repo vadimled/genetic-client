@@ -27,7 +27,8 @@ import {
   handleResultConfigProtein,
   handleResultConfigValidationFaildFields,
   handleResultConfigIsHgvsLoaded,
-  handleResultConfigIsOpen
+  handleResultConfigIsOpen,
+  resultConfigSetInitialState
 } from "Actions/resultConfigActions";
 
 function* onDelay(time) {
@@ -233,6 +234,7 @@ export function* resultConfigAddResultGenerator(data) {
 
     yield put(tableDataAddResult(result));
     yield put(handleResultConfigIsOpen(false));
+    yield put(resultConfigSetInitialState());
   }
   catch (e) {
     yield consoleErrors(e);

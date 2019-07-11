@@ -119,6 +119,12 @@ const tableReducer = createReducer(initialState, {
     };
   },
 
+  [actionsTypes.RESULT_CONFIG_SET_INITIAL_STATE]: () => {
+    return {
+      ...initialState
+    };
+  },
+
 });
 
 export default tableReducer;
