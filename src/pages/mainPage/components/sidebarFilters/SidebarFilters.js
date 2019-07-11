@@ -8,7 +8,7 @@ import filtersConfig from "Utils/filtersConfig";
 import {
   getFilterType,
   getFilterVariantClass,
-  getFilterSomaticClass,
+  // getFilterSomaticClass,
   getFilterHotSpot,
   getFilterSnp,
   getFilterRoi,
@@ -19,7 +19,7 @@ import {
 } from "Store/selectors";
 import {
   setFilterVariantClass,
-  setFilterSomaticClass,
+  // setFilterSomaticClass,
   setFilterHotSpot,
   setFilterSnp,
   setFilterRoi,
@@ -237,7 +237,7 @@ function mapStateToProps(state) {
     type: getFilterType(state),
     filters: {
       [FILTERS.variantClass]: getFilterVariantClass(state),
-      [FILTERS.somaticClass]: getFilterSomaticClass(state),
+      [FILTERS.somaticClass]: getFilterVariantClass(state),
       [FILTERS.hotSpot]: getFilterHotSpot(state),
       [FILTERS.snp]: getFilterSnp(state),
       [FILTERS.roi]: getFilterRoi(state),
@@ -252,7 +252,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     setFilterVariantClass: data => dispatch(setFilterVariantClass(data)),
-    setFilterSomaticClass: data => dispatch(setFilterSomaticClass(data)),
+    setFilterSomaticClass: data => dispatch(setFilterVariantClass(data)),
     setFilterHotSpot: data => dispatch(setFilterHotSpot(data)),
     setFilterSnp: data => dispatch(setFilterSnp(data)),
     setFilterRoi: data => dispatch(setFilterRoi(data)),

@@ -5,7 +5,6 @@ import isEmpty from "lodash.isempty";
 export const
   getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVariantClass = state => state?.filters?.[FILTERS.variantClass],
-  // getFilterVariantClassBen = state => state?.filters?.[FILTERS.variantClass],
   getFilterSomaticClass = state => state?.filters?.[FILTERS.somaticClass],
   getFilterHotSpot = state => state?.filters?.[FILTERS.hotSpot],
   getFilterSnp = state => state?.filters?.[FILTERS.snp],
