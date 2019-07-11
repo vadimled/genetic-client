@@ -32,7 +32,7 @@ const NonActiveButton = ({ title, type, onClick, typeData, currValue }) => {
       className={style["select-non-active-wrapper"]}
       onClick={e => onClick(e, type)}
     >
-      <div className="select-non-active-title">{title}</div>
+      <div className="select-non-active-title">{`${title}:`}</div>
       <div className="select-non-active-class">{renderVariantClass()}</div>
     </div>
   );
@@ -41,7 +41,9 @@ const NonActiveButton = ({ title, type, onClick, typeData, currValue }) => {
 NonActiveButton.propTypes = {
   title: PropTypes.string,
   type: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  currValue: PropTypes.string,
+  typeData: PropTypes.array,
 };
 
 export default memo(NonActiveButton);
