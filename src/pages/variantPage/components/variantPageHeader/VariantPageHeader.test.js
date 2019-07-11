@@ -52,4 +52,12 @@ describe("VariantPageHeader ", () => {
     expect(transcriptElement).toBeInTheDocument();
     expect(transcriptElement.textContent).toEqual(item.transcript);
   });
+
+  it("should - default type of variant must be 'somatic' ", () => {
+    expect(store.getState().variantPage.type).toEqual("somatic");
+  });
+
+  it("should - default Button is Somatic and exists ", () => {
+    expect(getByTestId("select-title-Somatic")).toBeInTheDocument();
+  });
 });
