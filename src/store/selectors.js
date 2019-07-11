@@ -42,7 +42,7 @@ export const
   getResultConfigVaf = state => state?.resultConfig?.vaf,
   getResultConfigCoverage = state => state?.resultConfig?.coverage,
   getResultConfigCoding = state => state?.resultConfig?.coding,
-  getResultConfigProtein = state => state?.resultConfig?.proteint,
+  getResultConfigProtein = state => state?.resultConfig?.protein,
   getResultConfigValidationFaildFields = state => state?.resultConfig?.validationFaildFields,
 
   getAlertStatus = state => state?.alert?.status,

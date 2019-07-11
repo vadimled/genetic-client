@@ -152,7 +152,25 @@ const tableReducer = createReducer(initialState, {
       ...state,
       activityLog
     };
-  }
+  },
+
+  [actionsTypes.TABLE_DATA_ADD_RESULT]: (state, { payload }) => {
+    let data = {
+      [payload.id]: {
+        ...payload,
+        key: payload.id, // need for variantTable
+        isAdded: true // indicate that this row has added by user
+      },
+      ...state.data
+    };
+
+    console.log(data);
+
+    return {
+      ...state,
+      data
+    };
+  },
 
 });
 

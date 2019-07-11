@@ -14,7 +14,7 @@ const initialState = {
   vaf: 0,
   coverage: 0,
   coding: '',
-  proteint: '',
+  protein: '',
   validationFaildFields: []
 };
 
@@ -108,7 +108,7 @@ const tableReducer = createReducer(initialState, {
   [actionsTypes.HANDLE_RESULT_CONFIG_PROTEIN]: (state, { payload }) => {
     return {
       ...state,
-      proteint: payload
+      protein: payload
     };
   },
 

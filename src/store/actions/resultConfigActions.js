@@ -97,3 +97,10 @@ export const handleResultConfigValidationFaildFields = data => {
     payload: data
   };
 };
+
+export const resultConfigAddResult = data => {
+  return {
+    type: actionsTypes.RESULT_CONFIG_ADD_RESULT,
+    payload: data
+  };
+};

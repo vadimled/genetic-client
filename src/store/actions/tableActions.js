@@ -70,3 +70,10 @@ export const updateActivityLog = data => {
     payload: data
   };
 };
+
+export const tableDataAddResult = data => {
+  return{
+    type: actionsTypes.TABLE_DATA_ADD_RESULT,
+    payload: data
+  };
+};

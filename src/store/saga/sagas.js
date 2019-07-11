@@ -3,7 +3,8 @@ import { ALERT_STATUSES, ALLELE_TYPES } from 'Utils/constants';
 import {
   fetchBAMFile,
   goToChrPositionIgv,
-  loadHgvs
+  loadHgvs,
+  addResult
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -12,6 +13,7 @@ import {
 } from "Actions/igvActions";
 import {
   applyConfirmation,
+  tableDataAddResult
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
@@ -24,7 +26,8 @@ import {
   handleResultConfigCoding,
   handleResultConfigProtein,
   handleResultConfigValidationFaildFields,
-  handleResultConfigIsHgvsLoaded
+  handleResultConfigIsHgvsLoaded,
+  handleResultConfigIsOpen
 } from "Actions/resultConfigActions";
 
 function* onDelay(time) {
@@ -36,7 +39,7 @@ function* onDelay(time) {
 function* consoleErrors(e) {
   process?.env?.NODE_ENV === 'test'
     ? yield true
-    : console.log("e", e);
+    : console.error("e", e);
 }
 
 function* confirmationDataValidation(data) {
@@ -96,7 +99,7 @@ function* confirmationDataValidation(data) {
   }
 }
 
-function* resultConfigValidation(data) {
+function* resultConfigValidation(data, isOnAddResult) {
   try {
     let validationFaildFields = [];
     const {
@@ -105,7 +108,8 @@ function* resultConfigValidation(data) {
       position,
       alleleType,
       alleleReference,
-      alleleAlternative
+      alleleAlternative,
+      isHgvsLoaded,
     } = data;
 
     if (!gene) {
@@ -136,9 +140,13 @@ function* resultConfigValidation(data) {
       }
     }
 
+    if (isOnAddResult) {
+      if (!isHgvsLoaded) {
+        validationFaildFields.push('loadHgvs');
+      }
+    }
+
     if (validationFaildFields.length) {
-      // mark that it has happened on loadHgvs event
-      validationFaildFields.push('loadHgvs');
       // set validation faild fields
       yield put(handleResultConfigValidationFaildFields(validationFaildFields));
 
@@ -164,7 +172,7 @@ export function* fetchBAMFileGenerator(data) {
     yield put(setFetchBAMFileStatus(null));
     yield put(setIgvLastQuery(null));
   } catch (e) {
-    consoleErrors(e);
+    yield consoleErrors(e);
     yield put(handleIgvAlertShow(true));
   }
 }
@@ -175,7 +183,7 @@ export function* goToChrPositionIgvGenerator(data) {
     yield call(goToChrPositionIgv, data.payload);
     yield put(setIgvLastQuery(null));
   } catch (e) {
-    consoleErrors(e);
+    yield consoleErrors(e);
     yield put(handleIgvAlertShow(true));
   }
 }
@@ -198,21 +206,35 @@ export function* sendForConfirmationGenerator(data) {
         message: 'Please try again.'
       }));
     }
-    consoleErrors(e);
+    yield consoleErrors(e);
   }
 }
 
 export function* resultConfigLoadHgvsGenerator(data) {
   try {
-    yield resultConfigValidation(data.payload);
+    yield resultConfigValidation(data.payload, false);
 
     const result = yield call(loadHgvs, data.payload);
 
     yield put(handleResultConfigCoding(result.coding));
-    yield put(handleResultConfigProtein(result.proteint));
+    yield put(handleResultConfigProtein(result.protein));
     yield put(handleResultConfigIsHgvsLoaded(true));
   }
   catch (e) {
-    consoleErrors(e);
+    yield consoleErrors(e);
+  }
+}
+
+export function* resultConfigAddResultGenerator(data) {
+  try {
+    yield resultConfigValidation(data.payload, true);
+
+    const result = yield call(addResult, data.payload);
+
+    yield put(tableDataAddResult(result));
+    yield put(handleResultConfigIsOpen(false));
+  }
+  catch (e) {
+    yield consoleErrors(e);
   }
 }

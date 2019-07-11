@@ -20,7 +20,8 @@ import {
   handleResultConfigAlleleType,
   handleResultConfigAlleleReference,
   handleResultConfigAlleleAlternative,
-  resultConfigLoadHgvs
+  resultConfigLoadHgvs,
+  resultConfigAddResult
 } from "Actions/resultConfigActions";
 import {
   getResultConfigIsOpen,
@@ -63,7 +64,8 @@ const ResultConfig = (props) => {
     handleAlleleType,
     handleAlleleReference,
     handleAlleleAlternative,
-    loadHgvs
+    loadHgvs,
+    addResult
   } = props;
 
   const onLoadHgvs = () => {
@@ -76,6 +78,22 @@ const ResultConfig = (props) => {
       alleleAlternative,
       vaf,
       coverage,
+    });
+  };
+
+  const onAddResult = () => {
+    addResult({
+      gene,
+      chromosome,
+      position,
+      alleleType,
+      alleleReference,
+      alleleAlternative,
+      vaf,
+      coverage,
+      coding,
+      protein,
+      isHgvsLoaded,
     });
   };
 
@@ -223,7 +241,12 @@ const ResultConfig = (props) => {
             <div className="cp-result">{protein}</div>
           </div>
           <div className="allele-divider"/>
-          <button className="allele-btn allele-btn--add">Add result</button>
+          <button
+            className="allele-btn allele-btn--add"
+            onClick={onAddResult}
+          >
+            Add result
+          </button>
         </div>
       </div>
     </SlideBar>
@@ -242,7 +265,7 @@ ResultConfig.propTypes = {
   vaf: PropTypes.number,
   coverage: PropTypes.number,
   coding: PropTypes.string,
-  proteint: PropTypes.string,
+  protein: PropTypes.string,
   validationFaildFields: PropTypes.array,
 
   handleClose: PropTypes.func.isRequired,
@@ -266,7 +289,7 @@ ResultConfig.defaultProps = {
   vaf: 0,
   coverage: 0,
   coding: '',
-  proteint: '',
+  protein: '',
   validationFaildFields: [],
   geneDataSource: []
 };
@@ -281,6 +304,7 @@ const mapDispatchToProps = (dispatch) => {
     handleAlleleReference: data => dispatch(handleResultConfigAlleleReference(data)),
     handleAlleleAlternative: data => dispatch(handleResultConfigAlleleAlternative(data)),
     loadHgvs: data => dispatch(resultConfigLoadHgvs(data)),
+    addResult: data => dispatch(resultConfigAddResult(data)),
   };
 };
 
