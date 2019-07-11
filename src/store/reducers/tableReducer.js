@@ -164,8 +164,6 @@ const tableReducer = createReducer(initialState, {
       ...state.data
     };
 
-    console.log(data);
-
     return {
       ...state,
       data

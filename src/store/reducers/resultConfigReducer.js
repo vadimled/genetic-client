@@ -3,7 +3,7 @@ import actionsTypes from "../actionsTypes";
 import { ALLELE_TYPES } from "Utils/constants";
 
 const initialState = {
-  isOpen: true,
+  isOpen: false,
   isHgvsLoaded: false,
   gene: '',
   chromosome: '',
