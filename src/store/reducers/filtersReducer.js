@@ -31,7 +31,7 @@ export const changeValueAccordingOnMode = (stateValue, value, mode) => {
 
 const initialState = {
   [FILTERS.type]: "somatic", // 'somatic' | 'germline'
-  [FILTERS.variantClass]: [],
+  [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben', 'tier1', 'tier2', 'tier3'],
   [FILTERS.somaticClass]: [],
   [FILTERS.hotSpot]: [],
   [FILTERS.snp]: [],

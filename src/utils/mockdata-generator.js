@@ -549,7 +549,7 @@ export const generateDNAVariantTableMockData = amount => {
         faker.random.number({ min: 5, max: 100 })
       ]),
       zygosity: "",
-      variantClass: "",
+      variantClass: "unclassified",
       coverage: faker.random.number({ min: 100, max: 500 }),
       notes: faker.lorem.sentence(),
       status: process?.env?.NODE_ENV === 'test'
