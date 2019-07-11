@@ -168,6 +168,13 @@ const filtersReducer = createReducer(initialState, {
       state[filtersKey] = [];
     }
 
+    // if(filtersKey === "somaticClass"){
+    //   const filteredFilters = state['variantClass'].filter(key => key !== 'tier1' && key !== 'tier2' && key !== 'tier3' && key !== 'tier4' && key !== 'unclassified' )
+    //   console.log("--filteredFilters: ", filteredFilters)
+    //   state['variantClass'] = filteredFilters
+    //   // console.log("--filteredFilters: ", filteredFilters)
+    // }
+
     return {
       ...state
     };
