@@ -78,7 +78,6 @@ class VariantTable extends Component {
         dataIndex: "alleleChange",
         key: "6",
         width: 100,
-
         render: (text, record) => {
           return (
             <Tooltip placement="topLeft" title={record.alleleChangeLong}>
@@ -315,7 +314,6 @@ class VariantTable extends Component {
       return { columns: nextColumns };
     });
   };
-
 
   render() {
     const { data } = this.props;
