@@ -4,25 +4,24 @@ import style from "./NonActiveButton.module.scss";
 import Tag from "GenericComponents/tag";
 
 const NonActiveButton = ({ title, type, onClick, typeData, currValue }) => {
-  const getLabel = (value, typeData) => {
+  const getTaggedLabel = (value, typeData) => {
     for (let item in typeData) {
-      if (typeData[item].value === value) return typeData[item].label;
+      const { tagColor, label, value: value1 } = typeData[item];
+      if (value1 === value)
+        return {
+          color: tagColor,
+          label: label
+        };
     }
-    return "Path";
-  };
-
-  const getTagColor = (value, typeData) => {
-    for (let item in typeData) {
-      if (typeData[item].value === value) return typeData[item].tagColor;
-    }
-    return "#F11E2C";
+    return { label: "Unclassified", color: "#FFF" };
   };
 
   const renderVariantClass = () => {
+    const { color, label } = getTaggedLabel(currValue, typeData);
     return (
       <Fragment>
-        <Tag color={getTagColor(currValue, typeData)} />
-        <span>{getLabel(currValue, typeData)}</span>
+        <Tag color={color} />
+        <span>{label}</span>
       </Fragment>
     );
   };
