@@ -155,7 +155,8 @@
       background-color: white;
       color: $brand_primary_color;
 
-      &:hover {
+      &:hover,
+      &.loaded {
         background: linear-gradient(
           180deg,
           rgba(14, 140, 230, 0) 0%,
@@ -163,6 +164,23 @@
           #0e8ce6 100%
         );
         color: white;
+      }
+
+      &.loaded {
+        position: relative;
+        &::after {
+          content: "";
+          position: absolute;
+          width: 17px;
+          height: 17px;
+          left: calc(50% + 50px);
+          top: 50%;
+          transform: translateY(-50%);
+          background-image: url("../../../../assets/ok.svg");
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
       }
     }
 

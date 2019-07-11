@@ -23,7 +23,8 @@ import {
 import {
   handleResultConfigCoding,
   handleResultConfigProtein,
-  handleResultConfigValidationFaildFields
+  handleResultConfigValidationFaildFields,
+  handleResultConfigIsHgvsLoaded
 } from "Actions/resultConfigActions";
 
 function* onDelay(time) {
@@ -209,6 +210,7 @@ export function* resultConfigLoadHgvsGenerator(data) {
 
     yield put(handleResultConfigCoding(result.coding));
     yield put(handleResultConfigProtein(result.proteint));
+    yield put(handleResultConfigIsHgvsLoaded(true));
   }
   catch (e) {
     consoleErrors(e);

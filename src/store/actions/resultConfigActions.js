@@ -7,6 +7,13 @@ export const handleResultConfigIsOpen = data => {
   };
 };
 
+export const handleResultConfigIsHgvsLoaded = data => {
+  return {
+    type: actionsTypes.HANDLE_RESULT_CONFIG_IS_HGVS_LOADED,
+    payload: data
+  };
+};
+
 export const handleResultConfigGene = data => {
   return {
     type: actionsTypes.HANDLE_RESULT_CONFIG_GENE,

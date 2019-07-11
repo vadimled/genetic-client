@@ -24,6 +24,7 @@ import {
 } from "Actions/resultConfigActions";
 import {
   getResultConfigIsOpen,
+  getResultConfigIsHgvsLoaded,
   getResultConfigGene,
   getResultConfigChromosome,
   getResultConfigPosition,
@@ -41,6 +42,7 @@ import {
 const ResultConfig = (props) => {
   const {
     isOpen,
+    isHgvsLoaded,
     gene,
     chromosome,
     position,
@@ -203,7 +205,9 @@ const ResultConfig = (props) => {
               errorMessage="No HGVS has loaded!"
             >
               <button
-                className="allele-btn allele-btn--hgvs"
+                className={cn("allele-btn allele-btn--hgvs", {
+                  'loaded': isHgvsLoaded
+                })}
                 onClick={onLoadHgvs}
               >
                 Load HGVS
@@ -228,9 +232,10 @@ const ResultConfig = (props) => {
 
 ResultConfig.propTypes = {
   isOpen: PropTypes.bool,
+  isHgvsLoaded: PropTypes.bool,
   gene: PropTypes.string,
   chromosome: PropTypes.string,
-  position: PropTypes.number,
+  position: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   alleleType: PropTypes.string,
   alleleReference: PropTypes.string,
   alleleAlternative: PropTypes.string,
@@ -251,6 +256,7 @@ ResultConfig.propTypes = {
 
 ResultConfig.defaultProps = {
   isOpen: false,
+  isHgvsLoaded: false,
   gene: '',
   chromosome: '',
   position: null,
@@ -281,6 +287,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     isOpen: getResultConfigIsOpen(state),
+    isHgvsLoaded: getResultConfigIsHgvsLoaded(state),
     gene: getResultConfigGene(state),
     chromosome: getResultConfigChromosome(state),
     position: getResultConfigPosition(state),

@@ -32,6 +32,7 @@ export const
   getBAMFileUrl = state => state?.igv?.BAMFileUrl,
 
   getResultConfigIsOpen = state => state?.resultConfig?.isOpen,
+  getResultConfigIsHgvsLoaded = state => state?.resultConfig?.isHgvsLoaded,
   getResultConfigGene = state => state?.resultConfig?.gene,
   getResultConfigChromosome = state => state?.resultConfig?.chromosome,
   getResultConfigPosition = state => state?.resultConfig?.position,
