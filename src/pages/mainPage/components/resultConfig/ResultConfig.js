@@ -21,6 +21,7 @@ import {
   handleResultConfigAlleleAlternative,
   resultConfigLoadHgvs,
   resultConfigAddResult,
+  resultConfidEditResult,
   resultConfigSetInitialState,
 } from "Actions/resultConfigActions";
 import {
@@ -38,7 +39,8 @@ import {
   getResultConfigCoding,
   getResultConfigProtein,
   getResultConfigValidationFaildFields,
-  getTableDataGenes
+  getTableDataGenes,
+  getResultConfigid
 } from "Store/selectors";
 
 const ResultConfig = (props) => {
@@ -58,6 +60,7 @@ const ResultConfig = (props) => {
     protein,
     validationFaildFields,
     geneDataSource,
+    id,
 
     handleClose,
     handleGene,
@@ -68,6 +71,7 @@ const ResultConfig = (props) => {
     handleAlleleAlternative,
     loadHgvs,
     addResult,
+    editResult
   } = props;
 
   const onLoadHgvs = () => {
@@ -83,8 +87,8 @@ const ResultConfig = (props) => {
     });
   };
 
-  const onAddResult = () => {
-    addResult({
+  const onApplyResult = () => {
+    const data = {
       gene,
       chromosome,
       position,
@@ -96,7 +100,12 @@ const ResultConfig = (props) => {
       coding,
       protein,
       isHgvsLoaded,
-    });
+      id,
+    };
+
+    isOnEdit
+      ? editResult(data)
+      : addResult(data);
   };
 
   return (
@@ -245,9 +254,9 @@ const ResultConfig = (props) => {
           <div className="allele-divider"/>
           <button
             className="allele-btn allele-btn--add"
-            onClick={onAddResult}
+            onClick={onApplyResult}
           >
-            Add result
+            {isOnEdit ? 'Edit Result' : 'Add result'}
           </button>
         </div>
       </div>
@@ -270,6 +279,7 @@ ResultConfig.propTypes = {
   coding: PropTypes.string,
   protein: PropTypes.string,
   validationFaildFields: PropTypes.array,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
   handleClose: PropTypes.func.isRequired,
   handleGene: PropTypes.func.isRequired,
@@ -280,6 +290,7 @@ ResultConfig.propTypes = {
   handleAlleleAlternative: PropTypes.func.isRequired,
   loadHgvs: PropTypes.func.isRequired,
   addResult: PropTypes.func.isRequired,
+  editResult: PropTypes.func.isRequired,
 };
 
 ResultConfig.defaultProps = {
@@ -297,7 +308,8 @@ ResultConfig.defaultProps = {
   coding: '',
   protein: '',
   validationFaildFields: [],
-  geneDataSource: []
+  geneDataSource: [],
+  id: null,
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -313,6 +325,7 @@ const mapDispatchToProps = (dispatch) => {
     handleAlleleAlternative: data => dispatch(handleResultConfigAlleleAlternative(data)),
     loadHgvs: data => dispatch(resultConfigLoadHgvs(data)),
     addResult: data => dispatch(resultConfigAddResult(data)),
+    editResult: data => dispatch(resultConfidEditResult(data)),
   };
 };
 
@@ -333,6 +346,7 @@ const mapStateToProps = (state) => {
     protein: getResultConfigProtein(state),
     validationFaildFields: getResultConfigValidationFaildFields(state),
     geneDataSource: getTableDataGenes(state),
+    id: getResultConfigid(state),
   };
 };
 

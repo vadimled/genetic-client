@@ -45,6 +45,7 @@ export const
   getResultConfigCoding = state => state?.resultConfig?.coding,
   getResultConfigProtein = state => state?.resultConfig?.protein,
   getResultConfigValidationFaildFields = state => state?.resultConfig?.validationFaildFields,
+  getResultConfigid = state => state?.resultConfig?.id,
 
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,

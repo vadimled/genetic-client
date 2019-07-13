@@ -4,7 +4,8 @@ import {
   fetchBAMFile,
   goToChrPositionIgv,
   loadHgvs,
-  addResult
+  addResult,
+  editResult
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -13,7 +14,8 @@ import {
 } from "Actions/igvActions";
 import {
   applyConfirmation,
-  tableDataAddResult
+  tableDataAddResult,
+  tableDataEditResult
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
@@ -27,7 +29,6 @@ import {
   handleResultConfigProtein,
   handleResultConfigValidationFaildFields,
   handleResultConfigIsHgvsLoaded,
-  handleResultConfigIsOpen,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
 
@@ -233,7 +234,20 @@ export function* resultConfigAddResultGenerator(data) {
     const result = yield call(addResult, data.payload);
 
     yield put(tableDataAddResult(result));
-    yield put(handleResultConfigIsOpen(false));
+    yield put(resultConfigSetInitialState());
+  }
+  catch (e) {
+    yield consoleErrors(e);
+  }
+}
+
+export function* resultConfigEditResultGenerator(data) {
+  try {
+    yield resultConfigValidation(data.payload, true);
+
+    const result = yield call(editResult, data.payload);
+
+    yield put(tableDataEditResult(result));
     yield put(resultConfigSetInitialState());
   }
   catch (e) {

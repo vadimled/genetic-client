@@ -6,6 +6,7 @@ const initialState = {
   isOpen: false,
   isHgvsLoaded: false,
   isOnEdit: false,
+  id: null,
   gene: '',
   chromosome: '',
   position: null,
@@ -130,6 +131,13 @@ const tableReducer = createReducer(initialState, {
   [actionsTypes.RESULT_CONFIG_SET_INITIAL_STATE]: () => {
     return {
       ...initialState
+    };
+  },
+
+  [actionsTypes.RESULT_CONFIG_SET_ID]: (state, { payload }) => {
+    return {
+      ...state,
+      id: payload,
     };
   },
 

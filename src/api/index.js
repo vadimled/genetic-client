@@ -22,15 +22,23 @@ export function addResult (data) {
   console.log("data", data);
   // -> API request
   const mockResult = {
+    ...data,
     id: Math.random().toString(),
-    gene: data.gene,
     chrPosition: `Chr${data.chromosome}:${data.position}`,
     alleleChange: `${data.alleleReference} > ${data.alleleAlternative}`,
     transcript: 'NM_939778.7',
-    vaf: data.vaf,
-    coverage: data.coverage,
-    coding: data.coding,
-    protein: data.protein
+  };
+  return Promise.resolve(mockResult);
+}
+
+export function editResult (data) {
+  console.log("data", data);
+  // -> API request
+  const mockResult = {
+    ...data,
+    chrPosition: `Chr${data.chromosome}:${data.position}`,
+    alleleChange: `${data.alleleReference} > ${data.alleleAlternative}`,
+    transcript: 'NM_939778.7',
   };
   return Promise.resolve(mockResult);
 }

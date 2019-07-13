@@ -112,9 +112,23 @@ export const resultConfigAddResult = data => {
   };
 };
 
+export const resultConfidEditResult = data => {
+  return {
+    type: actionsTypes.RESULT_CONFIG_EDIT_RESULT,
+    payload: data
+  };
+};
+
 export const resultConfigSetInitialState = data => {
   return {
     type: actionsTypes.RESULT_CONFIG_SET_INITIAL_STATE,
+    payload: data
+  };
+};
+
+export const resultConfigSetId = data => {
+  return {
+    type: actionsTypes.RESULT_CONFIG_SET_ID,
     payload: data
   };
 };

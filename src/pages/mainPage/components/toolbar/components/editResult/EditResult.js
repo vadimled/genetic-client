@@ -17,7 +17,8 @@ import {
   handleResultConfigAlleleReference,
   handleResultConfigAlleleAlternative,
   handleResultConfigCoding,
-  handleResultConfigProtein
+  handleResultConfigProtein,
+  resultConfigSetId
 } from 'Actions/resultConfigActions';
 
 const EditResult = ({
@@ -65,6 +66,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(handleResultConfigIsHgvsLoaded(true));
       dispatch(handleResultConfigIsOpen(true));
       dispatch(handleResultConfigIsOnEdit(true));
+      dispatch(resultConfigSetId(selectedResult.id));
     },
   };
 }
