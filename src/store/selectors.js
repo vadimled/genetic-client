@@ -227,6 +227,13 @@ export const getSelectedRows = createSelector(
   }
 );
 
+export const getSelectedIsAddedRows = createSelector(
+  getSelectedRows,
+  (data) => {
+    return data.filter(row => row.isAdded);
+  }
+);
+
 export const checkIsAllRowSelected = createSelector(
   getTableDataAsArray,
   getSelectedRows,

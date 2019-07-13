@@ -9,6 +9,7 @@ import { MUTATION } from "Utils/constants";
 import NumberVariants from "Pages/mainPage/components/numberVariants";
 import IgvLoadBAM from "./components/IgvLoadBAM";
 import AddResult from "./components/addResult";
+import EditResult from "./components/editResult";
 import {
   setMutationType
 } from "Actions/variantsActions";
@@ -23,6 +24,7 @@ import {
   getFilteredEntriesAmount,
   getMutationType,
   getSelectedRows,
+  getSelectedIsAddedRows,
   getTotalEntriesAmount
 } from "Store/selectors";
 
@@ -38,6 +40,7 @@ class Toolbar extends Component {
       sidebarToggle,
       mutations,
       selectedRows,
+      selectedIsAddedRows,
       openConfirmationPopup
     } = this.props;
 
@@ -81,9 +84,22 @@ class Toolbar extends Component {
               <div className="toolbar-divider-line"/>
             </Fragment>}
 
-            {(!selectedRows?.length || selectedRows?.length === 1) && <Fragment>
+            {(
+              (!selectedRows?.length || selectedRows?.length === 1)
+              && !selectedIsAddedRows?.length
+            ) && <Fragment>
               <AddResult
                 selectedResult={selectedRows[0]}
+              />
+              <div className="toolbar-divider-line"/>
+            </Fragment>}
+
+            {(
+              !!selectedIsAddedRows?.length && selectedIsAddedRows?.length === 1
+              && selectedRows?.length === 1
+            ) && <Fragment>
+              <EditResult
+                selectedResult={selectedIsAddedRows[0]}
               />
               <div className="toolbar-divider-line"/>
             </Fragment>}
@@ -123,7 +139,8 @@ const mapStateToProps = state => {
     filtered: getFilteredEntriesAmount(state),
     total: getTotalEntriesAmount(state),
     mutations: getMutationType(state),
-    selectedRows: getSelectedRows(state)
+    selectedRows: getSelectedRows(state),
+    selectedIsAddedRows: getSelectedIsAddedRows(state)
   };
 };
 
