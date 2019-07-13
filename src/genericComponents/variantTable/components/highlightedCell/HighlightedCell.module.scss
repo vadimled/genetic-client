@@ -1,0 +1,17 @@
+.highlighted-cell :global {
+  background-color: blue;
+  height: 100%;
+  width: 100%;
+
+  .inner {
+    height: 100%;
+    width: 100%;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+
+    &.highlighted {
+      background-color: red;
+    }
+  }
+}
