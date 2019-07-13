@@ -43,41 +43,68 @@ class Toolbar extends Component {
 
     return (
       <div className={style["toolbar-wrapper"]}>
-        {!!selectedRows?.length &&
-          <button
-            className={cn(["confirmation-button", { "sidebar-open": sidebarToggle }])}
-            onClick={openConfirmationPopup.bind(null, selectedRows)}
-            data-testid="confirmation-button"
-          >
-            Send for confirmation
-          </button>
+        {
+          // !!selectedRows?.length &&
+          // <button
+          //   className={cn(["confirmation-button", { "sidebar-open": sidebarToggle }])}
+          //   onClick={openConfirmationPopup.bind(null, selectedRows)}
+          //   data-testid="confirmation-button"
+          // >
+          //   Send for confirmation
+          // </button>
         }
-        {!selectedRows?.length && <Fragment>
+        <Fragment>
+
           <div className="left-wrapper">
-            <div className="mutation-select-wrapper">
-              <SimpleSelect
-                options={MUTATION}
-                onChange={this.handleOnChange}
-                name="mutation"
-                value={mutations}
-                disabled
-              />
-            </div>
+            {!selectedRows?.length &&
+              <div className="mutation-select-wrapper">
+                <SimpleSelect
+                  options={MUTATION}
+                  onChange={this.handleOnChange}
+                  name="mutation"
+                  value={mutations}
+                  disabled
+                />
+              </div>
+            }
           </div>
 
           <div className="search-field-wrapper flex items-center">
-            <Search />
+            {!selectedRows?.length &&
+              <Search />
+            }
           </div>
 
           <div className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}>
-            <IgvLoadBAM />
-            <div className="toolbar-divider-line"/>
-            <AddResult />
-            <div className="toolbar-divider-line"/>
-            <NumberVariants filtered={filtered} total={total} />
+            {!selectedRows?.length && <Fragment>
+              <IgvLoadBAM />
+              <div className="toolbar-divider-line"/>
+            </Fragment>}
+
+            {(!selectedRows?.length || selectedRows?.length === 1) && <Fragment>
+              <AddResult
+                selectedResult={selectedRows[0]}
+              />
+              <div className="toolbar-divider-line"/>
+            </Fragment>}
+
+            {!!selectedRows?.length && <Fragment>
+              <button
+                className={cn(["confirmation-button", { "sidebar-open": sidebarToggle }])}
+                onClick={openConfirmationPopup.bind(null, selectedRows)}
+                data-testid="confirmation-button"
+              >
+                Send for confirmation
+              </button>
+              <div className="toolbar-divider-line"/>
+            </Fragment>}
+
+            {!selectedRows?.length &&
+              <NumberVariants filtered={filtered} total={total} />
+            }
           </div>
 
-        </Fragment>}
+        </Fragment>
 
       </div>
     );

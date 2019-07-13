@@ -5,20 +5,22 @@ import { Button } from 'antd';
 import cn from 'classnames';
 import style from './AddResult.module.scss';
 import {
-  handleResultConfigIsOpen
+  handleResultConfigIsOpen,
+  handleResultConfigVaf,
+  handleResultConfigCoverage
 } from 'Actions/resultConfigActions';
 
 const AddResult = ({
-  handleResultConfigIsOpen
+  handleResultConfigIsOpen,
+  selectedResult
 }) => {
-
   return (
     <div className={cn(
       "toolbar-btn-wrapper",
       style["add-result-btn"]
     )}>
       <Button
-        onClick={handleResultConfigIsOpen.bind(null, true)}
+        onClick={handleResultConfigIsOpen.bind(null, true, selectedResult)}
         data-testid="add-result-btn"
       >
         <div className="btn-icon"/>
@@ -29,7 +31,11 @@ const AddResult = ({
 };
 
 AddResult.propTypes = {
-  handleResultConfigIsOpen: PropTypes.func.isRequired
+  handleResultConfigIsOpen: PropTypes.func.isRequired,
+  selectedResult: PropTypes.object
+};
+AddResult.defaultProps = {
+  selectedResult: null
 };
 
 const mapStateToProps = () => {
@@ -38,7 +44,13 @@ const mapStateToProps = () => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleResultConfigIsOpen: data => dispatch(handleResultConfigIsOpen(data)),
+    handleResultConfigIsOpen: (data, selectedResult) => {
+      if (selectedResult) {
+        dispatch(handleResultConfigVaf(selectedResult.vaf));
+        dispatch(handleResultConfigCoverage(selectedResult.coverage));
+      }
+      dispatch(handleResultConfigIsOpen(data));
+    },
   };
 }
 
