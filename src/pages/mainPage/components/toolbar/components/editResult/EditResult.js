@@ -6,8 +6,18 @@ import cn from 'classnames';
 import style from './EditResult.module.scss';
 import {
   handleResultConfigIsOpen,
+  handleResultConfigIsHgvsLoaded,
+  handleResultConfigIsOnEdit,
   handleResultConfigVaf,
-  handleResultConfigCoverage
+  handleResultConfigCoverage,
+  handleResultConfigGene,
+  handleResultConfigChromosome,
+  handleResultConfigPosition,
+  handleResultConfigAlleleType,
+  handleResultConfigAlleleReference,
+  handleResultConfigAlleleAlternative,
+  handleResultConfigCoding,
+  handleResultConfigProtein
 } from 'Actions/resultConfigActions';
 
 const EditResult = ({
@@ -20,7 +30,7 @@ const EditResult = ({
       style["edit-result-btn"]
     )}>
       <Button
-        onClick={handleResultConfigIsOpen.bind(null, true, selectedResult)}
+        onClick={handleResultConfigIsOpen.bind(null, selectedResult)}
         data-testid="edit-result-btn"
       >
         <div className="btn-icon"/>
@@ -32,10 +42,7 @@ const EditResult = ({
 
 EditResult.propTypes = {
   handleResultConfigIsOpen: PropTypes.func.isRequired,
-  selectedResult: PropTypes.object
-};
-EditResult.defaultProps = {
-  selectedResult: null
+  selectedResult: PropTypes.object.isRequired
 };
 
 const mapStateToProps = () => {
@@ -44,12 +51,20 @@ const mapStateToProps = () => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleResultConfigIsOpen: (data, selectedResult) => {
-      if (selectedResult) {
-        dispatch(handleResultConfigVaf(selectedResult.vaf));
-        dispatch(handleResultConfigCoverage(selectedResult.coverage));
-      }
-      dispatch(handleResultConfigIsOpen(data));
+    handleResultConfigIsOpen: (selectedResult) => {
+      dispatch(handleResultConfigVaf(selectedResult.vaf));
+      dispatch(handleResultConfigCoverage(selectedResult.coverage));
+      dispatch(handleResultConfigGene(selectedResult.gene));
+      dispatch(handleResultConfigChromosome(selectedResult.chromosome));
+      dispatch(handleResultConfigPosition(selectedResult.position));
+      dispatch(handleResultConfigAlleleType(selectedResult.alleleType));
+      dispatch(handleResultConfigAlleleReference(selectedResult.alleleReference));
+      dispatch(handleResultConfigAlleleAlternative(selectedResult.alleleAlternative));
+      dispatch(handleResultConfigCoding(selectedResult.coding));
+      dispatch(handleResultConfigProtein(selectedResult.protein));
+      dispatch(handleResultConfigIsHgvsLoaded(true));
+      dispatch(handleResultConfigIsOpen(true));
+      dispatch(handleResultConfigIsOnEdit(true));
     },
   };
 }

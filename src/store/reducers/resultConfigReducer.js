@@ -5,6 +5,7 @@ import { ALLELE_TYPES } from "Utils/constants";
 const initialState = {
   isOpen: false,
   isHgvsLoaded: false,
+  isOnEdit: false,
   gene: '',
   chromosome: '',
   position: null,
@@ -30,6 +31,13 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       isHgvsLoaded: payload
+    };
+  },
+
+  [actionsTypes.HANDLE_RESULT_CONFIG_IS_ON_EDIT]: (state, { payload }) => {
+    return {
+      ...state,
+      isOnEdit: payload
     };
   },
 

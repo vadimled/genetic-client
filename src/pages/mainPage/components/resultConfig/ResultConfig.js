@@ -13,7 +13,6 @@ import {
   ALLELE_TYPES
 } from "Utils/constants";
 import {
-  handleResultConfigIsOpen,
   handleResultConfigGene,
   handleResultConfigChromosome,
   handleResultConfigPosition,
@@ -27,6 +26,7 @@ import {
 import {
   getResultConfigIsOpen,
   getResultConfigIsHgvsLoaded,
+  getResultConfigIsOnEdit,
   getResultConfigGene,
   getResultConfigChromosome,
   getResultConfigPosition,
@@ -45,6 +45,7 @@ const ResultConfig = (props) => {
   const {
     isOpen,
     isHgvsLoaded,
+    isOnEdit,
     gene,
     chromosome,
     position,
@@ -102,7 +103,7 @@ const ResultConfig = (props) => {
     <SlideBar
       isOpen={isOpen}
       onClose={handleClose}
-      title="Add result"
+      title={isOnEdit ? "Edit result" : "Add result"}
     >
       <div className={style['result-config']}>
         <div className="content">
@@ -257,6 +258,7 @@ const ResultConfig = (props) => {
 ResultConfig.propTypes = {
   isOpen: PropTypes.bool,
   isHgvsLoaded: PropTypes.bool,
+  isOnEdit: PropTypes.bool,
   gene: PropTypes.string,
   chromosome: PropTypes.string,
   position: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -283,6 +285,7 @@ ResultConfig.propTypes = {
 ResultConfig.defaultProps = {
   isOpen: false,
   isHgvsLoaded: false,
+  isOnEdit: false,
   gene: '',
   chromosome: '',
   position: null,
@@ -300,7 +303,6 @@ ResultConfig.defaultProps = {
 const mapDispatchToProps = (dispatch) => {
   return {
     handleClose: () => {
-      dispatch(handleResultConfigIsOpen(false));
       dispatch(resultConfigSetInitialState());
     },
     handleGene: data => dispatch(handleResultConfigGene(data)),
@@ -318,6 +320,7 @@ const mapStateToProps = (state) => {
   return {
     isOpen: getResultConfigIsOpen(state),
     isHgvsLoaded: getResultConfigIsHgvsLoaded(state),
+    isOnEdit: getResultConfigIsOnEdit(state),
     gene: getResultConfigGene(state),
     chromosome: getResultConfigChromosome(state),
     position: getResultConfigPosition(state),

@@ -20,7 +20,7 @@ const AddResult = ({
       style["add-result-btn"]
     )}>
       <Button
-        onClick={handleResultConfigIsOpen.bind(null, true, selectedResult)}
+        onClick={handleResultConfigIsOpen.bind(null, selectedResult)}
         data-testid="add-result-btn"
       >
         <div className="btn-icon"/>
@@ -44,12 +44,12 @@ const mapStateToProps = () => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleResultConfigIsOpen: (data, selectedResult) => {
+    handleResultConfigIsOpen: (selectedResult) => {
       if (selectedResult) {
         dispatch(handleResultConfigVaf(selectedResult.vaf));
         dispatch(handleResultConfigCoverage(selectedResult.coverage));
       }
-      dispatch(handleResultConfigIsOpen(data));
+      dispatch(handleResultConfigIsOpen(true));
     },
   };
 }

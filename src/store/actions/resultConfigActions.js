@@ -14,6 +14,13 @@ export const handleResultConfigIsHgvsLoaded = data => {
   };
 };
 
+export const handleResultConfigIsOnEdit = data => {
+  return {
+    type: actionsTypes.HANDLE_RESULT_CONFIG_IS_ON_EDIT,
+    payload: data
+  };
+};
+
 export const handleResultConfigGene = data => {
   return {
     type: actionsTypes.HANDLE_RESULT_CONFIG_GENE,

@@ -33,6 +33,7 @@ export const
 
   getResultConfigIsOpen = state => state?.resultConfig?.isOpen,
   getResultConfigIsHgvsLoaded = state => state?.resultConfig?.isHgvsLoaded,
+  getResultConfigIsOnEdit = state => state?.resultConfig?.isOnEdit,
   getResultConfigGene = state => state?.resultConfig?.gene,
   getResultConfigChromosome = state => state?.resultConfig?.chromosome,
   getResultConfigPosition = state => state?.resultConfig?.position,
