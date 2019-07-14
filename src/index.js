@@ -10,12 +10,11 @@ import App from "./App";
 import reducers from "Store/reducers";
 import "Css/index.scss";
 import "antd/dist/antd.css";
-import config from "./config";
 import ErrorBoundaries from "./ErrorBoundaries";
 
 Sentry.init({
-  dsn: config.REACT_APP_SENTRY_DSN,
-  environment: process.env.NODE_ENV,
+  dsn: process.env.REACT_APP_SENTRY_DSN,
+  environment: process.env.REACT_APP_SENTRY_ENV,
   integrations: [
     new Sentry.Integrations.Breadcrumbs({
       console: process.env.NODE_ENV !== "development"
