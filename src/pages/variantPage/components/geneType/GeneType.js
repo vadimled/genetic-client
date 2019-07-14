@@ -1,16 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS, TEXTS } from "Utils/constants";
+import {
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  TEXTS
+} from "Utils/constants";
 import style from "./GeneType.module.scss";
 import { connect } from "react-redux";
 import { setGeneType, setGeneValue } from "Actions/variantPageActions";
-import { getGeneType, getGermlineValue, getSomaticValue } from "Store/selectors";
+import {
+  getGeneType,
+  getGermlineValue,
+  getSomaticValue
+} from "Store/selectors";
 import GeneTypeButton from "variantComponents/geneTypeButton";
 
 class GeneType extends React.Component {
   onChangeType = (e, id) => {
-    const
-      { value, name } = e.target,
+    const { value, name } = e.target,
       { setGeneValue, setType } = this.props;
 
     !value ? setType(id) : setGeneValue({ value, name });
@@ -26,7 +33,7 @@ class GeneType extends React.Component {
             type={TEXTS.germline}
             currValue={germlineValue}
             onChangeType={this.onChangeType}
-            title={"Germline"}
+            title={TEXTS.germlineUp}
             typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
           />
           <GeneTypeButton
@@ -34,7 +41,7 @@ class GeneType extends React.Component {
             type={TEXTS.somatic}
             currValue={somaticValue}
             onChangeType={this.onChangeType}
-            title={"Somatic"}
+            title={TEXTS.somaticUp}
             typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
           />
         </div>
