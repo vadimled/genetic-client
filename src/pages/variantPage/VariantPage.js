@@ -3,24 +3,25 @@ import style from "./VariantPage.module.scss";
 import cn from "classnames";
 import SideBarLayout from "Pages/mainPage/components/sideBarLayout";
 import VariantPageHeader from "variantComponents/variantPageHeader";
+import ExternalResources from "variantComponents/externalResources";
 
 // import PropTypes from 'prop-types';
 
 class VariantPage extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       sidebarToggle: true
     };
   }
-  
+
   handleClick = () => {
     this.setState({
       sidebarToggle: !this.state.sidebarToggle
     });
   };
-  
+
   render() {
     const { sidebarToggle } = this.state;
     return (
@@ -31,22 +32,12 @@ class VariantPage extends Component {
             { "links-wrapper-open": sidebarToggle }
           ])}
         >
-          
-          <SideBarLayout handleClick={this.handleClick} mode={sidebarToggle}>
-            <div className="links">
-              <h2>Links</h2>
-              <ul>
-                <li>
-                  <a href="#">UCSD</a>
-                </li>
-                <li>
-                  <a href="#">gnomId</a>
-                </li>
-                <li>
-                  <a href="#">OMIM</a>
-                </li>
-              </ul>
-            </div>
+          <SideBarLayout
+            handleClick={this.handleClick}
+            mode={sidebarToggle}
+            className={"external-resources"}
+          >
+            <ExternalResources />
           </SideBarLayout>
         </div>
 
@@ -59,7 +50,8 @@ class VariantPage extends Component {
           <div className="main-header-data">
             <VariantPageHeader
               id={"k5wp5amernh84pvsygjji9ljz"}
-              sidebarToggle={sidebarToggle}/>
+              sidebarToggle={sidebarToggle}
+            />
           </div>
           <div className="main-data">
             <div className="history">History</div>

@@ -10,9 +10,6 @@
 
   .links-wrapper {
     display: flex;
-    //min-width: 200px;
-    //flex: 2 2 6em;
-    //border: 1px solid green;
     height: 100%;
     z-index: 2;
     transition: 0.4s ease;
@@ -25,21 +22,6 @@
     &.links-wrapper-open {
       transition: 0.4s ease;
       transform: translate(0px, 0px);
-    }
-
-    .links {
-      //margin-left: -15px;
-      width: 167px;
-
-      h2 {
-        margin: 12px auto;
-      }
-
-      ul {
-        padding-left: 0;
-        text-align: left;
-        list-style: none;
-      }
     }
   }
 

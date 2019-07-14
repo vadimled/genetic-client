@@ -1,0 +1,17 @@
+@import "Css/Colors.scss";
+
+.external-resources-wrapper :global {
+  .links {
+    width: 167px;
+
+    h2 {
+      margin: 12px auto;
+    }
+
+    ul {
+      padding-left: 0;
+      text-align: left;
+      list-style: none;
+    }
+  }
+}
