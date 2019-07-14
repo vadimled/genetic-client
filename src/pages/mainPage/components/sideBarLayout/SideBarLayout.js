@@ -13,7 +13,7 @@ const SideBarLayout = props => {
       <div
         className={cn([
           "sidebar-layout",
-          cn("scrollbar", { [className]: !!className }),
+          "scrollbar",
           { "sidebar-closed": !mode },
           { [className]: !!className }
         ])}

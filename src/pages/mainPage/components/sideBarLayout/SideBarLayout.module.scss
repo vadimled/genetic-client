@@ -8,20 +8,12 @@
 
     &.external-resources {
       &::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 15px rgba(150, 162, 170, 1);
+        -webkit-box-shadow: inset 15px 15px 15px 15px $neutral_30;
+        border-right: none;
       }
-
       width: 100%;
       height: 100%;
       background-color: $neutral_30;
-    }
-
-    .scrollbar {
-      &.external-resources {
-        width: 100%;
-        height: 100%;
-        background-color: $neutral_30;
-      }
     }
     .content {
       width: 100%;
