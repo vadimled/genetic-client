@@ -22,16 +22,6 @@ Sentry.init({
     })
   ]
 });
-/* if (process.env.NODE_ENV !== "development") {
-  setupLogRocketReact(LogRocket);
-  LogRocket.init(config.LOGROCKET_ID, LogRocketConfiguration);
-  
-  LogRocket.getSessionURL(sessionURL => {
-    Sentry.configureScope(scope => {
-      scope.setExtra("sessionURL", sessionURL);
-    });
-  });
-}*/
 
 const sagaMiddleware = createSagaMiddleware();
 
