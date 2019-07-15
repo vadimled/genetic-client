@@ -55,12 +55,12 @@ const filtersReducer = createReducer(initialState, {
 
     const {action, testType} = payload;
 
-    console.log("--payload: ", payload)
+    console.log("--payload: ", payload);
 
     if(action === "defaultSorting"){
       return {
         ...state
-      }
+      };
     }
 
     // let filters = {}
