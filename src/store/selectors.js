@@ -231,11 +231,3 @@ export const getActivityLog = (state, recordId) => {
 
   return activityLogArray;
 };
-
-export const getTableDataById = createSelector(
-  getTableData,
-  (data, ...rest) => {
-    console.log(rest);
-    return data["k5wp5amernh84pvsygjji9ljz"];
-  }
-);
