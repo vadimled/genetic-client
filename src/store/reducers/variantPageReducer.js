@@ -1,7 +1,29 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 
+/* gene(pin): "A1CF"
+chrPosition(pin)
+transcript(pin)
+exon(pin): 2
+alleleChange(pin)
+alleleChangeLong(pin): "sghshsfghsfh"
+coding(pin)
+codingLong(pin): "cAc/gTa/qwertyyuyuiyiyutyutyu"
+protein(pin)
+vaf(pin): 99
+gnomAD(pin): 14
+zygosity(pin): ""
+variantClass(pin): ""
+coverage(pin): 292*/
 const initialState = {
+  variantData: {
+    gene: "A1CF",
+    protein: "zaszg",
+    chrPosition: "Chr4:236283",
+    alleleChange: "G > A",
+    coding: "aGc/tCg",
+    transcript: "NM_110509.1"
+  },
   dataId: "k5wp5amernh84pvsygjji9ljz", // null,
   type: "somatic",
   valueSomatic: "unclassified",

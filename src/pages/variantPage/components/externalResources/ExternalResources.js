@@ -4,14 +4,14 @@ import { TEXTS } from "Utils/constants";
 import PropTypes from "prop-types";
 
 function ExternalResources({ externalResources }) {
-  const renderLinks = resourseData => {
-    return Object.keys(resourseData).map((link, index) => {
+  const renderLinks = resourceData => {
+    return Object.keys(resourceData).map((link, index) => {
       return (
         link !== "title" && (
           <li key={`${index}-${link}`}>
             {
               <a
-                href={resourseData[link]}
+                href={resourceData[link]}
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -33,16 +33,16 @@ function ExternalResources({ externalResources }) {
           </div>
           <div className="divider" />
         </div>
-        {externalResources?.map((resourseData, index) => {
+        {externalResources?.map((resourceData, index) => {
           return (
             <div
               className="external-resources-part"
-              key={`${index}-${resourseData.title}`}
+              key={`${index}-${resourceData.title}`}
             >
               <div className="external-resources-part-title">
-                {resourseData.title}
+                {resourceData.title}
               </div>
-              <ul>{renderLinks(resourseData)}</ul>
+              <ul>{renderLinks(resourceData)}</ul>
             </div>
           );
         })}

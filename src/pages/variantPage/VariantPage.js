@@ -6,7 +6,7 @@ import VariantPageHeader from "variantComponents/variantPageHeader";
 import ExternalResources from "variantComponents/externalResources";
 import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
-import { getExternalResources } from "Store/selectors";
+import { getExternalResources, getVariantData } from "Store/selectors";
 import { connect } from "react-redux";
 
 // import PropTypes from 'prop-types';
@@ -28,7 +28,7 @@ class VariantPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { externalResources } = this.props;
+    const { externalResources, variantData } = this.props;
     return (
       <div className={style["variant-page-wrapper"]}>
         <div
@@ -44,7 +44,9 @@ class VariantPage extends Component {
             iconOpened={<OpenedIcon />}
             iconClosed={<ClosedIcon />}
           >
-            <ExternalResources externalResources={externalResources} />
+            <ExternalResources
+              externalResources={externalResources}
+            />
           </SideBarLayout>
         </div>
 
@@ -55,7 +57,10 @@ class VariantPage extends Component {
           ])}
         >
           <div className="main-header-data">
-            <VariantPageHeader sidebarToggle={sidebarToggle} />
+            <VariantPageHeader
+              sidebarToggle={sidebarToggle}
+              variantData={variantData}
+            />
           </div>
           <div className="main-data">
             <div className="history">History</div>
@@ -71,6 +76,7 @@ VariantPage.propTypes = {};
 
 const mapStateToProps = state => {
   return {
+    variantData: getVariantData(state),
     externalResources: getExternalResources(state)
   };
 };

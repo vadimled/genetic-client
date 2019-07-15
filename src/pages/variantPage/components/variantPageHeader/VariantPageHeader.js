@@ -1,20 +1,13 @@
 import React, { memo } from "react";
-import { useSelector } from "react-redux";
 import style from "./VariantPageHeader.module.scss";
 import InformField from "GenericComponents/informField";
 import ExternalLink from "GenericComponents/externalLink";
 import VariantClassificationContainer from "variantComponents/variantClassificationContainer";
 import cn from "classnames";
-import { getTableData } from "Store/selectors";
 import PropTypes from "prop-types";
 
-const VariantPageHeader = ({ sidebarToggle }) => {
-  // ------ for dev
-  const data = useSelector(getTableData);
-  const { gene, protein, chrPosition, alleleChange, coding, transcript } = data[
-    Object.keys(data)[3]
-  ];
-  // ------ for dev
+const VariantPageHeader = ({ sidebarToggle, variantData }) => {
+  const { gene, protein, chrPosition, alleleChange, coding, transcript } = variantData || {};
   return (
     <div className={style["variant-page-header-wrapper"]}>
       <div className="left-data-wrapper">
@@ -48,7 +41,8 @@ const VariantPageHeader = ({ sidebarToggle }) => {
 };
 
 VariantPageHeader.propTypes = {
-  sidebarToggle: PropTypes.bool
+  sidebarToggle: PropTypes.bool,
+  variantData: PropTypes.object
 };
 
 export default memo(VariantPageHeader);
