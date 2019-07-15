@@ -70,3 +70,10 @@ export const updateActivityLog = data => {
     payload: data
   };
 };
+
+export const fetchData = data => {
+  return{
+    type: actionsTypes.FETCH_DATA,
+    payload: data
+  }
+}

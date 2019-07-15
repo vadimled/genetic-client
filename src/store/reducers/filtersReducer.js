@@ -55,6 +55,13 @@ const filtersReducer = createReducer(initialState, {
 
   [actionsTypes.SET_DEFAULT_SETTINGS]: (state, {payload}) => {
 
+    if(payload === "defaultSorting"){
+      console.log("--state: ", store.getState())
+      return {
+        ...state
+      }
+    }
+
     if(payload === "defaultFiltering"){
       return {
         ...state,
@@ -180,13 +187,6 @@ const filtersReducer = createReducer(initialState, {
     }else {
       state[filtersKey] = [];
     }
-
-    // if(filtersKey === "somaticClass"){
-    //   const filteredFilters = state['variantClass'].filter(key => key !== 'tier1' && key !== 'tier2' && key !== 'tier3' && key !== 'tier4' && key !== 'unclassified' )
-    //   console.log("--filteredFilters: ", filteredFilters)
-    //   state['variantClass'] = filteredFilters
-    //   // console.log("--filteredFilters: ", filteredFilters)
-    // }
 
     return {
       ...state

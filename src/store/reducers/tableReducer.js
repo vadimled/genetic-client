@@ -11,6 +11,14 @@ const initialState = {
 };
 
 const tableReducer = createReducer(initialState, {
+
+  [actionsTypes.FETCH_DATA_SUCCESS]: (state, {payload}) => {
+    return {
+      ...state,
+      data: payload
+    };
+  },
+
   [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
     const {item, value} = payload;
     let data = state?.data;
