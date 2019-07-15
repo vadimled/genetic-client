@@ -2,6 +2,7 @@ import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 
 const initialState = {
+  testType: "hema",
   mutations: "dna",
   showTumorInfo: false,
   tumorInfo: {

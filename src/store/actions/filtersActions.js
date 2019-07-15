@@ -77,8 +77,9 @@ export const clearFilterSection = data => {
   };
 };
 
-export const setDefaultFilters = () =>{
+export const setDefaultSettings = data =>{
   return {
-    type: actionsTypes.SET_DEFAULT_FILTERS
+    type: actionsTypes.SET_DEFAULT_SETTINGS,
+    payload: data
   };
 };

@@ -154,11 +154,8 @@ export const getFilteredData = createSelector(
       return filtersArray.some(filter => filter(item));
     });
 
-    const sortedData = filteredData.sort((a, b) => b.priority - a.priority).slice();
+    return filteredData.sort((a, b) => b.priority - a.priority).slice();
 
-    console.log(sortedData.length);
-
-    return sortedData;
   }
 );
 

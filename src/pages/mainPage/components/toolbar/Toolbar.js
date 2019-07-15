@@ -25,7 +25,7 @@ import {
   getTotalEntriesAmount
 } from "Store/selectors";
 import Sort from "./components/Sort";
-import { setDefaultFilters } from "../../../../store/actions/filtersActions";
+import { setDefaultSettings } from "../../../../store/actions/filtersActions";
 
 
 
@@ -43,7 +43,7 @@ class Toolbar extends Component {
       mutations,
       selectedRows,
       openConfirmationPopup,
-      setDefaultFilters
+      setDefaultSettings
     } = this.props;
 
     return (
@@ -75,7 +75,7 @@ class Toolbar extends Component {
           </div>
 
           <div className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}>
-            <Sort setDefaultFilters={setDefaultFilters} />
+            <Sort setDefaultSettings={setDefaultSettings} />
             <IgvLoadBAM />
             <NumberVariants filtered={filtered} total={total} />
           </div>
@@ -111,7 +111,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(setConfirmationData(data));
     },
     updateSearch: data => dispatch(updateSearch(data)),
-    setDefaultFilters: () => dispatch(setDefaultFilters()),
+    setDefaultSettings: data => dispatch(setDefaultSettings(data)),
   };
 }
 

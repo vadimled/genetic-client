@@ -53,11 +53,15 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_DEFAULT_FILTERS]: (state) => {
-    return {
-      ...state,
-      [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben', 'tier1', 'tier2', 'tier3']
-    };
+  [actionsTypes.SET_DEFAULT_SETTINGS]: (state, {payload}) => {
+
+    if(payload === "defaultFiltering"){
+      return {
+        ...state,
+        [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+        [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3']
+      };
+    }
   },
 
   [actionsTypes.SET_FILTER_VARIANT_CLASS]: (state, { payload }) => {

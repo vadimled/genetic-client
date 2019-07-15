@@ -148,7 +148,7 @@ $bg-img: url("../assets/sort-arrows.png");
 
   .sort-wrapper {
     .ant-select {
-      min-width: 72px;
+      min-width: 78px;
       max-height: 28px;
       margin-right: 12px;
       .anticon.anticon-down.ant-select-arrow-icon {
@@ -174,14 +174,14 @@ $bg-img: url("../assets/sort-arrows.png");
           }
           .ant-select-selection__placeholder {
             top: 13px;
-            right: -2px;
+            right: -3px;
             left: unset;
             color: #424d55;
           }
         }
         .ant-select-arrow {
           top: 9px;
-          right: 43px;
+          right: 48px;
         }
       }
       .ant-select-selection-selected-value {

@@ -40,8 +40,9 @@ export const MUTATION = [
   { value: "agena", label: "Agena" }
 ];
 
-export const SORTING = [
-  {value: "default", label: "Default"}
+export const DEFAULT_OPTIONS = [
+  {value: "defaultSorting", label: "Default sorting"},
+  {value: "defaultFiltering", label: "Default filtering"}
 ];
 
 export const ZYGOSITY_OPTIONS = [
