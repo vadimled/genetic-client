@@ -188,18 +188,11 @@ $bg-img: url("../assets/sort-arrows.png");
         float: right;
       }
     }
-    //svg{
-    //  position: absolute;
-    //  z-index: 1;
-    //  top: 4px;
-    //  left: 7px;
-    //}
 
     border-radius: 4px;
     & :hover {
       background: $neutral_10;
       border-radius: 4px;
-      //background: red;
     }
   }
 }
