@@ -1,17 +1,53 @@
 @import "Css/Colors.scss";
 
 .external-resources-wrapper :global {
-  .links {
+  .external-resources {
     width: 167px;
-
-    h2 {
-      margin: 12px auto;
+    padding-left: 6px;
+    .external-resources-header {
+      .external-resources-title {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 18px;
+        color: #424d55;
+        margin: 14px 0 9px;
+      }
+      .divider {
+        border-bottom: 1px solid $border_color;
+      }
     }
+    .external-resources-part {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
 
-    ul {
-      padding-left: 0;
-      text-align: left;
-      list-style: none;
+      .external-resources-part-title {
+        margin: 12px 0 0 0;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 18px;
+        color: $subtitle_color;
+      }
+
+      ul {
+        padding-left: 0;
+        text-align: left;
+        list-style: none;
+
+        li {
+          margin: 10px 0 0 0;
+          a {
+            font-weight: 600;
+            font-size: 14px;
+            color: $title_color;
+            line-height: 18px;
+
+            &:hover {
+              color: $neutral_hover_30;
+            }
+          }
+        }
+      }
     }
   }
 }

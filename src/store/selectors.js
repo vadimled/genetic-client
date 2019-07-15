@@ -34,7 +34,8 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getAlertMessage = state => state?.alert?.message,
   getGeneType = state => state.variantPage.type,
   getSomaticValue = state => state.variantPage.valueSomatic,
-  getGermlineValue = state => state.variantPage.valueGermline;
+  getGermlineValue = state => state.variantPage.valueGermline,
+  getExternalResources = state => state.variantPage.externalResources;
 
 export const getSearchQuery = state => state?.filters?.searchText;
 

@@ -8,9 +8,9 @@ import cn from "classnames";
 import { getTableData } from "Store/selectors";
 import PropTypes from "prop-types";
 
-const VariantPageHeader = ({ sidebarToggle /* , id*/ }) => {
-  const data = useSelector(getTableData); // [id];
+const VariantPageHeader = ({ sidebarToggle }) => {
   // ------ for dev
+  const data = useSelector(getTableData);
   const { gene, protein, chrPosition, alleleChange, coding, transcript } = data[
     Object.keys(data)[3]
   ];

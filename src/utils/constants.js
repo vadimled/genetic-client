@@ -31,7 +31,8 @@ export const TEXTS = {
   somatic: "somatic",
   germline: "germline",
   somaticUp: "Somatic",
-  germlineUp: "Germline"
+  germlineUp: "Germline",
+  externalResources: "External resources"
 };
 
 export const LIMITS = {
