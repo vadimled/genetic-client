@@ -13,7 +13,7 @@ import {
   getGermlineValue,
   getSomaticValue
 } from "Store/selectors";
-import GeneTypeButton from "variantComponents/geneTypeButton";
+import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 
 class VariantClassificationContainer extends React.Component {
   onChangeType = (e, id) => {
@@ -28,7 +28,7 @@ class VariantClassificationContainer extends React.Component {
     return (
       <div className={style["gene-type-wrapper"]}>
         <div className="gene-type-radio-group">
-          <GeneTypeButton
+          <ZygosityTypeButton
             currentType={currentType}
             type={TEXTS.germline}
             currValue={germlineValue}
@@ -36,7 +36,7 @@ class VariantClassificationContainer extends React.Component {
             title={TEXTS.germlineUp}
             typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
           />
-          <GeneTypeButton
+          <ZygosityTypeButton
             currentType={currentType}
             type={TEXTS.somatic}
             currValue={somaticValue}

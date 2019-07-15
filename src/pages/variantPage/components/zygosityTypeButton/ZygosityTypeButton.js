@@ -2,10 +2,10 @@ import React, { memo } from "react";
 import SimpleSelect from "GenericComponents/simpleSelect/SimpleSelect";
 import { ReactComponent as EditIcon } from "Assets/edit.svg";
 import NonActiveButton from "variantComponents/nonActiveButton";
-import style from "./GeneTypeButton.module.scss";
+import style from "./ZygosityTypeButton.module.scss";
 import PropTypes from "prop-types";
 
-function GeneTypeButton({
+function ZygosityTypeButton({
   currentType,
   title,
   type,
@@ -36,7 +36,7 @@ function GeneTypeButton({
   );
 }
 
-GeneTypeButton.propTypes = {
+ZygosityTypeButton.propTypes = {
   currentType: PropTypes.string,
   typeData: PropTypes.array,
   title: PropTypes.string,
@@ -45,4 +45,4 @@ GeneTypeButton.propTypes = {
   onChangeType: PropTypes.func
 };
 
-export default memo(GeneTypeButton);
+export default memo(ZygosityTypeButton);
