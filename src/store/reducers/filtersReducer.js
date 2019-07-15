@@ -55,15 +55,11 @@ const filtersReducer = createReducer(initialState, {
 
     const {action, testType} = payload;
 
-    console.log("--payload: ", payload);
-
     if(action === "defaultSorting"){
       return {
         ...state
       };
     }
-
-    // let filters = {}
 
     if(action === "defaultFiltering"){
 
@@ -84,8 +80,6 @@ const filtersReducer = createReducer(initialState, {
           [FILTERS.vaf]: [30, 100]
         };
       }
-
-
     }
   },
 

@@ -54,7 +54,6 @@ class Toolbar extends Component {
       testType
     } = this.props;
 
-    console.log(this.props);
 
     return (
       <div className={style["toolbar-wrapper"]}>
