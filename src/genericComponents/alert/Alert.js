@@ -26,7 +26,7 @@ const Alert = ({ status, title, message, onClose }) => {
 };
 
 Alert.propTypes = {
-  status: PropTypes.oneOf(['error', 'warning', 'default']),
+  status: PropTypes.oneOf(['error', 'warning', 'success', 'default']),
   title: PropTypes.string,
   message: PropTypes.string,
   onClose: PropTypes.func.isRequired
@@ -34,8 +34,8 @@ Alert.propTypes = {
 
 Alert.defaultProps = {
   status: 'default',
-  title: 'sdfdfdg',
-  message: 'sdfgdfsgdsfg'
+  title: '',
+  message: ''
 };
 
 export default React.memo(Alert);

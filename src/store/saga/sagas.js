@@ -221,8 +221,8 @@ export function* sendForConfirmationGenerator(data) {
           message: "Please try again."
         })
       );
+      yield consoleErrors(e);
     }
-    yield consoleErrors(e);
   }
 }
 
@@ -237,7 +237,9 @@ export function* resultConfigLoadHgvsGenerator(data) {
     yield put(handleResultConfigIsHgvsLoaded(true));
   }
   catch (e) {
-    yield consoleErrors(e);
+    if (e.message !== "Error: Validation error") {
+      yield consoleErrors(e);
+    }
   }
 }
 
@@ -249,9 +251,17 @@ export function* resultConfigAddResultGenerator(data) {
 
     yield put(tableDataAddResult(result));
     yield put(resultConfigSetInitialState());
+    yield put(
+      setAlert({
+        status: ALERT_STATUSES.success,
+        title: "New result added."
+      })
+    );
   }
   catch (e) {
-    yield consoleErrors(e);
+    if (e.message !== "Error: Validation error") {
+      yield consoleErrors(e);
+    }
   }
 }
 
@@ -263,8 +273,16 @@ export function* resultConfigEditResultGenerator(data) {
 
     yield put(tableDataEditResult(result));
     yield put(resultConfigSetInitialState());
+    yield put(
+      setAlert({
+        status: ALERT_STATUSES.success,
+        title: "Result updated."
+      })
+    );
   }
   catch (e) {
-    yield consoleErrors(e);
+    if (e.message !== "Error: Validation error") {
+      yield consoleErrors(e);
+    }
   }
 }

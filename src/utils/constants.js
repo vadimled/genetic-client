@@ -108,7 +108,8 @@ export const CONFIRMATION_VALUES = {
 export const ALERT_STATUSES = {
   'error': 'error',
   'warning': 'warning',
-  'default': 'default'
+  'success': 'success',
+  'default': 'default',
 };
 
 export const TUMOR_TYPE = [
