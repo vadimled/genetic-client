@@ -142,7 +142,7 @@ export const getFilteredData = createSelector(
 
       const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
 
-      return sortedData
+      return sortedData;
 
     }
 
