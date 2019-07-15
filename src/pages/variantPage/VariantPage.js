@@ -4,8 +4,8 @@ import cn from "classnames";
 import SideBarLayout from "Pages/mainPage/components/sideBarLayout";
 import VariantPageHeader from "variantComponents/variantPageHeader";
 import ExternalResources from "variantComponents/externalResources";
-import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
 import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
+import { ReactComponent as OpenedIcon} from "Assets/openSideBar.svg";
 
 // import PropTypes from 'prop-types';
 

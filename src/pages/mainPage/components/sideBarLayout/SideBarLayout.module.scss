@@ -8,12 +8,12 @@
 
     &.external-resources {
       &::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 15px 15px 15px 15px $neutral_30;
+        -webkit-box-shadow: inset 15px 15px 15px 15px $table-selected-row;
         border-right: none;
       }
       width: 100%;
       height: 100%;
-      background-color: $neutral_30;
+      background-color: $table-selected-row;
     }
     .content {
       width: 100%;
@@ -67,6 +67,12 @@
       &.sidebar-closed {
         left: 155px;
         transform: translate(0px, 0px);
+      }
+
+      &:hover {
+        svg g {
+          stroke: $brand_primary_hover_color;
+        }
       }
     }
   }
