@@ -535,7 +535,7 @@ export const generateDNAVariantTableMockData = amount => {
         "cAc/gTa/qwertyyuyuiyiyutyutyu"
       ]),
       protein: faker.random.alphaNumeric(5),
-      vaf: faker.random.number(100) ,
+      vaf: faker.random.number(1) ,
       hotSpot: faker.random.arrayElement([faker.random.boolean(), undefined]),
       snp: faker.random.arrayElement([faker.random.boolean(), undefined]),
       roi: faker.random.arrayElement([faker.random.boolean(), undefined]),
@@ -549,7 +549,7 @@ export const generateDNAVariantTableMockData = amount => {
         faker.random.number({ min: 5, max: 100 })
       ]),
       zygosity: "",
-      variantClass: "",
+      variantClass: "unclassified",
       coverage: faker.random.number({ min: 100, max: 500 }),
       notes: faker.lorem.sentence(),
       status: process?.env?.NODE_ENV === 'test'

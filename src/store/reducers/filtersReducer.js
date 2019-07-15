@@ -31,12 +31,14 @@ export const changeValueAccordingOnMode = (stateValue, value, mode) => {
 
 const initialState = {
   [FILTERS.type]: "somatic", // 'somatic' | 'germline'
-  [FILTERS.variantClass]: [],
-  [FILTERS.somaticClass]: [],
+  [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+  // [FILTERS.variantClass]: [],
+  [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
+  // [FILTERS.somaticClass]:[],
   [FILTERS.hotSpot]: [],
   [FILTERS.snp]: [],
   [FILTERS.roi]: [],
-  [FILTERS.vaf]: [], // [0, 100]
+  [FILTERS.vaf]: [1, 99], // [0, 100]
   [FILTERS.cancerDBs]: [],
   [FILTERS.gnomAD]: [],
   [FILTERS.searchText]: ""
@@ -49,6 +51,17 @@ const filtersReducer = createReducer(initialState, {
       ...state,
       type: value
     };
+  },
+
+  [actionsTypes.SET_DEFAULT_SETTINGS]: (state, {payload}) => {
+
+    if(payload === "defaultFiltering"){
+      return {
+        ...state,
+        [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+        [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3']
+      };
+    }
   },
 
   [actionsTypes.SET_FILTER_VARIANT_CLASS]: (state, { payload }) => {
@@ -167,6 +180,13 @@ const filtersReducer = createReducer(initialState, {
     }else {
       state[filtersKey] = [];
     }
+
+    // if(filtersKey === "somaticClass"){
+    //   const filteredFilters = state['variantClass'].filter(key => key !== 'tier1' && key !== 'tier2' && key !== 'tier3' && key !== 'tier4' && key !== 'unclassified' )
+    //   console.log("--filteredFilters: ", filteredFilters)
+    //   state['variantClass'] = filteredFilters
+    //   // console.log("--filteredFilters: ", filteredFilters)
+    // }
 
     return {
       ...state

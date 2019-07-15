@@ -35,6 +35,8 @@ export const
   getAlertTitle = state => state?.alert?.title,
   getAlertMessage = state => state?.alert?.message;
 
+
+
 export const getSearchQuery = state => state?.filters?.searchText;
 
 export const getTableDataAsArray = createSelector(
@@ -93,7 +95,7 @@ const getAppliedFilters = createSelector(
       }),
       ...(somaticClass.length && {
         somaticClass: item =>
-          somaticClass.some(filter => item.somaticClass === filter)
+          somaticClass.some(filter => item.variantClass === filter)
       }),
       ...(hotSpot.length && {
         hotSpot: item => hotSpot.some(filter => item.hotSpot === filter)
@@ -141,6 +143,7 @@ export const getFilteredData = createSelector(
       const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
 
       return sortedData;
+
     }
 
     const filtersArray = Object.keys(appliedFilters).map(key => {
@@ -148,12 +151,11 @@ export const getFilteredData = createSelector(
     });
 
     const filteredData = data.filter(item => {
-      return filtersArray.every(filter => filter(item));
+      return filtersArray.some(filter => filter(item));
     });
 
-    const sortedData = filteredData.sort((a, b) => b.priority - a.priority).slice();
+    return filteredData.sort((a, b) => b.priority - a.priority).slice();
 
-    return sortedData;
   }
 );
 

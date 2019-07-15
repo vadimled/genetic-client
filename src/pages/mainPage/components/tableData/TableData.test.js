@@ -117,7 +117,7 @@ describe('TableData', () => {
 
     const row1 = store.getState().table.data[rowId];
     expect(row1.zygosity).toBeFalsy();
-    expect(row1.variantClass).toBeFalsy();
+    expect(row1.variantClass).toEqual('unclassified');
 
     store.dispatch(handleZygosity({ item: { id: rowId }, value: zygosityValue }));
 
