@@ -8,7 +8,6 @@ export const generateDNAVariantTableMockData = amount => {
     data[id] = {
       id: id,
       key: id,
-      isAdded: true,
       gene: faker.random.arrayElement([
         "A1BG",
         "A1BG-AS1",

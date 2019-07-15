@@ -1,4 +1,5 @@
 import { call, put, delay } from "redux-saga/effects";
+import * as Sentry from "@sentry/browser";
 import { ALERT_STATUSES, ALLELE_TYPES } from 'Utils/constants';
 import {
   fetchBAMFile,
@@ -10,7 +11,7 @@ import {
 import {
   handleIgvAlertShow,
   setFetchBAMFileStatus,
-  setIgvLastQuery,
+  setIgvLastQuery
 } from "Actions/igvActions";
 import {
   applyConfirmation,
@@ -33,55 +34,51 @@ import {
 } from "Actions/resultConfigActions";
 
 function* onDelay(time) {
-  process?.env?.NODE_ENV === 'test'
-    ? yield true
-    : yield delay(time);
+  process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
 }
 
 function* consoleErrors(e) {
-  process?.env?.NODE_ENV === 'test'
-    ? yield true
-    : console.error("e", e);
+  process?.env?.NODE_ENV === "test" ? yield true : console.log("e", e);
 }
 
 function* confirmationDataValidation(data) {
   try {
     let alertData = null;
 
-    data.forEach((item) => {
-      item.additionConfirmationData.forEach((cRow) => {
+    data.forEach(item => {
+      item.additionConfirmationData.forEach(cRow => {
         cRow.validationFaildFields = [];
         if (!cRow.primer) {
           alertData = {
             status: ALERT_STATUSES.warning,
-            title: 'Data is missing',
-            message: 'Please fill the Primer field'
+            title: "Data is missing",
+            message: "Please fill the Primer field"
           };
-          cRow.validationFaildFields.push('primer');
+          cRow.validationFaildFields.push("primer");
         }
         if (!/^[\d]*$/.test(cRow.primer)) {
           alertData = {
             status: ALERT_STATUSES.warning,
-            title: 'Data is not valid',
-            message: 'Primer field must be a number'
+            title: "Data is not valid",
+            message: "Primer field must be a number"
           };
-          cRow.validationFaildFields.push('primer');
+          cRow.validationFaildFields.push("primer");
         }
         if (!cRow.fragmentSize) {
           alertData = {
             status: ALERT_STATUSES.warning,
-            title: 'Data is missing',
-            message: 'Please fill the Fragment size field'
+            title: "Data is missing",
+            message: "Please fill the Fragment size field"
           };
-          cRow.validationFaildFields.push('fragmentSize');
+          cRow.validationFaildFields.push("fragmentSize");
         }
         if (!/^[\d]*$/.test(cRow.fragmentSize)) {
           alertData = {
             status: ALERT_STATUSES.warning,
-            title: 'Data is not valid',
-            message: 'Fragment size field must be a number'
+            title: "Data is not valid",
+            message: "Fragment size field must be a number"
           };
-          cRow.validationFaildFields.push('fragmentSize');
+          cRow.validationFaildFields.push("fragmentSize");
         }
       });
     });
@@ -92,10 +89,14 @@ function* confirmationDataValidation(data) {
       // show appropriate alert
       yield put(setAlert(alertData));
 
-      throw new Error('Validation error');
+      throw new Error("Validation error");
     }
-  }
-  catch(e) {
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["confirmationDataValidation"]);
+      Sentry.captureException(e);
+    });
+
     consoleErrors(e);
     throw new Error(e);
   }
@@ -163,7 +164,7 @@ function* resultConfigValidation(data, isOnAddResult) {
 
 export function* fetchBAMFileGenerator(data) {
   try {
-    yield put(setIgvLastQuery({ type: 'BAM_FILE', data: data.payload }));
+    yield put(setIgvLastQuery({ type: "BAM_FILE", data: data.payload }));
     yield put(setFetchBAMFileStatus(1));
     yield call(fetchBAMFile, data.payload);
     yield onDelay(1000);
@@ -174,6 +175,10 @@ export function* fetchBAMFileGenerator(data) {
     yield put(setFetchBAMFileStatus(null));
     yield put(setIgvLastQuery(null));
   } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchBAMFileGenerator"]);
+      Sentry.captureException(e);
+    });
     yield consoleErrors(e);
     yield put(handleIgvAlertShow(true));
   }
@@ -181,10 +186,14 @@ export function* fetchBAMFileGenerator(data) {
 
 export function* goToChrPositionIgvGenerator(data) {
   try {
-    yield put(setIgvLastQuery({ type: 'CHR_POS', data: data.payload }));
+    yield put(setIgvLastQuery({ type: "CHR_POS", data: data.payload }));
     yield call(goToChrPositionIgv, data.payload);
     yield put(setIgvLastQuery(null));
   } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["goToChrPositionIgvGenerator"]);
+      Sentry.captureException(e);
+    });
     yield consoleErrors(e);
     yield put(handleIgvAlertShow(true));
   }
@@ -199,14 +208,19 @@ export function* sendForConfirmationGenerator(data) {
     yield put(applyConfirmation(data.payload));
     yield put(setConfirmationData(null));
     yield put(handleOnConfirmation(false)); // hide confirmation popup
-  }
-  catch(e) {
-    if (e.message !== 'Error: Validation error') {
-      yield put(setAlert({
-        status: ALERT_STATUSES.error,
-        title: 'Sending email is failed,',
-        message: 'Please try again.'
-      }));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["sendForConfirmationGenerator"]);
+      Sentry.captureException(e);
+    });
+    if (e.message !== "Error: Validation error") {
+      yield put(
+        setAlert({
+          status: ALERT_STATUSES.error,
+          title: "Sending email is failed,",
+          message: "Please try again."
+        })
+      );
     }
     yield consoleErrors(e);
   }
