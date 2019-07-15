@@ -91,9 +91,13 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_RESULT_CONFIG_ALLELE_REFERENCE]: (state, { payload }) => {
+    // remove all digits because alleleReference can contains only string values
+    let alleleReference = payload.replace(/\d/g, '');
+    // alleleReference should be in upper case
+    alleleReference = alleleReference.toUpperCase();
     return {
       ...state,
-      alleleReference: payload,
+      alleleReference,
       validationFaildFields: state.validationFaildFields.filter((f) => f !== 'alleleReference'),
       isHgvsLoaded: false, // drop in change
       coding: '', // drop in change
@@ -102,9 +106,13 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_RESULT_CONFIG_ALLELE_ALTERNATIVE]: (state, { payload }) => {
+    // remove all digits because alleleAlternative can contains only string values
+    let alleleAlternative = payload.replace(/\d/g, '');
+    // alleleAlternative should be in upper case
+    alleleAlternative = alleleAlternative.toUpperCase();
     return {
       ...state,
-      alleleAlternative: payload,
+      alleleAlternative,
       validationFaildFields: state.validationFaildFields.filter((f) => f !== 'alleleAlternative'),
       isHgvsLoaded: false, // drop in change
       coding: '', // drop in change

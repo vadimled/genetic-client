@@ -222,7 +222,7 @@ const ResultConfig = (props) => {
               />
             </ValidationWrapper>
           </div>
-          <div className="vaf-covarage-row">
+          {!isOnEdit && <div className="vaf-covarage-row">
             <div className="vaf">
               <div className="label">VAF:</div>
               <div className="vaf-covarage-result">{vaf}</div>
@@ -231,7 +231,7 @@ const ResultConfig = (props) => {
               <div className="label">Coverage:</div>
               <div className="vaf-covarage-result">{coverage}</div>
             </div>
-          </div>
+          </div>}
           <div className="allele-divider"/>
           <div className="allele-btn-hgvs-wrapper">
             <ValidationWrapper
