@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import cn from 'classnames';
 import { InputNumber } from "antd";
 import SlideBar from "GenericComponents/slideBar";
 import SimpleSelect from "GenericComponents/simpleSelect";
+import ToggledInput from "GenericComponents/toggledInput";
 import GeneSelect from "./components/geneSelect";
 import ValidationWrapper from "./components/validationWrapper";
 import style from './ResultConfig.module.scss';
@@ -19,6 +20,8 @@ import {
   handleResultConfigAlleleType,
   handleResultConfigAlleleReference,
   handleResultConfigAlleleAlternative,
+  handleResultConfigCoding,
+  handleResultConfigProtein,
   resultConfigLoadHgvs,
   resultConfigAddResult,
   resultConfidEditResult,
@@ -69,6 +72,8 @@ const ResultConfig = (props) => {
     handleAlleleType,
     handleAlleleReference,
     handleAlleleAlternative,
+    handleCoding,
+    handleProtein,
     loadHgvs,
     addResult,
     editResult
@@ -243,14 +248,30 @@ const ResultConfig = (props) => {
               </button>
             </ValidationWrapper>
           </div>
-          <div className="cp-row">
-            <div className="label">Coding:</div>
-            <div className="cp-result">{coding}</div>
-          </div>
-          <div className="cp-row">
-            <div className="label">Protein:</div>
-            <div className="cp-result">{protein}</div>
-          </div>
+          {isOnEdit && <Fragment>
+            <ToggledInput
+              className="cp-row"
+              label="Coding"
+              value={coding}
+              onChange={e => handleCoding(e.target.value)}
+            />
+            <ToggledInput
+              className="cp-row"
+              label="Protein"
+              value={protein}
+              onChange={e => handleProtein(e.target.value)}
+            />
+          </Fragment>}
+          {!isOnEdit && <Fragment>
+            <div className="cp-row">
+              <div className="label">Coding:</div>
+              <div className="cp-result">{coding}</div>
+            </div>
+            <div className="cp-row">
+              <div className="label">Protein:</div>
+              <div className="cp-result">{protein}</div>
+            </div>
+          </Fragment>}
           <div className="allele-divider"/>
           <button
             className="allele-btn allele-btn--add"
@@ -288,6 +309,8 @@ ResultConfig.propTypes = {
   handleAlleleType: PropTypes.func.isRequired,
   handleAlleleReference: PropTypes.func.isRequired,
   handleAlleleAlternative: PropTypes.func.isRequired,
+  handleCoding: PropTypes.func.isRequired,
+  handleProtein: PropTypes.func.isRequired,
   loadHgvs: PropTypes.func.isRequired,
   addResult: PropTypes.func.isRequired,
   editResult: PropTypes.func.isRequired,
@@ -323,6 +346,8 @@ const mapDispatchToProps = (dispatch) => {
     handleAlleleType: data => dispatch(handleResultConfigAlleleType(data)),
     handleAlleleReference: data => dispatch(handleResultConfigAlleleReference(data)),
     handleAlleleAlternative: data => dispatch(handleResultConfigAlleleAlternative(data)),
+    handleCoding: data => dispatch(handleResultConfigCoding(data)),
+    handleProtein: data => dispatch(handleResultConfigProtein(data)),
     loadHgvs: data => dispatch(resultConfigLoadHgvs(data)),
     addResult: data => dispatch(resultConfigAddResult(data)),
     editResult: data => dispatch(resultConfidEditResult(data)),
