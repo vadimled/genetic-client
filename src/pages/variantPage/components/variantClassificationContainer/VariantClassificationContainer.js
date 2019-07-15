@@ -5,7 +5,7 @@ import {
   SOMATIC_VARIANT_CLASS_OPTIONS,
   TEXTS
 } from "Utils/constants";
-import style from "./GeneType.module.scss";
+import style from "./VariantClassificationContainer.module.scss";
 import { connect } from "react-redux";
 import { setGeneType, setGeneValue } from "Actions/variantPageActions";
 import {
@@ -15,7 +15,7 @@ import {
 } from "Store/selectors";
 import GeneTypeButton from "variantComponents/geneTypeButton";
 
-class GeneType extends React.Component {
+class VariantClassificationContainer extends React.Component {
   onChangeType = (e, id) => {
     const { value, name } = e.target,
       { setGeneValue, setType } = this.props;
@@ -50,7 +50,7 @@ class GeneType extends React.Component {
   }
 }
 
-GeneType.propTypes = {
+VariantClassificationContainer.propTypes = {
   currentType: PropTypes.string,
   germlineClass: PropTypes.string,
   somaticClass: PropTypes.string
@@ -74,4 +74,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(GeneType);
+)(VariantClassificationContainer);

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import style from "./VariantPageHeader.module.scss";
 import InformField from "GenericComponents/informField";
 import ExternalLink from "GenericComponents/externalLink";
-import GeneType from "variantComponents/geneType";
+import VariantClassificationContainer from "variantComponents/variantClassificationContainer";
 import cn from "classnames";
 import { getTableData } from "Store/selectors";
 import PropTypes from "prop-types";
@@ -41,7 +41,7 @@ const VariantPageHeader = ({ sidebarToggle /* , id*/ }) => {
       </div>
 
       <div className={cn(["right-data", { "sidebar-open": sidebarToggle }])}>
-        <GeneType />
+        <VariantClassificationContainer />
       </div>
     </div>
   );
