@@ -535,7 +535,7 @@ export const generateDNAVariantTableMockData = amount => {
         "cAc/gTa/qwertyyuyuiyiyutyutyu"
       ]),
       protein: faker.random.alphaNumeric(5),
-      vaf: faker.random.number(100) ,
+      vaf: faker.random.number(1) ,
       hotSpot: faker.random.arrayElement([faker.random.boolean(), undefined]),
       snp: faker.random.arrayElement([faker.random.boolean(), undefined]),
       roi: faker.random.arrayElement([faker.random.boolean(), undefined]),

@@ -68,13 +68,12 @@ describe("SideBarFilters component test", () => {
     expect(indicator6).toBeInTheDocument();
 
 
-    // indicators bug
-    // fireEvent.click(getByTestId("button-somaticClass"));
-    // expect(indicator1).not.toBeInTheDocument();
-    // expect(indicator2).not.toBeInTheDocument();
-    // expect(indicator3).not.toBeInTheDocument();
-    // expect(indicator4).not.toBeInTheDocument();
-    // expect(indicator6).not.toBeInTheDocument();
+    fireEvent.click(getByTestId("button-somaticClass"));
+    expect(indicator1).not.toBeInTheDocument();
+    expect(indicator2).not.toBeInTheDocument();
+    expect(indicator3).not.toBeInTheDocument();
+    expect(indicator4).not.toBeInTheDocument();
+    expect(indicator6).not.toBeInTheDocument();
   });
 
   test("if filter 'hotSpot' clicked; if indicator 'hotSpot' delete clicked", () => {
