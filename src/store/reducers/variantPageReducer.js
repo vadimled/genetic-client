@@ -1,58 +1,28 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 
-/* gene(pin): "A1CF"
-chrPosition(pin)
-transcript(pin)
-exon(pin): 2
-alleleChange(pin)
-alleleChangeLong(pin): "sghshsfghsfh"
-coding(pin)
-codingLong(pin): "cAc/gTa/qwertyyuyuiyiyutyutyu"
-protein(pin)
-vaf(pin): 99
-gnomAD(pin): 14
-zygosity(pin): ""
-variantClass(pin): ""
-coverage(pin): 292*/
 const initialState = {
   variantData: {
     gene: "A1CF",
-    protein: "zaszg",
-    chrPosition: "Chr4:236283",
-    alleleChange: "G > A",
-    coding: "aGc/tCg",
-    transcript: "NM_110509.1"
+    protein: "p.Leu2303Leu",
+    chrPosition: "chr1:45797505",
+    alleleChange: "G > GA",
+    ref: "G",
+    alt: "GA",
+    dbSNP: "rs3219489",
+    clinvarVariationId: "516652",
+    coding: "c.7634+21_7634+22insTCATCATGAGAGAAGGTGAGTGGGGCTCTCAAAGTG",
+    transcript: "NM_110509.1",
+    COSMIC: "COSM4142157",
+    variant: "D479D", // ????????
+    AminoAcidChange: "I1564ISLKN",
+    DamagingScore: "T"
   },
   dataId: "k5wp5amernh84pvsygjji9ljz", // null,
   type: "somatic",
   valueSomatic: "unclassified",
   valueGermline: "unclassified",
-  externalResources: [
-    {
-      title: "Variant DBs",
-      UCSC: "https://genome.ucsc.edu/cgi-bin/hgTracks?",
-      gnomAD: "https://gnomad.broadinstitute.org/variant/",
-      dbSNP: "https://www.ncbi.nlm.nih.gov/snp/?",
-      ClinVar: "https://www.ncbi.nlm.nih.gov/clinvar/variation/",
-      COSMIC: "https://cancer.sanger.ac.uk/cosmic/mutation/overview?",
-      OMIM: "https://www.omim.org/",
-      OncoKB: "https://oncokb.org/gene/",
-      PMKB: "https://pmkb.weill.cornell.edu/search?",
-      Varsome: "https://varsome.com/variant/hg19/",
-      ICGC: "https://dcc.icgc.org/q?",
-      Uniprot: "https://www.uniprot.org/uniprot/?"
-    },
-    {
-      title: "Publications",
-      Pubmed: "https://www.ncbi.nlm.nih.gov/pubmed/?",
-      googleScholar: "https://scholar.google.co.il/scholar?"
-    },
-    {
-      title: "In Silico predictors",
-      "Damaging score": ""
-    }
-  ]
+  externalResources: []
 };
 
 const variantPageReducer = createReducer(initialState, {
