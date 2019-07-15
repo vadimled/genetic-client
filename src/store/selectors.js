@@ -232,4 +232,4 @@ export const getActivityLog = (state, recordId) => {
   return activityLogArray;
 };
 
-
+export const getTestType = state => state?.variants?.testType;

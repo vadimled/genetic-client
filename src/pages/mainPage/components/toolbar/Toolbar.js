@@ -26,6 +26,7 @@ import {
 } from "Store/selectors";
 import Sort from "./components/Sort";
 import { setDefaultSettings } from "../../../../store/actions/filtersActions";
+import { getTestType } from "../../../../store/selectors";
 
 
 
@@ -35,6 +36,11 @@ class Toolbar extends Component {
     this.props.setMutationType(e.target.value);
   };
 
+  componentDidMount() {
+    const {setDefaultSettings, testType} = this.props;
+    setDefaultSettings({action: "defaultFiltering", testType: testType});
+  }
+
   render() {
     const {
       filtered,
@@ -43,8 +49,11 @@ class Toolbar extends Component {
       mutations,
       selectedRows,
       openConfirmationPopup,
-      setDefaultSettings
+      setDefaultSettings,
+      testType
     } = this.props;
+
+    console.log(this.props);
 
     return (
       <div className={style["toolbar-wrapper"]}>
@@ -75,7 +84,7 @@ class Toolbar extends Component {
           </div>
 
           <div className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}>
-            <Sort setDefaultSettings={setDefaultSettings} />
+            <Sort setDefaultSettings={setDefaultSettings} testType={testType} />
             <IgvLoadBAM />
             <NumberVariants filtered={filtered} total={total} />
           </div>
@@ -99,7 +108,8 @@ const mapStateToProps = state => {
     filtered: getFilteredEntriesAmount(state),
     total: getTotalEntriesAmount(state),
     mutations: getMutationType(state),
-    selectedRows: getSelectedRows(state)
+    selectedRows: getSelectedRows(state),
+    testType: getTestType(state)
   };
 };
 

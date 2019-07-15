@@ -31,10 +31,8 @@ export const changeValueAccordingOnMode = (stateValue, value, mode) => {
 
 const initialState = {
   [FILTERS.type]: "somatic", // 'somatic' | 'germline'
-  [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
-  // [FILTERS.variantClass]: [],
-  [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
-  // [FILTERS.somaticClass]:[],
+  [FILTERS.variantClass]: [],
+  [FILTERS.somaticClass]: [],
   [FILTERS.hotSpot]: [],
   [FILTERS.snp]: [],
   [FILTERS.roi]: [],
@@ -55,19 +53,30 @@ const filtersReducer = createReducer(initialState, {
 
   [actionsTypes.SET_DEFAULT_SETTINGS]: (state, {payload}) => {
 
-    if(payload === "defaultSorting"){
-      console.log("--state: ", store.getState())
+    const {action, testType} = payload;
+
+    console.log("--payload: ", payload)
+
+    if(action === "defaultSorting"){
       return {
         ...state
       }
     }
 
-    if(payload === "defaultFiltering"){
-      return {
-        ...state,
-        [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
-        [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3']
-      };
+    // let filters = {}
+
+    if(action === "defaultFiltering"){
+
+      if(testType === "solid" || testType === "hema"){
+        return {
+          ...state,
+          [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+          [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
+          [FILTERS.gnomAD]: ['na', 'veryRare']
+        };
+      }
+
+
     }
   },
 

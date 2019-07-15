@@ -4,10 +4,10 @@ import { DEFAULT_OPTIONS } from "../../../../../utils/constants";
 import SimpleSelect from "../../../../../genericComponents/simpleSelect/SimpleSelect";
 
 
-const Sort = ({setDefaultSettings}) => {
+const Sort = ({setDefaultSettings, testType}) => {
 
   const handleOnChange = e => {
-    setDefaultSettings(e.target.value);
+    setDefaultSettings(e.target.value, testType);
   };
 
   return(

@@ -114,6 +114,7 @@ class SidebarFilters extends Component {
     Object.keys(filtersConfig).forEach(key => this.clearFilterSection(key));
   };
 
+
   render() {
     const { filters, type } = this.props;
 
