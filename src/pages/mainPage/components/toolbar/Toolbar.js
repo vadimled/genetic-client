@@ -32,14 +32,15 @@ import { getTestType } from "../../../../store/selectors";
 
 
 class Toolbar extends Component {
-  handleOnChange = e => {
-    this.props.setMutationType(e.target.value);
-  };
 
   componentDidMount() {
     const {setDefaultSettings, testType} = this.props;
     setDefaultSettings({action: "defaultFiltering", testType: testType});
   }
+
+  handleOnChange = e => {
+    this.props.setMutationType(e.target.value);
+  };
 
   render() {
     const {
