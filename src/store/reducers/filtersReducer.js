@@ -76,6 +76,15 @@ const filtersReducer = createReducer(initialState, {
         };
       }
 
+      if(testType === "risk"){
+        return {
+          ...state,
+          [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+          [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
+          [FILTERS.vaf]: [30, 100]
+        };
+      }
+
 
     }
   },
