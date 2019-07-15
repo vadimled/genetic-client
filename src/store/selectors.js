@@ -142,8 +142,7 @@ export const getFilteredData = createSelector(
 
       const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
 
-      return sortedData.filter(record => record.variantClass !== "tier4")
-        .filter(record => record.variantClass !== "ben");
+      return sortedData
 
     }
 
@@ -152,7 +151,7 @@ export const getFilteredData = createSelector(
     });
 
     const filteredData = data.filter(item => {
-      return filtersArray.every(filter => filter(item));
+      return filtersArray.some(filter => filter(item));
     });
 
     const sortedData = filteredData.sort((a, b) => b.priority - a.priority).slice();
