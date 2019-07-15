@@ -16,7 +16,7 @@ const variantPageReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_GENE_VALUE]: (state, { payload }) => {
+  [actionsTypes.SET_VARIANT_CLASSIFICATION]: (state, { payload }) => {
     const { value, name } = payload;
     return {
       ...state,
@@ -25,7 +25,7 @@ const variantPageReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_GENE_TYPE]: (state, { payload }) => {
+  [actionsTypes.SET_VARIANT_ZYGOSITY_TYPE]: (state, { payload }) => {
     return {
       ...state,
       type: payload
