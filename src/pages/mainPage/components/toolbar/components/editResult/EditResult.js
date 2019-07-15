@@ -6,7 +6,7 @@ import cn from 'classnames';
 import style from './EditResult.module.scss';
 import {
   handleResultConfigIsOpen,
-  handleResultConfigIsHgvsLoaded,
+  // handleResultConfigIsHgvsLoaded,
   handleResultConfigIsOnEdit,
   handleResultConfigVaf,
   handleResultConfigCoverage,
@@ -63,7 +63,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(handleResultConfigAlleleAlternative(selectedResult.alleleAlternative));
       dispatch(handleResultConfigCoding(selectedResult.coding));
       dispatch(handleResultConfigProtein(selectedResult.protein));
-      dispatch(handleResultConfigIsHgvsLoaded(true));
+      // dispatch(handleResultConfigIsHgvsLoaded(true));
       dispatch(handleResultConfigIsOpen(true));
       dispatch(handleResultConfigIsOnEdit(true));
       dispatch(resultConfigSetId(selectedResult.id));

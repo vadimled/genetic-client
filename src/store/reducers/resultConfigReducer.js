@@ -31,7 +31,8 @@ const tableReducer = createReducer(initialState, {
   [actionsTypes.HANDLE_RESULT_CONFIG_IS_HGVS_LOADED]: (state, { payload }) => {
     return {
       ...state,
-      isHgvsLoaded: payload
+      isHgvsLoaded: payload,
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'loadHgvs'),
     };
   },
 
@@ -46,7 +47,10 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       gene: payload,
-      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'gene')
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'gene'),
+      isHgvsLoaded: false, // drop in change
+      coding: '', // drop in change
+      protein: '', // drop in change
     };
   },
 
@@ -54,7 +58,10 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       chromosome: payload,
-      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'chromosome')
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'chromosome'),
+      isHgvsLoaded: false, // drop in change
+      coding: '', // drop in change
+      protein: '', // drop in change
     };
   },
 
@@ -62,7 +69,10 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       position: payload,
-      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'position')
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'position'),
+      isHgvsLoaded: false, // drop in change
+      coding: '', // drop in change
+      protein: '', // drop in change
     };
   },
 
@@ -73,7 +83,10 @@ const tableReducer = createReducer(initialState, {
       alleleReference: '', // drop on change
       alleleAlternative: '', // drop on change,
       validationFaildFields: state.validationFaildFields
-        .filter((f) => f !== 'alleleReference' && f !== 'alleleAlternative')
+        .filter((f) => f !== 'alleleReference' && f !== 'alleleAlternative'),
+      isHgvsLoaded: false, // drop in change
+      coding: '', // drop in change
+      protein: '', // drop in change
     };
   },
 
@@ -81,7 +94,10 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       alleleReference: payload,
-      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'alleleReference')
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'alleleReference'),
+      isHgvsLoaded: false, // drop in change
+      coding: '', // drop in change
+      protein: '', // drop in change
     };
   },
 
@@ -89,7 +105,10 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       alleleAlternative: payload,
-      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'alleleAlternative')
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'alleleAlternative'),
+      isHgvsLoaded: false, // drop in change
+      coding: '', // drop in change
+      protein: '', // drop in change
     };
   },
 
