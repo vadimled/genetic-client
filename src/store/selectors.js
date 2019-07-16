@@ -33,7 +33,9 @@ export const
 
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,
-  getAlertMessage = state => state?.alert?.message;
+  getAlertMessage = state => state?.alert?.message,
+
+  getSortParam = state => state?.filters?.sortParam;
 
 
 
@@ -68,6 +70,17 @@ export const getSearchResult = createSelector(
     });
   }
 );
+//
+// const getAppliedSorting = createSelector(
+//   getSortParams,
+//   (sortParams) => {
+//     const params = {
+//       ...sortParams.length && {
+//         sortParams: item => sortParams.sort
+//       }
+//     }
+//   }
+// )
 
 const getAppliedFilters = createSelector(
   getFilterType,
@@ -139,7 +152,8 @@ const getAppliedFilters = createSelector(
 export const getFilteredData = createSelector(
   getSearchResult,
   getAppliedFilters,
-  (data, appliedFilters) => {
+  getSortParam,
+  (data, appliedFilters, sortParam) => {
     if (isEmpty(appliedFilters)) {
 
       const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
@@ -156,7 +170,9 @@ export const getFilteredData = createSelector(
       return filtersArray.some(filter => filter(item));
     });
 
-    return filteredData.sort((a, b) => b.priority - a.priority).slice();
+    console.log("--sortParam: ", sortParam)
+
+    return filteredData.sort((a, b) => b[sortParam] - a[sortParam]).slice();
 
   }
 );

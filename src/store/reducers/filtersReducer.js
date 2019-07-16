@@ -40,7 +40,7 @@ const initialState = {
   [FILTERS.cancerDBs]: [],
   [FILTERS.gnomAD]: [],
   [FILTERS.searchText]: "",
-  sortParams: []
+  sortParam: "priority"
 };
 
 const filtersReducer = createReducer(initialState, {
@@ -54,12 +54,15 @@ const filtersReducer = createReducer(initialState, {
 
   [actionsTypes.SET_DEFAULT_SETTINGS]: (state, {payload}) => {
 
-    console.log("--payload: ", payload);
+    // console.log("--payload: ", payload);
 
     const {action, testType} = payload;
 
     if(action === "defaultSorting"){
       console.log("--payload: ", payload);
+
+      state.sortParam = "priority"
+
       return {
         ...state
       };
@@ -76,7 +79,6 @@ const filtersReducer = createReducer(initialState, {
           [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
           [FILTERS.gnomAD]: ['na', 'veryRare']
         };
-
       }
 
       if(testType === "risk"){
