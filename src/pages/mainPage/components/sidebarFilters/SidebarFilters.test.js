@@ -177,7 +177,7 @@ describe("SideBarFilters component test", () => {
     expect(indicator3).not.toBeInTheDocument();
     expect(indicator4).not.toBeInTheDocument();
   });
-  
+
   test("if filter 'Vaf' position; if indicator 'Vaf' delete clicked", () => {
     const
       { store, container, getByTestId } = renderWithRedux(<SidebarFilters />),
@@ -199,7 +199,7 @@ describe("SideBarFilters component test", () => {
     expect(indicator1).not.toBeInTheDocument();
     expect(indicator2).not.toBeInTheDocument();
   });
-  
+
   test("if several filters selected and 'clear-filters-button' clicked", () => {
     const { getByTestId } = renderWithRedux(<SidebarFilters />);
     

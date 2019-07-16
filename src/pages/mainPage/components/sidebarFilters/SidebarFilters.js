@@ -15,7 +15,7 @@ import {
   getFilterVaf,
   getFilterCancerDBs,
   getFilterGnomId,
-  getSearchQuery
+  getSearchQuery, getTestType
 } from "Store/selectors";
 import {
   setFilterVariantClass,
@@ -26,7 +26,7 @@ import {
   setFilterVaf,
   setFilterCancerDBs,
   setFilterGnomId,
-  clearFilterSection
+  clearFilterSection, setDefaultSettings
 } from "Actions/filtersActions";
 import { FILTERS } from "Utils/constants";
 import style from "./SidebarFilters.module.scss";
@@ -41,6 +41,13 @@ function callback(key) {
 const Arrow = ({ dir }) => <i className={`${dir} arrow`} />;
 
 class SidebarFilters extends Component {
+
+  componentDidMount() {
+    const {setDefaultSettings, testType} = this.props;
+    setDefaultSettings({action: "defaultFiltering", testType: testType});
+  }
+
+
   onChange = (filterSection, mode, value) => {
     const {
       setFilterVariantClass,
@@ -246,7 +253,8 @@ function mapStateToProps(state) {
       [FILTERS.cancerDBs]: getFilterCancerDBs(state),
       [FILTERS.gnomAD]: getFilterGnomId(state),
       [FILTERS.searchText]: [getSearchQuery(state)]
-    }
+    },
+    testType: getTestType(state)
   };
 }
 
@@ -260,7 +268,8 @@ function mapDispatchToProps(dispatch) {
     setFilterVaf: data => dispatch(setFilterVaf(data)),
     setFilterCancerDBs: data => dispatch(setFilterCancerDBs(data)),
     setFilterGnomId: data => dispatch(setFilterGnomId(data)),
-    clearFilterSection: data => dispatch(clearFilterSection(data))
+    clearFilterSection: data => dispatch(clearFilterSection(data)),
+    setDefaultSettings: data => dispatch(setDefaultSettings(data)),
   };
 }
 export default connect(

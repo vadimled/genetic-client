@@ -25,18 +25,10 @@ import {
   getTotalEntriesAmount
 } from "Store/selectors";
 import Sort from "./components/Sort";
-import { setDefaultSettings } from "../../../../store/actions/filtersActions";
-import { getTestType } from "../../../../store/selectors";
-
 
 
 
 class Toolbar extends Component {
-
-  componentDidMount() {
-    const {setDefaultSettings, testType} = this.props;
-    setDefaultSettings({action: "defaultFiltering", testType: testType});
-  }
 
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
@@ -109,7 +101,6 @@ const mapStateToProps = state => {
     total: getTotalEntriesAmount(state),
     mutations: getMutationType(state),
     selectedRows: getSelectedRows(state),
-    testType: getTestType(state)
   };
 };
 
@@ -121,7 +112,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(setConfirmationData(data));
     },
     updateSearch: data => dispatch(updateSearch(data)),
-    setDefaultSettings: data => dispatch(setDefaultSettings(data)),
   };
 }
 
