@@ -39,8 +39,7 @@ const initialState = {
   [FILTERS.vaf]: [1, 99], // [0, 100]
   [FILTERS.cancerDBs]: [],
   [FILTERS.gnomAD]: [],
-  [FILTERS.searchText]: "",
-  sortParam: "priority"
+  [FILTERS.searchText]: ""
 };
 
 const filtersReducer = createReducer(initialState, {

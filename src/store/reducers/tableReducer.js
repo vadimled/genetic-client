@@ -8,6 +8,7 @@ const initialState = {
   data: {},
   uncheckConfirmationData: null,
   activityLog: {},
+  sortParam: "priority"
 };
 
 const tableReducer = createReducer(initialState, {
@@ -16,6 +17,16 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       data: payload
+    };
+  },
+
+  [actionsTypes.SET_SORT]: (state, {payload}) => {
+
+    console.log("---payLOAD: ", payload)
+
+    return {
+      ...state,
+      sortParam: payload
     };
   },
 

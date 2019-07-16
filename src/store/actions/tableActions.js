@@ -84,3 +84,10 @@ export function setDataToStore(data) {
     payload: data
   };
 }
+
+export const setSort = (data)=> {
+  return{
+    type: actionsTypes.SET_SORT,
+    payload: data
+  };
+};

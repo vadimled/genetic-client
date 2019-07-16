@@ -28,6 +28,7 @@ import Sort from "./components/Sort";
 import { setDefaultFilters } from "../../../../store/actions/filtersActions";
 import { getTestType } from "../../../../store/selectors";
 import Filter from "./components/Filter";
+import { setSort } from "../../../../store/actions/tableActions";
 
 
 
@@ -46,7 +47,8 @@ class Toolbar extends Component {
       selectedRows,
       openConfirmationPopup,
       setDefaultFilters,
-      testType
+      testType,
+      setSort
     } = this.props;
 
 
@@ -80,7 +82,7 @@ class Toolbar extends Component {
 
           <div className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}>
             <Filter setDefaultFilters={setDefaultFilters} testType={testType} />
-            <Sort />
+            <Sort setSort={setSort} />
             <IgvLoadBAM />
             <NumberVariants filtered={filtered} total={total} />
           </div>
@@ -118,6 +120,7 @@ function mapDispatchToProps(dispatch) {
     },
     updateSearch: data => dispatch(updateSearch(data)),
     setDefaultFilters: data => dispatch(setDefaultFilters(data)),
+    setSort: data => dispatch(setSort(data)),
   };
 }
 
