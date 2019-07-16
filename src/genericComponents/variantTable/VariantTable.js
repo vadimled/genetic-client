@@ -111,7 +111,7 @@ class VariantTable extends Component {
         dataIndex: "vaf",
         key: "9",
         width: 100,
-        sorter: (a, b) => a.vaf - b.vaf,
+        // sorter: (a, b) => a.vaf - b.vaf,
         // sortOrder: sortedInfo.columnKey === 'vaf' && sortedInfo.order,
       },
       {
