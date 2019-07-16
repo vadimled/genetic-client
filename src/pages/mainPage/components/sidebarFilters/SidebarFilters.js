@@ -42,10 +42,10 @@ const Arrow = ({ dir }) => <i className={`${dir} arrow`} />;
 
 class SidebarFilters extends Component {
 
-  // componentDidMount() {
-  //   const {setDefaultSettings, testType} = this.props;
-  //   setDefaultSettings({action: "defaultFiltering", testType: testType});
-  // }
+  componentDidMount() {
+    const {setDefaultSettings, testType} = this.props;
+    setDefaultSettings({action: "defaultFiltering", testType: testType});
+  }
 
 
   onChange = (filterSection, mode, value) => {
