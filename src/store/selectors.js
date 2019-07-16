@@ -170,7 +170,7 @@ export const getFilteredData = createSelector(
       return filtersArray.some(filter => filter(item));
     });
 
-    console.log("--sortParam: ", sortParam)
+    console.log("--sortParam: ", sortParam);
 
     return filteredData.sort((a, b) => b[sortParam] - a[sortParam]).slice();
 
