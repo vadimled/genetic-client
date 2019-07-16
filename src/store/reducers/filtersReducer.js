@@ -54,22 +54,20 @@ const filtersReducer = createReducer(initialState, {
 
   [actionsTypes.SET_DEFAULT_SETTINGS]: (state, {payload}) => {
 
-    console.log("--payload: ", payload)
+    console.log("--payload: ", payload);
 
     const {action, testType} = payload;
 
     if(action === "defaultSorting"){
-      console.log("--payload: ", payload)
+      console.log("--payload: ", payload);
       return {
         ...state
       };
     }
 
-    let filtersConfig = {}
+    let filtersConfig = {};
 
     if(action === "defaultFiltering"){
-
-      console.log("--here");
 
       if(testType === "solid" || testType === "hema"){
 
@@ -77,28 +75,23 @@ const filtersReducer = createReducer(initialState, {
           [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
           [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
           [FILTERS.gnomAD]: ['na', 'veryRare']
-        }
+        };
 
       }
 
       if(testType === "risk"){
-
         filtersConfig = {
           [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
           [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
           [FILTERS.vaf]: [30, 100]
-        }
-
-
+        };
       }
     }
-
-    console.log("--filtersConfig: ", filtersConfig)
 
     return {
       ...state,
       ...filtersConfig
-    }
+    };
   },
 
   [actionsTypes.SET_FILTER_VARIANT_CLASS]: (state, { payload }) => {
