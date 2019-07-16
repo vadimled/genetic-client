@@ -1,20 +1,20 @@
 import React from 'react';
 // import { ReactComponent as SortIcon } from "Assets/sortArrows.svg";
-import { DEFAULT_OPTIONS } from "../../../../../utils/constants";
+import { FILTERS_CONFIGURATIONS } from "../../../../../utils/constants";
 import SimpleSelect from "../../../../../genericComponents/simpleSelect/SimpleSelect";
 
 
-const Filter = () => {
+const Filter = ({setDefaultFilters, testType}) => {
 
-  // const handleOnChange = e => {
-  //   setDefaultSettings({action: e.target.value, testType});
-  // };
+  const handleOnChange = () => {
+    setDefaultFilters(testType);
+  };
 
   return(
     <div className="filter-wrapper">
       <SimpleSelect
-        options={DEFAULT_OPTIONS}
-        // onChange={handleOnChange}
+        options={FILTERS_CONFIGURATIONS}
+        onChange={handleOnChange}
         name="filter"
         // value={"Sort"}
         // disabled

@@ -26,7 +26,7 @@ import {
   setFilterVaf,
   setFilterCancerDBs,
   setFilterGnomId,
-  clearFilterSection, setDefaultSettings
+  clearFilterSection, setDefaultFilters
 } from "Actions/filtersActions";
 import { FILTERS } from "Utils/constants";
 import style from "./SidebarFilters.module.scss";
@@ -43,8 +43,8 @@ const Arrow = ({ dir }) => <i className={`${dir} arrow`} />;
 class SidebarFilters extends Component {
 
   componentDidMount() {
-    const {setDefaultSettings, testType} = this.props;
-    setDefaultSettings({action: "defaultFiltering", testType: testType});
+    const {setDefaultFilters, testType} = this.props;
+    setDefaultFilters(testType);
   }
 
 
@@ -269,7 +269,7 @@ function mapDispatchToProps(dispatch) {
     setFilterCancerDBs: data => dispatch(setFilterCancerDBs(data)),
     setFilterGnomId: data => dispatch(setFilterGnomId(data)),
     clearFilterSection: data => dispatch(clearFilterSection(data)),
-    setDefaultSettings: data => dispatch(setDefaultSettings(data)),
+    setDefaultFilters: data => dispatch(setDefaultFilters(data)),
   };
 }
 export default connect(

@@ -52,43 +52,42 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_DEFAULT_SETTINGS]: (state, {payload}) => {
+  [actionsTypes.SET_DEFAULT_FILTERS]: (state, {payload}) => {
 
     // console.log("--payload: ", payload);
 
-    const {action, testType} = payload;
+    // const {action, testType} = payload;
 
-    if(action === "defaultSorting"){
-      console.log("--payload: ", payload);
+    // if(action === "defaultSorting"){
+    //   console.log("--payload: ", payload);
+    //
+    //   state.sortParam = "priority";
+    //
+    //   return {
+    //     ...state
+    //   };
+    // }
 
-      state.sortParam = "priority";
+    let filtersConfig = {};
+    const testType = payload;
 
-      return {
-        ...state
+    if(testType === "solid" || testType === "hema"){
+
+      filtersConfig = {
+        [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+        [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
+        [FILTERS.gnomAD]: ['na', 'veryRare']
       };
     }
 
-    let filtersConfig = {};
-
-    if(action === "defaultFiltering"){
-
-      if(testType === "solid" || testType === "hema"){
-
-        filtersConfig = {
-          [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
-          [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
-          [FILTERS.gnomAD]: ['na', 'veryRare']
-        };
-      }
-
-      if(testType === "risk"){
-        filtersConfig = {
-          [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
-          [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
-          [FILTERS.vaf]: [30, 100]
-        };
-      }
+    if(testType === "risk"){
+      filtersConfig = {
+        [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+        [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
+        [FILTERS.vaf]: [30, 100]
+      };
     }
+
 
     return {
       ...state,
