@@ -1,9 +1,7 @@
-import React from 'react';
-import ExternalResources from './ExternalResources';
+import "jest-dom/extend-expect";
 
-describe('<ExternalResources />', () => {
-  xtest('renders', () => {
-    const wrapper = shallow(<ExternalResources />);
-    expect(wrapper).toMatchSnapshot();
+describe("VariantPage ", () => {
+  it("snapshot", () => {
+    expect(true).toBeTruthy();
   });
 });
