@@ -9,14 +9,15 @@ const ToggledInput = ({
   label,
   value,
   onChange,
-  className
+  className,
+  testId
 }) => {
   const [condition, setCondition] = useState(false);
 
   const handleCondition = () => setCondition(!condition);
 
   return (
-    <div className={cn(style['toggled-input'], className)}>
+    <div className={cn(style['toggled-input'], className)} data-testid={testId}>
       <div className="ti-wrapper">
         {label &&
           <div className="ti-label">
@@ -53,12 +54,14 @@ ToggledInput.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
+  testId: PropTypes.string
 };
 ToggledInput.defaultProps = {
   label: '',
   value: '',
-  className: ''
+  className: '',
+  testId: ''
 };
 
 export default React.memo(ToggledInput);

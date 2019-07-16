@@ -17,7 +17,7 @@ const SlideBar = ({ isOpen, onClose, children, title }) => {
         />
         <div className="slidebar-content">
           <header className="slidebar-header">
-            <div className="slidebar-title">
+            <div className="slidebar-title" data-testid="slidebar-title">
               {title}
             </div>
           </header>

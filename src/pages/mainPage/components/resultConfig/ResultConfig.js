@@ -232,11 +232,11 @@ const ResultConfig = (props) => {
           {!isOnEdit && <div className="vaf-covarage-row">
             <div className="vaf">
               <div className="label">VAF:</div>
-              <div className="vaf-covarage-result">{vaf}</div>
+              <div className="vaf-covarage-result" data-testid="vaf">{vaf}</div>
             </div>
             <div className="covarage">
               <div className="label">Coverage:</div>
-              <div className="vaf-covarage-result">{coverage}</div>
+              <div className="vaf-covarage-result" data-testid="coverage">{coverage}</div>
             </div>
           </div>}
           <div className="allele-divider"/>
@@ -262,22 +262,24 @@ const ResultConfig = (props) => {
               label="Coding"
               value={coding}
               onChange={e => handleCoding(e.target.value)}
+              testId="coding-toggled-input"
             />
             <ToggledInput
               className="cp-row"
               label="Protein"
               value={protein}
               onChange={e => handleProtein(e.target.value)}
+              testId="protein-toggled-input"
             />
           </Fragment>}
           {!isOnEdit && <Fragment>
             <div className="cp-row">
               <div className="label">Coding:</div>
-              <div className="cp-result">{coding}</div>
+              <div className="cp-result" data-testid="coding-simple-result">{coding}</div>
             </div>
             <div className="cp-row">
               <div className="label">Protein:</div>
-              <div className="cp-result">{protein}</div>
+              <div className="cp-result" data-testid="protein-simple-result">{protein}</div>
             </div>
           </Fragment>}
           <div className="allele-divider"/>
@@ -286,7 +288,7 @@ const ResultConfig = (props) => {
             onClick={onApplyResult}
             data-testid="applyResult"
           >
-            {isOnEdit ? 'Edit Result' : 'Add result'}
+            {isOnEdit ? 'Edit result' : 'Add result'}
           </button>
         </div>
       </div>

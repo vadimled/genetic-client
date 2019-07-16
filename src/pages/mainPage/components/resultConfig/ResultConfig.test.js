@@ -14,7 +14,7 @@ import {
 import {
   getResultConfigIsOpen,
   getResultConfigIsHgvsLoaded,
-  // getResultConfigIsOnEdit,
+  getResultConfigIsOnEdit,
   getResultConfigGene,
   getResultConfigChromosome,
   getResultConfigPosition,
@@ -27,6 +27,7 @@ import {
 } from "Store/selectors";
 import {
   handleResultConfigIsOpen,
+  handleResultConfigIsOnEdit,
   handleResultConfigChromosome
 } from "Actions/resultConfigActions";
 
@@ -173,6 +174,7 @@ describe('ResultConfig', () => {
   it('handle loadHGVS btn, validation & addResult btn', () => {
     const { store, getByTestId } = initSteps();
     const loadHgvsBtn = getByTestId('loadHGVS');
+    const applyResultBtn = getByTestId('applyResult');
 
     const validationFaildFields1 = getResultConfigValidationFaildFields(store.getState());
     expect(validationFaildFields1.length).toEqual(0);
@@ -240,7 +242,6 @@ describe('ResultConfig', () => {
     expect(isHgvsLoaded4).toBe(false);
 
     // try click applyResult btn when isHgvsLoaded is equal false
-    const applyResultBtn = getByTestId('applyResult');
     fireEvent.click(applyResultBtn);
 
     const validationFaildFields4 = getResultConfigValidationFaildFields(store.getState());
@@ -286,6 +287,41 @@ describe('ResultConfig', () => {
       }
     }
     expect(seachedItem).toBeDefined();
+  });
+
+  it('isOnEdit mode', () => {
+    const { store, getByTestId } = initSteps();
+    const vafValue = getByTestId('vaf');
+    const coverageValue = getByTestId('coverage');
+    const codingSimpleResult = getByTestId('coding-simple-result');
+    const proteinSimpleResult = getByTestId('protein-simple-result');
+    const applyResultBtn = getByTestId('applyResult');
+    const slidebarTitle = getByTestId('slidebar-title');
+
+    expect(vafValue).toBeInTheDocument();
+    expect(coverageValue).toBeInTheDocument();
+    expect(codingSimpleResult).toBeInTheDocument();
+    expect(proteinSimpleResult).toBeInTheDocument();
+    expect(applyResultBtn.innerHTML).toBe('Add result');
+    expect(slidebarTitle.innerHTML).toBe('Add result');
+    const isOnEdit1 = getResultConfigIsOnEdit(store.getState());
+    expect(isOnEdit1).toBe(false);
+
+    store.dispatch(handleResultConfigIsOnEdit(true));
+
+    expect(vafValue).not.toBeInTheDocument();
+    expect(coverageValue).not.toBeInTheDocument();
+    expect(codingSimpleResult).not.toBeInTheDocument();
+    expect(proteinSimpleResult).not.toBeInTheDocument();
+    expect(applyResultBtn.innerHTML).toBe('Edit result');
+    expect(slidebarTitle.innerHTML).toBe('Edit result');
+    const isOnEdit2 = getResultConfigIsOnEdit(store.getState());
+    expect(isOnEdit2).toBe(true);
+
+    const codingToggledInput = getByTestId('coding-toggled-input');
+    const proteinToggledInput = getByTestId('protein-toggled-input');
+    expect(codingToggledInput).toBeInTheDocument();
+    expect(proteinToggledInput).toBeInTheDocument();
   });
 
 });
