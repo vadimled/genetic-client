@@ -17,7 +17,7 @@ const GeneSelect = ({
   return (
     <div className={style["gene-select-wrapper"]}>
       <AutoComplete
-        data-testid={`gene-select`}
+        data-testid={`gene-wrapper-input`}
         dataSource={renderOptions()}
         value={value}
         onChange={onChange}

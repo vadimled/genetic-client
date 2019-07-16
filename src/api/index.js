@@ -9,17 +9,16 @@ export function goToChrPositionIgv (chrPosition) {
 }
 
 export function loadHgvs (data) {
-  console.log("data", data);
   // -> API request
   const mockResult = {
+    ...data,
     coding: 'c.2637 A>G',
     protein: 'p.Pro871Leu'
   };
-  return Promise.resolve(mockResult);
+  return mockResult;
 }
 
 export function addResult (data) {
-  console.log("data", data);
   // -> API request
   const mockResult = {
     ...data,
@@ -28,11 +27,10 @@ export function addResult (data) {
     alleleChange: `${data.alleleReference} > ${data.alleleAlternative}`,
     transcript: 'NM_939778.7',
   };
-  return Promise.resolve(mockResult);
+  return mockResult;
 }
 
 export function editResult (data) {
-  console.log("data", data);
   // -> API request
   const mockResult = {
     ...data,
@@ -40,5 +38,5 @@ export function editResult (data) {
     alleleChange: `${data.alleleReference} > ${data.alleleAlternative}`,
     transcript: 'NM_939778.7',
   };
-  return Promise.resolve(mockResult);
+  return mockResult;
 }

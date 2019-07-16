@@ -146,6 +146,7 @@ const ResultConfig = (props) => {
                     value={chromosome}
                     options={CHROMOSOME_OPTIONS}
                     onChange={(e) => handleChromosome(e.target.value)}
+                    testId="chromosome"
                   />
                 </div>
               </ValidationWrapper>
@@ -163,6 +164,7 @@ const ResultConfig = (props) => {
                     onChange={(value) => handlePosition(value)}
                     min={0}
                     max={999999999}
+                    data-testid="position"
                   />
                 </div>
               </ValidationWrapper>
@@ -176,6 +178,7 @@ const ResultConfig = (props) => {
                   'active': alleleType === ALLELE_TYPES.change.value
                 })}
                 onClick={handleAlleleType.bind(null, ALLELE_TYPES.change.value)}
+                data-testid="allele-type-change"
               >
                 {ALLELE_TYPES.change.label}
               </button>
@@ -184,6 +187,7 @@ const ResultConfig = (props) => {
                   'active': alleleType === ALLELE_TYPES.insertion.value
                 })}
                 onClick={handleAlleleType.bind(null, ALLELE_TYPES.insertion.value)}
+                data-testid="allele-type-insertion"
               >
                 {ALLELE_TYPES.insertion.label}
               </button>
@@ -192,6 +196,7 @@ const ResultConfig = (props) => {
                   'active': alleleType === ALLELE_TYPES.deletion.value
                 })}
                 onClick={handleAlleleType.bind(null, ALLELE_TYPES.deletion.value)}
+                data-testid="allele-type-deletion"
               >
                 {ALLELE_TYPES.deletion.label}
               </button>
@@ -206,6 +211,7 @@ const ResultConfig = (props) => {
                 })}
                 value={alleleReference}
                 onChange={(e) => handleAlleleReference(e.target.value)}
+                data-testid="alleleReference"
               />
             </ValidationWrapper>
             <div className="allele-from-to-div">&gt;</div>
@@ -219,6 +225,7 @@ const ResultConfig = (props) => {
                 })}
                 value={alleleAlternative}
                 onChange={(e) => handleAlleleAlternative(e.target.value)}
+                data-testid="alleleAlternative"
               />
             </ValidationWrapper>
           </div>
@@ -243,6 +250,7 @@ const ResultConfig = (props) => {
                   'loaded': isHgvsLoaded
                 })}
                 onClick={onLoadHgvs}
+                data-testid="loadHGVS"
               >
                 Load HGVS
               </button>
@@ -276,6 +284,7 @@ const ResultConfig = (props) => {
           <button
             className="allele-btn allele-btn--add"
             onClick={onApplyResult}
+            data-testid="applyResult"
           >
             {isOnEdit ? 'Edit Result' : 'Add result'}
           </button>
