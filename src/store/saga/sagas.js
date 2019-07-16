@@ -154,7 +154,7 @@ export function* fetchData() {
     for(let record in result){
       // result[record].priority = PRIORITY[record.variantClass]
       // console.log(record);
-      result[record].priority = PRIORITY[result[record].variantClass]
+      result[record].priority = PRIORITY[result[record].variantClass];
     }
 
     yield put(setDataToStore(result));
