@@ -4,25 +4,25 @@ import { DEFAULT_OPTIONS } from "../../../../../utils/constants";
 import SimpleSelect from "../../../../../genericComponents/simpleSelect/SimpleSelect";
 
 
-const Sort = ({setDefaultSettings, testType}) => {
+const Filter = () => {
 
-  const handleOnChange = e => {
-    setDefaultSettings({action: e.target.value, testType});
-  };
+  // const handleOnChange = e => {
+  //   setDefaultSettings({action: e.target.value, testType});
+  // };
 
   return(
-    <div className="sort-wrapper">
+    <div className="filter-wrapper">
       <SimpleSelect
         options={DEFAULT_OPTIONS}
-        onChange={handleOnChange}
-        name="sort"
+        // onChange={handleOnChange}
+        name="filter"
         // value={"Sort"}
         // disabled
         // showArrow={false}
-        placeholder={"Sort"}
+        placeholder={"Filter"}
       />
     </div>
   );
 };
 
-export default Sort;
+export default Filter;

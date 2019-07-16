@@ -1,5 +1,6 @@
 @import "Css/Colors.scss";
-$bg-img: url("../assets/sort-arrows.png");
+$bg-img-sort-arrows: url("../assets/sort-arrows.png");
+$bg-img-arrow-down: url("../assets/arrowDown.svg");
 
 .toolbar-wrapper :global {
   display: flex;
@@ -182,6 +183,56 @@ $bg-img: url("../assets/sort-arrows.png");
         .ant-select-arrow {
           top: 9px;
           right: 48px;
+        }
+      }
+      .ant-select-selection-selected-value {
+        float: right;
+      }
+    }
+
+    border-radius: 4px;
+    & :hover {
+      background: $neutral_10;
+      border-radius: 4px;
+    }
+  }
+  .filter-wrapper {
+    .ant-select {
+      min-width: 78px;
+      max-height: 28px;
+      margin-right: 12px;
+      .anticon.anticon-down.ant-select-arrow-icon {
+        width: 10px;
+        height: 10px;
+        background-image: url("../../../../assets/arrowDown.svg");
+        background-repeat: no-repeat;
+        svg {
+          display: none !important;
+        }
+      }
+      .ant-select-selection {
+        border: none;
+        transition: none;
+      }
+      .ant-select-selection--single {
+        height: 28px;
+        .ant-select-selection__rendered {
+          line-height: unset !important;
+          padding-top: 2px;
+          .ant-select-selection-selected-value {
+            padding-right: 0 !important;
+            color: #424d55;
+          }
+          .ant-select-selection__placeholder {
+            top: 13px;
+            right: 4px;
+            left: unset;
+            color: #424d55;
+          }
+        }
+        .ant-select-arrow {
+          top: 16px;
+          right: 57px;
         }
       }
       .ant-select-selection-selected-value {

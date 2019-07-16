@@ -27,6 +27,7 @@ import {
 import Sort from "./components/Sort";
 import { setDefaultSettings } from "../../../../store/actions/filtersActions";
 import { getTestType } from "../../../../store/selectors";
+import Filter from "./components/Filter";
 
 
 
@@ -78,6 +79,7 @@ class Toolbar extends Component {
           </div>
 
           <div className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}>
+            <Filter/>
             <Sort setDefaultSettings={setDefaultSettings} testType={testType} />
             <IgvLoadBAM />
             <NumberVariants filtered={filtered} total={total} />
