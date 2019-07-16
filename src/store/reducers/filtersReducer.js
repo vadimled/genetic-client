@@ -39,7 +39,8 @@ const initialState = {
   [FILTERS.vaf]: [1, 99], // [0, 100]
   [FILTERS.cancerDBs]: [],
   [FILTERS.gnomAD]: [],
-  [FILTERS.searchText]: ""
+  [FILTERS.searchText]: "",
+  sortParams: []
 };
 
 const filtersReducer = createReducer(initialState, {
@@ -53,33 +54,50 @@ const filtersReducer = createReducer(initialState, {
 
   [actionsTypes.SET_DEFAULT_SETTINGS]: (state, {payload}) => {
 
+    console.log("--payload: ", payload)
+
     const {action, testType} = payload;
 
     if(action === "defaultSorting"){
+      console.log("--payload: ", payload)
       return {
         ...state
       };
     }
 
+    let filtersConfig = {}
+
     if(action === "defaultFiltering"){
 
+      console.log("--here");
+
       if(testType === "solid" || testType === "hema"){
-        return {
-          ...state,
+
+        filtersConfig = {
           [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
           [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
           [FILTERS.gnomAD]: ['na', 'veryRare']
-        };
+        }
+
       }
 
       if(testType === "risk"){
-        return {
-          ...state,
+
+        filtersConfig = {
           [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
           [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
           [FILTERS.vaf]: [30, 100]
-        };
+        }
+
+
       }
+    }
+
+    console.log("--filtersConfig: ", filtersConfig)
+
+    return {
+      ...state,
+      ...filtersConfig
     }
   },
 

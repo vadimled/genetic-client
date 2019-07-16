@@ -149,13 +149,23 @@ export function* fetchData() {
 
     // let res = result.map(record => record.priority = PRIORITY[record.variantClass])
 
-    console.log(result);
-
     for(let record in result){
       // result[record].priority = PRIORITY[record.variantClass]
       // console.log(record);
       result[record].priority = PRIORITY[result[record].variantClass];
     }
+    //
+    // const sortedData = [];
+    //
+    // for (let key in result) {
+    //   if (result.hasOwnProperty(key)) {
+    //     sortedData.push(result[key]);
+    //   }
+    // }
+    //
+    // sortedData.sort((a, b) => b.priority - a.priority).slice();
+    //
+    // console.log("--sortedData: ", sortedData);
 
     yield put(setDataToStore(result));
     // yield put(setLoading(false));

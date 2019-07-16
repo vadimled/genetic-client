@@ -7,7 +7,7 @@ import { CONFIRMATION_VALUES } from 'Utils/constants';
 const initialState = {
   data: {},
   uncheckConfirmationData: null,
-  activityLog: {}
+  activityLog: {},
 };
 
 const tableReducer = createReducer(initialState, {

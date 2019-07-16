@@ -7,7 +7,7 @@ import SimpleSelect from "../../../../../genericComponents/simpleSelect/SimpleSe
 const Sort = ({setDefaultSettings, testType}) => {
 
   const handleOnChange = e => {
-    setDefaultSettings(e.target.value, testType);
+    setDefaultSettings({action: e.target.value, testType});
   };
 
   return(

@@ -39,6 +39,8 @@ export const
 
 export const getSearchQuery = state => state?.filters?.searchText;
 
+
+
 export const getTableDataAsArray = createSelector(
   getTableData,
   data => {
