@@ -35,7 +35,7 @@ export const
   getAlertTitle = state => state?.alert?.title,
   getAlertMessage = state => state?.alert?.message,
 
-  getSortParam = state => state?.filters?.sortParam;
+  getSortParam = state => state?.table?.sortParam;
 
 
 
