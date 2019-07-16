@@ -79,7 +79,6 @@ export const fetchData = data => {
 };
 
 export function setDataToStore(data) {
-  console.log("-here");
   return {
     type: actionsTypes.FETCH_DATA_SUCCESS,
     payload: data

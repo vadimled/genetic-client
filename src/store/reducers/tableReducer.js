@@ -13,7 +13,6 @@ const initialState = {
 const tableReducer = createReducer(initialState, {
 
   [actionsTypes.FETCH_DATA_SUCCESS]: (state, {payload}) => {
-    console.log("------payload: ", payload);
     return {
       ...state,
       data: payload

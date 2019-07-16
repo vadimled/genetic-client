@@ -146,8 +146,6 @@ export function* fetchData() {
   try {
     const result = generateDNAVariantTableMockData(200);
 
-    console.log("--result: ", result)
-
     yield put(setDataToStore(result));
     // yield put(setLoading(false));
   } catch (error) {
