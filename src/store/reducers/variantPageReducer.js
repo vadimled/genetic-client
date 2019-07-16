@@ -18,7 +18,6 @@ const initialState = {
     AminoAcidChange: "I1564ISLKN",
     DamagingScore: "TTCATGAGAGAAGGTGAGTGG"
   },
-  dataId: "k5wp5amernh84pvsygjji9ljz", // null,
   type: "somatic",
   valueSomatic: "unclassified",
   valueGermline: "unclassified",
@@ -26,13 +25,6 @@ const initialState = {
 };
 
 const variantPageReducer = createReducer(initialState, {
-  [actionsTypes.SET_GENE]: (state, { payload }) => {
-    return {
-      ...state,
-      dataId: payload
-    };
-  },
-
   [actionsTypes.SET_VARIANT_CLASSIFICATION]: (state, { payload }) => {
     const { value, name } = payload;
     return {
