@@ -16,7 +16,7 @@ const initialState = {
     COSMIC: "COSM4142157",
     variant: "D479D", // ????????
     AminoAcidChange: "I1564ISLKN",
-    DamagingScore: "T"
+    DamagingScore: "TTCATGAGAGAAGGTGAGTGG"
   },
   dataId: "k5wp5amernh84pvsygjji9ljz", // null,
   type: "somatic",

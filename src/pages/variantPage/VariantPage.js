@@ -21,7 +21,6 @@ class VariantPage extends Component {
     };
 
     props.setResources(this.createResourcesLinks(props.variantData));
-    
   }
 
   createResourcesLinks = variantData => {
@@ -29,15 +28,9 @@ class VariantPage extends Component {
 
     const variantDBs = {
       title: "Variant DBs",
-      UCSC: `https://genome.ucsc.edu/cgi-bin/hgTracks?
-      db=hg19&
-      lastVirtModeType=default&
-      lastVirtModeExtraState=&
-      virtModeType=default&
-      virtMode=0&
-      nonVirtPosition=&
-      position=${encodeURIComponent(variantData.chrPosition)}&
-      hgsid=731360955_9ebZL49sAeyPO3PxgbWCQ1DZ5e4N`,
+      UCSC: `https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=${encodeURIComponent(
+        variantData.chrPosition
+      )}&hgsid=731360955_9ebZL49sAeyPO3PxgbWCQ1DZ5e4N`,
       gnomAD: `https://gnomad.broadinstitute.org/variant/${[
         ...variantData.chrPosition.split(":")[0]
       ]
@@ -76,20 +69,20 @@ class VariantPage extends Component {
 
     const publications = {
       title: "Publications",
-      Pubmed: `https://www.ncbi.nlm.nih.gov/pubmed/?
-      term=${variantData.gene}+AND+(${encodeURIComponent(variantData.protein)}+
-      OR+
-      ${encodeURIComponent(variantData.coding)}
-      +OR+
-      ${encodeURIComponent(variantData.AminoAcidChange)})`,
-      "Google Scholar": `https://scholar.google.co.il/scholar?
-      start=50&
-      q=${variantData.gene}+AND+(${encodeURIComponent(variantData.protein)}+
-      OR+
-      ${encodeURIComponent(variantData.coding)}
-      +OR+
-      ${encodeURIComponent(variantData.AminoAcidChange)})&hl=en&as_sdt=0,5`
+      Pubmed: `https://www.ncbi.nlm.nih.gov/pubmed/?term=${
+        variantData.gene
+      }+AND+(${encodeURIComponent(variantData.protein)}+OR+${encodeURIComponent(
+        variantData.coding
+      )}+OR+${encodeURIComponent(variantData.AminoAcidChange)})`,
+      "Google Scholar": `https://scholar.google.co.il/scholar?start=50&q=${
+        variantData.gene
+      }+AND+(${encodeURIComponent(variantData.protein)}+OR+${encodeURIComponent(
+        variantData.coding
+      )}+OR+${encodeURIComponent(
+        variantData.AminoAcidChange
+      )})&hl=en&as_sdt=0,5`
     };
+
     externalResources.push(publications);
 
     const inSilicoPredictors = {
@@ -97,8 +90,7 @@ class VariantPage extends Component {
       "Damaging score": variantData.DamagingScore
     };
     externalResources.push(inSilicoPredictors);
-  
-    console.log(externalResources);
+
     return externalResources;
   };
 
@@ -167,4 +159,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(VariantPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(VariantPage);

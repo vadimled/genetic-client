@@ -46,6 +46,32 @@
               color: $neutral_hover_30;
             }
           }
+          .text-not-link {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            width: 100%;
+
+            .text-not-link-title {
+              flex: 2;
+              min-width: 9em;
+              font-weight: 600;
+              font-size: 14px;
+              color: $title_color;
+              line-height: 18px;
+            }
+
+            .text-not-link-value {
+              flex: 1;
+              color: $neutral_hover_30;
+              padding-left: 6px;
+              width: 20%;
+              cursor: pointer;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
         }
       }
     }
