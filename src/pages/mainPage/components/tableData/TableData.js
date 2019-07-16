@@ -18,13 +18,18 @@ import {
   handleUncheckConfirmationData,
   setNotes,
   updateActivityLog,
+  fetchData
 } from "Actions/tableActions";
 import {
   goToChrPositionIgv
 } from "Actions/igvActions";
-// import VariantTable2 from "../../../../genericComponents/variantTable/VariantTable2";
 
 class TableData extends Component {
+
+  componentDidMount() {
+    const {fetchTableData} = this.props;
+    fetchTableData();
+  }
 
   render() {
     const {
@@ -89,7 +94,8 @@ function mapDispatchToProps(dispatch) {
     },
     updateActivityLog: data => dispatch(updateActivityLog(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
-    setNotes: data => dispatch(setNotes(data))
+    setNotes: data => dispatch(setNotes(data)),
+    fetchTableData: data => dispatch(fetchData(data))
   };
 }
 

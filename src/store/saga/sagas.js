@@ -19,6 +19,9 @@ import {
 import {
   setAlert
 } from "Actions/alertActions";
+import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
+import { setDataToStore } from "../actions/tableActions";
+
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === 'test'
@@ -136,5 +139,18 @@ export function* sendForConfirmationGenerator(data) {
       }));
     }
     consoleErrors(e);
+  }
+}
+
+export function* fetchData() {
+  try {
+    const result = generateDNAVariantTableMockData(200);
+
+    console.log("--result: ", result)
+
+    yield put(setDataToStore(result));
+    // yield put(setLoading(false));
+  } catch (error) {
+    console.log("---error: ", error);
   }
 }

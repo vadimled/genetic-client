@@ -1,11 +1,11 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
-import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
+// import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { PRIORITY } from "../../utils/constants";
 import { CONFIRMATION_VALUES } from 'Utils/constants';
 
 const initialState = {
-  data: generateDNAVariantTableMockData(200),
+  data: {},
   uncheckConfirmationData: null,
   activityLog: {}
 };
@@ -13,6 +13,7 @@ const initialState = {
 const tableReducer = createReducer(initialState, {
 
   [actionsTypes.FETCH_DATA_SUCCESS]: (state, {payload}) => {
+    console.log("------payload: ", payload);
     return {
       ...state,
       data: payload
