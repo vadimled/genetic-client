@@ -47,6 +47,13 @@ const variantPageReducer = createReducer(initialState, {
       ...state,
       type: payload
     };
+  },
+
+  [actionsTypes.SET_EXTERNAL_RESOURCES]: (state, { payload }) => {
+    return {
+      ...state,
+      externalResources: payload
+    };
   }
 });
 

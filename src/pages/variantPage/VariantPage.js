@@ -8,6 +8,7 @@ import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
 import { getExternalResources, getVariantData } from "Store/selectors";
 import { connect } from "react-redux";
+import { setExternalResources } from "Actions/variantPageActions";
 
 // import PropTypes from 'prop-types';
 
@@ -19,7 +20,8 @@ class VariantPage extends Component {
       sidebarToggle: true
     };
 
-    this.createResourcesLinks(props.variantData);
+    props.setResources(this.createResourcesLinks(props.variantData));
+    
   }
 
   createResourcesLinks = variantData => {
@@ -95,6 +97,8 @@ class VariantPage extends Component {
       "Damaging score": variantData.DamagingScore
     };
     externalResources.push(inSilicoPredictors);
+  
+    console.log(externalResources);
     return externalResources;
   };
 
@@ -157,10 +161,10 @@ const mapStateToProps = state => {
   };
 };
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     setAlert: data => dispatch(setAlert(data))
-//   };
-// }
+function mapDispatchToProps(dispatch) {
+  return {
+    setResources: data => dispatch(setExternalResources(data))
+  };
+}
 
-export default connect(mapStateToProps)(VariantPage);
+export default connect(mapStateToProps, mapDispatchToProps)(VariantPage);
