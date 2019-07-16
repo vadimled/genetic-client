@@ -61,7 +61,7 @@ const filtersReducer = createReducer(initialState, {
     if(action === "defaultSorting"){
       console.log("--payload: ", payload);
 
-      state.sortParam = "priority"
+      state.sortParam = "priority";
 
       return {
         ...state
