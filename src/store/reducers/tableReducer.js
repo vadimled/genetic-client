@@ -69,18 +69,21 @@ const tableReducer = createReducer(initialState, {
 
     // and always reset variantClass as a result of changing the zygosity
     // reset to
-    if (
-      value !== 'insignificant' &&
-      value !== 'notReal' &&
-      value !== 'unknown'
-    ) {
-      // unclassified is default for somatic & germline
-      data[item.id].variantClass = 'unclassified';
-      data[item.id].priority = PRIORITY['unclassified'];
-    }
-    else {
-      data[item.id].variantClass = '';
-    }
+    // if (
+    //   value !== 'insignificant' &&
+    //   value !== 'notReal' &&
+    //   value !== 'unknown'
+    // ) {
+    //   // unclassified is default for somatic & germline
+    //   data[item.id].variantClass = 'unclassified';
+    //   data[item.id].priority = PRIORITY['unclassified'];
+    // }
+    // else {
+    //   data[item.id].variantClass = '';
+    // }
+
+    data[item.id].variantClass = 'unclassified';
+    data[item.id].priority = PRIORITY['unclassified'];
 
     switch (value) {
       case "unknown": data[item.id].priority = PRIORITY['unknown'];

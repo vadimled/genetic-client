@@ -21,6 +21,7 @@ import {
 } from "Actions/alertActions";
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { setDataToStore } from "../actions/tableActions";
+import { PRIORITY } from "../../utils/constants";
 
 
 function* onDelay(time) {
@@ -145,6 +146,16 @@ export function* sendForConfirmationGenerator(data) {
 export function* fetchData() {
   try {
     const result = generateDNAVariantTableMockData(200);
+
+    // let res = result.map(record => record.priority = PRIORITY[record.variantClass])
+
+    console.log(result);
+
+    for(let record in result){
+      // result[record].priority = PRIORITY[record.variantClass]
+      // console.log(record);
+      result[record].priority = PRIORITY[result[record].variantClass]
+    }
 
     yield put(setDataToStore(result));
     // yield put(setLoading(false));
