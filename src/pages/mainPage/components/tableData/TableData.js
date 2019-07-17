@@ -18,7 +18,7 @@ import {
   handleUncheckConfirmationData,
   setNotes,
   updateActivityLog,
-  fetchData
+  fetchData, setSort
 } from "Actions/tableActions";
 import {
   goToChrPositionIgv
@@ -44,6 +44,7 @@ class TableData extends Component {
       selectedRows,
       setNotes,
       updateActivityLog,
+      setSort
     } = this.props;
 
     return (
@@ -61,6 +62,7 @@ class TableData extends Component {
             selectedRows={selectedRows}
             setNotes={setNotes}
             updateActivityLog={updateActivityLog}
+            setSort={setSort}
           />
         }
 
@@ -95,7 +97,8 @@ function mapDispatchToProps(dispatch) {
     updateActivityLog: data => dispatch(updateActivityLog(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
     setNotes: data => dispatch(setNotes(data)),
-    fetchTableData: data => dispatch(fetchData(data))
+    fetchTableData: data => dispatch(fetchData(data)),
+    setSort: data => dispatch(setSort(data)),
   };
 }
 

@@ -16,13 +16,14 @@ import ActivityLog from "./components/ActivityLog";
 import ResizeableTitle from "./components/resizeableTitle";
 import { ReactComponent as DropdownArrow } from "Assets/dropdownArrow.svg";
 
-const TableSorter = () => {
+const TableSorter = ({setSort}) => {
+  console.log(setSort);
   return(
     <div className="flex items-center table-sorter-wrapper">
       <div className="table-sorter-title">VAF</div>
       <div className="flex flex-column">
-        <DropdownArrow className="top-arrow" />
-        <DropdownArrow/>
+        <DropdownArrow className="top-arrow" onClick={()=> setSort({field: "vaf", order: "descending"})} />
+        <DropdownArrow onClick={()=> setSort({field: "vaf", order: "ascending"})} />
       </div>
     </div>
 
@@ -121,7 +122,7 @@ class VariantTable extends Component {
         width: 100
       },
       {
-        title: <div><TableSorter/></div>,
+        title: <div><TableSorter setSort={this.props.setSort} /></div>,
         dataIndex: "vaf",
         key: "9",
         width: 100,
