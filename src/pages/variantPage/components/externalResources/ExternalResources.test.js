@@ -4,7 +4,7 @@ import React from "react";
 import ExternalResources from "variantComponents/externalResources";
 
 describe("ExternalResources ", () => {
-  const externalResources = [
+  const externalResourcesVar1 = [
     {
       COSMIC: "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=4142157"
     },
@@ -12,16 +12,50 @@ describe("ExternalResources ", () => {
       "Damaging score": "TTCATGAGAGAAGGTGAGTGG"
     }
   ];
-  let getByTestId;
+  const externalResourcesVar2 = [
+    {
+      COSMIC: [
+        {
+          title: "COSM3997243",
+          link:
+            "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=3997243"
+        },
+        {
+          title: "COSM3997245",
+          link:
+            "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=3997245"
+        },
+        {
+          title: "COSM3997244",
+          link:
+            "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=3997244"
+        }
+      ]
+    }
+  ];
 
-  beforeEach(() => {
-    const queries = renderWithRedux(
-      <ExternalResources externalResources={externalResources} />
+  it("should - if resource is static text, title be equal", () => {
+    const { getByTestId } = renderWithRedux(
+      <ExternalResources externalResources={externalResourcesVar1} />
     );
-    getByTestId = queries.getByTestId;
+    const title = getByTestId("text-not-link-title-Damaging score");
+    expect(title).toBeInTheDocument();
+    expect(title.textContent).toEqual("Damaging score:");
+  });
+
+  it("should - if resource is static text, value be equal", () => {
+    const { getByTestId } = renderWithRedux(
+      <ExternalResources externalResources={externalResourcesVar1} />
+    );
+    const value = getByTestId("text-not-link-value-Damaging score");
+    expect(value).toBeInTheDocument();
+    expect(value.textContent).toEqual("TTCATGAGAGAAGGTGAGTGG");
   });
 
   it("should - if resource is link, received text and href be equal to link's data ", () => {
+    const { getByTestId } = renderWithRedux(
+      <ExternalResources externalResources={externalResourcesVar1} />
+    );
     const a = getByTestId("external-resources-COSMIC");
     expect(a).toBeInTheDocument();
     expect(a.textContent).toEqual("COSMIC");
@@ -30,15 +64,13 @@ describe("ExternalResources ", () => {
     );
   });
 
-  it("should - if resource is static text, title be equal", () => {
-    const title = getByTestId("text-not-link-title-Damaging score");
-    expect(title).toBeInTheDocument();
-    expect(title.textContent).toEqual("Damaging score:");
-  });
+  it("should - if resource is links array", () => {
+    const { getByTestId } = renderWithRedux(
+      <ExternalResources externalResources={externalResourcesVar2} />
+    );
 
-  it("should - if resource is static text, value be equal", () => {
-    const value = getByTestId("text-not-link-value-Damaging score");
-    expect(value).toBeInTheDocument();
-    expect(value.textContent).toEqual("TTCATGAGAGAAGGTGAGTGG");
+    expect(getByTestId("external-resources-COSM3997243")).toBeInTheDocument();
+    expect(getByTestId("external-resources-COSM3997244")).toBeInTheDocument();
+    expect(getByTestId("external-resources-COSM3997245")).toBeInTheDocument();
   });
 });
