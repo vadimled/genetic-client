@@ -117,21 +117,15 @@ export const getTitleCurr = (type, record) => {
   return titleCurr;
 };
 
-const getLinksArray = data => {
+const getLinksArray = (data, link) => {
   return Array.isArray(data)
     ? data.map(code => {
       return {
         title: code,
-        link: `https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=${[
-          ...code
-        ]
-          .slice(4)
-          .join("")}`
+        link: `${link}${[...code].slice(4).join("")}`
       };
     })
-    : `https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=${[...data]
-      .slice(4)
-      .join("")}`;
+    : `${link}${[...data].slice(4).join("")}`;
 };
 
 export const createResourcesLinks = variantData => {
@@ -165,7 +159,10 @@ export const createResourcesLinks = variantData => {
       .join("")}-${chrPosition.split(":")[1]}-${ref}-${alt}`,
     dbSNP: `https://www.ncbi.nlm.nih.gov/snp/?term=${dbSNP}`,
     ClinVar: `https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvarVariationId}`,
-    COSMIC: getLinksArray(COSMIC),
+    COSMIC: getLinksArray(
+      COSMIC,
+      "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id="
+    ),
     OncoKB: `https://oncokb.org/gene/${gene}`,
     PMKB: `https://pmkb.weill.cornell.edu/search?utf8=%E2%9C%93&search=${gene}`,
     Varsome: `https://varsome.com/variant/hg19/${[...chrPosition.split(":")[0]]
