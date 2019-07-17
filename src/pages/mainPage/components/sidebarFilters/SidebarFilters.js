@@ -47,7 +47,6 @@ class SidebarFilters extends Component {
     setDefaultFilters(testType);
   }
 
-
   onChange = (filterSection, mode, value) => {
     const {
       setFilterVariantClass,
@@ -269,7 +268,7 @@ function mapDispatchToProps(dispatch) {
     setFilterCancerDBs: data => dispatch(setFilterCancerDBs(data)),
     setFilterGnomId: data => dispatch(setFilterGnomId(data)),
     clearFilterSection: data => dispatch(clearFilterSection(data)),
-    setDefaultFilters: data => dispatch(setDefaultFilters(data)),
+    setDefaultFilters: data => dispatch(setDefaultFilters(data))
   };
 }
 export default connect(

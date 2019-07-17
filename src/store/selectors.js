@@ -1,6 +1,7 @@
 import { FILTERS, GNOM_AD } from "Utils/constants";
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
+import { SORTING_ORDER } from "../utils/constants";
 
 export const
   getFilterType = state => state?.filters?.[FILTERS.type],
@@ -71,17 +72,6 @@ export const getSearchResult = createSelector(
     });
   }
 );
-//
-// const getAppliedSorting = createSelector(
-//   getSortParams,
-//   (sortParams) => {
-//     const params = {
-//       ...sortParams.length && {
-//         sortParams: item => sortParams.sort
-//       }
-//     }
-//   }
-// )
 
 const getAppliedFilters = createSelector(
   getFilterType,
@@ -159,9 +149,7 @@ export const getFilteredData = createSelector(
     if (isEmpty(appliedFilters)) {
 
       const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
-
       return sortedData;
-
     }
 
     const filtersArray = Object.keys(appliedFilters).map(key => {
@@ -172,12 +160,11 @@ export const getFilteredData = createSelector(
       return filtersArray.some(filter => filter(item));
     });
 
-    if(order === "ascending"){
+    if(order === SORTING_ORDER.ascending){
       return filteredData.sort((a, b) => a[sortParam] - b[sortParam]).slice();
     }
 
     return filteredData.sort((a, b) => b[sortParam] - a[sortParam]).slice();
-
   }
 );
 

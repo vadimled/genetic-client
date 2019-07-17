@@ -23,8 +23,6 @@ const tableReducer = createReducer(initialState, {
 
   [actionsTypes.SET_SORT]: (state, {payload}) => {
 
-    console.log("---payLOAD: ", payload);
-
     const {field, order} = payload;
 
     return {

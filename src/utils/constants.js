@@ -48,6 +48,11 @@ export const SORTING_CONFIGURATIONS = [
   {value: "defaultSorting", label: "Default Sorting"},
 ];
 
+export const SORTING_ORDER = {
+  ascending: "ascending",
+  descending: "descending"
+}
+
 export const ZYGOSITY_OPTIONS = [
   { value: "homo", label: "Homo" },
   { value: "hetro", label: "Hetro" },

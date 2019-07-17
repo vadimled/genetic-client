@@ -53,20 +53,6 @@ const filtersReducer = createReducer(initialState, {
 
   [actionsTypes.SET_DEFAULT_FILTERS]: (state, {payload}) => {
 
-    // console.log("--payload: ", payload);
-
-    // const {action, testType} = payload;
-
-    // if(action === "defaultSorting"){
-    //   console.log("--payload: ", payload);
-    //
-    //   state.sortParam = "priority";
-    //
-    //   return {
-    //     ...state
-    //   };
-    // }
-
     let filtersConfig = {};
     const testType = payload;
 
@@ -75,7 +61,8 @@ const filtersReducer = createReducer(initialState, {
       filtersConfig = {
         [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
         [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
-        [FILTERS.gnomAD]: ['na', 'veryRare']
+        [FILTERS.gnomAD]: ['na', 'veryRare'],
+        [FILTERS.vaf]: [1, 100]
       };
     }
 
