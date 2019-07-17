@@ -1,0 +1,86 @@
+@import "Css/Colors.scss";
+
+.slidebar :global {
+  .slidebar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 99;
+
+    &.hidden {
+      pointer-events: none;
+
+      .slidebar-background {
+        opacity: 0;
+      }
+
+      .slidebar-content {
+        right: -491px;
+      }
+    }
+  }
+
+  .slidebar-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+
+    transition: all 0.5s;
+  }
+
+  .slidebar-content {
+    background-color: #fff;
+    z-index: 1000;
+    position: relative;
+
+    width: 491px;
+
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+
+    transition: all 0.5s;
+  }
+
+  .slidebar-close {
+    position: absolute;
+    top: 27px;
+    right: 27px;
+    width: 22px;
+    height: 22px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url(../../assets/close-big.svg);
+    cursor: pointer;
+  }
+
+  .slidebar-header {
+    display: flex;
+    align-items: center;
+    padding: 20px 47px;
+    border-bottom: 1px solid $border_color;
+    height: 63px;
+  }
+
+  .slidebar-title {
+    font-weight: 600;
+    font-size: 18px;
+    color: $title_color;
+  }
+
+  .slidebar-inner {
+    height: calc(100% - 63px);
+    overflow: auto;
+  }
+}

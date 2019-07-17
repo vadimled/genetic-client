@@ -3,8 +3,10 @@ import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
 
 export const getFilterType = state => state?.filters?.[FILTERS.type],
-  getFilterVariantClass = state => state?.filters?.[FILTERS.variantClass],
-  getFilterSomaticClass = state => state?.filters?.[FILTERS.somaticClass],
+  getFilterVariantClass = state =>
+           state?.filters?.[FILTERS.variantClass],
+  getFilterSomaticClass = state =>
+           state?.filters?.[FILTERS.somaticClass],
   getFilterHotSpot = state => state?.filters?.[FILTERS.hotSpot],
   getFilterSnp = state => state?.filters?.[FILTERS.snp],
   getFilterRoi = state => state?.filters?.[FILTERS.roi],
@@ -12,10 +14,48 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
-  getSelectedRowKeys = state => state?.table?.selectedRowKeys,
-  getMutationType = state => state.variants.mutations;
+  getUncheckConfirmationData = state =>
+           state?.table?.uncheckConfirmationData,
+  getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
+  getConfirmationData = state => state?.confirmation?.data,
+  getMutationType = state => state.variants.mutations,
+  getTumorInfoMode = state => state.variants.showTumorInfo,
+  getTumorInfoType = state => state.variants.tumorInfo?.type,
+  getTumorInfoLocation = state => state.variants.tumorInfo?.location,
+  getTumorInfoPercent = state =>
+    parseInt(state.variants.tumorInfo?.percent, 10),
+  getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
+  getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
+  getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
+  getIgvLastQuery = state => state?.igv?.igvLastQuery,
+  getBAMFileUrl = state => state?.igv?.BAMFileUrl,
 
-export const getNotes = (state, id) => state?.table?.data?.[id].notes;
+  getResultConfigIsOpen = state => state?.resultConfig?.isOpen,
+  getResultConfigIsHgvsLoaded = state => state?.resultConfig?.isHgvsLoaded,
+  getResultConfigIsOnEdit = state => state?.resultConfig?.isOnEdit,
+  getResultConfigGene = state => state?.resultConfig?.gene,
+  getResultConfigChromosome = state => state?.resultConfig?.chromosome,
+  getResultConfigPosition = state => state?.resultConfig?.position,
+  getResultConfigAlleleType = state => state?.resultConfig?.alleleType,
+  getResultConfigAlleleReference = state => state?.resultConfig?.alleleReference,
+  getResultConfigAlleleAlternative = state => state?.resultConfig?.alleleAlternative,
+  getResultConfigVaf = state => state?.resultConfig?.vaf,
+  getResultConfigCoverage = state => state?.resultConfig?.coverage,
+  getResultConfigCoding = state => state?.resultConfig?.coding,
+  getResultConfigProtein = state => state?.resultConfig?.protein,
+  getResultConfigValidationFaildFields = state => state?.resultConfig?.validationFaildFields,
+  getResultConfigid = state => state?.resultConfig?.id,
+
+  getAlertStatus = state => state?.alert?.status,
+  getAlertTitle = state => state?.alert?.title,
+  getAlertMessage = state => state?.alert?.message,
+  getGeneType = state => state.variantPage.type,
+  getSomaticValue = state => state.variantPage.valueSomatic,
+  getGermlineValue = state => state.variantPage.valueGermline,
+  getExternalResources = state => state.variantPage.externalResources,
+  getVariantData = state => state.variantPage.variantData;
+
+export const getSearchQuery = state => state?.filters?.searchText;
 
 export const getTableDataAsArray = createSelector(
   getTableData,
@@ -26,7 +66,36 @@ export const getTableDataAsArray = createSelector(
         arrayData.push(data[key]);
       }
     }
+
+
+    // const defaultFiltration = arrayData.filter(record => record.variantClass !== "tier4")
+
+
     return arrayData;
+  }
+);
+
+export const getTableDataGenes = createSelector(
+  getTableDataAsArray,
+  data => {
+    let allGenes = data ? data.map(row => row?.gene) : [];
+    return [...new Set(allGenes)];
+  }
+);
+
+export const getSearchResult = createSelector(
+  getTableDataAsArray,
+  getSearchQuery,
+  (data, searchQuery) => {
+    return data.filter(item => {
+      const searchQueryInLowerCase = searchQuery.toLowerCase();
+      return (
+        item.gene.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.variantClass.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.coding.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.protein.toLowerCase().includes(searchQueryInLowerCase)
+      );
+    });
   }
 );
 
@@ -70,7 +139,7 @@ const getAppliedFilters = createSelector(
         roi: item => roi.some(filter => item.roi === filter)
       }),
       ...(vaf.length && {
-        vaf: item => item.vaf > vaf[0] && item.vaf < vaf[1]
+        vaf: item => item.vaf >= vaf[0] && item.vaf <= vaf[1]
       }),
       ...(cancerDBs.length && {
         cancerDBs: item => cancerDBs.some(filter => item[filter] !== undefined)
@@ -98,11 +167,11 @@ const getAppliedFilters = createSelector(
 );
 
 export const getFilteredData = createSelector(
-  getTableDataAsArray,
+  getSearchResult,
   getAppliedFilters,
   (data, appliedFilters) => {
+
     if (isEmpty(appliedFilters)) {
-      console.log("-No filters");
       return data;
     }
 
@@ -118,6 +187,35 @@ export const getFilteredData = createSelector(
   }
 );
 
+export const getSearchQueries = createSelector(
+  getFilteredData,
+  data => {
+    const queriesArr = new Set([]);
+    data.map(item => {
+      queriesArr.add(item.gene);
+      queriesArr.add(item.coding);
+      if (item.variantClass) {
+        queriesArr.add(item.variantClass);
+      }
+
+      queriesArr.add(item.protein);
+    });
+
+    return Array.from(queriesArr);
+  }
+);
+
+export const getFilteredSearchQueries = createSelector(
+  getSearchQueries,
+  getSearchQuery,
+  (queries, searchQuery) => {
+    const filteredSearchQueries = queries.filter(query =>
+      query.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    return filteredSearchQueries;
+  }
+);
+
 export const getFilteredEntriesAmount = createSelector(
   getFilteredData,
   filteredData => filteredData?.length
@@ -127,3 +225,43 @@ export const getTotalEntriesAmount = createSelector(
   getTableDataAsArray,
   data => data?.length
 );
+
+export const getSelectedRows = createSelector(
+  getFilteredData,
+  (data) => {
+    return data.filter(row => row.selected);
+  }
+);
+
+export const getSelectedIsAddedRows = createSelector(
+  getSelectedRows,
+  (data) => {
+    return data.filter(row => row.isAdded);
+  }
+);
+
+export const checkIsAllRowSelected = createSelector(
+  getTableDataAsArray,
+  getSelectedRows,
+  (allData, selectedData) => {
+    const notConfirmedData = allData?.filter((item) => !item.status);
+    return !!selectedData?.length && notConfirmedData?.length === selectedData?.length;
+  }
+);
+
+// activity log
+export const getActivityLog = (state, recordId) => {
+  const activityLog = state?.table?.activityLog[recordId];
+
+  let activityLogArray = [];
+
+  for (let record in activityLog) {
+    activityLogArray = activityLogArray.concat(activityLog[record]);
+  }
+
+  activityLogArray.sort((a,b) => {
+    return new Date(b.time) - new Date(a.time);
+  });
+
+  return activityLogArray;
+};

@@ -1,0 +1,14 @@
+@import "Css/Colors.scss";
+
+.edit-result-btn :global {
+  width: 84px;
+
+  .ant-btn {
+    background-color: $brand_primary_color;
+    color: white;
+
+    &:hover {
+      background-color: $brand_primary_hover_color;
+    }
+  }
+}

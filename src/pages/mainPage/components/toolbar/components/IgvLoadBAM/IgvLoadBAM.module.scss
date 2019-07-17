@@ -1,0 +1,39 @@
+.igv-btn :global {
+  width: 114px;
+
+  .ant-btn {
+    &.progress {
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        height: 4px;
+        width: 100%;
+        background-repeat: no-repeat;
+      }
+
+      &--2 {
+        &::after {
+          background-image: url("../../../../../../assets/btn-progress-part.svg");
+          background-position: 0px calc(100% - 1px);
+        }
+      }
+
+      &--3 {
+        &::after {
+          background-image: url("../../../../../../assets/btn-progress-full.svg");
+          background-position: 0px calc(100% - 1px);
+        }
+      }
+
+      & > span + .anticon {
+        margin-left: 5px;
+        font-size: 11px;
+        svg {
+          fill: white;
+        }
+      }
+    }
+  }
+}

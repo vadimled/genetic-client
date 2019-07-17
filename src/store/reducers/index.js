@@ -2,9 +2,19 @@ import { combineReducers } from "redux";
 import filtersReducer from "./filtersReducer";
 import tableReducer from "./tableReducer";
 import variantsReducer from "./variantsReducer";
+import igvReducer from "./igvReducer";
+import confirmationReducer from "./confirmationReducer";
+import alertReducer from "./alertReducer";
+import resultConfigReducer from "./resultConfigReducer";
+import variantPageReducer from "./variantPageReducer";
 
 export default combineReducers({
   filters: filtersReducer,
   table: tableReducer,
-  variants: variantsReducer
+  variants: variantsReducer,
+  igv: igvReducer,
+  confirmation: confirmationReducer,
+  alert: alertReducer,
+  resultConfig: resultConfigReducer,
+  variantPage: variantPageReducer,
 });

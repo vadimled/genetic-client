@@ -1,0 +1,97 @@
+@import "Css/Colors.scss";
+
+.tumor-toolbar-wrapper :global {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  background-color: $list-single_hover;
+  font-style: normal;
+  font-size: 14px;
+  padding: 10px 9px;
+  border-bottom: $border_color solid 1px;
+
+  .right-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 40px;
+    transform: translate(0px, 0px);
+    transition: 0.4s ease;
+
+    &.sidebar-open {
+      transform: translate(-175px, 0px);
+    }
+
+    .icon {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      svg {
+        overflow: visible;
+
+        ellipse {
+          transition: all 0.4s;
+          stroke: $subtitle_color;
+          stroke-opacity: 0;
+        }
+      }
+
+      &:hover {
+        svg {
+          ellipse {
+            transition: stroke-opacity 0.5s ease;
+            stroke-opacity: 1;
+            stroke-width: 2px;
+            fill: none;
+          }
+        }
+      }
+    }
+  }
+  .tumor-info-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+
+    .anticon.anticon-search {
+      position: relative;
+      z-index: 2;
+      margin-right: 5px;
+    }
+    .search-icons-wrapper {
+      position: relative;
+      left: 75px;
+    }
+    .clear-search-button {
+      position: relative;
+      right: 30px;
+      z-index: 2;
+      width: 16px;
+      height: 16px;
+      background-color: rgba(0, 0, 0, 0);
+      background-position: center;
+      background-size: contain;
+      cursor: pointer;
+      border: 0px;
+      margin-left: 4px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -o-appearance: none;
+      appearance: none;
+
+      &:active,
+      &:focus {
+        outline: none;
+      }
+      &::-moz-focus-inner {
+        border: 0;
+      }
+    }
+  }
+}

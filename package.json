@@ -5,10 +5,13 @@
   "dependencies": {
     "@babel/core": "7.4.3",
     "@babel/plugin-transform-react-jsx-self": "^7.2.0",
+    "@sentry/browser": "^5.5.0",
     "@svgr/webpack": "4.1.0",
+    "@testing-library/react": "^8.0.1",
     "@typescript-eslint/eslint-plugin": "1.6.0",
     "@typescript-eslint/parser": "1.6.0",
     "antd": "^3.19.1",
+    "axios": "^0.19.0",
     "babel-eslint": "10.0.1",
     "babel-jest": "^24.8.0",
     "babel-loader": "8.0.5",
@@ -19,6 +22,8 @@
     "classnames": "^2.2.6",
     "create-react-component-folder": "^0.1.30",
     "css-loader": "2.1.1",
+    "dateformat": "^3.0.3",
+    "dom-testing-library": "^5.0.0",
     "dotenv": "6.2.0",
     "dotenv-expand": "4.2.0",
     "file-loader": "3.0.1",
@@ -26,12 +31,14 @@
     "html-webpack-plugin": "4.0.0-beta.5",
     "identity-obj-proxy": "3.0.0",
     "is-wsl": "^1.1.0",
-    "jest": "24.7.1",
+    "jest": "24.8.0",
+    "jest-dom": "^3.5.0",
     "jest-environment-jsdom-fourteen": "0.1.0",
-    "jest-resolve": "24.7.1",
-    "jest-watch-typeahead": "0.3.0",
+    "jest-resolve": "24.8.0",
+    "jest-watch-typeahead": "0.3.1",
     "lodash.isempty": "^4.4.0",
     "mini-css-extract-plugin": "0.5.0",
+    "nock": "^10.0.6",
     "node-sass": "^4.12.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pnp-webpack-plugin": "1.2.1",
@@ -44,10 +51,11 @@
     "react-app-polyfill": "^1.0.1",
     "react-dev-utils": "^9.0.1",
     "react-dom": "^16.8.6",
-    "react-redux": "^7.0.3",
+    "react-redux": "7.1.0",
     "react-resizable": "^1.8.0",
-    "react-router-dom": "^5.0.0",
+    "react-router-dom": "5.0.1",
     "redux": "^4.0.1",
+    "redux-saga": "^1.0.3",
     "reselect": "^4.0.0",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
@@ -64,7 +72,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
+    "test": "jest --verbose",
+    "test:watch": "jest --watchAll",
     "fix:other": "yarn prettier --write",
     "fix:js": "yarn lint:js --fix",
     "fix": "yarn fix:js && yarn fix:other",
@@ -130,7 +139,9 @@
     "setupFiles": [
       "react-app-polyfill/jsdom"
     ],
-    "setupFilesAfterEnv": [],
+    "setupFilesAfterEnv": [
+      "@testing-library/react/cleanup-after-each"
+    ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
       "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
@@ -148,7 +159,20 @@
     "modulePaths": [],
     "moduleNameMapper": {
       "^react-native$": "react-native-web",
-      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
+      "^Components[/](.+)": "<rootDir>/src/components/$1",
+      "^GenericComponents[/](.+)": "<rootDir>/src/genericComponents/$1",
+      "^Api[/](.+)": "<rootDir>/src/api/$1",
+      "^Css[/](.+)": "<rootDir>/src/css/$1",
+      "^Utils[/](.+)": "<rootDir>/src/utils/$1",
+      "^Store[/](.+)": "<rootDir>/src/store/$1",
+      "^Actions[/](.+)": "<rootDir>/src/store/actions/$1",
+      "^Reducers[/](.+)": "<rootDir>/src/store/reducers/$1",
+      "^Sagas[/](.+)": "<rootDir>/src/store/sagas/$1",
+      "^Pages[/](.+)": "<rootDir>/src/pages/$1",
+      "^variantPage[/](.*)": "<rootDir>/src/pages/variantPage/$1",
+      "^variantComponents[/](.+)": "<rootDir>/src/pages/variantPage/components/$1",
+      "^Assets[/](.+)": "<rootDir>/src/assets/$1"
     },
     "moduleFileExtensions": [
       "web.js",

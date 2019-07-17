@@ -4,12 +4,13 @@ import FilterCheckboxItem from "GenericComponents/filterCheckboxItem";
 import RangeSlider from "GenericComponents/rangeSlider";
 import style from "./SelectionGroup.module.scss";
 
-const SelectionGroup = ({ items, mode, onChange, values}) => {
+const SelectionGroup = ({name, items, mode, onChange, onReset, values}) => {
   return (
     <div className={style["selection-group-wrapper"]}>
       {(mode === 'multiple' || mode === 'single') && items.map((item, i) => (
         <FilterCheckboxItem
           key={i}
+          groupName={name}
           item={item}
           onChange={onChange.bind(null, item.id)}
           value={mode === 'multiple'
@@ -20,6 +21,7 @@ const SelectionGroup = ({ items, mode, onChange, values}) => {
       ))}
       {mode === 'range' && <RangeSlider
         onChange={onChange}
+        onReset={onReset}
         rangeValue={values}
         className="filters-range-slider"
       />}
@@ -28,9 +30,11 @@ const SelectionGroup = ({ items, mode, onChange, values}) => {
 };
 
 SelectionGroup.propTypes = {
+  name: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.object),
   mode: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  onReset: PropTypes.func,
   values: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.bool])
 };
 

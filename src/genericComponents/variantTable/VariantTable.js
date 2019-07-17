@@ -1,33 +1,36 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Table } from "antd";
-import { Resizable } from "react-resizable";
+import { Table, Tooltip, Checkbox } from "antd";
+import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect";
-import Notes from "Pages/mainPage/components/notes";
-import { ZYGOSITY_OPTIONS, GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
-
-const ResizeableTitle = props => {
-  const { onResize, width, ...restProps } = props;
-
-  if (!width) {
-    return <th {...restProps} />;
-  }
-
-  return (
-    <Resizable width={width} height={0} onResize={onResize}>
-      <th {...restProps} />
-    </Resizable>
-  );
-};
+import ConfirmationStatus from "GenericComponents/confirmationStatus";
+import Notes from "GenericComponents/notes";
+import {
+  ZYGOSITY_OPTIONS,
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS
+} from "Utils/constants";
+import ExternalLink from "GenericComponents/externalLink";
+import style from "./VariantTable.module.scss";
+import ActivityLog from "./components/ActivityLog";
+import ResizeableTitle from "./components/resizeableTitle";
+import HighlightedCell from "./components/highlightedCell";
 
 class VariantTable extends Component {
   state = {
     columns: [
       {
+        key: "1",
+        dataIndex: "selection",
+        width: 40,
+        fixed: "left",
+        className: "selection-cell",
+      },
+      {
         title: "Gene",
         dataIndex: "gene",
         key: "2",
-        width: 100
+        width: 200
       },
       {
         title: "Chr: position",
@@ -39,25 +42,25 @@ class VariantTable extends Component {
         title: "Transcript",
         dataIndex: "transcript",
         key: "4",
-        width: 150
+        width: 200
       },
       {
         title: "Exon",
         dataIndex: "exon",
         key: "5",
-        width: 40
+        width: 100
       },
       {
         title: "Allele change",
         dataIndex: "alleleChange",
         key: "6",
-        width: 80
+        width: 100
       },
       {
         title: "coding",
         dataIndex: "coding",
         key: "7",
-        width: 80
+        width: 100
       },
       {
         title: "Protein",
@@ -69,7 +72,8 @@ class VariantTable extends Component {
         title: "VAF",
         dataIndex: "vaf",
         key: "9",
-        width: 50
+        width: 100,
+        sorter: (a, b) => a.vaf - b.vaf,
       },
       {
         title: "Zygosity",
@@ -87,13 +91,13 @@ class VariantTable extends Component {
         title: "coverage",
         dataIndex: "coverage",
         key: "12",
-        width: 50
+        width: 100
       },
       {
         title: "Notes",
         dataIndex: "notes",
         key: "13",
-        width: 200
+        width: 532
       },
       {
         title: "Activity log",
@@ -101,17 +105,55 @@ class VariantTable extends Component {
         key: "14",
         width: 200
       }
-    ]
+    ],
   };
 
   components = {
     header: {
       cell: ResizeableTitle
+    },
+    body: {
+      // row: ()=> <tr class="ant-table-row ant-table-row-level-0"></tr>
     }
+  };
+
+  // handleChange = (pagination, filters, sorter) => {
+  //   console.log('Various parameters',  sorter);
+  //   this.setState({
+  //     sortedInfo: sorter,
+  //   });
+  // };
+
+  handelChrPosition = (e, data) => {
+    console.log({ e: e.target, data });
+  };
+
+  handleZygosity = (data) =>{
+    const {handleZygosity, updateActivityLog} = this.props;
+    const {item, value, prevValue} = data;
+
+    handleZygosity({
+      item,
+      value,
+    });
+    updateActivityLog({prevValue, item, changedField: "zygosity"});
+  };
+
+  handleVariantClass = data => {
+    const {handleVariantClass, updateActivityLog} = this.props;
+    const {item, value, prevValue} = data;
+
+    handleVariantClass({
+      item,
+      value,
+    });
+
+    updateActivityLog({prevValue, item, changedField: "variantClass"});
   };
 
   columnsConverter = columns => {
     return columns.map((col, index) => {
+
       let column = {
         ...col,
         onHeaderCell: column => ({
@@ -120,45 +162,200 @@ class VariantTable extends Component {
         })
       };
 
-      if (column.dataIndex === "zygosity") {
-        column.render = (...data) => (
-          <div className="table-select-wrapper">
-            <SimpleSelect
-              value={data[1].zygosity}
-              options={ZYGOSITY_OPTIONS}
-              onChange={e => this.props.handleZygosity({ item: data[1], value: e.target.value })}
-            />
-          </div>
+      // construction if/else is required
+
+      if (column.dataIndex === "selection") {
+        column.title = <div className={cn("table-header-selection-chbx", {
+          'partly': !!this.props.selectedRows.length && !this.props.isAllRowSelected
+        })}>
+          <Checkbox
+            checked={this.props.isAllRowSelected}
+            onChange={this.props.handleSelectAllRows.bind(null, this.props.isAllRowSelected)}
+          />
+        </div>;
+
+        column.render = (text, record) => {
+          if (record.status) {
+            return (
+              <HighlightedCell isHighlighted={record.isAdded}>
+                <ConfirmationStatus
+                  status={record.status}
+                  handleStatus={(status) => this.props.handleConfirmationStatus({
+                    id: record.id,
+                    status
+                  })}
+                />
+              </HighlightedCell>
+            );
+          }
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              <Checkbox
+                checked={record.selected}
+                onChange={this.props.handleSelectedRow.bind(null, {
+                  item: record,
+                  value: !record.selected
+                })}
+                data-testid="selection-checkbox"
+                data-testitemid={record.id}
+              />
+            </HighlightedCell>
+          );
+        };
+      }
+
+      else if (column.dataIndex === "zygosity") {
+        column.render = (text, record) => (
+          <HighlightedCell isHighlighted={record.isAdded}>
+            <div className="table-select-wrapper">
+              <SimpleSelect
+                value={record.zygosity}
+                options={ZYGOSITY_OPTIONS}
+                onChange={e =>
+                  this.handleZygosity({
+                    item: record,
+                    value: e.target.value,
+                    prevValue: record.zygosity
+                  })
+                }
+                isClearAvailable
+                testId="zygosity-select"
+                data-testitemid={record.id}
+              />
+            </div>
+          </HighlightedCell>
         );
         column.className = "select";
       }
 
-      if (column.dataIndex === "variantClass") {
-        column.render = (...data) =>
-          data[1].zygosity &&
-          data[1].zygosity !== "insignificant" &&
-          data[1].zygosity !== "notReal" &&
-          data[1].zygosity !== "unknown" ? (
-              <div className="table-select-wrapper">
-                <SimpleSelect
-                  value={data[1].variantClass}
-                  options={
-                    data[1].zygosity === "somatic" ? SOMATIC_VARIANT_CLASS_OPTIONS : GERMLINE_VARIANT_CLASS_OPTIONS
-                  }
-                  onChange={e => this.props.handleVariantClass({ item: data[1], value: e.target.value })}
-                />
-              </div>
-            ) : (
-              ""
-            );
+      else if (column.dataIndex === "variantClass") {
+        column.render = (text, record, index) => {
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              {
+                record.zygosity &&
+                record.zygosity !== "insignificant" &&
+                record.zygosity !== "notReal" &&
+                record.zygosity !== "unknown" ? (
+                    <div className="table-select-wrapper">
+                      <SimpleSelect
+                        testId={`variant-сlass-select-${index}`}
+                        value={record.variantClass}
+                        options={
+                          record.zygosity === "somatic"
+                            ? SOMATIC_VARIANT_CLASS_OPTIONS
+                            : GERMLINE_VARIANT_CLASS_OPTIONS
+                        }
+                        onChange={e =>
+                          this.handleVariantClass({
+                            item: record,
+                            value: e.target.value,
+                            prevValue: record.variantClass
+                          })
+                        }
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )
+              }
+            </HighlightedCell>
+          );
+        };
         column.className = "select";
       }
 
-      if (col.dataIndex === "notes") {
-        column.render = (...data) => <Notes key={data[1].id} id={data[1].id} />;
+      else if (col.dataIndex === "notes") {
+        column.render = (text, record) => {
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              <Notes
+                updateActivityLog={this.props.updateActivityLog}
+                setNotes={notes => this.props.setNotes({
+                  id: record.id,
+                  notes,
+                })}
+                value={record.notes}
+                tableRow={record}
+              />
+            </HighlightedCell>
+          );
+        };
+      }
+
+      else if (col.dataIndex === "transcript") {
+        column.render = (text, record) => {
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              <ExternalLink data={record.transcript} />
+            </HighlightedCell>
+          );
+        };
+      }
+
+      else if (col.dataIndex === "chrPosition") {
+        column.render = (text, record) => {
+          const { chrPosition } = record;
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              <ExternalLink
+                data={chrPosition}
+                externalHandler={this.props.handelChrPosition.bind(
+                  null,
+                  chrPosition
+                )}
+              />
+            </HighlightedCell>
+          );
+        };
+      }
+
+      else if (col.dataIndex === "activityLog") {
+        column.render = (...data) => {
+          return (
+            <HighlightedCell isHighlighted={data[1].isAdded}>
+              <ActivityLog data-testid={`activity-icon`} {...data} id={data[1].id} />
+            </HighlightedCell>
+          );
+        };
+      }
+
+      else if (col.dataIndex === "alleleChange") {
+        column.render = (text, record) => {
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              <Tooltip placement="topLeft" title={record.alleleChangeLong}>
+                <div>{text}</div>
+              </Tooltip>
+            </HighlightedCell>
+          );
+        };
+      }
+
+      else if (col.dataIndex === "coding") {
+        column.render = (text, record) => {
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              <Tooltip placement="topLeft" title={record.codingLong}>
+                <div>{text}</div>
+              </Tooltip>
+            </HighlightedCell>
+          );
+        };
+      }
+
+      else {
+        column.render = (text, record) => {
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              {text}
+            </HighlightedCell>
+          );
+        };
       }
 
       return column;
+
     });
   };
 
@@ -174,28 +371,20 @@ class VariantTable extends Component {
   };
 
   render() {
-    const { selectedRowKeys, onSelectRowKey, data } = this.props;
-
-    // rowSelection object indicates the need for row selection
-    const rowSelection = {
-      onChange: selectedRowKeys => {
-        onSelectRowKey(selectedRowKeys);
-      },
-      selectedRowKeys,
-      fixed: "left"
-    };
+    const { data } = this.props;
 
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
 
     return (
       <Table
+        className={style["variant-table-wrapper"]}
         components={this.components}
-        rowSelection={rowSelection}
+        pagination={{ pageSize: 20 }}
         bordered
         columns={columns}
         dataSource={data}
-        scroll={{ x: "max-content" }}
+        scroll={{ x: "max-content", y: "true" }}
       />
     );
   }
@@ -203,15 +392,22 @@ class VariantTable extends Component {
 
 VariantTable.propTypes = {
   data: PropTypes.array,
-  selectedRowKeys: PropTypes.array,
-  onSelectRowKey: PropTypes.func.isRequired,
+  handleSelectedRow: PropTypes.func,
+  handleSelectAllRows: PropTypes.func,
   handleZygosity: PropTypes.func.isRequired,
-  handleVariantClass: PropTypes.func.isRequired
+  handleVariantClass: PropTypes.func.isRequired,
+  handelChrPosition: PropTypes.func,
+  handleConfirmationStatus: PropTypes.func,
+  updateActivityLog: PropTypes.func.isRequired,
+  isAllRowSelected: PropTypes.bool,
+  selectedRows: PropTypes.array,
+  setNotes: PropTypes.func,
 };
 
 VariantTable.defaultProps = {
   data: [],
-  selectedRowKeys: []
+  isAllRowSelected: false,
+  selectedRows: []
 };
 
 export default VariantTable;

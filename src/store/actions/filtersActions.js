@@ -63,11 +63,18 @@ export const setFilterGnomId = data => {
   };
 };
 
-
-
 export const getFilteredData = data => {
   return {
     type: actionsTypes.GET_FILTERED_DATA,
     payload: data
   };
 };
+
+export const clearFilterSection = data => {
+  return {
+    type: actionsTypes.CLEAR_FILTER_SECTION,
+    payload: data
+  };
+};
+
+
