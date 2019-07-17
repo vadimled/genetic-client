@@ -51,7 +51,7 @@ export const SORTING_CONFIGURATIONS = [
 export const SORTING_ORDER = {
   ascending: "ascending",
   descending: "descending"
-}
+};
 
 export const ZYGOSITY_OPTIONS = [
   { value: "homo", label: "Homo" },
