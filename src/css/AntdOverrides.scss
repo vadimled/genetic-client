@@ -1054,3 +1054,46 @@ th {
     text-align: left;
   }
 }
+
+.gene-type-radio-group {
+  .ant-select.ant-select-enabled {
+    width: 200px;
+    height: 54px;
+  }
+  .ant-select-selection.ant-select-selection--single {
+    background-color: $brand_primary_color !important;
+    height: 100% !important;
+    border-radius: 5px !important;
+
+    svg path {
+      fill: white;
+    }
+    .ant-select-selection__rendered {
+      width: 100%;
+      display: flex;
+      align-items: flex-end;
+      left: -11px;
+      height: 100%;
+      font-weight: 600;
+      font-size: 22px;
+      line-height: 100%;
+      color: $white;
+
+      .ant-select-selection-selected-value {
+        display: flex !important;
+        justify-content: center;
+        align-items: baseline;
+        margin: 4px auto;
+        overflow: hidden;
+        white-space: unset;
+        text-overflow: unset;
+
+        span {
+          font-size: 20px;
+          line-height: 100%;
+          color: $white !important;
+        }
+      }
+    }
+  }
+}

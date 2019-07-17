@@ -2,38 +2,39 @@ import { FILTERS, GNOM_AD } from "Utils/constants";
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
 
-export const
-  getFilterType = state => state?.filters?.[FILTERS.type],
-  getFilterVariantClass = state => state?.filters?.[FILTERS.variantClass],
-  getFilterSomaticClass = state => state?.filters?.[FILTERS.somaticClass],
+export const getFilterType = state => state?.filters?.[FILTERS.type],
+  getFilterVariantClass = state =>
+           state?.filters?.[FILTERS.variantClass],
+  getFilterSomaticClass = state =>
+           state?.filters?.[FILTERS.somaticClass],
   getFilterHotSpot = state => state?.filters?.[FILTERS.hotSpot],
   getFilterSnp = state => state?.filters?.[FILTERS.snp],
   getFilterRoi = state => state?.filters?.[FILTERS.roi],
   getFilterVaf = state => state?.filters?.[FILTERS.vaf],
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
-
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
-  getUncheckConfirmationData = state => state?.table?.uncheckConfirmationData,
-
+  getUncheckConfirmationData = state =>
+           state?.table?.uncheckConfirmationData,
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
   getConfirmationData = state => state?.confirmation?.data,
-
   getMutationType = state => state.variants.mutations,
   getTumorInfoMode = state => state.variants.showTumorInfo,
   getTumorInfoType = state => state.variants.tumorInfo?.type,
   getTumorInfoLocation = state => state.variants.tumorInfo?.location,
-  getTumorInfoPercent = state => parseInt(state.variants.tumorInfo?.percent, 10),
-
+  getTumorInfoPercent = state =>
+    parseInt(state.variants.tumorInfo?.percent, 10),
   getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
   getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
   getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
   getIgvLastQuery = state => state?.igv?.igvLastQuery,
   getBAMFileUrl = state => state?.igv?.BAMFileUrl,
-
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,
-  getAlertMessage = state => state?.alert?.message;
+  getAlertMessage = state => state?.alert?.message,
+  getGeneType = state => state.variantPage.type,
+  getSomaticValue = state => state.variantPage.valueSomatic,
+  getGermlineValue = state => state.variantPage.valueGermline;
 
 export const getSearchQuery = state => state?.filters?.searchText;
 
