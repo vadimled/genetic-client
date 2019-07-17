@@ -1,0 +1,116 @@
+import React, { memo } from "react";
+import style from "./ExternalResources.module.scss";
+import { TEXTS } from "Utils/constants";
+import PropTypes from "prop-types";
+import { Tooltip } from "antd";
+
+function ExternalResources({ externalResources }) {
+  const renderLink = (label, value) => {
+    return (
+      <a
+        data-testid={`external-resources-${label}`}
+        href={value}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {label}
+      </a>
+    );
+  };
+  const renderText = (label, value) => {
+    return (
+      <div className="text-not-link">
+        <div
+          data-testid={`text-not-link-title-${label}`}
+          className="text-not-link-title"
+        >
+          {label}:
+        </div>
+        <Tooltip placement="topLeft" title={value}>
+          <div
+            data-testid={`text-not-link-value-${label}`}
+            className="text-not-link-value"
+          >
+            {value}
+          </div>
+        </Tooltip>
+      </div>
+    );
+  };
+  const renderLinksArray = (label, value) => {
+    return (
+      <div className="text-not-link">
+        <div
+          data-testid={`external-resources-title-${label}`}
+          className="external-resources-title"
+        >
+          {label}:
+        </div>
+        <div className="external-resources-array">
+          {value.map(resource => {
+            return (
+              <a
+                key={`external-resources-${resource.title}`}
+                data-testid={`external-resources-${resource.title}`}
+                href={resource.link}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {resource.title}
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  const renderResourceData = resourceData => {
+    return Object.keys(resourceData).map((label, index) => {
+      const resourceValue = resourceData[label];
+      if (label !== "title") {
+        return (
+          <li key={`${index}-${label}`}>
+            {!Array.isArray(resourceValue)
+              ? resourceValue.includes("http")
+                ? renderLink(label, resourceValue)
+                : renderText(label, resourceValue)
+              : renderLinksArray(label, resourceValue)}
+          </li>
+        );
+      }
+    });
+  };
+
+  return (
+    <div className={style["external-resources-wrapper"]}>
+      <div className="external-resources">
+        <div className="external-resources-header">
+          <div className="external-resources-title">
+            {TEXTS.externalResources}
+          </div>
+          <div className="divider" />
+        </div>
+        {externalResources?.map((resourceData, index) => {
+          return (
+            <div
+              className="external-resources-part"
+              key={`${index}-${resourceData.title}`}
+            >
+              <div className="external-resources-part-title">
+                {resourceData.title}
+              </div>
+              <ul>{renderResourceData(resourceData)}</ul>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+ExternalResources.propTypes = {
+  externalResources: PropTypes.array
+};
+
+export default memo(ExternalResources);

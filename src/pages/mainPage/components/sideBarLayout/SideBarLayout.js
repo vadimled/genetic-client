@@ -1,32 +1,42 @@
 import React from "react";
 import style from "./SideBarLayout.module.scss";
 import PropTypes from "prop-types";
-import { ReactComponent as OpenedIcon } from "Assets/openedFiltersPanel.svg";
-import { ReactComponent as ClosedIcon } from "Assets/closedFiltersPanel.svg";
 import cn from "classnames";
 
 const SideBarLayout = props => {
-  const { title, subtitle, children, handleClick, mode } = props;
+  const {
+    title,
+    subtitle,
+    children,
+    handleClick,
+    mode,
+    className,
+    iconOpened,
+    iconClosed
+  } = props;
 
   return (
-    <div
-      className={cn([
-        style["sidebar-layout"],
-        "scrollbar",
-        { "sidebar-closed": !mode }
-      ])}
-    >
+    <div className={style["sidebar-layout-wrapper"]}>
       <div
-        className={cn(["icon-mode", { "sidebar-closed": !mode }])}
-        onClick={handleClick}
+        className={cn([
+          "sidebar-layout",
+          "scrollbar",
+          { "sidebar-closed": !mode },
+          { [className]: !!className }
+        ])}
       >
-        {mode ? <OpenedIcon /> : <ClosedIcon />}
-      </div>
+        <div
+          className={cn(["icon-mode", { "sidebar-closed": !mode }])}
+          onClick={handleClick}
+        >
+          {mode ? iconOpened : iconClosed}
+        </div>
 
-      <div className={cn(["content"], { "sidebar-closed": !mode })}>
-        {title && <div className="title">{title}</div>}
-        {subtitle && <div className="subtitle">{subtitle}</div>}
-        <div className="children">{children}</div>
+        <div className={cn(["content"], { "sidebar-closed": !mode })}>
+          {title && <div className="title">{title}</div>}
+          {subtitle && <div className="subtitle">{subtitle}</div>}
+          <div className="children">{children}</div>
+        </div>
       </div>
     </div>
   );
