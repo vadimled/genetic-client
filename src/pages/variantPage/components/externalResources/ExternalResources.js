@@ -5,42 +5,80 @@ import PropTypes from "prop-types";
 import { Tooltip } from "antd";
 
 function ExternalResources({ externalResources }) {
-  const renderLinks = resourceData => {
-    return Object.keys(resourceData).map((link, index) => {
-      const resourceValue = resourceData[link];
-      return (
-        link !== "title" && (
-          <li key={`${index}-${link}`}>
-            {resourceValue.includes("http") ? (
+  const renderLink = (label, value) => {
+    return (
+      <a
+        data-testid={`external-resources-${label}`}
+        href={value}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {label}
+      </a>
+    );
+  };
+  const renderText = (label, value) => {
+    return (
+      <div className="text-not-link">
+        <div
+          data-testid={`text-not-link-title-${label}`}
+          className="text-not-link-title"
+        >
+          {label}:
+        </div>
+        <Tooltip placement="topLeft" title={value}>
+          <div
+            data-testid={`text-not-link-value-${label}`}
+            className="text-not-link-value"
+          >
+            {value}
+          </div>
+        </Tooltip>
+      </div>
+    );
+  };
+  const renderLinksArray = (label, value) => {
+    return (
+      <div className="text-not-link">
+        <div
+          data-testid={`external-resources-title-${label}`}
+          className="external-resources-title"
+        >
+          {label}:
+        </div>
+        <div className="external-resources-array">
+          {value.map(resource => {
+            return (
               <a
-                data-testid={`external-resources-${link}`}
-                href={resourceValue}
+                key={`external-resources-${resource.title}`}
+                data-testid={`external-resources-${resource.title}`}
+                href={resource.link}
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                {link}
+                {resource.title}
               </a>
-            ) : (
-              <div className="text-not-link">
-                <div
-                  data-testid={`text-not-link-title-${link}`}
-                  className="text-not-link-title"
-                >
-                  {link}:
-                </div>
-                <Tooltip placement="topLeft" title={resourceValue}>
-                  <div
-                    data-testid={`text-not-link-value-${link}`}
-                    className="text-not-link-value"
-                  >
-                    {resourceValue}
-                  </div>
-                </Tooltip>
-              </div>
-            )}
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  const renderResourceData = resourceData => {
+    return Object.keys(resourceData).map((label, index) => {
+      const resourceValue = resourceData[label];
+      if (label !== "title") {
+        return (
+          <li key={`${index}-${label}`}>
+            {!Array.isArray(resourceValue)
+              ? resourceValue.includes("http")
+                ? renderLink(label, resourceValue)
+                : renderText(label, resourceValue)
+              : renderLinksArray(label, resourceValue)}
           </li>
-        )
-      );
+        );
+      }
     });
   };
 
@@ -62,7 +100,7 @@ function ExternalResources({ externalResources }) {
               <div className="external-resources-part-title">
                 {resourceData.title}
               </div>
-              <ul>{renderLinks(resourceData)}</ul>
+              <ul>{renderResourceData(resourceData)}</ul>
             </div>
           );
         })}

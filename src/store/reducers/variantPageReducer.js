@@ -13,8 +13,7 @@ const initialState = {
     clinvarVariationId: "516652",
     coding: "c.7634+21_7634+22insTCATCATGAGAGAAGGTGAGTGGGGCTCTCAAAGTG",
     transcript: "NM_110509.1",
-    COSMIC: "COSM4142157",
-    variant: "D479D", // ????????
+    COSMIC: ["COSM3997243", "COSM3997245", "COSM3997244"],
     AminoAcidChange: "I1564ISLKN",
     DamagingScore: "TTCATGAGAGAAGGTGAGTGG"
   },

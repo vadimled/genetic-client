@@ -71,6 +71,24 @@
               overflow: hidden;
               text-overflow: ellipsis;
             }
+
+            .external-resources-title {
+              padding-right: 7px;
+              font-weight: 600;
+              font-size: 14px;
+              color: $title_color;
+              line-height: 18px;
+            }
+
+            .external-resources-array {
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-start;
+
+              a {
+                margin-bottom: 6px;
+              }
+            }
           }
         }
       }

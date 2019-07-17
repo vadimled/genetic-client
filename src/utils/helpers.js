@@ -117,6 +117,23 @@ export const getTitleCurr = (type, record) => {
   return titleCurr;
 };
 
+const getLinksArray = data => {
+  return Array.isArray(data)
+    ? data.map(code => {
+      return {
+        title: code,
+        link: `https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=${[
+          ...code
+        ]
+          .slice(4)
+          .join("")}`
+      };
+    })
+    : `https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=${[...data]
+      .slice(4)
+      .join("")}`;
+};
+
 export const createResourcesLinks = variantData => {
   let externalResources = [];
 
@@ -129,7 +146,6 @@ export const createResourcesLinks = variantData => {
     protein,
     gene,
     DamagingScore,
-    variant,
     transcript,
     chrPosition,
     alt,
@@ -149,18 +165,14 @@ export const createResourcesLinks = variantData => {
       .join("")}-${chrPosition.split(":")[1]}-${ref}-${alt}`,
     dbSNP: `https://www.ncbi.nlm.nih.gov/snp/?term=${dbSNP}`,
     ClinVar: `https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvarVariationId}`,
-    COSMIC: `https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=${[
-      ...COSMIC
-    ]
-      .slice(4)
-      .join("")}`,
+    COSMIC: getLinksArray(COSMIC),
     OncoKB: `https://oncokb.org/gene/${gene}`,
     PMKB: `https://pmkb.weill.cornell.edu/search?utf8=%E2%9C%93&search=${gene}`,
     Varsome: `https://varsome.com/variant/hg19/${[...chrPosition.split(":")[0]]
       .slice(3)
       .join("")}-${chrPosition.split(":")[1]}-${ref}-${alt}`,
     ICGC: `https://dcc.icgc.org/q?q=${encodeURIComponent(
-      `${gene} ${variant}`
+      `${gene} ${AminoAcidChange}`
     )}`,
     Uniprot: `https://www.uniprot.org/uniprot/?query=${transcript}+AND+reviewed%3Ayes&sort=score`
   };
