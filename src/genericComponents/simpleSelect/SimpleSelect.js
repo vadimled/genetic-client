@@ -17,6 +17,8 @@ const SimpleSelect = ({
   disabled,
   isClearAvailable,
   testId,
+  showArrow,
+  suffixIcon,
   ...props
 }) => {
   return (
@@ -43,6 +45,8 @@ const SimpleSelect = ({
             backgroundImage: `url(${CloseIcon})`
           }}
         />}
+        showArrow={showArrow}
+        suffixIcon={suffixIcon}
         data-testid={testId}
         {...props}
       >

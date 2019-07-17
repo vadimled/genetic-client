@@ -6,6 +6,7 @@ import igvReducer from "./igvReducer";
 import confirmationReducer from "./confirmationReducer";
 import alertReducer from "./alertReducer";
 import resultConfigReducer from "./resultConfigReducer";
+import variantPageReducer from "./variantPageReducer";
 
 export default combineReducers({
   filters: filtersReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   igv: igvReducer,
   confirmation: confirmationReducer,
   alert: alertReducer,
-  resultConfig: resultConfigReducer
+  resultConfig: resultConfigReducer,
+  variantPage: variantPageReducer,
 });

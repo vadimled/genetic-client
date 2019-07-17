@@ -1,0 +1,44 @@
+@import "Css/Colors.scss";
+
+.variant-page-header-wrapper :global {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+
+  .left-data-wrapper {
+    flex: 1 1 500px;
+    height: 100%;
+
+    .left-data {
+      display: grid;
+      width: 100%;
+      grid-template-columns: minmax(150px, 200px) minmax(150px, 200px) minmax(
+          150px,
+          200px
+        );
+      grid-auto-rows: minmax(auto, 48%);
+      grid-gap: 5px;
+      height: 100%;
+      padding: 40px 5px 30px 50px;
+
+      .gene {
+        padding: 10px;
+      }
+    }
+  }
+
+  .right-data {
+    flex: 1 1 300px;
+    align-items: center;
+
+    transform: translate(0px, 0px);
+    transition: 0.4s ease;
+
+    &.sidebar-open {
+      transform: translate(-175px, 0px);
+    }
+  }
+}

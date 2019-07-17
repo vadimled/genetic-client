@@ -1,0 +1,16 @@
+@import "Css/Colors.scss";
+
+.gene-type-button-wrapper :global {
+  position: relative;
+
+  .select-title {
+    display: block;
+    position: absolute;
+    right: 34%;
+    top: 4px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 100%;
+    color: $white !important;
+  }
+}
