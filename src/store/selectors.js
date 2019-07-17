@@ -35,6 +35,9 @@ export const
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,
   getAlertMessage = state => state?.alert?.message,
+  getGeneType = state => state.variantPage.type,
+  getSomaticValue = state => state.variantPage.valueSomatic,
+  getGermlineValue = state => state.variantPage.valueGermline,
 
   getSortParam = state => state?.table?.sortParam,
   getSortOrder = state => state?.table?.sortOrder;
@@ -54,6 +57,7 @@ export const getTableDataAsArray = createSelector(
         arrayData.push(data[key]);
       }
     }
+
     return arrayData;
   }
 );
@@ -63,11 +67,12 @@ export const getSearchResult = createSelector(
   getSearchQuery,
   (data, searchQuery) => {
     return data.filter(item => {
+      const searchQueryInLowerCase = searchQuery.toLowerCase();
       return (
-        item.gene.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.variantClass.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.coding.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.protein.toLowerCase().includes(searchQuery.toLowerCase())
+        item.gene.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.variantClass.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.coding.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.protein.toLowerCase().includes(searchQueryInLowerCase)
       );
     });
   }

@@ -1,0 +1,32 @@
+@import "Css/Colors.scss";
+
+.inform-field-wrapper :global {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  .icon {
+    width: auto;
+  }
+
+  label {
+    font-weight: normal;
+    font-size: 16px;
+    color: $subtitle_color;
+    min-width: fit-content;
+  }
+
+  .text {
+    font-weight: normal;
+    font-size: 16px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $title_color;
+    margin-left: 4px;
+  }
+}

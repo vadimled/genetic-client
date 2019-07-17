@@ -57,6 +57,11 @@ const SET_IGV_LAST_QUERY = "SET_IGV_LAST_QUERY";
 // alert
 const SET_ALERT = "SET_ALERT";
 
+// Variant page
+const SET_VARIANT_CLASSIFICATION = "SET_VARIANT_CLASSIFICATION";
+const SET_VARIANT_ZYGOSITY_TYPE = "SET_VARIANT_ZYGOSITY_TYPE";
+const SET_GENE = "SET_GENE";
+
 export default {
   // filters
   SET_FILTER_TYPE,
@@ -115,5 +120,10 @@ export default {
   SET_IGV_LAST_QUERY,
 
   // alert
-  SET_ALERT
+  SET_ALERT,
+  
+  // Variant page
+  SET_GENE,
+  SET_VARIANT_CLASSIFICATION,
+  SET_VARIANT_ZYGOSITY_TYPE
 };

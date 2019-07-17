@@ -1,6 +1,6 @@
-import ImgCircleOK from 'Assets/circle-ok.svg';
-import ImgCircleX from 'Assets/circle-x.svg';
-import ImgCircleClock from 'Assets/circle-clock.svg';
+import ImgCircleOK from "Assets/circle-ok.svg";
+import ImgCircleX from "Assets/circle-x.svg";
+import ImgCircleClock from "Assets/circle-clock.svg";
 
 export const TAG_COLORS = {
   white: "#fff",
@@ -27,7 +27,11 @@ export const FILTERS = {
 export const TEXTS = {
   addNote: "Add a note",
   cancel: "Cancel",
-  done: "Done"
+  done: "Done",
+  somatic: "somatic",
+  germline: "germline",
+  somaticUp: "Somatic",
+  germlineUp: "Germline"
 };
 
 export const LIMITS = {
@@ -113,15 +117,19 @@ export const GNOM_AD = {
 };
 
 export const CONFIRMATION_VALUES = {
-  'CONFIRMED': { value: 'CONFIRMED', label: 'Confirmed', iconImg: ImgCircleOK },
-  'NOT_CONFIRMED': { value: 'NOT_CONFIRMED', label: 'Not Confirmed', iconImg: ImgCircleX },
-  'PENDING': { value: 'PENDING', label: 'Pending', iconImg: ImgCircleClock },
+  CONFIRMED: { value: "CONFIRMED", label: "Confirmed", iconImg: ImgCircleOK },
+  NOT_CONFIRMED: {
+    value: "NOT_CONFIRMED",
+    label: "Not Confirmed",
+    iconImg: ImgCircleX
+  },
+  PENDING: { value: "PENDING", label: "Pending", iconImg: ImgCircleClock }
 };
 
 export const ALERT_STATUSES = {
-  'error': 'error',
-  'warning': 'warning',
-  'default': 'default'
+  error: "error",
+  warning: "warning",
+  default: "default"
 };
 
 export const TUMOR_TYPE = [
@@ -228,7 +236,6 @@ export const TUMOR_TYPE = [
 ];
 
 export const TUMOR_LOCATION = [
-
   "adrenal_gland",
   "bile_duct",
   "gallbladder",

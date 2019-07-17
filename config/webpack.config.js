@@ -281,6 +281,7 @@ module.exports = function(webpackEnv) {
         Sagas: path.resolve(__dirname, "../src/store/sagas/"),
         Pages: path.resolve(__dirname, "../src/pages/"),
         variantPage: path.resolve(__dirname, "../src/pages/variantPage/"),
+        variantComponents: path.resolve(__dirname, "../src/pages/variantPage/components/"),
         Assets: path.resolve(__dirname, "../src/assets/")
       },
       plugins: [
