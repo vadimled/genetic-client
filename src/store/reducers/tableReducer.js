@@ -31,7 +31,7 @@ const tableReducer = createReducer(initialState, {
 
         // if an item has already status we cannot select it to send for confirmation
         if (!item.status) {
-          item.selected = payload === true
+          item.selected = payload === false
             // if all rows selected or on discarding
             ? false
             // otherwise
@@ -151,7 +151,39 @@ const tableReducer = createReducer(initialState, {
       ...state,
       activityLog
     };
-  }
+  },
+
+  [actionsTypes.TABLE_DATA_ADD_RESULT]: (state, { payload }) => {
+    let data = {
+      [payload.id]: {
+        ...payload,
+        key: payload.id, // need for variantTable
+        isAdded: true // indicate that this row has added by user
+      },
+      ...state.data
+    };
+
+    return {
+      ...state,
+      data
+    };
+  },
+
+  [actionsTypes.TABLE_DATA_EDIT_RESULT]: (state, { payload }) => {
+    let data = {
+      ...state.data,
+      [payload.id]: {
+        ...payload,
+        key: payload.id, // need for variantTable
+        isAdded: true // indicate that this row has added by user
+      }
+    };
+
+    return {
+      ...state,
+      data
+    };
+  },
 
 });
 

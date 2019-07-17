@@ -1,0 +1,20 @@
+.add-result-btn :global {
+  width: 114px;
+
+  .ant-btn {
+    .btn-icon {
+      width: 10px;
+      height: 10px;
+      background-image: url("../../../../../../assets/plus-grey.svg");
+      background-position: center;
+      background-size: contain;
+      margin-right: 10px;
+    }
+
+    &:hover {
+      .btn-icon {
+        background-image: url("../../../../../../assets/plus-white.svg");
+      }
+    }
+  }
+}

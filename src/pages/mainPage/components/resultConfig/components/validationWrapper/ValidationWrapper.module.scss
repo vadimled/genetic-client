@@ -1,0 +1,32 @@
+@import "Css/Colors.scss";
+
+.validation-wrapper :global {
+  width: 100%;
+
+  .validation-wrapper-content {
+    position: relative;
+    width: 100%;
+
+    &.error {
+      .ant-input-number,
+      .ant-select-auto-complete .ant-select-selection__rendered,
+      .chromosome-select-wrapper .ant-select-selection,
+      .position-input-wrapper .ant-input-number,
+      .rcinput {
+        border-color: $validation-error;
+        box-shadow: 0px 0px 5px $validation-error;
+      }
+    }
+  }
+
+  .error-message {
+    position: absolute;
+    bottom: -17px;
+    right: 0;
+
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 131.99%;
+    color: $validation-error;
+  }
+}
