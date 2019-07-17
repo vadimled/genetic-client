@@ -9,7 +9,8 @@ import reducers from "Store/reducers";
 import ResultConfig from "./ResultConfig";
 import {
   CHROMOSOME_OPTIONS,
-  ALLELE_TYPES
+  ALLELE_TYPES,
+  VALIDATION_FAILD_FIELDS
 } from "Utils/constants";
 import {
   getResultConfigIsOpen,
@@ -192,11 +193,11 @@ describe('ResultConfig', () => {
     fireEvent.click(loadHgvsBtn);
     const validationFaildFields2 = getResultConfigValidationFaildFields(store.getState());
     // we cannot loadHGVS without all these fields
-    expect(validationFaildFields2.includes('gene')).toBe(true);
-    expect(validationFaildFields2.includes('chromosome')).toBe(true);
-    expect(validationFaildFields2.includes('position')).toBe(true);
-    expect(validationFaildFields2.includes('alleleReference')).toBe(true);
-    expect(validationFaildFields2.includes('alleleAlternative')).toBe(true);
+    expect(validationFaildFields2.includes(VALIDATION_FAILD_FIELDS.gene)).toBe(true);
+    expect(validationFaildFields2.includes(VALIDATION_FAILD_FIELDS.chromosome)).toBe(true);
+    expect(validationFaildFields2.includes(VALIDATION_FAILD_FIELDS.position)).toBe(true);
+    expect(validationFaildFields2.includes(VALIDATION_FAILD_FIELDS.alleleReference)).toBe(true);
+    expect(validationFaildFields2.includes(VALIDATION_FAILD_FIELDS.alleleAlternative)).toBe(true);
     // and coding and protein still should be empty
     const coding2 = getResultConfigCoding(store.getState());
     const protein2 = getResultConfigProtein(store.getState());
@@ -246,7 +247,7 @@ describe('ResultConfig', () => {
 
     const validationFaildFields4 = getResultConfigValidationFaildFields(store.getState());
     const resultConfigIsOpen1 = getResultConfigIsOpen(store.getState());
-    expect(validationFaildFields4.includes('loadHgvs')).toBe(true);
+    expect(validationFaildFields4.includes(VALIDATION_FAILD_FIELDS.loadHgvs)).toBe(true);
     expect(resultConfigIsOpen1).toEqual(true);
 
     // after changes again click loadHgvs btn

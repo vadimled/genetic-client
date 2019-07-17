@@ -284,3 +284,14 @@ export const ALLELE_TYPES = {
   'insertion': {value: 'insertion', label: 'Insertion'},
   'deletion': {value: 'deletion', label: 'Deletion'}
 };
+
+export const VALIDATION_FAILD_FIELDS = {
+  gene: 'gene',
+  chromosome: 'chromosome',
+  position: 'position',
+  alleleReference: 'alleleReference',
+  alleleAlternative: 'alleleAlternative',
+  loadHgvs: 'loadHgvs',
+  primer: 'primer',
+  fragmentSize: 'fragmentSize'
+};

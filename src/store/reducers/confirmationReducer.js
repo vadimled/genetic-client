@@ -1,5 +1,6 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
+import { VALIDATION_FAILD_FIELDS } from "Utils/constants";
 
 const initialState = {
   isOnConfirmation: false,
@@ -73,10 +74,12 @@ const confirmationReducer = createReducer(initialState, {
         cRow.primer = value;
 
         if (!cRow.primer || !/^[\d]*$/.test(cRow.primer)) {
-          !cRow.validationFaildFields.includes('primer') && cRow.validationFaildFields.push('primer');
+          !cRow.validationFaildFields.includes(VALIDATION_FAILD_FIELDS.primer)
+            && cRow.validationFaildFields.push(VALIDATION_FAILD_FIELDS.primer);
         }
         else {
-          cRow.validationFaildFields = cRow.validationFaildFields.filter((key) => key !== 'primer');
+          cRow.validationFaildFields = cRow.validationFaildFields
+            .filter((key) => key !== VALIDATION_FAILD_FIELDS.primer);
         }
       }
       return row;
@@ -96,10 +99,12 @@ const confirmationReducer = createReducer(initialState, {
         cRow.fragmentSize = value;
 
         if (!cRow.fragmentSize || !/^[\d]*$/.test(cRow.fragmentSize)) {
-          !cRow.validationFaildFields.includes('fragmentSize') && cRow.validationFaildFields.push('fragmentSize');
+          !cRow.validationFaildFields.includes(VALIDATION_FAILD_FIELDS.fragmentSize)
+            && cRow.validationFaildFields.push(VALIDATION_FAILD_FIELDS.fragmentSize);
         }
         else {
-          cRow.validationFaildFields = cRow.validationFaildFields.filter((key) => key !== 'fragmentSize');
+          cRow.validationFaildFields = cRow.validationFaildFields
+            .filter((key) => key !== VALIDATION_FAILD_FIELDS.fragmentSize);
         }
       }
       return row;

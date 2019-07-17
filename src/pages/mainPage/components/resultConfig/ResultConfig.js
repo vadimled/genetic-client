@@ -11,7 +11,8 @@ import ValidationWrapper from "./components/validationWrapper";
 import style from './ResultConfig.module.scss';
 import {
   CHROMOSOME_OPTIONS,
-  ALLELE_TYPES
+  ALLELE_TYPES,
+  VALIDATION_FAILD_FIELDS
 } from "Utils/constants";
 import {
   handleResultConfigGene,
@@ -124,7 +125,7 @@ const ResultConfig = (props) => {
           <div className="gene-row">
             <div className="label">Gene</div>
             <ValidationWrapper
-              isOnError={validationFaildFields?.includes('gene')}
+              isOnError={validationFaildFields?.includes(VALIDATION_FAILD_FIELDS.gene)}
               errorMessage="This field is not valid"
             >
               <GeneSelect
@@ -138,7 +139,7 @@ const ResultConfig = (props) => {
             <div className="chr-block">
               <div className="label">Chromosome</div>
               <ValidationWrapper
-                isOnError={validationFaildFields?.includes('chromosome')}
+                isOnError={validationFaildFields?.includes(VALIDATION_FAILD_FIELDS.chromosome)}
                 errorMessage="This field is not valid"
               >
                 <div className="chromosome-select-wrapper">
@@ -155,7 +156,7 @@ const ResultConfig = (props) => {
             <div className="pos-block">
               <div className="label">Position</div>
               <ValidationWrapper
-                isOnError={validationFaildFields?.includes('position')}
+                isOnError={validationFaildFields?.includes(VALIDATION_FAILD_FIELDS.position)}
                 errorMessage="This field is not valid"
               >
                 <div className="position-input-wrapper">
@@ -202,7 +203,7 @@ const ResultConfig = (props) => {
               </button>
             </div>
             <ValidationWrapper
-              isOnError={validationFaildFields?.includes('alleleReference')}
+              isOnError={validationFaildFields?.includes(VALIDATION_FAILD_FIELDS.alleleReference)}
               errorMessage="This field is not valid"
             >
               <input
@@ -216,7 +217,7 @@ const ResultConfig = (props) => {
             </ValidationWrapper>
             <div className="allele-from-to-div">&gt;</div>
             <ValidationWrapper
-              isOnError={validationFaildFields?.includes('alleleAlternative')}
+              isOnError={validationFaildFields?.includes(VALIDATION_FAILD_FIELDS.alleleAlternative)}
               errorMessage="This field is not valid"
             >
               <input
@@ -242,7 +243,7 @@ const ResultConfig = (props) => {
           <div className="allele-divider"/>
           <div className="allele-btn-hgvs-wrapper">
             <ValidationWrapper
-              isOnError={validationFaildFields?.includes('loadHgvs')}
+              isOnError={validationFaildFields?.includes(VALIDATION_FAILD_FIELDS.loadHgvs)}
               errorMessage="No HGVS has loaded!"
             >
               <button

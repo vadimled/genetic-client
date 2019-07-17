@@ -1,6 +1,6 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
-import { ALLELE_TYPES } from "Utils/constants";
+import { ALLELE_TYPES, VALIDATION_FAILD_FIELDS } from "Utils/constants";
 
 const initialState = {
   isOpen: false,
@@ -32,7 +32,7 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       isHgvsLoaded: payload,
-      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'loadHgvs'),
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== VALIDATION_FAILD_FIELDS.loadHgvs),
     };
   },
 
@@ -47,7 +47,7 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       gene: payload,
-      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'gene'),
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== VALIDATION_FAILD_FIELDS.gene),
       isHgvsLoaded: false, // drop in change
       coding: '', // drop in change
       protein: '', // drop in change
@@ -58,7 +58,7 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       chromosome: payload,
-      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'chromosome'),
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== VALIDATION_FAILD_FIELDS.chromosome),
       isHgvsLoaded: false, // drop in change
       coding: '', // drop in change
       protein: '', // drop in change
@@ -69,7 +69,7 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       position: payload,
-      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'position'),
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== VALIDATION_FAILD_FIELDS.position),
       isHgvsLoaded: false, // drop in change
       coding: '', // drop in change
       protein: '', // drop in change
@@ -83,7 +83,9 @@ const tableReducer = createReducer(initialState, {
       alleleReference: '', // drop on change
       alleleAlternative: '', // drop on change,
       validationFaildFields: state.validationFaildFields
-        .filter((f) => f !== 'alleleReference' && f !== 'alleleAlternative'),
+        .filter((f) => f !== VALIDATION_FAILD_FIELDS.alleleReference
+          && f !== VALIDATION_FAILD_FIELDS.alleleAlternative
+        ),
       isHgvsLoaded: false, // drop in change
       coding: '', // drop in change
       protein: '', // drop in change
@@ -98,7 +100,7 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       alleleReference,
-      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'alleleReference'),
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== VALIDATION_FAILD_FIELDS.alleleReference),
       isHgvsLoaded: false, // drop in change
       coding: '', // drop in change
       protein: '', // drop in change
@@ -113,7 +115,7 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       alleleAlternative,
-      validationFaildFields: state.validationFaildFields.filter((f) => f !== 'alleleAlternative'),
+      validationFaildFields: state.validationFaildFields.filter((f) => f !== VALIDATION_FAILD_FIELDS.alleleAlternative),
       isHgvsLoaded: false, // drop in change
       coding: '', // drop in change
       protein: '', // drop in change

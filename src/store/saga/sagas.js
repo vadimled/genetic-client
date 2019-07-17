@@ -1,6 +1,10 @@
 import { call, put, delay } from "redux-saga/effects";
 import * as Sentry from "@sentry/browser";
-import { ALERT_STATUSES, ALLELE_TYPES } from 'Utils/constants';
+import {
+  ALERT_STATUSES,
+  ALLELE_TYPES,
+  VALIDATION_FAILD_FIELDS
+} from 'Utils/constants';
 import {
   fetchBAMFile,
   goToChrPositionIgv,
@@ -54,7 +58,7 @@ function* confirmationDataValidation(data) {
             title: "Data is missing",
             message: "Please fill the Primer field"
           };
-          cRow.validationFaildFields.push("primer");
+          cRow.validationFaildFields.push(VALIDATION_FAILD_FIELDS.primer);
         }
         if (!/^[\d]*$/.test(cRow.primer)) {
           alertData = {
@@ -62,7 +66,7 @@ function* confirmationDataValidation(data) {
             title: "Data is not valid",
             message: "Primer field must be a number"
           };
-          cRow.validationFaildFields.push("primer");
+          cRow.validationFaildFields.push(VALIDATION_FAILD_FIELDS.primer);
         }
         if (!cRow.fragmentSize) {
           alertData = {
@@ -70,7 +74,7 @@ function* confirmationDataValidation(data) {
             title: "Data is missing",
             message: "Please fill the Fragment size field"
           };
-          cRow.validationFaildFields.push("fragmentSize");
+          cRow.validationFaildFields.push(VALIDATION_FAILD_FIELDS.fragmentSize);
         }
         if (!/^[\d]*$/.test(cRow.fragmentSize)) {
           alertData = {
@@ -78,7 +82,7 @@ function* confirmationDataValidation(data) {
             title: "Data is not valid",
             message: "Fragment size field must be a number"
           };
-          cRow.validationFaildFields.push("fragmentSize");
+          cRow.validationFaildFields.push(VALIDATION_FAILD_FIELDS.fragmentSize);
         }
       });
     });
@@ -116,36 +120,36 @@ function* resultConfigValidation(data, isOnAddResult) {
     } = data;
 
     if (!gene) {
-      validationFaildFields.push('gene');
+      validationFaildFields.push(VALIDATION_FAILD_FIELDS.gene);
     }
     if (!chromosome) {
-      validationFaildFields.push('chromosome');
+      validationFaildFields.push(VALIDATION_FAILD_FIELDS.chromosome);
     }
     if (position === null || position === undefined || position === '') {
-      validationFaildFields.push('position');
+      validationFaildFields.push(VALIDATION_FAILD_FIELDS.position);
     }
     if (alleleType === ALLELE_TYPES.change.value) {
       if (!alleleReference) {
-        validationFaildFields.push('alleleReference');
+        validationFaildFields.push(VALIDATION_FAILD_FIELDS.alleleReference);
       }
       if (!alleleAlternative) {
-        validationFaildFields.push('alleleAlternative');
+        validationFaildFields.push(VALIDATION_FAILD_FIELDS.alleleAlternative);
       }
     }
     else if (alleleType === ALLELE_TYPES.insertion.value) {
       if (!alleleAlternative) {
-        validationFaildFields.push('alleleAlternative');
+        validationFaildFields.push(VALIDATION_FAILD_FIELDS.alleleAlternative);
       }
     }
     else if (alleleType === ALLELE_TYPES.deletion.value) {
       if (!alleleReference) {
-        validationFaildFields.push('alleleReference');
+        validationFaildFields.push(VALIDATION_FAILD_FIELDS.alleleReference);
       }
     }
 
     if (isOnAddResult) {
       if (!isHgvsLoaded) {
-        validationFaildFields.push('loadHgvs');
+        validationFaildFields.push(VALIDATION_FAILD_FIELDS.loadHgvs);
       }
     }
 
