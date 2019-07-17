@@ -137,9 +137,11 @@ export const createResourcesLinks = variantData => {
   } = variantData || {};
   const variantDBs = {
     title: "Variant DBs",
-    UCSC: `https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&lastVirtModeType=default&lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=${encodeURIComponent(
-      chrPosition
-    )}&hgsid=731360955_9ebZL49sAeyPO3PxgbWCQ1DZ5e4N`,
+    UCSC:
+      `https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&lastVirtModeType=default&` +
+      `lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=${encodeURIComponent(
+        chrPosition
+      )}&hgsid=731360955_9ebZL49sAeyPO3PxgbWCQ1DZ5e4N`,
     gnomAD: `https://gnomad.broadinstitute.org/variant/${[
       ...chrPosition.split(":")[0]
     ]
