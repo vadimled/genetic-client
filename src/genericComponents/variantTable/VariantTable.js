@@ -14,22 +14,8 @@ import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
 import ActivityLog from "./components/ActivityLog";
 import ResizeableTitle from "./components/resizeableTitle";
-import { ReactComponent as DropdownArrow } from "Assets/dropdownArrow.svg";
+import TableSorter from "./components/TableSorter";
 
-const TableSorter = ({setSort}) => {
-  console.log(setSort);
-  return(
-    <div className="flex items-center table-sorter-wrapper">
-      <div className="table-sorter-title">VAF</div>
-      <div className="flex flex-column">
-        <DropdownArrow className="top-arrow" onClick={()=> setSort({field: "vaf", order: "descending"})} />
-        <DropdownArrow onClick={()=> setSort({field: "vaf", order: "ascending"})} />
-      </div>
-    </div>
-
-  );
-  
-};
 
 class VariantTable extends Component {
   state = {
@@ -122,7 +108,7 @@ class VariantTable extends Component {
         width: 100
       },
       {
-        title: <div><TableSorter setSort={this.props.setSort} /></div>,
+        title: <TableSorter title="VAF" setSort={this.props.setSort} />,
         dataIndex: "vaf",
         key: "9",
         width: 100,

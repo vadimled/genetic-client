@@ -172,15 +172,11 @@ export const getFilteredData = createSelector(
       return filtersArray.some(filter => filter(item));
     });
 
-    console.log("--sortParam: ", sortParam);
-
     if(order === "ascending"){
       return filteredData.sort((a, b) => a[sortParam] - b[sortParam]).slice();
     }
 
     return filteredData.sort((a, b) => b[sortParam] - a[sortParam]).slice();
-
-
 
   }
 );
