@@ -44,6 +44,12 @@ Not supports in Firefox and IE */
   display: none;
 }
 
+button,
+button:active,
+button:focus {
+  outline: none !important;
+}
+
 /* div box */
 .scrollbar {
   //min-width: 150px;

@@ -8,10 +8,16 @@ import {
   fetchBAMFileGenerator,
   goToChrPositionIgvGenerator,
   sendForConfirmationGenerator,
+  resultConfigLoadHgvsGenerator,
+  resultConfigAddResultGenerator,
+  resultConfigEditResultGenerator,
 } from "./sagas";
 
 export function* watchSaga() {
   yield takeLatest(types.FETCH_BAM_FILE, fetchBAMFileGenerator);
   yield takeLatest(types.GO_TO_CHR_POSITION_IGV, goToChrPositionIgvGenerator);
   yield takeLatest(types.SEND_FOR_CONFIRMATION, sendForConfirmationGenerator);
+  yield takeLatest(types.RESULT_CONFIG_LOAD_HGVS, resultConfigLoadHgvsGenerator);
+  yield takeLatest(types.RESULT_CONFIG_ADD_RESULT, resultConfigAddResultGenerator);
+  yield takeLatest(types.RESULT_CONFIG_EDIT_RESULT, resultConfigEditResultGenerator);
 }

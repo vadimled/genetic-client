@@ -42,7 +42,7 @@ const initSteps = () => {
   // 6) establish isOnConfirmationData to true
 
   // drop all selected rows
-  store.dispatch(handleSelectAllRows(true));
+  store.dispatch(handleSelectAllRows(false));
 
   // 1) - 2) ->
   const selectedRows1 = getSelectedRows(store.getState());

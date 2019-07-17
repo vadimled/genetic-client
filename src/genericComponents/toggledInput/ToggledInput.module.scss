@@ -1,0 +1,86 @@
+@import "Css/Colors.scss";
+
+.toggled-input :global {
+  .ti-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .ti-label {
+      width: 60px;
+      margin-right: 10px;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 21px;
+      color: $title_color;
+    }
+
+    .ti-value {
+      flex: 1;
+
+      .ti-text-value {
+        font-size: 16px;
+        line-height: 21px;
+        color: $title_color;
+      }
+
+      .ti-input-value {
+        .ant-input {
+          border: none;
+          border-bottom: 1px solid $border_color;
+          border-radius: 0px;
+          height: 24px;
+          padding: 0;
+
+          &:active,
+          &:hover,
+          &:focus {
+            border: none;
+            outline: none;
+            box-shadow: none;
+            border-bottom: 1px solid $brand_primary_color;
+          }
+        }
+
+        .ant-input-suffix {
+          right: 0;
+
+          i {
+            svg {
+              display: none;
+            }
+            &:after {
+              content: "clear";
+              font-size: 13px;
+            }
+          }
+        }
+      }
+    }
+
+    .ti-handler {
+      width: 24px;
+      height: 24px;
+      border: none;
+      border-radius: 4px;
+      background-color: rgba(0, 0, 0, 0);
+      background-image: url("../../assets/edit-grey.svg");
+      background-position: center;
+      background-repeat: no-repeat;
+      margin-left: 28px;
+      cursor: pointer;
+
+      transition: all 0.2s;
+
+      &.active {
+        background-color: $brand_primary_color;
+        background-image: url("../../assets/edit-white.svg");
+      }
+
+      &:hover {
+        background-color: $brand_primary_hover_color;
+        background-image: url("../../assets/edit-white.svg");
+      }
+    }
+  }
+}
