@@ -74,4 +74,22 @@
       }
     }
   }
+  .table-sorter-wrapper {
+    svg {
+      cursor: pointer;
+      opacity: 0.5;
+      width: 9px;
+      height: 5px;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .top-arrow {
+      transform: rotate(180deg);
+      margin-bottom: 2px;
+    }
+    .table-sorter-title {
+      margin-right: 6px;
+    }
+  }
 }

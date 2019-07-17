@@ -14,6 +14,21 @@ import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
 import ActivityLog from "./components/ActivityLog";
 import ResizeableTitle from "./components/resizeableTitle";
+import { ReactComponent as DropdownArrow } from "Assets/dropdownArrow.svg";
+
+const TableSorter = () => {
+  return(
+    <div className="flex items-center table-sorter-wrapper">
+      <div className="table-sorter-title">VAF</div>
+      <div className="flex flex-column">
+        <DropdownArrow className="top-arrow" />
+        <DropdownArrow/>
+      </div>
+    </div>
+
+  );
+  
+};
 
 class VariantTable extends Component {
   state = {
@@ -78,7 +93,6 @@ class VariantTable extends Component {
         dataIndex: "alleleChange",
         key: "6",
         width: 200,
-
         render: (text, record) => {
           return (
             <Tooltip placement="topLeft" title={record.alleleChangeLong}>
@@ -107,7 +121,7 @@ class VariantTable extends Component {
         width: 100
       },
       {
-        title: "VAF",
+        title: <div><TableSorter/></div>,
         dataIndex: "vaf",
         key: "9",
         width: 100,
