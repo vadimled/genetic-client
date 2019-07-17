@@ -324,4 +324,50 @@ describe('ResultConfig', () => {
     expect(proteinToggledInput).toBeInTheDocument();
   });
 
+  it('handle coding', () => {
+    const { store, getByTestId } = initSteps();
+
+    // coding-toggled-input component is available only in isOnEdit mode
+    store.dispatch(handleResultConfigIsOnEdit(true));
+
+    const coddingToggledInput = getByTestId('coding-toggled-input');
+    const coddingToggledInputHandler = coddingToggledInput.querySelector('button.ti-handler');
+
+    // input in this component is available only after click on coddingToggledInputHandler button
+    fireEvent.click(coddingToggledInputHandler);
+
+    const coddingToggledInputInput = coddingToggledInput.querySelector('input');
+
+    const coding1 = getResultConfigCoding(store.getState());
+    expect(coding1).toEqual('');
+
+    fireEvent.change(coddingToggledInputInput, { target: { value: 'abc' } });
+
+    const coding2 = getResultConfigCoding(store.getState());
+    expect(coding2).toEqual('abc');
+  });
+
+  it('handle protein', () => {
+    const { store, getByTestId } = initSteps();
+
+    // coding-toggled-input component is available only in isOnEdit mode
+    store.dispatch(handleResultConfigIsOnEdit(true));
+
+    const proteinToggledInput = getByTestId('protein-toggled-input');
+    const proteinToggledInputHandler = proteinToggledInput.querySelector('button.ti-handler');
+
+    // input in this component is available only after click on proteinToggledInputHandler button
+    fireEvent.click(proteinToggledInputHandler);
+
+    const proteinToggledInputInput = proteinToggledInput.querySelector('input');
+
+    const protein1 = getResultConfigProtein(store.getState());
+    expect(protein1).toEqual('');
+
+    fireEvent.change(proteinToggledInputInput, { target: { value: 'abc' } });
+
+    const protein2 = getResultConfigProtein(store.getState());
+    expect(protein2).toEqual('abc');
+  });
+
 });
