@@ -91,3 +91,17 @@ export const setSort = (data)=> {
     payload: data
   };
 };
+
+export const tableDataAddResult = data => {
+  return{
+    type: actionsTypes.TABLE_DATA_ADD_RESULT,
+    payload: data
+  };
+};
+
+export const tableDataEditResult = data => {
+  return{
+    type: actionsTypes.TABLE_DATA_EDIT_RESULT,
+    payload: data
+  };
+};

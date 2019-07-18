@@ -13,7 +13,6 @@ export const
   getFilterVaf = state => state?.filters?.[FILTERS.vaf],
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
-
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
   getUncheckConfirmationData = state => state?.table?.uncheckConfirmationData,
 
@@ -32,17 +31,33 @@ export const
   getIgvLastQuery = state => state?.igv?.igvLastQuery,
   getBAMFileUrl = state => state?.igv?.BAMFileUrl,
 
+  getResultConfigIsOpen = state => state?.resultConfig?.isOpen,
+  getResultConfigIsHgvsLoaded = state => state?.resultConfig?.isHgvsLoaded,
+  getResultConfigIsOnEdit = state => state?.resultConfig?.isOnEdit,
+  getResultConfigGene = state => state?.resultConfig?.gene,
+  getResultConfigChromosome = state => state?.resultConfig?.chromosome,
+  getResultConfigPosition = state => state?.resultConfig?.position,
+  getResultConfigAlleleType = state => state?.resultConfig?.alleleType,
+  getResultConfigAlleleReference = state => state?.resultConfig?.alleleReference,
+  getResultConfigAlleleAlternative = state => state?.resultConfig?.alleleAlternative,
+  getResultConfigVaf = state => state?.resultConfig?.vaf,
+  getResultConfigCoverage = state => state?.resultConfig?.coverage,
+  getResultConfigCoding = state => state?.resultConfig?.coding,
+  getResultConfigProtein = state => state?.resultConfig?.protein,
+  getResultConfigValidationFaildFields = state => state?.resultConfig?.validationFaildFields,
+  getResultConfigid = state => state?.resultConfig?.id,
+
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,
   getAlertMessage = state => state?.alert?.message,
   getGeneType = state => state.variantPage.type,
   getSomaticValue = state => state.variantPage.valueSomatic,
   getGermlineValue = state => state.variantPage.valueGermline,
+  getExternalResources = state => state.variantPage.externalResources,
+  getVariantData = state => state.variantPage.variantData,
 
   getSortParam = state => state?.table?.sortParam,
   getSortOrder = state => state?.table?.sortOrder;
-
-
 
 export const getSearchQuery = state => state?.filters?.searchText;
 
@@ -58,7 +73,19 @@ export const getTableDataAsArray = createSelector(
       }
     }
 
+
+    // const defaultFiltration = arrayData.filter(record => record.variantClass !== "tier4")
+
+
     return arrayData;
+  }
+);
+
+export const getTableDataGenes = createSelector(
+  getTableDataAsArray,
+  data => {
+    let allGenes = data ? data.map(row => row?.gene) : [];
+    return [...new Set(allGenes)];
   }
 );
 
@@ -216,6 +243,13 @@ export const getSelectedRows = createSelector(
   getFilteredData,
   (data) => {
     return data.filter(row => row.selected);
+  }
+);
+
+export const getSelectedIsAddedRows = createSelector(
+  getSelectedRows,
+  (data) => {
+    return data.filter(row => row.isAdded);
   }
 );
 

@@ -8,6 +8,8 @@ import style from "./Toolbar.module.scss";
 import { MUTATION } from "Utils/constants";
 import NumberVariants from "Pages/mainPage/components/numberVariants";
 import IgvLoadBAM from "./components/IgvLoadBAM";
+import AddResult from "./components/addResult";
+import EditResult from "./components/editResult";
 import {
   setMutationType
 } from "Actions/variantsActions";
@@ -22,6 +24,7 @@ import {
   getFilteredEntriesAmount,
   getMutationType,
   getSelectedRows,
+  getSelectedIsAddedRows,
   getTotalEntriesAmount
 } from "Store/selectors";
 import Sort from "./components/Sort";
@@ -33,7 +36,6 @@ import { setSort } from "../../../../store/actions/tableActions";
 
 
 class Toolbar extends Component {
-
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
   };
@@ -45,49 +47,92 @@ class Toolbar extends Component {
       sidebarToggle,
       mutations,
       selectedRows,
+      selectedIsAddedRows,
       openConfirmationPopup,
       setDefaultFilters,
       testType,
       setSort
     } = this.props;
 
-
     return (
       <div className={style["toolbar-wrapper"]}>
-        {!!selectedRows?.length &&
-          <button
-            className={cn(["confirmation-button", { "sidebar-open": sidebarToggle }])}
-            onClick={openConfirmationPopup.bind(null, selectedRows)}
-            data-testid="confirmation-button"
-          >
-            Send for confirmation
-          </button>
+        {
+          // !!selectedRows?.length &&
+          // <button
+          //   className={cn(["confirmation-button", { "sidebar-open": sidebarToggle }])}
+          //   onClick={openConfirmationPopup.bind(null, selectedRows)}
+          //   data-testid="confirmation-button"
+          // >
+          //   Send for confirmation
+          // </button>
         }
-        {!selectedRows?.length && <Fragment>
+        <Fragment>
+
           <div className="left-wrapper">
+            {!selectedRows?.length &&
             <div className="mutation-select-wrapper">
               <SimpleSelect
                 options={MUTATION}
                 onChange={this.handleOnChange}
                 name="mutation"
                 value={mutations}
-                // disabled
+                disabled
               />
             </div>
+            }
           </div>
 
           <div className="search-field-wrapper flex items-center">
+            {!selectedRows?.length &&
             <Search />
+            }
           </div>
 
           <div className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}>
-            <Filter setDefaultFilters={setDefaultFilters} testType={testType} />
-            <Sort setSort={setSort} />
-            <IgvLoadBAM />
+            {!selectedRows?.length && <Fragment>
+              <Filter setDefaultFilters={setDefaultFilters} testType={testType} />
+              <Sort setSort={setSort} />
+              <IgvLoadBAM />
+              <div className="toolbar-divider-line"/>
+            </Fragment>}
+
+            {(
+              (!selectedRows?.length || selectedRows?.length === 1)
+              && !selectedIsAddedRows?.length
+            ) && <Fragment>
+              <AddResult
+                selectedResult={selectedRows[0]}
+              />
+              <div className="toolbar-divider-line"/>
+            </Fragment>}
+
+            {(
+              !!selectedIsAddedRows?.length && selectedIsAddedRows?.length === 1
+              && selectedRows?.length === 1
+            ) && <Fragment>
+              <EditResult
+                selectedResult={selectedIsAddedRows[0]}
+              />
+              <div className="toolbar-divider-line"/>
+            </Fragment>}
+
+            {!!selectedRows?.length && <Fragment>
+              <button
+                className={cn(["confirmation-button", { "sidebar-open": sidebarToggle }])}
+                onClick={openConfirmationPopup.bind(null, selectedRows)}
+                data-testid="confirmation-button"
+              >
+                Send for confirmation
+              </button>
+              <div className="toolbar-divider-line"/>
+            </Fragment>}
+
+            {!selectedRows?.length &&
             <NumberVariants filtered={filtered} total={total} />
+            }
           </div>
 
-        </Fragment>}
+        </Fragment>
 
       </div>
     );
@@ -107,7 +152,8 @@ const mapStateToProps = state => {
     total: getTotalEntriesAmount(state),
     mutations: getMutationType(state),
     selectedRows: getSelectedRows(state),
-    testType: getTestType(state)
+    testType: getTestType(state),
+    selectedIsAddedRows: getSelectedIsAddedRows(state)
   };
 };
 

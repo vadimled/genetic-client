@@ -1,0 +1,25 @@
+@import "Css/Colors.scss";
+
+.gene-select-wrapper :global {
+  width: 100%;
+
+  .ant-select {
+    width: 100%;
+
+    .ant-select-selection {
+      height: 44px !important;
+      width: 100%;
+
+      .ant-select-selection__rendered {
+        border: 1px solid $input-border-color;
+        border-radius: 4px;
+        padding: 0;
+      }
+
+      .ant-input {
+        border: 0;
+        height: 43px !important;
+      }
+    }
+  }
+}

@@ -1,61 +1,79 @@
 @import "Css/Colors.scss";
 
-.sidebar-layout :global {
-  width: 100%;
-  height: calc(100vh - 48px);
-  border-right: $border_color solid 1px;
-
-  .content {
+.sidebar-layout-wrapper :global {
+  .sidebar-layout {
     width: 100%;
-    //@media (max-width: 768px) {
-    //  width: 100%;
-    //  padding: 0 36px;
-    //}
-    opacity: 1;
-    transition: 0.4s ease;
-    &.sidebar-closed {
-      opacity: 0;
+    height: calc(100vh - 48px);
+    border-right: $border_color solid 1px;
+
+    &.external-resources {
+      &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 15px 15px 15px 15px $table-selected-row;
+        border-right: none;
+      }
+      width: 100%;
+      height: 100%;
+      background-color: $table-selected-row;
+    }
+    .content {
+      width: 100%;
+      //@media (max-width: 768px) {
+      //  width: 100%;
+      //  padding: 0 36px;
+      //}
+      opacity: 1;
+      transition: 0.4s ease;
+
+      &.sidebar-closed {
+        opacity: 0;
+      }
+
+      .title {
+        color: $title_color;
+        font-weight: normal;
+        font-size: 16px;
+        text-align: left;
+        padding: 12px;
+        line-height: normal;
+      }
+
+      .subtitle {
+        color: $subtitle_color;
+        line-height: 21px;
+        font-size: 16px;
+        text-align: left;
+        margin-top: 12px;
+      }
     }
 
-    .title {
-      color: $title_color;
-      font-weight: normal;
-      font-size: 16px;
+    .children {
+      display: block;
+      width: 100%;
       text-align: left;
-      padding: 12px;
-      line-height: normal;
+      padding-left: 12px;
     }
 
-    .subtitle {
-      color: $subtitle_color;
-      line-height: 21px;
-      font-size: 16px;
-      text-align: left;
-      margin-top: 12px;
-    }
-  }
-
-  .children {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding-left: 12px;
-  }
-
-  .icon-mode {
-    display: block;
-    position: absolute;
-    width: 52px;
-    height: 52px;
-    top: -3px;
-    left: 171px;
-    cursor: pointer;
-    transform: translate(0px, 0px);
-    z-index: 999;
-
-    &.sidebar-closed {
-      left: 155px;
+    .icon-mode {
+      display: block;
+      position: absolute;
+      width: 52px;
+      height: 52px;
+      top: -3px;
+      left: 171px;
+      cursor: pointer;
       transform: translate(0px, 0px);
+      z-index: 999;
+
+      &.sidebar-closed {
+        left: 155px;
+        transform: translate(0px, 0px);
+      }
+
+      &:hover {
+        svg g {
+          stroke: $brand_primary_hover_color;
+        }
+      }
     }
   }
 }

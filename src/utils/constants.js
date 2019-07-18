@@ -31,7 +31,8 @@ export const TEXTS = {
   somatic: "somatic",
   germline: "germline",
   somaticUp: "Somatic",
-  germlineUp: "Germline"
+  germlineUp: "Germline",
+  externalResources: "External resources"
 };
 
 export const LIMITS = {
@@ -86,10 +87,10 @@ export const SOMATIC_CLASS = {
     label: "Unclassified",
     tagColor: TAG_COLORS.white
   },
-  tier1: { value: "tier1", label: "Tier1", tagColor: TAG_COLORS.red},
-  tier2: { value: "tier2", label: "Tier2", tagColor: TAG_COLORS.orange},
-  tier3: { value: "tier3", label: "Tier3", tagColor: TAG_COLORS.yellow},
-  tier4: { value: "tier4", label: "Tier4", tagColor: TAG_COLORS.blueLight}
+  tier1: { value: "tier1", label: "Tier1", tagColor: TAG_COLORS.red },
+  tier2: { value: "tier2", label: "Tier2", tagColor: TAG_COLORS.orange },
+  tier3: { value: "tier3", label: "Tier3", tagColor: TAG_COLORS.yellow },
+  tier4: { value: "tier4", label: "Tier4", tagColor: TAG_COLORS.blueLight }
 };
 
 export const GERMLINE_VARIANT_CLASS_OPTIONS = [
@@ -127,9 +128,10 @@ export const CONFIRMATION_VALUES = {
 };
 
 export const ALERT_STATUSES = {
-  error: "error",
-  warning: "warning",
-  default: "default"
+  'error': 'error',
+  'warning': 'warning',
+  'success': 'success',
+  'default': 'default',
 };
 
 export const TUMOR_TYPE = [
@@ -297,4 +299,28 @@ export const PRIORITY = {
   notReal: 3,
   ben: 2,
   tier4: 1
+};
+export const CHROMOSOME_OPTIONS = [
+  ...([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22].map((i) => ({
+    value: i.toString(), label: i.toString()
+  }))),
+  { value: "X", label: "X" },
+  { value: "Y", label: "Y" },
+];
+
+export const ALLELE_TYPES = {
+  'change': {value: 'change', label: 'Change'},
+  'insertion': {value: 'insertion', label: 'Insertion'},
+  'deletion': {value: 'deletion', label: 'Deletion'}
+};
+
+export const VALIDATION_FAILD_FIELDS = {
+  gene: 'gene',
+  chromosome: 'chromosome',
+  position: 'position',
+  alleleReference: 'alleleReference',
+  alleleAlternative: 'alleleAlternative',
+  loadHgvs: 'loadHgvs',
+  primer: 'primer',
+  fragmentSize: 'fragmentSize'
 };

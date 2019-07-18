@@ -13,3 +13,10 @@ export const setGeneType = data => {
     payload: data
   };
 };
+
+export const setExternalResources = data => {
+  return {
+    type: actionsTypes.SET_EXTERNAL_RESOURCES,
+    payload: data
+  };
+};

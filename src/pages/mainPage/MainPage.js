@@ -3,26 +3,26 @@ import { connect } from "react-redux";
 import style from "./MainPage.module.scss";
 import cn from "classnames";
 import SideBarLayout from "./components/sideBarLayout";
+import { ReactComponent as OpenedIcon } from "Assets/openedFiltersPanel.svg";
+import { ReactComponent as ClosedIcon } from "Assets/closedFiltersPanel.svg";
 import Toolbar from "./components/toolbar";
 import SidebarFilters from "./components/sidebarFilters";
 import TableData from "./components/tableData";
-import IgvAlertPopup from './components/igvAlertPopup';
-import SendForConfirmationPopup from './components/sendForConfirmationPopup';
-import UncheckConfirmationPopup from './components/uncheckConfirmationPopup';
-import Alert from 'GenericComponents/alert';
+import IgvAlertPopup from "./components/igvAlertPopup";
+import SendForConfirmationPopup from "./components/sendForConfirmationPopup";
+import UncheckConfirmationPopup from "./components/uncheckConfirmationPopup";
+import Alert from "GenericComponents/alert";
 import TumorToolbar from "Pages/mainPage/components/tumorToolbar";
 import {
   getIgvAlertShow,
   getOnConfirmation,
-  getUncheckConfirmationData ,
+  getUncheckConfirmationData,
   getAlertStatus,
   getAlertTitle,
   getAlertMessage,
   getTumorInfoMode
 } from "Store/selectors";
-import {
-  setAlert
-} from "Actions/alertActions";
+import { setAlert } from "Actions/alertActions";
 
 class MainPage extends Component {
   constructor(props) {
@@ -57,7 +57,12 @@ class MainPage extends Component {
         <div
           className={cn(["sidebar-wrapper", { "sidebar-open": sidebarToggle }])}
         >
-          <SideBarLayout handleClick={this.handleClick} mode={sidebarToggle}>
+          <SideBarLayout
+            handleClick={this.handleClick}
+            mode={sidebarToggle}
+            iconOpened={<OpenedIcon />}
+            iconClosed={<ClosedIcon />}
+          >
             <SidebarFilters />
           </SideBarLayout>
         </div>
@@ -67,7 +72,9 @@ class MainPage extends Component {
             { "sidebar-open": sidebarToggle }
           ])}
         >
-          <div className={cn(["tumor-toolbar-collapse", { out: showTumorInfo }])}>
+          <div
+            className={cn(["tumor-toolbar-collapse", { out: showTumorInfo }])}
+          >
             <TumorToolbar sidebarToggle={sidebarToggle} />
           </div>
           <div className={cn(["toolbar-collapse", { shadow: showTumorInfo }])}>
@@ -78,12 +85,14 @@ class MainPage extends Component {
         {!!isIgvAlertShow && <IgvAlertPopup />}
         {!!isOnConfirmation && <SendForConfirmationPopup />}
         {!!uncheckConfirmationData && <UncheckConfirmationPopup />}
-        {!!alertStatus && <Alert
-          status={alertStatus}
-          title={alertTitle}
-          message={alertMessage}
-          onClose={setAlert.bind(null, null)}
-        />}
+        {!!alertStatus && (
+          <Alert
+            status={alertStatus}
+            title={alertTitle}
+            message={alertMessage}
+            onClose={setAlert.bind(null, null)}
+          />
+        )}
       </div>
     );
   }
