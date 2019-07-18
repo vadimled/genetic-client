@@ -4,6 +4,7 @@ import cn from "classnames";
 import SideBarLayout from "Pages/mainPage/components/sideBarLayout";
 import VariantPageHeader from "variantComponents/variantPageHeader";
 import ExternalResources from "variantComponents/externalResources";
+import ClassificationHistoryTable from "variantComponents/classificationHistoryTable";
 import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
 import { getExternalResources, getVariantData } from "Store/selectors";
@@ -66,7 +67,9 @@ class VariantPage extends Component {
             />
           </div>
           <div className="main-data">
-            <div className="history">History</div>
+            <div className="history">
+              <ClassificationHistoryTable />
+            </div>
             <div className="evidence">Evidence</div>
           </div>
         </div>
