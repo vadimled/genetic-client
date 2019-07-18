@@ -70,7 +70,7 @@ class SidebarFilters extends Component {
       case FILTERS.variantClassGermline:
         setFilterVariantClassGermline(data);
         break;
-      case FILTERS.somaticClass:
+      case FILTERS.variantClassSomatic:
         setFilterVariantClassSomatic(data);
         break;
       case FILTERS.hotSpot:
