@@ -70,7 +70,7 @@ class VariantPage extends Component {
             <div className="history">
               <ClassificationHistoryTable />
             </div>
-            <div className="evidence">Evidence</div>
+            <div className="evidence"/>
           </div>
         </div>
       </div>
