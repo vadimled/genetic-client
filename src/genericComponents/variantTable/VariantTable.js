@@ -85,27 +85,33 @@ class VariantTable extends Component {
         width: 150
       },
       {
-        title: "Variant Class",
+        title: "Germline Class ",
         dataIndex: "variantClass",
         key: "11",
         width: 170
       },
       {
+        title: "Somatic Class",
+        dataIndex: "variantClass",
+        key: "12",
+        width: 170
+      },
+      {
         title: "coverage",
         dataIndex: "coverage",
-        key: "12",
+        key: "13",
         width: 100
       },
       {
         title: "Notes",
         dataIndex: "notes",
-        key: "13",
+        key: "14",
         width: 700
       },
       {
         title: "Activity log",
         dataIndex: "activityLog",
-        key: "14",
+        key: "15",
         width: 200
       }
     ]

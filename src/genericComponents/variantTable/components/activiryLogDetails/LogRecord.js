@@ -1,8 +1,8 @@
 import React from "react";
 import dateFormat from "dateformat";
 import {
-  SOMATIC_CLASS,
-  VARIANT_CLASS,
+  VARIANT_CLASS_SOMATIC,
+  VARIANT_CLASS_GERMLINE,
   ZYGOSITY_OPTIONS
 } from "../../../../utils/constants";
 import PropTypes from 'prop-types';
@@ -18,7 +18,7 @@ const LogRecord = ({record}) => {
   let titleCurr = "";
 
   if(type === "variantClass"){
-    titleCurr = VARIANT_CLASS[record.titleCurr]?.label || SOMATIC_CLASS[record.titleCurr]?.label;
+    titleCurr = VARIANT_CLASS_GERMLINE[record.titleCurr]?.label || VARIANT_CLASS_SOMATIC[record.titleCurr]?.label;
   }
   else if(type === "zygosity"){
     titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label;

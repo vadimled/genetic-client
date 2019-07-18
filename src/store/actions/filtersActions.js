@@ -7,16 +7,16 @@ export const setFilterType = data => {
   };
 };
 
-export const setFilterVariantClass = data => {
+export const setFilterVariantClassGermline = data => {
   return {
-    type: actionsTypes.SET_FILTER_VARIANT_CLASS,
+    type: actionsTypes.SET_FILTER_VARIANT_CLASS_GERMLINE,
     payload: data
   };
 };
 
-export const setFilterSomaticClass = data => {
+export const setFilterVariantClassSomatic = data => {
   return {
-    type: actionsTypes.SET_FILTER_SOMATIC_CLASS,
+    type: actionsTypes.SET_FILTER_VARIANT_CLASS_SOMATIC,
     payload: data
   };
 };

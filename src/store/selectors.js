@@ -5,8 +5,8 @@ import { SORTING_ORDER } from "../utils/constants";
 
 export const
   getFilterType = state => state?.filters?.[FILTERS.type],
-  getFilterVariantClass = state => state?.filters?.[FILTERS.variantClass],
-  getFilterSomaticClass = state => state?.filters?.[FILTERS.somaticClass],
+  getFilterVariantClass = state => state?.filters?.[FILTERS.variantClassGermline],
+  getFilterSomaticClass = state => state?.filters?.[FILTERS.variantClassSomatic],
   getFilterHotSpot = state => state?.filters?.[FILTERS.hotSpot],
   getFilterSnp = state => state?.filters?.[FILTERS.snp],
   getFilterRoi = state => state?.filters?.[FILTERS.roi],
@@ -73,10 +73,6 @@ export const getTableDataAsArray = createSelector(
       }
     }
 
-
-    // const defaultFiltration = arrayData.filter(record => record.variantClass !== "tier4")
-
-
     return arrayData;
   }
 );
@@ -97,7 +93,7 @@ export const getSearchResult = createSelector(
       const searchQueryInLowerCase = searchQuery.toLowerCase();
       return (
         item.gene.toLowerCase().includes(searchQueryInLowerCase) ||
-        item.variantClass.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.variantClassGermline.toLowerCase().includes(searchQueryInLowerCase) ||
         item.coding.toLowerCase().includes(searchQueryInLowerCase) ||
         item.protein.toLowerCase().includes(searchQueryInLowerCase)
       );
@@ -129,11 +125,11 @@ const getAppliedFilters = createSelector(
     const filters = {
       ...(variantClass.length && {
         variantClass: item =>
-          variantClass.some(filter => item.variantClass === filter)
+          variantClass.some(filter => item.variantClassGermline === filter)
       }),
       ...(somaticClass.length && {
         somaticClass: item =>
-          somaticClass.some(filter => item.variantClass === filter)
+          somaticClass.some(filter => item.variantClassSomatic === filter)
       }),
       ...(hotSpot.length && {
         hotSpot: item => hotSpot.some(filter => item.hotSpot === filter)
@@ -207,8 +203,8 @@ export const getSearchQueries = createSelector(
     data.map(item => {
       queriesArr.add(item.gene);
       queriesArr.add(item.coding);
-      if (item.variantClass) {
-        queriesArr.add(item.variantClass);
+      if (item.variantClassGermline) {
+        queriesArr.add(item.variantClassGermline);
       }
 
       queriesArr.add(item.protein);

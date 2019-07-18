@@ -1,7 +1,7 @@
 import {
-  SOMATIC_CLASS,
+  VARIANT_CLASS_SOMATIC,
   TAG_COLORS,
-  VARIANT_CLASS,
+  VARIANT_CLASS_GERMLINE,
   ZYGOSITY_OPTIONS
 } from "./constants";
 
@@ -72,8 +72,8 @@ export const getTitlePrev = (type, record) => {
 
   if (type === "variantClass") {
     titlePrev =
-      VARIANT_CLASS[record.titlePrev]?.label ||
-      SOMATIC_CLASS[record.titlePrev]?.label;
+      VARIANT_CLASS_GERMLINE[record.titlePrev]?.label ||
+      VARIANT_CLASS_SOMATIC[record.titlePrev]?.label;
   } else if (type === "zygosity") {
     if (record.titlePrev) {
       titlePrev = ZYGOSITY_OPTIONS.find(
@@ -94,8 +94,8 @@ export const getTitleCurr = (type, record) => {
 
   if (type === "variantClass") {
     titleCurr =
-      VARIANT_CLASS[record.titleCurr]?.label ||
-      SOMATIC_CLASS[record.titleCurr]?.label;
+      VARIANT_CLASS_GERMLINE[record.titleCurr]?.label ||
+      VARIANT_CLASS_SOMATIC[record.titleCurr]?.label;
   } else if (type === "zygosity") {
     if (record.titlePrev) {
       titleCurr = ZYGOSITY_OPTIONS.find(

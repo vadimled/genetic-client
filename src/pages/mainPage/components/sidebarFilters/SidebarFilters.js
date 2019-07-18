@@ -15,18 +15,20 @@ import {
   getFilterVaf,
   getFilterCancerDBs,
   getFilterGnomId,
-  getSearchQuery, getTestType
+  getSearchQuery,
+  getTestType
 } from "Store/selectors";
 import {
-  setFilterVariantClass,
-  setFilterSomaticClass,
+  setFilterVariantClassGermline,
+  setFilterVariantClassSomatic,
   setFilterHotSpot,
   setFilterSnp,
   setFilterRoi,
   setFilterVaf,
   setFilterCancerDBs,
   setFilterGnomId,
-  clearFilterSection, setDefaultFilters
+  clearFilterSection,
+  setDefaultFilters
 } from "Actions/filtersActions";
 import { FILTERS } from "Utils/constants";
 import style from "./SidebarFilters.module.scss";
@@ -49,8 +51,8 @@ class SidebarFilters extends Component {
 
   onChange = (filterSection, mode, value) => {
     const {
-      setFilterVariantClass,
-      setFilterSomaticClass,
+      setFilterVariantClassGermline,
+      setFilterVariantClassSomatic,
       setFilterHotSpot,
       setFilterSnp,
       setFilterRoi,
@@ -65,11 +67,11 @@ class SidebarFilters extends Component {
     };
 
     switch (filterSection) {
-      case FILTERS.variantClass:
-        setFilterVariantClass(data);
+      case FILTERS.variantClassGermline:
+        setFilterVariantClassGermline(data);
         break;
       case FILTERS.somaticClass:
-        setFilterSomaticClass(data);
+        setFilterVariantClassSomatic(data);
         break;
       case FILTERS.hotSpot:
         setFilterHotSpot(data);
@@ -94,8 +96,8 @@ class SidebarFilters extends Component {
 
   filtersConfigConverter = initFilters => {
     return {
-      [FILTERS.variantClass]: initFilters[FILTERS.variantClass],
-      [FILTERS.somaticClass]: initFilters[FILTERS.somaticClass],
+      [FILTERS.variantClassGermline]: initFilters[FILTERS.variantClassGermline],
+      [FILTERS.variantClassSomatic]: initFilters[FILTERS.variantClassSomatic],
       ["variantPanels"]: {
         title: "Variant panels",
         type: ["somatic"],
@@ -124,7 +126,10 @@ class SidebarFilters extends Component {
   render() {
     const { filters, type } = this.props;
 
+
     const transformedFiltersConfig = this.filtersConfigConverter(filtersConfig);
+
+
     const filtersChipIndicators = Object.keys(filters).filter(
       key => filters[key].length && filters[key][0] !== ""
     );
@@ -243,8 +248,8 @@ function mapStateToProps(state) {
   return {
     type: getFilterType(state),
     filters: {
-      [FILTERS.variantClass]: getFilterVariantClass(state),
-      [FILTERS.somaticClass]: getFilterSomaticClass(state),
+      [FILTERS.variantClassGermline]: getFilterVariantClass(state),
+      [FILTERS.variantClassSomatic]: getFilterSomaticClass(state),
       [FILTERS.hotSpot]: getFilterHotSpot(state),
       [FILTERS.snp]: getFilterSnp(state),
       [FILTERS.roi]: getFilterRoi(state),
@@ -259,8 +264,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setFilterVariantClass: data => dispatch(setFilterVariantClass(data)),
-    setFilterSomaticClass: data => dispatch(setFilterSomaticClass(data)),
+    setFilterVariantClassGermline: data => dispatch(setFilterVariantClassGermline(data)),
+    setFilterVariantClassSomatic: data => dispatch(setFilterVariantClassSomatic(data)),
     setFilterHotSpot: data => dispatch(setFilterHotSpot(data)),
     setFilterSnp: data => dispatch(setFilterSnp(data)),
     setFilterRoi: data => dispatch(setFilterRoi(data)),

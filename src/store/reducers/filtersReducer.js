@@ -31,8 +31,8 @@ export const changeValueAccordingOnMode = (stateValue, value, mode) => {
 
 const initialState = {
   [FILTERS.type]: "somatic", // 'somatic' | 'germline'
-  [FILTERS.variantClass]: [],
-  [FILTERS.somaticClass]: [],
+  [FILTERS.variantClassGermline]: [],
+  [FILTERS.variantClassSomatic]: [],
   [FILTERS.hotSpot]: [],
   [FILTERS.snp]: [],
   [FILTERS.roi]: [],
@@ -59,8 +59,8 @@ const filtersReducer = createReducer(initialState, {
     if(testType === "solid" || testType === "hema"){
 
       filtersConfig = {
-        [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
-        [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
+        [FILTERS.variantClassGermline]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+        [FILTERS.variantClassSomatic]: ['unclassified', 'tier1', 'tier2', 'tier3'],
         [FILTERS.gnomAD]: ['na', 'veryRare'],
         [FILTERS.vaf]: [1, 100]
       };
@@ -68,8 +68,8 @@ const filtersReducer = createReducer(initialState, {
 
     if(testType === "risk"){
       filtersConfig = {
-        [FILTERS.variantClass]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
-        [FILTERS.somaticClass]: ['unclassified', 'tier1', 'tier2', 'tier3'],
+        [FILTERS.variantClassGermline]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+        [FILTERS.variantClassSomatic]: ['unclassified', 'tier1', 'tier2', 'tier3'],
         [FILTERS.vaf]: [30, 100]
       };
     }
@@ -81,33 +81,33 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_FILTER_VARIANT_CLASS]: (state, { payload }) => {
+  [actionsTypes.SET_FILTER_VARIANT_CLASS_GERMLINE]: (state, { payload }) => {
     const { value, mode } = payload;
 
     let newValue = changeValueAccordingOnMode(
-      state[FILTERS.variantClass],
+      state[FILTERS.variantClassGermline],
       value,
       mode
     );
 
     return {
       ...state,
-      [FILTERS.variantClass]: newValue
+      [FILTERS.variantClassGermline]: newValue
     };
   },
 
-  [actionsTypes.SET_FILTER_SOMATIC_CLASS]: (state, { payload }) => {
+  [actionsTypes.SET_FILTER_VARIANT_CLASS_SOMATIC]: (state, { payload }) => {
     const { value, mode } = payload;
 
     let newValue = changeValueAccordingOnMode(
-      state[FILTERS.somaticClass],
+      state[FILTERS.variantClassSomatic],
       value,
       mode
     );
 
     return {
       ...state,
-      [FILTERS.somaticClass]: newValue
+      [FILTERS.variantClassSomatic]: newValue
     };
   },
 

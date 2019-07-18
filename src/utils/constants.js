@@ -13,8 +13,8 @@ export const TAG_COLORS = {
 
 export const FILTERS = {
   type: "type",
-  variantClass: "variantClass",
-  somaticClass: "somaticClass",
+  variantClassGermline: "variantClassGermline",
+  variantClassSomatic: "variantClassSomatic",
   hotSpot: "hotSpot",
   snp: "snp",
   roi: "roi",
@@ -68,7 +68,7 @@ export const ZYGOSITY_OPTIONS = [
   { value: "unknown", label: "Unknown" }
 ];
 
-export const VARIANT_CLASS = {
+export const VARIANT_CLASS_GERMLINE = {
   unclassified: {
     value: "unclassified",
     label: "Unclassified",
@@ -81,7 +81,7 @@ export const VARIANT_CLASS = {
   lben: { value: "lben", label: "LBEN", tagColor: TAG_COLORS.blueLight }
 };
 
-export const SOMATIC_CLASS = {
+export const VARIANT_CLASS_SOMATIC = {
   unclassified: {
     value: "unclassified",
     label: "Unclassified",
@@ -94,20 +94,20 @@ export const SOMATIC_CLASS = {
 };
 
 export const GERMLINE_VARIANT_CLASS_OPTIONS = [
-  { ...VARIANT_CLASS.unclassified },
-  { ...VARIANT_CLASS.path },
-  { ...VARIANT_CLASS.lpath },
-  { ...VARIANT_CLASS.vus },
-  { ...VARIANT_CLASS.lben },
-  { ...VARIANT_CLASS.ben }
+  { ...VARIANT_CLASS_GERMLINE.unclassified },
+  { ...VARIANT_CLASS_GERMLINE.path },
+  { ...VARIANT_CLASS_GERMLINE.lpath },
+  { ...VARIANT_CLASS_GERMLINE.vus },
+  { ...VARIANT_CLASS_GERMLINE.lben },
+  { ...VARIANT_CLASS_GERMLINE.ben }
 ];
 
 export const SOMATIC_VARIANT_CLASS_OPTIONS = [
-  { ...SOMATIC_CLASS.unclassified },
-  { ...SOMATIC_CLASS.tier1 },
-  { ...SOMATIC_CLASS.tier2 },
-  { ...SOMATIC_CLASS.tier3 },
-  { ...SOMATIC_CLASS.tier4 }
+  { ...VARIANT_CLASS_SOMATIC.unclassified },
+  { ...VARIANT_CLASS_SOMATIC.tier1 },
+  { ...VARIANT_CLASS_SOMATIC.tier2 },
+  { ...VARIANT_CLASS_SOMATIC.tier3 },
+  { ...VARIANT_CLASS_SOMATIC.tier4 }
 ];
 
 export const GNOM_AD = {
