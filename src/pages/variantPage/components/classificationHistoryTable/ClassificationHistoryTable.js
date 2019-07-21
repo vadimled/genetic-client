@@ -16,25 +16,25 @@ class ClassificationHistoryTable extends Component {
         key: "1",
         title: "Date",
         dataIndex: "date",
-        width: 150
+        width: 155
       },
       {
         title: "GSID",
         dataIndex: "gsid",
         key: "2",
-        width: 400
+        width: 200
       },
       {
         title: "Analyst Name",
         dataIndex: "analystName",
         key: "3",
-        width: 400
+        width: 200
       },
       {
         title: "Class",
         dataIndex: "class",
         key: "4",
-        width: 500
+        width: 400
       }
     ],
     tableMinHeight: null,
@@ -49,12 +49,19 @@ class ClassificationHistoryTable extends Component {
       // row: ()=> <tr class="ant-table-row ant-table-row-level-0"></tr>
     }
   };
-  
+
   setTableHeight = state => {
-    this.setState({isTableMaxHeight: !this.state.isTableMaxHeight, tableMinHeight: state ? null: "300px"});
-  
+    const {
+        data: { length }
+      } = this.props,
+      currHeight = length * 41;
+
+    this.setState({
+      isTableMaxHeight: !this.state.isTableMaxHeight, // currHeight >= 300,
+      tableMinHeight: state ? null : `${currHeight <= 300 ? currHeight : 300}px`
+    });
   };
-  
+
   handleResize = index => (e, { size }) => {
     this.setState(({ columns }) => {
       const nextColumns = [...columns];
@@ -88,7 +95,7 @@ class ClassificationHistoryTable extends Component {
   };
   render() {
     const { data } = this.props;
-
+    const { length } = data;
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
 
@@ -98,7 +105,9 @@ class ClassificationHistoryTable extends Component {
           Classification History
         </div>
         <Table
-          className={cn("classification-history-table-wrapper", {"with-scroll": this.state.isTableMaxHeight})}
+          className={cn("classification-history-table-wrapper", {
+            "with-scroll": this.state.isTableMaxHeight
+          })}
           components={this.components}
           pagination={false}
           bordered
@@ -106,10 +115,13 @@ class ClassificationHistoryTable extends Component {
           dataSource={data}
           scroll={{ y: this.state.tableMinHeight }}
         />
-        <ToggledButton
-          onClick={this.setTableHeight}
-          labelState1={"See All"}
-          labelState2={"See Less"} />
+        {length > 3 && (
+          <ToggledButton
+            onClick={this.setTableHeight}
+            labelState1={"See All"}
+            labelState2={"See Less"}
+          />
+        )}
       </div>
     );
   }

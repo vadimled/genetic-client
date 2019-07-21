@@ -49,7 +49,7 @@ class VariantPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { externalResources, variantData, clfHistoryGermline } = this.props;
+    const { externalResources, variantData, clfHistorySomatic } = this.props;
     return (
       <div className={style["variant-page-wrapper"]}>
         <div
@@ -84,7 +84,7 @@ class VariantPage extends Component {
           <div className="main-data">
             <div className="history">
               <ClassificationHistoryTable
-                data={this.getDataArray(clfHistoryGermline)}
+                data={this.getDataArray(clfHistorySomatic)}
               />
             </div>
             <div className="evidence" />

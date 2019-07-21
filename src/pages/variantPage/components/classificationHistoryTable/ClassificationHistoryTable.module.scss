@@ -35,11 +35,8 @@
         overflow-y: auto !important;
       }
     }
-    .ant-table-body {
+    .with-scroll {
       overflow-y: scroll !important;
-      &.with-scroll {
-        overflow-y: hidden !important;
-      }
     }
   }
 }
