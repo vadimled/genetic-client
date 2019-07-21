@@ -53,7 +53,9 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getSomaticValue = state => state.variantPage.valueSomatic,
   getGermlineValue = state => state.variantPage.valueGermline,
   getExternalResources = state => state.variantPage.externalResources,
-  getVariantData = state => state.variantPage.variantData;
+  getVariantData = state => state.variantPage.variantData,
+  getHistorySomatic = state => state.variantPage.clfHistorySomatic,
+  getHistoryGermline = state => state.variantPage.clfHistoryGermline;
 
 export const getSearchQuery = state => state?.filters?.searchText;
 

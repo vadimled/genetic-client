@@ -20,7 +20,57 @@ const initialState = {
   type: "somatic",
   valueSomatic: "unclassified",
   valueGermline: "unclassified",
-  externalResources: []
+  externalResources: [],
+  clfHistorySomatic: {
+    "0gzhbamall3xfe2gzdmlnw9aj": {
+      date: "10/nov/2017", gsid: "GS00115NP050818_TS1_01", analystName: "Taly Yafe", class: "Tier1"},
+    "1gzhbamall3xfe2gzdmlnw9aj": {
+      date: "5/Jul/2017", gsid: "GS00115NP050817_TS1_01", analystName: "Lior GoldBerg", class: "Tier2"},
+    "2gzhbamall3xfe2gzdmlnw9aj": {
+      date: "10/nov/2017", gsid: "GS00115NP050816_TS1_01", analystName: "Taly Yafe", class: "Tier3"},
+    "3gzhbamall3xfe2gzdmlnw9aj": {
+      date: "10/nov/2017", gsid: "GS00115NP050815_TS1_01", analystName: "Lior GoldBerg", class: "Tier4"},
+    "4gzhbamall3xfe2gzdmlnw9aj": {
+      date: "9/nov/2017", gsid: "GS00115NP050814_TS1_01", analystName: "Taly Yafe", class: "Tier1"},
+    "5gzhbamall3xfe2gzdmlnw9aj": {
+      date: "8/nov/2017", gsid: "GS00115NP050813_TS1_01", analystName: "Lior GoldBerg", class: "Tier2"},
+    "6gzhbamall3xfe2gzdmlnw9aj": {
+      date: "7/nov/2017", gsid: "GS00115NP050812_TS1_01", analystName: "Taly Yafe", class: "Tier3"},
+    "7gzhbamall3xfe2gzdmlnw9aj": {
+      date: "6/nov/2017", gsid: "GS00115NP050811_TS1_01", analystName: "Lior GoldBerg", class: "Tier4"},
+    "8gzhbamall3xfe2gzdmlnw9aj": {
+      date: "5/nov/2017", gsid: "GS00115NP050810_TS1_01", analystName: "Taly Yafe", class: "Tier1"},
+    "9gzhbamall3xfe2gzdmlnw9aj": {
+      date: "4/nov/2017", gsid: "GS00115NP050828_TS1_01", analystName: "Lior GoldBerg", class: "Tier2"},
+    "10zhbamall3xfe2gzdmlnw9aj": {
+      date: "3/nov/2017", gsid: "GS00115NP050838_TS1_01", analystName: "Taly Yafe", class: "Tier3"},
+  },
+
+  clfHistoryGermline: {
+    "0gzhbamall3xfe2gzdmlnw9aj": {
+      date: "10/nov/2017", gsid: "GS00115NP050818_TS1_01", analystName: "Taly Yafe", class: "VUS"},
+    "1gzhbamall3xfe2gzdmlnw9aj": {
+      date: "5/Jul/2017", gsid: "GS00115NP050817_TS1_01", analystName: "Lior GoldBerg", class: "LPATH"},
+    "2gzhbamall3xfe2gzdmlnw9aj": {
+      date: "10/nov/2017", gsid: "GS00115NP050816_TS1_01", analystName: "Taly Yafe", class: "VUS"},
+    "3gzhbamall3xfe2gzdmlnw9aj": {
+      date: "10/nov/2017", gsid: "GS00115NP050815_TS1_01", analystName: "Lior GoldBerg", class: "LBEN"},
+    "4gzhbamall3xfe2gzdmlnw9aj": {
+      date: "9/nov/2017", gsid: "GS00115NP050814_TS1_01", analystName: "Taly Yafe", class: "PATH"},
+    "5gzhbamall3xfe2gzdmlnw9aj": {
+      date: "8/nov/2017", gsid: "GS00115NP050813_TS1_01", analystName: "Lior GoldBerg", class: "LPATH"},
+    "6gzhbamall3xfe2gzdmlnw9aj": {
+      date: "7/nov/2017", gsid: "GS00115NP050812_TS1_01", analystName: "Taly Yafe", class: "VUS"},
+    "7gzhbamall3xfe2gzdmlnw9aj": {
+      date: "6/nov/2017", gsid: "GS00115NP050811_TS1_01", analystName: "Lior GoldBerg", class: "LPATH"},
+    "8gzhbamall3xfe2gzdmlnw9aj": {
+      date: "5/nov/2017", gsid: "GS00115NP050810_TS1_01", analystName: "Taly Yafe", class: "VUS"},
+    "9gzhbamall3xfe2gzdmlnw9aj": {
+      date: "4/nov/2017", gsid: "GS00115NP050828_TS1_01", analystName: "Lior GoldBerg", class: "VUS"},
+    "10zhbamall3xfe2gzdmlnw9aj": {
+      date: "3/nov/2017", gsid: "GS00115NP050838_TS1_01", analystName: "Taly Yafe", class: "VUS"},
+  
+  },
 };
 
 const variantPageReducer = createReducer(initialState, {

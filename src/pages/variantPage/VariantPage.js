@@ -7,7 +7,12 @@ import ExternalResources from "variantComponents/externalResources";
 import ClassificationHistoryTable from "variantComponents/classificationHistoryTable";
 import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
-import { getExternalResources, getVariantData } from "Store/selectors";
+import {
+  getExternalResources,
+  getVariantData,
+  getHistoryGermline,
+  getHistorySomatic
+} from "Store/selectors";
 import { connect } from "react-redux";
 import { setExternalResources } from "Actions/variantPageActions";
 import { createResourcesLinks } from "Utils/helpers";
@@ -32,9 +37,19 @@ class VariantPage extends Component {
     });
   };
 
+  getDataArray = data => {
+    let arrayData = [];
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        arrayData.push(data[key]);
+      }
+    }
+    return arrayData;
+  };
+
   render() {
     const { sidebarToggle } = this.state;
-    const { externalResources, variantData } = this.props;
+    const { externalResources, variantData, clfHistoryGermline } = this.props;
     return (
       <div className={style["variant-page-wrapper"]}>
         <div
@@ -68,9 +83,11 @@ class VariantPage extends Component {
           </div>
           <div className="main-data">
             <div className="history">
-              <ClassificationHistoryTable />
+              <ClassificationHistoryTable
+                data={this.getDataArray(clfHistoryGermline)}
+              />
             </div>
-            <div className="evidence"/>
+            <div className="evidence" />
           </div>
         </div>
       </div>
@@ -83,6 +100,8 @@ VariantPage.propTypes = {};
 const mapStateToProps = state => {
   return {
     variantData: getVariantData(state),
+    clfHistoryGermline: getHistoryGermline(state),
+    clfHistorySomatic: getHistorySomatic(state),
     externalResources: getExternalResources(state)
   };
 };

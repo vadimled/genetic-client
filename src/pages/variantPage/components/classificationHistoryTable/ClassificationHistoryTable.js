@@ -14,7 +14,7 @@ class ClassificationHistoryTable extends Component {
         key: "1",
         title: "Date",
         dataIndex: "date",
-        width: 100
+        width: 200
       },
       {
         title: "GSID",
@@ -32,7 +32,7 @@ class ClassificationHistoryTable extends Component {
         title: "Class",
         dataIndex: "class",
         key: "4",
-        width: 400
+        width: 500
       }
     ]
   };
@@ -92,6 +92,7 @@ class ClassificationHistoryTable extends Component {
           bordered
           columns={columns}
           dataSource={data}
+          scroll={{y: "100%" }}
         />
       </div>
     );

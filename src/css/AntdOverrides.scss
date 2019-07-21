@@ -1165,3 +1165,12 @@ th {
     }
   }
 }
+
+.classification-history-table-wrapper {
+  .ant-table {
+    width: 100vw;
+    height: 30vh !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
