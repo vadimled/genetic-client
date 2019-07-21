@@ -54,9 +54,11 @@
 
       .history {
         display: flex;
-        padding: 30px 40px 15px;
+        width: calc(100vw - 58px);
+        padding: 30px 15px 15px 50px;
         max-height: 450px;
         overflow: hidden;
+        box-sizing: border-box;
       }
 
       .evidence {
