@@ -55,7 +55,8 @@
       .history {
         display: flex;
         padding: 30px 40px 15px;
-        min-height: 286px;
+        max-height: 450px;
+        overflow: hidden;
       }
 
       .evidence {

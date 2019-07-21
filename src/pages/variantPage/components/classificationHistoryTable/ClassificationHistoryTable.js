@@ -4,6 +4,7 @@ import style from "./ClassificationHistoryTable.module.scss";
 import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
 import HighlightedCell from "GenericComponents/variantTable/components/highlightedCell/HighlightedCell";
 import PropTypes from "prop-types";
+import ToggledButton from "GenericComponents/toggledButton";
 
 // import PropTypes from 'prop-types';
 
@@ -45,7 +46,7 @@ class ClassificationHistoryTable extends Component {
       // row: ()=> <tr class="ant-table-row ant-table-row-level-0"></tr>
     }
   };
-  
+
   handleResize = index => (e, { size }) => {
     this.setState(({ columns }) => {
       const nextColumns = [...columns];
@@ -56,7 +57,7 @@ class ClassificationHistoryTable extends Component {
       return { columns: nextColumns };
     });
   };
-  
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -85,6 +86,9 @@ class ClassificationHistoryTable extends Component {
 
     return (
       <div className={style["classification-history-wrapper"]}>
+        <div className="classification-history-title">
+          Classification History
+        </div>
         <Table
           className={"classification-history-table-wrapper"}
           components={this.components}
@@ -92,8 +96,12 @@ class ClassificationHistoryTable extends Component {
           bordered
           columns={columns}
           dataSource={data}
-          scroll={{y: "100%" }}
+          scroll={{ y: "20vh" }}
         />
+        <ToggledButton
+          onClick={e => console.log(e)}
+          labelState1={"See All"}
+          labelState2={"See Less"} />
       </div>
     );
   }

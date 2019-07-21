@@ -1,4 +1,15 @@
 @import "Css/Colors.scss";
 
 .classification-history-wrapper :global {
+  width: 100%;
+  height: 100%;
+  border-bottom: 1px solid $border_color;
+
+  .classification-history-title {
+    margin-bottom: 12px;
+    text-align: left;
+    font-weight: normal;
+    font-size: 18px;
+    color: $title_color;
+  }
 }

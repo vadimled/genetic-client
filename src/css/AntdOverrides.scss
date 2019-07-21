@@ -3,6 +3,7 @@ $sideBarWidth: 197px;
 $toolBarAndHeader: 96px;
 $heightTableBody: 230px;
 $heightTableContent: 150px;
+$heightClassificationHistoryTableContent: 200px;
 
 // button
 .ant-btn {
@@ -983,7 +984,8 @@ th {
 }
 
 .sidebar-open {
-  .ant-table-wrapper {
+  .ant-table-wrapper,
+  .ant-table-wrapper.classification-history-table-wrapper {
     width: calc(100vw - #{$sideBarWidth}) !important;
   }
 }
@@ -1166,11 +1168,38 @@ th {
   }
 }
 
-.classification-history-table-wrapper {
-  .ant-table {
+.ant-table-wrapper {
+  &.classification-history-table-wrapper {
     width: 100vw;
     height: 30vh !important;
     overflow-y: auto;
     overflow-x: hidden;
+
+    .ant-table-content {
+      max-height: calc(100vh - #{$heightClassificationHistoryTableContent});
+
+      .ant-table-scroll {
+        height: calc(100vh - #{$heightClassificationHistoryTableContent});
+        overflow-x: auto !important;
+
+        .ant-table-body {
+          height: calc(100vh - 200px) !important;
+        }
+        table {
+          transition: 0.4s ease;
+          transform: translate(0px, 0px);
+          width: max-content;
+        }
+      }
+      .ant-table-fixed-left {
+        height: calc(100vh - 171px);
+      }
+
+      .ant-table-body-inner {
+        height: calc(100vh - #{$heightTableBody}) !important;
+      }
+      .ant-table-fixed {
+      }
+    }
   }
 }
