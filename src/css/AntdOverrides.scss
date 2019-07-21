@@ -1171,34 +1171,31 @@ th {
 .ant-table-wrapper {
   &.classification-history-table-wrapper {
     width: 100vw;
-    height: 30vh !important;
-    overflow-y: auto;
-    overflow-x: hidden;
+    height: 164px;
+    overflow: hidden !important;
+
+    .ant-table-thead > tr > th {
+      padding: 10px 16px;
+    }
 
     .ant-table-content {
-      max-height: calc(100vh - #{$heightClassificationHistoryTableContent});
+      .ant-table-fixed-left {
+        height: 100%;
+      }
+
+      .ant-table-body-inner {
+        height: 100% !important;
+      }
 
       .ant-table-scroll {
-        height: calc(100vh - #{$heightClassificationHistoryTableContent});
+        height: 100% !important;
         overflow-x: auto !important;
 
-        .ant-table-body {
-          height: calc(100vh - 200px) !important;
-        }
         table {
           transition: 0.4s ease;
           transform: translate(0px, 0px);
           width: max-content;
         }
-      }
-      .ant-table-fixed-left {
-        height: calc(100vh - 171px);
-      }
-
-      .ant-table-body-inner {
-        height: calc(100vh - #{$heightTableBody}) !important;
-      }
-      .ant-table-fixed {
       }
     }
   }

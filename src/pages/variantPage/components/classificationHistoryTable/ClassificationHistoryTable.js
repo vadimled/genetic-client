@@ -5,6 +5,7 @@ import ResizeableTitle from "GenericComponents/variantTable/components/resizeabl
 import HighlightedCell from "GenericComponents/variantTable/components/highlightedCell/HighlightedCell";
 import PropTypes from "prop-types";
 import ToggledButton from "GenericComponents/toggledButton";
+import cn from "classnames";
 
 // import PropTypes from 'prop-types';
 
@@ -15,7 +16,7 @@ class ClassificationHistoryTable extends Component {
         key: "1",
         title: "Date",
         dataIndex: "date",
-        width: 200
+        width: 150
       },
       {
         title: "GSID",
@@ -35,7 +36,9 @@ class ClassificationHistoryTable extends Component {
         key: "4",
         width: 500
       }
-    ]
+    ],
+    tableMinHeight: null,
+    isTableMaxHeight: false
   };
 
   components = {
@@ -46,7 +49,12 @@ class ClassificationHistoryTable extends Component {
       // row: ()=> <tr class="ant-table-row ant-table-row-level-0"></tr>
     }
   };
-
+  
+  setTableHeight = state => {
+    this.setState({isTableMaxHeight: !this.state.isTableMaxHeight, tableMinHeight: state ? null: "300px"});
+  
+  };
+  
   handleResize = index => (e, { size }) => {
     this.setState(({ columns }) => {
       const nextColumns = [...columns];
@@ -90,16 +98,16 @@ class ClassificationHistoryTable extends Component {
           Classification History
         </div>
         <Table
-          className={"classification-history-table-wrapper"}
+          className={cn("classification-history-table-wrapper", {"with-scroll": this.state.isTableMaxHeight})}
           components={this.components}
           pagination={false}
           bordered
           columns={columns}
           dataSource={data}
-          scroll={{ y: "20vh" }}
+          scroll={{ y: this.state.tableMinHeight }}
         />
         <ToggledButton
-          onClick={e => console.log(e)}
+          onClick={this.setTableHeight}
           labelState1={"See All"}
           labelState2={"See Less"} />
       </div>
