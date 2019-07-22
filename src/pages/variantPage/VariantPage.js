@@ -82,7 +82,12 @@ class VariantPage extends Component {
             />
           </div>
           <div className="main-data">
-            <div className="history">
+            <div
+              className={cn([
+                "history",
+                { "links-wrapper-open": sidebarToggle }
+              ])}
+            >
               <ClassificationHistoryTable
                 data={this.getDataArray(clfHistorySomatic)}
               />

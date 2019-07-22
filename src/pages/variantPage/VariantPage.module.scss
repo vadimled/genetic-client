@@ -44,7 +44,7 @@
       display: flex;
       height: 120px;
       background-color: $white;
-      box-shadow: 0 2px 3px 1px #dae1e680;
+      box-shadow: 0 2px 3px 1px $border_color;
     }
 
     .main-data {
@@ -59,6 +59,11 @@
         max-height: 450px;
         overflow: hidden;
         box-sizing: border-box;
+
+        &.links-wrapper-open {
+          width: calc(100vw - 218px);
+          transition: 0.4s ease-in;
+        }
       }
 
       .evidence {
