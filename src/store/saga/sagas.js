@@ -170,7 +170,9 @@ export function* fetchBAMFileGenerator(data) {
   try {
     yield put(setIgvLastQuery({ type: "BAM_FILE", data: data.payload }));
     yield put(setFetchBAMFileStatus(1));
-    yield call(fetchBAMFile, data.payload);
+    const res = yield call(fetchBAMFile, data.payload);
+  
+    console.log(res);
     yield onDelay(1000);
     yield put(setFetchBAMFileStatus(2));
     yield onDelay(2000);
