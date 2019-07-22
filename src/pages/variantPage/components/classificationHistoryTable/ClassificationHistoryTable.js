@@ -7,8 +7,7 @@ import PropTypes from "prop-types";
 import ToggledButton from "GenericComponents/toggledButton";
 import cn from "classnames";
 import LabeledTag from "GenericComponents/labeledTag";
-
-// import PropTypes from 'prop-types';
+import { TEXTS } from "Utils/constants";
 
 class ClassificationHistoryTable extends Component {
   state = {
@@ -45,9 +44,6 @@ class ClassificationHistoryTable extends Component {
   components = {
     header: {
       cell: ResizeableTitle
-    },
-    body: {
-      // row: ()=> <tr class="ant-table-row ant-table-row-level-0"></tr>
     }
   };
 
@@ -58,7 +54,7 @@ class ClassificationHistoryTable extends Component {
       currHeight = length * 41;
 
     this.setState({
-      isTableMaxHeight: !this.state.isTableMaxHeight, // currHeight >= 300,
+      isTableMaxHeight: !this.state.isTableMaxHeight,
       tableMinHeight: state ? null : `${currHeight <= 300 ? currHeight : 300}px`
     });
   };
@@ -100,6 +96,7 @@ class ClassificationHistoryTable extends Component {
       return column;
     });
   };
+
   render() {
     const { data } = this.props;
     const { length } = data;
@@ -125,8 +122,8 @@ class ClassificationHistoryTable extends Component {
         {length > 3 && (
           <ToggledButton
             onClick={this.setTableHeight}
-            labelState1={"See All"}
-            labelState2={"See Less"}
+            labelState1={TEXTS.seeAll}
+            labelState2={TEXTS.seeLess}
           />
         )}
       </div>
@@ -135,7 +132,8 @@ class ClassificationHistoryTable extends Component {
 }
 
 ClassificationHistoryTable.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.array,
+  typeData: PropTypes.array.isRequired
 };
 
 ClassificationHistoryTable.defaultProps = {
