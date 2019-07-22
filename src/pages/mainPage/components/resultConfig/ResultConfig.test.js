@@ -230,8 +230,6 @@ describe('ResultConfig', () => {
     expect(validationFaildFields3.length).toEqual(0);
     const coding3 = getResultConfigCoding(store.getState());
 
-    console.log("--coding3: ", coding3);
-
     const protein3 = getResultConfigProtein(store.getState());
     expect(coding3).toBeTruthy();
     expect(protein3).toBeTruthy();
