@@ -121,6 +121,7 @@ class ClassificationHistoryTable extends Component {
         />
         {length > 3 && (
           <ToggledButton
+            id="classification-history-table"
             onClick={this.setTableHeight}
             labelState1={TEXTS.seeAll}
             labelState2={TEXTS.seeLess}
