@@ -90,7 +90,7 @@ describe("SideBarFilters component test", () => {
     expect(indicator6).not.toBeInTheDocument();
   });
 
-  xit("if filter 'hotSpot' clicked; if indicator 'hotSpot' delete clicked", () => {
+  it("if filter 'hotSpot' clicked; if indicator 'hotSpot' delete clicked", () => {
     const { getByTestId } = renderWithRedux(<SidebarFilters />);
     
     fireEvent.click(getByTestId("filter-checkbox-hotSpot-True"));
@@ -108,7 +108,7 @@ describe("SideBarFilters component test", () => {
     expect(indicator2).not.toBeInTheDocument();
   });
 
-  xit("if filter 'snp' clicked; if indicator 'snp' delete clicked", () => {
+  it("if filter 'snp' clicked; if indicator 'snp' delete clicked", () => {
     const { getByTestId } = renderWithRedux(<SidebarFilters />);
     
     fireEvent.click(getByTestId("filter-checkbox-snp-True"));
@@ -126,7 +126,7 @@ describe("SideBarFilters component test", () => {
     expect(indicator2).not.toBeInTheDocument();
   });
 
-  xit("if filter 'roi' clicked; if indicator 'roi' delete clicked", () => {
+  it("if filter 'roi' clicked; if indicator 'roi' delete clicked", () => {
     const { getByTestId } = renderWithRedux(<SidebarFilters />);
     
     fireEvent.click(getByTestId("filter-checkbox-roi-True"));
@@ -144,7 +144,7 @@ describe("SideBarFilters component test", () => {
     expect(indicator2).not.toBeInTheDocument();
   });
 
-  xit("if filter 'canserBDs' clicked; if indicator 'canserBDs' delete clicked", () => {
+  it("if filter 'canserBDs' clicked; if indicator 'canserBDs' delete clicked", () => {
     const { getByTestId } = renderWithRedux(<SidebarFilters />);
     
     fireEvent.click(getByTestId("filter-checkbox-canserBDs-Clinvar"));
@@ -166,7 +166,7 @@ describe("SideBarFilters component test", () => {
     expect(indicator3).not.toBeInTheDocument();
   });
 
-  xit("if filter 'gnomAD' clicked; if indicator 'gnomAD' delete clicked", () => {
+  it("if filter 'gnomAD' clicked; if indicator 'gnomAD' delete clicked", () => {
     const { getByTestId } = renderWithRedux(<SidebarFilters />);
     
     fireEvent.click(getByTestId("filter-checkbox-gnomAD-NA"));
@@ -192,7 +192,7 @@ describe("SideBarFilters component test", () => {
     expect(indicator4).not.toBeInTheDocument();
   });
 
-  xit("if filter 'Vaf' position; if indicator 'Vaf' delete clicked", () => {
+  it("if filter 'Vaf' position; if indicator 'Vaf' delete clicked", () => {
     const
       { store, container, getByTestId } = renderWithRedux(<SidebarFilters />),
       sliderTrack = container.querySelector(".ant-slider");
@@ -214,7 +214,7 @@ describe("SideBarFilters component test", () => {
     expect(indicator2).not.toBeInTheDocument();
   });
 
-  xit("if several filters selected and 'clear-filters-button' clicked", () => {
+  it("if several filters selected and 'clear-filters-button' clicked", () => {
     const { getByTestId } = renderWithRedux(<SidebarFilters />);
     
     fireEvent.click(getByTestId("filter-checkbox-gnomAD-NA"));

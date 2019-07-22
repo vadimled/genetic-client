@@ -54,6 +54,11 @@ class Toolbar extends Component {
       setSort
     } = this.props;
 
+
+    console.log("-!!selectedIsAddedRows?.length: ", !!selectedIsAddedRows?.length);
+    console.log("-selectedRows: ", selectedRows);
+    // console.log("-selectedIsAddedRows: ", selectedIsAddedRows)
+
     return (
       <div className={style["toolbar-wrapper"]}>
         {
