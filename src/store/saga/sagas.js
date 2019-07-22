@@ -5,7 +5,7 @@ import {
   ALLELE_TYPES,
   VALIDATION_FAILD_FIELDS
 } from 'Utils/constants';
-import { fetchBAMFile, goToChrPositionIgv } from "Api/index";
+import { fetchBAMFile, goToChrPositionIgv, loadHgvs, addResult, editResult } from "Api/index";
 import {
   handleIgvAlertShow,
   setFetchBAMFileStatus,
@@ -31,7 +31,7 @@ import {
   handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
-import { loadHgvs } from "../../api";
+
 
 
 function* onDelay(time) {

@@ -272,32 +272,30 @@ describe('ResultConfig', () => {
     fireEvent.click(applyResultBtn);
     const validationFaildFields6 = getResultConfigValidationFaildFields(store.getState());
 
-    console.log("--validationFaildFields6: ", validationFaildFields6);
-
     const resultConfigIsOpen2 = getResultConfigIsOpen(store.getState());
     expect(validationFaildFields6.length).toEqual(0);
     expect(resultConfigIsOpen2).toEqual(false);
 
     // find this item in table data
-    // const tableData1 = store.getState().table.data;
-    // let seachedItem;
-    // for (let key in tableData1) {
-    //   if (tableData1.hasOwnProperty(key)) {
-    //     let item = tableData1[key];
-    //     // and item should be added and has fields that we added recently in this test
-    //     if (
-    //       item.isAdded
-    //       && item.gene === 'asd'
-    //       && item.chromosome === CHROMOSOME_OPTIONS[0].value
-    //       && item.position === 123
-    //       && item.alleleReference === 'A'
-    //       && item.alleleAlternative === 'B'
-    //     ) {
-    //       seachedItem = item;
-    //     }
-    //   }
-    // }
-    // expect(seachedItem).toBeDefined();
+    const tableData1 = store.getState().table.data;
+    let seachedItem;
+    for (let key in tableData1) {
+      if (tableData1.hasOwnProperty(key)) {
+        let item = tableData1[key];
+        // and item should be added and has fields that we added recently in this test
+        if (
+          item.isAdded
+          && item.gene === 'asd'
+          && item.chromosome === CHROMOSOME_OPTIONS[0].value
+          && item.position === 123
+          && item.alleleReference === 'A'
+          && item.alleleAlternative === 'B'
+        ) {
+          seachedItem = item;
+        }
+      }
+    }
+    expect(seachedItem).toBeDefined();
   });
 
   it('isOnEdit mode', () => {
