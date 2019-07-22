@@ -6,6 +6,7 @@ import HighlightedCell from "GenericComponents/variantTable/components/highlight
 import PropTypes from "prop-types";
 import ToggledButton from "GenericComponents/toggledButton";
 import cn from "classnames";
+import LabeledTag from "GenericComponents/labeledTag";
 
 // import PropTypes from 'prop-types';
 
@@ -74,6 +75,7 @@ class ClassificationHistoryTable extends Component {
   };
 
   columnsConverter = columns => {
+    const { typeData } = this.props;
     return columns.map((col, index) => {
       let column = {
         ...col,
@@ -82,14 +84,19 @@ class ClassificationHistoryTable extends Component {
           onResize: this.handleResize(index)
         })
       };
-      column.render = (text, record) => {
-        return (
-          <HighlightedCell isHighlighted={record.isAdded}>
-            {text}
-          </HighlightedCell>
-        );
-      };
-
+      if (col.dataIndex === "class") {
+        column.render = text => {
+          return <LabeledTag label={text} typeData={typeData} />;
+        };
+      } else {
+        column.render = (text, record) => {
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              {text}
+            </HighlightedCell>
+          );
+        };
+      }
       return column;
     });
   };

@@ -9,13 +9,14 @@ import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
 import {
   getExternalResources,
-  getVariantData,
   getHistoryGermline,
-  getHistorySomatic
+  getHistorySomatic,
+  getVariantData
 } from "Store/selectors";
 import { connect } from "react-redux";
 import { setExternalResources } from "Actions/variantPageActions";
 import { createResourcesLinks } from "Utils/helpers";
+import { SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 
 // import PropTypes from 'prop-types';
 
@@ -90,6 +91,7 @@ class VariantPage extends Component {
             >
               <ClassificationHistoryTable
                 data={this.getDataArray(clfHistorySomatic)}
+                typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
               />
             </div>
             <div className="evidence" />

@@ -25,7 +25,7 @@ const initialState = {
     "0gzhbamall3xfe2gzdmlnw9aj": {
       key: 0, date: "10/nov/2017", gsid: "GS00115NP050818_TS1_01", analystName: "Taly Yafe", class: "Tier1"},
     "1gzhbamall3xfe2gzdmlnw9aj": {
-      key: 1, date: "5/Jul/2017", gsid: "GS00115NP050817_TS1_01", analystName: "Lior GoldBerg", class: "Tier2"},
+      key: 1, date: "5/Jul/2017", gsid: "GS00115NP050817_TS1_01", analystName: "Lior GoldBerg", class: "Unclassified"},
     "2gzhbamall3xfe2gzdmlnw9aj": {
       key: 2, date: "10/nov/2017", gsid: "GS00115NP050816_TS1_01", analystName: "Taly Yafe", class: "Tier3"},
     "3gzhbamall3xfe2gzdmlnw9aj": {
