@@ -13,7 +13,9 @@
     font-size: 18px;
     color: $title_color;
   }
-
+  .empty-state {
+    height: 177px;
+  }
   .ant-table-wrapper {
     -webkit-transition: all 0.4s ease-in-out;
     -moz-transition: all 0.4s ease-in-out;

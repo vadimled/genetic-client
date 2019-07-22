@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Table } from "antd";
 import style from "./ClassificationHistoryTable.module.scss";
 import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
@@ -8,6 +8,8 @@ import ToggledButton from "GenericComponents/toggledButton";
 import cn from "classnames";
 import LabeledTag from "GenericComponents/labeledTag";
 import { TEXTS } from "Utils/constants";
+import EmptyState from "GenericComponents/emptyState/EmptyState";
+import defaultImage from "Assets/smallEmptyState.svg";
 
 class ClassificationHistoryTable extends Component {
   state = {
@@ -108,24 +110,36 @@ class ClassificationHistoryTable extends Component {
         <div className="classification-history-title">
           Classification History
         </div>
-        <Table
-          className={cn("classification-history-table-wrapper", {
-            "with-scroll": this.state.isTableMaxHeight
-          })}
-          components={this.components}
-          pagination={false}
-          bordered
-          columns={columns}
-          dataSource={data}
-          scroll={{ y: this.state.tableMinHeight }}
-        />
-        {length > 3 && (
-          <ToggledButton
-            id="classification-history-table"
-            onClick={this.setTableHeight}
-            labelState1={TEXTS.seeAll}
-            labelState2={TEXTS.seeLess}
-          />
+        {!length ? (
+          <div className="empty-state">
+            <EmptyState
+              image={defaultImage}
+              title={"No Classification History"}
+              description=""
+            />
+          </div>
+        ) : (
+          <Fragment>
+            <Table
+              className={cn("classification-history-table-wrapper", {
+                "with-scroll": this.state.isTableMaxHeight
+              })}
+              components={this.components}
+              pagination={false}
+              bordered
+              columns={columns}
+              dataSource={data}
+              scroll={{ y: this.state.tableMinHeight }}
+            />
+            {length > 3 && (
+              <ToggledButton
+                id="classification-history-table"
+                onClick={this.setTableHeight}
+                labelState1={TEXTS.seeAll}
+                labelState2={TEXTS.seeLess}
+              />
+            )}
+          </Fragment>
         )}
       </div>
     );
