@@ -122,13 +122,10 @@ class SidebarFilters extends Component {
     Object.keys(filtersConfig).forEach(key => this.clearFilterSection(key));
   };
 
-
   render() {
     const { filters, type } = this.props;
 
-
     const transformedFiltersConfig = this.filtersConfigConverter(filtersConfig);
-
 
     const filtersChipIndicators = Object.keys(filters).filter(
       key => filters[key].length && filters[key][0] !== ""

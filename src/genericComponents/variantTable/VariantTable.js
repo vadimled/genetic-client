@@ -88,13 +88,13 @@ class VariantTable extends Component {
         title: "Germline Class ",
         dataIndex: "variantClass",
         key: "11",
-        width: 170
+        width: 200
       },
       {
         title: "Somatic Class",
         dataIndex: "variantClass",
         key: "12",
-        width: 170
+        width: 200
       },
       {
         title: "coverage",
