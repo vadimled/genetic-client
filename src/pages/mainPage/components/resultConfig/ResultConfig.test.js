@@ -217,7 +217,7 @@ describe('ResultConfig', () => {
 
     fireEvent.change(geneInput, { target: { value: 'abc' } });
 
-    expect(geneInput.value).toEqual("abc")
+    expect(geneInput.value).toEqual("abc");
 
     store.dispatch(handleResultConfigChromosome(CHROMOSOME_OPTIONS[0].value));
     fireEvent.change(positionInput, { target: { value: 123 } });
@@ -230,7 +230,7 @@ describe('ResultConfig', () => {
     expect(validationFaildFields3.length).toEqual(0);
     const coding3 = getResultConfigCoding(store.getState());
 
-    console.log("--coding3: ", coding3)
+    console.log("--coding3: ", coding3);
 
     // const protein3 = getResultConfigProtein(store.getState());
     // expect(coding3).toBeTruthy();
