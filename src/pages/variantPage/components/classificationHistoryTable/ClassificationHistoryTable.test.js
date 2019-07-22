@@ -2,7 +2,7 @@ import "jest-dom/extend-expect";
 import { fireEvent } from "@testing-library/react";
 import { renderWithRedux } from "Utils/test_helpers";
 import React from "react";
-import ClassificationHistoryTable from "variantComponents/ClassificationHistoryTable";
+import ClassificationHistoryTable from "variantComponents/classificationHistoryTable";
 import { SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 
 describe("ExternalResources ", () => {
