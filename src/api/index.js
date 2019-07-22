@@ -13,12 +13,13 @@ export function loadHgvs (data) {
   const mockResult = {
     ...data,
     coding: 'c.2637 A>G',
-    protein: 'p.Pro871Leu'
+    protein: 'p.Pro871Leu',
   };
   return mockResult;
 }
 
 export function addResult (data) {
+
   // -> API request
   const mockResult = {
     ...data,
@@ -26,6 +27,9 @@ export function addResult (data) {
     chrPosition: `Chr${data.chromosome}:${data.position}`,
     alleleChange: `${data.alleleReference} > ${data.alleleAlternative}`,
     transcript: 'NM_939778.7',
+    zygosity: "",
+    variantClassGermline: "unclassified",
+    variantClassSomatic: "unclassified",
   };
   return mockResult;
 }
