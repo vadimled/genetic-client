@@ -272,7 +272,7 @@ describe('ResultConfig', () => {
     fireEvent.click(applyResultBtn);
     const validationFaildFields6 = getResultConfigValidationFaildFields(store.getState());
 
-    console.log("--validationFaildFields6: ", validationFaildFields6)
+    console.log("--validationFaildFields6: ", validationFaildFields6);
 
     const resultConfigIsOpen2 = getResultConfigIsOpen(store.getState());
     expect(validationFaildFields6.length).toEqual(0);
