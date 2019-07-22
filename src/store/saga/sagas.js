@@ -31,6 +31,7 @@ import {
   handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
+import { loadHgvs } from "../../api";
 
 
 function* onDelay(time) {

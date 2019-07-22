@@ -233,7 +233,7 @@ describe('ResultConfig', () => {
     console.log("--coding3: ", coding3);
 
     // const protein3 = getResultConfigProtein(store.getState());
-    // expect(coding3).toBeTruthy();
+    expect(coding3).toBeTruthy();
     // expect(protein3).toBeTruthy();
 
     // console.log("---store: ", store.getState());
