@@ -18,19 +18,19 @@ class ClassificationHistoryTable extends Component {
         key: "1",
         title: "Date",
         dataIndex: "date",
-        width: 155
+        width: 140
       },
       {
         title: "GSID",
         dataIndex: "gsid",
         key: "2",
-        width: 200
+        width: 300
       },
       {
         title: "Analyst Name",
         dataIndex: "analystName",
         key: "3",
-        width: 200
+        width: 400
       },
       {
         title: "Class",
@@ -53,7 +53,7 @@ class ClassificationHistoryTable extends Component {
     const {
         data: { length }
       } = this.props,
-      currHeight = length * 41;
+      currHeight = (length - 1) * 29;
 
     this.setState({
       isTableMaxHeight: !this.state.isTableMaxHeight,
