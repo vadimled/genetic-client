@@ -9,9 +9,6 @@ export function goToChrPositionIgv (chrPosition) {
 }
 
 export function loadHgvs (data) {
-
-  console.log("-------hERE!!!!");
-
   // -> API request
   const mockResult = {
     ...data,
