@@ -15,10 +15,8 @@ import {
 } from "Store/selectors";
 import { connect } from "react-redux";
 import { setExternalResources } from "Actions/variantPageActions";
-import { createResourcesLinks } from "Utils/helpers";
+import { createResourcesLinks, getDataArray } from "Utils/helpers";
 import { SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
-
-// import PropTypes from 'prop-types';
 
 class VariantPage extends Component {
   constructor(props) {
@@ -36,16 +34,6 @@ class VariantPage extends Component {
     this.setState({
       sidebarToggle: !this.state.sidebarToggle
     });
-  };
-
-  getDataArray = data => {
-    let arrayData = [];
-    for (let key in data) {
-      if (data.hasOwnProperty(key)) {
-        arrayData.push(data[key]);
-      }
-    }
-    return arrayData;
   };
 
   render() {
@@ -90,7 +78,7 @@ class VariantPage extends Component {
               ])}
             >
               <ClassificationHistoryTable
-                data={this.getDataArray(clfHistorySomatic)}
+                data={getDataArray(clfHistorySomatic)}
                 typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
               />
             </div>
