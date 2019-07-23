@@ -1,13 +1,13 @@
-import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import axios from "axios";
 
-const mock =
+export const mock =
   process.env.REACT_APP_AXIOS_MOCK_ENABLED === "true" &&
-  new MockAdapter(axios, { delayResponse: 2000 });
+  new MockAdapter(axios, { delayResponse: 500 });
 
 // /\/tests(\/)?/
 if (mock) {
-  mock.onGet(/http:\/\/localhost:60151\/load\?file=.+/).reply(200, {
+  mock.onGet(/http:\/\/localhost:60151\/load\?file=.+/).reply(204, {
     users: [{ id: 1, name: "John Smith" }]
   });
 }
