@@ -10,7 +10,8 @@ import {
   goToChrPositionIgv,
   loadHgvs,
   addResult,
-  editResult
+  editResult,
+  fetchCaseDataApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -36,6 +37,7 @@ import {
   handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
+import { setCaseData } from "Actions/caseActions";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -290,3 +292,15 @@ export function* resultConfigEditResultGenerator(data) {
     }
   }
 }
+
+export function* fetchCaseDataGenerator(id) {
+  try {
+    const result = yield call(fetchCaseDataApi, id);
+    yield put(setCaseData(result));
+  }
+  catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchCaseDataGenerator"]);
+      Sentry.captureException(e);
+    });
+  }}

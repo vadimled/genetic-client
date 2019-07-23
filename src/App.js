@@ -6,12 +6,13 @@ import MainPage from "Pages/mainPage";
 import Header from "Pages/mainPage/components/header";
 import ResultConfig from "Pages/mainPage/components/resultConfig";
 import VariantPage from "variantPage/";
+import { fetchCaseData } from "Store/actions/caseActions";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    const { fetchUserData } = props;
-    fetchUserData();
+    const { fetchCaseData } = props;
+    fetchCaseData();
   }
 
   render() {
@@ -32,7 +33,7 @@ class App extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchUserData: data => dispatch(fetchUserData(data))
+    fetchCaseData: data => dispatch(fetchCaseData(data))
   };
 }
 
