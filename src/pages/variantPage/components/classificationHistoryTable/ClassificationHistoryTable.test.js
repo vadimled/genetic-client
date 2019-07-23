@@ -5,7 +5,7 @@ import React from "react";
 import ClassificationHistoryTable from "variantComponents/classificationHistoryTable";
 import { SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 
-describe("ExternalResources ", () => {
+describe("ClassificationHistoryTable component", () => {
   const dataShort = [
     {
       analystName: "Taly Yafe",
