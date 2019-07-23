@@ -86,13 +86,13 @@ class VariantTable extends Component {
       },
       {
         title: "Germline Class ",
-        dataIndex: "variantClass",
+        dataIndex: "variantClassGermline",
         key: "11",
         width: 200
       },
       {
         title: "Somatic Class",
-        dataIndex: "variantClass",
+        dataIndex: "variantClassSomatic",
         key: "12",
         width: 200
       },
@@ -229,7 +229,10 @@ class VariantTable extends Component {
         column.className = "select";
       }
 
-      else if (column.dataIndex === "variantClass") {
+      else if (column.dataIndex === "variantClassGermline") {
+
+        console.log(column);
+
         column.render = (text, record, index) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
@@ -241,7 +244,7 @@ class VariantTable extends Component {
                     <div className="table-select-wrapper">
                       <SimpleSelect
                         testId={`variant-сlass-select-${index}`}
-                        value={record.variantClass}
+                        value={record.variantClassGermline}
                         options={
                           record.zygosity === "somatic"
                             ? SOMATIC_VARIANT_CLASS_OPTIONS
@@ -265,6 +268,48 @@ class VariantTable extends Component {
         };
         column.className = "select";
       }
+
+      else if (column.dataIndex === "variantClassSomatic") {
+
+        console.log(column);
+
+        column.render = (text, record, index) => {
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              {
+                record.zygosity &&
+                record.zygosity !== "insignificant" &&
+                record.zygosity !== "notReal" &&
+                record.zygosity !== "unknown" ? (
+                    <div className="table-select-wrapper">
+                      <SimpleSelect
+                        testId={`variant-сlass-select-${index}`}
+                        value={record.variantClassSomatic}
+                        options={
+                          record.zygosity === "somatic"
+                            ? SOMATIC_VARIANT_CLASS_OPTIONS
+                            : GERMLINE_VARIANT_CLASS_OPTIONS
+                        }
+                        onChange={e =>
+                          this.handleVariantClass({
+                            item: record,
+                            value: e.target.value,
+                            prevValue: record.variantClass
+                          })
+                        }
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )
+              }
+            </HighlightedCell>
+          );
+        };
+        column.className = "select";
+      }
+
+
 
       else if (col.dataIndex === "notes") {
         column.render = (text, record) => {
