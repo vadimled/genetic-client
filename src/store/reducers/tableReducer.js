@@ -163,6 +163,7 @@ const tableReducer = createReducer(initialState, {
   [actionsTypes.HANDLE_CONFIRMATION_STATUS]: (state, { payload }) => {
     const { id, status } = payload;
     let data = state?.data;
+
     data[id].status = status;
 
     return {

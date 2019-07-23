@@ -1,7 +1,11 @@
 import React from "react";
+import { createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from 'redux-saga';
+import { watchSaga } from "Store/saga";
+import reducers from "Store/reducers";
+import { renderWithRedux } from "Utils/test_helpers";
 import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import { renderWithRedux } from "Utils/test_helpers";
 import TableData from './TableData';
 import {
   CONFIRMATION_VALUES,
@@ -14,16 +18,31 @@ import {
   handleZygosity,
   handleVariantClass,
   handleConfirmationStatus,
-  handleUncheckConfirmationData
+  handleUncheckConfirmationData, fetchData
 } from "Actions/tableActions";
 import {
   getUncheckConfirmationData
 } from "Store/selectors";
 
+
+const initSteps = () => {
+  const sagaMiddleware = createSagaMiddleware();
+  const { getByTestId, store, getAllByTestId, asFragment } = renderWithRedux(
+    <TableData />,
+    createStore(reducers, applyMiddleware(sagaMiddleware))
+  );
+  sagaMiddleware.run(watchSaga);
+
+
+  store.dispatch(fetchData());
+
+  return {store, getByTestId, getAllByTestId, asFragment};
+};
+
 describe('TableData', () => {
 
   it('handle selection-checkbox', () => {
-    const { getAllByTestId, store } = renderWithRedux(<TableData />);
+    const { getAllByTestId, store } = initSteps();
     const chbxs = getAllByTestId('selection-checkbox');
     const firstChbx = chbxs[0];
     const rowId = firstChbx.dataset['testitemid'];
@@ -38,7 +57,7 @@ describe('TableData', () => {
   });
 
   it('handle confirmation status', () => {
-    const { store } = renderWithRedux(<TableData />);
+    const { store } = initSteps();
 
     // find first item with status in table data and select one
     const tableData1 = store.getState().table.data;
@@ -100,7 +119,7 @@ describe('TableData', () => {
   });
 
   it('zygosity and variant class change', () => {
-    const { getAllByTestId, store } = renderWithRedux(<TableData/>);
+    const { getAllByTestId, store } = initSteps();
     const select = getAllByTestId('zygosity-select');
     const firstSelect = select[0];
     const rowId = firstSelect.dataset['testitemid'];
@@ -116,8 +135,9 @@ describe('TableData', () => {
     expect(zygosityValue).toBeDefined();
 
     const row1 = store.getState().table.data[rowId];
+
     expect(row1.zygosity).toBeFalsy();
-    expect(row1.variantClass).toEqual('unclassified');
+    expect(row1.variantClassGermline).toEqual('unclassified');
 
     store.dispatch(handleZygosity({ item: { id: rowId }, value: zygosityValue }));
 

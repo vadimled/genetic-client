@@ -1,25 +1,44 @@
 import React from "react";
+import { createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from 'redux-saga';
+import { watchSaga } from "Store/saga";
+import reducers from "Store/reducers";
+import { renderWithRedux } from "Utils/test_helpers";
 import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import UncheckConfirmationPopup from './UncheckConfirmationPopup';
 import {
+  fetchData,
   handleUncheckConfirmationData
 } from "Actions/tableActions";
 import {
   getUncheckConfirmationData
 } from "Store/selectors";
 
-import { renderWithRedux } from "Utils/test_helpers";
+
+const initSteps = () => {
+  const sagaMiddleware = createSagaMiddleware();
+  const { getByTestId, store, getAllByTestId, asFragment } = renderWithRedux(
+    <UncheckConfirmationPopup />,
+    createStore(reducers, applyMiddleware(sagaMiddleware))
+  );
+  sagaMiddleware.run(watchSaga);
+
+
+  store.dispatch(fetchData());
+
+  return {store, getByTestId, getAllByTestId, asFragment};
+};
 
 describe('UncheckConfirmationPopup', () => {
 
   it('UncheckConfirmationPopup snapshot', () => {
-    const { asFragment } = renderWithRedux(<UncheckConfirmationPopup />);
+    const { asFragment } = initSteps();
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('handle no btn', () => {
-    const { getByTestId, store } = renderWithRedux(<UncheckConfirmationPopup />);
+    const { getByTestId, store } = initSteps();
 
     // UncheckConfirmationPopup is only visible when uncheckConfirmationData2 has defined
 
@@ -56,8 +75,9 @@ describe('UncheckConfirmationPopup', () => {
     expect(uncheckConfirmationData2).toEqual(null);
   });
 
+
   it('handle yes btn', () => {
-    const { getByTestId, store } = renderWithRedux(<UncheckConfirmationPopup />);
+    const { getByTestId, store } = initSteps();
 
     // UncheckConfirmationPopup is only visible when uncheckConfirmationData2 has defined
 
@@ -91,6 +111,7 @@ describe('UncheckConfirmationPopup', () => {
     fireEvent.click(yesBtn);
 
     const uncheckConfirmationData2 = getUncheckConfirmationData(store.getState());
+
     expect(uncheckConfirmationData2).toEqual(null);
 
     // status in row in tableData should be null
