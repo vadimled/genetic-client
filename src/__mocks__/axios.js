@@ -1,11 +1,10 @@
-import axs from "axios";
+import axios from "axios";
 
-const axios = {
+const mockAxios = {
   get: jest.fn().mockResolvedValue({ date: {} }),
-  create: () => axs,
-  defaults: {
-    adapter: {}
-  }
+  create: () => axios
 };
 
-export default axios;
+export default mockAxios;
+
+module.exports = mockAxios;
