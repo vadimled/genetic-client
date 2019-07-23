@@ -135,8 +135,8 @@ class ClassificationHistoryTable extends Component {
               <ToggledButton
                 id="classification-history-table"
                 onClick={this.setTableHeight}
-                labelState1={TEXTS.seeAll}
-                labelState2={TEXTS.seeLess}
+                labelStateClosed={TEXTS.seeAll}
+                labelStateOpened={TEXTS.seeLess}
               />
             )}
           </Fragment>

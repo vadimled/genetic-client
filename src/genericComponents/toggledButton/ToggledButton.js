@@ -3,7 +3,7 @@ import style from "./ToggledButton.module.scss";
 import PropTypes from "prop-types";
 import { Icon } from "antd";
 
-const ToggledButton = ({ id, labelState1, labelState2, onClick }) => {
+const ToggledButton = ({ id, labelStateClosed, labelStateOpened, onClick }) => {
   const [toggle, setToggle] = useState(false),
     iconNormal = <Icon type="caret-down" />,
     iconActive = <Icon type="caret-up" />,
@@ -14,11 +14,11 @@ const ToggledButton = ({ id, labelState1, labelState2, onClick }) => {
 
   return (
     <div
-      data-testid={`${id}-${labelState1}`}
+      data-testid={`${id}-${labelStateClosed}`}
       className={style["toggled-button-wrapper"]}
       onClick={setState}
     >
-      <div className="label">{!toggle ? labelState1 : labelState2}</div>
+      <div className="label">{!toggle ? labelStateClosed : labelStateOpened}</div>
       <div className="icon">{!toggle ? iconNormal : iconActive}</div>
     </div>
   );
@@ -26,8 +26,8 @@ const ToggledButton = ({ id, labelState1, labelState2, onClick }) => {
 
 ToggledButton.propTypes = {
   id: PropTypes.string.isRequired,
-  labelState1: PropTypes.string.isRequired,
-  labelState2: PropTypes.string.isRequired,
+  labelStateClosed: PropTypes.string.isRequired,
+  labelStateOpened: PropTypes.string.isRequired,
   onClick: PropTypes.func
 };
 
