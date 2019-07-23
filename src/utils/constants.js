@@ -32,7 +32,9 @@ export const TEXTS = {
   germline: "germline",
   somaticUp: "Somatic",
   germlineUp: "Germline",
-  externalResources: "External resources"
+  externalResources: "External resources",
+  seeAll: "See All",
+  seeLess: "See Less"
 };
 
 export const LIMITS = {
@@ -115,10 +117,10 @@ export const CONFIRMATION_VALUES = {
 };
 
 export const ALERT_STATUSES = {
-  'error': 'error',
-  'warning': 'warning',
-  'success': 'success',
-  'default': 'default',
+  error: "error",
+  warning: "warning",
+  success: "success",
+  default: "default"
 };
 
 export const TUMOR_TYPE = [
@@ -273,26 +275,50 @@ export const TUMOR_LOCATION = [
 ];
 
 export const CHROMOSOME_OPTIONS = [
-  ...([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22].map((i) => ({
-    value: i.toString(), label: i.toString()
-  }))),
+  ...[
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ].map(i => ({
+    value: i.toString(),
+    label: i.toString()
+  })),
   { value: "X", label: "X" },
-  { value: "Y", label: "Y" },
+  { value: "Y", label: "Y" }
 ];
 
 export const ALLELE_TYPES = {
-  'change': {value: 'change', label: 'Change'},
-  'insertion': {value: 'insertion', label: 'Insertion'},
-  'deletion': {value: 'deletion', label: 'Deletion'}
+  change: { value: "change", label: "Change" },
+  insertion: { value: "insertion", label: "Insertion" },
+  deletion: { value: "deletion", label: "Deletion" }
 };
 
 export const VALIDATION_FAILD_FIELDS = {
-  gene: 'gene',
-  chromosome: 'chromosome',
-  position: 'position',
-  alleleReference: 'alleleReference',
-  alleleAlternative: 'alleleAlternative',
-  loadHgvs: 'loadHgvs',
-  primer: 'primer',
-  fragmentSize: 'fragmentSize'
+  gene: "gene",
+  chromosome: "chromosome",
+  position: "position",
+  alleleReference: "alleleReference",
+  alleleAlternative: "alleleAlternative",
+  loadHgvs: "loadHgvs",
+  primer: "primer",
+  fragmentSize: "fragmentSize"
 };
