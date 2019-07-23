@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from 'react-router-dom'
 import { Table, Tooltip, Checkbox } from "antd";
 import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect";
@@ -7,8 +8,6 @@ import ConfirmationStatus from "GenericComponents/confirmationStatus";
 import Notes from "GenericComponents/notes";
 import {
   ZYGOSITY_OPTIONS,
-  GERMLINE_VARIANT_CLASS_OPTIONS,
-  SOMATIC_VARIANT_CLASS_OPTIONS
 } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
@@ -233,7 +232,7 @@ class VariantTable extends Component {
 
         console.log(column);
 
-        column.render = (text, record, index) => {
+        column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               {
@@ -242,22 +241,7 @@ class VariantTable extends Component {
                 record.zygosity !== "notReal" &&
                 record.zygosity !== "unknown" ? (
                     <div className="table-select-wrapper">
-                      <SimpleSelect
-                        testId={`variant-сlass-select-${index}`}
-                        value={record.variantClassGermline}
-                        options={
-                          record.zygosity === "somatic"
-                            ? SOMATIC_VARIANT_CLASS_OPTIONS
-                            : GERMLINE_VARIANT_CLASS_OPTIONS
-                        }
-                        onChange={e =>
-                          this.handleVariantClass({
-                            item: record,
-                            value: e.target.value,
-                            prevValue: record.variantClass
-                          })
-                        }
-                      />
+                      <Link to="/variant?type=germline">{text}</Link>
                     </div>
                   ) : (
                     ""
@@ -273,7 +257,7 @@ class VariantTable extends Component {
 
         console.log(column);
 
-        column.render = (text, record, index) => {
+        column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               {
@@ -282,22 +266,7 @@ class VariantTable extends Component {
                 record.zygosity !== "notReal" &&
                 record.zygosity !== "unknown" ? (
                     <div className="table-select-wrapper">
-                      <SimpleSelect
-                        testId={`variant-сlass-select-${index}`}
-                        value={record.variantClassSomatic}
-                        options={
-                          record.zygosity === "somatic"
-                            ? SOMATIC_VARIANT_CLASS_OPTIONS
-                            : GERMLINE_VARIANT_CLASS_OPTIONS
-                        }
-                        onChange={e =>
-                          this.handleVariantClass({
-                            item: record,
-                            value: e.target.value,
-                            prevValue: record.variantClass
-                          })
-                        }
-                      />
+                      <Link to="/variant?type=somatic">{text}</Link>
                     </div>
                   ) : (
                     ""
