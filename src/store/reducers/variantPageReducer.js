@@ -21,7 +21,7 @@ const initialState = {
   valueSomatic: "unclassified",
   valueGermline: "unclassified",
   externalResources: [],
-  clfHistorySomatic: {
+  somaticClassHistory: {
     "0gzhbamall3xfe2gzdmlnw9aj": {
       key: 0, date: "10/nov/2017", gsid: "GS00115NP050818_TS1_01", analystName: "Taly Yafe", class: "Tier1"},
     "1gzhbamall3xfe2gzdmlnw9aj": {
@@ -46,7 +46,7 @@ const initialState = {
       key: 10, date: "3/nov/2017", gsid: "GS00115NP050838_TS1_01", analystName: "Taly Yafe", class: "Tier3"},
   },
 
-  clfHistoryGermline: {
+  germlineClassHistory: {
     "0gzhbamall3xfe2gzdmlnw9aj": {
       date: "10/nov/2017", gsid: "GS00115NP050818_TS1_01", analystName: "Taly Yafe", class: "VUS"},
     "1gzhbamall3xfe2gzdmlnw9aj": {

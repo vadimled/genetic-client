@@ -38,7 +38,7 @@ class VariantPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { externalResources, variantData, clfHistorySomatic } = this.props;
+    const { externalResources, variantData, somaticClassHistory } = this.props;
     return (
       <div className={style["variant-page-wrapper"]}>
         <div
@@ -78,7 +78,7 @@ class VariantPage extends Component {
               ])}
             >
               <ClassificationHistoryTable
-                data={getDataArray(clfHistorySomatic)}
+                data={getDataArray(somaticClassHistory)}
                 typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
               />
             </div>
@@ -95,8 +95,8 @@ VariantPage.propTypes = {};
 const mapStateToProps = state => {
   return {
     variantData: getVariantData(state),
-    clfHistoryGermline: getHistoryGermline(state),
-    clfHistorySomatic: getHistorySomatic(state),
+    germlineClassHistory: getHistoryGermline(state),
+    somaticClassHistory: getHistorySomatic(state),
     externalResources: getExternalResources(state)
   };
 };
