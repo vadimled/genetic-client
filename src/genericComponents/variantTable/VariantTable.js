@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { Table, Tooltip, Checkbox } from "antd";
 import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect";
