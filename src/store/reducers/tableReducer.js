@@ -120,14 +120,14 @@ const tableReducer = createReducer(initialState, {
 
     let data = state?.data;
 
-    console.log(data[item.id])
+    console.log(data[item.id]);
 
-    const record = data[item.id]
+    const record = data[item.id];
 
     if(record?.zygosity === "homo" || record?.zygosity === "hetro"){
-      record.variantClassGermline = value
+      record.variantClassGermline = value;
     }else if(item?.zygosity === "somatic"){
-      record.variantClassSomatic = value
+      record.variantClassSomatic = value;
     }
 
     // data[item.id].variantClass = value;
