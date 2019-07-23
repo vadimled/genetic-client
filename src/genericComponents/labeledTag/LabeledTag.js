@@ -3,6 +3,7 @@ import style from "./LabeledTag.module.scss";
 import PropTypes from "prop-types";
 import Tag from "GenericComponents/tag";
 import cn from "classnames";
+import { VARIANT_CLASS } from "Utils/constants";
 
 function LabeledTag({ label, typeData }) {
   const type = typeData?.find(item => item.label === label);
@@ -13,7 +14,7 @@ function LabeledTag({ label, typeData }) {
           <Tag color={type.tagColor} />
           <div
             className={cn("label-text", {
-              unclassified: type.label === "Unclassified"
+              unclassified: type.label === VARIANT_CLASS.unclassified.label
             })}
           >
             {type.label}
