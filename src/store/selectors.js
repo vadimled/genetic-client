@@ -56,7 +56,8 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getTumorInfoType = state => state.test.tumorInfo?.type,
   getTumorInfoLocation = state => state.test.tumorInfo?.location,
   getTumorInfoPercent = state =>
-    parseInt(state.test.tumorInfo?.percent, 10);
+    parseInt(state.test.tumorInfo?.percent, 10),
+  getTestId = state => state.test.test_id;
 
 export const getSearchQuery = state => state?.filters?.searchText;
 

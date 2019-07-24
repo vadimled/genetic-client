@@ -16,7 +16,9 @@ if (mock) {
     "gsid":"GS00115NP050818_TS1_01",
     "panel_type":"SOLID",
     "mutation_types":[
-      "dna"
+      "dna",
+      "rna",
+      "agena"
     ]
   });
 }
