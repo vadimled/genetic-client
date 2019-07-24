@@ -36,6 +36,7 @@ import {
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
 import { setCaseData } from "Actions/testActions";
+import { setMutationType } from "Actions/variantsActions";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -288,7 +289,8 @@ export function* resultConfigEditResultGenerator(data) {
 export function* fetchCaseDataGenerator(id) {
   try {
     const result = yield call(fetchCaseDataApi, id);
-    yield put(setCaseData(result.data));
+    yield put(setCaseData(result?.data));
+    yield put(setMutationType(result?.data?.mutation_types[0]));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchCaseDataGenerator"]);

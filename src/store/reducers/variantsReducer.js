@@ -2,7 +2,7 @@ import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 
 const initialState = {
-  selectedMutation: "dna"
+  selectedMutation: ""
 };
 
 const variantsReducer = createReducer(initialState, {
