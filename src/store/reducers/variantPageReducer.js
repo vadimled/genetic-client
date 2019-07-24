@@ -17,7 +17,7 @@ const initialState = {
     AminoAcidChange: "I1564ISLKN",
     DamagingScore: "TTCATGAGAGAAGGTGAGTGG"
   },
-  type: "somatic",
+  zygosityType: "somatic",
   valueSomatic: "unclassified",
   valueGermline: "unclassified",
   externalResources: [],
@@ -86,7 +86,7 @@ const variantPageReducer = createReducer(initialState, {
   [actionsTypes.SET_VARIANT_ZYGOSITY_TYPE]: (state, { payload }) => {
     return {
       ...state,
-      type: payload
+      zygosityType: payload
     };
   },
 

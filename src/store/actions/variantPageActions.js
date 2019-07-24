@@ -7,7 +7,7 @@ export const setGeneValue = data => {
   };
 };
 
-export const setGeneType = data => {
+export const setZygosityType = data => {
   return {
     type: actionsTypes.SET_VARIANT_ZYGOSITY_TYPE,
     payload: data
