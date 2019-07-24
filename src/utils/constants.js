@@ -41,11 +41,11 @@ export const LIMITS = {
   maxNotesChar: 150
 };
 
-export const MUTATION = [
-  { value: "dna", label: "DNA" },
-  { value: "rna", label: "RNA" },
-  { value: "agena", label: "Agena" }
-];
+export const MUTATION = {
+  dna: "DNA" ,
+  rna: "RNA" ,
+  agena: "Agena"
+};
 
 export const ZYGOSITY_OPTIONS = [
   { value: "homo", label: "Homo" },
