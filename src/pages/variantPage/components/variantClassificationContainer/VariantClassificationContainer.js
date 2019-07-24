@@ -28,14 +28,16 @@ class VariantClassificationContainer extends React.Component {
     return (
       <div className={style["gene-type-wrapper"]}>
         <div className="gene-type-radio-group">
-          <ZygosityTypeButton
-            currentType={currentType}
-            type={TEXTS.germline}
-            currValue={germlineValue}
-            onChangeType={this.onChangeType}
-            title={TEXTS.germlineUp}
-            typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
-          />
+          <div className="first-button">
+            <ZygosityTypeButton
+              currentType={currentType}
+              type={TEXTS.germline}
+              currValue={germlineValue}
+              onChangeType={this.onChangeType}
+              title={TEXTS.germlineUp}
+              typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
+            />
+          </div>
           <ZygosityTypeButton
             currentType={currentType}
             type={TEXTS.somatic}
