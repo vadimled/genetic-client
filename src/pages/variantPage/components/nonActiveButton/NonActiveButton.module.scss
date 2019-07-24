@@ -6,6 +6,8 @@
   background: none;
   display: flex;
   flex-direction: column;
+  border: $brand_primary_color 1px solid;
+  border-radius: 5px;
 
   .select-non-active-title {
     margin: 4px 0;
@@ -22,7 +24,6 @@
     align-items: baseline;
     width: 100%;
     height: 100%;
-    //border: red 1px solid;
 
     span {
       font-size: 20px;

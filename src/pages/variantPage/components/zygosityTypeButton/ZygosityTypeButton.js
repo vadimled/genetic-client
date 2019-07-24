@@ -21,9 +21,13 @@ function ZygosityTypeButton({
         value={currValue}
         options={typeData}
         onChange={onChangeType}
+        showArrow
         suffixIcon={<EditIcon />}
       />
-      <div data-testid={`select-title-${title}`} className="select-title">{`${title}:`}</div>
+      <div
+        data-testid={`select-title-${title}`}
+        className="select-title"
+      >{`${title}:`}</div>
     </div>
   ) : (
     <NonActiveButton
