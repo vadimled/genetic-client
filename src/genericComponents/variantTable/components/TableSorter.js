@@ -41,20 +41,23 @@ class TableSorter extends Component {
 
     return (
       <div
-        className="flex items-center table-sorter-wrapper"
+        className="table-sorter-wrapper flex justify-center"
         onClick={() => this.handleSort()}
       >
-        <div className="table-sorter-title">{title}</div>
-        <div className="flex flex-column">
-          <DropdownArrow
-            className={cn("top-arrow", {
-              "arrow-active top-arrow": this.state.clicksCounter === 0
-            })}
-          />
-          <DropdownArrow
-            className={cn({ "arrow-active": this.state.clicksCounter === 2 })}
-          />
+        <div className="flex items-center justify-center">
+          <div className="table-sorter-title">{title}</div>
+          <div className="flex flex-column">
+            <DropdownArrow
+              className={cn("top-arrow", {
+                "arrow-active top-arrow": this.state.clicksCounter === 0
+              })}
+            />
+            <DropdownArrow
+              className={cn({ "arrow-active": this.state.clicksCounter === 2 })}
+            />
+          </div>
         </div>
+
       </div>
     );
   }

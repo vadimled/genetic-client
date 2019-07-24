@@ -74,9 +74,18 @@
       }
     }
   }
+  .sorter {
+    padding: 0;
+    .ant-table-header-column {
+      width: 100%;
+    }
+  }
   .table-sorter-wrapper {
-    background: lightblue;
+    &:hover {
+      background: #e7e7e7;
+    }
     cursor: pointer;
+    min-height: 53px;
     svg {
       cursor: pointer;
       opacity: 0.5;
