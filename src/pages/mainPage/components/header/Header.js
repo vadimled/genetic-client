@@ -26,7 +26,7 @@ class Header extends Component {
             LOGO
           </div>
           <div className="left-wrapper">
-            {this.props.getTestId}
+            {this.props.testId}
           </div>
         </div>
         <div className="flex justify-start flex-row">
@@ -63,7 +63,7 @@ class Header extends Component {
 const mapStateToProps = state => {
   return {
     showTumorInfo: getTumorInfoMode(state),
-    getTestId: getTestId(state),
+    testId: getTestId(state),
   };
 };
 
