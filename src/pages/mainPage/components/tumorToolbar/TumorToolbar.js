@@ -29,7 +29,7 @@ class TumorToolbar extends Component {
   };
   
   handelTumorPercentSelect = val => {
-    this.props.setTumorInfo({ percent: val });
+    this.props.setTumorInfo({ cancer_cell_percentage: val });
   };
 
   render() {
