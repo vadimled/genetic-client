@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { ReactComponent as DropdownArrow } from "Assets/dropdownArrow.svg";
 import { SORTING_ORDER } from "../../../utils/constants";
-import cn from "classnames"
+import cn from "classnames";
 
 class TableSorter extends Component {
   state = {
@@ -46,8 +46,14 @@ class TableSorter extends Component {
       >
         <div className="table-sorter-title">{title}</div>
         <div className="flex flex-column">
-          <DropdownArrow className={cn("top-arrow", {"arrow-active top-arrow": this.state.clicksCounter === 0 })} />
-          <DropdownArrow className={cn({"arrow-active": this.state.clicksCounter === 2})} />
+          <DropdownArrow
+            className={cn("top-arrow", {
+              "arrow-active top-arrow": this.state.clicksCounter === 0
+            })}
+          />
+          <DropdownArrow
+            className={cn({ "arrow-active": this.state.clicksCounter === 2 })}
+          />
         </div>
       </div>
     );
