@@ -6,6 +6,7 @@ import types from "Store/actionsTypes";
 
 import {
   fetchData,
+  fetchCaseDataGenerator,
   fetchBAMFileGenerator,
   goToChrPositionIgvGenerator,
   sendForConfirmationGenerator,
@@ -15,6 +16,7 @@ import {
 } from "./sagas";
 
 export function* watchSaga() {
+  yield takeLatest(types.FETCH_CASE_DATA, fetchCaseDataGenerator);
   yield takeLatest(types.FETCH_BAM_FILE, fetchBAMFileGenerator);
   yield takeLatest(types.GO_TO_CHR_POSITION_IGV, goToChrPositionIgvGenerator);
   yield takeLatest(types.SEND_FOR_CONFIRMATION, sendForConfirmationGenerator);

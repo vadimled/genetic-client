@@ -3,9 +3,17 @@ import * as Sentry from "@sentry/browser";
 import {
   ALERT_STATUSES,
   ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS
+  VALIDATION_FAILD_FIELDS,
+  PRIORITY
 } from 'Utils/constants';
-import { fetchBAMFile, goToChrPositionIgv, loadHgvs, addResult, editResult } from "Api/index";
+import {
+  fetchBAMFile,
+  goToChrPositionIgv,
+  loadHgvs,
+  addResult,
+  editResult,
+  fetchCaseDataApi
+} from "Api/index";
 import {
   handleIgvAlertShow,
   setFetchBAMFileStatus,
@@ -14,16 +22,16 @@ import {
 import {
   applyConfirmation,
   tableDataAddResult,
-  tableDataEditResult
+  tableDataEditResult,
+  setDataToStore
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
   setConfirmationData
 } from "Actions/confirmationActions";
-import { setAlert } from "Actions/alertActions";
-import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
-import { setDataToStore } from "../actions/tableActions";
-import { PRIORITY } from "../../utils/constants";
+import {
+  setAlert
+} from "Actions/alertActions";
 import {
   handleResultConfigCoding,
   handleResultConfigProtein,
@@ -31,8 +39,8 @@ import {
   handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
-
-
+import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
+import { setCaseData } from "Actions/testActions";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -292,29 +300,25 @@ export function* fetchData() {
   try {
     const result = generateDNAVariantTableMockData(200);
 
-    // let res = result.map(record => record.priority = PRIORITY[record.variantClass])
-
     for(let record in result){
-      // result[record].priority = PRIORITY[record.variantClass]
-      // console.log(record);
       result[record].priority = PRIORITY[result[record].variantClass];
     }
-    //
-    // const sortedData = [];
-    //
-    // for (let key in result) {
-    //   if (result.hasOwnProperty(key)) {
-    //     sortedData.push(result[key]);
-    //   }
-    // }
-    //
-    // sortedData.sort((a, b) => b.priority - a.priority).slice();
-    //
-    // console.log("--sortedData: ", sortedData);
 
     yield put(setDataToStore(result));
     // yield put(setLoading(false));
   } catch (error) {
     console.log("---error: ", error);
+  }
+}
+
+export function* fetchCaseDataGenerator(id) {
+  try {
+    const result = yield call(fetchCaseDataApi, id);
+    yield put(setCaseData(result.data));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchCaseDataGenerator"]);
+      Sentry.captureException(e);
+    });
   }
 }

@@ -1,0 +1,25 @@
+@import "Css/Colors.scss";
+
+.toggled-button-wrapper :global {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  flex-direction: row;
+  cursor: pointer;
+  margin: 15px 0;
+
+  .label {
+    font-weight: 600;
+    font-size: 16px;
+    color: $brand_primary_color;
+  }
+
+  .icon {
+    margin-left: 5px;
+
+    svg path {
+      fill: $brand_primary_color;
+    }
+  }
+}

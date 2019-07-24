@@ -7,7 +7,7 @@ import SimpleSelect from "GenericComponents/simpleSelect";
 import ConfirmationStatus from "GenericComponents/confirmationStatus";
 import Notes from "GenericComponents/notes";
 import {
-  ZYGOSITY_OPTIONS,
+  ZYGOSITY_OPTIONS
 } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
@@ -154,7 +154,6 @@ class VariantTable extends Component {
 
   columnsConverter = columns => {
     return columns.map((col, index) => {
-
       let column = {
         ...col,
         onHeaderCell: column => ({
@@ -274,8 +273,6 @@ class VariantTable extends Component {
         column.className = "select";
       }
 
-
-
       else if (col.dataIndex === "notes") {
         column.render = (text, record) => {
           return (
@@ -366,7 +363,6 @@ class VariantTable extends Component {
       }
 
       return column;
-
     });
   };
 

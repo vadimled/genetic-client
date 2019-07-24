@@ -983,7 +983,8 @@ th {
 }
 
 .sidebar-open {
-  .ant-table-wrapper {
+  .ant-table-wrapper,
+  .ant-table-wrapper.classification-history-table-wrapper {
     width: calc(100vw - #{$sideBarWidth}) !important;
   }
 }
@@ -1164,6 +1165,39 @@ th {
           font-size: 20px;
           line-height: 100%;
           color: $white !important;
+        }
+      }
+    }
+  }
+}
+
+.ant-table-wrapper {
+  &.classification-history-table-wrapper {
+    width: 100vw;
+    height: 164px;
+    overflow: hidden !important;
+
+    .ant-table-thead > tr > th {
+      padding: 10px 16px;
+    }
+
+    .ant-table-content {
+      .ant-table-fixed-left {
+        height: 100%;
+      }
+
+      .ant-table-body-inner {
+        height: 100% !important;
+      }
+
+      .ant-table-scroll {
+        height: 100% !important;
+        overflow-x: auto !important;
+
+        table {
+          transition: 0.4s ease;
+          transform: translate(0px, 0px);
+          width: max-content;
         }
       }
     }

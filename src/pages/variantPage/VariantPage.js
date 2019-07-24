@@ -4,14 +4,19 @@ import cn from "classnames";
 import SideBarLayout from "Pages/mainPage/components/sideBarLayout";
 import VariantPageHeader from "variantComponents/variantPageHeader";
 import ExternalResources from "variantComponents/externalResources";
+import ClassificationHistoryTable from "variantComponents/classificationHistoryTable";
 import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
-import { getExternalResources, getVariantData } from "Store/selectors";
+import {
+  getExternalResources,
+  getHistoryGermline,
+  getHistorySomatic,
+  getVariantData
+} from "Store/selectors";
 import { connect } from "react-redux";
 import { setExternalResources } from "Actions/variantPageActions";
-import { createResourcesLinks } from "Utils/helpers";
-
-// import PropTypes from 'prop-types';
+import { createResourcesLinks, getDataArray } from "Utils/helpers";
+import { SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 
 class VariantPage extends Component {
   constructor(props) {
@@ -33,7 +38,7 @@ class VariantPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { externalResources, variantData } = this.props;
+    const { externalResources, variantData, somaticClassHistory } = this.props;
     return (
       <div className={style["variant-page-wrapper"]}>
         <div
@@ -66,8 +71,18 @@ class VariantPage extends Component {
             />
           </div>
           <div className="main-data">
-            <div className="history">History</div>
-            <div className="evidence">Evidence</div>
+            <div
+              className={cn([
+                "history",
+                { "links-wrapper-open": sidebarToggle }
+              ])}
+            >
+              <ClassificationHistoryTable
+                data={getDataArray(somaticClassHistory)}
+                typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
+              />
+            </div>
+            <div className="evidence" />
           </div>
         </div>
       </div>
@@ -80,6 +95,8 @@ VariantPage.propTypes = {};
 const mapStateToProps = state => {
   return {
     variantData: getVariantData(state),
+    germlineClassHistory: getHistoryGermline(state),
+    somaticClassHistory: getHistorySomatic(state),
     externalResources: getExternalResources(state)
   };
 };

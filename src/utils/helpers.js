@@ -199,3 +199,13 @@ export const createResourcesLinks = variantData => {
 
   return externalResources;
 };
+
+export const getDataArray = data => {
+  let arrayData = [];
+  for (let key in data) {
+    if (data.hasOwnProperty(key)) {
+      arrayData.push(data[key]);
+    }
+  }
+  return arrayData;
+};

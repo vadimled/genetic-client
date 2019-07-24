@@ -5,7 +5,7 @@ import { renderWithRedux } from "Utils/test_helpers";
 import App from "../../../../App";
 import { BrowserRouter as Router } from "react-router-dom";
 import TumorToolbar from "Pages/mainPage/components/tumorToolbar/TumorToolbar";
-import { setTumorInfo } from "Actions/variantsActions";
+import { setTumorInfo } from "Actions/testActions";
 
 describe("Tumor Toolbar", () => {
   it("if Icon Info reacted to click", () => {
@@ -27,7 +27,7 @@ describe("Tumor Toolbar", () => {
     expect(locationSelect).toBeInTheDocument();
     store.dispatch(setTumorInfo({ type: "Test: type static text" }));
     expect(locationSelect).not.toBeInTheDocument();
-  
+
     const tumorTypeStaticText = getByTestId("tumor-type-static-text");
     expect(tumorTypeStaticText).toBeInTheDocument();
     expect(tumorTypeStaticText.innerHTML).toEqual("Test: type static text");
@@ -40,10 +40,12 @@ describe("Tumor Toolbar", () => {
     expect(locationSelect).toBeInTheDocument();
     store.dispatch(setTumorInfo({ location: "Test: location static text" }));
     expect(locationSelect).not.toBeInTheDocument();
-    
+
     const tumorLocationStaticText = getByTestId("tumor-location-static-text");
     expect(tumorLocationStaticText).toBeInTheDocument();
-    expect(tumorLocationStaticText.innerHTML).toEqual("Test: location static text");
+    expect(tumorLocationStaticText.innerHTML).toEqual(
+      "Test: location static text"
+    );
   });
 
   it("if TumorToolbar opened, check 'Percent' select ", () => {
@@ -51,9 +53,9 @@ describe("Tumor Toolbar", () => {
 
     const inputNumber = getByTestId("tumor-percent-inputNumber");
     expect(inputNumber).toBeInTheDocument();
-    store.dispatch(setTumorInfo({ percent: 25 }));
+    store.dispatch(setTumorInfo({ cancer_cell_percentage: 25 }));
     expect(inputNumber).not.toBeInTheDocument();
-    
+
     const inputNumberText = getByTestId("tumor-percent-static-text");
     expect(inputNumberText).toBeInTheDocument();
     expect(inputNumberText.innerHTML).toEqual("25%");

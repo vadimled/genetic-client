@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios from "axios";
+import "Utils/axios-mock";
 
 export function fetchBAMFile (BAMFileUrl) {
   return axios.get(`http://localhost:60151/load?file=${BAMFileUrl}`);
@@ -13,13 +14,12 @@ export function loadHgvs (data) {
   const mockResult = {
     ...data,
     coding: 'c.2637 A>G',
-    protein: 'p.Pro871Leu',
+    protein: 'p.Pro871Leu'
   };
   return mockResult;
 }
 
 export function addResult (data) {
-
   // -> API request
   const mockResult = {
     ...data,
@@ -43,4 +43,8 @@ export function editResult (data) {
     transcript: 'NM_939778.7',
   };
   return mockResult;
+}
+
+export function fetchCaseDataApi(id) {
+  return axios.get(`/tests/${id}`);
 }
