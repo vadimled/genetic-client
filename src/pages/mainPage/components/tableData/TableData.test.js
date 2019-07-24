@@ -23,12 +23,16 @@ import {
 import {
   getUncheckConfirmationData
 } from "Store/selectors";
+import { BrowserRouter as Router } from "react-router-dom";
+
 
 
 const initSteps = () => {
   const sagaMiddleware = createSagaMiddleware();
   const { getByTestId, store, getAllByTestId, asFragment } = renderWithRedux(
-    <TableData />,
+    <Router>
+      <TableData />
+    </Router>,
     createStore(reducers, applyMiddleware(sagaMiddleware))
   );
   sagaMiddleware.run(watchSaga);

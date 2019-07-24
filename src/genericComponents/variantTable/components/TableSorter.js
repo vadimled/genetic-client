@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { ReactComponent as DropdownArrow } from "Assets/dropdownArrow.svg";
 import { SORTING_ORDER } from "../../../utils/constants";
 import cn from "classnames";
+import PropTypes from "prop-types";
 
 class TableSorter extends Component {
   state = {
@@ -62,5 +63,11 @@ class TableSorter extends Component {
     );
   }
 }
+
+TableSorter.propTypes = {
+  setSort: PropTypes.func,
+  field: PropTypes.string,
+  title: PropTypes.string,
+};
 
 export default TableSorter;

@@ -25,9 +25,6 @@ const tableReducer = createReducer(initialState, {
 
     const {field, order} = payload;
 
-    console.log("field: ", field);
-    console.log("order: ", order);
-
     return {
       ...state,
       sortParam: field,
