@@ -5,7 +5,7 @@ import { ReactComponent as NotificationIcon } from "Assets/notifications.svg";
 import { ReactComponent as InfoIcon } from "Assets/info.svg";
 import User from "Pages/mainPage/components/header/components/user";
 import { getTumorInfoMode } from "Store/selectors";
-import { setTumorInfoMode } from "Actions/variantsActions";
+import { setTumorInfoMode } from "Actions/caseActions";
 import { connect } from "react-redux";
 // import PropTypes from "prop-types";
 
@@ -28,7 +28,7 @@ class Header extends Component {
           </div>
           <div className="left-wrapper">
             {/* TODO: Test ID place*/}
-            GS00115NP050818_TS1_01
+            GSKHUTYYTRDG0818_TS1_02
           </div>
         </div>
         <div className="flex justify-start flex-row">

@@ -12,7 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     const { fetchCaseData } = props;
-    fetchCaseData();
+    fetchCaseData("GS00115NP050818_TS1_01");
   }
 
   render() {
@@ -33,7 +33,7 @@ class App extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchCaseData: data => dispatch(fetchCaseData(data))
+    fetchCaseData: id => dispatch(fetchCaseData(id))
   };
 }
 

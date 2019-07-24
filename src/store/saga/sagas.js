@@ -296,7 +296,8 @@ export function* resultConfigEditResultGenerator(data) {
 export function* fetchCaseDataGenerator(id) {
   try {
     const result = yield call(fetchCaseDataApi, id);
-    yield put(setCaseData(result));
+    console.log(result);
+    yield put(setCaseData(result.data));
   }
   catch (e) {
     Sentry.withScope(scope => {

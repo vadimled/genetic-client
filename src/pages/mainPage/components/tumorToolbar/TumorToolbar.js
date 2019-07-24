@@ -10,7 +10,7 @@ import {
   getTumorInfoPercent,
   getTumorInfoType
 } from "Store/selectors";
-import { setTumorInfo, setTumorInfoMode } from "Actions/variantsActions";
+import { setTumorInfo, setTumorInfoMode } from "Actions/caseActions";
 import TumorInfoSelect from "Pages/mainPage/components/tumorToolbar/components/tumorInfoSelect";
 import TumorInfoPercent from "Pages/mainPage/components/tumorToolbar/components/tumorInfoPercent";
 import { TUMOR_LOCATION, TUMOR_TYPE } from "Utils/constants";

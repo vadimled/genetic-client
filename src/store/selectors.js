@@ -19,11 +19,6 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
   getConfirmationData = state => state?.confirmation?.data,
   getMutationType = state => state.variants.mutations,
-  getTumorInfoMode = state => state.variants.showTumorInfo,
-  getTumorInfoType = state => state.variants.tumorInfo?.type,
-  getTumorInfoLocation = state => state.variants.tumorInfo?.location,
-  getTumorInfoPercent = state =>
-    parseInt(state.variants.tumorInfo?.percent, 10),
   getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
   getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
   getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
@@ -55,7 +50,13 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getExternalResources = state => state.variantPage.externalResources,
   getVariantData = state => state.variantPage.variantData,
   getHistorySomatic = state => state.variantPage.somaticClassHistory,
-  getHistoryGermline = state => state.variantPage.germlineClassHistory;
+  getHistoryGermline = state => state.variantPage.germlineClassHistory,
+  
+  getTumorInfoMode = state => state.test.showTumorInfo,
+  getTumorInfoType = state => state.test.tumorInfo?.type,
+  getTumorInfoLocation = state => state.test.tumorInfo?.location,
+  getTumorInfoPercent = state =>
+    parseInt(state.test.tumorInfo?.percent, 10);
 
 export const getSearchQuery = state => state?.filters?.searchText;
 
