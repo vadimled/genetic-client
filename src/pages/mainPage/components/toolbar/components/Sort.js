@@ -1,13 +1,14 @@
 import React from 'react';
 // import { ReactComponent as SortIcon } from "Assets/sortArrows.svg";
-import { SORTING_CONFIGURATIONS } from "../../../../../utils/constants";
+import { SORTING_CONFIGURATIONS, SORTING_ORDER } from "../../../../../utils/constants";
 import SimpleSelect from "../../../../../genericComponents/simpleSelect/SimpleSelect";
 
 
 const Sort = ({setSort}) => {
 
-  const handleOnChange = e => {
-    setSort(e.target.value);
+  const handleOnChange = () => {
+    // setSort(e.target.value);
+    setSort({field: "coverage", order: SORTING_ORDER.default});
   };
 
   return(

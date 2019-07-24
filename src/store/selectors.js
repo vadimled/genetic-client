@@ -176,7 +176,7 @@ export const getFilteredData = createSelector(
   (data, appliedFilters, sortParam, order) => {
     if (isEmpty(appliedFilters)) {
 
-      const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
+      const sortedData = data.sort((a, b) => b.coverage - a.coverage).slice();
       return sortedData;
     }
 
@@ -192,7 +192,11 @@ export const getFilteredData = createSelector(
       return filteredData.sort((a, b) => a[sortParam] - b[sortParam]).slice();
     }
 
-    return filteredData.sort((a, b) => b[sortParam] - a[sortParam]).slice();
+    if(order === SORTING_ORDER.descending){
+      return filteredData.sort((a, b) => b[sortParam] - a[sortParam]).slice();
+    }
+
+    return filteredData.sort((a, b) => b.coverage - a.coverage).slice();
   }
 );
 

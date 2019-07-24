@@ -7,7 +7,8 @@ import EmptyState from "GenericComponents/emptyState";
 import {
   getFilteredData,
   checkIsAllRowSelected,
-  getSelectedRows
+  getSelectedRows,
+  getSortOrder
 } from "Store/selectors";
 import {
   handleSelectedRow,
@@ -44,7 +45,8 @@ class TableData extends Component {
       selectedRows,
       setNotes,
       updateActivityLog,
-      setSort
+      setSort,
+      sortOrder
     } = this.props;
 
     return (
@@ -63,6 +65,7 @@ class TableData extends Component {
             setNotes={setNotes}
             updateActivityLog={updateActivityLog}
             setSort={setSort}
+            sortOrder={sortOrder}
           />
         }
 
@@ -76,7 +79,8 @@ function mapStateToProps(state) {
   return {
     filteredData: getFilteredData(state),
     isAllRowSelected: checkIsAllRowSelected(state),
-    selectedRows: getSelectedRows(state)
+    selectedRows: getSelectedRows(state),
+    sortOrder: getSortOrder(state)
   };
 }
 

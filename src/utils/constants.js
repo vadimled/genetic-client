@@ -55,7 +55,8 @@ export const SORTING_CONFIGURATIONS = [
 
 export const SORTING_ORDER = {
   ascending: "ascending",
-  descending: "descending"
+  descending: "descending",
+  default: "default"
 };
 
 export const ZYGOSITY_OPTIONS = [

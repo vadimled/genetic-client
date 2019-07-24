@@ -8,8 +8,8 @@ const initialState = {
   data: {},
   uncheckConfirmationData: null,
   activityLog: {},
-  sortParam: "priority",
-  sortOrder: ""
+  sortParam: "coverage",
+  sortOrder: "default"
 };
 
 const tableReducer = createReducer(initialState, {
@@ -24,6 +24,9 @@ const tableReducer = createReducer(initialState, {
   [actionsTypes.SET_SORT]: (state, {payload}) => {
 
     const {field, order} = payload;
+
+    console.log("field: ", field)
+    console.log("order: ", order)
 
     return {
       ...state,

@@ -70,7 +70,7 @@ class VariantTable extends Component {
         width: 100
       },
       {
-        title: <TableSorter title="VAF" setSort={this.props.setSort} />,
+        title: <TableSorter title="VAF" setSort={this.props.setSort} field="vaf" />,
         dataIndex: "vaf",
         key: "9",
         width: 100,
@@ -230,8 +230,6 @@ class VariantTable extends Component {
 
       else if (column.dataIndex === "variantClassGermline") {
 
-        console.log(column);
-
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
@@ -254,9 +252,6 @@ class VariantTable extends Component {
       }
 
       else if (column.dataIndex === "variantClassSomatic") {
-
-        console.log(column);
-
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
