@@ -41,3 +41,7 @@ export function editResult(data) {
   };
   return mockResult;
 }
+
+export function fetchCaseDataApi(id) {
+  return axios.get(`/tests/${id}`);
+}

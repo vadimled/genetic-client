@@ -4,10 +4,9 @@ import HeaderIcon from "GenericComponents/headerIcon";
 import { ReactComponent as NotificationIcon } from "Assets/notifications.svg";
 import { ReactComponent as InfoIcon } from "Assets/info.svg";
 import User from "Pages/mainPage/components/header/components/user";
-import { getTumorInfoMode } from "Store/selectors";
-import { setTumorInfoMode } from "Actions/variantsActions";
+import { getTumorInfoMode, getTestId } from "Store/selectors";
+import { setTumorInfoMode } from "Actions/testActions";
 import { connect } from "react-redux";
-// import PropTypes from "prop-types";
 
 class Header extends Component {
   handelNotification = e => {
@@ -27,8 +26,7 @@ class Header extends Component {
             LOGO
           </div>
           <div className="left-wrapper">
-            {/* TODO: Test ID place*/}
-            GS00115NP050818_TS1_01
+            {this.props.testId}
           </div>
         </div>
         <div className="flex justify-start flex-row">
@@ -65,6 +63,7 @@ class Header extends Component {
 const mapStateToProps = state => {
   return {
     showTumorInfo: getTumorInfoMode(state),
+    testId: getTestId(state),
   };
 };
 
