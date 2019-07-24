@@ -30,6 +30,19 @@ class Toolbar extends Component {
     this.props.setMutationType(e.target.value);
   };
 
+  createMutationOptions = labels => {
+    return this.props.getMutationTypesValues.map(type => {
+      switch (type) {
+        case "dna":
+          return { value: type, label: labels.dna };
+        case "rna":
+          return { value: type, label: labels.rna };
+        case "agena":
+          return { value: type, label: labels.agena };
+      }
+    });
+  };
+
   render() {
     const {
       filtered,
@@ -58,11 +71,11 @@ class Toolbar extends Component {
             {!selectedRows?.length && (
               <div className="mutation-select-wrapper">
                 <SimpleSelect
-                  options={MUTATION}
+                  options={this.createMutationOptions(MUTATION)}
                   onChange={this.handleOnChange}
                   name="mutation"
                   value={selectedMutation}
-                  disabled
+                  // disabled
                 />
               </div>
             )}
