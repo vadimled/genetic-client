@@ -5,7 +5,7 @@ import { ReactComponent as NotificationIcon } from "Assets/notifications.svg";
 import { ReactComponent as InfoIcon } from "Assets/info.svg";
 import User from "Pages/mainPage/components/header/components/user";
 import { getTumorInfoMode, getTestId } from "Store/selectors";
-import { setTumorInfoMode } from "Actions/caseActions";
+import { setTumorInfoMode } from "Actions/testActions";
 import { connect } from "react-redux";
 
 class Header extends Component {

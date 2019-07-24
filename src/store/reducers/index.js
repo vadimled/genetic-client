@@ -7,10 +7,10 @@ import confirmationReducer from "./confirmationReducer";
 import alertReducer from "./alertReducer";
 import resultConfigReducer from "./resultConfigReducer";
 import variantPageReducer from "./variantPageReducer";
-import caseReducer from "./caseReducer";
+import testReducer from "./testReducer";
 
 export default combineReducers({
-  test: caseReducer,
+  test: testReducer,
   filters: filtersReducer,
   table: tableReducer,
   variants: variantsReducer,

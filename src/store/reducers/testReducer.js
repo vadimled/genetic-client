@@ -14,7 +14,7 @@ const initialState = {
   }
 };
 
-const caseReducer = createReducer(initialState, {
+const testReducer = createReducer(initialState, {
   [actionsTypes.SET_CASE_DATA]: (state, { payload }) => {
     return {
       ...state,
@@ -41,4 +41,4 @@ const caseReducer = createReducer(initialState, {
   }
 });
 
-export default caseReducer;
+export default testReducer;

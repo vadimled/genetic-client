@@ -6,7 +6,7 @@ import MainPage from "Pages/mainPage";
 import Header from "Pages/mainPage/components/header";
 import ResultConfig from "Pages/mainPage/components/resultConfig";
 import VariantPage from "variantPage/";
-import { fetchCaseData } from "Store/actions/caseActions";
+import { fetchCaseData } from "Actions/testActions";
 
 class App extends React.Component {
   constructor(props) {

@@ -37,7 +37,7 @@ import {
   handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
-import { setCaseData } from "Actions/caseActions";
+import { setCaseData } from "Actions/testActions";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
