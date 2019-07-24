@@ -7,10 +7,10 @@ const initialState = {
   test_id: null,
   showTumorInfo: false,
   mutation_types: [],
-  tumorInfo: {
+  tumor_info: {
     type: "",
     location: "",
-    percent: -1
+    cancer_cell_percentage: -1
   }
 };
 
@@ -30,11 +30,11 @@ const testReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_TUMOR_INFO]: (state, { payload }) => {
-    // const {type: [val](|| location || percent)} = payload;
+    // const {type: [val](|| location || cancer_cell_percentage)} = payload;
     return {
       ...state,
-      tumorInfo: {
-        ...state.tumorInfo,
+      tumor_info: {
+        ...state.tumor_info,
         ...payload
       }
     };

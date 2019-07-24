@@ -28,6 +28,6 @@ describe("TumorInfoPercent", () => {
     
     fireEvent.change(inputNumber, { target: { value: 4 } });
     fireEvent.click(saveIcon);
-    expect(store.getState().variants.tumorInfo.percent).toEqual(4);
+    expect(store.getState().variants.tumor_info.percent).toEqual(4);
   });
 });
