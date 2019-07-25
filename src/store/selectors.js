@@ -204,7 +204,7 @@ export const getFilteredData = createSelector(
       return filteredData.sort((a, b) => b[sortParam] - a[sortParam]).slice();
     }
 
-    return filteredData.sort((a, b) => b.priority - a.priority).slice();
+    return filteredData.sort((a, b) => a.priority - b.priority).slice();
   }
 );
 

@@ -3,8 +3,7 @@ import * as Sentry from "@sentry/browser";
 import {
   ALERT_STATUSES,
   ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS,
-  PRIORITY
+  VALIDATION_FAILD_FIELDS
 } from 'Utils/constants';
 import {
   fetchBAMFile,
@@ -302,7 +301,8 @@ export function* fetchData() {
     const result = generateDNAVariantTableMockData(200);
 
     for(let record in result){
-      result[record].priority = PRIORITY[result[record].variantClass];
+      // result[record].priority = PRIORITY[result[record].variantClass];
+      result[record].priority = 7;
     }
 
     yield put(setDataToStore(result));
