@@ -57,6 +57,7 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
 
   getSortParam = state => state?.table?.sortParam,
   getSortOrder = state => state?.table?.sortOrder,
+  getClicksCounter = state => state?.table?.clicksCounter,
 
   getTumorInfoMode = state => state.test.showTumorInfo,
   getTumorInfoType = state => state.test.tumor_info?.type,

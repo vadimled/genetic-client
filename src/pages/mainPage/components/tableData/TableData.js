@@ -8,7 +8,8 @@ import {
   getFilteredData,
   checkIsAllRowSelected,
   getSelectedRows,
-  getSortOrder
+  getSortOrder,
+  getSortParam
 } from "Store/selectors";
 import {
   handleSelectedRow,
@@ -46,7 +47,8 @@ class TableData extends Component {
       setNotes,
       updateActivityLog,
       setSort,
-      sortOrder
+      sortOrder,
+      sortParam
     } = this.props;
 
     return (
@@ -66,6 +68,7 @@ class TableData extends Component {
             updateActivityLog={updateActivityLog}
             setSort={setSort}
             sortOrder={sortOrder}
+            sortParam={sortParam}
           />
         }
 
@@ -80,7 +83,8 @@ function mapStateToProps(state) {
     filteredData: getFilteredData(state),
     isAllRowSelected: checkIsAllRowSelected(state),
     selectedRows: getSelectedRows(state),
-    sortOrder: getSortOrder(state)
+    sortOrder: getSortOrder(state),
+    sortParam: getSortParam(state),
   };
 }
 

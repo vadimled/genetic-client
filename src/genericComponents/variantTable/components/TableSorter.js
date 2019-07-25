@@ -3,22 +3,13 @@ import { ReactComponent as DropdownArrow } from "Assets/dropdownArrow.svg";
 import { SORTING_ORDER } from "../../../utils/constants";
 import cn from "classnames";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { getSortOrder, getSortParam, getClicksCounter } from "../../../store/selectors";
 
 class TableSorter extends Component {
-  state = {
-    clicksCounter: 1
-  };
 
   handleSort = () => {
-    const { setSort, field } = this.props;
-
-    const { clicksCounter } = this.state;
-
-    if (this.state.clicksCounter < 2) {
-      this.setState({ clicksCounter: clicksCounter + 1 });
-    } else if (clicksCounter >= 2) {
-      this.setState({ clicksCounter: 0 });
-    }
+    const { setSort, field, clicksCounter } = this.props;
 
     let order = "";
 
@@ -38,7 +29,10 @@ class TableSorter extends Component {
   };
 
   render() {
-    const { title } = this.props;
+    const { title, sortOrder, sortParam, clicksCounter } = this.props;
+
+    console.log(sortOrder);
+    console.log(sortParam);
 
     return (
       <div
@@ -50,11 +44,11 @@ class TableSorter extends Component {
           <div className="flex flex-column">
             <DropdownArrow
               className={cn("top-arrow", {
-                "arrow-active top-arrow": this.state.clicksCounter === 0
+                "arrow-active top-arrow": clicksCounter === 0
               })}
             />
             <DropdownArrow
-              className={cn({ "arrow-active": this.state.clicksCounter === 2 })}
+              className={cn({ "arrow-active": clicksCounter === 2 })}
             />
           </div>
         </div>
@@ -69,5 +63,36 @@ TableSorter.propTypes = {
   field: PropTypes.string,
   title: PropTypes.string,
 };
+//
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     handleSelectedRow: (data) => dispatch(handleSelectedRow(data)),
+//     handleSelectAllRows: (data) => dispatch(handleSelectAllRows(data)),
+//     handleZygosity: (data) => dispatch(handleZygosity(data)),
+//     handleVariantClass: (data) => dispatch(handleVariantClass(data)),
+//     handleConfirmationStatus: (data) => {
+//       if (data?.status) {
+//         dispatch(handleConfirmationStatus(data));
+//       }
+//       else if (data?.status === null) {
+//         dispatch(handleUncheckConfirmationData(data));
+//       }
+//     },
+//     updateActivityLog: data => dispatch(updateActivityLog(data)),
+//     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
+//     setNotes: data => dispatch(setNotes(data)),
+//     fetchTableData: data => dispatch(fetchData(data)),
+//     setSort: data => dispatch(setSort(data)),
+//   };
+// }
 
-export default TableSorter;
+function mapStateToProps(state) {
+  return {
+    sortOrder: getSortOrder(state),
+    sortParam: getSortParam(state),
+    clicksCounter: getClicksCounter(state),
+
+  };
+}
+
+export default connect(mapStateToProps, {})(TableSorter);

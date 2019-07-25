@@ -8,8 +8,9 @@ const initialState = {
   data: {},
   uncheckConfirmationData: null,
   activityLog: {},
-  sortParam: "coverage",
-  sortOrder: "default"
+  sortParam: "priority",
+  sortOrder: "default",
+  clicksCounter: 1
 };
 
 const tableReducer = createReducer(initialState, {
@@ -25,10 +26,20 @@ const tableReducer = createReducer(initialState, {
 
     const {field, order} = payload;
 
+    if(state.clicksCounter >= 2){
+      return {
+        ...state,
+        sortParam: field,
+        sortOrder: order,
+        clicksCounter: order === "default" ? 1 : 0
+      };
+    }
+
     return {
       ...state,
       sortParam: field,
-      sortOrder: order
+      sortOrder: order,
+      clicksCounter: order === "default" ? 1 : state.clicksCounter + 1
     };
   },
 
