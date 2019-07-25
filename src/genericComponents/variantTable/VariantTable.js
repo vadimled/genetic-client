@@ -231,10 +231,11 @@ class VariantTable extends Component {
       else if (column.dataIndex === "variantClassGermline") {
 
         column.render = (text, record) => {
+
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               {
-                record.zygosity &&
+
                 record.zygosity !== "insignificant" &&
                 record.zygosity !== "notReal" &&
                 record.zygosity !== "unknown" ? (
@@ -256,7 +257,6 @@ class VariantTable extends Component {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               {
-                record.zygosity &&
                 record.zygosity !== "insignificant" &&
                 record.zygosity !== "notReal" &&
                 record.zygosity !== "unknown" ? (
