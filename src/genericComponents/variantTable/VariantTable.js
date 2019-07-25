@@ -82,7 +82,7 @@ class VariantTable extends Component {
         title: "Zygosity",
         dataIndex: "zygosity",
         key: "10",
-        width: 150
+        width: 250
       },
       {
         title: "Germline Class ",
@@ -233,18 +233,9 @@ class VariantTable extends Component {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              {
-                record.zygosity &&
-                record.zygosity !== "insignificant" &&
-                record.zygosity !== "notReal" &&
-                record.zygosity !== "unknown" ? (
-                    <div className="table-select-wrapper">
-                      <Link to="/variant?type=germline">{text}</Link>
-                    </div>
-                  ) : (
-                    ""
-                  )
-              }
+              <div className="table-select-wrapper">
+                <Link to="/variant?type=germline">{text}</Link>
+              </div>
             </HighlightedCell>
           );
         };
@@ -255,18 +246,9 @@ class VariantTable extends Component {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              {
-                record.zygosity &&
-                record.zygosity !== "insignificant" &&
-                record.zygosity !== "notReal" &&
-                record.zygosity !== "unknown" ? (
-                    <div className="table-select-wrapper">
-                      <Link to="/variant?type=somatic">{text}</Link>
-                    </div>
-                  ) : (
-                    ""
-                  )
-              }
+              <div className="table-select-wrapper">
+                <Link to="/variant?type=somatic">{text}</Link>
+              </div>
             </HighlightedCell>
           );
         };
