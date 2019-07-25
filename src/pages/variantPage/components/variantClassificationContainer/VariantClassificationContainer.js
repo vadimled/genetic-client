@@ -25,8 +25,12 @@ class VariantClassificationContainer extends React.Component {
   };
 
   render() {
-    const { selectedZygosityType, somaticValue, germlineValue, currentZygosityType } = this.props;
-    console.log(selectedZygosityType);
+    const {
+      selectedZygosityType,
+      somaticValue,
+      germlineValue,
+      currentZygosityType
+    } = this.props;
     return (
       <div className={style["gene-type-wrapper"]}>
         <div className="current-zygosity-wrapper">
