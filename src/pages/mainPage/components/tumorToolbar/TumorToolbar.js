@@ -34,6 +34,10 @@ class TumorToolbar extends Component {
 
   render() {
     const { type, location, percent, sidebarToggle } = this.props;
+    console.log(percent);
+    console.log(type);
+    console.log(location);
+
     return (
       <div className={style["tumor-toolbar-wrapper"]}>
         <div className="tumor-info-wrapper">

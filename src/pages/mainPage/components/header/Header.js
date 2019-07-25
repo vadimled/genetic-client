@@ -18,6 +18,9 @@ class Header extends Component {
   };
 
   render() {
+
+    console.log(this.props.showTumorInfo);
+
     return (
       <div className={style["header-wrapper"]}>
         <div className="flex justify-start flex-row">

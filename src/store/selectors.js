@@ -15,16 +15,17 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
+
   getUncheckConfirmationData = state =>
            state?.table?.uncheckConfirmationData,
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
   getConfirmationData = state => state?.confirmation?.data,
   getMutationType = state => state.variants.mutations,
-  getTumorInfoMode = state => state.variants.showTumorInfo,
-  getTumorInfoType = state => state.variants.tumorInfo?.type,
-  getTumorInfoLocation = state => state.variants.tumorInfo?.location,
+  getTumorInfoMode = state => state.test.showTumorInfo,
+  getTumorInfoType = state => state.test.tumor_info?.type,
+  getTumorInfoLocation = state => state.test.tumor_info?.location,
   getTumorInfoPercent = state =>
-    parseInt(state.variants.tumorInfo?.percent, 10),
+    parseInt(state.test.tumor_info?.percent, 10),
   getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
   getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
   getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
