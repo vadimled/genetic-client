@@ -57,6 +57,22 @@ export const ZYGOSITY_OPTIONS = [
   { value: "notReal", label: "Not-Real" },
   { value: "unknown", label: "Unknown" }
 ];
+/* Germline - for Homo, Hetro and Hemi.
+  Somatic - for Somatic.
+  Insignificant - for Insignificant.
+  Unkown - for Unkown.
+  Not-Real - for Not-Real.
+*/
+
+export const ZYGOSITY_TYPES = [
+  { value: "homo", label: "Germline" },
+  { value: "hetro", label: "Germline" },
+  { value: "hemi", label: "Germline" },
+  { value: "insignificant", label: "Insignificant" },
+  { value: "somatic", label: "Somatic" },
+  { value: "notReal", label: "Not-Real" },
+  { value: "unknown", label: "Unknown" }
+];
 
 export const VARIANT_CLASS = {
   unclassified: {

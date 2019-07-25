@@ -38,7 +38,8 @@ import {
 } from "Actions/resultConfigActions";
 import { setCaseData } from "Actions/testActions";
 import { setMutationType } from "Actions/variantsActions";
-import { setVariantData } from "Actions/variantPageActions";
+import { setVariantData, setZygosityType } from "Actions/variantPageActions";
+import { zygosityType } from "Utils/helpers";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -303,8 +304,13 @@ export function* fetchCaseDataGenerator(id) {
 
 export function* fetchVariantDataGenerator() {
   try {
-    const result = yield call(fetchVariantDataApi);
-    yield put(setVariantData(result?.data));
+    const
+      result = yield call(fetchVariantDataApi),
+      newData = zygosityType(result?.data),
+      { currentZygosity } = newData;
+
+    yield put(setVariantData(newData));
+    yield put(setZygosityType(currentZygosity.toLowerCase()));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchVariantDataGenerator"]);

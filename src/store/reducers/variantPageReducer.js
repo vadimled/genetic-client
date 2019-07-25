@@ -17,10 +17,10 @@ const initialState = {
     AminoAcidChange: "I1564ISLKN",
     DamagingScore: "TTCATGAGAGAAGGTGAGTGG"
   },
-  zygosityType: "somatic",
   valueSomatic: "unclassified",
   valueGermline: "unclassified",
   externalResources: [],
+  selectedZygosityType: null,
   somaticClassHistory: {
     "0gzhbamall3xfe2gzdmlnw9aj": {
       key: 0,
@@ -100,7 +100,6 @@ const initialState = {
       class: "Tier3"
     }
   },
-
   germlineClassHistory: {
     "0gzhbamall3xfe2gzdmlnw9aj": {
       date: "10/nov/2017",
@@ -184,7 +183,7 @@ const variantPageReducer = createReducer(initialState, {
   [actionsTypes.SET_VARIANT_ZYGOSITY_TYPE]: (state, { payload }) => {
     return {
       ...state,
-      zygosityType: payload
+      selectedZygosityType: payload
     };
   },
 

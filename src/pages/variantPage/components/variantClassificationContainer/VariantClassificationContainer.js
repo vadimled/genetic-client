@@ -11,7 +11,8 @@ import { setZygosityType, setGeneValue } from "Actions/variantPageActions";
 import {
   getZygosityType,
   getGermlineValue,
-  getSomaticValue
+  getSomaticValue,
+  getCurrentZygosityType
 } from "Store/selectors";
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 
@@ -24,17 +25,18 @@ class VariantClassificationContainer extends React.Component {
   };
 
   render() {
-    const { currentType, somaticValue, germlineValue } = this.props;
+    const { selectedZygosityType, somaticValue, germlineValue, currentZygosityType } = this.props;
+    console.log(selectedZygosityType);
     return (
       <div className={style["gene-type-wrapper"]}>
         <div className="current-zygosity-wrapper">
           <div className="title">{TEXTS.currentZygosity}</div>
-          <div className="context">{currentType}</div>
+          <div className="context">{currentZygosityType}</div>
         </div>
         <div className="gene-type-radio-group">
           <div className="first-button">
             <ZygosityTypeButton
-              currentType={currentType}
+              selectedZygosityType={selectedZygosityType}
               type={TEXTS.germline}
               currValue={germlineValue}
               onChangeType={this.onChangeType}
@@ -43,7 +45,7 @@ class VariantClassificationContainer extends React.Component {
             />
           </div>
           <ZygosityTypeButton
-            currentType={currentType}
+            selectedZygosityType={selectedZygosityType}
             type={TEXTS.somatic}
             currValue={somaticValue}
             onChangeType={this.onChangeType}
@@ -57,14 +59,16 @@ class VariantClassificationContainer extends React.Component {
 }
 
 VariantClassificationContainer.propTypes = {
-  currentType: PropTypes.string,
+  currentZygosityType: PropTypes.string,
+  selectedZygosityType: PropTypes.string,
   germlineClass: PropTypes.string,
   somaticClass: PropTypes.string
 };
 
 const mapStateToProps = state => {
   return {
-    currentType: getZygosityType(state),
+    selectedZygosityType: getZygosityType(state),
+    currentZygosityType: getCurrentZygosityType(state),
     somaticValue: getSomaticValue(state),
     germlineValue: getGermlineValue(state)
   };
