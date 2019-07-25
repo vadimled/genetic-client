@@ -120,8 +120,6 @@ const tableReducer = createReducer(initialState, {
 
     let data = state?.data;
 
-    console.log(data[item.id]);
-
     const record = data[item.id];
 
     if(record?.zygosity === "homo" || record?.zygosity === "hetro"){

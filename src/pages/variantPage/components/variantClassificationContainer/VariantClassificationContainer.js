@@ -25,6 +25,8 @@ class VariantClassificationContainer extends React.Component {
 
   render() {
     const { currentType, somaticValue, germlineValue } = this.props;
+    console.log(currentType);
+
     return (
       <div className={style["gene-type-wrapper"]}>
         <div className="gene-type-radio-group">
