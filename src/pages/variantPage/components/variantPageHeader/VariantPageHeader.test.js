@@ -72,7 +72,7 @@ describe("VariantPageHeader ", () => {
   });
 
   it("should - default type of variant must be 'somatic' ", () => {
-    expect(store.getState().variantPage.type).toEqual("somatic");
+    expect(store.getState().variantPage.type).toEqual("risk");
   });
 
   it("should - default Button is Somatic and exists ", () => {
