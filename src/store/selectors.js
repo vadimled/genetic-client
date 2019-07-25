@@ -21,11 +21,7 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
   getConfirmationData = state => state?.confirmation?.data,
   getMutationType = state => state.variants.mutations,
-  getTumorInfoMode = state => state.test.showTumorInfo,
-  getTumorInfoType = state => state.test.tumor_info?.type,
-  getTumorInfoLocation = state => state.test.tumor_info?.location,
-  getTumorInfoPercent = state =>
-    parseInt(state.test.tumor_info?.percent, 10),
+
   getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
   getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
   getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
@@ -59,12 +55,17 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getHistorySomatic = state => state.variantPage.somaticClassHistory,
   getHistoryGermline = state => state.variantPage.germlineClassHistory,
 
+  getSortParam = state => state?.table?.sortParam,
+  getSortOrder = state => state?.table?.sortOrder,
+
+  getTumorInfoMode = state => state.test.showTumorInfo,
+  getTumorInfoType = state => state.test.tumor_info?.type,
+  getTumorInfoLocation = state => state.test.tumor_info?.location,
+  getTumorInfoPercent = state =>
+    parseInt(state.test.tumor_info?.cancer_cell_percentage, 10),
   getTestId = state => state.test.test_id,
   getSelectedMutationType = state => state.variants.selectedMutation,
-  getMutationTypesValues = state => state.test.mutation_types,
-
-  getSortParam = state => state?.table?.sortParam,
-  getSortOrder = state => state?.table?.sortOrder;
+  getMutationTypesValues = state => state.test.mutation_types;
 
 
 export const getSearchQuery = state => state?.filters?.searchText;
