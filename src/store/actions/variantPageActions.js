@@ -20,3 +20,17 @@ export const setExternalResources = data => {
     payload: data
   };
 };
+
+export const setVariantData = data => {
+  return {
+    type: actionsTypes.SET_VARIANT_DATA,
+    payload: data
+  };
+};
+
+export const fetchVariantData = () => {
+  return {
+    type: actionsTypes.FETCH_VARIANT_DATA,
+    // payload: data
+  };
+};
