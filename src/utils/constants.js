@@ -34,7 +34,8 @@ export const TEXTS = {
   germlineUp: "Germline",
   externalResources: "External resources",
   seeAll: "See All",
-  seeLess: "See Less"
+  seeLess: "See Less",
+  currentZygosity: "Current zygosity:"
 };
 
 export const LIMITS = {
@@ -42,8 +43,8 @@ export const LIMITS = {
 };
 
 export const MUTATION = {
-  dna: "DNA" ,
-  rna: "RNA" ,
+  dna: "DNA",
+  rna: "RNA",
   agena: "Agena"
 };
 

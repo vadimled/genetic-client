@@ -9,7 +9,7 @@ import style from "./VariantClassificationContainer.module.scss";
 import { connect } from "react-redux";
 import { setZygosityType, setGeneValue } from "Actions/variantPageActions";
 import {
-  getGeneType,
+  getZygosityType,
   getGermlineValue,
   getSomaticValue
 } from "Store/selectors";
@@ -27,6 +27,10 @@ class VariantClassificationContainer extends React.Component {
     const { currentType, somaticValue, germlineValue } = this.props;
     return (
       <div className={style["gene-type-wrapper"]}>
+        <div className="current-zygosity-wrapper">
+          <div className="title">{TEXTS.currentZygosity}</div>
+          <div className="context">{currentType}</div>
+        </div>
         <div className="gene-type-radio-group">
           <div className="first-button">
             <ZygosityTypeButton
@@ -60,7 +64,7 @@ VariantClassificationContainer.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    currentType: getGeneType(state),
+    currentType: getZygosityType(state),
     somaticValue: getSomaticValue(state),
     germlineValue: getGermlineValue(state)
   };
