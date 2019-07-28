@@ -48,3 +48,7 @@ export function editResult (data) {
 export function fetchCaseDataApi(id) {
   return axios.get(`/tests/${id}`);
 }
+
+export function fetchVariantDataApi() {
+  return axios.get(`/variant/`);
+}

@@ -2,11 +2,11 @@ import React from "react";
 import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from 'redux-saga';
 import { watchSaga } from "Store/saga";
+import reducers from "Store/reducers";
 import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { renderWithRedux } from "Utils/test_helpers";
 import SendForConfirmationPopup from "./SendForConfirmationPopup";
-import reducers from "Store/reducers";
 import { ALERT_STATUSES } from 'Utils/constants';
 import {
   handleSelectedRow,

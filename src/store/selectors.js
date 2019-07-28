@@ -48,6 +48,10 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getAlertTitle = state => state?.alert?.title,
   getAlertMessage = state => state?.alert?.message,
   getGeneType = state => state.variantPage.type,
+
+  getZygosityType = state => state.variantPage.selectedZygosityType,
+  getCurrentZygosityType = state => state.variantPage.currentZygosity,
+
   getSomaticValue = state => state.variantPage.valueSomatic,
   getGermlineValue = state => state.variantPage.valueGermline,
   getExternalResources = state => state.variantPage.externalResources,
@@ -68,7 +72,6 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getSelectedMutationType = state => state.variants.selectedMutation,
   getMutationTypesValues = state => state.test.mutation_types;
 
-
 export const getSearchQuery = state => state?.filters?.searchText;
 
 export const getTableDataAsArray = createSelector(
@@ -80,7 +83,6 @@ export const getTableDataAsArray = createSelector(
         arrayData.push(data[key]);
       }
     }
-
     return arrayData;
   }
 );
@@ -287,4 +289,4 @@ export const getActivityLog = (state, recordId) => {
   return activityLogArray;
 };
 
-export const getTestType = state => state?.variantPage?.type;
+export const getTestType = state => state?.test?.panel_type;

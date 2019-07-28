@@ -29,10 +29,7 @@ class TableSorter extends Component {
   };
 
   render() {
-    const { title, sortOrder, sortParam, clicksCounter } = this.props;
-
-    console.log(sortOrder);
-    console.log(sortParam);
+    const { title, clicksCounter } = this.props;
 
     return (
       <div

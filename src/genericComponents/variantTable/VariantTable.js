@@ -16,6 +16,12 @@ import ResizeableTitle from "./components/resizeableTitle";
 import TableSorter from "./components/TableSorter";
 
 import HighlightedCell from "./components/highlightedCell";
+import LabeledTag from "../labeledTag";
+import {
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS, VARIANT_CLASS_GERMLINE,
+  VARIANT_CLASS_SOMATIC
+} from "../../utils/constants";
 
 class VariantTable extends Component {
   state = {
@@ -82,7 +88,7 @@ class VariantTable extends Component {
         title: "Zygosity",
         dataIndex: "zygosity",
         key: "10",
-        width: 150
+        width: 250
       },
       {
         title: "Germline Class ",
@@ -231,21 +237,13 @@ class VariantTable extends Component {
       else if (column.dataIndex === "variantClassGermline") {
 
         column.render = (text, record) => {
-
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              {
-
-                record.zygosity !== "insignificant" &&
-                record.zygosity !== "notReal" &&
-                record.zygosity !== "unknown" ? (
-                    <div className="table-select-wrapper">
-                      <Link to="/variant?type=germline">{text}</Link>
-                    </div>
-                  ) : (
-                    ""
-                  )
-              }
+              <div className="table-select-wrapper">
+                <Link to="/variant?type=germline">
+                  <LabeledTag typeData={GERMLINE_VARIANT_CLASS_OPTIONS} label={VARIANT_CLASS_GERMLINE[text]?.label} />
+                </Link>
+              </div>
             </HighlightedCell>
           );
         };
@@ -256,17 +254,11 @@ class VariantTable extends Component {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              {
-                record.zygosity !== "insignificant" &&
-                record.zygosity !== "notReal" &&
-                record.zygosity !== "unknown" ? (
-                    <div className="table-select-wrapper">
-                      <Link to="/variant?type=somatic">{text}</Link>
-                    </div>
-                  ) : (
-                    ""
-                  )
-              }
+              <div className="table-select-wrapper">
+                <Link to="/variant?type=somatic">
+                  <LabeledTag typeData={SOMATIC_VARIANT_CLASS_OPTIONS} label={VARIANT_CLASS_SOMATIC[text]?.label} />
+                </Link>
+              </div>
             </HighlightedCell>
           );
         };

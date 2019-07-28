@@ -11,7 +11,8 @@ import {
   loadHgvs,
   addResult,
   editResult,
-  fetchCaseDataApi
+  fetchCaseDataApi,
+  fetchVariantDataApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -28,9 +29,7 @@ import {
   handleOnConfirmation,
   setConfirmationData
 } from "Actions/confirmationActions";
-import {
-  setAlert
-} from "Actions/alertActions";
+import { setAlert } from "Actions/alertActions";
 import {
   handleResultConfigCoding,
   handleResultConfigProtein,
@@ -41,6 +40,8 @@ import {
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { setCaseData } from "Actions/testActions";
 import { setMutationType } from "Actions/variantsActions";
+import { setVariantData, setZygosityType } from "Actions/variantPageActions";
+import { zygosityType } from "Utils/helpers";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -121,7 +122,7 @@ function* resultConfigValidation(data, isOnAddResult) {
       alleleType,
       alleleReference,
       alleleAlternative,
-      isHgvsLoaded,
+      isHgvsLoaded
     } = data;
 
     if (!gene) {
@@ -130,7 +131,7 @@ function* resultConfigValidation(data, isOnAddResult) {
     if (!chromosome) {
       validationFaildFields.push(VALIDATION_FAILD_FIELDS.chromosome);
     }
-    if (position === null || position === undefined || position === '') {
+    if (position === null || position === undefined || position === "") {
       validationFaildFields.push(VALIDATION_FAILD_FIELDS.position);
     }
     if (alleleType === ALLELE_TYPES.change.value) {
@@ -140,13 +141,11 @@ function* resultConfigValidation(data, isOnAddResult) {
       if (!alleleAlternative) {
         validationFaildFields.push(VALIDATION_FAILD_FIELDS.alleleAlternative);
       }
-    }
-    else if (alleleType === ALLELE_TYPES.insertion.value) {
+    } else if (alleleType === ALLELE_TYPES.insertion.value) {
       if (!alleleAlternative) {
         validationFaildFields.push(VALIDATION_FAILD_FIELDS.alleleAlternative);
       }
-    }
-    else if (alleleType === ALLELE_TYPES.deletion.value) {
+    } else if (alleleType === ALLELE_TYPES.deletion.value) {
       if (!alleleReference) {
         validationFaildFields.push(VALIDATION_FAILD_FIELDS.alleleReference);
       }
@@ -162,10 +161,9 @@ function* resultConfigValidation(data, isOnAddResult) {
       // set validation faild fields
       yield put(handleResultConfigValidationFaildFields(validationFaildFields));
 
-      throw new Error('Validation error');
+      throw new Error("Validation error");
     }
-  }
-  catch(e) {
+  } catch (e) {
     consoleErrors(e);
     throw new Error(e);
   }
@@ -244,8 +242,7 @@ export function* resultConfigLoadHgvsGenerator(data) {
     yield put(handleResultConfigCoding(result.coding));
     yield put(handleResultConfigProtein(result.protein));
     yield put(handleResultConfigIsHgvsLoaded(true));
-  }
-  catch (e) {
+  } catch (e) {
     if (e.message !== "Error: Validation error") {
       yield consoleErrors(e);
     }
@@ -266,8 +263,7 @@ export function* resultConfigAddResultGenerator(data) {
         title: "New result added."
       })
     );
-  }
-  catch (e) {
+  } catch (e) {
     if (e.message !== "Error: Validation error") {
       yield consoleErrors(e);
     }
@@ -288,8 +284,7 @@ export function* resultConfigEditResultGenerator(data) {
         title: "Result updated."
       })
     );
-  }
-  catch (e) {
+  } catch (e) {
     if (e.message !== "Error: Validation error") {
       yield consoleErrors(e);
     }
@@ -331,6 +326,23 @@ export function* fetchCaseDataGenerator(id) {
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchCaseDataGenerator"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* fetchVariantDataGenerator() {
+  try {
+    const
+      result = yield call(fetchVariantDataApi),
+      newData = zygosityType(result?.data),
+      { currentZygosity } = newData;
+
+    yield put(setVariantData(newData));
+    yield put(setZygosityType(currentZygosity.toLowerCase()));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchVariantDataGenerator"]);
       Sentry.captureException(e);
     });
   }

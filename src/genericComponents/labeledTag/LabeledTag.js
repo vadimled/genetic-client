@@ -21,7 +21,11 @@ function LabeledTag({ label, typeData }) {
           </div>
         </Fragment>
       ) : (
-        { label }
+        <div
+          className="label-text"
+        >
+          { label }
+        </div>
       )}
     </div>
   );

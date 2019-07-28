@@ -2,8 +2,10 @@ import {
   VARIANT_CLASS_SOMATIC,
   TAG_COLORS,
   VARIANT_CLASS_GERMLINE,
-  ZYGOSITY_OPTIONS
+  ZYGOSITY_OPTIONS,
+  ZYGOSITY_TYPES
 } from "./constants";
+import has from "lodash.has";
 
 export const getPrevTagColor = title => {
   let prevTagColor = "";
@@ -208,4 +210,22 @@ export const getDataArray = data => {
     }
   }
   return arrayData;
+};
+
+export const zygosityType = data => {
+  /* Germline - for Homo, Hetro and Hemi.
+    Somatic - for Somatic.
+    Insignificant - for Insignificant.
+    Unkown - for Unkown.
+    Not-Real - for Not-Real.
+  */
+  if (has(data, "currentZygosity")) {
+    for (let key in ZYGOSITY_TYPES) {
+      const { label, value } = ZYGOSITY_TYPES[key];
+      if (value.toLowerCase() === data.currentZygosity.toLowerCase()) {
+        return {...data, ...{ currentZygosity: label} };
+      }
+    }
+  }
+  return "";
 };

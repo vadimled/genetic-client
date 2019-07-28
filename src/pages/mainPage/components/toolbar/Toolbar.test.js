@@ -25,7 +25,7 @@ import {
   getResultConfigIsOpen,
   // getResultConfigIsOnEdit
 } from "Store/selectors";
-// import SendForConfirmationPopup from "../sendForConfirmationPopup/SendForConfirmationPopup";
+import { BrowserRouter as Router } from "react-router-dom";
 
 // import { handleOnConfirmation, setConfirmationData } from "../../../../store/actions/confirmationActions";
 
@@ -33,7 +33,9 @@ import {
 const initSteps = () => {
   const sagaMiddleware = createSagaMiddleware();
   const { getByTestId, store, getAllByTestId } = renderWithRedux(
-    <MainPage />,
+    <Router>
+      <MainPage />
+    </Router>,
     createStore(reducers, applyMiddleware(sagaMiddleware))
   );
   sagaMiddleware.run(watchSaga);

@@ -6,14 +6,14 @@ import style from "./ZygosityTypeButton.module.scss";
 import PropTypes from "prop-types";
 
 function ZygosityTypeButton({
-  currentType,
+  selectedZygosityType,
   title,
   type,
   onChangeType,
   typeData,
   currValue
 }) {
-  return currentType === type ? (
+  return selectedZygosityType === type ? (
     <div className={style["gene-type-button-wrapper"]}>
       <SimpleSelect
         testId={`gene-type-select-${type}`}
@@ -21,9 +21,13 @@ function ZygosityTypeButton({
         value={currValue}
         options={typeData}
         onChange={onChangeType}
+        showArrow
         suffixIcon={<EditIcon />}
       />
-      <div data-testid={`select-title-${title}`} className="select-title">{`${title}:`}</div>
+      <div
+        data-testid={`select-title-${title}`}
+        className="select-title"
+      >{`${title}:`}</div>
     </div>
   ) : (
     <NonActiveButton
@@ -37,7 +41,7 @@ function ZygosityTypeButton({
 }
 
 ZygosityTypeButton.propTypes = {
-  currentType: PropTypes.string,
+  selectedZygosityType: PropTypes.string,
   typeData: PropTypes.array,
   title: PropTypes.string,
   type: PropTypes.string,
