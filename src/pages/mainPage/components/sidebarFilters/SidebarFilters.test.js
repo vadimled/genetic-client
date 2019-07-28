@@ -1,9 +1,37 @@
 import React from "react";
-import { fireEvent } from "@testing-library/react";
+import { createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from 'redux-saga';
+import { watchSaga } from "Store/saga";
+import reducers from "Store/reducers";
+import { fireEvent, waitForElement } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import SidebarFilters from "Pages/mainPage/components/sidebarFilters/SidebarFilters";
 import { renderWithRedux } from "Utils/test_helpers";
 import { setFilterVaf } from "Store/actions/filtersActions";
+import MainPage from "../../MainPage";
+import { fetchCaseData } from "../../../../store/actions/testActions";
+import { fetchData } from "../../../../store/actions/tableActions";
+import { BrowserRouter as Router } from "react-router-dom";
+import { setDefaultFilters } from "../../../../store/actions/filtersActions";
+
+const initSteps = () => {
+  const sagaMiddleware = createSagaMiddleware();
+  const { getByTestId, store, getAllByTestId } = renderWithRedux(
+    <Router>
+      <MainPage />
+    </Router>,
+    createStore(reducers, applyMiddleware(sagaMiddleware))
+  );
+  sagaMiddleware.run(watchSaga);
+
+  store.dispatch(fetchData());
+
+  store.dispatch(setDefaultFilters());
+
+  store.dispatch(fetchCaseData("GS00115NP050818_TS1_01"));
+
+  return {store, getByTestId, getAllByTestId};
+};
 
 describe("SideBarFilters component test", () => {
   test("create snapshot", () => {
@@ -11,30 +39,25 @@ describe("SideBarFilters component test", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("if filter 'variantClass' clicked; if indicator 'variantClass' delete clicked", () => {
-    const { getByTestId } = renderWithRedux(<SidebarFilters />);
-    
-    fireEvent.click(getByTestId("filter-checkbox-variantClassGermline-PATH"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClassGermline-LPATH"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClassGermline-VUS"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClassGermline-LBEN"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClassGermline-BEN"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClassGermline-Unclassified"));
+  test("if filter 'variantClass' clicked; if indicator 'variantClass' delete clicked", async () => {
+    const { getByTestId } = initSteps();
+
+    fireEvent.click(await waitForElement(() => getByTestId("filter-checkbox-variantClassGermline-PATH")));
+    fireEvent.click(await waitForElement(() => getByTestId("filter-checkbox-variantClassGermline-LPATH")));
+    fireEvent.click(await waitForElement(() => getByTestId("filter-checkbox-variantClassGermline-VUS")));
+    fireEvent.click(await waitForElement(() => getByTestId("filter-checkbox-variantClassGermline-LBEN")));
+    fireEvent.click(await waitForElement(() => getByTestId("filter-checkbox-variantClassGermline-BEN")));
+    fireEvent.click(await waitForElement(() => getByTestId("filter-checkbox-variantClassGermline-Unclassified")));
 
 
-    fireEvent.click(getByTestId("filter-checkbox-variantClassGermline-PATH"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClassGermline-LPATH"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClassGermline-VUS"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClassGermline-LBEN"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClassGermline-Unclassified"));
 
-    const
-      indicator1 = getByTestId("filter-variantClassGermline-PATH"),
-      indicator2 = getByTestId("filter-variantClassGermline-LPATH"),
-      indicator3 = getByTestId("filter-variantClassGermline-VUS"),
-      indicator4 = getByTestId("filter-variantClassGermline-LBEN"),
-      indicator5 = getByTestId("filter-variantClassGermline-BEN"),
-      indicator6 = getByTestId("filter-variantClassGermline-Unclassified");
+    const indicator1 = await waitForElement(() => getByTestId("filter-variantClassGermline-PATH"))
+    const indicator2 = await waitForElement(() => getByTestId("filter-variantClassGermline-LPATH"))
+    const indicator3 = await waitForElement(() => getByTestId("filter-variantClassGermline-VUS"))
+    const indicator4 = await waitForElement(() => getByTestId("filter-variantClassGermline-LBEN"))
+    const indicator5 = await waitForElement(() => getByTestId("filter-variantClassGermline-BEN"))
+    const indicator6 = await waitForElement(() => getByTestId("filter-variantClassGermline-Unclassified"))
+
 
 
     expect(indicator1).toBeInTheDocument();
@@ -43,7 +66,6 @@ describe("SideBarFilters component test", () => {
     expect(indicator4).toBeInTheDocument();
     expect(indicator5).toBeInTheDocument();
     expect(indicator6).toBeInTheDocument();
-
 
     fireEvent.click(getByTestId("button-variantClassGermline"));
     expect(indicator1).not.toBeInTheDocument();
@@ -54,8 +76,8 @@ describe("SideBarFilters component test", () => {
     expect(indicator6).not.toBeInTheDocument();
   });
 
-  it("if filter 'somaticClass' clicked; if indicator 'somaticClass' delete clicked", () => {
-    const { getByTestId } = renderWithRedux(<SidebarFilters />);
+  it("if filter 'somaticClass' clicked; if indicator 'somaticClass' delete clicked", async () => {
+    const { getByTestId } = initSteps();
     
     fireEvent.click(getByTestId("filter-checkbox-variantClassSomatic-Tier1"));
     fireEvent.click(getByTestId("filter-checkbox-variantClassSomatic-Tier2"));
@@ -63,18 +85,12 @@ describe("SideBarFilters component test", () => {
     fireEvent.click(getByTestId("filter-checkbox-variantClassSomatic-Tier4"));
     fireEvent.click(getByTestId("filter-checkbox-variantClassSomatic-Unclassified"));
 
-    fireEvent.click(getByTestId("filter-checkbox-variantClassSomatic-Tier1"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClassSomatic-Tier2"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClassSomatic-Tier3"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClassSomatic-Unclassified"));
+    const indicator1 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier1"))
+    const indicator2 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier2"))
+    const indicator3 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier3"))
+    const indicator4 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier4"))
+    const indicator6 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Unclassified"))
 
-    const
-      indicator1 = getByTestId("filter-variantClassSomatic-Tier1"),
-      indicator2 = getByTestId("filter-variantClassSomatic-Tier2"),
-      indicator3 = getByTestId("filter-variantClassSomatic-Tier3"),
-      indicator4 = getByTestId("filter-variantClassSomatic-Tier4"),
-      indicator6 = getByTestId("filter-variantClassSomatic-Unclassified");
-    
     expect(indicator1).toBeInTheDocument();
     expect(indicator2).toBeInTheDocument();
     expect(indicator3).toBeInTheDocument();
