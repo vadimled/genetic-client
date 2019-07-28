@@ -1130,7 +1130,6 @@ th {
     height: 54px;
   }
   .ant-select-selection.ant-select-selection--single {
-    background-color: $brand_primary_color !important;
     height: 100% !important;
     border-radius: 5px !important;
 
@@ -1156,6 +1155,7 @@ th {
         overflow: hidden;
         white-space: unset;
         text-overflow: unset;
+        padding-right: 0;
 
         span {
           font-size: 20px;

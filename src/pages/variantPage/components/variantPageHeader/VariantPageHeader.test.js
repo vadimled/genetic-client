@@ -71,14 +71,6 @@ describe("VariantPageHeader ", () => {
     expect(transcriptElement.textContent).toEqual(variantData.transcript);
   });
 
-  it("should - default type of variant must be 'somatic' ", () => {
-    expect(store.getState().variantPage.type).toEqual("somatic");
-  });
-
-  it("should - default Button is Somatic and exists ", () => {
-    expect(getByTestId("select-title-Somatic")).toBeInTheDocument();
-  });
-
   it("should - non active Button is Germline and exists ", () => {
     const nonActiveButton = getByTestId("non-active-button-germline");
     expect(nonActiveButton).toBeInTheDocument();
@@ -92,7 +84,7 @@ describe("VariantPageHeader ", () => {
 
     expect(getByTestId("non-active-button-somatic")).toBeInTheDocument();
     expect(nonActiveButton).not.toBeInTheDocument();
-    expect(store.getState().variantPage.type).toEqual("germline");
+    expect(store.getState().variantPage.selectedZygosityType).toEqual("germline");
   });
 
   // error - The given element does not have a value setter

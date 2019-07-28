@@ -3,10 +3,8 @@ import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
 
 export const getFilterType = state => state?.filters?.[FILTERS.type],
-  getFilterVariantClass = state =>
-           state?.filters?.[FILTERS.variantClass],
-  getFilterSomaticClass = state =>
-           state?.filters?.[FILTERS.somaticClass],
+  getFilterVariantClass = state => state?.filters?.[FILTERS.variantClass],
+  getFilterSomaticClass = state => state?.filters?.[FILTERS.somaticClass],
   getFilterHotSpot = state => state?.filters?.[FILTERS.hotSpot],
   getFilterSnp = state => state?.filters?.[FILTERS.snp],
   getFilterRoi = state => state?.filters?.[FILTERS.roi],
@@ -14,8 +12,7 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
-  getUncheckConfirmationData = state =>
-           state?.table?.uncheckConfirmationData,
+  getUncheckConfirmationData = state => state?.table?.uncheckConfirmationData,
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
   getConfirmationData = state => state?.confirmation?.data,
   getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
@@ -23,7 +20,6 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
   getIgvLastQuery = state => state?.igv?.igvLastQuery,
   getBAMFileUrl = state => state?.igv?.BAMFileUrl,
-
   getResultConfigIsOpen = state => state?.resultConfig?.isOpen,
   getResultConfigIsHgvsLoaded = state => state?.resultConfig?.isHgvsLoaded,
   getResultConfigIsOnEdit = state => state?.resultConfig?.isOnEdit,
@@ -31,26 +27,28 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getResultConfigChromosome = state => state?.resultConfig?.chromosome,
   getResultConfigPosition = state => state?.resultConfig?.position,
   getResultConfigAlleleType = state => state?.resultConfig?.alleleType,
-  getResultConfigAlleleReference = state => state?.resultConfig?.alleleReference,
-  getResultConfigAlleleAlternative = state => state?.resultConfig?.alleleAlternative,
+  getResultConfigAlleleReference = state =>
+    state?.resultConfig?.alleleReference,
+  getResultConfigAlleleAlternative = state =>
+    state?.resultConfig?.alleleAlternative,
   getResultConfigVaf = state => state?.resultConfig?.vaf,
   getResultConfigCoverage = state => state?.resultConfig?.coverage,
   getResultConfigCoding = state => state?.resultConfig?.coding,
   getResultConfigProtein = state => state?.resultConfig?.protein,
-  getResultConfigValidationFaildFields = state => state?.resultConfig?.validationFaildFields,
+  getResultConfigValidationFaildFields = state =>
+    state?.resultConfig?.validationFaildFields,
   getResultConfigid = state => state?.resultConfig?.id,
-
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,
   getAlertMessage = state => state?.alert?.message,
-  getGeneType = state => state.variantPage.type,
+  getZygosityType = state => state.variantPage.selectedZygosityType,
+  getCurrentZygosityType = state => state.variantPage.currentZygosity,
   getSomaticValue = state => state.variantPage.valueSomatic,
   getGermlineValue = state => state.variantPage.valueGermline,
   getExternalResources = state => state.variantPage.externalResources,
   getVariantData = state => state.variantPage.variantData,
   getHistorySomatic = state => state.variantPage.somaticClassHistory,
   getHistoryGermline = state => state.variantPage.germlineClassHistory,
-  
   getTumorInfoMode = state => state.test.showTumorInfo,
   getTumorInfoType = state => state.test.tumor_info?.type,
   getTumorInfoLocation = state => state.test.tumor_info?.location,
@@ -72,9 +70,7 @@ export const getTableDataAsArray = createSelector(
       }
     }
 
-
     // const defaultFiltration = arrayData.filter(record => record.variantClass !== "tier4")
-
 
     return arrayData;
   }
@@ -175,7 +171,6 @@ export const getFilteredData = createSelector(
   getSearchResult,
   getAppliedFilters,
   (data, appliedFilters) => {
-
     if (isEmpty(appliedFilters)) {
       return data;
     }
@@ -233,14 +228,14 @@ export const getTotalEntriesAmount = createSelector(
 
 export const getSelectedRows = createSelector(
   getFilteredData,
-  (data) => {
+  data => {
     return data.filter(row => row.selected);
   }
 );
 
 export const getSelectedIsAddedRows = createSelector(
   getSelectedRows,
-  (data) => {
+  data => {
     return data.filter(row => row.isAdded);
   }
 );
@@ -249,8 +244,11 @@ export const checkIsAllRowSelected = createSelector(
   getTableDataAsArray,
   getSelectedRows,
   (allData, selectedData) => {
-    const notConfirmedData = allData?.filter((item) => !item.status);
-    return !!selectedData?.length && notConfirmedData?.length === selectedData?.length;
+    const notConfirmedData = allData?.filter(item => !item.status);
+    return (
+      !!selectedData?.length &&
+      notConfirmedData?.length === selectedData?.length
+    );
   }
 );
 
@@ -264,7 +262,7 @@ export const getActivityLog = (state, recordId) => {
     activityLogArray = activityLogArray.concat(activityLog[record]);
   }
 
-  activityLogArray.sort((a,b) => {
+  activityLogArray.sort((a, b) => {
     return new Date(b.time) - new Date(a.time);
   });
 
