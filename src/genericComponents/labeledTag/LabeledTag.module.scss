@@ -9,6 +9,7 @@
   padding: 0 12px;
 
   .label-text {
+    font-size: inherit;
     &.unclassified {
       color: $neutral_30;
     }
