@@ -3,7 +3,7 @@ import style from "./LabeledTag.module.scss";
 import PropTypes from "prop-types";
 import Tag from "GenericComponents/tag";
 import cn from "classnames";
-import { VARIANT_CLASS } from "Utils/constants";
+import { TEXTS } from "Utils/constants";
 
 function LabeledTag({ label, typeData, tagColor, customClassName }) {
   let type;
@@ -12,7 +12,7 @@ function LabeledTag({ label, typeData, tagColor, customClassName }) {
     return (
       <div
         className={cn("label-text", {
-          unclassified: text === VARIANT_CLASS.unclassified.label,
+          "unclassified": text === TEXTS.unclassified,
           [customClassName]: !!customClassName
         })}
       >

@@ -26,7 +26,12 @@
     height: 100%;
     padding-left: 44px;
 
-    .label-custom-style,
+    .label-custom-style {
+      font-weight: normal;
+      font-size: 22px;
+      line-height: 100%;
+      color: $neutral_30;
+    }
     span {
       font-weight: 600;
       font-size: 22px;
