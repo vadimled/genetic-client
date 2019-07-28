@@ -51,12 +51,12 @@ describe("SideBarFilters component test", () => {
 
 
 
-    const indicator1 = await waitForElement(() => getByTestId("filter-variantClassGermline-PATH"))
-    const indicator2 = await waitForElement(() => getByTestId("filter-variantClassGermline-LPATH"))
-    const indicator3 = await waitForElement(() => getByTestId("filter-variantClassGermline-VUS"))
-    const indicator4 = await waitForElement(() => getByTestId("filter-variantClassGermline-LBEN"))
-    const indicator5 = await waitForElement(() => getByTestId("filter-variantClassGermline-BEN"))
-    const indicator6 = await waitForElement(() => getByTestId("filter-variantClassGermline-Unclassified"))
+    const indicator1 = await waitForElement(() => getByTestId("filter-variantClassGermline-PATH"));
+    const indicator2 = await waitForElement(() => getByTestId("filter-variantClassGermline-LPATH"));
+    const indicator3 = await waitForElement(() => getByTestId("filter-variantClassGermline-VUS"));
+    const indicator4 = await waitForElement(() => getByTestId("filter-variantClassGermline-LBEN"));
+    const indicator5 = await waitForElement(() => getByTestId("filter-variantClassGermline-BEN"));
+    const indicator6 = await waitForElement(() => getByTestId("filter-variantClassGermline-Unclassified"));
 
 
 
@@ -85,11 +85,11 @@ describe("SideBarFilters component test", () => {
     fireEvent.click(getByTestId("filter-checkbox-variantClassSomatic-Tier4"));
     fireEvent.click(getByTestId("filter-checkbox-variantClassSomatic-Unclassified"));
 
-    const indicator1 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier1"))
-    const indicator2 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier2"))
-    const indicator3 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier3"))
-    const indicator4 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier4"))
-    const indicator6 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Unclassified"))
+    const indicator1 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier1"));
+    const indicator2 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier2"));
+    const indicator3 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier3"));
+    const indicator4 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier4"));
+    const indicator6 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Unclassified"));
 
     expect(indicator1).toBeInTheDocument();
     expect(indicator2).toBeInTheDocument();
