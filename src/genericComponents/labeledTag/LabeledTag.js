@@ -8,52 +8,41 @@ import { VARIANT_CLASS } from "Utils/constants";
 function LabeledTag({ label, typeData, tagColor, customClassName }) {
   let type;
 
+  const getTextOnly = text => {
+    return (
+      <div
+        className={cn("label-text", {
+          unclassified: text === VARIANT_CLASS.unclassified.label,
+          [customClassName]: !!customClassName
+        })}
+      >
+        {text}
+      </div>
+    );
+  };
+
+  const getNode = (color, text) => {
+    return (
+      <Fragment>
+        <Tag color={color} />
+        {getTextOnly(text)}
+      </Fragment>
+    );
+  };
+
   const renderLabeledTag = () => {
     if (typeData) {
       type = typeData?.find(item => item.label === label);
 
       if (type) {
-        return (
-          <Fragment>
-            <Tag color={type.tagColor} />
-            <div
-              className={cn("label-text", {
-                "unclassified": type.label === VARIANT_CLASS.unclassified.label,
-                [customClassName]: !!customClassName
-              })}
-            >
-              {type.label}
-            </div>
-          </Fragment>
-        );
+        return getNode(type.tagColor, type.label);
       } else {
         return <div className="label-text">{label}</div>;
       }
     } else if (tagColor) {
-      return (
-        <Fragment>
-          <Tag color={tagColor} />
-          <div
-            className={cn("label-text", {
-              "unclassified": label === VARIANT_CLASS.unclassified.label,
-              [customClassName]: !!customClassName
-            })}
-          >
-            {label}
-          </div>
-        </Fragment>
-      );
+      return getNode(tagColor, label);
     } else {
-      return (
-        <div
-          className={cn("label-text", {
-            "unclassified": label === VARIANT_CLASS.unclassified.label,
-            [customClassName]: !!customClassName
-          })}
-        >
-          {label}
-        </div>
-      );
+      return getTextOnly(label);
     }
   };
 
