@@ -55,7 +55,7 @@ class SidebarFilters extends Component {
       props.setDefaultFilters(props.testType);
       return {
         testType: props.testType
-      }
+      };
     }
     // Return null if the state hasn't changed
     return null;
