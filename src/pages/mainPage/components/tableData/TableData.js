@@ -7,7 +7,9 @@ import EmptyState from "GenericComponents/emptyState";
 import {
   getFilteredData,
   checkIsAllRowSelected,
-  getSelectedRows
+  getSelectedRows,
+  getSortOrder,
+  getSortParam
 } from "Store/selectors";
 import {
   handleSelectedRow,
@@ -18,12 +20,19 @@ import {
   handleUncheckConfirmationData,
   setNotes,
   updateActivityLog,
+  fetchData, setSort
 } from "Actions/tableActions";
 import {
   goToChrPositionIgv
 } from "Actions/igvActions";
 
 class TableData extends Component {
+
+  componentDidMount() {
+    const {fetchTableData} = this.props;
+    fetchTableData();
+  }
+
   render() {
     const {
       filteredData,
@@ -37,6 +46,9 @@ class TableData extends Component {
       selectedRows,
       setNotes,
       updateActivityLog,
+      setSort,
+      sortOrder,
+      sortParam
     } = this.props;
 
     return (
@@ -54,8 +66,12 @@ class TableData extends Component {
             selectedRows={selectedRows}
             setNotes={setNotes}
             updateActivityLog={updateActivityLog}
+            setSort={setSort}
+            sortOrder={sortOrder}
+            sortParam={sortParam}
           />
         }
+
         {!filteredData?.length && <EmptyState/>}
       </TableLayout>
     );
@@ -66,7 +82,9 @@ function mapStateToProps(state) {
   return {
     filteredData: getFilteredData(state),
     isAllRowSelected: checkIsAllRowSelected(state),
-    selectedRows: getSelectedRows(state)
+    selectedRows: getSelectedRows(state),
+    sortOrder: getSortOrder(state),
+    sortParam: getSortParam(state),
   };
 }
 
@@ -86,7 +104,9 @@ function mapDispatchToProps(dispatch) {
     },
     updateActivityLog: data => dispatch(updateActivityLog(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
-    setNotes: data => dispatch(setNotes(data))
+    setNotes: data => dispatch(setNotes(data)),
+    fetchTableData: data => dispatch(fetchData(data)),
+    setSort: data => dispatch(setSort(data)),
   };
 }
 

@@ -1,4 +1,6 @@
 @import "Css/Colors.scss";
+$bg-img-sort-arrows: url("../assets/sort-arrows.png");
+$bg-img-arrow-down: url("../assets/arrowDown.svg");
 
 .toolbar-wrapper :global {
   display: flex;
@@ -144,12 +146,114 @@
       background-color: $brand_primary_color;
     }
   }
-
   .toolbar-divider-line {
     height: 18px;
     width: 1px;
     background: $border_color;
     margin-left: 21px;
     margin-right: 21px;
+  }
+  .sort-wrapper {
+    .ant-select {
+      min-width: 78px;
+      max-height: 28px;
+      margin-right: 12px;
+      .anticon.anticon-down.ant-select-arrow-icon {
+        width: 20px;
+        height: 20px;
+        background-image: url("../../../../assets/sort-arrows.png");
+        svg {
+          display: none !important;
+        }
+      }
+      .ant-select-selection {
+        border: none;
+        transition: none;
+      }
+      .ant-select-selection--single {
+        height: 28px;
+        .ant-select-selection__rendered {
+          line-height: unset !important;
+          padding-top: 2px;
+          .ant-select-selection-selected-value {
+            padding-right: 0 !important;
+            color: #424d55;
+          }
+          .ant-select-selection__placeholder {
+            top: 13px;
+            right: 2px;
+            left: unset;
+            color: #424d55;
+          }
+        }
+        .ant-select-arrow {
+          top: 14px;
+          right: 48px;
+        }
+      }
+      .ant-select-selection-selected-value {
+        float: right;
+      }
+    }
+
+    border-radius: 4px;
+    & :hover {
+      background: $neutral_10;
+      border-radius: 4px;
+    }
+  }
+  .filter-wrapper {
+    .ant-select {
+      min-width: 78px;
+      max-height: 28px;
+      margin-right: 12px;
+      .ant-select-arrow {
+        width: 12px;
+        height: 12px;
+      }
+      .anticon.anticon-down.ant-select-arrow-icon {
+        width: 10px;
+        height: 10px;
+        background-image: url("../../../../assets/arrowDown.svg");
+        background-repeat: no-repeat;
+        svg {
+          display: none !important;
+        }
+      }
+      .ant-select-selection {
+        border: none;
+        transition: none;
+      }
+      .ant-select-selection--single {
+        height: 28px;
+        .ant-select-selection__rendered {
+          line-height: unset !important;
+          padding-top: 2px;
+          .ant-select-selection-selected-value {
+            padding-right: 0 !important;
+            color: #424d55;
+          }
+          .ant-select-selection__placeholder {
+            top: 13px;
+            right: 4px;
+            left: unset;
+            color: #424d55;
+          }
+        }
+        .ant-select-arrow {
+          top: 16px;
+          right: 57px;
+        }
+      }
+      .ant-select-selection-selected-value {
+        float: right;
+      }
+    }
+
+    border-radius: 4px;
+    & :hover {
+      background: $neutral_10;
+      border-radius: 4px;
+    }
   }
 }

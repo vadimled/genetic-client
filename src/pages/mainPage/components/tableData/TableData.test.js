@@ -1,28 +1,52 @@
 import React from "react";
+import { createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from 'redux-saga';
+import { watchSaga } from "Store/saga";
+import reducers from "Store/reducers";
+import { renderWithRedux } from "Utils/test_helpers";
 import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import { renderWithRedux } from "Utils/test_helpers";
 import TableData from './TableData';
 import {
   CONFIRMATION_VALUES,
   ZYGOSITY_OPTIONS,
   GERMLINE_VARIANT_CLASS_OPTIONS,
-  SOMATIC_VARIANT_CLASS_OPTIONS
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  PRIORITY
 } from "Utils/constants";
 import {
   handleZygosity,
   handleVariantClass,
   handleConfirmationStatus,
-  handleUncheckConfirmationData
+  handleUncheckConfirmationData, fetchData
 } from "Actions/tableActions";
 import {
   getUncheckConfirmationData
 } from "Store/selectors";
+import { BrowserRouter as Router } from "react-router-dom";
+
+
+
+const initSteps = () => {
+  const sagaMiddleware = createSagaMiddleware();
+  const { getByTestId, store, getAllByTestId, asFragment } = renderWithRedux(
+    <Router>
+      <TableData />
+    </Router>,
+    createStore(reducers, applyMiddleware(sagaMiddleware))
+  );
+  sagaMiddleware.run(watchSaga);
+
+
+  store.dispatch(fetchData());
+
+  return {store, getByTestId, getAllByTestId, asFragment};
+};
 
 describe('TableData', () => {
 
   it('handle selection-checkbox', () => {
-    const { getAllByTestId, store } = renderWithRedux(<TableData />);
+    const { getAllByTestId, store } = initSteps();
     const chbxs = getAllByTestId('selection-checkbox');
     const firstChbx = chbxs[0];
     const rowId = firstChbx.dataset['testitemid'];
@@ -37,7 +61,7 @@ describe('TableData', () => {
   });
 
   it('handle confirmation status', () => {
-    const { store } = renderWithRedux(<TableData />);
+    const { store } = initSteps();
 
     // find first item with status in table data and select one
     const tableData1 = store.getState().table.data;
@@ -99,23 +123,30 @@ describe('TableData', () => {
   });
 
   it('zygosity and variant class change', () => {
-    const { getAllByTestId, store } = renderWithRedux(<TableData/>);
+    const { getAllByTestId, store } = initSteps();
     const select = getAllByTestId('zygosity-select');
     const firstSelect = select[0];
     const rowId = firstSelect.dataset['testitemid'];
     const zygosityValue = ZYGOSITY_OPTIONS?.[0]?.value;
+    const notReal = ZYGOSITY_OPTIONS?.[5]?.value;
     const germlineVariantClassValue = GERMLINE_VARIANT_CLASS_OPTIONS?.[0]?.value;
     const somaticVariantClassValue = SOMATIC_VARIANT_CLASS_OPTIONS?.[0]?.value;
+    const tier2 = SOMATIC_VARIANT_CLASS_OPTIONS?.[2]?.value;
+    const path = GERMLINE_VARIANT_CLASS_OPTIONS?.[1]?.value;
 
     expect(firstSelect).toBeDefined();
     expect(rowId).toBeDefined();
     expect(zygosityValue).toBeDefined();
 
     const row1 = store.getState().table.data[rowId];
+
     expect(row1.zygosity).toBeFalsy();
-    expect(row1.variantClass).toBeFalsy();
+    expect(row1.variantClassGermline).toEqual('unclassified');
 
     store.dispatch(handleZygosity({ item: { id: rowId }, value: zygosityValue }));
+
+
+    expect(row1.priority).toEqual(PRIORITY[germlineVariantClassValue]);
 
     const row2 = store.getState().table.data[rowId];
     expect(row2.zygosity).toEqual(zygosityValue);
@@ -123,11 +154,33 @@ describe('TableData', () => {
     store.dispatch(handleVariantClass({ item: { id: rowId }, value: germlineVariantClassValue }));
 
     const row3 = store.getState().table.data[rowId];
+
+    expect(row3.priority).toEqual(PRIORITY[germlineVariantClassValue]);
+
     expect(row3.variantClass).toEqual(germlineVariantClassValue);
+
 
     store.dispatch(handleVariantClass({ item: { id: rowId }, value: somaticVariantClassValue }));
 
     const row4 = store.getState().table.data[rowId];
     expect(row4.variantClass).toEqual(somaticVariantClassValue);
+
+    store.dispatch(handleVariantClass({ item: { id: rowId }, value: notReal }));
+
+    const row5 = store.getState().table.data[rowId];
+
+    expect(row5.priority).toEqual(PRIORITY[notReal]);
+
+    store.dispatch(handleVariantClass({ item: { id: rowId }, value: tier2 }));
+
+    const row6 = store.getState().table.data[rowId];
+
+    expect(row6.priority).toEqual(PRIORITY[tier2]);
+
+    store.dispatch(handleVariantClass({ item: { id: rowId }, value: path }));
+
+    const row7 = store.getState().table.data[rowId];
+
+    expect(row7.priority).toEqual(PRIORITY[path]);
   });
 });

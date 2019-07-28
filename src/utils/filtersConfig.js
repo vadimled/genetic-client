@@ -1,75 +1,75 @@
 import { Icon } from "antd";
 import React from "react";
-import { FILTERS, VARIANT_CLASS, SOMATIC_CLASS } from "Utils/constants";
+import { FILTERS, VARIANT_CLASS_GERMLINE, VARIANT_CLASS_SOMATIC } from "Utils/constants";
 
 export default {
-  [FILTERS.variantClass]: {
+  [FILTERS.variantClassGermline]: {
     title: "Germline Class",
     type: ["somatic", "germline"],
     mode: "multiple",
     items: [
       {
-        id: VARIANT_CLASS.unclassified.value,
-        tagColor: VARIANT_CLASS.unclassified.tagColor,
-        label: VARIANT_CLASS.unclassified.label
+        id: VARIANT_CLASS_GERMLINE.unclassified.value,
+        tagColor: VARIANT_CLASS_GERMLINE.unclassified.tagColor,
+        label: VARIANT_CLASS_GERMLINE.unclassified.label
       },
       {
-        id: VARIANT_CLASS.path.value,
-        tagColor: VARIANT_CLASS.path.tagColor,
-        label: VARIANT_CLASS.path.label
+        id: VARIANT_CLASS_GERMLINE.path.value,
+        tagColor: VARIANT_CLASS_GERMLINE.path.tagColor,
+        label: VARIANT_CLASS_GERMLINE.path.label
       },
       {
-        id: VARIANT_CLASS.lpath.value,
-        tagColor: VARIANT_CLASS.lpath.tagColor,
-        label: VARIANT_CLASS.lpath.label
+        id: VARIANT_CLASS_GERMLINE.lpath.value,
+        tagColor: VARIANT_CLASS_GERMLINE.lpath.tagColor,
+        label: VARIANT_CLASS_GERMLINE.lpath.label
       },
       {
-        id: VARIANT_CLASS.vus.value,
-        tagColor: VARIANT_CLASS.vus.tagColor,
-        label: VARIANT_CLASS.vus.label
+        id: VARIANT_CLASS_GERMLINE.vus.value,
+        tagColor: VARIANT_CLASS_GERMLINE.vus.tagColor,
+        label: VARIANT_CLASS_GERMLINE.vus.label
       },
       {
-        id: VARIANT_CLASS.lben.value,
-        tagColor: VARIANT_CLASS.lben.tagColor,
-        label: VARIANT_CLASS.lben.label
+        id: VARIANT_CLASS_GERMLINE.lben.value,
+        tagColor: VARIANT_CLASS_GERMLINE.lben.tagColor,
+        label: VARIANT_CLASS_GERMLINE.lben.label
       },
       {
-        id: VARIANT_CLASS.ben.value,
-        tagColor: VARIANT_CLASS.ben.tagColor,
-        label: VARIANT_CLASS.ben.label
+        id: VARIANT_CLASS_GERMLINE.ben.value,
+        tagColor: VARIANT_CLASS_GERMLINE.ben.tagColor,
+        label: VARIANT_CLASS_GERMLINE.ben.label
       }
     ]
   },
 
-  [FILTERS.somaticClass]: {
+  [FILTERS.variantClassSomatic]: {
     title: "Somatic Class",
     type: ["somatic"],
     mode: "multiple",
     items: [
       {
-        id: SOMATIC_CLASS.unclassified.value,
-        tagColor: SOMATIC_CLASS.unclassified.tagColor,
-        label: SOMATIC_CLASS.unclassified.label
+        id: VARIANT_CLASS_SOMATIC.unclassified.value,
+        tagColor: VARIANT_CLASS_SOMATIC.unclassified.tagColor,
+        label: VARIANT_CLASS_SOMATIC.unclassified.label
       },
       {
-        id: SOMATIC_CLASS.tier1.value,
-        tagColor: SOMATIC_CLASS.tier1.tagColor,
-        label: SOMATIC_CLASS.tier1.label
+        id: VARIANT_CLASS_SOMATIC.tier1.value,
+        tagColor: VARIANT_CLASS_SOMATIC.tier1.tagColor,
+        label: VARIANT_CLASS_SOMATIC.tier1.label
       },
       {
-        id: SOMATIC_CLASS.tier2.value,
-        tagColor: SOMATIC_CLASS.tier2.tagColor,
-        label: SOMATIC_CLASS.tier2.label
+        id: VARIANT_CLASS_SOMATIC.tier2.value,
+        tagColor: VARIANT_CLASS_SOMATIC.tier2.tagColor,
+        label: VARIANT_CLASS_SOMATIC.tier2.label
       },
       {
-        id: SOMATIC_CLASS.tier3.value,
-        tagColor: SOMATIC_CLASS.tier3.tagColor,
-        label: SOMATIC_CLASS.tier3.label
+        id: VARIANT_CLASS_SOMATIC.tier3.value,
+        tagColor: VARIANT_CLASS_SOMATIC.tier3.tagColor,
+        label: VARIANT_CLASS_SOMATIC.tier3.label
       },
       {
-        id: SOMATIC_CLASS.tier4.value,
-        tagColor: SOMATIC_CLASS.tier4.tagColor,
-        label: SOMATIC_CLASS.tier4.label
+        id: VARIANT_CLASS_SOMATIC.tier4.value,
+        tagColor: VARIANT_CLASS_SOMATIC.tier4.tagColor,
+        label: VARIANT_CLASS_SOMATIC.tier4.label
       }
     ]
   },
