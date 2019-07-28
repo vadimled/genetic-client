@@ -7,39 +7,49 @@ import {
 } from "Utils/constants";
 import style from "./VariantClassificationContainer.module.scss";
 import { connect } from "react-redux";
-import { setGeneType, setGeneValue } from "Actions/variantPageActions";
+import { setZygosityType, setGeneValue } from "Actions/variantPageActions";
 import {
-  getGeneType,
+  getZygosityType,
   getGermlineValue,
-  getSomaticValue
+  getSomaticValue,
+  getCurrentZygosityType
 } from "Store/selectors";
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 
 class VariantClassificationContainer extends React.Component {
   onChangeType = (e, id) => {
     const { value, name } = e.target,
-      { setGeneValue, setType } = this.props;
+      { setGeneValue, setZygosityType } = this.props;
 
-    !value ? setType(id) : setGeneValue({ value, name });
+    !value ? setZygosityType(id) : setGeneValue({ value, name });
   };
 
   render() {
-    const { currentType, somaticValue, germlineValue } = this.props;
-    console.log(currentType);
-
+    const {
+      selectedZygosityType,
+      somaticValue,
+      germlineValue,
+      currentZygosityType
+    } = this.props;
     return (
       <div className={style["gene-type-wrapper"]}>
+        <div className="current-zygosity-wrapper">
+          <div className="title">{TEXTS.currentZygosity}</div>
+          <div className="context">{currentZygosityType}</div>
+        </div>
         <div className="gene-type-radio-group">
+          <div className="first-button">
+            <ZygosityTypeButton
+              selectedZygosityType={selectedZygosityType}
+              type={TEXTS.germline}
+              currValue={germlineValue}
+              onChangeType={this.onChangeType}
+              title={TEXTS.germlineUp}
+              typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
+            />
+          </div>
           <ZygosityTypeButton
-            currentType={currentType}
-            type={TEXTS.germline}
-            currValue={germlineValue}
-            onChangeType={this.onChangeType}
-            title={TEXTS.germlineUp}
-            typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
-          />
-          <ZygosityTypeButton
-            currentType={currentType}
+            selectedZygosityType={selectedZygosityType}
             type={TEXTS.somatic}
             currValue={somaticValue}
             onChangeType={this.onChangeType}
@@ -53,14 +63,16 @@ class VariantClassificationContainer extends React.Component {
 }
 
 VariantClassificationContainer.propTypes = {
-  currentType: PropTypes.string,
+  currentZygosityType: PropTypes.string,
+  selectedZygosityType: PropTypes.string,
   germlineClass: PropTypes.string,
   somaticClass: PropTypes.string
 };
 
 const mapStateToProps = state => {
   return {
-    currentType: getGeneType(state),
+    selectedZygosityType: getZygosityType(state),
+    currentZygosityType: getCurrentZygosityType(state),
     somaticValue: getSomaticValue(state),
     germlineValue: getGermlineValue(state)
   };
@@ -69,7 +81,7 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     setGeneValue: data => dispatch(setGeneValue(data)),
-    setType: data => dispatch(setGeneType(data))
+    setZygosityType: data => dispatch(setZygosityType(data))
   };
 }
 

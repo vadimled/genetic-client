@@ -34,7 +34,8 @@ export const TEXTS = {
   germlineUp: "Germline",
   externalResources: "External resources",
   seeAll: "See All",
-  seeLess: "See Less"
+  seeLess: "See Less",
+  currentZygosity: "Current zygosity:"
 };
 
 export const LIMITS = {
@@ -42,8 +43,8 @@ export const LIMITS = {
 };
 
 export const MUTATION = {
-  dna: "DNA" ,
-  rna: "RNA" ,
+  dna: "DNA",
+  rna: "RNA",
   agena: "Agena"
 };
 
@@ -65,6 +66,22 @@ export const ZYGOSITY_OPTIONS = [
   { value: "homo", label: "Homo" },
   { value: "hetro", label: "Hetro" },
   { value: "hemi", label: "Hemi" },
+  { value: "insignificant", label: "Insignificant" },
+  { value: "somatic", label: "Somatic" },
+  { value: "notReal", label: "Not-Real" },
+  { value: "unknown", label: "Unknown" }
+];
+/* Germline - for Homo, Hetro and Hemi.
+  Somatic - for Somatic.
+  Insignificant - for Insignificant.
+  Unkown - for Unkown.
+  Not-Real - for Not-Real.
+*/
+
+export const ZYGOSITY_TYPES = [
+  { value: "homo", label: "Germline" },
+  { value: "hetro", label: "Germline" },
+  { value: "hemi", label: "Germline" },
   { value: "insignificant", label: "Insignificant" },
   { value: "somatic", label: "Somatic" },
   { value: "notReal", label: "Not-Real" },

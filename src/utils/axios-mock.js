@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const mock =
   process.env.REACT_APP_AXIOS_MOCK_ENABLED === "true" &&
-  new MockAdapter(axios, { delayResponse: 2000 });
+  new MockAdapter(axios, { delayResponse: 1000 });
 
 if (mock) {
   mock.onGet(/http:\/\/localhost:60151\/load\?file=.+/).reply(204, {
@@ -20,5 +20,9 @@ if (mock) {
       location: "gallbladder",
       cancer_cell_percentage: 80
     }
+  });
+
+  mock.onGet(/\/variant(\/)?/).reply(200, {
+    currentZygosity: "Homo"
   });
 }
