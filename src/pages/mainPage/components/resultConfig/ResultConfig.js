@@ -46,6 +46,7 @@ import {
   getTableDataGenes,
   getResultConfigid
 } from "Store/selectors";
+import { PRIORITY } from "../../../../utils/constants";
 
 const ResultConfig = (props) => {
   const {
@@ -65,6 +66,7 @@ const ResultConfig = (props) => {
     validationFaildFields,
     geneDataSource,
     id,
+    priority,
 
     handleClose,
     handleGene,
@@ -107,7 +109,9 @@ const ResultConfig = (props) => {
       protein,
       isHgvsLoaded,
       id,
+      priority
     };
+
 
     isOnEdit
       ? editResult(data)
@@ -384,6 +388,7 @@ const mapStateToProps = (state) => {
     validationFaildFields: getResultConfigValidationFaildFields(state),
     geneDataSource: getTableDataGenes(state),
     id: getResultConfigid(state),
+    priority: PRIORITY["unclassified"]
   };
 };
 

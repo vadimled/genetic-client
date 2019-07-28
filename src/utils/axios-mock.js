@@ -13,7 +13,7 @@ if (mock) {
   mock.onGet(/\/tests(\/)?/).reply(200, {
     test_id: "GS00115NP050818_TS1_01",
     gsid: "GS00115NP050818_TS1_01",
-    panel_type: "SOLID",
+    panel_type: "risk",
     mutation_types: ["dna", "rna", "agena"],
     tumor_info: {
       type: "pheochromocytoma",

@@ -3,8 +3,9 @@ import * as Sentry from "@sentry/browser";
 import {
   ALERT_STATUSES,
   ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS
-} from "Utils/constants";
+  VALIDATION_FAILD_FIELDS,
+  PRIORITY
+} from 'Utils/constants';
 import {
   fetchBAMFile,
   goToChrPositionIgv,
@@ -22,7 +23,8 @@ import {
 import {
   applyConfirmation,
   tableDataAddResult,
-  tableDataEditResult
+  tableDataEditResult,
+  setDataToStore
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
@@ -36,6 +38,7 @@ import {
   handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
+import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { setCaseData } from "Actions/testActions";
 import { setMutationType } from "Actions/variantsActions";
 import { setVariantData, setZygosityType } from "Actions/variantPageActions";
@@ -286,6 +289,21 @@ export function* resultConfigEditResultGenerator(data) {
     if (e.message !== "Error: Validation error") {
       yield consoleErrors(e);
     }
+  }
+}
+
+export function* fetchData() {
+  try {
+    const result = generateDNAVariantTableMockData(200);
+
+    for(let record in result){
+      result[record].priority = PRIORITY[result[record].variantClass];
+    }
+
+    yield put(setDataToStore(result));
+    // yield put(setLoading(false));
+  } catch (error) {
+    console.log("---error: ", error);
   }
 }
 
