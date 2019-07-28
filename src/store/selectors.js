@@ -289,4 +289,4 @@ export const getActivityLog = (state, recordId) => {
   return activityLogArray;
 };
 
-export const getTestType = state => state?.variantPage?.type;
+export const getTestType = state => state?.test?.panel_type;
