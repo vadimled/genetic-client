@@ -237,10 +237,11 @@ class VariantTable extends Component {
       else if (column.dataIndex === "variantClassGermline") {
 
         column.render = (text, record) => {
+          console.log(record);
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               <div className="table-select-wrapper">
-                <Link to="/variant?type=germline">
+                <Link to={`test/${this.props.testId}/variant/${record.id}?type=germline`}>
                   <LabeledTag typeData={GERMLINE_VARIANT_CLASS_OPTIONS} label={VARIANT_CLASS_GERMLINE[text]?.label} />
                 </Link>
               </div>
@@ -402,6 +403,7 @@ VariantTable.propTypes = {
   isAllRowSelected: PropTypes.bool,
   selectedRows: PropTypes.array,
   setNotes: PropTypes.func,
+  testId: PropTypes.string
 };
 
 VariantTable.defaultProps = {
