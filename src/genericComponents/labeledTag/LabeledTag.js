@@ -54,6 +54,7 @@ function LabeledTag({ label, typeData, tagColor, customClassName }) {
 LabeledTag.propTypes = {
   label: PropTypes.string.isRequired,
   tagColor: PropTypes.string,
+  customClassName: PropTypes.string,
   typeData: PropTypes.array
 };
 
