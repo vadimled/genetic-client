@@ -1,6 +1,6 @@
 import actionsTypes from "../actionsTypes";
 
-export const setGeneValue = data => {
+export const setVariantClassification = data => {
   return {
     type: actionsTypes.SET_VARIANT_CLASSIFICATION,
     payload: data
