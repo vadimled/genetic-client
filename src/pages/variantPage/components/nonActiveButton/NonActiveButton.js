@@ -13,7 +13,11 @@ const NonActiveButton = ({ title, type, onClick, typeData, currValue }) => {
   };
 
   const renderVariantClass = () => (
-    <LabeledTag label={getTaggedLabel(typeData)} typeData={typeData} />
+    <LabeledTag
+      label={getTaggedLabel(typeData)}
+      typeData={typeData}
+      customClassName="label-custom-style"
+    />
   );
 
   return (

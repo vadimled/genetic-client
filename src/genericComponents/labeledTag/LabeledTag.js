@@ -5,7 +5,7 @@ import Tag from "GenericComponents/tag";
 import cn from "classnames";
 import { VARIANT_CLASS } from "Utils/constants";
 
-function LabeledTag({ label, typeData, tagColor }) {
+function LabeledTag({ label, typeData, tagColor, customClassName }) {
   let type;
 
   const renderLabeledTag = () => {
@@ -18,7 +18,8 @@ function LabeledTag({ label, typeData, tagColor }) {
             <Tag color={type.tagColor} />
             <div
               className={cn("label-text", {
-                unclassified: type.label === VARIANT_CLASS.unclassified.label
+                "unclassified": type.label === VARIANT_CLASS.unclassified.label,
+                [customClassName]: !!customClassName
               })}
             >
               {type.label}
@@ -34,7 +35,8 @@ function LabeledTag({ label, typeData, tagColor }) {
           <Tag color={tagColor} />
           <div
             className={cn("label-text", {
-              unclassified: label === VARIANT_CLASS.unclassified.label
+              "unclassified": label === VARIANT_CLASS.unclassified.label,
+              [customClassName]: !!customClassName
             })}
           >
             {label}
@@ -45,7 +47,8 @@ function LabeledTag({ label, typeData, tagColor }) {
       return (
         <div
           className={cn("label-text", {
-            unclassified: label === VARIANT_CLASS.unclassified.label
+            "unclassified": label === VARIANT_CLASS.unclassified.label,
+            [customClassName]: !!customClassName
           })}
         >
           {label}
