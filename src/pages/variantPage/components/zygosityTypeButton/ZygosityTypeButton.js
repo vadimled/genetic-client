@@ -6,6 +6,7 @@ import style from "./ZygosityTypeButton.module.scss";
 import PropTypes from "prop-types";
 
 function ZygosityTypeButton({
+  currentZygosity,
   selectedZygosityType,
   title,
   type,
@@ -21,7 +22,7 @@ function ZygosityTypeButton({
         value={currValue}
         options={typeData}
         onChange={onChangeType}
-        showArrow
+        showArrow={currentZygosity.toLowerCase() === type}
         suffixIcon={<EditIcon />}
       />
       <div

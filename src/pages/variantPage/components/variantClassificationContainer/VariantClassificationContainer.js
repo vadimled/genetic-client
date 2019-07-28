@@ -40,6 +40,7 @@ class VariantClassificationContainer extends React.Component {
         <div className="gene-type-radio-group">
           <div className="first-button">
             <ZygosityTypeButton
+              currentZygosity={currentZygosityType}
               selectedZygosityType={selectedZygosityType}
               type={TEXTS.germline}
               currValue={germlineValue}
@@ -49,6 +50,7 @@ class VariantClassificationContainer extends React.Component {
             />
           </div>
           <ZygosityTypeButton
+            currentZygosity={currentZygosityType}
             selectedZygosityType={selectedZygosityType}
             type={TEXTS.somatic}
             currValue={somaticValue}
