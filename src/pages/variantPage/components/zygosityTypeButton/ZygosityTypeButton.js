@@ -23,6 +23,7 @@ function ZygosityTypeButton({
         onChange={onChangeType}
         showArrow
         suffixIcon={<EditIcon />}
+        selectHeaderClass="select-header-text-style"
       />
       <div
         data-testid={`select-title-${title}`}
