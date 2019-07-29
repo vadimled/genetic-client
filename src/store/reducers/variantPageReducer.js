@@ -17,8 +17,8 @@ const initialState = {
     AminoAcidChange: "I1564ISLKN",
     DamagingScore: "TTCATGAGAGAAGGTGAGTGG"
   },
-  somatic_variant_class: "unclassified",
-  germline_variant_class: "unclassified",
+  somatic_variant_class: null,
+  germline_variant_class: null,
   externalResources: [],
   selectedZygosityType: null,
   somaticClassHistory: {

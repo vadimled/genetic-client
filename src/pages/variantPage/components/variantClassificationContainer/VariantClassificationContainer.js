@@ -19,7 +19,7 @@ import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 class VariantClassificationContainer extends React.Component {
   onChangeType = (e, id) => {
     const { value, name } = e.target,
-      { setVariantClassification, setZygosityType/* , updateActivityLog, prevValue, tableRow*/  } = this.props;
+      { setVariantClassification, setZygosityType } = this.props;
 
     if(!value){
       setZygosityType({selectedZygosityType: id});

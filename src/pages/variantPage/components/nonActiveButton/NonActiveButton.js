@@ -4,10 +4,13 @@ import style from "./NonActiveButton.module.scss";
 import LabeledTag from "GenericComponents/labeledTag";
 
 const NonActiveButton = ({ title, type, onClick, typeData, currValue }) => {
+  
   const getTaggedLabel = typeData => {
     for (let item in typeData) {
       const { label, value } = typeData[item];
-      if (currValue === value) return label;
+      if (currValue?.toLowerCase() === value?.toLowerCase()) {
+        return label;
+      }
     }
     return "Unclassified";
   };
@@ -19,7 +22,6 @@ const NonActiveButton = ({ title, type, onClick, typeData, currValue }) => {
       customClassName="label-custom-style"
     />
   );
-
   return (
     <div
       data-testid={`non-active-button-${type}`}
