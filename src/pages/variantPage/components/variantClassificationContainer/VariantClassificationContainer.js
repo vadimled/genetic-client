@@ -18,10 +18,12 @@ import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 
 class VariantClassificationContainer extends React.Component {
   onChangeType = (e, id) => {
-    const { value, name } = e.target,
-      { setGeneValue, setZygosityType } = this.props;
 
-    !value ? setZygosityType(id) : setGeneValue({ value, name });
+    const {testId, variantId, setGeneValue, setZygosityType} = this.props;
+
+    const { value, name } = e.target;
+
+    !value ? setZygosityType({selectedZygosityType: id, testId, variantId}) : setGeneValue({ value, name });
   };
 
   render() {
@@ -31,6 +33,11 @@ class VariantClassificationContainer extends React.Component {
       germlineValue,
       currentZygosityType
     } = this.props;
+
+    console.log("--selectedZygosityType: ", selectedZygosityType)
+
+    console.log(this.props)
+
     return (
       <div className={style["gene-type-wrapper"]}>
         <div className="current-zygosity-wrapper">

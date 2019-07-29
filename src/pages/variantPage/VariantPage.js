@@ -43,6 +43,8 @@ class VariantPage extends Component {
   render() {
     const { sidebarToggle } = this.state;
     const { externalResources, variantData, somaticClassHistory } = this.props;
+    const {testId, variantId} = this.props.match.params;
+
     return (
       <div className={style["variant-page-wrapper"]}>
         <div
@@ -72,6 +74,8 @@ class VariantPage extends Component {
             <VariantPageHeader
               sidebarToggle={sidebarToggle}
               variantData={variantData}
+              testId={testId}
+              variantId={variantId}
             />
           </div>
           <div className="main-data">
