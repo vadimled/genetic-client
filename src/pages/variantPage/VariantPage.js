@@ -46,7 +46,7 @@ class VariantPage extends Component {
     const { externalResources, variantData, somaticClassHistory, germlineClassHistory, selectedZygosityType } = this.props;
     const {testId, variantId} = this.props.match.params;
 
-    console.log("--variant page props: ", this.props)
+    console.log("--variant page props: ", this.props);
 
     return (
       <div className={style["variant-page-wrapper"]}>
@@ -89,8 +89,16 @@ class VariantPage extends Component {
               ])}
             >
               <ClassificationHistoryTable
-                data={selectedZygosityType === "somatic" ? getDataArray(somaticClassHistory) : getDataArray(germlineClassHistory)}
-                typeData={selectedZygosityType === "somatic" ? SOMATIC_VARIANT_CLASS_OPTIONS : GERMLINE_VARIANT_CLASS_OPTIONS}
+                data={
+                  selectedZygosityType === "somatic" ?
+                    getDataArray(somaticClassHistory) :
+                    getDataArray(germlineClassHistory)
+                }
+                typeData={
+                  selectedZygosityType === "somatic" ?
+                    SOMATIC_VARIANT_CLASS_OPTIONS :
+                    GERMLINE_VARIANT_CLASS_OPTIONS
+                }
               />
             </div>
             <div className="evidence" />
