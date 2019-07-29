@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Checkbox } from "antd";
 import style from "./FilterCheckboxItem.module.scss";
-import Tag from "GenericComponents/tag";
+import LabeledTag from "GenericComponents/labeledTag";
 
-const FilterCheckboxItem = ({groupName, item, onChange, value }) => (
+const FilterCheckboxItem = ({ groupName, item, onChange, value }) => (
   <div className={`${style["filter-item-wrapper"]} filter-item`}>
     <Checkbox
       checked={value}
@@ -13,12 +13,7 @@ const FilterCheckboxItem = ({groupName, item, onChange, value }) => (
     >
       <div className="flex items-center checkbox-inner-content">
         {!!item.icon && item.icon}
-        {!!item.tagColor && <Tag color={item.tagColor} />}
-        <span
-          style={item.label === "Unclassified" ? { color: "#96A2AA" } : null}
-        >
-          {item.label}
-        </span>
+        <LabeledTag label={item.label} tagColor={item?.tagColor} />
       </div>
     </Checkbox>
   </div>

@@ -1,30 +1,24 @@
-import React, { Fragment, memo } from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import style from "./NonActiveButton.module.scss";
-import Tag from "GenericComponents/tag";
+import LabeledTag from "GenericComponents/labeledTag";
 
 const NonActiveButton = ({ title, type, onClick, typeData, currValue }) => {
-  const getTaggedLabel = (value, typeData) => {
+  const getTaggedLabel = typeData => {
     for (let item in typeData) {
-      const { tagColor, label, value: value1 } = typeData[item];
-      if (value1 === value)
-        return {
-          color: tagColor,
-          label: label
-        };
+      const { label, value } = typeData[item];
+      if (currValue === value) return label;
     }
-    return { label: "Unclassified", color: "#FFF" };
+    return "Unclassified";
   };
 
-  const renderVariantClass = () => {
-    const { color, label } = getTaggedLabel(currValue, typeData);
-    return (
-      <Fragment>
-        <Tag color={color} />
-        <span>{label}</span>
-      </Fragment>
-    );
-  };
+  const renderVariantClass = () => (
+    <LabeledTag
+      label={getTaggedLabel(typeData)}
+      typeData={typeData}
+      customClassName="label-custom-style"
+    />
+  );
 
   return (
     <div
@@ -44,7 +38,7 @@ NonActiveButton.propTypes = {
   type: PropTypes.string,
   onClick: PropTypes.func,
   currValue: PropTypes.string,
-  typeData: PropTypes.array,
+  typeData: PropTypes.array
 };
 
 export default memo(NonActiveButton);

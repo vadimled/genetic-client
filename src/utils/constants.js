@@ -35,7 +35,8 @@ export const TEXTS = {
   externalResources: "External resources",
   seeAll: "See All",
   seeLess: "See Less",
-  currentZygosity: "Current zygosity:"
+  currentZygosity: "Current zygosity:",
+  unclassified: "Unclassified"
 };
 
 export const LIMITS = {
