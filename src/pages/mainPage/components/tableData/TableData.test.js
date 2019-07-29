@@ -141,7 +141,6 @@ describe('TableData', () => {
     const row1 = store.getState().table.data[rowId];
 
     expect(row1.zygosity).toBeFalsy();
-    expect(row1.variantClassGermline).toEqual('unclassified');
 
     store.dispatch(handleZygosity({ item: { id: rowId }, value: zygosityValue }));
 
@@ -157,13 +156,13 @@ describe('TableData', () => {
 
     expect(row3.priority).toEqual(PRIORITY[germlineVariantClassValue]);
 
-    expect(row3.variantClass).toEqual(germlineVariantClassValue);
+    expect(row3.variantClassGermline).toEqual(germlineVariantClassValue);
 
 
     store.dispatch(handleVariantClass({ item: { id: rowId }, value: somaticVariantClassValue }));
 
     const row4 = store.getState().table.data[rowId];
-    expect(row4.variantClass).toEqual(somaticVariantClassValue);
+    expect(row4.variantClassGermline).toEqual(somaticVariantClassValue);
 
     store.dispatch(handleVariantClass({ item: { id: rowId }, value: notReal }));
 
