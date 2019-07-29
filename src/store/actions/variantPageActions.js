@@ -28,9 +28,9 @@ export const setVariantData = data => {
   };
 };
 
-export const fetchVariantData = () => {
+export const fetchVariantData = data => {
   return {
     type: actionsTypes.FETCH_VARIANT_DATA,
-    // payload: data
+    payload: data
   };
 };

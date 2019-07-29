@@ -320,13 +320,15 @@ export function* fetchCaseDataGenerator(id) {
   }
 }
 
-export function* fetchVariantDataGenerator() {
+export function* fetchVariantDataGenerator(data) {
+  console.log(data);
   try {
     const
-      result = yield call(fetchVariantDataApi),
+      result = yield call(fetchVariantDataApi, data),
       newData = zygosityType(result?.data),
       { currentZygosity } = newData;
-
+  
+    console.log(result);
     yield put(setVariantData(newData));
     yield put(setZygosityType(currentZygosity.toLowerCase()));
   } catch (e) {

@@ -16,7 +16,11 @@ import { SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 class VariantPage extends Component {
   constructor(props) {
     super(props);
-    props.fetchVariantData();
+    
+    
+    props.fetchVariantData({testId: "GS00115NP050818_TS1_01", variantId: "1gr3ekk8qbb29u5vljto219bn"});
+    
+    
     this.state = {
       sidebarToggle: true
     };
@@ -99,7 +103,7 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     setResources: data => dispatch(setExternalResources(data)),
-    fetchVariantData: () => dispatch(fetchVariantData())
+    fetchVariantData: data => dispatch(fetchVariantData(data))
   };
 }
 

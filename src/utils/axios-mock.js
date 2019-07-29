@@ -10,7 +10,7 @@ if (mock) {
     users: [{ id: 1, name: "John Smith" }]
   });
 
-  mock.onGet(/\/tests(\/)?/).reply(200, {
+  mock.onGet(/\/api\/tests\/?\w+$/).reply(200, {
     test_id: "GS00115NP050818_TS1_01",
     gsid: "GS00115NP050818_TS1_01",
     panel_type: "risk",
@@ -22,7 +22,10 @@ if (mock) {
     }
   });
 
-  mock.onGet(/\/variant(\/)?/).reply(200, {
-    currentZygosity: "Homo"
+  mock.onGet(/\/api\/tests\/.+\/variant\/.+/).reply(200, {
+    // /api/tests/GS00115NP050818_TS1_01/variant/1gr3ekk8qbb29u5vljto219bn
+    currentZygosity: "Homo",
+    germline_variant_class:  "LPATH",
+    somatic_variant_class:  "Tier2",
   });
 }

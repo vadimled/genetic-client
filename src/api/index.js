@@ -46,9 +46,9 @@ export function editResult (data) {
 }
 
 export function fetchCaseDataApi(id) {
-  return axios.get(`/tests/${id}`);
+  return axios.get(`/api/tests/${id}`);
 }
 
-export function fetchVariantDataApi() {
-  return axios.get(`/variant/`);
+export function fetchVariantDataApi(data) {
+  return axios.get(`/api/tests/${data.testId}/variant/${data.variantId}`);
 }

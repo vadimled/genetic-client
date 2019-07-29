@@ -23,8 +23,8 @@ describe("VariantPageHeader ", () => {
     DamagingScore: "TTCATGAGAGAAGGTGAGTGG",
     dataId: "k5wp5amernh84pvsygjji9ljz",
     type: "somatic",
-    valueSomatic: "unclassified",
-    valueGermline: "unclassified"
+    somatic_variant_class: "unclassified",
+    germline_variant_class: "unclassified"
   };
 
   beforeEach(() => {
@@ -93,6 +93,6 @@ describe("VariantPageHeader ", () => {
     expect(activeButton).toBeInTheDocument();
 
     fireEvent.change(activeButton, { target: { value: "tier2" } });
-    expect(store.getState().variantPage.valueSomatic).toEqual("tier2");
+    expect(store.getState().variantPage.somatic_variant_class).toEqual("tier2");
   });
 });

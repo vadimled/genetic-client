@@ -17,8 +17,8 @@ const initialState = {
     AminoAcidChange: "I1564ISLKN",
     DamagingScore: "TTCATGAGAGAAGGTGAGTGG"
   },
-  valueSomatic: "unclassified",
-  valueGermline: "unclassified",
+  somatic_variant_class: "unclassified",
+  germline_variant_class: "unclassified",
   externalResources: [],
   selectedZygosityType: null,
   somaticClassHistory: {
@@ -175,8 +175,8 @@ const variantPageReducer = createReducer(initialState, {
     const { value, name } = payload;
     return {
       ...state,
-      valueSomatic: name === "somatic" ? value : state.valueSomatic,
-      valueGermline: name === "germline" ? value : state.valueGermline
+      somatic_variant_class: name === "somatic" ? value : state.somatic_variant_class,
+      germline_variant_class: name === "germline" ? value : state.germline_variant_class
     };
   },
 
