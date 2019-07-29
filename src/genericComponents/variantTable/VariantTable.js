@@ -237,13 +237,20 @@ class VariantTable extends Component {
       else if (column.dataIndex === "variantClassGermline") {
 
         column.render = (text, record) => {
-          console.log(record);
+          // console.log(record);
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               <div className="table-select-wrapper">
-                <Link to={`test/${this.props.testId}/variant/${record.id}?type=germline`}>
+
+                <Link
+                  to={{
+                    pathname: `test/${this.props.testId}/variant/${record.id}?type=germline`,
+                    state: {type: "germline"}
+                  }}
+                >
                   <LabeledTag typeData={GERMLINE_VARIANT_CLASS_OPTIONS} label={VARIANT_CLASS_GERMLINE[text]?.label} />
                 </Link>
+
               </div>
             </HighlightedCell>
           );
@@ -256,7 +263,12 @@ class VariantTable extends Component {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               <div className="table-select-wrapper">
-                <Link to="/variant?type=somatic">
+                <Link
+                  to={{
+                    pathname: `test/${this.props.testId}/variant/${record.id}?type=somatic`,
+                    state: {testId:this.props.testId, variantId: record.id, selectedZygosityType: "somatic"}
+                  }}
+                >
                   <LabeledTag typeData={SOMATIC_VARIANT_CLASS_OPTIONS} label={VARIANT_CLASS_SOMATIC[text]?.label} />
                 </Link>
               </div>

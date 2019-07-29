@@ -339,6 +339,7 @@ export function* fetchVariantDataGenerator() {
       { currentZygosity } = newData;
 
     yield put(setVariantData(newData));
+
     yield put(setZygosityType(currentZygosity.toLowerCase()));
   } catch (e) {
     Sentry.withScope(scope => {
