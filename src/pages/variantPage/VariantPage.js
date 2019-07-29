@@ -12,17 +12,19 @@ import { connect } from "react-redux";
 import { setExternalResources, fetchVariantData, setZygosityType } from "Actions/variantPageActions";
 import { createResourcesLinks, getDataArray } from "Utils/helpers";
 import { SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
+import queryString from "query-string";
 
 
 class VariantPage extends Component {
   constructor(props) {
     super(props);
 
-    const {selectedZygosityType, testId, variantId} = props.location.state;
+    const {testId, variantId} = props.match.params;
+
+    const {selectedZygosityType} = queryString.parse(window.location.search);
 
     props.setZygosityType({selectedZygosityType, testId, variantId});
 
-    // props.fetchVariantData();
     this.state = {
       sidebarToggle: true
     };
@@ -31,8 +33,6 @@ class VariantPage extends Component {
     props.setResources(createResourcesLinks(props.variantData));
   }
 
-  componentDidMount() {
-  }
 
   handleClick = () => {
     this.setState({

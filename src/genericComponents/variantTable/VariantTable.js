@@ -244,8 +244,8 @@ class VariantTable extends Component {
 
                 <Link
                   to={{
-                    pathname: `test/${this.props.testId}/variant/${record.id}?type=germline`,
-                    state: {type: "germline"}
+                    pathname: `test/${this.props.testId}/variant/${record.id}/?selectedZygosityType=germline`,
+                    // state: {type: "germline"}
                   }}
                 >
                   <LabeledTag typeData={GERMLINE_VARIANT_CLASS_OPTIONS} label={VARIANT_CLASS_GERMLINE[text]?.label} />
@@ -265,8 +265,8 @@ class VariantTable extends Component {
               <div className="table-select-wrapper">
                 <Link
                   to={{
-                    pathname: `test/${this.props.testId}/variant/${record.id}?type=somatic`,
-                    state: {testId:this.props.testId, variantId: record.id, selectedZygosityType: "somatic"}
+                    pathname: `test/${this.props.testId}/variant/${record.id}/?selectedZygosityType=somatic`,
+                    // state: {testId:this.props.testId, variantId: record.id, selectedZygosityType: "somatic"}
                   }}
                 >
                   <LabeledTag typeData={SOMATIC_VARIANT_CLASS_OPTIONS} label={VARIANT_CLASS_SOMATIC[text]?.label} />

@@ -14,7 +14,7 @@ function App() {
       </div>
       <Switch>
         <Route path="/" exact component={MainPage} />
-        <Route path="/test/:testId/variant/:variantId" exact component={VariantPage} />
+        <Route path="/test/:testId/variant/:variantId/" component={VariantPage} />
       </Switch>
       <ResultConfig />
     </div>
