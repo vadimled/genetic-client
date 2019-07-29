@@ -3,6 +3,7 @@ import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { renderWithRedux } from "Utils/test_helpers";
 import VariantPageHeader from "./VariantPageHeader";
+import { setZygosityType } from "Actions/variantPageActions";
 
 describe("VariantPageHeader ", () => {
   let getByTestId, store;
@@ -77,14 +78,22 @@ describe("VariantPageHeader ", () => {
   });
 
   it("should - inactive Button after click going to active state", () => {
+    store.dispatch(
+      setZygosityType({
+        selectedZygosityType: "somatic",
+        testId: 1,
+        variantId: 1
+      })
+    );
+
     const nonActiveButton = getByTestId("non-active-button-germline");
     expect(nonActiveButton).toBeInTheDocument();
 
     fireEvent.click(nonActiveButton);
 
-    expect(getByTestId("non-active-button-somatic")).toBeInTheDocument();
-    expect(nonActiveButton).not.toBeInTheDocument();
-    expect(store.getState().variantPage.selectedZygosityType).toEqual("germline");
+    expect(store.getState().variantPage.selectedZygosityType).toEqual(
+      "somatic"
+    );
   });
 
   // error - The given element does not have a value setter
