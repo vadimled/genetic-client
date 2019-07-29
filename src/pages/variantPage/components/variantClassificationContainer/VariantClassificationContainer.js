@@ -12,19 +12,21 @@ import {
   getZygosityType,
   getGermlineValue,
   getSomaticValue,
-  getCurrentZygosityType
+  getCurrentZygosityType,
+  getVariantPageTestId,
+  getVariantId
 } from "Store/selectors";
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 
 class VariantClassificationContainer extends React.Component {
   onChangeType = (e, id) => {
     const { value, name } = e.target,
-      { sendVariantClass, setZygosityType } = this.props;
+      { sendVariantClass, setZygosityType, testId, variantId } = this.props;
 
     if(!value){
       setZygosityType({selectedZygosityType: id});
     } else {
-      sendVariantClass({ value, name });
+      sendVariantClass({testId, variantId, value, name });
     }
   };
 
@@ -80,7 +82,9 @@ const mapStateToProps = state => {
     selectedZygosityType: getZygosityType(state),
     currentZygosityType: getCurrentZygosityType(state),
     somaticValue: getSomaticValue(state),
-    germlineValue: getGermlineValue(state)
+    germlineValue: getGermlineValue(state),
+    testId: getVariantPageTestId(state),
+    variantId: getVariantId(state)
   };
 };
 

@@ -25,9 +25,13 @@ if (mock) {
   mock.onGet(/\/api\/tests\/.+\/variant\/.+/).reply(200, {
     // /api/tests/GS00115NP050818_TS1_01/variant/1gr3ekk8qbb29u5vljto219bn
     currentZygosity: "Homo",
-    germline_variant_class:  "LPATH",
-    somatic_variant_class:  "Tier2",
+    germline_variant_class: "LPATH",
+    somatic_variant_class: "Tier2"
   });
+
+  // const regex = new RegExp(/.+/);
+  // mock
+  //   .onPost(/\/api\/tests\/.+\/variant\/.+/, { value: regex, name: "somatic" })
+  //   .reply(200);
   
-  mock.onPost(/\/api\/tests\/.+\/variant\/.+/).reply(200);
-}
+  mock.onPost(/\/api\/tests\/.+\/variant\/.+/).reply(200);}

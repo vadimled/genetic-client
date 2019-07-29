@@ -58,6 +58,8 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getVariantData = state => state.variantPage.variantData,
   getHistorySomatic = state => state.variantPage.somaticClassHistory,
   getHistoryGermline = state => state.variantPage.germlineClassHistory,
+  getVariantId = state => state.variantPage.variantId,
+  getVariantPageTestId = state => state.variantPage.testId,
 
   getSortParam = state => state?.table?.sortParam,
   getSortOrder = state => state?.table?.sortOrder,
