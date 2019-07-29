@@ -26,7 +26,7 @@ class VariantClassificationContainer extends React.Component {
 
     !value ? setZygosityType({selectedZygosityType: id, testId, variantId}) : setGeneValue({ value, name });
 
-    this.props.location.search = `?selectedZygosityType=${id}`
+    this.props.location.search = `?selectedZygosityType=${id}`;
   };
 
   render() {
