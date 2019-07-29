@@ -1,15 +1,48 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
-import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
+// import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
+import { PRIORITY } from "../../utils/constants";
 import { CONFIRMATION_VALUES } from 'Utils/constants';
 
 const initialState = {
-  data: generateDNAVariantTableMockData(200),
+  data: {},
   uncheckConfirmationData: null,
-  activityLog: {}
+  activityLog: {},
+  sortParam: "priority",
+  sortOrder: "default",
+  clicksCounter: 1
 };
 
 const tableReducer = createReducer(initialState, {
+
+  [actionsTypes.FETCH_DATA_SUCCESS]: (state, {payload}) => {
+    return {
+      ...state,
+      data: payload
+    };
+  },
+
+  [actionsTypes.SET_SORT]: (state, {payload}) => {
+
+    const {field, order} = payload;
+
+    if(state.clicksCounter >= 2){
+      return {
+        ...state,
+        sortParam: field,
+        sortOrder: order,
+        clicksCounter: order === "default" ? 1 : 0
+      };
+    }
+
+    return {
+      ...state,
+      sortParam: field,
+      sortOrder: order,
+      clicksCounter: order === "default" ? 1 : state.clicksCounter + 1
+    };
+  },
+
   [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
     const {item, value} = payload;
     let data = state?.data;
@@ -48,22 +81,41 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_ZYGOSITY]: (state, { payload }) => {
+
     const {item, value} = payload;
     let data = state?.data;
+
     data[item.id].zygosity = value;
+
+    const newData = Object.assign({}, data);
+
+    state.data = newData;
 
     // and always reset variantClass as a result of changing the zygosity
     // reset to
-    if (
-      value !== 'insignificant' &&
-      value !== 'notReal' &&
-      value !== 'unknown'
-    ) {
-      // unclassified is default for somatic & germline
-      data[item.id].variantClass = 'unclassified';
-    }
-    else {
-      data[item.id].variantClass = '';
+    // if (
+    //   value !== 'insignificant' &&
+    //   value !== 'notReal' &&
+    //   value !== 'unknown'
+    // ) {
+    //   // unclassified is default for somatic & germline
+    //   data[item.id].variantClass = 'unclassified';
+    //   data[item.id].priority = PRIORITY['unclassified'];
+    // }
+    // else {
+    //   data[item.id].variantClass = '';
+    // }
+
+    data[item.id].variantClass = 'unclassified';
+    data[item.id].priority = PRIORITY['unclassified'];
+
+    switch (value) {
+      case "unknown": data[item.id].priority = PRIORITY['unknown'];
+        break;
+      case "notReal": data[item.id].priority = PRIORITY['notReal'];
+        break;
+      case "insignificant": data[item.id].priority = PRIORITY['insignificant'];
+        break;
     }
 
     return {
@@ -72,9 +124,28 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_VARIANT_CLASS]: (state, { payload }) => {
+
     const {item, value} = payload;
+
+    const priority = PRIORITY[value];
+
     let data = state?.data;
-    data[item.id].variantClass = value;
+
+    const record = data[item.id];
+
+    if(record?.zygosity === "homo" || record?.zygosity === "hetro"){
+      record.variantClassGermline = value;
+    }else if(item?.zygosity === "somatic"){
+      record.variantClassSomatic = value;
+    }
+
+    // data[item.id].variantClass = value;
+
+    data[item.id].priority = priority;
+
+    const newData = Object.assign({}, data);
+
+    state.data = newData;
 
     return {
       ...state
@@ -111,6 +182,7 @@ const tableReducer = createReducer(initialState, {
   [actionsTypes.HANDLE_CONFIRMATION_STATUS]: (state, { payload }) => {
     const { id, status } = payload;
     let data = state?.data;
+
     data[id].status = status;
 
     return {

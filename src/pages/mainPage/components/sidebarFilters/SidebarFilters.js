@@ -15,18 +15,20 @@ import {
   getFilterVaf,
   getFilterCancerDBs,
   getFilterGnomId,
-  getSearchQuery
+  getSearchQuery,
+  getTestType
 } from "Store/selectors";
 import {
-  setFilterVariantClass,
-  setFilterSomaticClass,
+  setFilterVariantClassGermline,
+  setFilterVariantClassSomatic,
   setFilterHotSpot,
   setFilterSnp,
   setFilterRoi,
   setFilterVaf,
   setFilterCancerDBs,
   setFilterGnomId,
-  clearFilterSection
+  clearFilterSection,
+  setDefaultFilters
 } from "Actions/filtersActions";
 import { FILTERS } from "Utils/constants";
 import style from "./SidebarFilters.module.scss";
@@ -41,10 +43,28 @@ function callback(key) {
 const Arrow = ({ dir }) => <i className={`${dir} arrow`} />;
 
 class SidebarFilters extends Component {
+
+  state={
+    testType: null
+  };
+
+  static getDerivedStateFromProps(props, state) {
+
+    if (props.testType !== null && state.testType === null) {
+
+      props.setDefaultFilters(props.testType);
+      return {
+        testType: props.testType
+      };
+    }
+    // Return null if the state hasn't changed
+    return null;
+  }
+
   onChange = (filterSection, mode, value) => {
     const {
-      setFilterVariantClass,
-      setFilterSomaticClass,
+      setFilterVariantClassGermline,
+      setFilterVariantClassSomatic,
       setFilterHotSpot,
       setFilterSnp,
       setFilterRoi,
@@ -59,11 +79,11 @@ class SidebarFilters extends Component {
     };
 
     switch (filterSection) {
-      case FILTERS.variantClass:
-        setFilterVariantClass(data);
+      case FILTERS.variantClassGermline:
+        setFilterVariantClassGermline(data);
         break;
-      case FILTERS.somaticClass:
-        setFilterSomaticClass(data);
+      case FILTERS.variantClassSomatic:
+        setFilterVariantClassSomatic(data);
         break;
       case FILTERS.hotSpot:
         setFilterHotSpot(data);
@@ -88,8 +108,8 @@ class SidebarFilters extends Component {
 
   filtersConfigConverter = initFilters => {
     return {
-      [FILTERS.variantClass]: initFilters[FILTERS.variantClass],
-      [FILTERS.somaticClass]: initFilters[FILTERS.somaticClass],
+      [FILTERS.variantClassGermline]: initFilters[FILTERS.variantClassGermline],
+      [FILTERS.variantClassSomatic]: initFilters[FILTERS.variantClassSomatic],
       ["variantPanels"]: {
         title: "Variant panels",
         type: ["somatic"],
@@ -118,6 +138,7 @@ class SidebarFilters extends Component {
     const { filters, type } = this.props;
 
     const transformedFiltersConfig = this.filtersConfigConverter(filtersConfig);
+
     const filtersChipIndicators = Object.keys(filters).filter(
       key => filters[key].length && filters[key][0] !== ""
     );
@@ -236,8 +257,8 @@ function mapStateToProps(state) {
   return {
     type: getFilterType(state),
     filters: {
-      [FILTERS.variantClass]: getFilterVariantClass(state),
-      [FILTERS.somaticClass]: getFilterSomaticClass(state),
+      [FILTERS.variantClassGermline]: getFilterVariantClass(state),
+      [FILTERS.variantClassSomatic]: getFilterSomaticClass(state),
       [FILTERS.hotSpot]: getFilterHotSpot(state),
       [FILTERS.snp]: getFilterSnp(state),
       [FILTERS.roi]: getFilterRoi(state),
@@ -245,21 +266,23 @@ function mapStateToProps(state) {
       [FILTERS.cancerDBs]: getFilterCancerDBs(state),
       [FILTERS.gnomAD]: getFilterGnomId(state),
       [FILTERS.searchText]: [getSearchQuery(state)]
-    }
+    },
+    testType: getTestType(state)
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setFilterVariantClass: data => dispatch(setFilterVariantClass(data)),
-    setFilterSomaticClass: data => dispatch(setFilterSomaticClass(data)),
+    setFilterVariantClassGermline: data => dispatch(setFilterVariantClassGermline(data)),
+    setFilterVariantClassSomatic: data => dispatch(setFilterVariantClassSomatic(data)),
     setFilterHotSpot: data => dispatch(setFilterHotSpot(data)),
     setFilterSnp: data => dispatch(setFilterSnp(data)),
     setFilterRoi: data => dispatch(setFilterRoi(data)),
     setFilterVaf: data => dispatch(setFilterVaf(data)),
     setFilterCancerDBs: data => dispatch(setFilterCancerDBs(data)),
     setFilterGnomId: data => dispatch(setFilterGnomId(data)),
-    clearFilterSection: data => dispatch(clearFilterSection(data))
+    clearFilterSection: data => dispatch(clearFilterSection(data)),
+    setDefaultFilters: data => dispatch(setDefaultFilters(data))
   };
 }
 export default connect(

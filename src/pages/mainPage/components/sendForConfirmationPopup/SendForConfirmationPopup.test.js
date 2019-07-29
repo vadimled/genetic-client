@@ -2,15 +2,16 @@ import React from "react";
 import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from 'redux-saga';
 import { watchSaga } from "Store/saga";
+import reducers from "Store/reducers";
 import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { renderWithRedux } from "Utils/test_helpers";
 import SendForConfirmationPopup from "./SendForConfirmationPopup";
-import reducers from "Store/reducers";
 import { ALERT_STATUSES } from 'Utils/constants';
 import {
   handleSelectedRow,
-  handleSelectAllRows
+  handleSelectAllRows,
+  fetchData
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
@@ -33,6 +34,7 @@ const initSteps = () => {
   );
   sagaMiddleware.run(watchSaga);
 
+
   // before starting work with confirmation data, first of all we should define confirmation data
   // the way to do this
   // 1) get row from table data
@@ -42,6 +44,8 @@ const initSteps = () => {
   // 6) establish isOnConfirmationData to true
 
   // drop all selected rows
+
+  store.dispatch(fetchData());
   store.dispatch(handleSelectAllRows(false));
 
   // 1) - 2) ->

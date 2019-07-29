@@ -71,6 +71,27 @@ export const updateActivityLog = data => {
   };
 };
 
+export const fetchData = data => {
+  return{
+    type: actionsTypes.FETCH_DATA,
+    payload: data
+  };
+};
+
+export function setDataToStore(data) {
+  return {
+    type: actionsTypes.FETCH_DATA_SUCCESS,
+    payload: data
+  };
+}
+
+export const setSort = (data)=> {
+  return{
+    type: actionsTypes.SET_SORT,
+    payload: data
+  };
+};
+
 export const tableDataAddResult = data => {
   return{
     type: actionsTypes.TABLE_DATA_ADD_RESULT,
