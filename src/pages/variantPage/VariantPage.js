@@ -7,12 +7,13 @@ import ExternalResources from "variantComponents/externalResources";
 import ClassificationHistoryTable from "variantComponents/classificationHistoryTable";
 import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
-import { getExternalResources, getHistoryGermline, getHistorySomatic, getVariantData } from "Store/selectors";
+import { getExternalResources, getHistoryGermline, getHistorySomatic, getVariantData, getZygosityType } from "Store/selectors";
 import { connect } from "react-redux";
 import { setExternalResources, fetchVariantData, setZygosityType } from "Actions/variantPageActions";
 import { createResourcesLinks, getDataArray } from "Utils/helpers";
 import { SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 import queryString from "query-string";
+import { GERMLINE_VARIANT_CLASS_OPTIONS } from "../../utils/constants";
 
 
 class VariantPage extends Component {
@@ -42,8 +43,10 @@ class VariantPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { externalResources, variantData, somaticClassHistory } = this.props;
+    const { externalResources, variantData, somaticClassHistory, germlineClassHistory, selectedZygosityType } = this.props;
     const {testId, variantId} = this.props.match.params;
+
+    console.log("--variant page props: ", this.props)
 
     return (
       <div className={style["variant-page-wrapper"]}>
@@ -86,8 +89,8 @@ class VariantPage extends Component {
               ])}
             >
               <ClassificationHistoryTable
-                data={getDataArray(somaticClassHistory)}
-                typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
+                data={selectedZygosityType === "somatic" ? getDataArray(somaticClassHistory) : getDataArray(germlineClassHistory)}
+                typeData={selectedZygosityType === "somatic" ? SOMATIC_VARIANT_CLASS_OPTIONS : GERMLINE_VARIANT_CLASS_OPTIONS}
               />
             </div>
             <div className="evidence" />
@@ -105,7 +108,8 @@ const mapStateToProps = state => {
     variantData: getVariantData(state),
     germlineClassHistory: getHistoryGermline(state),
     somaticClassHistory: getHistorySomatic(state),
-    externalResources: getExternalResources(state)
+    externalResources: getExternalResources(state),
+    selectedZygosityType: getZygosityType(state)
   };
 };
 
