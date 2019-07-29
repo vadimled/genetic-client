@@ -562,7 +562,6 @@ export const generateDNAVariantTableMockData = amount => {
           null
         ])
         : null,
-      // priority: null
     };
   }
   return data;

@@ -106,15 +106,16 @@ const tableReducer = createReducer(initialState, {
     //   data[item.id].variantClass = '';
     // }
 
-    data[item.id].variantClass = 'unclassified';
+    // data[item.id].variantClassGermline = 'unclassified';
+    // data[item.id].variantClassSomatic = 'unclassified';
     data[item.id].priority = PRIORITY['unclassified'];
 
     switch (value) {
-      case "unknown": data[item.id].priority = PRIORITY['unknown'];
+      case "unknown": data[item.id].priority = 14;
         break;
-      case "notReal": data[item.id].priority = PRIORITY['notReal'];
+      case "notReal": data[item.id].priority = 14;
         break;
-      case "insignificant": data[item.id].priority = PRIORITY['insignificant'];
+      case "insignificant": data[item.id].priority = 14;
         break;
     }
 

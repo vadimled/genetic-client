@@ -3,8 +3,7 @@ import * as Sentry from "@sentry/browser";
 import {
   ALERT_STATUSES,
   ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS,
-  PRIORITY
+  VALIDATION_FAILD_FIELDS
 } from "Utils/constants";
 import {
   fetchBAMFile,
@@ -296,8 +295,20 @@ export function* fetchData() {
   try {
     const result = generateDNAVariantTableMockData(200);
 
-    for (let record in result) {
-      result[record].priority = PRIORITY[result[record].variantClass];
+    for(let item in result){
+
+      const record = result[item];
+
+      if(record?.variantClassGermline === "ben" && record?.variantClassSomatic === "tier4"){
+        record.priority = 14;
+      }
+      else if(record?.variantClassGermline === "path"){
+        record.priority = 1;
+      }
+      else {
+        record.priority = 7;
+      }
+
     }
 
     yield put(setDataToStore(result));

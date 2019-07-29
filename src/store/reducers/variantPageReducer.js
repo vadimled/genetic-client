@@ -183,7 +183,7 @@ const variantPageReducer = createReducer(initialState, {
   [actionsTypes.SET_VARIANT_ZYGOSITY_TYPE]: (state, { payload }) => {
     return {
       ...state,
-      selectedZygosityType: payload
+      ...payload
     };
   },
 

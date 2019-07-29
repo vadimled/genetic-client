@@ -22,7 +22,7 @@ function ZygosityTypeButton({
         value={currValue}
         options={typeData}
         onChange={onChangeType}
-        showArrow={currentZygosity.toLowerCase() === type}
+        showArrow={currentZygosity?.toLowerCase() === type}
         suffixIcon={<EditIcon />}
         selectHeaderClass="select-header-text-style"
       />

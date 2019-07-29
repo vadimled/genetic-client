@@ -9,18 +9,23 @@ import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
 import { getExternalResources, getHistoryGermline, getHistorySomatic, getVariantData } from "Store/selectors";
 import { connect } from "react-redux";
-import { setExternalResources, fetchVariantData} from "Actions/variantPageActions";
+import { setExternalResources, fetchVariantData, setZygosityType } from "Actions/variantPageActions";
 import { createResourcesLinks, getDataArray } from "Utils/helpers";
 import { SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
+import queryString from "query-string";
+
 
 class VariantPage extends Component {
   constructor(props) {
     super(props);
-    
-    
-    props.fetchVariantData({testId: "GS00115NP050818_TS1_01", variantId: "1gr3ekk8qbb29u5vljto219bn"});
-    
-    
+    const {testId, variantId} = props.match.params;
+
+    const {selectedZygosityType} = queryString.parse(window.location.search);
+
+    props.setZygosityType({selectedZygosityType, testId, variantId});
+  
+    // props.fetchVariantData({testId: "GS00115NP050818_TS1_01", variantId: "1gr3ekk8qbb29u5vljto219bn"});
+  
     this.state = {
       sidebarToggle: true
     };
@@ -28,6 +33,7 @@ class VariantPage extends Component {
     // TODO: this action must be dispatched from the Saga
     props.setResources(createResourcesLinks(props.variantData));
   }
+
 
   handleClick = () => {
     this.setState({
@@ -103,7 +109,8 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     setResources: data => dispatch(setExternalResources(data)),
-    fetchVariantData: data => dispatch(fetchVariantData(data))
+    fetchVariantData: data => dispatch(fetchVariantData(data)),
+    setZygosityType: data => dispatch(setZygosityType(data))
   };
 }
 
