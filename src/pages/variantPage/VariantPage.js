@@ -18,9 +18,9 @@ class VariantPage extends Component {
   constructor(props) {
     super(props);
 
-    const {selectedZygosityType, testId, variantId} = props.location.state
+    const {selectedZygosityType, testId, variantId} = props.location.state;
 
-    props.setZygosityType({selectedZygosityType, testId, variantId})
+    props.setZygosityType({selectedZygosityType, testId, variantId});
 
     // props.fetchVariantData();
     this.state = {
