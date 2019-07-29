@@ -550,10 +550,8 @@ export const generateDNAVariantTableMockData = amount => {
       ]),
       zygosity: "",
 
-      variantClassGermline: "unclassified",
-      // variantClassGermline: faker.random.arrayElement(["unclassified", "path", "lpath", "vus", "lben", "ben"]),
-      variantClassSomatic: "unclassified",
-      // variantClassSomatic: faker.random.arrayElement(["unclassified", "tier1", "tier2", "tier3", "tier4"]),
+      variantClassGermline: faker.random.arrayElement(["unclassified", "path", "lpath", "vus", "lben", "ben"]),
+      variantClassSomatic: faker.random.arrayElement(["unclassified", "tier1", "tier2", "tier3", "tier4"]),
       coverage: faker.random.number({ min: 100, max: 500 }),
       notes: faker.lorem.sentence(),
       status: process?.env?.NODE_ENV === 'test'
