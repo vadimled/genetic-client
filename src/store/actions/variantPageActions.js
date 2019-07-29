@@ -34,3 +34,11 @@ export const fetchVariantData = data => {
     payload: data
   };
 };
+
+export const sendVariantClass = variantClass => {
+  return {
+    type: actionsTypes.SEND_VARIANT_CLASS,
+    payload: variantClass
+  };
+};
+

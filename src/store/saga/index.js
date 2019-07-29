@@ -13,7 +13,8 @@ import {
   resultConfigLoadHgvsGenerator,
   resultConfigAddResultGenerator,
   resultConfigEditResultGenerator,
-  fetchVariantDataGenerator
+  fetchVariantDataGenerator,
+  sendVariantClassGenerator
 } from "./sagas";
 
 export function* watchSaga() {
@@ -26,4 +27,5 @@ export function* watchSaga() {
   yield takeLatest(types.RESULT_CONFIG_ADD_RESULT, resultConfigAddResultGenerator);
   yield takeLatest(types.RESULT_CONFIG_EDIT_RESULT, resultConfigEditResultGenerator);
   yield takeLatest(types.FETCH_VARIANT_DATA, fetchVariantDataGenerator);
+  yield takeLatest(types.SEND_VARIANT_CLASS, sendVariantClassGenerator);
 }

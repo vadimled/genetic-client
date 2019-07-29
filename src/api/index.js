@@ -52,3 +52,7 @@ export function fetchCaseDataApi(id) {
 export function fetchVariantDataApi(data) {
   return axios.get(`/api/tests/${data.testId}/variant/${data.variantId}`);
 }
+
+export function sendVariantClassApi(data) {
+  return axios.get(`/api/tests/${data.testId}/variant/${data.variantId}`);
+}

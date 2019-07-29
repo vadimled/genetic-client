@@ -7,7 +7,7 @@ import {
 } from "Utils/constants";
 import style from "./VariantClassificationContainer.module.scss";
 import { connect } from "react-redux";
-import { setSelectedZygosityType, setVariantClassification } from "Actions/variantPageActions";
+import { setSelectedZygosityType, sendVariantClass } from "Actions/variantPageActions";
 import {
   getZygosityType,
   getGermlineValue,
@@ -19,18 +19,12 @@ import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 class VariantClassificationContainer extends React.Component {
   onChangeType = (e, id) => {
     const { value, name } = e.target,
-      { setVariantClassification, setZygosityType } = this.props;
+      { sendVariantClass, setZygosityType } = this.props;
 
     if(!value){
       setZygosityType({selectedZygosityType: id});
     } else {
-      setVariantClassification({ value, name });
-      // updateActivityLog({
-      //   prevValue,
-      //   item: tableRow,
-      //   changedField: "notes"
-      // });
-  
+      sendVariantClass({ value, name });
     }
   };
 
@@ -92,7 +86,7 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setVariantClassification: data => dispatch(setVariantClassification(data)),
+    sendVariantClass: data => dispatch(sendVariantClass(data)),
     setZygosityType: data => dispatch(setSelectedZygosityType(data))
   };
 }

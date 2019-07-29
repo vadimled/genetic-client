@@ -12,7 +12,8 @@ import {
   addResult,
   editResult,
   fetchCaseDataApi,
-  fetchVariantDataApi
+  fetchVariantDataApi,
+  sendVariantClassApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -40,7 +41,10 @@ import {
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { setCaseData } from "Actions/testActions";
 import { setMutationType } from "Actions/variantsActions";
-import { setVariantData } from "Actions/variantPageActions";
+import {
+  setVariantData,
+  setVariantClassification
+} from "Actions/variantPageActions";
 import { zygosityType } from "Utils/helpers";
 
 function* onDelay(time) {
@@ -338,6 +342,20 @@ export function* fetchVariantDataGenerator(data) {
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchVariantDataGenerator"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* sendVariantClassGenerator(variantClass) {
+  try {
+    const result = yield call(sendVariantClassApi, variantClass.payload);
+    if (result?.status === 200) {
+      yield put(setVariantClassification(variantClass.payload));
+    }
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["sendVariantClassGenerator"]);
       Sentry.captureException(e);
     });
   }
