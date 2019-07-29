@@ -22,7 +22,6 @@ const SimpleSelect = ({
   selectHeaderClass,
   ...props
 }) => {
-  // testId === "gene-type-select-somatic" &&  console.log({options,value});
   return (
     <Fragment>
       {!!label && <label>{label}</label>}
@@ -55,7 +54,6 @@ const SimpleSelect = ({
         {...props}
       >
         {options?.map(option => {
-
           return (
             <Option key={option.value} value={option.value}>
               <LabeledTag

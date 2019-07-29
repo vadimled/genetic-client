@@ -98,7 +98,7 @@ describe("VariantPageHeader ", () => {
 
   // error - The given element does not have a value setter
   xit("should - active Button is Select", () => {
-    const activeButton = getByTestId("gene-type-select-somatic");
+    const activeButton = getByTestId("zygosity-type-select-somatic");
     expect(activeButton).toBeInTheDocument();
 
     fireEvent.change(activeButton, { target: { value: "tier2" } });

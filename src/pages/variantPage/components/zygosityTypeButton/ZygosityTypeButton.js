@@ -15,21 +15,21 @@ function ZygosityTypeButton({
   currValue
 }) {
   return selectedZygosityType === type ? (
-    <div className={style["gene-type-button-wrapper"]}>
+    <div className={style["zygosity-type-button-wrapper"]}>
+      <div
+        data-testid={`select-title-${title}`}
+        className="select-title"
+      >{`${title}:`}</div>
       <SimpleSelect
-        testId={`gene-type-select-${type}`}
+        testId={`zygosity-type-select-${type}`}
         name={type}
-        value={currValue}
+        value={currValue?.toLowerCase()}
         options={typeData}
         onChange={onChangeType}
         showArrow={currentZygosity?.toLowerCase() === type}
         suffixIcon={<EditIcon />}
         selectHeaderClass="select-header-text-style"
       />
-      <div
-        data-testid={`select-title-${title}`}
-        className="select-title"
-      >{`${title}:`}</div>
     </div>
   ) : (
     <NonActiveButton

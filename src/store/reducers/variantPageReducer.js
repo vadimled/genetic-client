@@ -175,8 +175,12 @@ const variantPageReducer = createReducer(initialState, {
     const { value, name } = payload;
     return {
       ...state,
-      somatic_variant_class: name === "somatic" ? value : state.somatic_variant_class,
-      germline_variant_class: name === "germline" ? value : state.germline_variant_class
+      somatic_variant_class: name === "somatic" ?
+        value.toLowerCase() :
+        state.somatic_variant_class.toLowerCase(),
+      germline_variant_class: name === "germline" ?
+        value.toLowerCase() :
+        state.germline_variant_class.toLowerCase()
     };
   },
 
