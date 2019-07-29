@@ -34,9 +34,8 @@ class VariantClassificationContainer extends React.Component {
       currentZygosityType
     } = this.props;
 
-    console.log("--selectedZygosityType: ", selectedZygosityType)
 
-    console.log(this.props)
+    console.log(this.props);
 
     return (
       <div className={style["gene-type-wrapper"]}>
