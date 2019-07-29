@@ -58,7 +58,7 @@ class VariantPage extends Component {
     } = this.props;
     const {testId, variantId} = this.props.match.params;
 
-    console.log("--variant page props: ", this.props);
+    // console.log("--variant page props: ", this.props);
 
     return (
       <div className={style["variant-page-wrapper"]}>

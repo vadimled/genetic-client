@@ -11,7 +11,9 @@ function ZygosityTypeButton({
   type,
   onChangeType,
   typeData,
-  currValue
+  currValue,
+  variantId,
+  testId
 }) {
   return selectedZygosityType === type ? (
     <div className={style["gene-type-button-wrapper"]}>
@@ -37,6 +39,9 @@ function ZygosityTypeButton({
       type={type}
       typeData={typeData}
       currValue={currValue}
+      variantId={variantId}
+      testId={testId}
+      selectedZygosityType={selectedZygosityType}
     />
   );
 }

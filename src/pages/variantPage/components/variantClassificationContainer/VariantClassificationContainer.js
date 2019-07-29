@@ -15,6 +15,7 @@ import {
   getCurrentZygosityType
 } from "Store/selectors";
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
+import { withRouter } from "react-router-dom";
 
 class VariantClassificationContainer extends React.Component {
   onChangeType = (e, id) => {
@@ -24,6 +25,8 @@ class VariantClassificationContainer extends React.Component {
     const { value, name } = e.target;
 
     !value ? setZygosityType({selectedZygosityType: id, testId, variantId}) : setGeneValue({ value, name });
+
+    this.props.location.search = `?selectedZygosityType=${id}`
   };
 
   render() {
@@ -31,7 +34,9 @@ class VariantClassificationContainer extends React.Component {
       selectedZygosityType,
       somaticValue,
       germlineValue,
-      currentZygosityType
+      currentZygosityType,
+      testId,
+      variantId
     } = this.props;
 
 
@@ -52,6 +57,8 @@ class VariantClassificationContainer extends React.Component {
               onChangeType={this.onChangeType}
               title={TEXTS.germlineUp}
               typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
+              testId={testId}
+              variantId={variantId}
             />
           </div>
           <ZygosityTypeButton
@@ -61,6 +68,8 @@ class VariantClassificationContainer extends React.Component {
             onChangeType={this.onChangeType}
             title={TEXTS.somaticUp}
             typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
+            testId={testId}
+            variantId={variantId}
           />
         </div>
       </div>
@@ -80,7 +89,7 @@ const mapStateToProps = state => {
     selectedZygosityType: getZygosityType(state),
     currentZygosityType: getCurrentZygosityType(state),
     somaticValue: getSomaticValue(state),
-    germlineValue: getGermlineValue(state)
+    germlineValue: getGermlineValue(state),
   };
 };
 
@@ -91,7 +100,9 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(VariantClassificationContainer);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(VariantClassificationContainer)
+);
