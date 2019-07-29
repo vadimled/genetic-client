@@ -84,7 +84,14 @@ class ClassificationHistoryTable extends Component {
       };
       if (col.dataIndex === "class") {
         column.render = text => {
-          return <LabeledTag label={text} typeData={typeData} />;
+          return (
+            <div className="label-custom-style">
+              <LabeledTag
+                label={text}
+                typeData={typeData}
+              />
+            </div>
+          );
         };
       } else {
         column.render = (text, record) => {
