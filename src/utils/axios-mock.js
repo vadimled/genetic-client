@@ -28,4 +28,6 @@ if (mock) {
     germline_variant_class:  "LPATH",
     somatic_variant_class:  "Tier2",
   });
+  
+  mock.onPost(/\/api\/tests\/.+\/variant\/.+/).reply(200);
 }

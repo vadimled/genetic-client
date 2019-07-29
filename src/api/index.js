@@ -54,5 +54,8 @@ export function fetchVariantDataApi(data) {
 }
 
 export function sendVariantClassApi(data) {
-  return axios.get(`/api/tests/${data.testId}/variant/${data.variantId}`);
+  return axios.post(`/api/tests/${data.testId}/variant/${data.variantId}`, {
+    name: data.name,
+    value: data.value
+  });
 }
