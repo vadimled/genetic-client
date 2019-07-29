@@ -7,7 +7,13 @@ import ExternalResources from "variantComponents/externalResources";
 import ClassificationHistoryTable from "variantComponents/classificationHistoryTable";
 import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
-import { getExternalResources, getHistoryGermline, getHistorySomatic, getVariantData, getZygosityType } from "Store/selectors";
+import {
+  getExternalResources,
+  getHistoryGermline,
+  getHistorySomatic,
+  getVariantData,
+  getZygosityType
+} from "Store/selectors";
 import { connect } from "react-redux";
 import { setExternalResources, fetchVariantData, setZygosityType } from "Actions/variantPageActions";
 import { createResourcesLinks, getDataArray } from "Utils/helpers";
@@ -43,7 +49,13 @@ class VariantPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { externalResources, variantData, somaticClassHistory, germlineClassHistory, selectedZygosityType } = this.props;
+    const {
+      externalResources,
+      variantData,
+      somaticClassHistory,
+      germlineClassHistory,
+      selectedZygosityType
+    } = this.props;
     const {testId, variantId} = this.props.match.params;
 
     console.log("--variant page props: ", this.props);
