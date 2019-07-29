@@ -3,7 +3,7 @@ import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { renderWithRedux } from "Utils/test_helpers";
 import VariantPageHeader from "./VariantPageHeader";
-import { setZygosityType } from "Actions/variantPageActions";
+import { setSelectedZygosityType } from "Actions/variantPageActions";
 
 describe("VariantPageHeader ", () => {
   let getByTestId, store;
@@ -79,7 +79,7 @@ describe("VariantPageHeader ", () => {
 
   it("should - inactive Button after click going to active state", () => {
     store.dispatch(
-      setZygosityType({
+      setSelectedZygosityType({
         selectedZygosityType: "somatic",
         testId: 1,
         variantId: 1

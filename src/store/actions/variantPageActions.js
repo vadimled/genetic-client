@@ -7,7 +7,7 @@ export const setVariantClassification = data => {
   };
 };
 
-export const setZygosityType = data => {
+export const setSelectedZygosityType = data => {
   return {
     type: actionsTypes.SET_VARIANT_ZYGOSITY_TYPE,
     payload: data

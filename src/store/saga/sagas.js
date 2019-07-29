@@ -40,7 +40,7 @@ import {
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { setCaseData } from "Actions/testActions";
 import { setMutationType } from "Actions/variantsActions";
-import { setVariantData, setZygosityType } from "Actions/variantPageActions";
+import { setVariantData } from "Actions/variantPageActions";
 import { zygosityType } from "Utils/helpers";
 
 function* onDelay(time) {
@@ -295,20 +295,19 @@ export function* fetchData() {
   try {
     const result = generateDNAVariantTableMockData(200);
 
-    for(let item in result){
-
+    for (let item in result) {
       const record = result[item];
 
-      if(record?.variantClassGermline === "ben" && record?.variantClassSomatic === "tier4"){
+      if (
+        record?.variantClassGermline === "ben" &&
+        record?.variantClassSomatic === "tier4"
+      ) {
         record.priority = 14;
-      }
-      else if(record?.variantClassGermline === "path"){
+      } else if (record?.variantClassGermline === "path") {
         record.priority = 1;
-      }
-      else {
+      } else {
         record.priority = 7;
       }
-
     }
 
     yield put(setDataToStore(result));
@@ -334,11 +333,8 @@ export function* fetchCaseDataGenerator(id) {
 export function* fetchVariantDataGenerator(data) {
   try {
     const result = yield call(fetchVariantDataApi, data),
-      newData = zygosityType(result?.data),
-      { currentZygosity } = newData;
-
+      newData = zygosityType(result?.data);
     yield put(setVariantData(newData));
-    yield put(setZygosityType(currentZygosity.toLowerCase()));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchVariantDataGenerator"]);
