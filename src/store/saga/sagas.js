@@ -5,7 +5,7 @@ import {
   ALLELE_TYPES,
   VALIDATION_FAILD_FIELDS,
   PRIORITY
-} from 'Utils/constants';
+} from "Utils/constants";
 import {
   fetchBAMFile,
   goToChrPositionIgv,
@@ -296,7 +296,7 @@ export function* fetchData() {
   try {
     const result = generateDNAVariantTableMockData(200);
 
-    for(let record in result){
+    for (let record in result) {
       result[record].priority = PRIORITY[result[record].variantClass];
     }
 
@@ -309,7 +309,7 @@ export function* fetchData() {
 
 export function* fetchCaseDataGenerator(id) {
   try {
-    const result = yield call(fetchCaseDataApi, id);
+    const result = yield call(fetchCaseDataApi, id.payload);
     yield put(setCaseData(result?.data));
     yield put(setMutationType(result?.data?.mutation_types[0]));
   } catch (e) {
@@ -321,14 +321,11 @@ export function* fetchCaseDataGenerator(id) {
 }
 
 export function* fetchVariantDataGenerator(data) {
-  console.log(data);
   try {
-    const
-      result = yield call(fetchVariantDataApi, data),
+    const result = yield call(fetchVariantDataApi, data),
       newData = zygosityType(result?.data),
       { currentZygosity } = newData;
-  
-    console.log(result);
+
     yield put(setVariantData(newData));
     yield put(setZygosityType(currentZygosity.toLowerCase()));
   } catch (e) {
