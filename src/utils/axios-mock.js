@@ -29,9 +29,5 @@ if (mock) {
     somatic_variant_class: "Tier2"
   });
 
-  // const regex = new RegExp(/.+/);
-  // mock
-  //   .onPost(/\/api\/tests\/.+\/variant\/.+/, { value: regex, name: "somatic" })
-  //   .reply(200);
-  
-  mock.onPost(/\/api\/tests\/.+\/variant\/.+/).reply(200);}
+  mock.onPatch(/\/api\/tests\/.+\/variant\/.+/).reply(200);
+}
