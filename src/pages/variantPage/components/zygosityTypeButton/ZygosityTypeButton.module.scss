@@ -48,6 +48,10 @@
     &.active {
       background: none !important;
       color: $neutral_30;
+
+      svg path {
+        fill: $neutral_30 !important;
+      }
     }
   }
 }

@@ -1,12 +1,10 @@
 import React from "react";
-import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { renderWithRedux } from "Utils/test_helpers";
 import VariantPageHeader from "./VariantPageHeader";
-import { setSelectedZygosityType } from "Actions/variantPageActions";
 
 describe("VariantPageHeader ", () => {
-  let getByTestId, store;
+  let getByTestId;
   const variantData = {
     gene: "A1CF",
     protein: "p.Leu2303Leu",
@@ -33,7 +31,6 @@ describe("VariantPageHeader ", () => {
       <VariantPageHeader sidebarToggle={false} variantData={variantData} />
     );
     getByTestId = queries.getByTestId;
-    store = queries.store;
   });
 
   it("should - received text be equal to text of textField (Gene)  ", () => {
@@ -75,24 +72,5 @@ describe("VariantPageHeader ", () => {
   it("should - non active Button is Germline and exists ", () => {
     const nonActiveButton = getByTestId("non-active-button-germline");
     expect(nonActiveButton).toBeInTheDocument();
-  });
-
-  it("should - inactive Button after click going to active state", async () => {
-    store.dispatch(
-      setSelectedZygosityType({
-        selectedZygosityType: "somatic",
-        testId: 1,
-        variantId: 1
-      })
-    );
-
-    const nonActiveButton = getByTestId("non-active-button-germline");
-    expect(nonActiveButton).toBeInTheDocument();
-
-    fireEvent.click(nonActiveButton);
-
-    const newNonActiveButton = await getByTestId("non-active-button-somatic");
-    expect(newNonActiveButton).toBeInTheDocument();
-    expect(nonActiveButton).not.toBeInTheDocument();
   });
 });
