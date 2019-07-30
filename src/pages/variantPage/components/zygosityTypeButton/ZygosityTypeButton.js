@@ -14,7 +14,9 @@ function ZygosityTypeButton({
   typeData,
   currValue
 }) {
-  return selectedZygosityType === type ? (
+  
+  const currZygosityFormatted = currentZygosity?.toLowerCase();
+  return currZygosityFormatted === type ? (
     <div className={style["zygosity-type-button-wrapper"]}>
       <div
         data-testid={`select-title-${title}`}
@@ -26,7 +28,7 @@ function ZygosityTypeButton({
         value={currValue?.toLowerCase()}
         options={typeData}
         onChange={onChangeType}
-        showArrow={currentZygosity?.toLowerCase() === type}
+        showArrow={currZygosityFormatted === type}
         suffixIcon={<EditIcon />}
         selectHeaderClass="select-header-text-style"
       />
@@ -36,6 +38,7 @@ function ZygosityTypeButton({
       title={title}
       onClick={onChangeType}
       type={type}
+      selectedType={selectedZygosityType}
       typeData={typeData}
       currValue={currValue}
     />

@@ -7,7 +7,10 @@ import {
 } from "Utils/constants";
 import style from "./VariantClassificationContainer.module.scss";
 import { connect } from "react-redux";
-import { setSelectedZygosityType, sendVariantClass } from "Actions/variantPageActions";
+import {
+  setSelectedZygosityType,
+  sendVariantClass
+} from "Actions/variantPageActions";
 import {
   getZygosityType,
   getGermlineValue,
@@ -23,10 +26,11 @@ class VariantClassificationContainer extends React.Component {
     const { value, name } = e.target,
       { sendVariantClass, setZygosityType, testId, variantId } = this.props;
 
-    if(!value){
-      setZygosityType({selectedZygosityType: id});
+    if (!value) {
+      setZygosityType({ selectedZygosityType: id });
     } else {
-      sendVariantClass({testId, variantId, value, name });
+      setZygosityType({ selectedZygosityType: name });
+      sendVariantClass({ testId, variantId, value, name });
     }
   };
 
