@@ -77,7 +77,7 @@ describe("VariantPageHeader ", () => {
     expect(nonActiveButton).toBeInTheDocument();
   });
 
-  it("should - inactive Button after click going to active state", () => {
+  it("should - inactive Button after click going to active state", async () => {
     store.dispatch(
       setSelectedZygosityType({
         selectedZygosityType: "somatic",
@@ -91,17 +91,8 @@ describe("VariantPageHeader ", () => {
 
     fireEvent.click(nonActiveButton);
 
-    expect(store.getState().variantPage.selectedZygosityType).toEqual(
-      "somatic"
-    );
-  });
-
-  // error - The given element does not have a value setter
-  xit("should - active Button is Select", () => {
-    const activeButton = getByTestId("zygosity-type-select-somatic");
-    expect(activeButton).toBeInTheDocument();
-
-    fireEvent.change(activeButton, { target: { value: "tier2" } });
-    expect(store.getState().variantPage.somatic_variant_class).toEqual("tier2");
+    const newNonActiveButton = await getByTestId("non-active-button-somatic");
+    expect(newNonActiveButton).toBeInTheDocument();
+    expect(nonActiveButton).not.toBeInTheDocument();
   });
 });
