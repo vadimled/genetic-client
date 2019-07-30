@@ -52,7 +52,8 @@
       justify-content: flex-start;
       flex-direction: column;
 
-      .history {
+      .history,
+      .evidence {
         display: flex;
         width: calc(100vw - 58px);
         padding: 30px 15px 15px 50px;
@@ -64,11 +65,6 @@
           width: calc(100vw - 218px);
           transition: 0.4s ease-in;
         }
-      }
-
-      .evidence {
-        display: flex;
-        height: 100px;
       }
     }
   }

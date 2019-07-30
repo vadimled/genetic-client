@@ -1,0 +1,21 @@
+@import "Css/Colors.scss";
+
+.evidence-wrapper :global {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid $border_color;
+  overflow: hidden !important;
+
+  .evidence-title {
+    margin-bottom: 12px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 131.99%;
+    color: $title_color;
+  }
+
+  .empty-state {
+    height: 177px;
+  }
+}

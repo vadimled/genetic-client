@@ -5,34 +5,42 @@ import SideBarLayout from "Pages/mainPage/components/sideBarLayout";
 import VariantPageHeader from "variantComponents/variantPageHeader";
 import ExternalResources from "variantComponents/externalResources";
 import ClassificationHistoryTable from "variantComponents/classificationHistoryTable";
+import EvidenceTable from "variantComponents/evidenceTable";
 import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
-import { getExternalResources, getHistoryGermline, getHistorySomatic, getVariantData } from "Store/selectors";
+import {
+  getExternalResources,
+  getHistoryGermline,
+  getHistorySomatic,
+  getVariantData
+} from "Store/selectors";
 import { connect } from "react-redux";
-import { setExternalResources, fetchVariantData, setSelectedZygosityType } from "Actions/variantPageActions";
+import {
+  setExternalResources,
+  fetchVariantData,
+  setSelectedZygosityType
+} from "Actions/variantPageActions";
 import { createResourcesLinks, getDataArray } from "Utils/helpers";
 import { SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 import queryString from "query-string";
 
-
 class VariantPage extends Component {
   constructor(props) {
     super(props);
-    const {testId, variantId} = props.match.params;
-    const {selectedZygosityType} = queryString.parse(window.location.search);
-  
+    const { testId, variantId } = props.match.params;
+    const { selectedZygosityType } = queryString.parse(window.location.search);
+
     this.state = {
       sidebarToggle: true
     };
-  
+
     // props.fetchVariantData({testId: "GS00115NP050818_TS1_01", variantId: "1gr3ekk8qbb29u5vljto219bn"});
-    props.fetchVariantData({testId, variantId});
-    props.setSelectedZygosityType({selectedZygosityType, testId, variantId});
-  
+    props.fetchVariantData({ testId, variantId });
+    props.setSelectedZygosityType({ selectedZygosityType, testId, variantId });
+
     // TODO: this action must be dispatched from the Saga
     props.setResources(createResourcesLinks(props.variantData));
   }
-
 
   handleClick = () => {
     this.setState({
@@ -86,7 +94,14 @@ class VariantPage extends Component {
                 typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
               />
             </div>
-            <div className="evidence" />
+            <div
+              className={cn([
+                "evidence",
+                { "links-wrapper-open": sidebarToggle }
+              ])}
+            >
+              <EvidenceTable />
+            </div>
           </div>
         </div>
       </div>
