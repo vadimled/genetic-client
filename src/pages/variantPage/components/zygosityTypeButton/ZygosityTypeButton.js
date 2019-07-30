@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect/SimpleSelect";
 import { ReactComponent as EditIcon } from "Assets/edit.svg";
 import NonActiveButton from "variantComponents/nonActiveButton";
@@ -14,24 +15,37 @@ function ZygosityTypeButton({
   typeData,
   currValue
 }) {
-  
   const currZygosityFormatted = currentZygosity?.toLowerCase();
   return currZygosityFormatted === type ? (
-    <div className={style["zygosity-type-button-wrapper"]}>
+    <div
+      className={style["zygosity-type-button-wrapper"]}
+      onClick={e => onChangeType(e, type)}
+    >
       <div
-        data-testid={`select-title-${title}`}
-        className="select-title"
-      >{`${title}:`}</div>
-      <SimpleSelect
-        testId={`zygosity-type-select-${type}`}
-        name={type}
-        value={currValue?.toLowerCase()}
-        options={typeData}
-        onChange={onChangeType}
-        showArrow={currZygosityFormatted === type}
-        suffixIcon={<EditIcon />}
-        selectHeaderClass="select-header-text-style"
-      />
+        className={cn("zygosity-type-button", {
+          active: selectedZygosityType !== type
+        })}
+      >
+        <div
+          data-testid={`select-title-${title}`}
+          className={cn("select-title", {
+            active: selectedZygosityType !== type
+          })}
+        >{`${title}:`}</div>
+        <SimpleSelect
+          testId={`zygosity-type-select-${type}`}
+          name={type}
+          value={currValue?.toLowerCase()}
+          options={typeData}
+          onChange={onChangeType}
+          showArrow={currZygosityFormatted === type}
+          suffixIcon={<EditIcon />}
+          selectHeaderClass={cn("select-header-text-style", {
+            active: selectedZygosityType !== type
+          })}
+          className={selectedZygosityType === type && "active"}
+        />
+      </div>
     </div>
   ) : (
     <NonActiveButton

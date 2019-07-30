@@ -20,6 +20,7 @@ const SimpleSelect = ({
   showArrow,
   suffixIcon,
   selectHeaderClass,
+  className,
   ...props
 }) => {
   return (
@@ -29,6 +30,7 @@ const SimpleSelect = ({
 
       <Select
         disabled={disabled}
+        className={className}
         onChange={val =>
           onChange({
             target: {
