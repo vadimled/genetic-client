@@ -1,7 +1,6 @@
 import { Icon } from "antd";
 import React from "react";
-import { FILTERS, VARIANT_CLASS_GERMLINE, VARIANT_CLASS_SOMATIC } from "Utils/constants";
-import { ZYGOSITY } from "./constants";
+import { FILTERS, VARIANT_CLASS_GERMLINE, VARIANT_CLASS_SOMATIC, ZYGOSITY, EFFECT } from "Utils/constants";
 
 export default {
   [FILTERS.zygosity]: {
@@ -112,6 +111,30 @@ export default {
         tagColor: VARIANT_CLASS_SOMATIC.tier4.tagColor,
         label: VARIANT_CLASS_SOMATIC.tier4.label
       }
+    ]
+  },
+
+  [FILTERS.effect]: {
+    title: "Effect",
+    type: ["somatic", "germline"],
+    mode: "multiple",
+    items: [
+      {
+        id: EFFECT.high.value,
+        label: EFFECT.high.label
+      },
+      {
+        id: EFFECT.modifier.value,
+        label: EFFECT.modifier.label
+      },
+      {
+        id: EFFECT.moderate.value,
+        label: EFFECT.moderate.label
+      },
+      {
+        id: EFFECT.low.value,
+        label: EFFECT.low.label
+      },
     ]
   },
 

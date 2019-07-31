@@ -17,7 +17,8 @@ import {
   getFilterGnomId,
   getSearchQuery,
   getTestType,
-  getFilterZygosity
+  getFilterZygosity,
+  getFilterEffect
 } from "Store/selectors";
 import {
   setFilterVariantClassGermline,
@@ -30,7 +31,8 @@ import {
   setFilterGnomId,
   clearFilterSection,
   setDefaultFilters,
-  setFilterZygosity
+  setFilterZygosity,
+  setFilterEffect
 } from "Actions/filtersActions";
 import { FILTERS } from "Utils/constants";
 import style from "./SidebarFilters.module.scss";
@@ -79,7 +81,8 @@ class SidebarFilters extends Component {
       setFilterVaf,
       setFilterCancerDBs,
       setFilterGnomId,
-      setFilterZygosity
+      setFilterZygosity,
+      setFilterEffect
     } = this.props;
 
     const data = {
@@ -114,6 +117,10 @@ class SidebarFilters extends Component {
         break;
       case FILTERS.zygosity:
         setFilterZygosity(data);
+        break;
+      case FILTERS.effect:
+        setFilterEffect(data);
+        break;
     }
   };
 
@@ -133,7 +140,8 @@ class SidebarFilters extends Component {
       [FILTERS.roi]: initFilters[FILTERS.roi],
       [FILTERS.vaf]: initFilters[FILTERS.vaf],
       [FILTERS.cancerDBs]: initFilters[FILTERS.cancerDBs],
-      [FILTERS.gnomAD]: initFilters[FILTERS.gnomAD]
+      [FILTERS.gnomAD]: initFilters[FILTERS.gnomAD],
+      [FILTERS.effect]: initFilters[FILTERS.effect]
     };
   };
 
@@ -278,7 +286,8 @@ function mapStateToProps(state) {
       [FILTERS.cancerDBs]: getFilterCancerDBs(state),
       [FILTERS.gnomAD]: getFilterGnomId(state),
       [FILTERS.searchText]: [getSearchQuery(state)],
-      [FILTERS.zygosity]: getFilterZygosity(state)
+      [FILTERS.zygosity]: getFilterZygosity(state),
+      [FILTERS.effect]: getFilterEffect(state)
     },
     testType: getTestType(state)
   };
@@ -296,7 +305,8 @@ function mapDispatchToProps(dispatch) {
     setFilterGnomId: data => dispatch(setFilterGnomId(data)),
     clearFilterSection: data => dispatch(clearFilterSection(data)),
     setDefaultFilters: data => dispatch(setDefaultFilters(data)),
-    setFilterZygosity: data => dispatch(setFilterZygosity(data))
+    setFilterZygosity: data => dispatch(setFilterZygosity(data)),
+    setFilterEffect: data => dispatch(setFilterEffect(data))
   };
 }
 export default connect(

@@ -6,6 +6,8 @@ import { SORTING_ORDER } from "../utils/constants";
 export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterZygosity = state =>
     state?.filters?.[FILTERS.zygosity],
+  getFilterEffect = state =>
+    state?.filters?.[FILTERS.effect],
   getFilterVariantClass = state =>
            state?.filters?.[FILTERS.variantClassGermline],
   getFilterSomaticClass = state =>

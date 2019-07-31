@@ -101,6 +101,14 @@ export const ZYGOSITY = {
   undefined: { value: "undefined", label: "Undefined" },
 };
 
+export const EFFECT = {
+  high: { value: "high", label: "High" },
+  modifier: { value: "modifier", label: "Modifier" },
+  insignificant: { value: "insignificant", label: "Insignificant" },
+  moderate: { value: "moderate", label: "Moderate" },
+  low: { value: "low", label: "Low" },
+};
+
 export const VARIANT_CLASS_GERMLINE = {
   unclassified: {
     value: "unclassified",

@@ -41,6 +41,7 @@ const initialState = {
   [FILTERS.gnomAD]: [],
   [FILTERS.searchText]: "",
   [FILTERS.zygosity]: [],
+  [FILTERS.effect]: [],
 };
 
 const filtersReducer = createReducer(initialState, {
@@ -95,6 +96,21 @@ const filtersReducer = createReducer(initialState, {
     return {
       ...state,
       [FILTERS.zygosity]: newValue
+    };
+  },
+
+  [actionsTypes.SET_FILTER_EFFECT]: (state, { payload }) => {
+    const { value, mode } = payload;
+
+    let newValue = changeValueAccordingOnMode(
+      state[FILTERS.effect],
+      value,
+      mode
+    );
+
+    return {
+      ...state,
+      [FILTERS.effect]: newValue
     };
   },
 
