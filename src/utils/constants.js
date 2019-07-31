@@ -21,7 +21,8 @@ export const FILTERS = {
   vaf: "vaf",
   gnomAD: "gnomAD",
   cancerDBs: "canserBDs",
-  searchText: "searchText"
+  searchText: "searchText",
+  zygosity: "zygosity"
 };
 
 export const TEXTS = {
@@ -88,6 +89,17 @@ export const ZYGOSITY_TYPES = [
   { value: "notReal", label: "Not-Real" },
   { value: "unknown", label: "Unknown" }
 ];
+
+export const ZYGOSITY = {
+  homo: { value: "homo", label: "Homo" },
+  hetro: { value: "hetro", label: "Hetro" },
+  insignificant: { value: "insignificant", label: "Insignificant" },
+  somatic: { value: "somatic", label: "Somatic" },
+  notReal: { value: "notReal", label: "Not Real" },
+  unknown: { value: "unknown", label: "Unknown" },
+  hemi: { value: "hemi", label: "Hemi" },
+
+};
 
 export const VARIANT_CLASS_GERMLINE = {
   unclassified: {

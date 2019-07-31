@@ -1,8 +1,45 @@
 import { Icon } from "antd";
 import React from "react";
 import { FILTERS, VARIANT_CLASS_GERMLINE, VARIANT_CLASS_SOMATIC } from "Utils/constants";
+import { ZYGOSITY } from "./constants";
 
 export default {
+  [FILTERS.zygosity]: {
+    title: "Zygosity",
+    type: ["somatic", "germline"],
+    mode: "multiple",
+    items: [
+      {
+        id: ZYGOSITY.unknown.value,
+        label: ZYGOSITY.unknown.label
+      },
+      {
+        id: ZYGOSITY.notReal.value,
+        label: ZYGOSITY.notReal.label
+      },
+      {
+        id: ZYGOSITY.insignificant.value,
+        label: ZYGOSITY.insignificant.label
+      },
+      {
+        id: ZYGOSITY.homo.value,
+        label: ZYGOSITY.homo.label
+      },
+      {
+        id: ZYGOSITY.hetro.value,
+        label: ZYGOSITY.hetro.label
+      },
+      {
+        id: ZYGOSITY.hemi.value,
+        label: ZYGOSITY.hemi.label
+      },
+      {
+        id: ZYGOSITY.somatic.value,
+        label: ZYGOSITY.somatic.label
+      }
+    ]
+  },
+
   [FILTERS.variantClassGermline]: {
     title: "Germline Class",
     type: ["somatic", "germline"],
