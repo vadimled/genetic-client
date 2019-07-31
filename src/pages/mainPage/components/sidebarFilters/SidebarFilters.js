@@ -141,9 +141,6 @@ class SidebarFilters extends Component {
 
     const transformedFiltersConfig = this.filtersConfigConverter(filtersConfig);
 
-    console.log("--transformedFiltersConfig: ", transformedFiltersConfig)
-    console.log("--filters: ", filters)
-
     const filtersChipIndicators = Object.keys(filters).filter(
       key => filters[key].length && filters[key][0] !== ""
     );
