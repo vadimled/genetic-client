@@ -29,7 +29,8 @@ import {
   setFilterCancerDBs,
   setFilterGnomId,
   clearFilterSection,
-  setDefaultFilters
+  setDefaultFilters,
+  setFilterZygosity
 } from "Actions/filtersActions";
 import { FILTERS } from "Utils/constants";
 import style from "./SidebarFilters.module.scss";
@@ -63,6 +64,12 @@ class SidebarFilters extends Component {
   }
 
   onChange = (filterSection, mode, value) => {
+
+    console.log("--filterSection: ", filterSection)
+    console.log("--mode: ", mode)
+    console.log("--value: ", value)
+
+
     const {
       setFilterVariantClassGermline,
       setFilterVariantClassSomatic,
@@ -71,13 +78,16 @@ class SidebarFilters extends Component {
       setFilterRoi,
       setFilterVaf,
       setFilterCancerDBs,
-      setFilterGnomId
+      setFilterGnomId,
+      setFilterZygosity
     } = this.props;
 
     const data = {
       value,
       mode
     };
+
+    console.log(setFilterZygosity);
 
     switch (filterSection) {
       case FILTERS.variantClassGermline:
@@ -104,6 +114,8 @@ class SidebarFilters extends Component {
       case FILTERS.gnomAD:
         setFilterGnomId(data);
         break;
+      case FILTERS.zygosity:
+        setFilterZygosity(data)
     }
   };
 
@@ -285,7 +297,8 @@ function mapDispatchToProps(dispatch) {
     setFilterCancerDBs: data => dispatch(setFilterCancerDBs(data)),
     setFilterGnomId: data => dispatch(setFilterGnomId(data)),
     clearFilterSection: data => dispatch(clearFilterSection(data)),
-    setDefaultFilters: data => dispatch(setDefaultFilters(data))
+    setDefaultFilters: data => dispatch(setDefaultFilters(data)),
+    setFilterZygosity: data => dispatch(setFilterZygosity(data))
   };
 }
 export default connect(

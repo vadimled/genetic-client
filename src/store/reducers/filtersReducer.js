@@ -82,6 +82,22 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
+
+  [actionsTypes.SET_FILTER_ZYGOSITY]: (state, { payload }) => {
+    const { value, mode } = payload;
+
+    let newValue = changeValueAccordingOnMode(
+      state[FILTERS.zygosity],
+      value,
+      mode
+    );
+
+    return {
+      ...state,
+      [FILTERS.zygosity]: newValue
+    };
+  },
+
   [actionsTypes.SET_FILTER_VARIANT_CLASS_GERMLINE]: (state, { payload }) => {
     const { value, mode } = payload;
 
