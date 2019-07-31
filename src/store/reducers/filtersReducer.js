@@ -39,7 +39,8 @@ const initialState = {
   [FILTERS.vaf]: [1, 99], // [0, 100]
   [FILTERS.cancerDBs]: [],
   [FILTERS.gnomAD]: [],
-  [FILTERS.searchText]: ""
+  [FILTERS.searchText]: "",
+  [FILTERS.zygosity]: [],
 };
 
 const filtersReducer = createReducer(initialState, {

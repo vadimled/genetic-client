@@ -4,6 +4,8 @@ import isEmpty from "lodash.isempty";
 import { SORTING_ORDER } from "../utils/constants";
 
 export const getFilterType = state => state?.filters?.[FILTERS.type],
+  getFilterZygosity = state =>
+    state?.filters?.[FILTERS.zygosity],
   getFilterVariantClass = state =>
            state?.filters?.[FILTERS.variantClassGermline],
   getFilterSomaticClass = state =>

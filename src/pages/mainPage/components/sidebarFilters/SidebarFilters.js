@@ -16,7 +16,8 @@ import {
   getFilterCancerDBs,
   getFilterGnomId,
   getSearchQuery,
-  getTestType
+  getTestType,
+  getFilterZygosity
 } from "Store/selectors";
 import {
   setFilterVariantClassGermline,
@@ -108,6 +109,7 @@ class SidebarFilters extends Component {
 
   filtersConfigConverter = initFilters => {
     return {
+      [FILTERS.zygosity]: initFilters[FILTERS.zygosity],
       [FILTERS.variantClassGermline]: initFilters[FILTERS.variantClassGermline],
       [FILTERS.variantClassSomatic]: initFilters[FILTERS.variantClassSomatic],
       ["variantPanels"]: {
@@ -138,6 +140,9 @@ class SidebarFilters extends Component {
     const { filters, type } = this.props;
 
     const transformedFiltersConfig = this.filtersConfigConverter(filtersConfig);
+
+    console.log("--transformedFiltersConfig: ", transformedFiltersConfig)
+    console.log("--filters: ", filters)
 
     const filtersChipIndicators = Object.keys(filters).filter(
       key => filters[key].length && filters[key][0] !== ""
@@ -265,7 +270,8 @@ function mapStateToProps(state) {
       [FILTERS.vaf]: getFilterVaf(state),
       [FILTERS.cancerDBs]: getFilterCancerDBs(state),
       [FILTERS.gnomAD]: getFilterGnomId(state),
-      [FILTERS.searchText]: [getSearchQuery(state)]
+      [FILTERS.searchText]: [getSearchQuery(state)],
+      [FILTERS.zygosity]: getFilterZygosity(state)
     },
     testType: getTestType(state)
   };
