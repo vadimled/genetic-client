@@ -21,6 +21,7 @@ const SimpleSelect = ({
   suffixIcon,
   selectHeaderClass,
   className,
+  onFocus,
   ...props
 }) => {
   return (
@@ -29,6 +30,7 @@ const SimpleSelect = ({
       {!!subLabel && <span className="sub-label">{subLabel}</span>}
 
       <Select
+        onFocus={onFocus}
         disabled={disabled}
         className={className}
         onChange={val =>
@@ -79,7 +81,12 @@ SimpleSelect.propTypes = {
   value: PropTypes.string,
   name: PropTypes.string,
   isClearAvailable: PropTypes.bool,
-  testId: PropTypes.string
+  testId: PropTypes.string,
+  disabled: PropTypes.bool,
+  showArrow: PropTypes.bool,
+  selectHeaderClass: PropTypes.string,
+  className: PropTypes.string,
+  onFocus: PropTypes.func
 };
 
 SimpleSelect.defaultProps = {
