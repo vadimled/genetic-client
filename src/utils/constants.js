@@ -98,7 +98,7 @@ export const ZYGOSITY = {
   notReal: { value: "notReal", label: "Not Real" },
   unknown: { value: "unknown", label: "Unknown" },
   hemi: { value: "hemi", label: "Hemi" },
-
+  undefined: { value: "undefined", label: "Undefined" },
 };
 
 export const VARIANT_CLASS_GERMLINE = {

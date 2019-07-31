@@ -87,8 +87,6 @@ class SidebarFilters extends Component {
       mode
     };
 
-    console.log(setFilterZygosity);
-
     switch (filterSection) {
       case FILTERS.variantClassGermline:
         setFilterVariantClassGermline(data);

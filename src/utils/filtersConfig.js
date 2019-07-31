@@ -36,6 +36,10 @@ export default {
       {
         id: ZYGOSITY.somatic.value,
         label: ZYGOSITY.somatic.label
+      },
+      {
+        id: ZYGOSITY.undefined.value,
+        label: ZYGOSITY.undefined.label
       }
     ]
   },
