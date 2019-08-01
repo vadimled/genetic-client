@@ -299,15 +299,32 @@ export function* fetchData() {
 
       const record = result[item];
 
-      if(record?.variantClassGermline === "ben" && record?.variantClassSomatic === "tier4"){
-        record.priority = 14;
+      // if(record?.variantClassGermline === "ben" && record?.variantClassSomatic === "tier4"){
+      //   record.priority = 14;
+      // }
+      // else if(record?.variantClassGermline === "path"){
+      //   record.priority = 1;
+      // }
+      // else {
+      //   record.priority = 7;
+      // }
+
+      if(record.zygosity === "notDefined"){
+        if((record.variantClassGermline === "ben" && record.variantClassSomatic === "tier4")
+          || (record.variantClassGermline === "ben" && record.variantClassSomatic === "unclassified")
+          || (record.variantClassGermline === "unclassified" && record.variantClassSomatic === "tier4")
+        ){
+          record.priority = 10;
+        }
+        else {
+          record.priority = 7;
+        }
+
       }
-      else if(record?.variantClassGermline === "path"){
-        record.priority = 1;
-      }
-      else {
-        record.priority = 7;
-      }
+      // if(["homo", "hetro", "hemi", "somatic"].includes(record?.zygosity)){
+      //   record.priority = 1;
+      // }
+
 
     }
 

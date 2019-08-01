@@ -108,15 +108,27 @@ const tableReducer = createReducer(initialState, {
 
     // data[item.id].variantClassGermline = 'unclassified';
     // data[item.id].variantClassSomatic = 'unclassified';
-    data[item.id].priority = PRIORITY['unclassified'];
-
+    // data[item.id].priority = PRIORITY['unclassified'];
+    //
+    // if(["homo", "hetro", "hemi", "somatic"].includes(record?.zygosity)){
+    //   record.priority = 1;
+    // }
+    // else {
+    //   record.priority = 7;
+    // }
+    //
+    //
     switch (value) {
-      case "unknown": data[item.id].priority = 14;
+      case "homo": data[item.id].priority = 1;
         break;
-      case "notReal": data[item.id].priority = 14;
-        break;
-      case "insignificant": data[item.id].priority = 14;
-        break;
+      // case "unknown": data[item.id].priority = 14;
+      //   break;
+      // case "notReal": data[item.id].priority = 14;
+      //   break;
+      // case "insignificant": data[item.id].priority = 14;
+      //   break;
+      // case "somatic": data[item.id].priority = 1;
+      //   break;
     }
 
     return {

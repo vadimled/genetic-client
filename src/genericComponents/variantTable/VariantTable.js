@@ -228,7 +228,7 @@ class VariantTable extends Component {
                 testId="zygosity-select"
                 data-testitemid={record.id}
               />
-            </div>
+            </div>{record.priority}
           </HighlightedCell>
         );
         column.className = "select";

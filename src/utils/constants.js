@@ -70,7 +70,8 @@ export const ZYGOSITY_OPTIONS = [
   { value: "insignificant", label: "Insignificant" },
   { value: "somatic", label: "Somatic" },
   { value: "notReal", label: "Not-Real" },
-  { value: "unknown", label: "Unknown" }
+  { value: "unknown", label: "Unknown" },
+  { value: "notDefined", label: "Not Defined" }
 ];
 /* Germline - for Homo, Hetro and Hemi.
   Somatic - for Somatic.
