@@ -1,0 +1,20 @@
+@import "Css/Colors.scss";
+
+.tab-pane-content-wrapper :global {
+  width: 100%;
+  height: auto;
+  .title {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 131.99%;
+    color: $title_color;
+    margin-right: 4px;
+  }
+
+  .amount {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 131.99%;
+    color: $brand_primary_color;
+  }
+}

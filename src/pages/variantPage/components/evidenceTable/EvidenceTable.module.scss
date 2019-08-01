@@ -5,7 +5,6 @@
   height: auto;
   border-bottom: 1px solid $border_color;
   overflow: hidden !important;
-
   .evidence-title {
     margin-bottom: 12px;
     text-align: left;
@@ -13,6 +12,24 @@
     font-size: 22px;
     line-height: 131.99%;
     color: $title_color;
+  }
+  .ant-tabs {
+    text-align: left;
+    //&.ant-tabs-nav-wrap{
+    //
+    //  &.ant-tabs-nav-scroll{
+    //
+    //    &.ant-tabs-nav .ant-tabs-nav-animated{
+    //
+    //      &.ant-tabs-tab-active .ant-tabs-tab{
+    //        padding: 27px 10px 10px 0 !important;
+    //      }
+    //    }
+    //  }
+    //}
+    .ant-tabs-tab {
+      padding: 27px 0 10px 0 !important;
+    }
   }
 
   .empty-state {

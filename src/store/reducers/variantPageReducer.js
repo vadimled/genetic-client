@@ -167,6 +167,251 @@ const initialState = {
       analystName: "Taly Yafe",
       class: "VUS"
     }
+  },
+
+  evidence_somatic: {
+    publications: {
+      title: "Publications",
+      content: [
+        {
+          id: "asdawefqw",
+          date: {
+            title: "Date",
+            created_at: "17/May/2018"
+          },
+          user: {
+            user_id: "dsfafdasfdas",
+            name: "Taly Yafe",
+            pic_url: ""
+          },
+
+          source: {
+            title: "Source and Description",
+            url: "http://en.Wikipedia/wiki/DNA",
+            text:
+              "The DNA double helix is stabilized primarily by two forces: " +
+              "hydrogen bonds between nucleotides and base-stacking interactions among aromatic nucleobases. " +
+              "In the cytosol of the cell,\n" +
+              "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the DNA molecule," +
+              " minimizing their interaction with the solvation shell."
+          },
+          level: {
+            title: "Level",
+            text: "A1"
+          }
+        },
+        {
+          date: {
+            title: "Date",
+            date: "1/Apr/2018"
+          },
+          doctors_name: "Lior GoldBerg",
+          source_description: {
+            title: "Source and Description",
+            source: "http://en.Wikipedia/wiki/GSID-Genom",
+            description:
+              "The DNA double helix is stabilized primarily by two forces: " +
+              "hydrogen and base-stacking interactions."
+          },
+          level: {
+            title: "Level",
+            data: "A2"
+          }
+        }
+      ]
+    },
+    frequency: {
+      title: "Frequency",
+      content: [
+        {
+          date: {
+            title: "Date",
+            date: "24/Marc/2018"
+          },
+          doctors_name: "Taly Yafe",
+          source_description: {
+            title: "Source and Description",
+            source: "http://en.Wikipedia/wiki/RNA-GSID-Genom",
+            description:
+              "The RNA double helix is stabilized primarily by two forces: " +
+              "hydrogen bonds between nucleotides and base-stacking interactions among aromatic nucleobases. " +
+              "In the cytosol of the cell,\n" +
+              "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the RNA molecule"
+          },
+          level: {
+            title: "Level",
+            data: "B"
+          }
+        }
+      ]
+    },
+    variant_DBs: {
+      title: "Variant DB’s",
+      content: []
+    },
+    other: {
+      title: "Other",
+      content: [
+        {
+          date: {
+            title: "Date",
+            date: "2/Feb/2018"
+          },
+          doctors_name: "Taly Yafe",
+          source_description: {
+            title: "Source and Description",
+            source: "http://en.Wikipedia/wiki/DNA",
+            description:
+              "The DNA double helix is stabilized primarily by two forces: " +
+              "hydrogen bonds between nucleotides and base-stacking interactions among aromatic nucleobases. " +
+              "In the cytosol of the cell,\n" +
+              "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the DNA molecule," +
+              " minimizing their interaction with the solvation shell."
+          },
+          level: {
+            title: "Level",
+            data: "C1"
+          }
+        },
+        {
+          date: {
+            title: "Date",
+            date: "1/Jun/2018"
+          },
+          doctors_name: "Lior GoldBerg",
+          source_description: {
+            title: "Source and Description",
+            source: "http://en.Wikipedia/wiki/GSID-Genom",
+            description:
+              "The DNA double helix is stabilized primarily by two forces: " +
+              "hydrogen and base-stacking interactions."
+          },
+          level: {
+            title: "Level",
+            data: "D"
+          }
+        }
+      ]
+    }
+  },
+  evidence_germline: {
+    publications: {
+      title: "Publications",
+      content: [
+        {
+          date: {
+            title: "Date",
+            date: "25/May/2018"
+          },
+          doctors_name: "Taly Yafe",
+          source_description: {
+            title: "Source and Description",
+            source: "http://en.Wikipedia/wiki/DNA",
+            description:
+              "The DNA double helix is stabilized primarily by two forces: " +
+              "hydrogen bonds between nucleotides and base-stacking interactions among aromatic nucleobases. " +
+              "In the cytosol of the cell,\n" +
+              "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the DNA molecule," +
+              " minimizing their interaction with the solvation shell."
+          },
+          level: {
+            title: "Level",
+            data: "PVS1"
+          }
+        },
+        {
+          date: {
+            title: "Date",
+            date: "3/Apr/2018"
+          },
+          doctors_name: "Lior GoldBerg",
+          source_description: {
+            title: "Source and Description",
+            source: "http://en.Wikipedia/wiki/GSID-Genom",
+            description:
+              "The DNA double helix is stabilized primarily by two forces: " +
+              "hydrogen and base-stacking interactions."
+          },
+          level: {
+            title: "Level",
+            data: "PS1"
+          }
+        }
+      ]
+    },
+    frequency: {
+      title: "Frequency",
+      content: [
+        {
+          date: {
+            title: "Date",
+            date: "26/Marc/2018"
+          },
+          doctors_name: "Taly Yafe",
+          source_description: {
+            title: "Source and Description",
+            source: "http://en.Wikipedia/wiki/RNA-GSID-Genom",
+            description:
+              "The RNA double helix is stabilized primarily by two forces: " +
+              "hydrogen bonds between nucleotides and base-stacking interactions among aromatic nucleobases. " +
+              "In the cytosol of the cell,\n" +
+              "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the RNA molecule"
+          },
+          level: {
+            title: "Level",
+            data: "PM1"
+          }
+        }
+      ]
+    },
+    variant_DBs: {
+      title: "Variant DB’s",
+      content: []
+    },
+    other: {
+      title: "Other",
+      content: [
+        {
+          date: {
+            title: "Date",
+            date: "4/Feb/2018"
+          },
+          doctors_name: "Taly Yafe",
+          source_description: {
+            title: "Source and Description",
+            source: "http://en.Wikipedia/wiki/DNA",
+            description:
+              "The DNA double helix is stabilized primarily by two forces: " +
+              "hydrogen bonds between nucleotides and base-stacking interactions among aromatic nucleobases. " +
+              "In the cytosol of the cell,\n" +
+              "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the DNA molecule," +
+              " minimizing their interaction with the solvation shell."
+          },
+          level: {
+            title: "Level",
+            data: "PP1"
+          }
+        },
+        {
+          date: {
+            title: "Date",
+            date: "4/Jun/2018"
+          },
+          doctors_name: "Lior GoldBerg",
+          source_description: {
+            title: "Source and Description",
+            source: "http://en.Wikipedia/wiki/GSID-Genom",
+            description:
+              "The DNA double helix is stabilized primarily by two forces: " +
+              "hydrogen and base-stacking interactions."
+          },
+          level: {
+            title: "Level",
+            data: "BP6"
+          }
+        }
+      ]
+    }
   }
 };
 
@@ -175,12 +420,14 @@ const variantPageReducer = createReducer(initialState, {
     const { value, name } = payload;
     return {
       ...state,
-      somatic_variant_class: name === "somatic" ?
-        value.toLowerCase() :
-        state.somatic_variant_class.toLowerCase(),
-      germline_variant_class: name === "germline" ?
-        value.toLowerCase() :
-        state.germline_variant_class.toLowerCase()
+      somatic_variant_class:
+        name === "somatic"
+          ? value.toLowerCase()
+          : state.somatic_variant_class.toLowerCase(),
+      germline_variant_class:
+        name === "germline"
+          ? value.toLowerCase()
+          : state.germline_variant_class.toLowerCase()
     };
   },
 

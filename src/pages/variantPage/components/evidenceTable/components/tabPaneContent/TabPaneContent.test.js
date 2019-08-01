@@ -1,10 +1,13 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import TabPaneContent from './TabPaneContent';
+import React from "react";
+import { renderWithRedux } from "Utils/test_helpers";
+import "jest-dom/extend-expect";
+import TabPaneContent from "./TabPaneContent";
 
-describe('<TabPaneContent />', () => {
-  test('renders', () => {
-    const wrapper = shallow(<TabPaneContent />);
-    expect(wrapper).toMatchSnapshot();
+describe("<TabPaneContent />", () => {
+  it("snapshot", () => {
+    const { asFragment } = renderWithRedux(<TabPaneContent />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });
+
+
