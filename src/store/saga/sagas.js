@@ -293,7 +293,7 @@ export function* resultConfigEditResultGenerator(data) {
 
 export function* fetchData() {
   try {
-    const result = generateDNAVariantTableMockData(200);
+    const result = generateDNAVariantTableMockData(1000);
 
     for(let item in result){
 
@@ -326,8 +326,22 @@ export function* fetchData() {
         else {
           record.priority = 7;
         }
-
       }
+      // ["unknown", "insignificant", "norReal"].includes(record?.zygosity)
+      else if(record.zygosity === "unknown" || record.zygosity === "insignificant" || record.zygosity === "notReal"){
+        if(record.variantClassGermline === "ben" && record.variantClassSomatic === "tier4"){
+          console.log("--record: ", record)
+          record.priority = 31;
+        }
+        else {
+          record.priority = 7;
+        }
+      }
+      else {
+        record.priority = 7;
+      }
+
+
       // if(["homo", "hetro", "hemi", "somatic"].includes(record?.zygosity)){
       //   record.priority = 1;
       // }
