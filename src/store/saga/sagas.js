@@ -330,7 +330,7 @@ export function* fetchData() {
       // ["unknown", "insignificant", "norReal"].includes(record?.zygosity)
       else if(record.zygosity === "unknown" || record.zygosity === "insignificant" || record.zygosity === "notReal"){
         if(record.variantClassGermline === "ben" && record.variantClassSomatic === "tier4"){
-          console.log("--record: ", record)
+          console.log("--record: ", record);
           record.priority = 31;
         }
         else {
