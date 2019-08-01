@@ -316,6 +316,9 @@ export function* fetchData() {
         ){
           record.priority = 10;
         }
+        else if(record.variantClassGermline === "unclassified" && record.variantClassSomatic === "unclassified"){
+          record.priority = 5;
+        }
         else {
           record.priority = 7;
         }
