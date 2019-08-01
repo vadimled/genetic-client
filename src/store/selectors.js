@@ -1,7 +1,6 @@
-import { FILTERS, GNOM_AD } from "Utils/constants";
+import { FILTERS, GNOM_AD, SORTING_ORDER, TEXTS } from "Utils/constants";
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
-import { SORTING_ORDER } from "../utils/constants";
 
 export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVariantClass = state =>
@@ -47,7 +46,7 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,
   getAlertMessage = state => state?.alert?.message,
-  getGeneType = state => state.variantPage.type,
+  getVariantPage = state => state.variantPage,
 
   getZygosityType = state => state.variantPage.selectedZygosityType,
   getCurrentZygosityType = state => state.variantPage.currentZygosity,
@@ -60,6 +59,8 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getHistoryGermline = state => state.variantPage.germlineClassHistory,
   getVariantId = state => state.variantPage.variantId,
   getVariantPageTestId = state => state.variantPage.testId,
+  getSomaticEvidence = state => state.variantPage.somatic_evidence,
+  getGermlineEvidence = state => state.variantPage.germline_evidence,
 
   getSortParam = state => state?.table?.sortParam,
   getSortOrder = state => state?.table?.sortOrder,
@@ -292,3 +293,29 @@ export const getActivityLog = (state, recordId) => {
 };
 
 export const getTestType = state => state?.test?.panel_type;
+
+const getCurrentEvidenceData = createSelector(
+  getZygosityType,
+  getVariantPage,
+  (type, data) => {
+    const res = Object.keys(data).find( key => {
+      const arr = key.toString().split("_");
+      return arr.includes(type) && arr.includes(TEXTS.evidence);
+    });
+    return data[res];
+  }
+);
+
+
+export const getTabPaneHeaders = createSelector(
+  getCurrentEvidenceData,
+  (allData) => {
+    console.log(allData);
+    return Object.keys(allData).map(key => {
+      return {
+        title: allData[key].title,
+        length: allData[key].content.length
+      };
+    });
+  }
+);

@@ -169,8 +169,8 @@ const initialState = {
       class: "VUS"
     }
   },
-
-  evidence_somatic: {
+  
+  somatic_evidence: {
     publications: {
       title: "Publications",
       content: [
@@ -312,7 +312,7 @@ const initialState = {
       ]
     }
   },
-  evidence_germline: {
+  germline_evidence: {
     publications: {
       title: "Publications",
       content: [

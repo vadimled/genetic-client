@@ -1,35 +1,69 @@
 import React, { Component } from "react";
 import style from "./EvidenceTable.module.scss";
 // import PropTypes from 'prop-types';
-import { Tabs, Button } from 'antd';
+import { Button, Tabs } from "antd";
 import TabPaneContent from "variantComponents/evidenceTable/components/tabPaneContent";
+import PropTypes from "prop-types";
+import { getTabPaneHeaders } from "Store/selectors";
+import { connect } from "react-redux";
 
 const { TabPane } = Tabs;
 const operations = <Button>Extra Action</Button>;
 
 class EvidenceTable extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    const { tabPaneHeaders } = this.props;
+
     return (
       <div className={style["evidence-wrapper"]}>
         <div className="evidence-title">Evidence:</div>
         <Tabs tabBarExtraContent={operations} size={"large"}>
-          <TabPane
-            tab={<TabPaneContent amount={5} title={"Publications"}/>}
-            key="1">
-            Content of tab 1
-          </TabPane>
-          <TabPane tab="Tab 2" key="2">
-            Content of tab 2
-          </TabPane>
-          <TabPane tab="Tab 3" key="3">
-            Content of tab 3
-          </TabPane>
+          {Object.keys(tabPaneHeaders).map((key, index) => {
+            const header = tabPaneHeaders[key];
+            return (
+              <TabPane
+                tab={<TabPaneContent amount={header.length} title={header.title} />}
+                key={index+1}
+              >
+                {`Content of tab ${index+1}`}
+              </TabPane>
+            );
+          })}
         </Tabs>
       </div>
     );
   }
 }
 
-EvidenceTable.propTypes = {};
+EvidenceTable.propTypes = {
+  data: PropTypes.object,
+  typeData: PropTypes.array.isRequired
+};
 
-export default EvidenceTable;
+EvidenceTable.defaultProps = {
+  data: {}
+};
+
+const mapStateToProps = state => {
+  return {
+    tabPaneHeaders: getTabPaneHeaders(state)
+  };
+};
+
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     setResources: data => dispatch(setExternalResources(data)),
+//     fetchVariantData: data => dispatch(fetchVariantData(data)),
+//     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
+//     setTestInformation: data => dispatch(setTestInformation(data))
+//   };
+// }
+
+export default connect(
+  mapStateToProps,
+  null
+)(EvidenceTable);

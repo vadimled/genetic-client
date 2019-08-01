@@ -8,7 +8,14 @@ import ClassificationHistoryTable from "variantComponents/classificationHistoryT
 import EvidenceTable from "variantComponents/evidenceTable";
 import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
-import { getExternalResources, getHistoryGermline, getHistorySomatic, getVariantData } from "Store/selectors";
+import {
+  getExternalResources,
+  getHistoryGermline,
+  getHistorySomatic,
+  getVariantData,
+  getSomaticEvidence,
+  getGermlineEvidence
+} from "Store/selectors";
 import { connect } from "react-redux";
 import {
   setExternalResources,
@@ -23,9 +30,9 @@ import queryString from "query-string";
 class VariantPage extends Component {
   constructor(props) {
     super(props);
-    const {testId, variantId} = props.match.params;
-    const {selectedZygosityType} = queryString.parse(window.location.search);
-  
+    const { testId, variantId } = props.match.params;
+    const { selectedZygosityType } = queryString.parse(window.location.search);
+
     this.state = {
       sidebarToggle: true
     };
@@ -46,7 +53,7 @@ class VariantPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { externalResources, variantData, somaticClassHistory } = this.props;
+    const { externalResources, variantData, somaticClassHistory, somaticEvidence } = this.props;
     return (
       <div className={style["variant-page-wrapper"]}>
         <div
@@ -96,7 +103,10 @@ class VariantPage extends Component {
                 { "links-wrapper-open": sidebarToggle }
               ])}
             >
-              <EvidenceTable />
+              <EvidenceTable
+                data={somaticEvidence}
+                typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
+              />
             </div>
           </div>
         </div>
@@ -112,6 +122,8 @@ const mapStateToProps = state => {
     variantData: getVariantData(state),
     germlineClassHistory: getHistoryGermline(state),
     somaticClassHistory: getHistorySomatic(state),
+    somaticEvidence: getSomaticEvidence(state),
+    germlineEvidence: getGermlineEvidence(state),
     externalResources: getExternalResources(state)
   };
 };
