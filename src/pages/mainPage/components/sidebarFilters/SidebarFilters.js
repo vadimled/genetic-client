@@ -66,12 +66,6 @@ class SidebarFilters extends Component {
   }
 
   onChange = (filterSection, mode, value) => {
-
-    console.log("--filterSection: ", filterSection);
-    console.log("--mode: ", mode);
-    console.log("--value: ", value);
-
-
     const {
       setFilterVariantClassGermline,
       setFilterVariantClassSomatic,
