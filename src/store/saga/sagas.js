@@ -3,7 +3,9 @@ import * as Sentry from "@sentry/browser";
 import {
   ALERT_STATUSES,
   ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS
+  VALIDATION_FAILD_FIELDS,
+  ZYGOSITY,
+  VARIANT_CLASS_GERMLINE
 } from 'Utils/constants';
 import {
   fetchBAMFile,
@@ -309,17 +311,26 @@ export function* fetchData() {
       //   record.priority = 7;
       // }
 
-      if(record.zygosity === "notDefined"){
-        if((record.variantClassGermline === "ben" && record.variantClassSomatic === "tier4")
-          || (record.variantClassGermline === "ben" && record.variantClassSomatic === "unclassified")
-          || (record.variantClassGermline === "unclassified" && record.variantClassSomatic === "tier4")
+      if(record.zygosity === ZYGOSITY.notDefined){
+        if((record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value && record.variantClassSomatic === "tier4")
+          || (record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+            && record.variantClassSomatic === "unclassified")
+          || (record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+            && record.variantClassSomatic === "tier4")
         ){
           record.priority = 10;
         }
-        else if(record.variantClassGermline === "unclassified" && record.variantClassSomatic === "unclassified"){
+        else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+          && record.variantClassSomatic === "unclassified"){
           record.priority = 5;
         }
-        else if(['path', 'lpath', 'vus', 'lben'].includes(record.variantClassGermline)
+        else if(
+          [
+            VARIANT_CLASS_GERMLINE.path.value,
+            VARIANT_CLASS_GERMLINE.lpath.value,
+            VARIANT_CLASS_GERMLINE.vus.value,
+            VARIANT_CLASS_GERMLINE.lben.value
+          ].includes(record.variantClassGermline)
           || ['tier1', 'tier2', 'tier3'].includes(record.variantClassSomatic)){
           record.priority = 3;
         }
@@ -327,8 +338,7 @@ export function* fetchData() {
           record.priority = 7;
         }
       }
-      // ["unknown", "insignificant", "norReal"].includes(record?.zygosity)
-      else if(record.zygosity === "unknown" || record.zygosity === "insignificant" || record.zygosity === "notReal"){
+      else if([ZYGOSITY.unknown, ZYGOSITY.insignificant, ZYGOSITY.notReal].includes(record?.zygosity)){
         if(record.variantClassGermline === "ben" && record.variantClassSomatic === "tier4"){
           console.log("--record: ", record);
           record.priority = 31;

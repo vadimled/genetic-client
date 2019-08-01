@@ -90,6 +90,17 @@ export const ZYGOSITY_TYPES = [
   { value: "unknown", label: "Unknown" }
 ];
 
+export const ZYGOSITY = {
+  homo: { value: "homo", label: "Homo" },
+  hetro: { value: "hetro", label: "Hetro" },
+  insignificant: { value: "insignificant", label: "Insignificant" },
+  somatic: { value: "somatic", label: "Somatic" },
+  notReal: { value: "notReal", label: "Not Real" },
+  unknown: { value: "unknown", label: "Unknown" },
+  hemi: { value: "hemi", label: "Hemi" },
+  notDefined: { value: "notDefined", label: "Not Defined" },
+};
+
 export const VARIANT_CLASS_GERMLINE = {
   unclassified: {
     value: "unclassified",
