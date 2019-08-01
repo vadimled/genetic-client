@@ -206,6 +206,13 @@ const variantPageReducer = createReducer(initialState, {
       ...state,
       ...payload
     };
+  },
+
+  [actionsTypes.SET_TEST_INFORMATION]: (state, { payload }) => {
+    return {
+      ...state,
+      ...payload
+    };
   }
 });
 

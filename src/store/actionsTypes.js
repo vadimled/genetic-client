@@ -92,6 +92,7 @@ const SEND_VARIANT_CLASS = "SEND_VARIANT_CLASS";
 // Case (test)
 const FETCH_TEST_DATA = "FETCH_TEST_DATA";
 const SET_TEST_DATA = "SET_TEST_DATA";
+const SET_TEST_INFORMATION = "SET_TEST_INFORMATION";
 
 export default {
   // filters
@@ -183,6 +184,7 @@ export default {
   FETCH_VARIANT_DATA,
   SET_VARIANT_DATA,
   SEND_VARIANT_CLASS,
+  SET_TEST_INFORMATION,
   
   // Case (test)
   FETCH_TEST_DATA,

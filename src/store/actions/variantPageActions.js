@@ -42,3 +42,9 @@ export const sendVariantClass = variantClass => {
   };
 };
 
+export const setTestInformation = data => {
+  return {
+    type: actionsTypes.SET_TEST_INFORMATION,
+    payload: data
+  };
+};
