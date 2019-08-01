@@ -11,7 +11,7 @@ class EvidenceTable extends Component {
     return (
       <div className={style["evidence-wrapper"]}>
         <div className="evidence-title">Evidence:</div>
-        <Tabs tabBarExtraContent={operations}>
+        <Tabs tabBarExtraContent={operations} size={"large"}>
           <TabPane tab="Tab 1" key="1">
             Content of tab 1
           </TabPane>
