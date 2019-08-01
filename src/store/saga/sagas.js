@@ -296,7 +296,7 @@ export function* resultConfigEditResultGenerator(data) {
 
 export function* fetchData() {
   try {
-    const result = generateDNAVariantTableMockData(2000);
+    const result = generateDNAVariantTableMockData(1000);
 
     for(let item in result){
 
@@ -377,6 +377,23 @@ export function* fetchData() {
           record.priority = 7;
         }
       }
+
+      else if([
+        ZYGOSITY.homo.value,
+        ZYGOSITY.hemi.value,
+        ZYGOSITY.hetro.value
+      ].includes(record.zygosity)){
+        if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value){
+          record.priority = 37;
+        }
+        else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value){
+          record.priority = 20;
+        }
+        else {
+          record.priority = 7;
+        }
+      }
+
       else {
         record.priority = 7;
       }
