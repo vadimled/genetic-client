@@ -306,11 +306,9 @@ const getCurrentEvidenceData = createSelector(
   }
 );
 
-
 export const getTabPaneHeaders = createSelector(
   getCurrentEvidenceData,
   (allData) => {
-    console.log(allData);
     return Object.keys(allData).map(key => {
       return {
         title: allData[key].title,

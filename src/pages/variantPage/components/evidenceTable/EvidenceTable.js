@@ -17,13 +17,12 @@ class EvidenceTable extends Component {
 
   render() {
     const { tabPaneHeaders } = this.props;
-
+    console.log(tabPaneHeaders);
     return (
       <div className={style["evidence-wrapper"]}>
         <div className="evidence-title">Evidence:</div>
         <Tabs tabBarExtraContent={operations} size={"large"}>
-          {Object.keys(tabPaneHeaders).map((key, index) => {
-            const header = tabPaneHeaders[key];
+          {tabPaneHeaders.map((header, index) => {
             return (
               <TabPane
                 tab={<TabPaneContent amount={header.length} title={header.title} />}
