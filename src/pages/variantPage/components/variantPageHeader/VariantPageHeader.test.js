@@ -1,12 +1,10 @@
 import React from "react";
-import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { renderWithRedux } from "Utils/test_helpers";
 import VariantPageHeader from "./VariantPageHeader";
-import { setZygosityType } from "Actions/variantPageActions";
 
 describe("VariantPageHeader ", () => {
-  let getByTestId, store;
+  let getByTestId;
   const variantData = {
     gene: "A1CF",
     protein: "p.Leu2303Leu",
@@ -24,8 +22,8 @@ describe("VariantPageHeader ", () => {
     DamagingScore: "TTCATGAGAGAAGGTGAGTGG",
     dataId: "k5wp5amernh84pvsygjji9ljz",
     type: "somatic",
-    valueSomatic: "unclassified",
-    valueGermline: "unclassified"
+    somatic_variant_class: "unclassified",
+    germline_variant_class: "unclassified"
   };
 
   beforeEach(() => {
@@ -33,7 +31,6 @@ describe("VariantPageHeader ", () => {
       <VariantPageHeader sidebarToggle={false} variantData={variantData} />
     );
     getByTestId = queries.getByTestId;
-    store = queries.store;
   });
 
   it("should - received text be equal to text of textField (Gene)  ", () => {
@@ -75,33 +72,5 @@ describe("VariantPageHeader ", () => {
   it("should - non active Button is Germline and exists ", () => {
     const nonActiveButton = getByTestId("non-active-button-germline");
     expect(nonActiveButton).toBeInTheDocument();
-  });
-
-  it("should - inactive Button after click going to active state", () => {
-    store.dispatch(
-      setZygosityType({
-        selectedZygosityType: "somatic",
-        testId: 1,
-        variantId: 1
-      })
-    );
-
-    const nonActiveButton = getByTestId("non-active-button-germline");
-    expect(nonActiveButton).toBeInTheDocument();
-
-    fireEvent.click(nonActiveButton);
-
-    expect(store.getState().variantPage.selectedZygosityType).toEqual(
-      "somatic"
-    );
-  });
-
-  // error - The given element does not have a value setter
-  xit("should - active Button is Select", () => {
-    const activeButton = getByTestId("gene-type-select-somatic");
-    expect(activeButton).toBeInTheDocument();
-
-    fireEvent.change(activeButton, { target: { value: "tier2" } });
-    expect(store.getState().variantPage.valueSomatic).toEqual("tier2");
   });
 });

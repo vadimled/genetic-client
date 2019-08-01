@@ -7,21 +7,42 @@ import {
 } from "Utils/constants";
 import style from "./VariantClassificationContainer.module.scss";
 import { connect } from "react-redux";
-import { setZygosityType, setGeneValue } from "Actions/variantPageActions";
+import {
+  setSelectedZygosityType,
+  sendVariantClass
+} from "Actions/variantPageActions";
 import {
   getZygosityType,
   getGermlineValue,
   getSomaticValue,
-  getCurrentZygosityType
+  getCurrentZygosityType,
+  getVariantPageTestId,
+  getVariantId
 } from "Store/selectors";
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 
 class VariantClassificationContainer extends React.Component {
   onChangeType = (e, id) => {
-    const { value, name } = e.target,
-      { setGeneValue, setZygosityType } = this.props;
-
-    !value ? setZygosityType(id) : setGeneValue({ value, name });
+    const { value, name } = e?.target || {},
+      {
+        sendVariantClass,
+        setZygosityType,
+        selectedZygosityType,
+        currentZygosityType,
+        testId,
+        variantId
+      } = this.props;
+    if (!value && selectedZygosityType !== id) {
+      setZygosityType({ selectedZygosityType: id });
+    } else if (value) {
+      setZygosityType({ selectedZygosityType: name });
+      sendVariantClass({
+        testId,
+        variantId,
+        value,
+        name: `${currentZygosityType.toLowerCase()}Classification`
+      });
+    }
   };
 
   render() {
@@ -32,14 +53,15 @@ class VariantClassificationContainer extends React.Component {
       currentZygosityType
     } = this.props;
     return (
-      <div className={style["gene-type-wrapper"]}>
+      <div className={style["zygosity-type-wrapper"]}>
         <div className="current-zygosity-wrapper">
           <div className="title">{TEXTS.currentZygosity}</div>
           <div className="context">{currentZygosityType}</div>
         </div>
-        <div className="gene-type-radio-group">
+        <div className="zygosity-type-radio-group">
           <div className="first-button flex items-center justify-center">
             <ZygosityTypeButton
+              currentZygosity={currentZygosityType}
               selectedZygosityType={selectedZygosityType}
               type={TEXTS.germline}
               currValue={germlineValue}
@@ -49,6 +71,7 @@ class VariantClassificationContainer extends React.Component {
             />
           </div>
           <ZygosityTypeButton
+            currentZygosity={currentZygosityType}
             selectedZygosityType={selectedZygosityType}
             type={TEXTS.somatic}
             currValue={somaticValue}
@@ -74,14 +97,16 @@ const mapStateToProps = state => {
     selectedZygosityType: getZygosityType(state),
     currentZygosityType: getCurrentZygosityType(state),
     somaticValue: getSomaticValue(state),
-    germlineValue: getGermlineValue(state)
+    germlineValue: getGermlineValue(state),
+    testId: getVariantPageTestId(state),
+    variantId: getVariantId(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    setGeneValue: data => dispatch(setGeneValue(data)),
-    setZygosityType: data => dispatch(setZygosityType(data))
+    sendVariantClass: data => dispatch(sendVariantClass(data)),
+    setZygosityType: data => dispatch(setSelectedZygosityType(data))
   };
 }
 

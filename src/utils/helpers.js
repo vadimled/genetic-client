@@ -223,7 +223,7 @@ export const zygosityType = data => {
     for (let key in ZYGOSITY_TYPES) {
       const { label, value } = ZYGOSITY_TYPES[key];
       if (value.toLowerCase() === data.currentZygosity.toLowerCase()) {
-        return {...data, ...{ currentZygosity: label} };
+        return {...data,  currentZygosity: label };
       }
     }
   }

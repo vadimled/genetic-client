@@ -1,13 +1,13 @@
 import actionsTypes from "../actionsTypes";
 
-export const setGeneValue = data => {
+export const setVariantClassification = data => {
   return {
     type: actionsTypes.SET_VARIANT_CLASSIFICATION,
     payload: data
   };
 };
 
-export const setZygosityType = data => {
+export const setSelectedZygosityType = data => {
   return {
     type: actionsTypes.SET_VARIANT_ZYGOSITY_TYPE,
     payload: data
@@ -28,9 +28,23 @@ export const setVariantData = data => {
   };
 };
 
-export const fetchVariantData = () => {
+export const fetchVariantData = data => {
   return {
     type: actionsTypes.FETCH_VARIANT_DATA,
-    // payload: data
+    payload: data
+  };
+};
+
+export const sendVariantClass = variantClass => {
+  return {
+    type: actionsTypes.SEND_VARIANT_CLASS,
+    payload: variantClass
+  };
+};
+
+export const setTestInformation = data => {
+  return {
+    type: actionsTypes.SET_TEST_INFORMATION,
+    payload: data
   };
 };
