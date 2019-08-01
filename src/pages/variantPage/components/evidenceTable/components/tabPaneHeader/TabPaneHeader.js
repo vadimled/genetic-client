@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import style from "./TabPaneContent.module.scss";
+import style from "./TabPaneHeader.module.scss";
 
-const TabPaneContent = ({title, amount }) => {
+const TabPaneHeader = ({title, amount }) => {
   return (
     <div className={style["tab-pane-content-wrapper"]}>
       <div className="flex flex-row justify-start content-center">
@@ -13,9 +13,9 @@ const TabPaneContent = ({title, amount }) => {
   );
 };
 
-TabPaneContent.propTypes = {
+TabPaneHeader.propTypes = {
   title: PropTypes.string,
   amount: PropTypes.number
 };
 
-export default TabPaneContent;
+export default TabPaneHeader;

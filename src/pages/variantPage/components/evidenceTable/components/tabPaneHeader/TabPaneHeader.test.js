@@ -1,11 +1,11 @@
 import React from "react";
 import { renderWithRedux } from "Utils/test_helpers";
 import "jest-dom/extend-expect";
-import TabPaneContent from "./TabPaneContent";
+import TabPaneHeader from "evidenceTable/components/tabPaneHeader/TabPaneHeader";
 
-describe("<TabPaneContent />", () => {
+describe("<TabPaneHeader />", () => {
   it("snapshot", () => {
-    const { asFragment } = renderWithRedux(<TabPaneContent />);
+    const { asFragment } = renderWithRedux(<TabPaneHeader />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

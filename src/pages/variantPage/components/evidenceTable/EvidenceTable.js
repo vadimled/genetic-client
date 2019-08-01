@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import style from "./EvidenceTable.module.scss";
 // import PropTypes from 'prop-types';
 import { Button, Tabs } from "antd";
-import TabPaneContent from "variantComponents/evidenceTable/components/tabPaneContent";
+import TabPaneContent from "variantComponents/evidenceTable/components/tabPaneHeader";
 import PropTypes from "prop-types";
 import { getTabPaneHeaders } from "Store/selectors";
 import { connect } from "react-redux";
