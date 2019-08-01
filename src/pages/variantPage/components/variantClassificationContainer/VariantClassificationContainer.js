@@ -22,17 +22,13 @@ import {
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 
 class VariantClassificationContainer extends React.Component {
-  state = {
-    isSelect: false,
-    tempZygosityType: null
-  };
-
   onChangeType = (e, id) => {
     const { value, name } = e?.target || {},
       {
         sendVariantClass,
         setZygosityType,
         selectedZygosityType,
+        currentZygosityType,
         testId,
         variantId
       } = this.props;
@@ -40,7 +36,12 @@ class VariantClassificationContainer extends React.Component {
       setZygosityType({ selectedZygosityType: id });
     } else if (value) {
       setZygosityType({ selectedZygosityType: name });
-      sendVariantClass({ testId, variantId, value, name });
+      sendVariantClass({
+        testId,
+        variantId,
+        value,
+        name: `${currentZygosityType.toLowerCase()}Classification`
+      });
     }
   };
 

@@ -1,5 +1,6 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
+import { TEXTS } from "Utils/constants";
 
 const initialState = {
   variantData: {
@@ -421,11 +422,11 @@ const variantPageReducer = createReducer(initialState, {
     return {
       ...state,
       somatic_variant_class:
-        name === "somatic"
+        name.indexOf(TEXTS.somatic) !== -1
           ? value.toLowerCase()
           : state.somatic_variant_class.toLowerCase(),
       germline_variant_class:
-        name === "germline"
+        name.indexOf(TEXTS.germline) !== -1
           ? value.toLowerCase()
           : state.germline_variant_class.toLowerCase()
     };
@@ -446,6 +447,13 @@ const variantPageReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_VARIANT_DATA]: (state, { payload }) => {
+    return {
+      ...state,
+      ...payload
+    };
+  },
+
+  [actionsTypes.SET_TEST_INFORMATION]: (state, { payload }) => {
     return {
       ...state,
       ...payload

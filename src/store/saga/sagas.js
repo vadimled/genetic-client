@@ -11,7 +11,7 @@ import {
   loadHgvs,
   addResult,
   editResult,
-  fetchCaseDataApi,
+  fetchTestDataApi,
   fetchVariantDataApi,
   sendVariantClassApi
 } from "Api/index";
@@ -39,7 +39,7 @@ import {
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
-import { setCaseData } from "Actions/testActions";
+import { setTestData } from "Actions/testActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
   setVariantData,
@@ -321,14 +321,14 @@ export function* fetchData() {
   }
 }
 
-export function* fetchCaseDataGenerator(id) {
+export function* fetchTestDataGenerator(id) {
   try {
-    const result = yield call(fetchCaseDataApi, id.payload);
-    yield put(setCaseData(result?.data));
+    const result = yield call(fetchTestDataApi, id);
+    yield put(setTestData(result?.data));
     yield put(setMutationType(result?.data?.mutation_types[0]));
   } catch (e) {
     Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchCaseDataGenerator"]);
+      scope.setFingerprint(["fetchTestDataGenerator"]);
       Sentry.captureException(e);
     });
   }

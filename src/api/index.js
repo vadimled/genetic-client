@@ -45,8 +45,8 @@ export function editResult (data) {
   return mockResult;
 }
 
-export function fetchCaseDataApi(id) {
-  return axios.get(`/api/tests/${id}`);
+export function fetchTestDataApi(id) {
+  return axios.get(`/api/tests/${id.payload}`);
 }
 
 export function fetchVariantDataApi(data) {
@@ -55,7 +55,6 @@ export function fetchVariantDataApi(data) {
 
 export function sendVariantClassApi(data) {
   return axios.patch(`/api/tests/${data.testId}/variant/${data.variantId}`, {
-    name: data.name,
-    value: data.value
+    [data.name]: data.value
   });
 }

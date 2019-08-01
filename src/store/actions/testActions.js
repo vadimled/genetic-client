@@ -1,15 +1,15 @@
 import actionsTypes from "../actionsTypes";
 
-export const fetchCaseData = id =>{
+export const fetchTestData = id =>{
   return{
-    type: actionsTypes.FETCH_CASE_DATA,
+    type: actionsTypes.FETCH_TEST_DATA,
     payload: id
   };
 };
 
-export const setCaseData = data =>{
+export const setTestData = data =>{
   return{
-    type: actionsTypes.SET_CASE_DATA,
+    type: actionsTypes.SET_TEST_DATA,
     payload: data
   };
 };
