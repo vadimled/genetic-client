@@ -185,7 +185,6 @@ const initialState = {
             name: "Taly Yafe",
             pic_url: ""
           },
-
           source: {
             title: "Source and Description",
             url: "http://en.Wikipedia/wiki/DNA",
@@ -202,14 +201,19 @@ const initialState = {
           }
         },
         {
+          id: "xcvcbvnnjhg",
           date: {
             title: "Date",
-            date: "1/Apr/2018"
+            created_at: "1/Apr/2018"
           },
-          doctors_name: "Lior GoldBerg",
+          user: {
+            user_id: "qwqmmbnvb",
+            name: "Lior GoldBerg",
+            pic_url: ""
+          },
           source_description: {
             title: "Source and Description",
-            source: "http://en.Wikipedia/wiki/GSID-Genom",
+            url: "http://en.Wikipedia/wiki/GSID-Genom",
             description:
               "The DNA double helix is stabilized primarily by two forces: " +
               "hydrogen and base-stacking interactions."
@@ -225,14 +229,19 @@ const initialState = {
       title: "Frequency",
       content: [
         {
+          id: "aswerfdc",
           date: {
             title: "Date",
-            date: "24/Marc/2018"
+            created_at: "24/Marc/2018"
           },
-          doctors_name: "Taly Yafe",
+          user: {
+            user_id: "dsfafdasfdas",
+            name: "Taly Yafe",
+            pic_url: ""
+          },
           source_description: {
             title: "Source and Description",
-            source: "http://en.Wikipedia/wiki/RNA-GSID-Genom",
+            url: "http://en.Wikipedia/wiki/RNA-GSID-Genom",
             description:
               "The RNA double helix is stabilized primarily by two forces: " +
               "hydrogen bonds between nucleotides and base-stacking interactions among aromatic nucleobases. " +
@@ -256,12 +265,16 @@ const initialState = {
         {
           date: {
             title: "Date",
-            date: "2/Feb/2018"
+            created_at: "2/Feb/2018"
           },
-          doctors_name: "Taly Yafe",
+          user: {
+            user_id: "dsfafdasfdas",
+            name: "Taly Yafe",
+            pic_url: ""
+          },
           source_description: {
             title: "Source and Description",
-            source: "http://en.Wikipedia/wiki/DNA",
+            url: "http://en.Wikipedia/wiki/DNA",
             description:
               "The DNA double helix is stabilized primarily by two forces: " +
               "hydrogen bonds between nucleotides and base-stacking interactions among aromatic nucleobases. " +
@@ -279,7 +292,11 @@ const initialState = {
             title: "Date",
             date: "1/Jun/2018"
           },
-          doctors_name: "Lior GoldBerg",
+          user: {
+            user_id: "qwqmmbnvb",
+            name: "Lior GoldBerg",
+            pic_url: ""
+          },
           source_description: {
             title: "Source and Description",
             source: "http://en.Wikipedia/wiki/GSID-Genom",
@@ -300,15 +317,20 @@ const initialState = {
       title: "Publications",
       content: [
         {
+          id: "asdawefqw",
           date: {
             title: "Date",
-            date: "25/May/2018"
+            created_at: "17/May/2018"
           },
-          doctors_name: "Taly Yafe",
-          source_description: {
+          user: {
+            user_id: "dsfafdasfdas",
+            name: "Taly Yafe",
+            pic_url: ""
+          },
+          source: {
             title: "Source and Description",
-            source: "http://en.Wikipedia/wiki/DNA",
-            description:
+            url: "http://en.Wikipedia/wiki/DNA",
+            text:
               "The DNA double helix is stabilized primarily by two forces: " +
               "hydrogen bonds between nucleotides and base-stacking interactions among aromatic nucleobases. " +
               "In the cytosol of the cell,\n" +
@@ -321,14 +343,19 @@ const initialState = {
           }
         },
         {
+          id: "xcvcbvnnjhg",
           date: {
             title: "Date",
-            date: "3/Apr/2018"
+            created_at: "1/Apr/2018"
           },
-          doctors_name: "Lior GoldBerg",
+          user: {
+            user_id: "qwqmmbnvb",
+            name: "Lior GoldBerg",
+            pic_url: ""
+          },
           source_description: {
             title: "Source and Description",
-            source: "http://en.Wikipedia/wiki/GSID-Genom",
+            url: "http://en.Wikipedia/wiki/GSID-Genom",
             description:
               "The DNA double helix is stabilized primarily by two forces: " +
               "hydrogen and base-stacking interactions."
@@ -344,14 +371,19 @@ const initialState = {
       title: "Frequency",
       content: [
         {
+          id: "aswerfdc",
           date: {
             title: "Date",
-            date: "26/Marc/2018"
+            created_at: "24/Marc/2018"
           },
-          doctors_name: "Taly Yafe",
+          user: {
+            user_id: "dsfafdasfdas",
+            name: "Taly Yafe",
+            pic_url: ""
+          },
           source_description: {
             title: "Source and Description",
-            source: "http://en.Wikipedia/wiki/RNA-GSID-Genom",
+            url: "http://en.Wikipedia/wiki/RNA-GSID-Genom",
             description:
               "The RNA double helix is stabilized primarily by two forces: " +
               "hydrogen bonds between nucleotides and base-stacking interactions among aromatic nucleobases. " +
@@ -375,12 +407,16 @@ const initialState = {
         {
           date: {
             title: "Date",
-            date: "4/Feb/2018"
+            created_at: "2/Feb/2018"
           },
-          doctors_name: "Taly Yafe",
+          user: {
+            user_id: "dsfafdasfdas",
+            name: "Taly Yafe",
+            pic_url: ""
+          },
           source_description: {
             title: "Source and Description",
-            source: "http://en.Wikipedia/wiki/DNA",
+            url: "http://en.Wikipedia/wiki/DNA",
             description:
               "The DNA double helix is stabilized primarily by two forces: " +
               "hydrogen bonds between nucleotides and base-stacking interactions among aromatic nucleobases. " +
@@ -396,9 +432,13 @@ const initialState = {
         {
           date: {
             title: "Date",
-            date: "4/Jun/2018"
+            date: "1/Jun/2018"
           },
-          doctors_name: "Lior GoldBerg",
+          user: {
+            user_id: "qwqmmbnvb",
+            name: "Lior GoldBerg",
+            pic_url: ""
+          },
           source_description: {
             title: "Source and Description",
             source: "http://en.Wikipedia/wiki/GSID-Genom",
