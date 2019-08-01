@@ -15,7 +15,7 @@ const initialState = {
 };
 
 const testReducer = createReducer(initialState, {
-  [actionsTypes.SET_CASE_DATA]: (state, { payload }) => {
+  [actionsTypes.SET_TEST_DATA]: (state, { payload }) => {
     return {
       ...state,
       ...payload

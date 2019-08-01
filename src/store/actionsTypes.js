@@ -90,8 +90,8 @@ const SET_VARIANT_DATA = "SET_VARIANT_DATA";
 const SEND_VARIANT_CLASS = "SEND_VARIANT_CLASS";
 
 // Case (test)
-const FETCH_CASE_DATA = "FETCH_CASE_DATA";
-const SET_CASE_DATA = "SET_CASE_DATA";
+const FETCH_TEST_DATA = "FETCH_TEST_DATA";
+const SET_TEST_DATA = "SET_TEST_DATA";
 
 export default {
   // filters
@@ -185,6 +185,6 @@ export default {
   SEND_VARIANT_CLASS,
   
   // Case (test)
-  FETCH_CASE_DATA,
-  SET_CASE_DATA
+  FETCH_TEST_DATA,
+  SET_TEST_DATA
 };
