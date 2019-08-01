@@ -50,11 +50,13 @@ export function fetchTestDataApi(id) {
 }
 
 export function fetchVariantDataApi(data) {
-  return axios.get(`/api/tests/${data.testId}/variant/${data.variantId}`);
+  const { testId, variantId } = data.payload;
+  return axios.get(`/api/tests/${testId}/variant/${variantId}`);
 }
 
 export function sendVariantClassApi(data) {
-  return axios.patch(`/api/tests/${data.testId}/variant/${data.variantId}`, {
-    [data.name]: data.value
+  const { testId, variantId, name, value } = data.payload;
+  return axios.patch(`/api/tests/${testId}/variant/${variantId}`, {
+    [name]: value
   });
 }

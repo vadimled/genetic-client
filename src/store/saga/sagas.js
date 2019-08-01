@@ -349,7 +349,7 @@ export function* fetchVariantDataGenerator(data) {
 
 export function* sendVariantClassGenerator(variantClass) {
   try {
-    const result = yield call(sendVariantClassApi, variantClass.payload);
+    const result = yield call(sendVariantClassApi, variantClass);
     if (result?.status === 200) {
       yield put(setVariantClassification(variantClass.payload));
     }
