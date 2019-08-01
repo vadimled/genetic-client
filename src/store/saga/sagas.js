@@ -5,7 +5,8 @@ import {
   ALLELE_TYPES,
   VALIDATION_FAILD_FIELDS,
   ZYGOSITY,
-  VARIANT_CLASS_GERMLINE
+  VARIANT_CLASS_GERMLINE,
+  VARIANT_CLASS_SOMATIC
 } from 'Utils/constants';
 import {
   fetchBAMFile,
@@ -295,7 +296,7 @@ export function* resultConfigEditResultGenerator(data) {
 
 export function* fetchData() {
   try {
-    const result = generateDNAVariantTableMockData(1000);
+    const result = generateDNAVariantTableMockData(200);
 
     for(let item in result){
 
@@ -312,16 +313,17 @@ export function* fetchData() {
       // }
 
       if(record.zygosity === ZYGOSITY.notDefined){
-        if((record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value && record.variantClassSomatic === "tier4")
+        if((record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+          && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value)
           || (record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
-            && record.variantClassSomatic === "unclassified")
+            && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value)
           || (record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
-            && record.variantClassSomatic === "tier4")
+            && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value)
         ){
           record.priority = 10;
         }
         else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
-          && record.variantClassSomatic === "unclassified"){
+          && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
           record.priority = 5;
         }
         else if(
@@ -331,16 +333,25 @@ export function* fetchData() {
             VARIANT_CLASS_GERMLINE.vus.value,
             VARIANT_CLASS_GERMLINE.lben.value
           ].includes(record.variantClassGermline)
-          || ['tier1', 'tier2', 'tier3'].includes(record.variantClassSomatic)){
+          || [
+            VARIANT_CLASS_SOMATIC.tier1.value,
+            VARIANT_CLASS_SOMATIC.tier2.value,
+            VARIANT_CLASS_SOMATIC.tier3.value
+          ].includes(record.variantClassSomatic)){
           record.priority = 3;
         }
         else {
           record.priority = 7;
         }
       }
-      else if([ZYGOSITY.unknown, ZYGOSITY.insignificant, ZYGOSITY.notReal].includes(record?.zygosity)){
-        if(record.variantClassGermline === "ben" && record.variantClassSomatic === "tier4"){
-          console.log("--record: ", record);
+      else if(
+        [
+          ZYGOSITY.unknown.value,
+          ZYGOSITY.insignificant.value,
+          ZYGOSITY.notReal.value
+        ].includes(record?.zygosity)){
+        if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+          && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
           record.priority = 31;
         }
         else {
