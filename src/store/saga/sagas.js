@@ -296,7 +296,7 @@ export function* resultConfigEditResultGenerator(data) {
 
 export function* fetchData() {
   try {
-    const result = generateDNAVariantTableMockData(200);
+    const result = generateDNAVariantTableMockData(2000);
 
     for(let item in result){
 
@@ -312,7 +312,7 @@ export function* fetchData() {
       //   record.priority = 7;
       // }
 
-      if(record.zygosity === ZYGOSITY.notDefined){
+      if(record.zygosity === ZYGOSITY.notDefined.value){
         if((record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
           && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value)
           || (record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
@@ -353,6 +353,25 @@ export function* fetchData() {
         if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
           && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
           record.priority = 31;
+        }
+        else if (record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+          && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+          record.priority = 32;
+        }
+        else if (record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+          && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+          record.priority = 33;
+        }
+        else {
+          record.priority = 7;
+        }
+      }
+      else if(record.zygosity === ZYGOSITY.somatic.value){
+        if(record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+          record.priority = 38;
+        }
+        else if(record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+          record.priority = 21;
         }
         else {
           record.priority = 7;
