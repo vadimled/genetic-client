@@ -319,6 +319,10 @@ export function* fetchData() {
         else if(record.variantClassGermline === "unclassified" && record.variantClassSomatic === "unclassified"){
           record.priority = 5;
         }
+        else if(['path', 'lpath', 'vus', 'lben'].includes(record.variantClassGermline)
+          || ['tier1', 'tier2', 'tier3'].includes(record.variantClassSomatic)){
+          record.priority = 3;
+        }
         else {
           record.priority = 7;
         }
