@@ -6,7 +6,6 @@
   border-bottom: 1px solid $border_color;
   overflow: hidden !important;
   .evidence-title {
-    margin-bottom: 12px;
     text-align: left;
     font-weight: bold;
     font-size: 22px;
@@ -27,8 +26,16 @@
     //    }
     //  }
     //}
+    .ant-tabs-ink-bar-animated {
+      height: 5px !important;
+    }
+
     .ant-tabs-tab {
-      padding: 27px 0 10px 0 !important;
+      padding: 27px 0 15px 0 !important;
+    }
+    .ant-tabs-extra-content {
+      transition: 0.4s ease 0s;
+      line-height: 65px;
     }
   }
 

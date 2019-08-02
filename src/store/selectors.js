@@ -295,10 +295,8 @@ export const getActivityLog = (state, recordId) => {
 export const getTestType = state => state?.test?.panel_type;
 
 // Variant page: Evidence
-export const
-  getSomaticEvidence = state => state.variantPage.somatic_evidence,
+export const getSomaticEvidence = state => state.variantPage.somatic_evidence,
   getGermlineEvidence = state => state.variantPage.germline_evidence,
-
   getCurrentEvidenceData = createSelector(
     getZygosityType,
     getVariantPage,
@@ -310,35 +308,31 @@ export const
       return data[res];
     }
   ),
-
   getTabPaneHeaders = createSelector(
     getCurrentEvidenceData,
     allData => {
       if (allData) {
-        const
-          sortedArray = Object.keys(allData)
+        const sortedArray = Object.keys(allData)
             .map(key => allData[key].category)
             .sort(),
-        
+          arrLng = sortedArray.length,
           getObj = (title, length) => {
             return { title, length };
           },
-        
           formattedArray = [],
           arr = [];
-      
-        let
-          tempStr = "",
+
+        let tempStr = "",
           count = 0;
 
-        for (let i = 0; i < sortedArray.length; i++) {
+        for (let i = 0; i < arrLng; i++) {
           const str = sortedArray[i];
           if (i === 0) {
             tempStr = str;
             count++;
           } else if (tempStr === str) {
             count++;
-            if (i === sortedArray.length - 1) {
+            if (i === arrLng - 1) {
               arr.push(getObj(str, count));
             }
           } else if (tempStr !== str) {
@@ -349,18 +343,17 @@ export const
         }
 
         for (let i = 0; i < EVIDENCE_CATEGORIES.length; i++) {
-          const sorted = arr.find(item => item.title === EVIDENCE_CATEGORIES[i]);
-          if (sorted) {
-            formattedArray.push(sorted);
-          } else {
-            formattedArray.push(getObj(EVIDENCE_CATEGORIES[i], 0));
-          }
+          const sorted = arr.find(
+            item => item.title === EVIDENCE_CATEGORIES[i]
+          );
+          sorted
+            ? formattedArray.push(sorted)
+            : formattedArray.push(getObj(EVIDENCE_CATEGORIES[i], 0));
         }
         return formattedArray;
       }
     }
   ),
-
   getTabPaneBodies = createSelector(
     getCurrentEvidenceData,
     allData => {
