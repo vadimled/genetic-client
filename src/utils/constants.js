@@ -371,3 +371,10 @@ export const VALIDATION_FAILD_FIELDS = {
   primer: "primer",
   fragmentSize: "fragmentSize"
 };
+
+export const EVIDENCE_CATEGORIES = [
+  "Publications",
+  "Frequency",
+  "Variant DB’s",
+  "Other"
+];

@@ -53,7 +53,7 @@ class VariantPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { externalResources, variantData, somaticClassHistory, somaticEvidence } = this.props;
+    const { externalResources, variantData, somaticClassHistory , somaticEvidence } = this.props;
     return (
       <div className={style["variant-page-wrapper"]}>
         <div

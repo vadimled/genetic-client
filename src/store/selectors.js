@@ -1,12 +1,18 @@
-import { FILTERS, GNOM_AD, SORTING_ORDER, TEXTS } from "Utils/constants";
+import {
+  FILTERS,
+  GNOM_AD,
+  SORTING_ORDER,
+  TEXTS,
+  EVIDENCE_CATEGORIES
+} from "Utils/constants";
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
 
 export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVariantClass = state =>
-           state?.filters?.[FILTERS.variantClassGermline],
+    state?.filters?.[FILTERS.variantClassGermline],
   getFilterSomaticClass = state =>
-           state?.filters?.[FILTERS.variantClassSomatic],
+    state?.filters?.[FILTERS.variantClassSomatic],
   getFilterHotSpot = state => state?.filters?.[FILTERS.hotSpot],
   getFilterSnp = state => state?.filters?.[FILTERS.snp],
   getFilterRoi = state => state?.filters?.[FILTERS.roi],
@@ -14,19 +20,15 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
-
-  getUncheckConfirmationData = state =>
-           state?.table?.uncheckConfirmationData,
+  getUncheckConfirmationData = state => state?.table?.uncheckConfirmationData,
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
   getConfirmationData = state => state?.confirmation?.data,
   getMutationType = state => state.variants.mutations,
-
   getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
   getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
   getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
   getIgvLastQuery = state => state?.igv?.igvLastQuery,
   getBAMFileUrl = state => state?.igv?.BAMFileUrl,
-
   getResultConfigIsOpen = state => state?.resultConfig?.isOpen,
   getResultConfigIsHgvsLoaded = state => state?.resultConfig?.isHgvsLoaded,
   getResultConfigIsOnEdit = state => state?.resultConfig?.isOnEdit,
@@ -34,23 +36,23 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getResultConfigChromosome = state => state?.resultConfig?.chromosome,
   getResultConfigPosition = state => state?.resultConfig?.position,
   getResultConfigAlleleType = state => state?.resultConfig?.alleleType,
-  getResultConfigAlleleReference = state => state?.resultConfig?.alleleReference,
-  getResultConfigAlleleAlternative = state => state?.resultConfig?.alleleAlternative,
+  getResultConfigAlleleReference = state =>
+    state?.resultConfig?.alleleReference,
+  getResultConfigAlleleAlternative = state =>
+    state?.resultConfig?.alleleAlternative,
   getResultConfigVaf = state => state?.resultConfig?.vaf,
   getResultConfigCoverage = state => state?.resultConfig?.coverage,
   getResultConfigCoding = state => state?.resultConfig?.coding,
   getResultConfigProtein = state => state?.resultConfig?.protein,
-  getResultConfigValidationFaildFields = state => state?.resultConfig?.validationFaildFields,
+  getResultConfigValidationFaildFields = state =>
+    state?.resultConfig?.validationFaildFields,
   getResultConfigid = state => state?.resultConfig?.id,
-
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,
   getAlertMessage = state => state?.alert?.message,
   getVariantPage = state => state.variantPage,
-
   getZygosityType = state => state.variantPage.selectedZygosityType,
   getCurrentZygosityType = state => state.variantPage.currentZygosity,
-
   getSomaticValue = state => state.variantPage.somatic_variant_class,
   getGermlineValue = state => state.variantPage.germline_variant_class,
   getExternalResources = state => state.variantPage.externalResources,
@@ -61,11 +63,9 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getVariantPageTestId = state => state.variantPage.testId,
   getSomaticEvidence = state => state.variantPage.somatic_evidence,
   getGermlineEvidence = state => state.variantPage.germline_evidence,
-
   getSortParam = state => state?.table?.sortParam,
   getSortOrder = state => state?.table?.sortOrder,
   getClicksCounter = state => state?.table?.clicksCounter,
-
   getTumorInfoMode = state => state.test.showTumorInfo,
   getTumorInfoType = state => state.test.tumor_info?.type,
   getTumorInfoLocation = state => state.test.tumor_info?.location,
@@ -188,7 +188,6 @@ export const getFilteredData = createSelector(
   getSortOrder,
   (data, appliedFilters, sortParam, order) => {
     if (isEmpty(appliedFilters)) {
-
       const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
       return sortedData;
     }
@@ -201,11 +200,11 @@ export const getFilteredData = createSelector(
       return filtersArray.some(filter => filter(item));
     });
 
-    if(order === SORTING_ORDER.ascending){
+    if (order === SORTING_ORDER.ascending) {
       return filteredData.sort((a, b) => a[sortParam] - b[sortParam]).slice();
     }
 
-    if(order === SORTING_ORDER.descending){
+    if (order === SORTING_ORDER.descending) {
       return filteredData.sort((a, b) => b[sortParam] - a[sortParam]).slice();
     }
 
@@ -254,14 +253,14 @@ export const getTotalEntriesAmount = createSelector(
 
 export const getSelectedRows = createSelector(
   getFilteredData,
-  (data) => {
+  data => {
     return data.filter(row => row.selected);
   }
 );
 
 export const getSelectedIsAddedRows = createSelector(
   getSelectedRows,
-  (data) => {
+  data => {
     return data.filter(row => row.isAdded);
   }
 );
@@ -270,8 +269,11 @@ export const checkIsAllRowSelected = createSelector(
   getTableDataAsArray,
   getSelectedRows,
   (allData, selectedData) => {
-    const notConfirmedData = allData?.filter((item) => !item.status);
-    return !!selectedData?.length && notConfirmedData?.length === selectedData?.length;
+    const notConfirmedData = allData?.filter(item => !item.status);
+    return (
+      !!selectedData?.length &&
+      notConfirmedData?.length === selectedData?.length
+    );
   }
 );
 
@@ -285,7 +287,7 @@ export const getActivityLog = (state, recordId) => {
     activityLogArray = activityLogArray.concat(activityLog[record]);
   }
 
-  activityLogArray.sort((a,b) => {
+  activityLogArray.sort((a, b) => {
     return new Date(b.time) - new Date(a.time);
   });
 
@@ -298,7 +300,7 @@ const getCurrentEvidenceData = createSelector(
   getZygosityType,
   getVariantPage,
   (type, data) => {
-    const res = Object.keys(data).find( key => {
+    const res = Object.keys(data).find(key => {
       const arr = key.toString().split("_");
       return arr.includes(type) && arr.includes(TEXTS.evidence);
     });
@@ -308,12 +310,57 @@ const getCurrentEvidenceData = createSelector(
 
 export const getTabPaneHeaders = createSelector(
   getCurrentEvidenceData,
-  (allData) => {
-    return Object.keys(allData).map(key => {
-      return {
-        title: allData[key].title,
-        length: allData[key].content.length
-      };
-    });
+  allData => {
+    if (allData) {
+      const
+        sortedArray = Object.keys(allData)
+          .map(key => allData[key].category)
+          .sort(),
+        
+        getObj = (title, length) => {
+          return { title, length };
+        },
+        
+        formattedArray = [],
+        arr = [];
+      
+      let
+        tempStr = "",
+        count = 0;
+
+      for (let i = 0; i < sortedArray.length; i++) {
+        const str = sortedArray[i];
+        if (i === 0) {
+          tempStr = str;
+          count++;
+        } else if (tempStr === str) {
+          count++;
+          if (i === sortedArray.length - 1) {
+            arr.push(getObj(str, count));
+          }
+        } else if (tempStr !== str) {
+          arr.push(getObj(tempStr, count));
+          tempStr = str;
+          count = 1;
+        }
+      }
+
+      for (let i = 0; i < EVIDENCE_CATEGORIES.length; i++) {
+        const sorted = arr.find(item => item.title === EVIDENCE_CATEGORIES[i]);
+        if (sorted) {
+          formattedArray.push(sorted);
+        } else {
+          formattedArray.push(getObj(EVIDENCE_CATEGORIES[i], 0));
+        }
+      }
+      return formattedArray;
+    }
+  }
+);
+
+export const getTabPaneBodies = createSelector(
+  getCurrentEvidenceData,
+  allData => {
+    return Object.keys(allData).map(key => allData[key].content);
   }
 );

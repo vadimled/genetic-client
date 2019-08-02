@@ -16,19 +16,21 @@ class EvidenceTable extends Component {
   }
 
   render() {
-    const { tabPaneHeaders } = this.props;
-    console.log(tabPaneHeaders);
+    const { tabPaneHeaders /* , tabPaneBodies */ } = this.props;
     return (
       <div className={style["evidence-wrapper"]}>
         <div className="evidence-title">Evidence:</div>
         <Tabs tabBarExtraContent={operations} size={"large"}>
-          {tabPaneHeaders.map((header, index) => {
+          {!!tabPaneHeaders && tabPaneHeaders.map((header, index) => {
+            // console.log(tabPaneBodies[index]);
             return (
               <TabPane
-                tab={<TabPaneContent amount={header.length} title={header.title} />}
-                key={index+1}
+                tab={
+                  <TabPaneContent amount={header.length} title={header.title} />
+                }
+                key={index + 1}
               >
-                {`Content of tab ${index+1}`}
+                {`Content of tab ${index + 1}`}
               </TabPane>
             );
           })}
@@ -50,6 +52,7 @@ EvidenceTable.defaultProps = {
 const mapStateToProps = state => {
   return {
     tabPaneHeaders: getTabPaneHeaders(state)
+    // tabPaneBodies: getTabPaneBodies(state),
   };
 };
 
