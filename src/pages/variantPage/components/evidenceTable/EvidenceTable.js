@@ -8,7 +8,7 @@ import { getTabPaneHeaders } from "Store/selectors";
 import { connect } from "react-redux";
 
 const { TabPane } = Tabs;
-const operations = <Button>Extra Action</Button>;
+const operations = <Button>+ Add Evidence</Button>;
 
 class EvidenceTable extends Component {
   constructor(props) {
