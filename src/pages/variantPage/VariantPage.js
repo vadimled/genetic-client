@@ -5,7 +5,7 @@ import SideBarLayout from "Pages/mainPage/components/sideBarLayout";
 import VariantPageHeader from "variantComponents/variantPageHeader";
 import ExternalResources from "variantComponents/externalResources";
 import ClassificationHistoryTable from "variantComponents/classificationHistoryTable";
-import EvidenceTable from "variantComponents/evidenceTable";
+import EvidenceContainer from "variantComponents/evidenceContainer";
 import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
 import {
@@ -103,7 +103,7 @@ class VariantPage extends Component {
                 { "links-wrapper-open": sidebarToggle }
               ])}
             >
-              <EvidenceTable
+              <EvidenceContainer
                 data={somaticEvidence}
                 typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
               />
