@@ -294,7 +294,7 @@ export function* resultConfigEditResultGenerator(data) {
 
 export function* fetchData() {
   try {
-    const result = generateDNAVariantTableMockData(1000);
+    const result = generateDNAVariantTableMockData(500);
 
     for(let item in result){
 
