@@ -366,24 +366,136 @@ export const setPriority = record => {
       && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
       record.priority = 57;
     }
-    else if(
-      [
-        VARIANT_CLASS_GERMLINE.path.value,
-        VARIANT_CLASS_GERMLINE.lpath.value,
-        VARIANT_CLASS_GERMLINE.vus.value,
-        VARIANT_CLASS_GERMLINE.lben.value
-      ].includes(record.variantClassGermline)
-      || [
-        VARIANT_CLASS_SOMATIC.tier1.value,
-        VARIANT_CLASS_SOMATIC.tier2.value,
-        VARIANT_CLASS_SOMATIC.tier3.value
-      ].includes(record.variantClassSomatic)){
-      record.priority = 3;
+  }
+
+  else if(record.zygosity === ZYGOSITY.notReal.value){
+    if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value
+    ){
+      record.priority = 136;
     }
-    else {
-      record.priority = 7;
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 135;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 134;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+      record.priority = 127;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+      record.priority = 125;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 124;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier3.value){
+      record.priority = 123;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.vus.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+      record.priority = 122;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier3.value){
+      record.priority = 121;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.vus.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 120;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier3.value){
+      record.priority = 119;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.vus.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier3.value){
+      record.priority = 118;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
+      record.priority = 117;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lpath.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+      record.priority = 116;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
+      record.priority = 115;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lpath.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 114;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
+      record.priority = 113;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.vus.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
+      record.priority = 112;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lpath.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier3.value){
+      record.priority = 111;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lpath.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
+      record.priority = 110;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
+      record.priority = 109;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.path.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+      record.priority = 108;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
+      record.priority = 107;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.path.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 106;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
+      record.priority = 105;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.vus.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
+      record.priority = 104;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.path.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier3.value){
+      record.priority = 103;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lpath.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
+      record.priority = 102;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.path.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
+      record.priority = 101;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.path.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
+      record.priority = 100;
     }
   }
+
+
+
+
+
   else if(
     [
       ZYGOSITY.unknown.value,
