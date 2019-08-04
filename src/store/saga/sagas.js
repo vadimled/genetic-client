@@ -296,13 +296,11 @@ export function* fetchData() {
   try {
     const result = generateDNAVariantTableMockData(1000);
 
-
-
     for(let item in result){
 
       const record = result[item];
 
-      setPriority(record)
+      setPriority(record);
 
     }
 
