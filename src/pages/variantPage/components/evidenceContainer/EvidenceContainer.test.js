@@ -1,11 +1,11 @@
 import React from "react";
 import { renderWithRedux } from "Utils/test_helpers";
 import "jest-dom/extend-expect";
-import EvidenceTable from "./EvidenceTable";
+import EvidenceContainer from "evidenceContainer/EvidenceContainer";
 
-describe("<EvidenceTable />", () => {
+describe("<EvidenceContainer />", () => {
   it("snapshot", () => {
-    const { asFragment } = renderWithRedux(<EvidenceTable />);
+    const { asFragment } = renderWithRedux(<EvidenceContainer />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

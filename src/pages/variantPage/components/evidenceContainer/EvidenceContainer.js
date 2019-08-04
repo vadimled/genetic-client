@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import style from "./EvidenceTable.module.scss";
+import style from "evidenceContainer/EvidenceContainer.module.scss";
 // import PropTypes from 'prop-types';
 import { Button, Tabs } from "antd";
-import TabPaneContent from "variantComponents/evidenceTable/components/tabPaneHeader";
+import TabPaneContent from "variantComponents/evidenceContainer/components/tabPaneHeader";
 import PropTypes from "prop-types";
 import { getTabPaneHeaders } from "Store/selectors";
 import { connect } from "react-redux";
@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 const { TabPane } = Tabs;
 const operations = <Button>+ Add Evidence</Button>;
 
-class EvidenceTable extends Component {
+class EvidenceContainer extends Component {
   constructor(props) {
     super(props);
   }
@@ -40,12 +40,12 @@ class EvidenceTable extends Component {
   }
 }
 
-EvidenceTable.propTypes = {
+EvidenceContainer.propTypes = {
   data: PropTypes.object,
   typeData: PropTypes.array.isRequired
 };
 
-EvidenceTable.defaultProps = {
+EvidenceContainer.defaultProps = {
   data: {}
 };
 
@@ -68,4 +68,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   null
-)(EvidenceTable);
+)(EvidenceContainer);
