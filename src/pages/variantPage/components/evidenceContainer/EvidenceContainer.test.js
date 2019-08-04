@@ -1,7 +1,7 @@
 import React from "react";
 import { renderWithRedux } from "Utils/test_helpers";
 import "jest-dom/extend-expect";
-import EvidenceContainer from "evidenceContainer/EvidenceContainer";
+import EvidenceContainer from "./EvidenceContainer";
 
 describe("<EvidenceContainer />", () => {
   it("snapshot", () => {

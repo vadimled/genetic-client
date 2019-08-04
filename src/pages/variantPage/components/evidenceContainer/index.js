@@ -1,1 +1,1 @@
-export { default } from 'evidenceContainer/EvidenceContainer';
+export { default } from './EvidenceContainer';

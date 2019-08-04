@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import style from "evidenceContainer/EvidenceContainer.module.scss";
+import style from "./EvidenceContainer.module.scss";
 // import PropTypes from 'prop-types';
 import { Button, Tabs } from "antd";
 import TabPaneContent from "variantComponents/evidenceContainer/components/tabPaneHeader";
