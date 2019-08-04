@@ -234,7 +234,7 @@ export const createTableData = ( category, tabContent) => {
     if(tabContent[val].category === category){
       const newObj = Object.assign({}, tabContent[val]);
       delete newObj.category;
-      delete newObj.user;
+      // delete newObj.user;
       newObj.source_description = `${newObj.source}${newObj.description}`;
       delete newObj.source;
       delete newObj.description;

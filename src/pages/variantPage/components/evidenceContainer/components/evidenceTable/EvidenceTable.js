@@ -80,11 +80,11 @@ class EvidenceTable extends Component {
         })
       };
       if (col.dataIndex === "created_at") {
-        column.render = () => {
+        column.render = (date, obj) => {
           return (
             <TableDateAndUser
-              date={"2/Feb/2018"}
-              user={{ user_id: "dsfafdasfdas", name: "Taly Yafe", pic_url: "" }}
+              date={date}
+              user={obj.user}
             />
           );
         };
