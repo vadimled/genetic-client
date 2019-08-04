@@ -3,7 +3,7 @@ import {
   TAG_COLORS,
   VARIANT_CLASS_GERMLINE,
   ZYGOSITY_OPTIONS,
-  ZYGOSITY_TYPES
+  ZYGOSITY_TYPES, ZYGOSITY
 } from "./constants";
 import has from "lodash.has";
 
@@ -229,3 +229,95 @@ export const zygosityType = data => {
   }
   return "";
 };
+
+export const setPriority = record => {
+  if(record.zygosity === ZYGOSITY.notDefined.value){
+    if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value
+    ){
+      record.priority = 34;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 35;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+      record.priority = 36;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+      record.priority = 5;
+    }
+    else if(
+      [
+        VARIANT_CLASS_GERMLINE.path.value,
+        VARIANT_CLASS_GERMLINE.lpath.value,
+        VARIANT_CLASS_GERMLINE.vus.value,
+        VARIANT_CLASS_GERMLINE.lben.value
+      ].includes(record.variantClassGermline)
+      || [
+        VARIANT_CLASS_SOMATIC.tier1.value,
+        VARIANT_CLASS_SOMATIC.tier2.value,
+        VARIANT_CLASS_SOMATIC.tier3.value
+      ].includes(record.variantClassSomatic)){
+      record.priority = 3;
+    }
+    else {
+      record.priority = 7;
+    }
+  }
+  else if(
+    [
+      ZYGOSITY.unknown.value,
+      ZYGOSITY.insignificant.value,
+      ZYGOSITY.notReal.value
+    ].includes(record?.zygosity)){
+    if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 31;
+    }
+    else if (record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 32;
+    }
+    else if (record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+      record.priority = 33;
+    }
+    else {
+      record.priority = 7;
+    }
+  }
+  else if(record.zygosity === ZYGOSITY.somatic.value){
+    if(record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 38;
+    }
+    else if(record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+      record.priority = 21;
+    }
+    else {
+      record.priority = 7;
+    }
+  }
+
+  else if([
+    ZYGOSITY.homo.value,
+    ZYGOSITY.hemi.value,
+    ZYGOSITY.hetro.value
+  ].includes(record.zygosity)){
+    if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value){
+      record.priority = 37;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value){
+      record.priority = 20;
+    }
+    else {
+      record.priority = 7;
+    }
+  }
+
+  else {
+    record.priority = 7;
+  }
+}
