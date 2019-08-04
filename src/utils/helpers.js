@@ -616,7 +616,133 @@ export const setPriority = record => {
     }
   }
 
-
+  else if(record.zygosity === ZYGOSITY.unknown.value){
+    if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value
+    ){
+      record.priority = 130;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 132;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 129;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 128;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+      record.priority = 73;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+      record.priority = 41;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 40;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier3.value){
+      record.priority = 39;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.vus.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+      record.priority = 38;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier3.value){
+      record.priority = 37;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.vus.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 36;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier3.value){
+      record.priority = 35;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.vus.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier3.value){
+      record.priority = 34;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
+      record.priority = 33;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lpath.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+      record.priority = 32;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
+      record.priority = 31;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lpath.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 30;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
+      record.priority = 29;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.vus.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
+      record.priority = 28;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lpath.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier3.value){
+      record.priority = 27;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lpath.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
+      record.priority = 26;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
+      record.priority = 25;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.path.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+      record.priority = 24;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
+      record.priority = 23;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.path.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 22;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
+      record.priority = 21;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.vus.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
+      record.priority = 20;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.path.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier3.value){
+      record.priority = 19;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lpath.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
+      record.priority = 18;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.path.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
+      record.priority = 17;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.path.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
+      record.priority = 16;
+    }
+  }
 
   else if(
     [
