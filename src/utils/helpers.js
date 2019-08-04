@@ -320,4 +320,4 @@ export const setPriority = record => {
   else {
     record.priority = 7;
   }
-}
+};

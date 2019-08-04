@@ -298,7 +298,7 @@ export function* fetchData() {
     const result = generateDNAVariantTableMockData(1000);
 
     for(let item in result){
-      setPriority(result[item])
+      setPriority(result[item]);
     }
 
     yield put(setDataToStore(result));
