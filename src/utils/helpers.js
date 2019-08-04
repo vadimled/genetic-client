@@ -390,6 +390,34 @@ export const setPriority = record => {
       && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier3.value){
       record.priority = 53;
     }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lpath.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
+      record.priority = 52;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
+      record.priority = 51;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.path.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value){
+      record.priority = 50;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
+      record.priority = 49;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.path.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
+      record.priority = 48;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.lben.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
+      record.priority = 47;
+    }
+    else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.vus.value
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
+      record.priority = 46;
+    }
     else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.path.value
       && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier3.value){
       record.priority = 45;
@@ -743,7 +771,7 @@ export const setPriority = record => {
       record.priority = 26;
     }
     else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value
-      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier2.value){
+      && record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier1.value){
       record.priority = 25;
     }
     else if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.path.value
