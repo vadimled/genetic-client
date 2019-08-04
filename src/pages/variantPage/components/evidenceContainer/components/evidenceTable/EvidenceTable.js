@@ -12,6 +12,7 @@ import { getCurrentEvidenceData } from "Store/selectors";
 import { connect } from "react-redux";
 import { createTableData } from "Utils/helpers";
 import TableDateAndUser from "variantComponents/evidenceContainer/components/tableDateAndUser";
+import TableSourceDescription from "variantComponents/evidenceContainer/components/tableSourceDescription";
 
 class EvidenceTable extends Component {
   constructor(props) {
@@ -85,6 +86,16 @@ class EvidenceTable extends Component {
             <TableDateAndUser
               date={date}
               user={obj.user}
+            />
+          );
+        };
+      }
+      else if (col.dataIndex === "source_description") {
+        column.render = (text, obj) => {
+          return (
+            <TableSourceDescription
+              source={obj.source}
+              description={obj.description}
             />
           );
         };

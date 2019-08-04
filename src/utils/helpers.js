@@ -223,25 +223,24 @@ export const zygosityType = data => {
     for (let key in ZYGOSITY_TYPES) {
       const { label, value } = ZYGOSITY_TYPES[key];
       if (value.toLowerCase() === data.currentZygosity.toLowerCase()) {
-        return {...data,  currentZygosity: label };
+        return { ...data, currentZygosity: label };
       }
     }
   }
   return "";
 };
-export const createTableData = ( category, tabContent) => {
+export const createTableData = (category, tabContent) => {
   const obj = Object.keys(tabContent).reduce((accum, val) => {
-    if(tabContent[val].category === category){
-      const newObj = Object.assign({}, tabContent[val]);
-      delete newObj.category;
-      // delete newObj.user;
-      newObj.source_description = `${newObj.source}${newObj.description}`;
-      delete newObj.source;
-      delete newObj.description;
-      newObj.actions = null;
-      return  {...accum, [val]: newObj };
+    if (tabContent[val].category === category) {
+      const newObj = Object.assign(
+        {},
+        tabContent[val],
+        { source_description: "" },
+        { actions: "" }
+      );
+      return { ...accum, [val]: newObj };
     }
-    return  accum;
+    return accum;
   }, {});
   return getDataArray(obj);
 };
