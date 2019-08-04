@@ -11,18 +11,19 @@ import defaultImage from "Assets/smallEmptyState.svg";
 import { getCurrentEvidenceData } from "Store/selectors";
 import { connect } from "react-redux";
 import { createTableData } from "Utils/helpers";
+import TableDateAndUser from "variantComponents/evidenceContainer/components/tableDateAndUser";
 
 class EvidenceTable extends Component {
   constructor(props) {
     super(props);
     const { category, tabContent } = props;
-    
-    this.data = createTableData( category, tabContent);
-  
+
+    this.data = createTableData(category, tabContent);
+
     console.log(this.data);
-  
+
     this.state = {
-      columns:  [
+      columns: [
         {
           key: "1",
           title: "Date",
@@ -50,13 +51,13 @@ class EvidenceTable extends Component {
       ]
     };
   }
-  
+
   components = {
     header: {
       cell: ResizeableTitle
     }
   };
-  
+
   handleResize = index => (e, { size }) => {
     this.setState(({ columns }) => {
       const nextColumns = [...columns];
@@ -67,7 +68,7 @@ class EvidenceTable extends Component {
       return { columns: nextColumns };
     });
   };
-  
+
   columnsConverter = columns => {
     // const { typeData } = this.props;
     return columns.map((col, index) => {
@@ -78,35 +79,33 @@ class EvidenceTable extends Component {
           onResize: this.handleResize(index)
         })
       };
-      // if (col.dataIndex === "class") {
-      //   column.render = text => {
-      //     return (
-      //       <div className="label-custom-style">
-      //         <LabeledTag
-      //           label={text}
-      //           typeData={typeData}
-      //         />
-      //       </div>
-      //     );
-      //   };
-      // } else {
-      column.render = (text, record) => {
-        return (
-          <HighlightedCell isHighlighted={record.isAdded}>
-            {text}
-          </HighlightedCell>
-        );
-      };
-      // }
+      if (col.dataIndex === "created_at") {
+        column.render = () => {
+          return (
+            <TableDateAndUser
+              date={"2/Feb/2018"}
+              user={{ user_id: "dsfafdasfdas", name: "Taly Yafe", pic_url: "" }}
+            />
+          );
+        };
+      } else {
+        column.render = (text, record) => {
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              {text}
+            </HighlightedCell>
+          );
+        };
+      }
       return column;
     });
   };
-  
+
   render() {
     const { length } = this.data;
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
-    
+
     return (
       <div className={style["evidence-table-wrapper"]}>
         {!length ? (
@@ -141,7 +140,7 @@ EvidenceTable.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    tabContent: getCurrentEvidenceData(state),
+    tabContent: getCurrentEvidenceData(state)
   };
 };
 
@@ -149,4 +148,3 @@ export default connect(
   mapStateToProps,
   null
 )(EvidenceTable);
-
