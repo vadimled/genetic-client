@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import { createTableData } from "Utils/helpers";
 import TableDateAndUser from "variantComponents/evidenceContainer/components/tableDateAndUser";
 import TableSourceDescription from "variantComponents/evidenceContainer/components/tableSourceDescription";
+import TableLevel from "variantComponents/evidenceContainer/components/tableLevel";
 
 class EvidenceTable extends Component {
   constructor(props) {
@@ -82,15 +83,9 @@ class EvidenceTable extends Component {
       };
       if (col.dataIndex === "created_at") {
         column.render = (date, obj) => {
-          return (
-            <TableDateAndUser
-              date={date}
-              user={obj.user}
-            />
-          );
+          return <TableDateAndUser date={date} user={obj.user} />;
         };
-      }
-      else if (col.dataIndex === "source_description") {
+      } else if (col.dataIndex === "source_description") {
         column.render = (text, obj) => {
           return (
             <TableSourceDescription
@@ -98,6 +93,10 @@ class EvidenceTable extends Component {
               description={obj.description}
             />
           );
+        };
+      } else if (col.dataIndex === "level") {
+        column.render = level => {
+          return <TableLevel level={level} />;
         };
       } else {
         column.render = (text, record) => {

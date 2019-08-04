@@ -38,7 +38,7 @@ export const TEXTS = {
   currentZygosity: "Current zygosity:",
   unclassified: "Unclassified",
   evidence: "evidence",
-  evidenceUp: "Evidence",
+  evidenceUp: "Evidence"
 };
 
 export const LIMITS = {
@@ -52,11 +52,11 @@ export const MUTATION = {
 };
 
 export const FILTERS_CONFIGURATIONS = [
-  {value: "defaultFilters", label: "Default filters"},
+  { value: "defaultFilters", label: "Default filters" }
 ];
 
 export const SORTING_CONFIGURATIONS = [
-  {value: "defaultSorting", label: "Default Sorting"},
+  { value: "defaultSorting", label: "Default Sorting" }
 ];
 
 export const SORTING_ORDER = {
@@ -378,3 +378,41 @@ export const EVIDENCE_CATEGORIES = [
   "Variant DB’s",
   "Other"
 ];
+
+export const LEVEL_COLOR = {
+  PVS1: "#D70513",
+  PS1: "#F11E2C",
+  PS2: "#F11E2C",
+  PS3: "#F11E2C",
+  PS4: "#F11E2C",
+  PM1: "#FF835C",
+  PM2: "#FE784D",
+  PM3: "#FF6F41",
+  PM4: "#FF5F2C",
+  PM5: "#F94E18",
+  PM6: "#ED3B03",
+  PP1: "#FED955",
+  PP2: "#FDD23B",
+  PP3: "#FAC714",
+  PP4: "#F1BD05",
+  PP5: "#DFAF02",
+  BP7: "#26D17F",
+  BP6: "#22B36E",
+  BP5: "#16AD64",
+  BP4: "#079F56",
+  BP3: "#048B4A",
+  BP2: "#01763E",
+  BP1: "#01552D",
+  BS4: "#21A0FA",
+  BS3: "#0E8CE6",
+  BS2: "#067ED3",
+  BS1: "#026AB5",
+  BA1: "#2D42FF",
+  A1: "#D70513",
+  A2: "#D70513",
+  B: "#F11E2C",
+  C1: "#FF835C",
+  C2: "#FF835C",
+  D: "#FED955",
+  None: "#424D55"
+};
