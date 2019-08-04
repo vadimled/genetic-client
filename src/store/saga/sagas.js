@@ -3,7 +3,7 @@ import * as Sentry from "@sentry/browser";
 import {
   ALERT_STATUSES,
   ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS
+  VALIDATION_FAILD_FIELDS,
 } from 'Utils/constants';
 import {
   fetchBAMFile,
@@ -42,8 +42,6 @@ import { setCaseData } from "Actions/testActions";
 import { setMutationType } from "Actions/variantsActions";
 import { setVariantData, setZygosityType } from "Actions/variantPageActions";
 import { zygosityType, setPriority } from "Utils/helpers";
-
-
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -293,12 +291,19 @@ export function* resultConfigEditResultGenerator(data) {
   }
 }
 
+
 export function* fetchData() {
   try {
     const result = generateDNAVariantTableMockData(1000);
 
+
+
     for(let item in result){
-      setPriority(result[item]);
+
+      const record = result[item];
+
+      setPriority(record)
+
     }
 
     yield put(setDataToStore(result));
