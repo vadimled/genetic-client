@@ -6,6 +6,7 @@ import TabPaneContent from "variantComponents/evidenceContainer/components/tabPa
 import PropTypes from "prop-types";
 import { getTabPaneHeaders } from "Store/selectors";
 import { connect } from "react-redux";
+import EvidenceTable from "variantComponents/evidenceContainer/components/evidenceTable";
 
 const { TabPane } = Tabs;
 const operations = <Button>+ Add Evidence</Button>;
@@ -30,7 +31,7 @@ class EvidenceContainer extends Component {
                 }
                 key={index + 1}
               >
-                {`Content of tab ${index + 1}`}
+                {<EvidenceTable category={header.title}/>}
               </TabPane>
             );
           })}
@@ -52,18 +53,8 @@ EvidenceContainer.defaultProps = {
 const mapStateToProps = state => {
   return {
     tabPaneHeaders: getTabPaneHeaders(state)
-    // tabPaneBodies: getTabPaneBodies(state),
   };
 };
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     setResources: data => dispatch(setExternalResources(data)),
-//     fetchVariantData: data => dispatch(fetchVariantData(data)),
-//     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
-//     setTestInformation: data => dispatch(setTestInformation(data))
-//   };
-// }
 
 export default connect(
   mapStateToProps,

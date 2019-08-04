@@ -354,9 +354,16 @@ export const getSomaticEvidence = state => state.variantPage.somatic_evidence,
       }
     }
   ),
-  getTabPaneBodies = createSelector(
+  getTabContent = createSelector(
     getCurrentEvidenceData,
     allData => {
-      return Object.keys(allData).map(key => allData[key].content);
+      if (allData) {
+        const sortedArray = Object.keys(allData)
+          .map(key => {
+            console.log(allData[key]);
+          });
+  
+        return sortedArray;
+      }
     }
   );

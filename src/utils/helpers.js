@@ -229,3 +229,19 @@ export const zygosityType = data => {
   }
   return "";
 };
+export const createTableData = ( category, tabContent) => {
+  const obj = Object.keys(tabContent).reduce((accum, val) => {
+    if(tabContent[val].category === category){
+      const newObj = Object.assign({}, tabContent[val]);
+      delete newObj.category;
+      delete newObj.user;
+      newObj.source_description = `${newObj.source}${newObj.description}`;
+      delete newObj.source;
+      delete newObj.description;
+      newObj.actions = null;
+      return  {...accum, [val]: newObj };
+    }
+    return  accum;
+  }, {});
+  return getDataArray(obj);
+};
