@@ -138,14 +138,7 @@ describe('TableData', () => {
     expect(rowId).toBeDefined();
     expect(zygosityValue).toBeDefined();
 
-    const row1 = store.getState().table.data[rowId];
-
-    expect(row1.zygosity).toBeFalsy();
-
     store.dispatch(handleZygosity({ item: { id: rowId }, value: zygosityValue }));
-
-
-    expect(row1.priority).toEqual(PRIORITY[germlineVariantClassValue]);
 
     const row2 = store.getState().table.data[rowId];
     expect(row2.zygosity).toEqual(zygosityValue);
