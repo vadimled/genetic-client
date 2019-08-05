@@ -136,12 +136,15 @@ class VariantTable extends Component {
   };
 
   handleZygosity = (data) =>{
-    const {handleZygosity, updateActivityLog} = this.props;
+    const {handleZygosity, updateActivityLog, testId} = this.props;
     const {item, value, prevValue} = data;
 
     handleZygosity({
-      item,
+      variantId: item.id,
       value,
+      testId,
+      name: "zygosity",
+      record: item
     });
     updateActivityLog({prevValue, item, changedField: "zygosity"});
   };

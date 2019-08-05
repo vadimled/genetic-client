@@ -223,7 +223,7 @@ export const zygosityType = data => {
     for (let key in ZYGOSITY_TYPES) {
       const { label, value } = ZYGOSITY_TYPES[key];
       if (value.toLowerCase() === data.currentZygosity.toLowerCase()) {
-        return {...data, ...{ currentZygosity: label} };
+        return {...data,  currentZygosity: label };
       }
     }
   }
@@ -231,6 +231,7 @@ export const zygosityType = data => {
 };
 
 export const setPriority = record => {
+
   if(record.zygosity === ZYGOSITY.somatic.value){
     if(record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value){
       record.priority = 143;
@@ -811,4 +812,6 @@ export const setPriority = record => {
       record.priority = 16;
     }
   }
+
+  return record;
 };

@@ -9,8 +9,8 @@ import SidebarFilters from "Pages/mainPage/components/sidebarFilters/SidebarFilt
 import { renderWithRedux } from "Utils/test_helpers";
 import { setFilterVaf } from "Store/actions/filtersActions";
 import MainPage from "../../MainPage";
-import { fetchCaseData } from "../../../../store/actions/testActions";
-import { fetchData } from "../../../../store/actions/tableActions";
+import { fetchTestData } from "../../../../store/actions/testActions";
+import { fetchTableData } from "../../../../store/actions/tableActions";
 import { BrowserRouter as Router } from "react-router-dom";
 import { setDefaultFilters } from "../../../../store/actions/filtersActions";
 
@@ -24,11 +24,11 @@ const initSteps = () => {
   );
   sagaMiddleware.run(watchSaga);
 
-  store.dispatch(fetchData());
+  store.dispatch(fetchTableData());
 
   store.dispatch(setDefaultFilters());
 
-  store.dispatch(fetchCaseData("GS00115NP050818_TS1_01"));
+  store.dispatch(fetchTestData("GS00115NP050818_TS1_01"));
 
   return {store, getByTestId, getAllByTestId};
 };

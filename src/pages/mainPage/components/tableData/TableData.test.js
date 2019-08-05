@@ -18,7 +18,7 @@ import {
   handleZygosity,
   handleVariantClass,
   handleConfirmationStatus,
-  handleUncheckConfirmationData, fetchData
+  handleUncheckConfirmationData, fetchTableData
 } from "Actions/tableActions";
 import {
   getUncheckConfirmationData
@@ -38,7 +38,7 @@ const initSteps = () => {
   sagaMiddleware.run(watchSaga);
 
 
-  store.dispatch(fetchData());
+  store.dispatch(fetchTableData());
 
   return {store, getByTestId, getAllByTestId, asFragment};
 };
