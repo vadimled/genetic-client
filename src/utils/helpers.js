@@ -219,7 +219,6 @@ export const zygosityType = data => {
     Unkown - for Unkown.
     Not-Real - for Not-Real.
   */
-  console.log(data);
   if (has(data, "currentZygosity")) {
     for (let key in ZYGOSITY_TYPES) {
       const { label, value } = ZYGOSITY_TYPES[key];
@@ -230,12 +229,14 @@ export const zygosityType = data => {
   }
   return "";
 };
+
 export const createTableData = (category, tabContent) => {
   const obj = Object.keys(tabContent).reduce((accum, val) => {
     if (tabContent[val].category === category) {
       const newObj = Object.assign(
         {},
         tabContent[val],
+        { id: val },
         { source_description: "" },
         { actions: "" }
       );
