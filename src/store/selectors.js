@@ -298,6 +298,8 @@ export const getTestType = state => state?.test?.panel_type;
 export const
   getSomaticEvidence = state => state.variantPage.pageData.somatic_evidence,
   getGermlineEvidence = state => state.variantPage.pageData.germline_evidence,
+  getEvidenceConfigIsOpen = state => state.variantPage.evidenceConfig.actionSlideBarStatus,
+  
   getCurrentEvidenceData = createSelector(
     getZygosityType,
     getVariantPage,
