@@ -21,8 +21,16 @@ class EvidenceContainer extends Component {
     this.props.openSlidePanel(true);
   };
   
+  handleDeleteEntry = (e, id) => {
+    console.log(id);
+  };
+  
+  handleEditEntry = (e, id) => {
+    console.log(id);
+  };
+  
   render() {
-    const { tabPaneHeaders /* , tabPaneBodies */ } = this.props;
+    const { tabPaneHeaders } = this.props;
     return (
       <div className={style["evidence-wrapper"]}>
         <div className="evidence-title">Evidence:</div>
@@ -38,7 +46,6 @@ class EvidenceContainer extends Component {
         >
           {!!tabPaneHeaders &&
             tabPaneHeaders.map((header, index) => {
-              // console.log(tabPaneBodies[index]);
               return (
                 <TabPane
                   tab={
@@ -49,7 +56,11 @@ class EvidenceContainer extends Component {
                   }
                   key={index + 1}
                 >
-                  {<EvidenceTable category={header.title} />}
+                  {<EvidenceTable
+                    category={header.title}
+                    handleEditEntry={this.handleEditEntry}
+                    handleDeleteEntry={this.handleDeleteEntry}
+                  />}
                 </TabPane>
               );
             })}

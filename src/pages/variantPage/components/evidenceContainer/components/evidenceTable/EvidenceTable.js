@@ -72,16 +72,8 @@ class EvidenceTable extends Component {
     });
   };
 
-  handleDeleteEntry = () => {
-    console.log("Delete");
-  };
-
-  handleEditEntry = () => {
-    console.log("Edit");
-  };
-
   columnsConverter = columns => {
-    // const { typeData } = this.props;
+    const { handleDeleteEntry,  handleEditEntry} = this.props;
     return columns.map((col, index) => {
       let column = {
         ...col,
@@ -108,11 +100,11 @@ class EvidenceTable extends Component {
           return <TableLevel level={level} />;
         };
       } else if (col.dataIndex === "actions") {
-        column.render = () => {
+        column.render = (text, obj) => {
           return (
             <TableActions
-              onDelete={this.handleDeleteEntry}
-              onEdit={this.handleEditEntry}
+              onDelete={(e) => handleDeleteEntry(e, obj.id)}
+              onEdit={(e) => handleEditEntry(e, obj.id)}
             />
           );
         };
