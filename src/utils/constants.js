@@ -13,8 +13,8 @@ export const TAG_COLORS = {
 
 export const FILTERS = {
   type: "type",
-  variantClass: "variantClass",
-  somaticClass: "somaticClass",
+  variantClassGermline: "variantClassGermline",
+  variantClassSomatic: "variantClassSomatic",
   hotSpot: "hotSpot",
   snp: "snp",
   roi: "roi",
@@ -32,18 +32,36 @@ export const TEXTS = {
   germline: "germline",
   somaticUp: "Somatic",
   germlineUp: "Germline",
-  externalResources: "External resources"
+  externalResources: "External resources",
+  seeAll: "See All",
+  seeLess: "See Less",
+  currentZygosity: "Current zygosity:",
+  unclassified: "Unclassified"
 };
 
 export const LIMITS = {
   maxNotesChar: 150
 };
 
-export const MUTATION = [
-  { value: "dna", label: "DNA" },
-  { value: "rna", label: "RNA" },
-  { value: "agena", label: "Agena" }
+export const MUTATION = {
+  dna: "DNA",
+  rna: "RNA",
+  agena: "Agena"
+};
+
+export const FILTERS_CONFIGURATIONS = [
+  {value: "defaultFilters", label: "Default filters"},
 ];
+
+export const SORTING_CONFIGURATIONS = [
+  {value: "defaultSorting", label: "Default Sorting"},
+];
+
+export const SORTING_ORDER = {
+  ascending: "ascending",
+  descending: "descending",
+  default: "default"
+};
 
 export const ZYGOSITY_OPTIONS = [
   { value: "homo", label: "Homo" },
@@ -54,8 +72,24 @@ export const ZYGOSITY_OPTIONS = [
   { value: "notReal", label: "Not-Real" },
   { value: "unknown", label: "Unknown" }
 ];
+/* Germline - for Homo, Hetro and Hemi.
+  Somatic - for Somatic.
+  Insignificant - for Insignificant.
+  Unkown - for Unkown.
+  Not-Real - for Not-Real.
+*/
 
-export const VARIANT_CLASS = {
+export const ZYGOSITY_TYPES = [
+  { value: "homo", label: "Germline" },
+  { value: "hetro", label: "Germline" },
+  { value: "hemi", label: "Germline" },
+  { value: "insignificant", label: "Insignificant" },
+  { value: "somatic", label: "Somatic" },
+  { value: "notReal", label: "Not-Real" },
+  { value: "unknown", label: "Unknown" }
+];
+
+export const VARIANT_CLASS_GERMLINE = {
   unclassified: {
     value: "unclassified",
     label: "Unclassified",
@@ -68,7 +102,7 @@ export const VARIANT_CLASS = {
   lben: { value: "lben", label: "LBEN", tagColor: TAG_COLORS.blueLight }
 };
 
-export const SOMATIC_CLASS = {
+export const VARIANT_CLASS_SOMATIC = {
   unclassified: {
     value: "unclassified",
     label: "Unclassified",
@@ -81,20 +115,20 @@ export const SOMATIC_CLASS = {
 };
 
 export const GERMLINE_VARIANT_CLASS_OPTIONS = [
-  { ...VARIANT_CLASS.unclassified },
-  { ...VARIANT_CLASS.path },
-  { ...VARIANT_CLASS.lpath },
-  { ...VARIANT_CLASS.vus },
-  { ...VARIANT_CLASS.lben },
-  { ...VARIANT_CLASS.ben }
+  { ...VARIANT_CLASS_GERMLINE.unclassified },
+  { ...VARIANT_CLASS_GERMLINE.path },
+  { ...VARIANT_CLASS_GERMLINE.lpath },
+  { ...VARIANT_CLASS_GERMLINE.vus },
+  { ...VARIANT_CLASS_GERMLINE.lben },
+  { ...VARIANT_CLASS_GERMLINE.ben }
 ];
 
 export const SOMATIC_VARIANT_CLASS_OPTIONS = [
-  { ...SOMATIC_CLASS.unclassified },
-  { ...SOMATIC_CLASS.tier1 },
-  { ...SOMATIC_CLASS.tier2 },
-  { ...SOMATIC_CLASS.tier3 },
-  { ...SOMATIC_CLASS.tier4 }
+  { ...VARIANT_CLASS_SOMATIC.unclassified },
+  { ...VARIANT_CLASS_SOMATIC.tier1 },
+  { ...VARIANT_CLASS_SOMATIC.tier2 },
+  { ...VARIANT_CLASS_SOMATIC.tier3 },
+  { ...VARIANT_CLASS_SOMATIC.tier4 }
 ];
 
 export const GNOM_AD = {
@@ -115,10 +149,10 @@ export const CONFIRMATION_VALUES = {
 };
 
 export const ALERT_STATUSES = {
-  'error': 'error',
-  'warning': 'warning',
-  'success': 'success',
-  'default': 'default',
+  error: "error",
+  warning: "warning",
+  success: "success",
+  default: "default"
 };
 
 export const TUMOR_TYPE = [
@@ -272,27 +306,66 @@ export const TUMOR_LOCATION = [
   "Endo-Cervical"
 ];
 
+export const PRIORITY = {
+  path: 13,
+  tier1: 12,
+  lpath: 11,
+  tier2: 10,
+  vus: 9,
+  tier3: 8,
+  unclassified: 7,
+  lben: 6,
+  unknown: 5,
+  insignificant: 4,
+  notReal: 3,
+  ben: 2,
+  tier4: 1
+};
 export const CHROMOSOME_OPTIONS = [
-  ...([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22].map((i) => ({
-    value: i.toString(), label: i.toString()
-  }))),
+  ...[
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ].map(i => ({
+    value: i.toString(),
+    label: i.toString()
+  })),
   { value: "X", label: "X" },
-  { value: "Y", label: "Y" },
+  { value: "Y", label: "Y" }
 ];
 
 export const ALLELE_TYPES = {
-  'change': {value: 'change', label: 'Change'},
-  'insertion': {value: 'insertion', label: 'Insertion'},
-  'deletion': {value: 'deletion', label: 'Deletion'}
+  change: { value: "change", label: "Change" },
+  insertion: { value: "insertion", label: "Insertion" },
+  deletion: { value: "deletion", label: "Deletion" }
 };
 
 export const VALIDATION_FAILD_FIELDS = {
-  gene: 'gene',
-  chromosome: 'chromosome',
-  position: 'position',
-  alleleReference: 'alleleReference',
-  alleleAlternative: 'alleleAlternative',
-  loadHgvs: 'loadHgvs',
-  primer: 'primer',
-  fragmentSize: 'fragmentSize'
+  gene: "gene",
+  chromosome: "chromosome",
+  position: "position",
+  alleleReference: "alleleReference",
+  alleleAlternative: "alleleAlternative",
+  loadHgvs: "loadHgvs",
+  primer: "primer",
+  fragmentSize: "fragmentSize"
 };

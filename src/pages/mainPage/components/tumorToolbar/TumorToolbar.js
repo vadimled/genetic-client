@@ -10,7 +10,7 @@ import {
   getTumorInfoPercent,
   getTumorInfoType
 } from "Store/selectors";
-import { setTumorInfo, setTumorInfoMode } from "Actions/variantsActions";
+import { setTumorInfo, setTumorInfoMode } from "Actions/testActions";
 import TumorInfoSelect from "Pages/mainPage/components/tumorToolbar/components/tumorInfoSelect";
 import TumorInfoPercent from "Pages/mainPage/components/tumorToolbar/components/tumorInfoPercent";
 import { TUMOR_LOCATION, TUMOR_TYPE } from "Utils/constants";
@@ -29,11 +29,12 @@ class TumorToolbar extends Component {
   };
   
   handelTumorPercentSelect = val => {
-    this.props.setTumorInfo({ percent: val });
+    this.props.setTumorInfo({ cancer_cell_percentage: val });
   };
 
   render() {
     const { type, location, percent, sidebarToggle } = this.props;
+
     return (
       <div className={style["tumor-toolbar-wrapper"]}>
         <div className="tumor-info-wrapper">

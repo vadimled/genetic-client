@@ -1,8 +1,8 @@
 import React, { Fragment, memo } from "react";
 import { Select } from "antd";
 import PropTypes from "prop-types";
-import Tag from 'GenericComponents/tag';
-import CloseIcon from 'Assets/close.svg';
+import CloseIcon from "Assets/close.svg";
+import LabeledTag from "GenericComponents/labeledTag";
 
 // eslint-disable-next-line
 const Option = Select.Option;
@@ -19,6 +19,9 @@ const SimpleSelect = ({
   testId,
   showArrow,
   suffixIcon,
+  selectHeaderClass,
+  className,
+  onFocus,
   ...props
 }) => {
   return (
@@ -27,7 +30,9 @@ const SimpleSelect = ({
       {!!subLabel && <span className="sub-label">{subLabel}</span>}
 
       <Select
+        onFocus={onFocus}
         disabled={disabled}
+        className={className}
         onChange={val =>
           onChange({
             target: {
@@ -39,27 +44,30 @@ const SimpleSelect = ({
         value={value}
         name={name}
         allowClear={!!value && isClearAvailable}
-        clearIcon={<span
-          className="select-close"
-          style={{
-            backgroundImage: `url(${CloseIcon})`
-          }}
-        />}
+        clearIcon={
+          <span
+            className="select-close"
+            style={{
+              backgroundImage: `url(${CloseIcon})`
+            }}
+          />
+        }
         showArrow={showArrow}
         suffixIcon={suffixIcon}
         data-testid={testId}
         {...props}
       >
-        {options?.map(option => (
-          <Option key={option.value} value={option.value}>
-            {option.tagColor && <Tag color={option.tagColor} />}
-            <span
-              style={option.label === "Unclassified" ? { color: "#96A2AA" } : null}
-            >
-              {option.label}
-            </span>
-          </Option>
-        ))}
+        {options?.map(option => {
+          return (
+            <Option key={option.value} value={option.value}>
+              <LabeledTag
+                label={option.label}
+                tagColor={option?.tagColor}
+                customClassName={selectHeaderClass}
+              />
+            </Option>
+          );
+        })}
       </Select>
     </Fragment>
   );
@@ -73,7 +81,12 @@ SimpleSelect.propTypes = {
   value: PropTypes.string,
   name: PropTypes.string,
   isClearAvailable: PropTypes.bool,
-  testId: PropTypes.string
+  testId: PropTypes.string,
+  disabled: PropTypes.bool,
+  showArrow: PropTypes.bool,
+  selectHeaderClass: PropTypes.string,
+  className: PropTypes.string,
+  onFocus: PropTypes.func
 };
 
 SimpleSelect.defaultProps = {

@@ -7,37 +7,72 @@ import {
 } from "Utils/constants";
 import style from "./VariantClassificationContainer.module.scss";
 import { connect } from "react-redux";
-import { setGeneType, setGeneValue } from "Actions/variantPageActions";
 import {
-  getGeneType,
+  setSelectedZygosityType,
+  sendVariantClass
+} from "Actions/variantPageActions";
+import {
+  getZygosityType,
   getGermlineValue,
-  getSomaticValue
+  getSomaticValue,
+  getCurrentZygosityType,
+  getVariantPageTestId,
+  getVariantId
 } from "Store/selectors";
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 
 class VariantClassificationContainer extends React.Component {
   onChangeType = (e, id) => {
-    const { value, name } = e.target,
-      { setGeneValue, setType } = this.props;
-
-    !value ? setType(id) : setGeneValue({ value, name });
+    const { value, name } = e?.target || {},
+      {
+        sendVariantClass,
+        setZygosityType,
+        selectedZygosityType,
+        currentZygosityType,
+        testId,
+        variantId
+      } = this.props;
+    if (!value && selectedZygosityType !== id) {
+      setZygosityType({ selectedZygosityType: id });
+    } else if (value) {
+      setZygosityType({ selectedZygosityType: name });
+      sendVariantClass({
+        testId,
+        variantId,
+        value,
+        name: `${currentZygosityType.toLowerCase()}Classification`
+      });
+    }
   };
 
   render() {
-    const { currentType, somaticValue, germlineValue } = this.props;
+    const {
+      selectedZygosityType,
+      somaticValue,
+      germlineValue,
+      currentZygosityType
+    } = this.props;
     return (
-      <div className={style["gene-type-wrapper"]}>
-        <div className="gene-type-radio-group">
+      <div className={style["zygosity-type-wrapper"]}>
+        <div className="current-zygosity-wrapper">
+          <div className="title">{TEXTS.currentZygosity}</div>
+          <div className="context">{currentZygosityType}</div>
+        </div>
+        <div className="zygosity-type-radio-group">
+          <div className="first-button flex items-center justify-center">
+            <ZygosityTypeButton
+              currentZygosity={currentZygosityType}
+              selectedZygosityType={selectedZygosityType}
+              type={TEXTS.germline}
+              currValue={germlineValue}
+              onChangeType={this.onChangeType}
+              title={TEXTS.germlineUp}
+              typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
+            />
+          </div>
           <ZygosityTypeButton
-            currentType={currentType}
-            type={TEXTS.germline}
-            currValue={germlineValue}
-            onChangeType={this.onChangeType}
-            title={TEXTS.germlineUp}
-            typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
-          />
-          <ZygosityTypeButton
-            currentType={currentType}
+            currentZygosity={currentZygosityType}
+            selectedZygosityType={selectedZygosityType}
             type={TEXTS.somatic}
             currValue={somaticValue}
             onChangeType={this.onChangeType}
@@ -51,23 +86,27 @@ class VariantClassificationContainer extends React.Component {
 }
 
 VariantClassificationContainer.propTypes = {
-  currentType: PropTypes.string,
+  currentZygosityType: PropTypes.string,
+  selectedZygosityType: PropTypes.string,
   germlineClass: PropTypes.string,
   somaticClass: PropTypes.string
 };
 
 const mapStateToProps = state => {
   return {
-    currentType: getGeneType(state),
+    selectedZygosityType: getZygosityType(state),
+    currentZygosityType: getCurrentZygosityType(state),
     somaticValue: getSomaticValue(state),
-    germlineValue: getGermlineValue(state)
+    germlineValue: getGermlineValue(state),
+    testId: getVariantPageTestId(state),
+    variantId: getVariantId(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    setGeneValue: data => dispatch(setGeneValue(data)),
-    setType: data => dispatch(setGeneType(data))
+    sendVariantClass: data => dispatch(sendVariantClass(data)),
+    setZygosityType: data => dispatch(setSelectedZygosityType(data))
   };
 }
 

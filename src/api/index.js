@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios from "axios";
+import "Utils/axios-mock";
 
 export function fetchBAMFile (BAMFileUrl) {
   return axios.get(`http://localhost:60151/load?file=${BAMFileUrl}`);
@@ -26,6 +27,9 @@ export function addResult (data) {
     chrPosition: `Chr${data.chromosome}:${data.position}`,
     alleleChange: `${data.alleleReference} > ${data.alleleAlternative}`,
     transcript: 'NM_939778.7',
+    zygosity: "",
+    variantClassGermline: "unclassified",
+    variantClassSomatic: "unclassified",
   };
   return mockResult;
 }
@@ -39,4 +43,20 @@ export function editResult (data) {
     transcript: 'NM_939778.7',
   };
   return mockResult;
+}
+
+export function fetchTestDataApi(id) {
+  return axios.get(`/api/tests/${id.payload}`);
+}
+
+export function fetchVariantDataApi(data) {
+  const { testId, variantId } = data.payload;
+  return axios.get(`/api/tests/${testId}/variant/${variantId}`);
+}
+
+export function sendVariantClassApi(data) {
+  const { testId, variantId, name, value } = data.payload;
+  return axios.patch(`/api/tests/${testId}/variant/${variantId}`, {
+    [name]: value
+  });
 }

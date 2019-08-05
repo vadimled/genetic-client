@@ -1,9 +1,11 @@
 import {
-  SOMATIC_CLASS,
+  VARIANT_CLASS_SOMATIC,
   TAG_COLORS,
-  VARIANT_CLASS,
-  ZYGOSITY_OPTIONS
+  VARIANT_CLASS_GERMLINE,
+  ZYGOSITY_OPTIONS,
+  ZYGOSITY_TYPES
 } from "./constants";
+import has from "lodash.has";
 
 export const getPrevTagColor = title => {
   let prevTagColor = "";
@@ -72,8 +74,8 @@ export const getTitlePrev = (type, record) => {
 
   if (type === "variantClass") {
     titlePrev =
-      VARIANT_CLASS[record.titlePrev]?.label ||
-      SOMATIC_CLASS[record.titlePrev]?.label;
+      VARIANT_CLASS_GERMLINE[record.titlePrev]?.label ||
+      VARIANT_CLASS_SOMATIC[record.titlePrev]?.label;
   } else if (type === "zygosity") {
     if (record.titlePrev) {
       titlePrev = ZYGOSITY_OPTIONS.find(
@@ -94,8 +96,8 @@ export const getTitleCurr = (type, record) => {
 
   if (type === "variantClass") {
     titleCurr =
-      VARIANT_CLASS[record.titleCurr]?.label ||
-      SOMATIC_CLASS[record.titleCurr]?.label;
+      VARIANT_CLASS_GERMLINE[record.titleCurr]?.label ||
+      VARIANT_CLASS_SOMATIC[record.titleCurr]?.label;
   } else if (type === "zygosity") {
     if (record.titlePrev) {
       titleCurr = ZYGOSITY_OPTIONS.find(
@@ -198,4 +200,32 @@ export const createResourcesLinks = variantData => {
   externalResources.push(inSilicoPredictors);
 
   return externalResources;
+};
+
+export const getDataArray = data => {
+  let arrayData = [];
+  for (let key in data) {
+    if (data.hasOwnProperty(key)) {
+      arrayData.push(data[key]);
+    }
+  }
+  return arrayData;
+};
+
+export const zygosityType = data => {
+  /* Germline - for Homo, Hetro and Hemi.
+    Somatic - for Somatic.
+    Insignificant - for Insignificant.
+    Unkown - for Unkown.
+    Not-Real - for Not-Real.
+  */
+  if (has(data, "currentZygosity")) {
+    for (let key in ZYGOSITY_TYPES) {
+      const { label, value } = ZYGOSITY_TYPES[key];
+      if (value.toLowerCase() === data.currentZygosity.toLowerCase()) {
+        return {...data,  currentZygosity: label };
+      }
+    }
+  }
+  return "";
 };

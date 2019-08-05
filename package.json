@@ -36,6 +36,7 @@
     "jest-environment-jsdom-fourteen": "0.1.0",
     "jest-resolve": "24.8.0",
     "jest-watch-typeahead": "0.3.1",
+    "lodash.clonedeep": "^4.5.0",
     "lodash.isempty": "^4.4.0",
     "mini-css-extract-plugin": "0.5.0",
     "nock": "^10.0.6",
@@ -47,6 +48,7 @@
     "postcss-normalize": "7.0.1",
     "postcss-preset-env": "6.6.0",
     "postcss-safe-parser": "4.0.1",
+    "query-string": "^6.8.2",
     "react": "^16.8.6",
     "react-app-polyfill": "^1.0.1",
     "react-dev-utils": "^9.0.1",
@@ -115,6 +117,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "axios-mock-adapter": "^1.17.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "4.3.0",
     "eslint-config-react-app": "^4.0.1",
@@ -128,6 +131,7 @@
     "faker": "^4.1.0",
     "husky": "^2.3.0",
     "lint-staged": "8.1.7",
+    "lodash.has": "^4.5.2",
     "prettier": "1.17.1",
     "prop-types": "latest"
   },

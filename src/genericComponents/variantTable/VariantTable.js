@@ -1,20 +1,27 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from 'react-router-dom';
 import { Table, Tooltip, Checkbox } from "antd";
 import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import ConfirmationStatus from "GenericComponents/confirmationStatus";
 import Notes from "GenericComponents/notes";
 import {
-  ZYGOSITY_OPTIONS,
-  GERMLINE_VARIANT_CLASS_OPTIONS,
-  SOMATIC_VARIANT_CLASS_OPTIONS
+  ZYGOSITY_OPTIONS
 } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
 import ActivityLog from "./components/ActivityLog";
 import ResizeableTitle from "./components/resizeableTitle";
+import TableSorter from "./components/TableSorter";
+
 import HighlightedCell from "./components/highlightedCell";
+import LabeledTag from "../labeledTag";
+import {
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS, VARIANT_CLASS_GERMLINE,
+  VARIANT_CLASS_SOMATIC
+} from "../../utils/constants";
 
 class VariantTable extends Component {
   state = {
@@ -54,7 +61,7 @@ class VariantTable extends Component {
         title: "Allele change",
         dataIndex: "alleleChange",
         key: "6",
-        width: 100
+        width: 200,
       },
       {
         title: "coding",
@@ -69,60 +76,60 @@ class VariantTable extends Component {
         width: 100
       },
       {
-        title: "VAF",
+        title: <TableSorter title="VAF" setSort={this.props.setSort} field="vaf" />,
         dataIndex: "vaf",
         key: "9",
         width: 100,
-        sorter: (a, b) => a.vaf - b.vaf,
+        className: "sorter"
+        // sorter: (a, b) => a.vaf - b.vaf,
+        // sortOrder: sortedInfo.columnKey === 'vaf' && sortedInfo.order,
       },
       {
         title: "Zygosity",
         dataIndex: "zygosity",
         key: "10",
-        width: 150
+        width: 250
       },
       {
-        title: "Variant Class",
-        dataIndex: "variantClass",
+        title: "Germline Class ",
+        dataIndex: "variantClassGermline",
         key: "11",
-        width: 170
+        width: 200
+      },
+      {
+        title: "Somatic Class",
+        dataIndex: "variantClassSomatic",
+        key: "12",
+        width: 200
       },
       {
         title: "coverage",
         dataIndex: "coverage",
-        key: "12",
+        key: "13",
         width: 100
       },
       {
         title: "Notes",
         dataIndex: "notes",
-        key: "13",
-        width: 532
+        key: "14",
+        width: 700
       },
       {
         title: "Activity log",
         dataIndex: "activityLog",
-        key: "14",
+        key: "15",
         width: 200
       }
-    ],
+    ]
   };
 
   components = {
     header: {
       cell: ResizeableTitle
-    },
-    body: {
-      // row: ()=> <tr class="ant-table-row ant-table-row-level-0"></tr>
     }
   };
 
-  // handleChange = (pagination, filters, sorter) => {
-  //   console.log('Various parameters',  sorter);
-  //   this.setState({
-  //     sortedInfo: sorter,
-  //   });
-  // };
+
 
   handelChrPosition = (e, data) => {
     console.log({ e: e.target, data });
@@ -153,7 +160,6 @@ class VariantTable extends Component {
 
   columnsConverter = columns => {
     return columns.map((col, index) => {
-
       let column = {
         ...col,
         onHeaderCell: column => ({
@@ -228,37 +234,44 @@ class VariantTable extends Component {
         column.className = "select";
       }
 
-      else if (column.dataIndex === "variantClass") {
-        column.render = (text, record, index) => {
+      else if (column.dataIndex === "variantClassGermline") {
+
+        column.render = (text, record) => {
+          // console.log(record);
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              {
-                record.zygosity &&
-                record.zygosity !== "insignificant" &&
-                record.zygosity !== "notReal" &&
-                record.zygosity !== "unknown" ? (
-                    <div className="table-select-wrapper">
-                      <SimpleSelect
-                        testId={`variant-сlass-select-${index}`}
-                        value={record.variantClass}
-                        options={
-                          record.zygosity === "somatic"
-                            ? SOMATIC_VARIANT_CLASS_OPTIONS
-                            : GERMLINE_VARIANT_CLASS_OPTIONS
-                        }
-                        onChange={e =>
-                          this.handleVariantClass({
-                            item: record,
-                            value: e.target.value,
-                            prevValue: record.variantClass
-                          })
-                        }
-                      />
-                    </div>
-                  ) : (
-                    ""
-                  )
-              }
+              <div className="table-select-wrapper">
+
+                <Link
+                  to={{
+                    pathname: `test/${this.props.testId}/variant/${record.id}/?selectedZygosityType=germline`,
+                    // state: {type: "germline"}
+                  }}
+                >
+                  <LabeledTag typeData={GERMLINE_VARIANT_CLASS_OPTIONS} label={VARIANT_CLASS_GERMLINE[text]?.label} />
+                </Link>
+
+              </div>
+            </HighlightedCell>
+          );
+        };
+        column.className = "select";
+      }
+
+      else if (column.dataIndex === "variantClassSomatic") {
+        column.render = (text, record) => {
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              <div className="table-select-wrapper">
+                <Link
+                  to={{
+                    pathname: `test/${this.props.testId}/variant/${record.id}/?selectedZygosityType=somatic`,
+                    // state: {testId:this.props.testId, variantId: record.id, selectedZygosityType: "somatic"}
+                  }}
+                >
+                  <LabeledTag typeData={SOMATIC_VARIANT_CLASS_OPTIONS} label={VARIANT_CLASS_SOMATIC[text]?.label} />
+                </Link>
+              </div>
             </HighlightedCell>
           );
         };
@@ -355,7 +368,6 @@ class VariantTable extends Component {
       }
 
       return column;
-
     });
   };
 
@@ -369,6 +381,7 @@ class VariantTable extends Component {
       return { columns: nextColumns };
     });
   };
+
 
   render() {
     const { data } = this.props;
@@ -402,6 +415,7 @@ VariantTable.propTypes = {
   isAllRowSelected: PropTypes.bool,
   selectedRows: PropTypes.array,
   setNotes: PropTypes.func,
+  testId: PropTypes.string
 };
 
 VariantTable.defaultProps = {

@@ -1,12 +1,13 @@
 import { FILTERS, GNOM_AD } from "Utils/constants";
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
+import { SORTING_ORDER } from "../utils/constants";
 
 export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVariantClass = state =>
-           state?.filters?.[FILTERS.variantClass],
+           state?.filters?.[FILTERS.variantClassGermline],
   getFilterSomaticClass = state =>
-           state?.filters?.[FILTERS.somaticClass],
+           state?.filters?.[FILTERS.variantClassSomatic],
   getFilterHotSpot = state => state?.filters?.[FILTERS.hotSpot],
   getFilterSnp = state => state?.filters?.[FILTERS.snp],
   getFilterRoi = state => state?.filters?.[FILTERS.roi],
@@ -14,16 +15,13 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
+
   getUncheckConfirmationData = state =>
            state?.table?.uncheckConfirmationData,
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
   getConfirmationData = state => state?.confirmation?.data,
   getMutationType = state => state.variants.mutations,
-  getTumorInfoMode = state => state.variants.showTumorInfo,
-  getTumorInfoType = state => state.variants.tumorInfo?.type,
-  getTumorInfoLocation = state => state.variants.tumorInfo?.location,
-  getTumorInfoPercent = state =>
-    parseInt(state.variants.tumorInfo?.percent, 10),
+
   getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
   getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
   getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
@@ -50,10 +48,31 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getAlertTitle = state => state?.alert?.title,
   getAlertMessage = state => state?.alert?.message,
   getGeneType = state => state.variantPage.type,
-  getSomaticValue = state => state.variantPage.valueSomatic,
-  getGermlineValue = state => state.variantPage.valueGermline,
+
+  getZygosityType = state => state.variantPage.selectedZygosityType,
+  getCurrentZygosityType = state => state.variantPage.currentZygosity,
+
+  getSomaticValue = state => state.variantPage.somatic_variant_class,
+  getGermlineValue = state => state.variantPage.germline_variant_class,
   getExternalResources = state => state.variantPage.externalResources,
-  getVariantData = state => state.variantPage.variantData;
+  getVariantData = state => state.variantPage.variantData,
+  getHistorySomatic = state => state.variantPage.somaticClassHistory,
+  getHistoryGermline = state => state.variantPage.germlineClassHistory,
+  getVariantId = state => state.variantPage.variantId,
+  getVariantPageTestId = state => state.variantPage.testId,
+
+  getSortParam = state => state?.table?.sortParam,
+  getSortOrder = state => state?.table?.sortOrder,
+  getClicksCounter = state => state?.table?.clicksCounter,
+
+  getTumorInfoMode = state => state.test.showTumorInfo,
+  getTumorInfoType = state => state.test.tumor_info?.type,
+  getTumorInfoLocation = state => state.test.tumor_info?.location,
+  getTumorInfoPercent = state =>
+    parseInt(state.test.tumor_info?.cancer_cell_percentage, 10),
+  getTestId = state => state.test.test_id,
+  getSelectedMutationType = state => state.variants.selectedMutation,
+  getMutationTypesValues = state => state.test.mutation_types;
 
 export const getSearchQuery = state => state?.filters?.searchText;
 
@@ -66,11 +85,6 @@ export const getTableDataAsArray = createSelector(
         arrayData.push(data[key]);
       }
     }
-
-
-    // const defaultFiltration = arrayData.filter(record => record.variantClass !== "tier4")
-
-
     return arrayData;
   }
 );
@@ -123,11 +137,11 @@ const getAppliedFilters = createSelector(
     const filters = {
       ...(variantClass.length && {
         variantClass: item =>
-          variantClass.some(filter => item.variantClass === filter)
+          variantClass.some(filter => item.variantClassGermline === filter)
       }),
       ...(somaticClass.length && {
         somaticClass: item =>
-          somaticClass.some(filter => item.somaticClass === filter)
+          somaticClass.some(filter => item.variantClassSomatic === filter)
       }),
       ...(hotSpot.length && {
         hotSpot: item => hotSpot.some(filter => item.hotSpot === filter)
@@ -169,10 +183,13 @@ const getAppliedFilters = createSelector(
 export const getFilteredData = createSelector(
   getSearchResult,
   getAppliedFilters,
-  (data, appliedFilters) => {
-
+  getSortParam,
+  getSortOrder,
+  (data, appliedFilters, sortParam, order) => {
     if (isEmpty(appliedFilters)) {
-      return data;
+
+      const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
+      return sortedData;
     }
 
     const filtersArray = Object.keys(appliedFilters).map(key => {
@@ -180,10 +197,18 @@ export const getFilteredData = createSelector(
     });
 
     const filteredData = data.filter(item => {
-      return filtersArray.every(filter => filter(item));
+      return filtersArray.some(filter => filter(item));
     });
 
-    return filteredData;
+    if(order === SORTING_ORDER.ascending){
+      return filteredData.sort((a, b) => a[sortParam] - b[sortParam]).slice();
+    }
+
+    if(order === SORTING_ORDER.descending){
+      return filteredData.sort((a, b) => b[sortParam] - a[sortParam]).slice();
+    }
+
+    return filteredData.sort((a, b) => a.priority - b.priority).slice();
   }
 );
 
@@ -194,8 +219,8 @@ export const getSearchQueries = createSelector(
     data.map(item => {
       queriesArr.add(item.gene);
       queriesArr.add(item.coding);
-      if (item.variantClass) {
-        queriesArr.add(item.variantClass);
+      if (item.variantClassGermline) {
+        queriesArr.add(item.variantClassGermline);
       }
 
       queriesArr.add(item.protein);
@@ -265,3 +290,5 @@ export const getActivityLog = (state, recordId) => {
 
   return activityLogArray;
 };
+
+export const getTestType = state => state?.test?.panel_type;

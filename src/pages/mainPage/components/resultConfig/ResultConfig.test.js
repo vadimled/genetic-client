@@ -216,6 +216,9 @@ describe('ResultConfig', () => {
     const alleleAlternativeInput = getByTestId('alleleAlternative');
 
     fireEvent.change(geneInput, { target: { value: 'abc' } });
+
+    expect(geneInput.value).toEqual("abc");
+
     store.dispatch(handleResultConfigChromosome(CHROMOSOME_OPTIONS[0].value));
     fireEvent.change(positionInput, { target: { value: 123 } });
     fireEvent.change(alleleReferenceInput, { target: { value: 'a' } });
@@ -226,9 +229,11 @@ describe('ResultConfig', () => {
     const validationFaildFields3 = getResultConfigValidationFaildFields(store.getState());
     expect(validationFaildFields3.length).toEqual(0);
     const coding3 = getResultConfigCoding(store.getState());
+
     const protein3 = getResultConfigProtein(store.getState());
     expect(coding3).toBeTruthy();
     expect(protein3).toBeTruthy();
+
     const isHgvsLoaded3 = getResultConfigIsHgvsLoaded(store.getState());
     expect(isHgvsLoaded3).toBe(true);
 
@@ -264,6 +269,7 @@ describe('ResultConfig', () => {
     // try click applyResult btn when isHgvsLoaded is equal true and validationFaildFields5.length is equal 0
     fireEvent.click(applyResultBtn);
     const validationFaildFields6 = getResultConfigValidationFaildFields(store.getState());
+
     const resultConfigIsOpen2 = getResultConfigIsOpen(store.getState());
     expect(validationFaildFields6.length).toEqual(0);
     expect(resultConfigIsOpen2).toEqual(false);

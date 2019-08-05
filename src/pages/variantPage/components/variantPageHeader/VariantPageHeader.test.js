@@ -1,11 +1,10 @@
 import React from "react";
-import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { renderWithRedux } from "Utils/test_helpers";
 import VariantPageHeader from "./VariantPageHeader";
 
 describe("VariantPageHeader ", () => {
-  let getByTestId, store;
+  let getByTestId;
   const variantData = {
     gene: "A1CF",
     protein: "p.Leu2303Leu",
@@ -23,8 +22,8 @@ describe("VariantPageHeader ", () => {
     DamagingScore: "TTCATGAGAGAAGGTGAGTGG",
     dataId: "k5wp5amernh84pvsygjji9ljz",
     type: "somatic",
-    valueSomatic: "unclassified",
-    valueGermline: "unclassified"
+    somatic_variant_class: "unclassified",
+    germline_variant_class: "unclassified"
   };
 
   beforeEach(() => {
@@ -32,7 +31,6 @@ describe("VariantPageHeader ", () => {
       <VariantPageHeader sidebarToggle={false} variantData={variantData} />
     );
     getByTestId = queries.getByTestId;
-    store = queries.store;
   });
 
   it("should - received text be equal to text of textField (Gene)  ", () => {
@@ -71,36 +69,8 @@ describe("VariantPageHeader ", () => {
     expect(transcriptElement.textContent).toEqual(variantData.transcript);
   });
 
-  it("should - default type of variant must be 'somatic' ", () => {
-    expect(store.getState().variantPage.type).toEqual("somatic");
-  });
-
-  it("should - default Button is Somatic and exists ", () => {
-    expect(getByTestId("select-title-Somatic")).toBeInTheDocument();
-  });
-
   it("should - non active Button is Germline and exists ", () => {
     const nonActiveButton = getByTestId("non-active-button-germline");
     expect(nonActiveButton).toBeInTheDocument();
-  });
-
-  it("should - inactive Button after click going to active state", () => {
-    const nonActiveButton = getByTestId("non-active-button-germline");
-    expect(nonActiveButton).toBeInTheDocument();
-
-    fireEvent.click(nonActiveButton);
-
-    expect(getByTestId("non-active-button-somatic")).toBeInTheDocument();
-    expect(nonActiveButton).not.toBeInTheDocument();
-    expect(store.getState().variantPage.type).toEqual("germline");
-  });
-
-  // error - The given element does not have a value setter
-  xit("should - active Button is Select", () => {
-    const activeButton = getByTestId("gene-type-select-somatic");
-    expect(activeButton).toBeInTheDocument();
-
-    fireEvent.change(activeButton, { target: { value: "tier2" } });
-    expect(store.getState().variantPage.valueSomatic).toEqual("tier2");
   });
 });

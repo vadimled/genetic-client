@@ -1,50 +1,49 @@
 @import "Css/Colors.scss";
 
-.gene-type-wrapper :global {
+.zygosity-type-wrapper :global {
   display: flex;
-  justify-content: flex-end;
+  justify-content: right;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   padding-right: 4vw;
   align-items: center;
+  padding-top: 14px;
   cursor: pointer;
 
-  .gene-type-radio-group {
+  .current-zygosity-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding-right: 140px;
+
+    .title {
+      font-size: 14px;
+      line-height: 131.99%;
+      text-align: center;
+      color: $title_color;
+    }
+    .context {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 131.99%;
+      text-align: center;
+      color: $brand_primary_color;
+      padding-left: 5px;
+    }
+  }
+
+  .zygosity-type-radio-group {
     display: flex;
     width: 100%;
     justify-content: flex-end;
-    margin-top: 12px;
+    margin-top: 8px;
+    flex-direction: row;
 
-    .select-non-active {
-      width: 200px;
-      height: 54px;
-      background: none;
-      display: flex;
-      flex-direction: column;
-
-      .select-non-active-title {
-        margin: 4px 0;
-        font-weight: 600;
-        font-size: 22px;
-        line-height: 100%;
-        text-align: center;
-        color: $neutral_30;
-      }
-
-      .select-non-active-class {
-        display: flex;
-        justify-content: center;
-        align-items: baseline;
-        width: 100%;
-        height: 100%;
-        //border: red 1px solid;
-
-        span {
-          font-size: 20px;
-          line-height: 100%;
-          color: $neutral_30;
-        }
-      }
+    .first-button {
+      margin-right: 18px;
     }
   }
 }

@@ -1,9 +1,37 @@
 import React from "react";
-import { fireEvent } from "@testing-library/react";
+import { createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from 'redux-saga';
+import { watchSaga } from "Store/saga";
+import reducers from "Store/reducers";
+import { fireEvent, waitForElement } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import SidebarFilters from "Pages/mainPage/components/sidebarFilters/SidebarFilters";
 import { renderWithRedux } from "Utils/test_helpers";
 import { setFilterVaf } from "Store/actions/filtersActions";
+import MainPage from "../../MainPage";
+import { fetchTestData } from "../../../../store/actions/testActions";
+import { fetchData } from "../../../../store/actions/tableActions";
+import { BrowserRouter as Router } from "react-router-dom";
+import { setDefaultFilters } from "../../../../store/actions/filtersActions";
+
+const initSteps = () => {
+  const sagaMiddleware = createSagaMiddleware();
+  const { getByTestId, store, getAllByTestId } = renderWithRedux(
+    <Router>
+      <MainPage />
+    </Router>,
+    createStore(reducers, applyMiddleware(sagaMiddleware))
+  );
+  sagaMiddleware.run(watchSaga);
+
+  store.dispatch(fetchData());
+
+  store.dispatch(setDefaultFilters());
+
+  store.dispatch(fetchTestData("GS00115NP050818_TS1_01"));
+
+  return {store, getByTestId, getAllByTestId};
+};
 
 describe("SideBarFilters component test", () => {
   test("create snapshot", () => {
@@ -11,32 +39,35 @@ describe("SideBarFilters component test", () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test("if filter 'variantClass' clicked; if indicator 'variantClass' delete clicked", () => {
-    const { getByTestId } = renderWithRedux(<SidebarFilters />);
-    
-    fireEvent.click(getByTestId("filter-checkbox-variantClass-PATH"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClass-LPATH"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClass-VUS"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClass-LBEN"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClass-BEN"));
-    fireEvent.click(getByTestId("filter-checkbox-variantClass-Unclassified"));
-    
-    const
-      indicator1 = getByTestId("filter-variantClass-PATH"),
-      indicator2 = getByTestId("filter-variantClass-LPATH"),
-      indicator3 = getByTestId("filter-variantClass-VUS"),
-      indicator4 = getByTestId("filter-variantClass-LBEN"),
-      indicator5 = getByTestId("filter-variantClass-BEN"),
-      indicator6 = getByTestId("filter-variantClass-Unclassified");
-    
+  test("if filter 'variantClass' clicked; if indicator 'variantClass' delete clicked", async () => {
+    const { getByTestId } = initSteps();
+
+    fireEvent.click(await waitForElement(() => getByTestId("filter-checkbox-variantClassGermline-PATH")));
+    fireEvent.click(await waitForElement(() => getByTestId("filter-checkbox-variantClassGermline-LPATH")));
+    fireEvent.click(await waitForElement(() => getByTestId("filter-checkbox-variantClassGermline-VUS")));
+    fireEvent.click(await waitForElement(() => getByTestId("filter-checkbox-variantClassGermline-LBEN")));
+    fireEvent.click(await waitForElement(() => getByTestId("filter-checkbox-variantClassGermline-BEN")));
+    fireEvent.click(await waitForElement(() => getByTestId("filter-checkbox-variantClassGermline-Unclassified")));
+
+
+
+    const indicator1 = await waitForElement(() => getByTestId("filter-variantClassGermline-PATH"));
+    const indicator2 = await waitForElement(() => getByTestId("filter-variantClassGermline-LPATH"));
+    const indicator3 = await waitForElement(() => getByTestId("filter-variantClassGermline-VUS"));
+    const indicator4 = await waitForElement(() => getByTestId("filter-variantClassGermline-LBEN"));
+    const indicator5 = await waitForElement(() => getByTestId("filter-variantClassGermline-BEN"));
+    const indicator6 = await waitForElement(() => getByTestId("filter-variantClassGermline-Unclassified"));
+
+
+
     expect(indicator1).toBeInTheDocument();
     expect(indicator2).toBeInTheDocument();
     expect(indicator3).toBeInTheDocument();
     expect(indicator4).toBeInTheDocument();
     expect(indicator5).toBeInTheDocument();
     expect(indicator6).toBeInTheDocument();
-  
-    fireEvent.click(getByTestId("button-variantClass"));
+
+    fireEvent.click(getByTestId("button-variantClassGermline"));
     expect(indicator1).not.toBeInTheDocument();
     expect(indicator2).not.toBeInTheDocument();
     expect(indicator3).not.toBeInTheDocument();
@@ -45,29 +76,29 @@ describe("SideBarFilters component test", () => {
     expect(indicator6).not.toBeInTheDocument();
   });
 
-  test("if filter 'somaticClass' clicked; if indicator 'somaticClass' delete clicked", () => {
-    const { getByTestId } = renderWithRedux(<SidebarFilters />);
+  it("if filter 'somaticClass' clicked; if indicator 'somaticClass' delete clicked", async () => {
+    const { getByTestId } = initSteps();
     
-    fireEvent.click(getByTestId("filter-checkbox-somaticClass-Tier1"));
-    fireEvent.click(getByTestId("filter-checkbox-somaticClass-Tier2"));
-    fireEvent.click(getByTestId("filter-checkbox-somaticClass-Tier3"));
-    fireEvent.click(getByTestId("filter-checkbox-somaticClass-Tier4"));
-    fireEvent.click(getByTestId("filter-checkbox-somaticClass-Unclassified"));
-    
-    const
-      indicator1 = getByTestId("filter-somaticClass-Tier1"),
-      indicator2 = getByTestId("filter-somaticClass-Tier2"),
-      indicator3 = getByTestId("filter-somaticClass-Tier3"),
-      indicator4 = getByTestId("filter-somaticClass-Tier4"),
-      indicator6 = getByTestId("filter-somaticClass-Unclassified");
-    
+    fireEvent.click(getByTestId("filter-checkbox-variantClassSomatic-Tier1"));
+    fireEvent.click(getByTestId("filter-checkbox-variantClassSomatic-Tier2"));
+    fireEvent.click(getByTestId("filter-checkbox-variantClassSomatic-Tier3"));
+    fireEvent.click(getByTestId("filter-checkbox-variantClassSomatic-Tier4"));
+    fireEvent.click(getByTestId("filter-checkbox-variantClassSomatic-Unclassified"));
+
+    const indicator1 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier1"));
+    const indicator2 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier2"));
+    const indicator3 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier3"));
+    const indicator4 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Tier4"));
+    const indicator6 = await waitForElement(() => getByTestId("filter-variantClassSomatic-Unclassified"));
+
     expect(indicator1).toBeInTheDocument();
     expect(indicator2).toBeInTheDocument();
     expect(indicator3).toBeInTheDocument();
     expect(indicator4).toBeInTheDocument();
     expect(indicator6).toBeInTheDocument();
-  
-    fireEvent.click(getByTestId("button-somaticClass"));
+
+
+    fireEvent.click(getByTestId("button-variantClassSomatic"));
     expect(indicator1).not.toBeInTheDocument();
     expect(indicator2).not.toBeInTheDocument();
     expect(indicator3).not.toBeInTheDocument();
@@ -75,7 +106,7 @@ describe("SideBarFilters component test", () => {
     expect(indicator6).not.toBeInTheDocument();
   });
 
-  test("if filter 'hotSpot' clicked; if indicator 'hotSpot' delete clicked", () => {
+  it("if filter 'hotSpot' clicked; if indicator 'hotSpot' delete clicked", () => {
     const { getByTestId } = renderWithRedux(<SidebarFilters />);
     
     fireEvent.click(getByTestId("filter-checkbox-hotSpot-True"));
@@ -93,7 +124,7 @@ describe("SideBarFilters component test", () => {
     expect(indicator2).not.toBeInTheDocument();
   });
 
-  test("if filter 'snp' clicked; if indicator 'snp' delete clicked", () => {
+  it("if filter 'snp' clicked; if indicator 'snp' delete clicked", () => {
     const { getByTestId } = renderWithRedux(<SidebarFilters />);
     
     fireEvent.click(getByTestId("filter-checkbox-snp-True"));
@@ -111,7 +142,7 @@ describe("SideBarFilters component test", () => {
     expect(indicator2).not.toBeInTheDocument();
   });
 
-  test("if filter 'roi' clicked; if indicator 'roi' delete clicked", () => {
+  it("if filter 'roi' clicked; if indicator 'roi' delete clicked", () => {
     const { getByTestId } = renderWithRedux(<SidebarFilters />);
     
     fireEvent.click(getByTestId("filter-checkbox-roi-True"));
@@ -129,7 +160,7 @@ describe("SideBarFilters component test", () => {
     expect(indicator2).not.toBeInTheDocument();
   });
 
-  test("if filter 'canserBDs' clicked; if indicator 'canserBDs' delete clicked", () => {
+  it("if filter 'canserBDs' clicked; if indicator 'canserBDs' delete clicked", () => {
     const { getByTestId } = renderWithRedux(<SidebarFilters />);
     
     fireEvent.click(getByTestId("filter-checkbox-canserBDs-Clinvar"));
@@ -151,7 +182,7 @@ describe("SideBarFilters component test", () => {
     expect(indicator3).not.toBeInTheDocument();
   });
 
-  test("if filter 'gnomAD' clicked; if indicator 'gnomAD' delete clicked", () => {
+  it("if filter 'gnomAD' clicked; if indicator 'gnomAD' delete clicked", () => {
     const { getByTestId } = renderWithRedux(<SidebarFilters />);
     
     fireEvent.click(getByTestId("filter-checkbox-gnomAD-NA"));
@@ -176,8 +207,8 @@ describe("SideBarFilters component test", () => {
     expect(indicator3).not.toBeInTheDocument();
     expect(indicator4).not.toBeInTheDocument();
   });
-  
-  test("if filter 'Vaf' position; if indicator 'Vaf' delete clicked", () => {
+
+  it("if filter 'Vaf' position; if indicator 'Vaf' delete clicked", () => {
     const
       { store, container, getByTestId } = renderWithRedux(<SidebarFilters />),
       sliderTrack = container.querySelector(".ant-slider");
@@ -198,8 +229,8 @@ describe("SideBarFilters component test", () => {
     expect(indicator1).not.toBeInTheDocument();
     expect(indicator2).not.toBeInTheDocument();
   });
-  
-  test("if several filters selected and 'clear-filters-button' clicked", () => {
+
+  it("if several filters selected and 'clear-filters-button' clicked", () => {
     const { getByTestId } = renderWithRedux(<SidebarFilters />);
     
     fireEvent.click(getByTestId("filter-checkbox-gnomAD-NA"));

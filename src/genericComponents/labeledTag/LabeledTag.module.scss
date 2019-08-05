@@ -1,0 +1,16 @@
+@import "Css/Colors.scss";
+
+.labeled-tag-wrapper :global {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+
+  .label-text {
+    font-size: initial;
+    &.unclassified {
+      color: $neutral_30;
+    }
+  }
+}

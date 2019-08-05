@@ -6,9 +6,49 @@ exports[`SideBarFilters component test create snapshot 1`] = `
     class="sidebar-filters"
   >
     <div
-      class="filters-title"
+      class="clear-filters"
+      data-testid="clear-filters-button"
     >
-      Filters
+      Clear filters (1)
+    </div>
+    <div
+      class="filter-chip-indicators"
+    >
+      <div
+        class="indicators-title"
+      >
+        VAF
+      </div>
+      <div
+        class="indicators-items"
+      >
+        <div
+          class="filter-chip-indicators-item"
+        >
+          <div
+            class="value"
+          >
+            <span
+              data-testid="filter-vaf-1"
+            >
+              1
+            </span>
+            <span>
+               - 
+            </span>
+            <span
+              data-testid="filter-vaf-99"
+            >
+              99
+            </span>
+          </div>
+          <button
+            class="button"
+            data-testid="button-vaf"
+            style="background-image: url(close.svg);"
+          />
+        </div>
+      </div>
     </div>
     <div
       class="ant-collapse ant-collapse-icon-position-left"
@@ -47,7 +87,7 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                   >
                     <input
                       class="ant-checkbox-input"
-                      data-testid="filter-checkbox-variantClass-Unclassified"
+                      data-testid="filter-checkbox-variantClassGermline-Unclassified"
                       type="checkbox"
                       value=""
                     />
@@ -60,14 +100,18 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                       class="flex items-center checkbox-inner-content"
                     >
                       <div
-                        class="tag"
-                        style="background-color: rgb(255, 255, 255); border: 1px solid #dae1e6;"
-                      />
-                      <span
-                        style="color: rgb(150, 162, 170);"
+                        class="labeled-tag-wrapper"
                       >
-                        Unclassified
-                      </span>
+                        <div
+                          class="tag"
+                          style="background-color: rgb(255, 255, 255); border: 1px solid #dae1e6;"
+                        />
+                        <div
+                          class="label-text unclassified"
+                        >
+                          Unclassified
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -83,7 +127,7 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                   >
                     <input
                       class="ant-checkbox-input"
-                      data-testid="filter-checkbox-variantClass-PATH"
+                      data-testid="filter-checkbox-variantClassGermline-PATH"
                       type="checkbox"
                       value=""
                     />
@@ -96,12 +140,18 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                       class="flex items-center checkbox-inner-content"
                     >
                       <div
-                        class="tag"
-                        style="background-color: rgb(241, 30, 44);"
-                      />
-                      <span>
-                        PATH
-                      </span>
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="tag"
+                          style="background-color: rgb(241, 30, 44);"
+                        />
+                        <div
+                          class="label-text"
+                        >
+                          PATH
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -117,7 +167,7 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                   >
                     <input
                       class="ant-checkbox-input"
-                      data-testid="filter-checkbox-variantClass-LPATH"
+                      data-testid="filter-checkbox-variantClassGermline-LPATH"
                       type="checkbox"
                       value=""
                     />
@@ -130,12 +180,18 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                       class="flex items-center checkbox-inner-content"
                     >
                       <div
-                        class="tag"
-                        style="background-color: rgb(255, 131, 92);"
-                      />
-                      <span>
-                        LPATH
-                      </span>
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="tag"
+                          style="background-color: rgb(255, 131, 92);"
+                        />
+                        <div
+                          class="label-text"
+                        >
+                          LPATH
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -151,7 +207,7 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                   >
                     <input
                       class="ant-checkbox-input"
-                      data-testid="filter-checkbox-variantClass-VUS"
+                      data-testid="filter-checkbox-variantClassGermline-VUS"
                       type="checkbox"
                       value=""
                     />
@@ -164,12 +220,18 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                       class="flex items-center checkbox-inner-content"
                     >
                       <div
-                        class="tag"
-                        style="background-color: rgb(254, 217, 85);"
-                      />
-                      <span>
-                        VUS
-                      </span>
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="tag"
+                          style="background-color: rgb(254, 217, 85);"
+                        />
+                        <div
+                          class="label-text"
+                        >
+                          VUS
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -185,7 +247,7 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                   >
                     <input
                       class="ant-checkbox-input"
-                      data-testid="filter-checkbox-variantClass-LBEN"
+                      data-testid="filter-checkbox-variantClassGermline-LBEN"
                       type="checkbox"
                       value=""
                     />
@@ -198,12 +260,18 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                       class="flex items-center checkbox-inner-content"
                     >
                       <div
-                        class="tag"
-                        style="background-color: rgb(124, 216, 255);"
-                      />
-                      <span>
-                        LBEN
-                      </span>
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="tag"
+                          style="background-color: rgb(124, 216, 255);"
+                        />
+                        <div
+                          class="label-text"
+                        >
+                          LBEN
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -219,7 +287,7 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                   >
                     <input
                       class="ant-checkbox-input"
-                      data-testid="filter-checkbox-variantClass-BEN"
+                      data-testid="filter-checkbox-variantClassGermline-BEN"
                       type="checkbox"
                       value=""
                     />
@@ -232,12 +300,18 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                       class="flex items-center checkbox-inner-content"
                     >
                       <div
-                        class="tag"
-                        style="background-color: rgb(85, 159, 213);"
-                      />
-                      <span>
-                        BEN
-                      </span>
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="tag"
+                          style="background-color: rgb(85, 159, 213);"
+                        />
+                        <div
+                          class="label-text"
+                        >
+                          BEN
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -280,7 +354,7 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                   >
                     <input
                       class="ant-checkbox-input"
-                      data-testid="filter-checkbox-somaticClass-Unclassified"
+                      data-testid="filter-checkbox-variantClassSomatic-Unclassified"
                       type="checkbox"
                       value=""
                     />
@@ -293,14 +367,18 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                       class="flex items-center checkbox-inner-content"
                     >
                       <div
-                        class="tag"
-                        style="background-color: rgb(255, 255, 255); border: 1px solid #dae1e6;"
-                      />
-                      <span
-                        style="color: rgb(150, 162, 170);"
+                        class="labeled-tag-wrapper"
                       >
-                        Unclassified
-                      </span>
+                        <div
+                          class="tag"
+                          style="background-color: rgb(255, 255, 255); border: 1px solid #dae1e6;"
+                        />
+                        <div
+                          class="label-text unclassified"
+                        >
+                          Unclassified
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -316,7 +394,7 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                   >
                     <input
                       class="ant-checkbox-input"
-                      data-testid="filter-checkbox-somaticClass-Tier1"
+                      data-testid="filter-checkbox-variantClassSomatic-Tier1"
                       type="checkbox"
                       value=""
                     />
@@ -329,12 +407,18 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                       class="flex items-center checkbox-inner-content"
                     >
                       <div
-                        class="tag"
-                        style="background-color: rgb(241, 30, 44);"
-                      />
-                      <span>
-                        Tier1
-                      </span>
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="tag"
+                          style="background-color: rgb(241, 30, 44);"
+                        />
+                        <div
+                          class="label-text"
+                        >
+                          Tier1
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -350,7 +434,7 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                   >
                     <input
                       class="ant-checkbox-input"
-                      data-testid="filter-checkbox-somaticClass-Tier2"
+                      data-testid="filter-checkbox-variantClassSomatic-Tier2"
                       type="checkbox"
                       value=""
                     />
@@ -363,12 +447,18 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                       class="flex items-center checkbox-inner-content"
                     >
                       <div
-                        class="tag"
-                        style="background-color: rgb(255, 131, 92);"
-                      />
-                      <span>
-                        Tier2
-                      </span>
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="tag"
+                          style="background-color: rgb(255, 131, 92);"
+                        />
+                        <div
+                          class="label-text"
+                        >
+                          Tier2
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -384,7 +474,7 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                   >
                     <input
                       class="ant-checkbox-input"
-                      data-testid="filter-checkbox-somaticClass-Tier3"
+                      data-testid="filter-checkbox-variantClassSomatic-Tier3"
                       type="checkbox"
                       value=""
                     />
@@ -397,12 +487,18 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                       class="flex items-center checkbox-inner-content"
                     >
                       <div
-                        class="tag"
-                        style="background-color: rgb(254, 217, 85);"
-                      />
-                      <span>
-                        Tier3
-                      </span>
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="tag"
+                          style="background-color: rgb(254, 217, 85);"
+                        />
+                        <div
+                          class="label-text"
+                        >
+                          Tier3
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -418,7 +514,7 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                   >
                     <input
                       class="ant-checkbox-input"
-                      data-testid="filter-checkbox-somaticClass-Tier4"
+                      data-testid="filter-checkbox-variantClassSomatic-Tier4"
                       type="checkbox"
                       value=""
                     />
@@ -431,12 +527,18 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                       class="flex items-center checkbox-inner-content"
                     >
                       <div
-                        class="tag"
-                        style="background-color: rgb(124, 216, 255);"
-                      />
-                      <span>
-                        Tier4
-                      </span>
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="tag"
+                          style="background-color: rgb(124, 216, 255);"
+                        />
+                        <div
+                          class="label-text"
+                        >
+                          Tier4
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -533,9 +635,15 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                                   />
                                 </svg>
                               </i>
-                              <span>
-                                True
-                              </span>
+                              <div
+                                class="labeled-tag-wrapper"
+                              >
+                                <div
+                                  class="label-text"
+                                >
+                                  True
+                                </div>
+                              </div>
                             </div>
                           </span>
                         </label>
@@ -582,9 +690,15 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                                   />
                                 </svg>
                               </i>
-                              <span>
-                                False
-                              </span>
+                              <div
+                                class="labeled-tag-wrapper"
+                              >
+                                <div
+                                  class="label-text"
+                                >
+                                  False
+                                </div>
+                              </div>
                             </div>
                           </span>
                         </label>
@@ -658,9 +772,15 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                                   />
                                 </svg>
                               </i>
-                              <span>
-                                True
-                              </span>
+                              <div
+                                class="labeled-tag-wrapper"
+                              >
+                                <div
+                                  class="label-text"
+                                >
+                                  True
+                                </div>
+                              </div>
                             </div>
                           </span>
                         </label>
@@ -707,9 +827,15 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                                   />
                                 </svg>
                               </i>
-                              <span>
-                                False
-                              </span>
+                              <div
+                                class="labeled-tag-wrapper"
+                              >
+                                <div
+                                  class="label-text"
+                                >
+                                  False
+                                </div>
+                              </div>
                             </div>
                           </span>
                         </label>
@@ -787,9 +913,15 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                           />
                         </svg>
                       </i>
-                      <span>
-                        True
-                      </span>
+                      <div
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="label-text"
+                        >
+                          True
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -836,9 +968,15 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                           />
                         </svg>
                       </i>
-                      <span>
-                        False
-                      </span>
+                      <div
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="label-text"
+                        >
+                          False
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -874,13 +1012,49 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                 class="range-slider filters-range-slider"
               >
                 <div
+                  class="values"
+                  data-testid="rangeSlider-1-99"
+                >
+                  1-99
+                </div>
+                <button
+                  class="reset"
+                  data-testid="button-reset-rangeSlider"
+                >
+                  reset
+                </button>
+                <div
                   class="ant-slider"
                 >
                   <div
                     class="ant-slider-rail"
                   />
                   <div
+                    class="ant-slider-track ant-slider-track-1"
+                    style="left: 1%; width: 98%;"
+                  />
+                  <div
                     class="ant-slider-step"
+                  />
+                  <div
+                    aria-disabled="false"
+                    aria-valuemax="100"
+                    aria-valuemin="0"
+                    aria-valuenow="1"
+                    class="ant-slider-handle ant-slider-handle-1"
+                    role="slider"
+                    style="left: 1%;"
+                    tabindex="0"
+                  />
+                  <div
+                    aria-disabled="false"
+                    aria-valuemax="100"
+                    aria-valuemin="0"
+                    aria-valuenow="99"
+                    class="ant-slider-handle ant-slider-handle-2"
+                    role="slider"
+                    style="left: 99%;"
+                    tabindex="0"
                   />
                   <div
                     class="ant-slider-mark"
@@ -947,9 +1121,15 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                     <div
                       class="flex items-center checkbox-inner-content"
                     >
-                      <span>
-                        Clinvar
-                      </span>
+                      <div
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="label-text"
+                        >
+                          Clinvar
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -977,9 +1157,15 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                     <div
                       class="flex items-center checkbox-inner-content"
                     >
-                      <span>
-                        Cosmic
-                      </span>
+                      <div
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="label-text"
+                        >
+                          Cosmic
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -1007,9 +1193,15 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                     <div
                       class="flex items-center checkbox-inner-content"
                     >
-                      <span>
-                        Omim
-                      </span>
+                      <div
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="label-text"
+                        >
+                          Omim
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -1064,9 +1256,15 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                     <div
                       class="flex items-center checkbox-inner-content"
                     >
-                      <span>
-                        NA
-                      </span>
+                      <div
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="label-text"
+                        >
+                          NA
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -1094,9 +1292,15 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                     <div
                       class="flex items-center checkbox-inner-content"
                     >
-                      <span>
-                        very rare(0-1%)
-                      </span>
+                      <div
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="label-text"
+                        >
+                          very rare(0-1%)
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -1124,9 +1328,15 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                     <div
                       class="flex items-center checkbox-inner-content"
                     >
-                      <span>
-                        rare (1-5%)
-                      </span>
+                      <div
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="label-text"
+                        >
+                          rare (1-5%)
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>
@@ -1154,9 +1364,15 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                     <div
                       class="flex items-center checkbox-inner-content"
                     >
-                      <span>
-                        common (&gt;5%)
-                      </span>
+                      <div
+                        class="labeled-tag-wrapper"
+                      >
+                        <div
+                          class="label-text"
+                        >
+                          common (&gt;5%)
+                        </div>
+                      </div>
                     </div>
                   </span>
                 </label>

@@ -19,6 +19,7 @@ const TumorInfoSelect = ({
   };
 
   const onEdit = () => {
+    updateText(value);
     onAction("");
   };
 
