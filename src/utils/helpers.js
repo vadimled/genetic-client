@@ -219,6 +219,7 @@ export const zygosityType = data => {
     Unkown - for Unkown.
     Not-Real - for Not-Real.
   */
+  console.log(data);
   if (has(data, "currentZygosity")) {
     for (let key in ZYGOSITY_TYPES) {
       const { label, value } = ZYGOSITY_TYPES[key];
