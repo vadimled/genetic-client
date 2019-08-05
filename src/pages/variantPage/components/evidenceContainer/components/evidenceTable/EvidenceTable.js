@@ -14,6 +14,7 @@ import { createTableData } from "Utils/helpers";
 import TableDateAndUser from "variantComponents/evidenceContainer/components/tableDateAndUser";
 import TableSourceDescription from "variantComponents/evidenceContainer/components/tableSourceDescription";
 import TableLevel from "variantComponents/evidenceContainer/components/tableLevel";
+import TableActions from "variantComponents/evidenceContainer/components/tableActions";
 
 class EvidenceTable extends Component {
   constructor(props) {
@@ -71,6 +72,14 @@ class EvidenceTable extends Component {
     });
   };
 
+  handleDeleteEntry = () => {
+    console.log("Delete");
+  };
+
+  handleEditEntry = () => {
+    console.log("Edit");
+  };
+
   columnsConverter = columns => {
     // const { typeData } = this.props;
     return columns.map((col, index) => {
@@ -97,6 +106,15 @@ class EvidenceTable extends Component {
       } else if (col.dataIndex === "level") {
         column.render = level => {
           return <TableLevel level={level} />;
+        };
+      } else if (col.dataIndex === "actions") {
+        column.render = () => {
+          return (
+            <TableActions
+              onDelete={this.handleDeleteEntry}
+              onEdit={this.handleEditEntry}
+            />
+          );
         };
       } else {
         column.render = (text, record) => {
