@@ -8,6 +8,7 @@ import { getTabPaneHeaders } from "Store/selectors";
 import { connect } from "react-redux";
 import EvidenceTable from "variantComponents/evidenceContainer/components/evidenceTable";
 import SimpleButton from "GenericComponents/simpleButton";
+import { setEvidenceActionSlidePanelStatus } from "Actions/evidenceConfigActions";
 
 const { TabPane } = Tabs;
 
@@ -17,7 +18,7 @@ class EvidenceContainer extends Component {
   }
   
   handleAddEvidence = () => {
-    console.log("handleAddEvidence");
+    this.props.openSlidePanel(true);
   };
   
   render() {
@@ -73,7 +74,13 @@ const mapStateToProps = state => {
   };
 };
 
+function mapDispatchToProps(dispatch) {
+  return {
+    openSlidePanel: status => dispatch(setEvidenceActionSlidePanelStatus(status))
+  };
+}
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(EvidenceContainer);
