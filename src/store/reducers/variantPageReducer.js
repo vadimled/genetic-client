@@ -1,5 +1,6 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
+import { TEXTS } from "Utils/constants";
 
 const initialState = {
   variantData: {
@@ -17,8 +18,8 @@ const initialState = {
     AminoAcidChange: "I1564ISLKN",
     DamagingScore: "TTCATGAGAGAAGGTGAGTGG"
   },
-  valueSomatic: "unclassified",
-  valueGermline: "unclassified",
+  somatic_variant_class: null,
+  germline_variant_class: null,
   externalResources: [],
   selectedZygosityType: null,
   somaticClassHistory: {
@@ -175,8 +176,14 @@ const variantPageReducer = createReducer(initialState, {
     const { value, name } = payload;
     return {
       ...state,
-      valueSomatic: name === "somatic" ? value : state.valueSomatic,
-      valueGermline: name === "germline" ? value : state.valueGermline
+      somatic_variant_class:
+        name.indexOf(TEXTS.somatic) !== -1
+          ? value.toLowerCase()
+          : state.somatic_variant_class.toLowerCase(),
+      germline_variant_class:
+        name.indexOf(TEXTS.germline) !== -1
+          ? value.toLowerCase()
+          : state.germline_variant_class.toLowerCase()
     };
   },
 
@@ -195,6 +202,13 @@ const variantPageReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_VARIANT_DATA]: (state, { payload }) => {
+    return {
+      ...state,
+      ...payload
+    };
+  },
+
+  [actionsTypes.SET_TEST_INFORMATION]: (state, { payload }) => {
     return {
       ...state,
       ...payload

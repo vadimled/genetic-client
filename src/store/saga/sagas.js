@@ -4,15 +4,16 @@ import {
   ALERT_STATUSES,
   ALLELE_TYPES,
   VALIDATION_FAILD_FIELDS
-} from 'Utils/constants';
+} from "Utils/constants";
 import {
   fetchBAMFile,
   goToChrPositionIgv,
   loadHgvs,
   addResult,
   editResult,
-  fetchCaseDataApi,
-  fetchVariantDataApi
+  fetchTestDataApi,
+  fetchVariantDataApi,
+  sendVariantClassApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -38,9 +39,12 @@ import {
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
-import { setCaseData } from "Actions/testActions";
+import { setTestData } from "Actions/testActions";
 import { setMutationType } from "Actions/variantsActions";
-import { setVariantData, setZygosityType } from "Actions/variantPageActions";
+import {
+  setVariantData,
+  setVariantClassification
+} from "Actions/variantPageActions";
 import { zygosityType } from "Utils/helpers";
 
 function* onDelay(time) {
@@ -295,20 +299,19 @@ export function* fetchData() {
   try {
     const result = generateDNAVariantTableMockData(200);
 
-    for(let item in result){
-
+    for (let item in result) {
       const record = result[item];
 
-      if(record?.variantClassGermline === "ben" && record?.variantClassSomatic === "tier4"){
+      if (
+        record?.variantClassGermline === "ben" &&
+        record?.variantClassSomatic === "tier4"
+      ) {
         record.priority = 14;
-      }
-      else if(record?.variantClassGermline === "path"){
+      } else if (record?.variantClassGermline === "path") {
         record.priority = 1;
-      }
-      else {
+      } else {
         record.priority = 7;
       }
-
     }
 
     yield put(setDataToStore(result));
@@ -318,32 +321,41 @@ export function* fetchData() {
   }
 }
 
-export function* fetchCaseDataGenerator(id) {
+export function* fetchTestDataGenerator(id) {
   try {
-    const result = yield call(fetchCaseDataApi, id);
-    yield put(setCaseData(result?.data));
+    const result = yield call(fetchTestDataApi, id);
+    yield put(setTestData(result?.data));
     yield put(setMutationType(result?.data?.mutation_types[0]));
   } catch (e) {
     Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchCaseDataGenerator"]);
+      scope.setFingerprint(["fetchTestDataGenerator"]);
       Sentry.captureException(e);
     });
   }
 }
 
-export function* fetchVariantDataGenerator() {
+export function* fetchVariantDataGenerator(data) {
   try {
-    const
-      result = yield call(fetchVariantDataApi),
-      newData = zygosityType(result?.data),
-      { currentZygosity } = newData;
-
+    const result = yield call(fetchVariantDataApi, data),
+      newData = zygosityType(result?.data);
     yield put(setVariantData(newData));
-
-    yield put(setZygosityType(currentZygosity.toLowerCase()));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchVariantDataGenerator"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* sendVariantClassGenerator(variantClass) {
+  try {
+    const result = yield call(sendVariantClassApi, variantClass);
+    if (result?.status === 200) {
+      yield put(setVariantClassification(variantClass.payload));
+    }
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["sendVariantClassGenerator"]);
       Sentry.captureException(e);
     });
   }

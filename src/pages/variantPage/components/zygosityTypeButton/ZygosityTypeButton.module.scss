@@ -1,37 +1,58 @@
 @import "Css/Colors.scss";
 
-.gene-type-button-wrapper :global {
-  position: relative;
-  border-radius: 5px;
-  background-color: $brand_primary_color !important;
+.zygosity-type-button-wrapper :global {
+  .zygosity-type-button {
+    position: relative;
+    border-radius: 5px;
+    background-color: $brand_primary_color !important;
+    cursor: pointer;
 
-  .select-title {
-    display: block;
-    position: absolute;
-    right: 34%;
-    top: 4px;
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 100%;
-    color: $white !important;
-  }
+    .select-title {
+      display: block;
+      position: absolute;
+      right: 34%;
+      top: 4px;
+      font-weight: 600;
+      font-size: 22px;
+      line-height: 100%;
+      color: $white;
 
-  .ant-select {
-    .ant-select-arrow {
-      & svg {
-        transform: none !important;
-      }
-
-      &:hover {
-        background: none;
+      &.active {
+        background: none !important;
+        color: $neutral_30;
       }
     }
-  }
 
-  .select-header-text-style {
-    color: $white !important;
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 100%;
+    .ant-select {
+      .ant-select-arrow {
+        & svg {
+          transform: none !important;
+        }
+
+        &:hover {
+          background: none;
+        }
+      }
+    }
+
+    .select-header-text-style {
+      color: $white !important;
+      font-weight: 600;
+      font-size: 22px;
+      line-height: 100%;
+
+      &.active {
+        color: $neutral_30 !important;
+      }
+    }
+
+    &.active {
+      background: none !important;
+      color: $neutral_30;
+
+      svg path {
+        fill: $neutral_30 !important;
+      }
+    }
   }
 }

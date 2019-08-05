@@ -12,7 +12,7 @@ function LabeledTag({ label, typeData, tagColor, customClassName }) {
     return (
       <div
         className={cn("label-text", {
-          "unclassified": text === TEXTS.unclassified,
+          unclassified: text === TEXTS.unclassified,
           [customClassName]: !!customClassName
         })}
       >
