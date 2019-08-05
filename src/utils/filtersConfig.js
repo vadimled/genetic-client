@@ -37,8 +37,8 @@ export default {
         label: ZYGOSITY.somatic.label
       },
       {
-        id: ZYGOSITY.undefined.value,
-        label: ZYGOSITY.undefined.label
+        id: ZYGOSITY.notDefined.value,
+        label: ZYGOSITY.notDefined.label
       }
     ]
   },

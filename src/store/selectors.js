@@ -128,6 +128,7 @@ const getAppliedFilters = createSelector(
   getFilterCancerDBs,
   getFilterGnomId,
   getFilterZygosity,
+  getFilterEffect,
 
   (
     type,
@@ -139,7 +140,8 @@ const getAppliedFilters = createSelector(
     vaf,
     cancerDBs,
     gnomFilter,
-    zygosity
+    zygosity,
+    effect
   ) => {
     const filters = {
       ...(variantClass.length && {
@@ -184,6 +186,10 @@ const getAppliedFilters = createSelector(
       ...(zygosity.length && {
         zygosity: item =>
           zygosity.some(filter => item.zygosity === filter)
+      }),
+      ...(effect.length && {
+        effect: item =>
+          effect.some(filter => item.effect === filter)
       }),
     };
 
