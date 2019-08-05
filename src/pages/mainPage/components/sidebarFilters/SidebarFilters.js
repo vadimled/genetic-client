@@ -192,7 +192,7 @@ class SidebarFilters extends Component {
         })}
 
         <Collapse
-          defaultActiveKey={["1", "2", "3", "4", "5", "6", "7"]}
+          defaultActiveKey={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
           onChange={callback}
           expandIcon={({ isActive }) => (
             <Arrow dir={!isActive ? "right" : "down"} />
