@@ -5,6 +5,16 @@
   height: auto;
   border-bottom: 1px solid $border_color;
   overflow: hidden !important;
+
+  .add-evidence-button-text {
+    display: flex;
+    justify-content: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    color: $white;
+  }
   .evidence-title {
     text-align: left;
     font-weight: bold;
