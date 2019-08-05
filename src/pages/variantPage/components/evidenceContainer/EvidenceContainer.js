@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import style from "./EvidenceContainer.module.scss";
 // import PropTypes from 'prop-types';
 import { Button, Tabs } from "antd";
-import TabPaneContent from "variantComponents/evidenceContainer/components/tabPaneHeader";
+import TabPaneHeader from "variantComponents/evidenceContainer/components/tabPaneHeader";
 import PropTypes from "prop-types";
 import { getTabPaneHeaders } from "Store/selectors";
 import { connect } from "react-redux";
@@ -27,7 +27,7 @@ class EvidenceContainer extends Component {
             return (
               <TabPane
                 tab={
-                  <TabPaneContent amount={header.length} title={header.title} />
+                  <TabPaneHeader amount={header.length} title={header.title} />
                 }
                 key={index + 1}
               >

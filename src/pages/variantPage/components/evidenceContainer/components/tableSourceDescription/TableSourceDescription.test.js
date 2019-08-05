@@ -1,10 +1,13 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import TableSourceDescription from './TableSourceDescription';
+import React from "react";
+import { renderWithRedux } from "Utils/test_helpers";
+import "jest-dom/extend-expect";
+import TableSourceDescription from "./TableSourceDescription";
 
-describe('<TableSourceDescription />', () => {
-  test('renders', () => {
-    const wrapper = shallow(<TableSourceDescription />);
-    expect(wrapper).toMatchSnapshot();
+describe("<TableSourceDescription />", () => {
+  it("snapshot", () => {
+    const { asFragment } = renderWithRedux(<TableSourceDescription />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });
+
+

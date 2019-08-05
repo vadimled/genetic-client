@@ -5,8 +5,9 @@ import TableDateAndUser from "./TableDateAndUser";
 
 describe("<TableDateAndUser />", () => {
   it("snapshot", () => {
-    const { asFragment } = renderWithRedux(<TableDateAndUser />);
+    const { asFragment } = renderWithRedux(
+      <TableDateAndUser date={"date"} user={{ name: "Name" }} />
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 });
-
