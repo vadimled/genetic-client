@@ -375,7 +375,10 @@ export const VALIDATION_FAILD_FIELDS = {
 export const EVIDENCE_CATEGORIES = [
   "Publications",
   "Frequency",
+  "In Silico predictor",
   "Variant DB’s",
+  "Drug",
+  "Therapy",
   "Other"
 ];
 
