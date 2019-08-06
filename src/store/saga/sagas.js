@@ -321,7 +321,7 @@ export function* handleZygositySaga(data) {
 
     const {record, value} = data.payload;
 
-    const newRecord = Object.assign({}, record)
+    const newRecord = Object.assign({}, record);
 
     newRecord.zygosity = value;
 
