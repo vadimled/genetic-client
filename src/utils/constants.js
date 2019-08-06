@@ -382,6 +382,54 @@ export const EVIDENCE_CATEGORIES = [
   "Other"
 ];
 
+export const EVIDENCE_CATEGORIES_OPTIONS = [
+  { value: "publications", label: "Publications" },
+  { value: "frequency", label: "Frequency" },
+  { value: "silicoPredictor", label: "In Silico predictor" },
+  { value: "variantDB", label: "Variant DB’s" },
+  { value: "drug", label: "Drug" },
+  { value: "therapy", label: "Therapy" },
+  { value: "other", label: "Other" }
+];
+
+export const EVIDENCE_LEVEL_OPTIONS = [
+  { value: "PVS1", label: "PVS1", type: TEXTS.germline },
+  { value: "PS1", label: "PS1", type: TEXTS.germline },
+  { value: "PS2", label: "PS2", type: TEXTS.germline },
+  { value: "PS3", label: "PS3", type: TEXTS.germline },
+  { value: "PS4", label: "PS4", type: TEXTS.germline },
+  { value: "PM1", label: "PM1", type: TEXTS.germline },
+  { value: "PM2", label: "PM2", type: TEXTS.germline },
+  { value: "PM3", label: "PM3", type: TEXTS.germline },
+  { value: "PM4", label: "PM4", type: TEXTS.germline },
+  { value: "PM5", label: "PM5", type: TEXTS.germline },
+  { value: "PM6", label: "PM6", type: TEXTS.germline },
+  { value: "PP1", label: "PP1", type: TEXTS.germline },
+  { value: "PP2", label: "PP2", type: TEXTS.germline },
+  { value: "PP3", label: "PP3", type: TEXTS.germline },
+  { value: "PP4", label: "PP4", type: TEXTS.germline },
+  { value: "PP5", label: "PP5", type: TEXTS.germline },
+  { value: "BP7", label: "BP7", type: TEXTS.germline },
+  { value: "BP6", label: "BP6", type: TEXTS.germline },
+  { value: "BP5", label: "BP5", type: TEXTS.germline },
+  { value: "BP4", label: "BP4", type: TEXTS.germline },
+  { value: "BP3", label: "BP3", type: TEXTS.germline },
+  { value: "BP2", label: "BP2", type: TEXTS.germline },
+  { value: "BP1", label: "BP1", type: TEXTS.germline },
+  { value: "BS4", label: "BS4", type: TEXTS.germline },
+  { value: "BS3", label: "BS3", type: TEXTS.germline },
+  { value: "BS2", label: "BS2", type: TEXTS.germline },
+  { value: "BS1", label: "BS1", type: TEXTS.germline },
+  { value: "BA1", label: "BA1", type: TEXTS.germline },
+  { value: "A1", label: "A1", type: TEXTS.somatic },
+  { value: "A2", label: "A2", type: TEXTS.somatic },
+  { value: "B", label: "B", type: TEXTS.somatic },
+  { value: "C1", label: "C1", type: TEXTS.somatic },
+  { value: "C2", label: "C2", type: TEXTS.somatic },
+  { value: "D", label: "D", type: TEXTS.somatic },
+  { value: "none", label: "None", type: TEXTS.somatic }
+];
+
 export const LEVEL_COLOR = {
   PVS1: "#D70513",
   PS1: "#F11E2C",

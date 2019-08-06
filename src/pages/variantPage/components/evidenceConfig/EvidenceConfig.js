@@ -3,6 +3,7 @@ import { setEvidenceActionSlidePanelStatus } from "Actions/evidenceConfigActions
 import { getEvidenceConfigIsOpen } from "Store/selectors";
 import { connect } from "react-redux";
 import SlideBar from "GenericComponents/slideBar";
+import ActionAddEditEvidence from "variantComponents/evidenceContainer/components/actionAddEditEvidence";
 
 // import PropTypes from 'prop-types';
 
@@ -19,9 +20,9 @@ class EvidenceConfig extends Component {
       <SlideBar
         isOpen={isOpen}
         onClose={this.handleClose}
-        title={"Add result"} // {isOnEdit ? "Edit result" : "Add result"}
+        title={"Add evidence"} // {isOnEdit ? "Edit result" : "Add result"}
       >
-        <h1> EvidenceConfig </h1>
+        <ActionAddEditEvidence />
       </SlideBar>
     );
   }
