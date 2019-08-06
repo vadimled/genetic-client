@@ -82,9 +82,6 @@ describe("VariantPageHeader ", () => {
   });
 
   it("should - inactive Button after click going to active state", () => {
-
-    console.log(store.dispatch)
-
     store.dispatch(
       setZygosityType({
         selectedZygosityType: "somatic",
