@@ -295,13 +295,36 @@ export const getActivityLog = (state, recordId) => {
 export const getTestType = state => state?.test?.panel_type;
 
 // Variant page: Evidence
-export const
-  getSomaticEvidence = state => state.variantPage.pageData.somatic_evidence,
+export const getSomaticEvidence = state =>
+    state.variantPage.pageData.somatic_evidence,
   getGermlineEvidence = state => state.variantPage.pageData.germline_evidence,
-  getEvidenceConfigIsOpen = state => state.variantPage.evidenceConfig.actionSlideBarStatus,
+  getEvidenceConfigIsOpen = state =>
+    state.variantPage.evidenceConfig.actionSlideBarStatus,
   getEvidenceConfigMode = state => state.variantPage.evidenceConfig.mode,
   getEvidenceConfigId = state => state.variantPage.evidenceConfig.id,
+  getEvidenceTypeSelect = state =>
+    state.variantPage.evidenceConfig.evidenceTypeSelect,
+  getEvidenceSourceInput = state =>
+    state.variantPage.evidenceConfig.evidenceSourceInput,
+  getEvidenceLevelSelect = state =>
+    state.variantPage.evidenceConfig.evidenceLevelSelect,
+  getEvidenceDescription = state =>
+    state.variantPage.evidenceConfig.evidenceDescriptionTextarea,
   
+  getAddSubmitData = createSelector(
+    getEvidenceTypeSelect,
+    getEvidenceSourceInput,
+    getEvidenceLevelSelect,
+    getEvidenceDescription,
+    getVariantPageTestId,
+    getVariantId,
+    (category, source, level, description, testId, variantId) => {
+      return {
+        ids: { testId, variantId },
+        data: { category, source, level, description }
+      };
+    }
+  ),
   getCurrentEvidenceData = createSelector(
     getZygosityType,
     getVariantPage,
@@ -363,11 +386,10 @@ export const
     getCurrentEvidenceData,
     allData => {
       if (allData) {
-        const sortedArray = Object.keys(allData)
-          .map(key => {
-            console.log(allData[key]);
-          });
-  
+        const sortedArray = Object.keys(allData).map(key => {
+          console.log(allData[key]);
+        });
+
         return sortedArray;
       }
     }

@@ -15,7 +15,15 @@ const Option = Select.Option,
   { TextArea } = Input;
 /* eslint-enable*/
 
-const ActionAddEditEvidence = ({ mode, submit, onChange }) => {
+const ActionAddEditEvidence = ({
+  mode,
+  submit,
+  onChange,
+  typeValue,
+  sourceValue,
+  levelValue,
+  descriptionValue
+}) => {
   return (
     <div className={style["evidence-form-wrapper"]}>
       <form className="evidence-form" onSubmit={submit}>
@@ -24,7 +32,7 @@ const ActionAddEditEvidence = ({ mode, submit, onChange }) => {
             label={"Evidence type"}
             testId={`evidence-type-select`}
             name={`evidenceTypeSelect`}
-            value={"publications"}
+            value={typeValue}
             options={EVIDENCE_CATEGORIES_OPTIONS}
             onChange={onChange}
           />
@@ -36,6 +44,7 @@ const ActionAddEditEvidence = ({ mode, submit, onChange }) => {
             name="evidenceSourceInput"
             onChange={onChange}
             className={"form-item-source"}
+            value={sourceValue}
             placeholder="Paste source"
           />
         </div>
@@ -51,8 +60,7 @@ const ActionAddEditEvidence = ({ mode, submit, onChange }) => {
                 }
               })
             }
-            value={"b"}
-            name={"evidence-level-select"}
+            value={levelValue}
             data-testid={"evidence-level-select"}
           >
             {EVIDENCE_LEVEL_OPTIONS.map(option => {
@@ -68,16 +76,9 @@ const ActionAddEditEvidence = ({ mode, submit, onChange }) => {
           <label htmlFor={"evidence-description-textarea"}>Description</label>
           <TextArea
             autosize
-            value={""}
-            name={"evidence-description-textarea"}
-            onChange={val =>
-              this.handleSelectChange({
-                target: {
-                  name: "evidenceDescriptionTextarea",
-                  value: val
-                }
-              })
-            }
+            value={descriptionValue}
+            name={"evidenceDescriptionTextarea"}
+            onChange={onChange}
             data-testid={"evidence-description-textarea"}
           />
         </div>

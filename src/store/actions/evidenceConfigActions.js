@@ -7,3 +7,10 @@ export const setEvidenceActionMode = data => {
   };
 };
 
+export const setEvidenceActionData = data => {
+  return {
+    type: actionsTypes.SET_EVIDENCE_ACTION_DATA,
+    payload: data
+  };
+};
+

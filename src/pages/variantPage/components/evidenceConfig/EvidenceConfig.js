@@ -1,9 +1,17 @@
 import React, { Component } from "react";
-import { setEvidenceActionMode } from "Actions/evidenceConfigActions";
+import {
+  setEvidenceActionMode,
+  setEvidenceActionData
+} from "Actions/evidenceConfigActions";
 import {
   getEvidenceConfigId,
   getEvidenceConfigIsOpen,
-  getEvidenceConfigMode
+  getEvidenceConfigMode,
+  getEvidenceDescription,
+  getEvidenceLevelSelect,
+  getEvidenceSourceInput,
+  getEvidenceTypeSelect,
+  getAddSubmitData
 } from "Store/selectors";
 import { connect } from "react-redux";
 import SlideBar from "GenericComponents/slideBar";
@@ -16,18 +24,26 @@ class EvidenceConfig extends Component {
   handleClose = () => {
     this.props.openSlidePanel({ actionSlideBarStatus: false });
   };
-  
+
   handleSubmit = e => {
     e.preventDefault();
-    console.log(e.target);
+    console.log(this.props.addSubmit);
   };
-  
-  handleSelectChange = e => {
-    console.log(e.target);
+
+  handleOnChange = e => {
+    const { name, value } = e.target;
+    this.props.setEvidenceActionData({[name]: value});
   };
-  
+
   render() {
-    const { isOpen, mode } = this.props;
+    const {
+      isOpen,
+      mode,
+      evidenceTypeSelect,
+      evidenceSourceInput,
+      evidenceLevelSelect,
+      evidenceDescriptionTextarea
+    } = this.props;
 
     const actionMode =
       mode === TEXTS.add ? TEXTS.addEvidence : TEXTS.editEvidence;
@@ -37,6 +53,10 @@ class EvidenceConfig extends Component {
           mode={actionMode}
           submit={this.handleSubmit}
           onChange={this.handleOnChange}
+          typeValue={evidenceTypeSelect}
+          sourceValue={evidenceSourceInput}
+          levelValue={evidenceLevelSelect}
+          descriptionValue={evidenceDescriptionTextarea}
         />
       </SlideBar>
     );
@@ -49,13 +69,19 @@ const mapStateToProps = state => {
   return {
     isOpen: getEvidenceConfigIsOpen(state),
     mode: getEvidenceConfigMode(state),
-    id: getEvidenceConfigId(state)
+    id: getEvidenceConfigId(state),
+    evidenceTypeSelect: getEvidenceTypeSelect(state),
+    evidenceSourceInput: getEvidenceSourceInput(state),
+    evidenceLevelSelect: getEvidenceLevelSelect(state),
+    evidenceDescriptionTextarea: getEvidenceDescription(state),
+    addSubmit: getAddSubmitData(state),
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    openSlidePanel: status => dispatch(setEvidenceActionMode(status))
+    openSlidePanel: status => dispatch(setEvidenceActionMode(status)),
+    setEvidenceActionData: status => dispatch(setEvidenceActionData(status))
   };
 };
 
