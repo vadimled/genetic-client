@@ -40,7 +40,6 @@ class VariantClassificationContainer extends React.Component {
     } = this.props;
 
 
-    console.log(this.props);
 
     return (
       <div className={style["gene-type-wrapper"]}>

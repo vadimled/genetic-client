@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 
 const NonActiveButton = ({ title, type, onClick, typeData, currValue, testId, variantId, selectedZygosityType }) => {
 
-  console.log("----selectedZygosityType: ", selectedZygosityType);
-
   const getTaggedLabel = typeData => {
     for (let item in typeData) {
       const { label, value } = typeData[item];
