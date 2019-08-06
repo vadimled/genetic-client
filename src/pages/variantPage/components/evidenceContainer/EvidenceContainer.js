@@ -26,10 +26,12 @@ class EvidenceContainer extends Component {
   };
 
   handleEditEntry = (e, id) => {
+    const { data } = this.props;
     this.props.onAction({
       actionSlideBarStatus: true,
       id,
-      mode: TEXTS.edit
+      mode: TEXTS.edit,
+      data: data[id]
     });
   };
 

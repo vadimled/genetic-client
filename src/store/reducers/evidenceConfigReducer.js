@@ -15,8 +15,8 @@ const initialState = {
 const evidenceConfigReducer = createReducer(initialState, {
   [actionsTypes.SET_ACTION_MODE]: (state, { payload }) => {
     let status = {};
-
-    if (!payload?.actionSlideBarStatus && payload?.mode !== TEXTS.delete) {
+    console.log(payload);
+    if (!payload.actionSlideBarStatus && payload.mode !== TEXTS.delete) {
       status = Object.assign(
         {},
         { actionSlideBarStatus: false },
@@ -25,6 +25,16 @@ const evidenceConfigReducer = createReducer(initialState, {
         { evidenceSourceInput: null },
         { evidenceLevelSelect: null },
         { evidenceDescriptionTextarea: null }
+      );
+    } else if (payload.data) {
+      const { data, id, mode, actionSlideBarStatus } = payload;
+      status = Object.assign(
+        {},
+        { actionSlideBarStatus, id, mode },
+        { evidenceTypeSelect: data.category },
+        { evidenceSourceInput: data.source },
+        { evidenceLevelSelect: data.level },
+        { evidenceDescriptionTextarea: data.description }
       );
     } else {
       status = Object.assign({}, payload);
