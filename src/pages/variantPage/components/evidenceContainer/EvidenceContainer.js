@@ -8,7 +8,8 @@ import { getTabPaneHeaders } from "Store/selectors";
 import { connect } from "react-redux";
 import EvidenceTable from "variantComponents/evidenceContainer/components/evidenceTable";
 import SimpleButton from "GenericComponents/simpleButton";
-import { setEvidenceActionSlidePanelStatus } from "Actions/evidenceConfigActions";
+import { setEvidenceActionMode } from "Actions/evidenceConfigActions";
+import { TEXTS } from "Utils/constants";
 
 const { TabPane } = Tabs;
 
@@ -16,19 +17,30 @@ class EvidenceContainer extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   handleAddEvidence = () => {
-    this.props.openSlidePanel(true);
+    this.props.onAction({
+      actionSlideBarStatus: true,
+      mode: TEXTS.add
+    });
   };
-  
-  handleDeleteEntry = (e, id) => {
-    console.log(id);
-  };
-  
+
   handleEditEntry = (e, id) => {
-    console.log(id);
+    this.props.onAction({
+      actionSlideBarStatus: true,
+      id,
+      mode: TEXTS.edit
+    });
   };
-  
+
+  handleDeleteEntry = (e, id) => {
+    this.props.onAction({
+      actionSlideBarStatus: false,
+      id,
+      mode: TEXTS.delete
+    });
+  };
+
   render() {
     const { tabPaneHeaders } = this.props;
     return (
@@ -56,11 +68,13 @@ class EvidenceContainer extends Component {
                   }
                   key={index + 1}
                 >
-                  {<EvidenceTable
-                    category={header.title}
-                    handleEditEntry={this.handleEditEntry}
-                    handleDeleteEntry={this.handleDeleteEntry}
-                  />}
+                  {
+                    <EvidenceTable
+                      category={header.title}
+                      handleEditEntry={this.handleEditEntry}
+                      handleDeleteEntry={this.handleDeleteEntry}
+                    />
+                  }
                 </TabPane>
               );
             })}
@@ -87,7 +101,7 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    openSlidePanel: status => dispatch(setEvidenceActionSlidePanelStatus(status))
+    onAction: status => dispatch(setEvidenceActionMode(status))
   };
 }
 

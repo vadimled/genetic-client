@@ -38,7 +38,12 @@ export const TEXTS = {
   currentZygosity: "Current zygosity:",
   unclassified: "Unclassified",
   evidence: "evidence",
-  evidenceUp: "Evidence"
+  evidenceUp: "Evidence",
+  add: "add",
+  delete: "delete",
+  edit: "edit",
+  editEvidence: "Edit evidence",
+  addEvidence:"Add evidence"
 };
 
 export const LIMITS = {

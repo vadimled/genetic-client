@@ -299,6 +299,8 @@ export const
   getSomaticEvidence = state => state.variantPage.pageData.somatic_evidence,
   getGermlineEvidence = state => state.variantPage.pageData.germline_evidence,
   getEvidenceConfigIsOpen = state => state.variantPage.evidenceConfig.actionSlideBarStatus,
+  getEvidenceConfigMode = state => state.variantPage.evidenceConfig.mode,
+  getEvidenceConfigId = state => state.variantPage.evidenceConfig.id,
   
   getCurrentEvidenceData = createSelector(
     getZygosityType,

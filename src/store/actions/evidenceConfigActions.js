@@ -1,8 +1,8 @@
 import actionsTypes from "../actionsTypes";
 
-export const setEvidenceActionSlidePanelStatus = data => {
+export const setEvidenceActionMode = data => {
   return {
-    type: actionsTypes.SET_ACTION_SLIDEPANEL_STATUS,
+    type: actionsTypes.SET_ACTION_MODE,
     payload: data
   };
 };
