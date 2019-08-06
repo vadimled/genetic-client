@@ -6,7 +6,8 @@ import { Tooltip } from "antd";
 
 function ExternalResources({ externalResources, selectedZygosityType }) {
 
-  const variantDbLinks =  selectedZygosityType === "germline" ? EXTERNAL_RESOURCES_GERMLINE : EXTERNAL_RESOURCES_SOMATIC;
+  const variantDbLinks =  selectedZygosityType === "germline" ?
+    EXTERNAL_RESOURCES_GERMLINE : EXTERNAL_RESOURCES_SOMATIC;
 
   const renderLink = (label, value) => {
     return (
