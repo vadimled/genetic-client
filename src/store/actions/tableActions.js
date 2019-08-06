@@ -29,6 +29,13 @@ export const handleZygosity = data => {
   };
 };
 
+export const setZygosity = data => {
+  return {
+    type: actionsTypes.SET_ZYGOSITY,
+    payload: data
+  };
+};
+
 export const handleVariantClass = data => {
   return {
     type: actionsTypes.HANDLE_VARIANT_CLASS,
@@ -71,16 +78,16 @@ export const updateActivityLog = data => {
   };
 };
 
-export const fetchData = data => {
+export const fetchTableData = data => {
   return{
-    type: actionsTypes.FETCH_DATA,
+    type: actionsTypes.FETCH_TABLE_DATA,
     payload: data
   };
 };
 
 export function setDataToStore(data) {
   return {
-    type: actionsTypes.FETCH_DATA_SUCCESS,
+    type: actionsTypes.FETCH_TABLE_DATA_SUCCESS,
     payload: data
   };
 }

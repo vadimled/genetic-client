@@ -8,7 +8,7 @@ import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import UncheckConfirmationPopup from './UncheckConfirmationPopup';
 import {
-  fetchData,
+  fetchTableData,
   handleUncheckConfirmationData
 } from "Actions/tableActions";
 import {
@@ -25,7 +25,7 @@ const initSteps = () => {
   sagaMiddleware.run(watchSaga);
 
 
-  store.dispatch(fetchData());
+  store.dispatch(fetchTableData());
 
   return {store, getByTestId, getAllByTestId, asFragment};
 };

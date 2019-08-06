@@ -3,8 +3,8 @@ import * as Sentry from "@sentry/browser";
 import {
   ALERT_STATUSES,
   ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS
-} from "Utils/constants";
+  VALIDATION_FAILD_FIELDS,
+} from 'Utils/constants';
 import {
   fetchBAMFile,
   goToChrPositionIgv,
@@ -24,7 +24,8 @@ import {
   applyConfirmation,
   tableDataAddResult,
   tableDataEditResult,
-  setDataToStore
+  setDataToStore,
+  setZygosity
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
@@ -41,11 +42,10 @@ import {
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { setTestData } from "Actions/testActions";
 import { setMutationType } from "Actions/variantsActions";
-import {
-  setVariantData,
-  setVariantClassification
-} from "Actions/variantPageActions";
-import { zygosityType } from "Utils/helpers";
+import { setVariantData, setVariantClassification } from "Actions/variantPageActions";
+import { zygosityType, setPriority } from "Utils/helpers";
+
+
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -295,29 +295,47 @@ export function* resultConfigEditResultGenerator(data) {
   }
 }
 
-export function* fetchData() {
-  try {
-    const result = generateDNAVariantTableMockData(200);
 
-    for (let item in result) {
+export function* fetchTableData() {
+  try {
+    const result = generateDNAVariantTableMockData(500);
+
+    for(let item in result){
+
       const record = result[item];
 
-      if (
-        record?.variantClassGermline === "ben" &&
-        record?.variantClassSomatic === "tier4"
-      ) {
-        record.priority = 14;
-      } else if (record?.variantClassGermline === "path") {
-        record.priority = 1;
-      } else {
-        record.priority = 7;
-      }
+      setPriority(record);
+
     }
 
     yield put(setDataToStore(result));
     // yield put(setLoading(false));
   } catch (error) {
     console.log("---error: ", error);
+  }
+}
+
+export function* handleZygositySaga(data) {
+  try{
+    const result = yield call(sendVariantClassApi, data);
+
+    const {record, value} = data.payload;
+
+    const newRecord = Object.assign({}, record);
+
+    newRecord.zygosity = value;
+
+    setPriority(newRecord);
+
+    if (result?.status === 200) {
+      yield put(setZygosity({
+        ...data.payload,
+        record: newRecord
+      }));
+    }
+  }
+  catch (e) {
+    console.log("-err: ", e);
   }
 }
 

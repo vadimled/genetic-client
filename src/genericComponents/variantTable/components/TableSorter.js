@@ -78,7 +78,7 @@ TableSorter.propTypes = {
 //     updateActivityLog: data => dispatch(updateActivityLog(data)),
 //     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
 //     setNotes: data => dispatch(setNotes(data)),
-//     fetchTableData: data => dispatch(fetchData(data)),
+//     fetchTableData: data => dispatch(fetchTableData(data)),
 //     setSort: data => dispatch(setSort(data)),
 //   };
 // }
