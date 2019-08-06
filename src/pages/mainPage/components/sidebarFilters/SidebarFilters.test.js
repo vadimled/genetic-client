@@ -106,6 +106,75 @@ describe("SideBarFilters component test", () => {
     expect(indicator6).not.toBeInTheDocument();
   });
 
+  it("if filter 'zygosity' clicked; if indicator 'zygosity' delete clicked", async () => {
+    const { getByTestId } = initSteps();
+
+    fireEvent.click(getByTestId("filter-checkbox-zygosity-Unknown"));
+    fireEvent.click(getByTestId("filter-checkbox-zygosity-Not Real"));
+    fireEvent.click(getByTestId("filter-checkbox-zygosity-Insignificant"));
+    fireEvent.click(getByTestId("filter-checkbox-zygosity-Homo"));
+    fireEvent.click(getByTestId("filter-checkbox-zygosity-Hetro"));
+    fireEvent.click(getByTestId("filter-checkbox-zygosity-Hemi"));
+    fireEvent.click(getByTestId("filter-checkbox-zygosity-Somatic"));
+    fireEvent.click(getByTestId("filter-checkbox-zygosity-Not Defined"));
+
+
+    const indicator1 = await waitForElement(() => getByTestId("filter-zygosity-Unknown"));
+    const indicator2 = await waitForElement(() => getByTestId("filter-zygosity-Not Real"));
+    const indicator3 = await waitForElement(() => getByTestId("filter-zygosity-Insignificant"));
+    const indicator4 = await waitForElement(() => getByTestId("filter-zygosity-Homo"));
+    const indicator5 = await waitForElement(() => getByTestId("filter-zygosity-Hetro"));
+    const indicator6 = await waitForElement(() => getByTestId("filter-zygosity-Hemi"));
+    const indicator7 = await waitForElement(() => getByTestId("filter-zygosity-Somatic"));
+    const indicator8 = await waitForElement(() => getByTestId("filter-zygosity-Not Defined"));
+
+
+    expect(indicator1).toBeInTheDocument();
+    expect(indicator2).toBeInTheDocument();
+    expect(indicator3).toBeInTheDocument();
+    expect(indicator4).toBeInTheDocument();
+    expect(indicator5).toBeInTheDocument();
+    expect(indicator6).toBeInTheDocument();
+    expect(indicator7).toBeInTheDocument();
+    expect(indicator7).toBeInTheDocument();
+
+
+    fireEvent.click(getByTestId("button-zygosity"));
+    expect(indicator1).not.toBeInTheDocument();
+    expect(indicator2).not.toBeInTheDocument();
+    expect(indicator3).not.toBeInTheDocument();
+    expect(indicator4).not.toBeInTheDocument();
+    expect(indicator6).not.toBeInTheDocument();
+    expect(indicator7).not.toBeInTheDocument();
+    expect(indicator8).not.toBeInTheDocument();
+  });
+
+  it("if filter 'effect' clicked; if indicator 'effect' delete clicked", async () => {
+    const { getByTestId } = initSteps();
+
+    fireEvent.click(getByTestId("filter-checkbox-effect-High"));
+    fireEvent.click(getByTestId("filter-checkbox-effect-Modifier"));
+    fireEvent.click(getByTestId("filter-checkbox-effect-Moderate"));
+    fireEvent.click(getByTestId("filter-checkbox-effect-Low"));
+
+    const indicator1 = await waitForElement(() => getByTestId("filter-effect-High"));
+    const indicator2 = await waitForElement(() => getByTestId("filter-effect-Modifier"));
+    const indicator3 = await waitForElement(() => getByTestId("filter-effect-Moderate"));
+    const indicator4 = await waitForElement(() => getByTestId("filter-effect-Low"));
+
+    expect(indicator1).toBeInTheDocument();
+    expect(indicator2).toBeInTheDocument();
+    expect(indicator3).toBeInTheDocument();
+    expect(indicator4).toBeInTheDocument();
+
+    fireEvent.click(getByTestId("button-effect"));
+    expect(indicator1).not.toBeInTheDocument();
+    expect(indicator2).not.toBeInTheDocument();
+    expect(indicator3).not.toBeInTheDocument();
+    expect(indicator4).not.toBeInTheDocument();
+
+  });
+
   it("if filter 'hotSpot' clicked; if indicator 'hotSpot' delete clicked", () => {
     const { getByTestId } = renderWithRedux(<SidebarFilters />);
     
