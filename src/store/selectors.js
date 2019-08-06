@@ -105,7 +105,6 @@ export const getSearchResult = createSelector(
       const searchQueryInLowerCase = searchQuery.toLowerCase();
       return (
         item.gene.toLowerCase().includes(searchQueryInLowerCase) ||
-        item.variantClass.toLowerCase().includes(searchQueryInLowerCase) ||
         item.coding.toLowerCase().includes(searchQueryInLowerCase) ||
         item.protein.toLowerCase().includes(searchQueryInLowerCase)
       );
