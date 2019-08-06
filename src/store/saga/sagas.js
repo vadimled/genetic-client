@@ -321,12 +321,17 @@ export function* handleZygositySaga(data) {
 
     const {record, value} = data.payload;
 
-    record.zygosity = value;
+    const newRecord = Object.assign({}, record)
 
-    setPriority(record);
+    newRecord.zygosity = value;
+
+    setPriority(newRecord);
 
     if (result?.status === 200) {
-      yield put(setZygosity(data.payload));
+      yield put(setZygosity({
+        ...data.payload,
+        record: newRecord
+      }));
     }
   }
   catch (e) {

@@ -82,10 +82,10 @@ const tableReducer = createReducer(initialState, {
 
   [actionsTypes.SET_ZYGOSITY]: (state, { payload }) => {
 
-    const {variantId, value} = payload;
+    const {variantId, record} = payload;
     let data = state?.data;
 
-    data[variantId].zygosity = value;
+    data[variantId] = record;
 
     const newData = Object.assign({}, data);
 

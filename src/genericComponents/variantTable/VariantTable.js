@@ -240,7 +240,6 @@ class VariantTable extends Component {
       else if (column.dataIndex === "variantClassGermline") {
 
         column.render = (text, record) => {
-          // console.log(record);
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               <div className="table-select-wrapper">
