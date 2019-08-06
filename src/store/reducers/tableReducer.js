@@ -15,7 +15,7 @@ const initialState = {
 
 const tableReducer = createReducer(initialState, {
 
-  [actionsTypes.FETCH_DATA_SUCCESS]: (state, {payload}) => {
+  [actionsTypes.FETCH_TABLE_DATA_SUCCESS]: (state, {payload}) => {
     return {
       ...state,
       data: payload
@@ -80,44 +80,16 @@ const tableReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.HANDLE_ZYGOSITY]: (state, { payload }) => {
+  [actionsTypes.SET_ZYGOSITY]: (state, { payload }) => {
 
-    const {item, value} = payload;
+    const {variantId, record} = payload;
     let data = state?.data;
 
-    data[item.id].zygosity = value;
+    data[variantId] = record;
 
     const newData = Object.assign({}, data);
 
     state.data = newData;
-
-    // and always reset variantClass as a result of changing the zygosity
-    // reset to
-    // if (
-    //   value !== 'insignificant' &&
-    //   value !== 'notReal' &&
-    //   value !== 'unknown'
-    // ) {
-    //   // unclassified is default for somatic & germline
-    //   data[item.id].variantClass = 'unclassified';
-    //   data[item.id].priority = PRIORITY['unclassified'];
-    // }
-    // else {
-    //   data[item.id].variantClass = '';
-    // }
-
-    // data[item.id].variantClassGermline = 'unclassified';
-    // data[item.id].variantClassSomatic = 'unclassified';
-    data[item.id].priority = PRIORITY['unclassified'];
-
-    switch (value) {
-      case "unknown": data[item.id].priority = 14;
-        break;
-      case "notReal": data[item.id].priority = 14;
-        break;
-      case "insignificant": data[item.id].priority = 14;
-        break;
-    }
 
     return {
       ...state
