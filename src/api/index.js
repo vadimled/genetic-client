@@ -61,13 +61,4 @@ export function sendVariantClassApi(data) {
   });
 }
 
-// export function handleZygosityApi(data) {
-//
-//   const { item, value, testId } = data.payload;
-//
-//   console.log(item, value, testId);
-//
-//   return axios.patch(`/api/tests/${testId}/variant/${item.id}`, {
-//     zygosity: value
-//   });
-// }
+
