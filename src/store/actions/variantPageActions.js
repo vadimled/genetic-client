@@ -35,6 +35,13 @@ export const fetchVariantData = data => {
   };
 };
 
+export const fetchEvidenceData = data => {
+  return {
+    type: actionsTypes.FETCH_EVIDENCE_DATA,
+    payload: data
+  };
+};
+
 export const sendVariantClass = variantClass => {
   return {
     type: actionsTypes.SEND_VARIANT_CLASS,

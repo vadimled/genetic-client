@@ -20,6 +20,7 @@ import { connect } from "react-redux";
 import {
   setExternalResources,
   fetchVariantData,
+  fetchEvidenceData,
   setSelectedZygosityType,
   setTestInformation
 } from "Actions/variantPageActions";
@@ -38,6 +39,7 @@ class VariantPage extends Component {
     };
 
     props.fetchVariantData({ testId, variantId });
+    props.fetchEvidenceData({ testId, variantId });
     props.setSelectedZygosityType({ selectedZygosityType, testId, variantId });
     props.setTestInformation({ testId, variantId });
 
@@ -137,6 +139,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setResources: data => dispatch(setExternalResources(data)),
     fetchVariantData: data => dispatch(fetchVariantData(data)),
+    fetchEvidenceData: data => dispatch(fetchEvidenceData(data)),
     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
     setTestInformation: data => dispatch(setTestInformation(data))
   };

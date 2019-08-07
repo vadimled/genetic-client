@@ -15,7 +15,8 @@ import {
   fetchVariantDataApi,
   sendVariantClassApi,
   addEvidenceEntryApi,
-  editEvidenceEntryApi
+  editEvidenceEntryApi,
+  fetchEvidenceDataApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -360,6 +361,7 @@ export function* fetchVariantDataGenerator(data) {
     const result = yield call(fetchVariantDataApi, data),
       newData = zygosityType(result?.data);
     yield put(setVariantData(newData));
+    console.log(result.data);
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchVariantDataGenerator"]);
@@ -377,6 +379,19 @@ export function* sendVariantClassGenerator(variantClass) {
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["sendVariantClassGenerator"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* fetchEvidenceDataSaga(data) {
+  try {
+    const result = yield call(fetchEvidenceDataApi, data);
+    console.log(result.data);
+    yield put(setEvidenceData(result.data));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchEvidenceDataSaga"]);
       Sentry.captureException(e);
     });
   }

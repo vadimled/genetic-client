@@ -1,6 +1,6 @@
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import {germline_evidence, somatic_evidence} from "Utils/variant-page-mock-data";
+import { evidences } from "Utils/variant-page-mock-data";
 
 export const mock =
   process.env.REACT_APP_AXIOS_MOCK_ENABLED === "true" &&
@@ -23,19 +23,21 @@ if (mock) {
     }
   });
 
-  mock.onGet(/\/api\/tests\/.+\/variants\/.+/).reply(200, {
+  mock.onGet(/\/api\/tests\/.+\/variants\/.+\/$/).reply(200, {
     // /api/tests/GS00115NP050818_TS1_01/variant/1gr3ekk8qbb29u5vljto219bn
     currentZygosity: "Homo",
     germline_variant_class: "LPATH",
-    somatic_variant_class: "Tier2",
-    germline_evidence,
-    somatic_evidence
+    somatic_variant_class: "Tier2"
+  });
+
+  mock.onGet(/\/api\/tests\/.+\/variants\/.+\/evidences/).reply(200, {
+    evidences
   });
 
   mock.onPatch(/\/api\/tests\/.+\/variants\/.+/).reply(200);
-  
+
   mock.onPost(/\/api\/tests\/.+\/variants\/.+\/evidences/).reply(200, {
-    id:"vadimmall3xfe2gzdmlnw067",
+    id: "vadimmall3xfe2gzdmlnw067",
     category: "In Silico predictor",
     source: "http://example.com",
     key: 10,
@@ -45,12 +47,12 @@ if (mock) {
       name: "Vadim Malckin",
       pic_url: ""
     },
-    description:"This is the test description for mock add the new entry",
+    description: "This is the test description for mock add the new entry",
     level: "BP3"
   });
-  
+
   mock.onPut(/\/api\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200, {
-    id:"1gzhbamall3xfe2gzdmlnw9aj",
+    id: "1gzhbamall3xfe2gzdmlnw9aj",
     category: "Publications",
     source: "http://en.Wikipedia/wiki/DNA",
     key: 0,
@@ -60,7 +62,7 @@ if (mock) {
       name: "Van Disel",
       pic_url: ""
     },
-    description:"This is the test description for mock edit the existed entry",
+    description: "This is the test description for mock edit the existed entry",
     level: "BP1"
   });
 }

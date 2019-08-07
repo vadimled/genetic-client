@@ -1,6 +1,6 @@
-export const somatic_evidence = {
-  "6gzhbamall3xfe2gzdmlnw9aj": {
-    key: 0,
+export const evidences = [
+  {
+    id: "6gzhbamall3xfe2gzdmlnw9aj",
     category: "Publications",
     created_at: "17/May/2018",
     user: {
@@ -15,10 +15,11 @@ export const somatic_evidence = {
       "In the cytosol of the cell,\n" +
       "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the DNA molecule," +
       " minimizing their interaction with the solvation shell.",
-    level: "A1"
+    level: "A1",
+    classification: "somatic"
   },
-  "7gzhbamall3xfe2gzdmlnw9aj": {
-    key: 1,
+  {
+    id: "7gzhbamall3xfe2gzdmlnw9aj",
     category: "Publications",
     created_at: "1/Apr/2018",
     user: {
@@ -30,10 +31,11 @@ export const somatic_evidence = {
     description:
       "The DNA double helix is stabilized primarily by two forces: " +
       "hydrogen and base-stacking interactions.",
-    level: "A2"
+    level: "A2",
+    classification: "somatic"
   },
-  "8gzhbamall3xfe2gzdmlnw9aj": {
-    key: 2,
+  {
+    id: "8gzhbamall3xfe2gzdmlnw9aj",
     category: "Frequency",
     created_at: "24/Marc/2018",
     user: {
@@ -47,10 +49,11 @@ export const somatic_evidence = {
       "hydrogen bonds between nucleotides and base-stacking interactions among aromatic nucleobases. " +
       "In the cytosol of the cell,\n" +
       "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the RNA molecule",
-    level: "B"
+    level: "B",
+    classification: "somatic"
   },
-  "9gzhbamall3xfe2gzdmlnw9aj": {
-    key: 3,
+  {
+    id: "9gzhbamall3xfe2gzdmlnw9aj",
     category: "Other",
     created_at: "2/Feb/2018",
     user: {
@@ -65,10 +68,11 @@ export const somatic_evidence = {
       "In the cytosol of the cell,\n" +
       "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the DNA molecule," +
       " minimizing their interaction with the solvation shell.",
-    level: "C1"
+    level: "C1",
+    classification: "somatic"
   },
-  "10zhbamall3xfe2gzdmlnw9aj": {
-    key: 4,
+  {
+    id: "10zhbamall3xfe2gzdmlnw9aj",
     category: "Other",
     created_at: "1/Jun/2018",
 
@@ -82,17 +86,11 @@ export const somatic_evidence = {
       "The DNA double helix is stabilized primarily by two forces: " +
       "hydrogen and base-stacking interactions.",
 
-    level: "D"
-  }
-  // variant_DBs: {
-  //   title: "Variant DB’s",
-  //   content: []
-  // },
-};
-
-export const germline_evidence = {
-  "1gzhbamall3xfe2gzdmlnw9aj": {
-    key: 0,
+    level: "D",
+    classification: "somatic"
+  },
+  {
+    id: "1gzhbamall3xfe2gzdmlnw9aj",
     category: "Publications",
     created_at: "17/May/2018",
     user: {
@@ -107,10 +105,11 @@ export const germline_evidence = {
       "In the cytosol of the cell,\n" +
       "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the DNA molecule," +
       " minimizing their interaction with the solvation shell.",
-    level: "PVS1"
+    level: "PVS1",
+    classification: "germline"
   },
-  "2gzhbamall3xfe2gzdmlnw9aj": {
-    key: 1,
+  {
+    id: "2gzhbamall3xfe2gzdmlnw9aj",
     category: "Publications",
     created_at: "1/Apr/2018",
     user: {
@@ -122,10 +121,11 @@ export const germline_evidence = {
     description:
       "The DNA double helix is stabilized primarily by two forces: " +
       "hydrogen and base-stacking interactions.",
-    level: "PM1"
+    level: "PM1",
+    classification: "germline"
   },
-  "3gzhbamall3xfe2gzdmlnw9aj": {
-    key: 2,
+  {
+    id: "3gzhbamall3xfe2gzdmlnw9aj",
     category: "Frequency",
     created_at: "24/Marc/2018",
     user: {
@@ -139,10 +139,11 @@ export const germline_evidence = {
       "hydrogen bonds between nucleotides and base-stacking interactions among aromatic nucleobases. " +
       "In the cytosol of the cell,\n" +
       "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the RNA molecule",
-    level: "PP1"
+    level: "PP1",
+    classification: "germline"
   },
-  "4gzhbamall3xfe2gzdmlnw9aj": {
-    key: 3,
+  {
+    id: "4gzhbamall3xfe2gzdmlnw9aj",
     category: "Variant DB’s",
     created_at: "2/Feb/2018",
     user: {
@@ -157,10 +158,11 @@ export const germline_evidence = {
       "In the cytosol of the cell,\n" +
       "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the DNA molecule," +
       " minimizing their interaction with the solvation shell.",
-    level: "BP6"
+    level: "BP6",
+    classification: "germline"
   },
-  "5gzhbamall3xfe2gzdmlnw9aj": {
-    key: 4,
+  {
+    id: "5gzhbamall3xfe2gzdmlnw9aj",
     category: "Variant DB’s",
     created_at: "1/Jun/2018",
 
@@ -174,10 +176,7 @@ export const germline_evidence = {
       "The DNA double helix is stabilized primarily by two forces: " +
       "hydrogen and base-stacking interactions.",
 
-    level: "BS4"
+    level: "BS4",
+    classification: "germline"
   }
-  // other: {
-  //   title: "Other",
-  //   content: []
-  // },
-};
+];

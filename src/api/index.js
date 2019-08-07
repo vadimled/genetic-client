@@ -51,7 +51,7 @@ export function fetchTestDataApi(id) {
 
 export function fetchVariantDataApi(data) {
   const { testId, variantId } = data.payload;
-  return axios.get(`/api/tests/${testId}/variants/${variantId}`);
+  return axios.get(`/api/tests/${testId}/variants/${variantId}/`);
 }
 
 export function sendVariantClassApi(data) {
@@ -82,6 +82,12 @@ export function editEvidenceEntryApi(action) {
     data
   });
 }
+
+export function fetchEvidenceDataApi(action) {
+  const { testId, variantId } = action.payload;
+  return axios.get(`/api/tests/${testId}/variants/${variantId}/evidences`);
+}
+
 
 // export function handleZygosityApi(data) {
 //
