@@ -15,7 +15,12 @@ import {
   getZygosityType
 } from "Store/selectors";
 import { connect } from "react-redux";
-import { setExternalResources, fetchVariantData, setSelectedZygosityType, setTestInformation } from "Actions/variantPageActions";
+import {
+  setExternalResources,
+  fetchVariantData,
+  setSelectedZygosityType,
+  setTestInformation
+} from "Actions/variantPageActions";
 import { createResourcesLinks, getDataArray } from "Utils/helpers";
 import { SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 import queryString from "query-string";
