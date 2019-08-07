@@ -38,7 +38,9 @@ class VariantPage extends Component {
     props.setSelectedZygosityType({selectedZygosityType, testId, variantId});
 
     this.state = {
-      sidebarToggle: true
+      sidebarToggle: true,
+      germlineClassHistoryData: getDataArray(props.germlineClassHistory),
+      somaticClassHistoryData: getDataArray(props.somaticClassHistory)
     };
 
     props.fetchVariantData({ testId, variantId });
@@ -61,8 +63,6 @@ class VariantPage extends Component {
     const {
       externalResources,
       variantData,
-      somaticClassHistory,
-      germlineClassHistory,
       selectedZygosityType
     } = this.props;
     const {testId, variantId} = this.props.match.params;
@@ -110,8 +110,8 @@ class VariantPage extends Component {
               <ClassificationHistoryTable
                 data={
                   selectedZygosityType === "somatic" ?
-                    getDataArray(somaticClassHistory) :
-                    getDataArray(germlineClassHistory)
+                    this.state.somaticClassHistoryData :
+                    this.state.germlineClassHistoryData
                 }
                 typeData={
                   selectedZygosityType === "somatic" ?
