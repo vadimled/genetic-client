@@ -33,12 +33,15 @@ class EvidenceConfig extends Component {
       submitData,
       mode,
       addEvidenceEntry,
-      editEvidenceEntry
+      editEvidenceEntry,
+      openSlidePanel
     } = this.props;
 
     mode === TEXTS.add
       ? addEvidenceEntry(submitData)
       : editEvidenceEntry(submitData);
+  
+    openSlidePanel({ actionSlideBarStatus: false });
   };
 
   handleOnChange = e => {

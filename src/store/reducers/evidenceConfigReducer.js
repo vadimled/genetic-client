@@ -15,7 +15,6 @@ const initialState = {
 const evidenceConfigReducer = createReducer(initialState, {
   [actionsTypes.SET_ACTION_MODE]: (state, { payload }) => {
     let status = {};
-    console.log(payload);
     if (!payload.actionSlideBarStatus && payload.mode !== TEXTS.delete) {
       status = Object.assign(
         {},
