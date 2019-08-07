@@ -6,7 +6,7 @@ import VariantClassificationContainer from "variantComponents/variantClassificat
 import cn from "classnames";
 import PropTypes from "prop-types";
 
-const VariantPageHeader = ({ sidebarToggle, variantData }) => {
+const VariantPageHeader = ({ sidebarToggle, variantData, testId, variantId }) => {
   const { gene, protein, chrPosition, alleleChange, coding, transcript } = variantData || {};
   return (
     <div className={style["variant-page-header-wrapper"]}>
@@ -34,7 +34,7 @@ const VariantPageHeader = ({ sidebarToggle, variantData }) => {
       </div>
 
       <div className={cn(["right-data", { "sidebar-open": sidebarToggle }])}>
-        <VariantClassificationContainer />
+        <VariantClassificationContainer testId={testId} variantId={variantId} />
       </div>
     </div>
   );

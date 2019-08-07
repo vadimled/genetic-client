@@ -14,7 +14,9 @@ function ZygosityTypeButton({
   type,
   onChangeType,
   typeData,
-  currValue
+  currValue,
+  variantId,
+  testId
 }) {
   const [isSelect, setOpen] = useState(true),
     currZygosityFormatted = currentZygosity?.toLowerCase(),
@@ -86,6 +88,9 @@ function ZygosityTypeButton({
       selectedType={selectedZygosityType}
       typeData={typeData}
       currValue={currValue}
+      variantId={variantId}
+      testId={testId}
+      selectedZygosityType={selectedZygosityType}
     />
   );
 }

@@ -11,7 +11,8 @@ import {
   getExternalResources,
   getHistoryGermline,
   getHistorySomatic,
-  getVariantData
+  getVariantData,
+  getZygosityType
 } from "Store/selectors";
 import { connect } from "react-redux";
 import {
@@ -23,15 +24,23 @@ import {
 import { createResourcesLinks, getDataArray } from "Utils/helpers";
 import { SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 import queryString from "query-string";
+import { GERMLINE_VARIANT_CLASS_OPTIONS } from "../../utils/constants";
+
 
 class VariantPage extends Component {
   constructor(props) {
     super(props);
-    const { testId, variantId } = props.match.params;
-    const { selectedZygosityType } = queryString.parse(window.location.search);
+
+    const {testId, variantId} = props.match.params;
+
+    const {selectedZygosityType} = queryString.parse(window.location.search);
+
+    props.setSelectedZygosityType({selectedZygosityType, testId, variantId});
 
     this.state = {
-      sidebarToggle: true
+      sidebarToggle: true,
+      germlineClassHistoryData: getDataArray(props.germlineClassHistory),
+      somaticClassHistoryData: getDataArray(props.somaticClassHistory)
     };
 
     props.fetchVariantData({ testId, variantId });
@@ -42,6 +51,7 @@ class VariantPage extends Component {
     props.setResources(createResourcesLinks(props.variantData));
   }
 
+
   handleClick = () => {
     this.setState({
       sidebarToggle: !this.state.sidebarToggle
@@ -50,7 +60,13 @@ class VariantPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { externalResources, variantData, somaticClassHistory } = this.props;
+    const {
+      externalResources,
+      variantData,
+      selectedZygosityType
+    } = this.props;
+    const {testId, variantId} = this.props.match.params;
+
     return (
       <div className={style["variant-page-wrapper"]}>
         <div
@@ -66,7 +82,7 @@ class VariantPage extends Component {
             iconOpened={<OpenedIcon />}
             iconClosed={<ClosedIcon />}
           >
-            <ExternalResources externalResources={externalResources} />
+            <ExternalResources externalResources={externalResources} selectedZygosityType={selectedZygosityType} />
           </SideBarLayout>
         </div>
 
@@ -80,6 +96,8 @@ class VariantPage extends Component {
             <VariantPageHeader
               sidebarToggle={sidebarToggle}
               variantData={variantData}
+              testId={testId}
+              variantId={variantId}
             />
           </div>
           <div className="main-data">
@@ -90,8 +108,16 @@ class VariantPage extends Component {
               ])}
             >
               <ClassificationHistoryTable
-                data={getDataArray(somaticClassHistory)}
-                typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
+                data={
+                  selectedZygosityType === "somatic" ?
+                    this.state.somaticClassHistoryData :
+                    this.state.germlineClassHistoryData
+                }
+                typeData={
+                  selectedZygosityType === "somatic" ?
+                    SOMATIC_VARIANT_CLASS_OPTIONS :
+                    GERMLINE_VARIANT_CLASS_OPTIONS
+                }
               />
             </div>
             <div className="evidence" />
@@ -109,14 +135,15 @@ const mapStateToProps = state => {
     variantData: getVariantData(state),
     germlineClassHistory: getHistoryGermline(state),
     somaticClassHistory: getHistorySomatic(state),
-    externalResources: getExternalResources(state)
+    externalResources: getExternalResources(state),
+    selectedZygosityType: getZygosityType(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     setResources: data => dispatch(setExternalResources(data)),
-    fetchVariantData: data => dispatch(fetchVariantData(data)),
+    fetchVariantData: () => dispatch(fetchVariantData()),
     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
     setTestInformation: data => dispatch(setTestInformation(data))
   };
