@@ -79,6 +79,7 @@ const ActionAddEditEvidence = ({
             value={descriptionValue}
             name={"evidenceDescriptionTextarea"}
             onChange={onChange}
+            placeholder={"Type here"}
             data-testid={"evidence-description-textarea"}
           />
         </div>

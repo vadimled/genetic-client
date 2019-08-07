@@ -3,8 +3,8 @@ import * as Sentry from "@sentry/browser";
 import {
   ALERT_STATUSES,
   ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS,
-} from 'Utils/constants';
+  VALIDATION_FAILD_FIELDS
+} from "Utils/constants";
 import {
   fetchBAMFile,
   goToChrPositionIgv,
@@ -13,7 +13,8 @@ import {
   editResult,
   fetchTestDataApi,
   fetchVariantDataApi,
-  sendVariantClassApi
+  sendVariantClassApi,
+  addEvidenceEntryApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -42,10 +43,13 @@ import {
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { setTestData } from "Actions/testActions";
 import { setMutationType } from "Actions/variantsActions";
-import { setVariantData, setVariantClassification } from "Actions/variantPageActions";
+import {
+  setVariantData,
+  setVariantClassification,
+  setNewEvidenceEntry,
+  setEditedEvidenceEntry
+} from "Actions/variantPageActions";
 import { zygosityType, setPriority } from "Utils/helpers";
-
-
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -295,17 +299,14 @@ export function* resultConfigEditResultGenerator(data) {
   }
 }
 
-
 export function* fetchTableData() {
   try {
     const result = generateDNAVariantTableMockData(500);
 
-    for(let item in result){
-
+    for (let item in result) {
       const record = result[item];
 
       setPriority(record);
-
     }
 
     yield put(setDataToStore(result));
@@ -316,10 +317,10 @@ export function* fetchTableData() {
 }
 
 export function* handleZygositySaga(data) {
-  try{
+  try {
     const result = yield call(sendVariantClassApi, data);
 
-    const {record, value} = data.payload;
+    const { record, value } = data.payload;
 
     const newRecord = Object.assign({}, record);
 
@@ -328,13 +329,14 @@ export function* handleZygositySaga(data) {
     setPriority(newRecord);
 
     if (result?.status === 200) {
-      yield put(setZygosity({
-        ...data.payload,
-        record: newRecord
-      }));
+      yield put(
+        setZygosity({
+          ...data.payload,
+          record: newRecord
+        })
+      );
     }
-  }
-  catch (e) {
+  } catch (e) {
     console.log("-err: ", e);
   }
 }
@@ -374,6 +376,31 @@ export function* sendVariantClassGenerator(variantClass) {
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["sendVariantClassGenerator"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* addEvidenceEntrySaga(data) {
+  console.log(data.payload);
+  try {
+    const result = yield call(addEvidenceEntryApi, data);
+    yield put(setNewEvidenceEntry(result.data));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["addEvidenceEntrySaga"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* editEvidenceEntrySaga(data) {
+  try {
+    const result = yield call(editEvidenceEntryApi, data);
+    yield put(setEditedEvidenceEntry(result?.data));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["editEvidenceEntrySaga"]);
       Sentry.captureException(e);
     });
   }

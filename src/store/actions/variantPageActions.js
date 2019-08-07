@@ -48,3 +48,17 @@ export const setTestInformation = data => {
     payload: data
   };
 };
+
+export const setNewEvidenceEntry = data => {
+  return {
+    type: actionsTypes.SET_NEW_EVIDENCE_ENTRY,
+    payload: data
+  };
+};
+
+export const setEditedEvidenceEntry = data => {
+  return {
+    type: actionsTypes.SET_EDITED_EVIDENCE_ENTRY,
+    payload: data
+  };
+};

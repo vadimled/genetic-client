@@ -14,3 +14,18 @@ export const setEvidenceActionData = data => {
   };
 };
 
+export const addEvidenceEntry = data => {
+  return {
+    type: actionsTypes.ADD_EVIDENCE_ENTRY,
+    payload: data
+  };
+};
+
+export const editEvidenceEntry = data => {
+  return {
+    type: actionsTypes.EDIT_EVIDENCE_ENTRY,
+    payload: data
+  };
+};
+
+

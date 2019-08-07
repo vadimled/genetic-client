@@ -168,7 +168,7 @@ const initialState = {
       analystName: "Taly Yafe",
       class: "VUS"
     }
-  },
+  }
 };
 
 const variantPageReducer = createReducer(initialState, {
@@ -212,6 +212,36 @@ const variantPageReducer = createReducer(initialState, {
     return {
       ...state,
       ...payload
+    };
+  },
+
+  [actionsTypes.SET_NEW_EVIDENCE_ENTRY]: (state, { payload }) => {
+    console.log(payload, state.currentZygosity);
+    const { id } = payload;
+    const newDataContent = payload;
+    delete newDataContent.id;
+    const targetData =
+      state.currentZygosity.toLowerCase() === TEXTS.germline
+        ? {
+          ...state.germline_evidence,
+          [id]: newDataContent
+        }
+        : {
+          ...state.somatic_evidence,
+          [id]: newDataContent
+        };
+    console.log("targetData - ", targetData);
+
+    return {
+      ...state,
+      germline_evidence: targetData
+    };
+  },
+
+  [actionsTypes.SET_EDITED_EVIDENCE_ENTRY]: (state, { payload }) => {
+    console.log(payload, state.currentZygosity);
+    return {
+      ...state
     };
   }
 });

@@ -53,7 +53,12 @@ class VariantPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
-    const { externalResources, variantData, somaticClassHistory , somaticEvidence } = this.props;
+    const {
+      externalResources,
+      variantData,
+      somaticClassHistory,
+      germlineEvidence
+    } = this.props;
     return (
       <div className={style["variant-page-wrapper"]}>
         <div
@@ -104,7 +109,7 @@ class VariantPage extends Component {
               ])}
             >
               <EvidenceContainer
-                data={somaticEvidence}
+                data={germlineEvidence}
                 typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
               />
             </div>

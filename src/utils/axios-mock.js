@@ -23,7 +23,7 @@ if (mock) {
     }
   });
 
-  mock.onGet(/\/api\/tests\/.+\/variant\/.+/).reply(200, {
+  mock.onGet(/\/api\/tests\/.+\/variants\/.+/).reply(200, {
     // /api/tests/GS00115NP050818_TS1_01/variant/1gr3ekk8qbb29u5vljto219bn
     currentZygosity: "Homo",
     germline_variant_class: "LPATH",
@@ -32,5 +32,20 @@ if (mock) {
     somatic_evidence
   });
 
-  mock.onPatch(/\/api\/tests\/.+\/variant\/.+/).reply(200);
+  mock.onPatch(/\/api\/tests\/.+\/variants\/.+/).reply(200);
+  
+  mock.onPost(/\/api\/tests\/.+\/variants\/.+\/evidences/).reply(200, {
+    id:"vadimmall3xfe2gzdmlnw067",
+    category: "In Silico predictor",
+    source: "http://example.com",
+    key: 10,
+    created_at: "7/August/2019",
+    user: {
+      user_id: "dsfafdasfdas",
+      name: "Vadim Malckin",
+      pic_url: ""
+    },
+    description:"This is the test description for mock add the new entry",
+    level: "BP3"
+  });
 }

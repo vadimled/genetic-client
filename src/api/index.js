@@ -51,13 +51,35 @@ export function fetchTestDataApi(id) {
 
 export function fetchVariantDataApi(data) {
   const { testId, variantId } = data.payload;
-  return axios.get(`/api/tests/${testId}/variant/${variantId}`);
+  return axios.get(`/api/tests/${testId}/variants/${variantId}`);
 }
 
 export function sendVariantClassApi(data) {
   const { testId, variantId, name, value } = data.payload;
-  return axios.patch(`/api/tests/${testId}/variant/${variantId}`, {
+  return axios.patch(`/api/tests/${testId}/variants/${variantId}`, {
     [name]: value
+  });
+}
+
+export function addEvidenceEntryApi(action) {
+  const {
+    ids: { testId, variantId },
+    data
+  } = action.payload;
+
+  return axios.post(`/api/tests/${testId}/variants/${variantId}/evidences`, {
+    data
+  });
+}
+
+export function editEvidenceEntryApi(action) {
+  const {
+    ids: { testId, variantId },
+    data
+  } = action.payload;
+
+  return axios.post(`/api/tests/${testId}/variants/${variantId}/evidences`, {
+    data
   });
 }
 
@@ -67,7 +89,7 @@ export function sendVariantClassApi(data) {
 //
 //   console.log(item, value, testId);
 //
-//   return axios.patch(`/api/tests/${testId}/variant/${item.id}`, {
+//   return axios.patch(`/api/tests/${testId}/variants/${item.id}`, {
 //     zygosity: value
 //   });
 // }

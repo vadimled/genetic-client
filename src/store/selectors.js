@@ -311,7 +311,7 @@ export const getSomaticEvidence = state =>
   getEvidenceDescription = state =>
     state.variantPage.evidenceConfig.evidenceDescriptionTextarea,
   
-  getAddSubmitData = createSelector(
+  getSubmitData = createSelector(
     getEvidenceTypeSelect,
     getEvidenceSourceInput,
     getEvidenceLevelSelect,

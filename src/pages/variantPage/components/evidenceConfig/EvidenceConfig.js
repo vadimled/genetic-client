@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import {
+  setEvidenceActionData,
   setEvidenceActionMode,
-  setEvidenceActionData
+  addEvidenceEntry,
+  editEvidenceEntry
 } from "Actions/evidenceConfigActions";
 import {
+  getSubmitData,
   getEvidenceConfigId,
   getEvidenceConfigIsOpen,
   getEvidenceConfigMode,
   getEvidenceDescription,
   getEvidenceLevelSelect,
   getEvidenceSourceInput,
-  getEvidenceTypeSelect,
-  getAddSubmitData
+  getEvidenceTypeSelect
 } from "Store/selectors";
 import { connect } from "react-redux";
 import SlideBar from "GenericComponents/slideBar";
@@ -27,12 +29,21 @@ class EvidenceConfig extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.props.addSubmit);
+    const {
+      submitData,
+      mode,
+      addEvidenceEntry,
+      editEvidenceEntry
+    } = this.props;
+
+    mode === TEXTS.add
+      ? addEvidenceEntry(submitData)
+      : editEvidenceEntry(submitData);
   };
 
   handleOnChange = e => {
     const { name, value } = e.target;
-    this.props.setEvidenceActionData({[name]: value});
+    this.props.setEvidenceActionData({ [name]: value });
   };
 
   render() {
@@ -74,14 +85,16 @@ const mapStateToProps = state => {
     evidenceSourceInput: getEvidenceSourceInput(state),
     evidenceLevelSelect: getEvidenceLevelSelect(state),
     evidenceDescriptionTextarea: getEvidenceDescription(state),
-    addSubmit: getAddSubmitData(state),
+    submitData: getSubmitData(state)
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     openSlidePanel: status => dispatch(setEvidenceActionMode(status)),
-    setEvidenceActionData: status => dispatch(setEvidenceActionData(status))
+    setEvidenceActionData: status => dispatch(setEvidenceActionData(status)),
+    addEvidenceEntry: data => dispatch(addEvidenceEntry(data)),
+    editEvidenceEntry: data => dispatch(editEvidenceEntry(data))
   };
 };
 
