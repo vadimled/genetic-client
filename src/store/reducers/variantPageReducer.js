@@ -216,25 +216,19 @@ const variantPageReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_NEW_EVIDENCE_ENTRY]: (state, { payload }) => {
-    console.log(payload, state.currentZygosity);
     const { id } = payload;
-    const newDataContent = payload;
-    delete newDataContent.id;
-    const targetData =
+    delete payload.id;
+
+    const
+      targetDataName =
       state.currentZygosity.toLowerCase() === TEXTS.germline
-        ? {
-          ...state.germline_evidence,
-          [id]: newDataContent
-        }
-        : {
-          ...state.somatic_evidence,
-          [id]: newDataContent
-        };
-    console.log("targetData - ", targetData);
+        ? "germline_evidence"
+        : "somatic_evidence",
+      targetData = { ...state[targetDataName], [id]: payload };
 
     return {
       ...state,
-      germline_evidence: targetData
+      [targetDataName]: targetData
     };
   },
 

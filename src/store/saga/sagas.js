@@ -382,7 +382,6 @@ export function* sendVariantClassGenerator(variantClass) {
 }
 
 export function* addEvidenceEntrySaga(data) {
-  console.log(data.payload);
   try {
     const result = yield call(addEvidenceEntryApi, data);
     yield put(setNewEvidenceEntry(result.data));
@@ -395,6 +394,7 @@ export function* addEvidenceEntrySaga(data) {
 }
 
 export function* editEvidenceEntrySaga(data) {
+  console.log(data.payload);
   try {
     const result = yield call(editEvidenceEntryApi, data);
     yield put(setEditedEvidenceEntry(result?.data));
