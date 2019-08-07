@@ -74,11 +74,11 @@ export function addEvidenceEntryApi(action) {
 
 export function editEvidenceEntryApi(action) {
   const {
-    ids: { testId, variantId },
+    ids: { testId, variantId, evidenceId },
     data
   } = action.payload;
 
-  return axios.post(`/api/tests/${testId}/variants/${variantId}/evidences`, {
+  return axios.put(`/api/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`, {
     data
   });
 }

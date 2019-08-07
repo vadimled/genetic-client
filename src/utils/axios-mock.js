@@ -48,4 +48,19 @@ if (mock) {
     description:"This is the test description for mock add the new entry",
     level: "BP3"
   });
+  
+  mock.onPut(/\/api\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200, {
+    id:"1gzhbamall3xfe2gzdmlnw9aj",
+    category: "Publications",
+    source: "http://en.Wikipedia/wiki/DNA",
+    key: 0,
+    created_at: "7/August/2019",
+    user: {
+      user_id: "dsfafdasfdas",
+      name: "Van Disel",
+      pic_url: ""
+    },
+    description:"This is the test description for mock edit the existed entry",
+    level: "BP1"
+  });
 }

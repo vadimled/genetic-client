@@ -14,7 +14,8 @@ import {
   fetchTestDataApi,
   fetchVariantDataApi,
   sendVariantClassApi,
-  addEvidenceEntryApi
+  addEvidenceEntryApi,
+  editEvidenceEntryApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -394,10 +395,9 @@ export function* addEvidenceEntrySaga(data) {
 }
 
 export function* editEvidenceEntrySaga(data) {
-  console.log(data.payload);
   try {
     const result = yield call(editEvidenceEntryApi, data);
-    yield put(setEditedEvidenceEntry(result?.data));
+    yield put(setEditedEvidenceEntry(result.data));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["editEvidenceEntrySaga"]);

@@ -318,9 +318,10 @@ export const getSomaticEvidence = state =>
     getEvidenceDescription,
     getVariantPageTestId,
     getVariantId,
-    (category, source, level, description, testId, variantId) => {
+    getEvidenceConfigId,
+    (category, source, level, description, testId, variantId, evidenceId) => {
       return {
-        ids: { testId, variantId },
+        ids: { testId, variantId, evidenceId },
         data: { category, source, level, description }
       };
     }

@@ -19,11 +19,6 @@ import TableActions from "variantComponents/evidenceContainer/components/tableAc
 class EvidenceTable extends Component {
   constructor(props) {
     super(props);
-    const { category, tabContent } = props;
-
-    this.data = createTableData(category, tabContent);
-
-    console.log(this.data);
 
     this.state = {
       columns: [
@@ -73,7 +68,7 @@ class EvidenceTable extends Component {
   };
 
   columnsConverter = columns => {
-    const { handleDeleteEntry,  handleEditEntry} = this.props;
+    const { handleDeleteEntry, handleEditEntry } = this.props;
     return columns.map((col, index) => {
       let column = {
         ...col,
@@ -103,8 +98,8 @@ class EvidenceTable extends Component {
         column.render = (text, obj) => {
           return (
             <TableActions
-              onDelete={(e) => handleDeleteEntry(e, obj.id)}
-              onEdit={(e) => handleEditEntry(e, obj.id)}
+              onDelete={e => handleDeleteEntry(e, obj.id)}
+              onEdit={e => handleEditEntry(e, obj.id)}
             />
           );
         };
@@ -122,7 +117,10 @@ class EvidenceTable extends Component {
   };
 
   render() {
+    const { category, tabContent } = this.props;
+    this.data = createTableData(category, tabContent);
     const { length } = this.data;
+
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
 

@@ -233,9 +233,19 @@ const variantPageReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_EDITED_EVIDENCE_ENTRY]: (state, { payload }) => {
-    console.log(payload, state.currentZygosity);
+    const { id } = payload;
+    delete payload.id;
+    
+    const
+      targetDataName =
+        state.currentZygosity.toLowerCase() === TEXTS.germline
+          ? "germline_evidence"
+          : "somatic_evidence";
+   
+    const targetData = { ...state[targetDataName], [id]: payload };
     return {
-      ...state
+      ...state,
+      [targetDataName]: targetData
     };
   }
 });
