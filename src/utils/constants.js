@@ -391,3 +391,35 @@ export const VALIDATION_FAILD_FIELDS = {
   primer: "primer",
   fragmentSize: "fragmentSize"
 };
+
+
+export const EXTERNAL_RESOURCES_GERMLINE = [
+  "UCSC",
+  "ClinVar",
+  "ICGC",
+  "OncoKB",
+  "PMKB",
+  "Uniport",
+  "Varsome",
+  "dnSNP",
+  "gnomAD",
+  "Pubmed",
+  "Google Scholar",
+  "Damaging score"
+];
+
+export const EXTERNAL_RESOURCES_SOMATIC = [
+  "UCSC",
+  "ClinVar",
+  "ICGC",
+  "OncoKB",
+  "PMKB",
+  "Uniport",
+  "Varsome",
+  "dnSNP",
+  "gnomAD",
+  "COSMIC",
+  "Pubmed",
+  "Google Scholar",
+  "Damaging score"
+];

@@ -20,6 +20,7 @@ import {
   getVariantId
 } from "Store/selectors";
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
+// import { withRouter } from "react-router-dom";
 
 class VariantClassificationContainer extends React.Component {
   onChangeType = (e, id) => {
@@ -50,8 +51,12 @@ class VariantClassificationContainer extends React.Component {
       selectedZygosityType,
       somaticValue,
       germlineValue,
-      currentZygosityType
+      currentZygosityType,
+      testId,
+      variantId
     } = this.props;
+
+
     return (
       <div className={style["zygosity-type-wrapper"]}>
         <div className="current-zygosity-wrapper">
@@ -68,6 +73,8 @@ class VariantClassificationContainer extends React.Component {
               onChangeType={this.onChangeType}
               title={TEXTS.germlineUp}
               typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
+              testId={testId}
+              variantId={variantId}
             />
           </div>
           <ZygosityTypeButton
@@ -78,6 +85,8 @@ class VariantClassificationContainer extends React.Component {
             onChangeType={this.onChangeType}
             title={TEXTS.somaticUp}
             typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
+            testId={testId}
+            variantId={variantId}
           />
         </div>
       </div>
