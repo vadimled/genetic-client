@@ -5,7 +5,17 @@ import style from "./NonActiveButton.module.scss";
 import LabeledTag from "GenericComponents/labeledTag";
 import { Link } from "react-router-dom";
 
-const NonActiveButton = ({ title, type, onClick, typeData, currValue, testId, variantId, selectedZygosityType, selectedType }) => {
+const NonActiveButton = ({
+  title,
+  type,
+  onClick,
+  typeData,
+  currValue,
+  testId,
+  variantId,
+  selectedZygosityType,
+  selectedType
+}) => {
 
   const getTaggedLabel = typeData => {
     for (let item in typeData) {
