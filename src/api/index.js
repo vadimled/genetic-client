@@ -54,9 +54,16 @@ export function fetchVariantDataApi(data) {
   return axios.get(`/api/tests/${testId}/variant/${variantId}`);
 }
 
-export function sendVariantClassApi(data) {
-  const { testId, variantId, name, value } = data.payload;
-  return axios.patch(`/api/tests/${testId}/variant/${variantId}`, {
+export function updateVariantApi(data) {
+
+  console.log("---hjere: ", data)
+
+  const temporaryUrl = "http://localhost:20211/tests/5d4adfb6a1e39700120ad5f2/variants/5d4adfb6a1e39700120ad5f3"
+
+
+
+  const { name, value } = data.payload;
+  return axios.patch(temporaryUrl, {
     [name]: value
   });
 }

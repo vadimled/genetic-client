@@ -13,7 +13,7 @@ import {
   editResult,
   fetchTestDataApi,
   fetchVariantDataApi,
-  sendVariantClassApi
+  updateVariantApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -317,7 +317,9 @@ export function* fetchTableData() {
 
 export function* handleZygositySaga(data) {
   try{
-    const result = yield call(sendVariantClassApi, data);
+    const result = yield call(updateVariantApi, data);
+
+    console.log("--result: ", result)
 
     const {record, value} = data.payload;
 
@@ -367,7 +369,10 @@ export function* fetchVariantDataGenerator(data) {
 
 export function* sendVariantClassGenerator(variantClass) {
   try {
-    const result = yield call(sendVariantClassApi, variantClass);
+    const result = yield call(updateVariantApi, variantClass);
+
+    console.log("--result: ", result)
+
     if (result?.status === 200) {
       yield put(setVariantClassification(variantClass.payload));
     }
