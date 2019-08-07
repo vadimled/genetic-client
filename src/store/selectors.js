@@ -4,6 +4,10 @@ import isEmpty from "lodash.isempty";
 import { SORTING_ORDER } from "../utils/constants";
 
 export const getFilterType = state => state?.filters?.[FILTERS.type],
+  getFilterZygosity = state =>
+    state?.filters?.[FILTERS.zygosity],
+  getFilterEffect = state =>
+    state?.filters?.[FILTERS.effect],
   getFilterVariantClass = state =>
            state?.filters?.[FILTERS.variantClassGermline],
   getFilterSomaticClass = state =>
@@ -52,12 +56,14 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getZygosityType = state => state.variantPage.selectedZygosityType,
   getCurrentZygosityType = state => state.variantPage.currentZygosity,
 
-  getSomaticValue = state => state.variantPage.valueSomatic,
-  getGermlineValue = state => state.variantPage.valueGermline,
+  getSomaticValue = state => state.variantPage.somatic_variant_class,
+  getGermlineValue = state => state.variantPage.germline_variant_class,
   getExternalResources = state => state.variantPage.externalResources,
   getVariantData = state => state.variantPage.variantData,
   getHistorySomatic = state => state.variantPage.somaticClassHistory,
   getHistoryGermline = state => state.variantPage.germlineClassHistory,
+  getVariantId = state => state.variantPage.variantId,
+  getVariantPageTestId = state => state.variantPage.testId,
 
   getSortParam = state => state?.table?.sortParam,
   getSortOrder = state => state?.table?.sortOrder,
@@ -121,6 +127,9 @@ const getAppliedFilters = createSelector(
   getFilterVaf,
   getFilterCancerDBs,
   getFilterGnomId,
+  getFilterZygosity,
+  getFilterEffect,
+
   (
     type,
     variantClass,
@@ -130,7 +139,9 @@ const getAppliedFilters = createSelector(
     roi,
     vaf,
     cancerDBs,
-    gnomFilter
+    gnomFilter,
+    zygosity,
+    effect
   ) => {
     const filters = {
       ...(variantClass.length && {
@@ -171,7 +182,15 @@ const getAppliedFilters = createSelector(
             }
           });
         }
-      })
+      }),
+      ...(zygosity.length && {
+        zygosity: item =>
+          zygosity.some(filter => item.zygosity === filter)
+      }),
+      ...(effect.length && {
+        effect: item =>
+          effect.some(filter => item.effect === filter)
+      }),
     };
 
     return filters;

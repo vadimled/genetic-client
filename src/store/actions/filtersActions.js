@@ -63,6 +63,20 @@ export const setFilterGnomId = data => {
   };
 };
 
+export const setFilterZygosity = data => {
+  return {
+    type: actionsTypes.SET_FILTER_ZYGOSITY,
+    payload: data
+  };
+};
+
+export const setFilterEffect = data => {
+  return {
+    type: actionsTypes.SET_FILTER_EFFECT,
+    payload: data
+  };
+};
+
 export const getFilteredData = data => {
   return {
     type: actionsTypes.GET_FILTERED_DATA,

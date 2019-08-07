@@ -15,7 +15,7 @@ import {
   handleSelectedRow,
   handleSelectAllRows,
   tableDataAddResult,
-  fetchData
+  fetchTableData
 } from "Actions/tableActions";
 import {
   getSelectedRows,
@@ -51,7 +51,7 @@ const initSteps = () => {
 
   // drop all selected rows
 
-  store.dispatch(fetchData());
+  store.dispatch(fetchTableData());
   // store.dispatch(handleSelectAllRows(false));
 
   // 1) - 2) ->

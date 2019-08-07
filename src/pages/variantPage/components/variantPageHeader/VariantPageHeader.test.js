@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { setZygosityType } from "Actions/variantPageActions";
 
 describe("VariantPageHeader ", () => {
-  let getByTestId, store;
+  let getByTestId;
   const variantData = {
     gene: "A1CF",
     protein: "p.Leu2303Leu",
@@ -25,8 +25,8 @@ describe("VariantPageHeader ", () => {
     DamagingScore: "TTCATGAGAGAAGGTGAGTGG",
     dataId: "k5wp5amernh84pvsygjji9ljz",
     type: "somatic",
-    valueSomatic: "unclassified",
-    valueGermline: "unclassified"
+    somatic_variant_class: "unclassified",
+    germline_variant_class: "unclassified"
   };
 
   beforeEach(() => {
@@ -37,7 +37,6 @@ describe("VariantPageHeader ", () => {
 
     );
     getByTestId = queries.getByTestId;
-    store = queries.store;
   });
 
   it("should - received text be equal to text of textField (Gene)  ", () => {

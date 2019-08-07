@@ -23,13 +23,13 @@ import {
   getTumorInfoMode
 } from "Store/selectors";
 import { setAlert } from "Actions/alertActions";
-import { fetchCaseData } from "Actions/testActions";
+import { fetchTestData } from "Actions/testActions";
 
 class MainPage extends Component {
   constructor(props) {
     super(props);
   
-    props.fetchCaseData("GS00115NP050818_TS1_01");
+    props.fetchTestData("GS00115NP050818_TS1_01");
   
     this.state = {
       sidebarToggle: true
@@ -116,7 +116,7 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     setAlert: data => dispatch(setAlert(data)),
-    fetchCaseData: id => dispatch(fetchCaseData(id))
+    fetchTestData: id => dispatch(fetchTestData(id))
   };
 }
 

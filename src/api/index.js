@@ -45,10 +45,29 @@ export function editResult (data) {
   return mockResult;
 }
 
-export function fetchCaseDataApi(id) {
-  return axios.get(`/tests/${id}`);
+export function fetchTestDataApi(id) {
+  return axios.get(`/api/tests/${id.payload}`);
 }
 
-export function fetchVariantDataApi() {
-  return axios.get(`/variant/`);
+export function fetchVariantDataApi(data) {
+  const { testId, variantId } = data.payload;
+  return axios.get(`/api/tests/${testId}/variant/${variantId}`);
 }
+
+export function sendVariantClassApi(data) {
+  const { testId, variantId, name, value } = data.payload;
+  return axios.patch(`/api/tests/${testId}/variant/${variantId}`, {
+    [name]: value
+  });
+}
+
+// export function handleZygosityApi(data) {
+//
+//   const { item, value, testId } = data.payload;
+//
+//   console.log(item, value, testId);
+//
+//   return axios.patch(`/api/tests/${testId}/variant/${item.id}`, {
+//     zygosity: value
+//   });
+// }

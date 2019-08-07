@@ -16,7 +16,9 @@ import {
   getFilterCancerDBs,
   getFilterGnomId,
   getSearchQuery,
-  getTestType
+  getTestType,
+  getFilterZygosity,
+  getFilterEffect
 } from "Store/selectors";
 import {
   setFilterVariantClassGermline,
@@ -28,7 +30,9 @@ import {
   setFilterCancerDBs,
   setFilterGnomId,
   clearFilterSection,
-  setDefaultFilters
+  setDefaultFilters,
+  setFilterZygosity,
+  setFilterEffect
 } from "Actions/filtersActions";
 import { FILTERS } from "Utils/constants";
 import style from "./SidebarFilters.module.scss";
@@ -70,7 +74,9 @@ class SidebarFilters extends Component {
       setFilterRoi,
       setFilterVaf,
       setFilterCancerDBs,
-      setFilterGnomId
+      setFilterGnomId,
+      setFilterZygosity,
+      setFilterEffect
     } = this.props;
 
     const data = {
@@ -103,11 +109,18 @@ class SidebarFilters extends Component {
       case FILTERS.gnomAD:
         setFilterGnomId(data);
         break;
+      case FILTERS.zygosity:
+        setFilterZygosity(data);
+        break;
+      case FILTERS.effect:
+        setFilterEffect(data);
+        break;
     }
   };
 
   filtersConfigConverter = initFilters => {
     return {
+      [FILTERS.zygosity]: initFilters[FILTERS.zygosity],
       [FILTERS.variantClassGermline]: initFilters[FILTERS.variantClassGermline],
       [FILTERS.variantClassSomatic]: initFilters[FILTERS.variantClassSomatic],
       ["variantPanels"]: {
@@ -121,7 +134,8 @@ class SidebarFilters extends Component {
       [FILTERS.roi]: initFilters[FILTERS.roi],
       [FILTERS.vaf]: initFilters[FILTERS.vaf],
       [FILTERS.cancerDBs]: initFilters[FILTERS.cancerDBs],
-      [FILTERS.gnomAD]: initFilters[FILTERS.gnomAD]
+      [FILTERS.gnomAD]: initFilters[FILTERS.gnomAD],
+      [FILTERS.effect]: initFilters[FILTERS.effect]
     };
   };
 
@@ -178,7 +192,7 @@ class SidebarFilters extends Component {
         })}
 
         <Collapse
-          defaultActiveKey={["1", "2", "3", "4", "5", "6", "7"]}
+          defaultActiveKey={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
           onChange={callback}
           expandIcon={({ isActive }) => (
             <Arrow dir={!isActive ? "right" : "down"} />
@@ -265,7 +279,9 @@ function mapStateToProps(state) {
       [FILTERS.vaf]: getFilterVaf(state),
       [FILTERS.cancerDBs]: getFilterCancerDBs(state),
       [FILTERS.gnomAD]: getFilterGnomId(state),
-      [FILTERS.searchText]: [getSearchQuery(state)]
+      [FILTERS.searchText]: [getSearchQuery(state)],
+      [FILTERS.zygosity]: getFilterZygosity(state),
+      [FILTERS.effect]: getFilterEffect(state)
     },
     testType: getTestType(state)
   };
@@ -282,7 +298,9 @@ function mapDispatchToProps(dispatch) {
     setFilterCancerDBs: data => dispatch(setFilterCancerDBs(data)),
     setFilterGnomId: data => dispatch(setFilterGnomId(data)),
     clearFilterSection: data => dispatch(clearFilterSection(data)),
-    setDefaultFilters: data => dispatch(setDefaultFilters(data))
+    setDefaultFilters: data => dispatch(setDefaultFilters(data)),
+    setFilterZygosity: data => dispatch(setFilterZygosity(data)),
+    setFilterEffect: data => dispatch(setFilterEffect(data))
   };
 }
 export default connect(

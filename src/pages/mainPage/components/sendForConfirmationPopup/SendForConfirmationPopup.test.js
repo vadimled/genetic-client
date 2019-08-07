@@ -11,7 +11,7 @@ import { ALERT_STATUSES } from 'Utils/constants';
 import {
   handleSelectedRow,
   handleSelectAllRows,
-  fetchData
+  fetchTableData
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
@@ -45,7 +45,7 @@ const initSteps = () => {
 
   // drop all selected rows
 
-  store.dispatch(fetchData());
+  store.dispatch(fetchTableData());
   store.dispatch(handleSelectAllRows(false));
 
   // 1) - 2) ->

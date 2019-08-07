@@ -21,7 +21,9 @@ export const FILTERS = {
   vaf: "vaf",
   gnomAD: "gnomAD",
   cancerDBs: "canserBDs",
-  searchText: "searchText"
+  searchText: "searchText",
+  zygosity: "zygosity",
+  effect: "effect"
 };
 
 export const TEXTS = {
@@ -70,7 +72,8 @@ export const ZYGOSITY_OPTIONS = [
   { value: "insignificant", label: "Insignificant" },
   { value: "somatic", label: "Somatic" },
   { value: "notReal", label: "Not-Real" },
-  { value: "unknown", label: "Unknown" }
+  { value: "unknown", label: "Unknown" },
+  { value: "notDefined", label: "Not Defined" }
 ];
 /* Germline - for Homo, Hetro and Hemi.
   Somatic - for Somatic.
@@ -88,6 +91,25 @@ export const ZYGOSITY_TYPES = [
   { value: "notReal", label: "Not-Real" },
   { value: "unknown", label: "Unknown" }
 ];
+
+export const ZYGOSITY = {
+  homo: { value: "homo", label: "Homo" },
+  hetro: { value: "hetro", label: "Hetro" },
+  insignificant: { value: "insignificant", label: "Insignificant" },
+  somatic: { value: "somatic", label: "Somatic" },
+  notReal: { value: "notReal", label: "Not Real" },
+  unknown: { value: "unknown", label: "Unknown" },
+  hemi: { value: "hemi", label: "Hemi" },
+  notDefined: { value: "notDefined", label: "Not Defined" },
+};
+
+export const EFFECT = {
+  high: { value: "high", label: "High" },
+  modifier: { value: "modifier", label: "Modifier" },
+  insignificant: { value: "insignificant", label: "Insignificant" },
+  moderate: { value: "moderate", label: "Moderate" },
+  low: { value: "low", label: "Low" },
+};
 
 export const VARIANT_CLASS_GERMLINE = {
   unclassified: {
