@@ -56,9 +56,8 @@ export function fetchVariantDataApi(data) {
 
 export function updateVariantApi(data) {
 
-  console.log("---hjere: ", data)
 
-  const temporaryUrl = "http://localhost:20211/tests/5d4adfb6a1e39700120ad5f2/variants/5d4adfb6a1e39700120ad5f3"
+  const temporaryUrl = "http://localhost:20211/tests/5d4adfb6a1e39700120ad5f2/variants/5d4adfb6a1e39700120ad5f3";
 
 
 
