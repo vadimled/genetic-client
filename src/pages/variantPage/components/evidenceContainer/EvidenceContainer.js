@@ -30,6 +30,14 @@ class EvidenceContainer extends Component {
     };
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.id && state.deleteId && props.id === state.deleteId) {
+      props.deleteEvidenceEntry(props.deleteData);
+      return { isDelete: !state.isDelete, deleteId: null };
+    }
+    return null;
+  }
+
   handleAddEvidence = () => {
     this.props.onAction({
       actionSlideBarStatus: true,
@@ -52,15 +60,11 @@ class EvidenceContainer extends Component {
   };
 
   handleDeleteYes = () => {
-    const { deleteEvidenceEntry, onAction, deleteData } = this.props;
-    onAction({
+    this.props.onAction({
       actionSlideBarStatus: false,
       id: this.state.deleteId,
       mode: TEXTS.delete
     });
-    this.setState({ isDelete: !this.state.isDelete, deleteId: null });
-    deleteData.ids.evidenceId = this.state.deleteId;
-    deleteEvidenceEntry(deleteData);
   };
 
   handleDeleteNo = () => {
