@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 import style from "./VariantPageHeader.module.scss";
 import InformField from "GenericComponents/informField";
-import ExternalLink from "GenericComponents/externalLink";
 import VariantClassificationContainer from "variantComponents/variantClassificationContainer";
 import cn from "classnames";
 import PropTypes from "prop-types";
@@ -19,7 +18,7 @@ const VariantPageHeader = ({ sidebarToggle, variantData, testId, variantId }) =>
             <InformField name="inform-field-protein" text={protein} />
           </div>
           <div className="gene">
-            <InformField name="inform-field-chrPosition" text={chrPosition} icon={<ExternalLink data={""} />} />
+            <InformField name="inform-field-chrPosition" text={chrPosition} />
           </div>
           <div className="gene">
             <InformField name="inform-field-alleleChange" text={alleleChange} />
@@ -28,7 +27,7 @@ const VariantPageHeader = ({ sidebarToggle, variantData, testId, variantId }) =>
             <InformField name="inform-field-coding" text={coding} />
           </div>
           <div className="gene">
-            <InformField name="inform-field-transcript" text={transcript} icon={<ExternalLink data={""} />} />
+            <InformField name="inform-field-transcript" text={transcript} />
           </div>
         </div>
       </div>
