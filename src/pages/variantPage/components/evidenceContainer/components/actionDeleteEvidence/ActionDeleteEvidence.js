@@ -1,37 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import { Button } from "antd";
 import Portal from "GenericComponents/portal";
 import styles from "./ActionDeleteEvidence.module.scss";
-import { getIgvAlertShowAgaing, getIgvLastQuery } from "Store/selectors";
+import { ReactComponent as DeliteIcon } from "Assets/delete.svg";
 
-const ActionDeleteEvidence = () => {
+const ActionDeleteEvidence = ({ onClickYes, onClickNo }) => {
   return (
     <Portal>
-      <div className={styles["action-delete-evidence-"]}>
+      <div className={styles["action-delete-evidence-wrapper"]}>
         <div className="header">
-          <div className="header-title">
-            <span className="warning-sign" />
-            IGV Alert
+          <div className="delete-icon">
+            <DeliteIcon />
           </div>
+          <div className="header-title">Evidence Deletion</div>
         </div>
-        <div className="content">
+        <div className="body-content-wrapper">
+          <div className="body-content">
+            Are you sure you want to <span>erase the evidence?</span>
+          </div>
           <div className="content-footer">
-            <div className="btns">
-              <Button
-                className="igv-alert-btn igv-alert-btn--link"
-                onClick={handleIgvAlertShow.bind(null, false)}
-                data-testid="close-btn"
-              >
-                Cancel
+            <div className="buttons">
+              <Button onClick={onClickNo} data-testid="no-btn">
+                <div className="buttons-text">No</div>
               </Button>
-              <Button
-                className="igv-alert-btn"
-                onClick={retry.bind(null, igvLastQuery)}
-                data-testid="retry-btn"
-              >
-                Retry
+              <Button onClick={onClickYes} data-testid="yes-btn">
+                <div className="buttons-text">Yes</div>
               </Button>
             </div>
           </div>
@@ -42,39 +36,8 @@ const ActionDeleteEvidence = () => {
 };
 
 ActionDeleteEvidence.propTypes = {
-  propName: PropTypes.string
+  onClickYes: PropTypes.func,
+  onClickNo: PropTypes.func
 };
 
-ActionDeleteEvidence.defaultProps = {
-  propName: "DefaultProp"
-};
-
-/*
-const mapDispatchToProps = dispatch => {
-  return {
-    handleIgvAlertShow: (data) => dispatch(handleIgvAlertShow(data)),
-    retry: (igvLastQuery) => {
-      dispatch(handleIgvAlertShow(false));
-      if (igvLastQuery) {
-        const { type, data } = igvLastQuery;
-        if (type === 'BAM_FILE') {
-          dispatch(fetchBAMFile(data));
-        }
-        if (type === 'CHR_POS') {
-          dispatch(goToChrPositionIgv(data));
-        }
-      }
-    },
-    handleIgvAlertShowAgain: (e) => dispatch(handleIgvAlertShowAgain(!e.target.checked))
-  };
-};
-*/
-
-const mapStateToProps = state => {
-  return {
-    isIgvAlertShowAgaing: getIgvAlertShowAgaing(state),
-    igvLastQuery: getIgvLastQuery(state)
-  };
-};
-
-export default connect(mapStateToProps)(React.memo(ActionDeleteEvidence));
+export default React.memo(ActionDeleteEvidence);

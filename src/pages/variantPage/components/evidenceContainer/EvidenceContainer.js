@@ -10,12 +10,17 @@ import EvidenceTable from "variantComponents/evidenceContainer/components/eviden
 import SimpleButton from "GenericComponents/simpleButton";
 import { setEvidenceActionMode } from "Actions/evidenceConfigActions";
 import { TEXTS } from "Utils/constants";
+import ActionDeleteEvidence from "variantComponents/evidenceContainer/components/actionDeleteEvidence";
 
 const { TabPane } = Tabs;
 
 class EvidenceContainer extends Component {
   constructor(props) {
     super(props);
+    
+    this.state = {
+      isDelete: false
+    };
   }
 
   handleAddEvidence = () => {
@@ -41,8 +46,19 @@ class EvidenceContainer extends Component {
       id,
       mode: TEXTS.delete
     });
+    this.setState({isDelete: !this.state.isDelete});
   };
-
+  
+  handleDeleteYes = () => {
+    console.log(this.props);
+    this.setState({isDelete: !this.state.isDelete});
+  };
+  
+  handleDeleteNo = (e) => {
+    console.log(e.target);
+    this.setState({isDelete: !this.state.isDelete});
+  };
+  
   render() {
     const { tabPaneHeaders } = this.props;
     return (
@@ -81,6 +97,12 @@ class EvidenceContainer extends Component {
               );
             })}
         </Tabs>
+        {this.state.isDelete &&
+        <ActionDeleteEvidence
+          onClickYes={this.handleDeleteYes}
+          onClickNo={this.handleDeleteNo}
+        />
+        }
       </div>
     );
   }
