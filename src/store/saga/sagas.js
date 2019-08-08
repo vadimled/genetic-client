@@ -49,9 +49,10 @@ import {
   setVariantData,
   setVariantClassification,
   setNewEvidenceEntry,
-  setEditedEvidenceEntry
+  setEditedEvidenceEntry,
+  setEvidenceData
 } from "Actions/variantPageActions";
-import { zygosityType, setPriority } from "Utils/helpers";
+import { zygosityType, setPriority, getEvidenceData } from "Utils/helpers";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -356,20 +357,6 @@ export function* fetchTestDataGenerator(id) {
   }
 }
 
-export function* fetchVariantDataGenerator(data) {
-  try {
-    const result = yield call(fetchVariantDataApi, data),
-      newData = zygosityType(result?.data);
-    yield put(setVariantData(newData));
-    console.log(result.data);
-  } catch (e) {
-    Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchVariantDataGenerator"]);
-      Sentry.captureException(e);
-    });
-  }
-}
-
 export function* sendVariantClassGenerator(variantClass) {
   try {
     const result = yield call(sendVariantClassApi, variantClass);
@@ -384,11 +371,31 @@ export function* sendVariantClassGenerator(variantClass) {
   }
 }
 
+export function* fetchVariantDataGenerator(data) {
+  try {
+    const result = yield call(fetchVariantDataApi, data),
+      newData = zygosityType(result?.data);
+    yield put(setVariantData(newData));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchVariantDataGenerator"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+
+
+
+
 export function* fetchEvidenceDataSaga(data) {
   try {
     const result = yield call(fetchEvidenceDataApi, data);
     console.log(result.data);
-    yield put(setEvidenceData(result.data));
+    
+    const newData = getEvidenceData(result.data);
+   
+    yield put(setEvidenceData(newData));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchEvidenceDataSaga"]);
@@ -396,6 +403,13 @@ export function* fetchEvidenceDataSaga(data) {
     });
   }
 }
+
+
+
+
+
+
+
 
 export function* addEvidenceEntrySaga(data) {
   try {

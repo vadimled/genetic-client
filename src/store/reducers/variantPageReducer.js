@@ -247,7 +247,15 @@ const variantPageReducer = createReducer(initialState, {
       ...state,
       [targetDataName]: targetData
     };
-  }
+  },
+  
+  [actionsTypes.SET_EVIDENCE_DATA]: (state, { payload }) => {
+    return {
+      ...state,
+      ...payload
+    };
+  },
+  
 });
 
 export default variantPageReducer;

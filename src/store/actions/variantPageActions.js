@@ -42,6 +42,13 @@ export const fetchEvidenceData = data => {
   };
 };
 
+export const setEvidenceData = data => {
+  return {
+    type: actionsTypes.SET_EVIDENCE_DATA,
+    payload: data
+  };
+};
+
 export const sendVariantClass = variantClass => {
   return {
     type: actionsTypes.SEND_VARIANT_CLASS,
