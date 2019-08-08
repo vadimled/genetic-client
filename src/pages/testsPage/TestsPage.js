@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import cn from "classnames";
 // import SidebarFilters from "../mainPage/components/sidebarFilters/SidebarFilters";
 import TableData from "../mainPage/components/tableData/TableData";
+import { fetchTests } from "../../store/actions/testsActions";
 
 
 
@@ -18,6 +19,10 @@ class TestsPage extends Component {
     this.state = {
       sidebarToggle: true,
     };
+  }
+
+  componentDidMount() {
+    this.props.fetchTests()
   }
 
   handleClick = () => {
@@ -49,8 +54,6 @@ class TestsPage extends Component {
             { "sidebar-open": sidebarToggle }
           ])}
         >
-
-
           <TableData />
         </div>
 
@@ -71,16 +74,13 @@ TestsPage.propTypes = {};
 //   };
 // };
 //
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     setResources: data => dispatch(setExternalResources(data)),
-//     fetchVariantData: () => dispatch(fetchVariantData()),
-//     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
-//     setTestInformation: data => dispatch(setTestInformation(data))
-//   };
-// }
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchTests: () => dispatch(fetchTests()),
+  };
+}
 
 export default connect(
   null,
-  {}
+  mapDispatchToProps
 )(TestsPage);

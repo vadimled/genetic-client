@@ -69,4 +69,9 @@ export function updateVariantApi(data) {
   });
 }
 
+export function fetchTestsApi() {
+  return axios.get(`/tests/`);
+}
+
+
 

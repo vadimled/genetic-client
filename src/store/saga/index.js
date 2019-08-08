@@ -15,7 +15,8 @@ import {
   resultConfigEditResultGenerator,
   fetchVariantDataGenerator,
   sendVariantClassGenerator,
-  handleZygositySaga
+  handleZygositySaga,
+  fetchTestsSaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -30,4 +31,5 @@ export function* watchSaga() {
   yield takeLatest(types.RESULT_CONFIG_EDIT_RESULT, resultConfigEditResultGenerator);
   yield takeLatest(types.FETCH_VARIANT_DATA, fetchVariantDataGenerator);
   yield takeLatest(types.SEND_VARIANT_CLASS, sendVariantClassGenerator);
+  yield takeEvery(types.FETCH_TESTS, fetchTestsSaga);
 }

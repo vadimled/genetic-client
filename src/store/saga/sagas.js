@@ -13,7 +13,8 @@ import {
   editResult,
   fetchTestDataApi,
   fetchVariantDataApi,
-  updateVariantApi
+  updateVariantApi,
+  fetchTestsApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -27,6 +28,7 @@ import {
   setDataToStore,
   setZygosity
 } from "Actions/tableActions";
+// import {setTestsToStore} from "Actions/testsActions";
 import {
   handleOnConfirmation,
   setConfirmationData
@@ -310,6 +312,23 @@ export function* fetchTableData() {
 
     yield put(setDataToStore(result));
     // yield put(setLoading(false));
+  } catch (error) {
+    console.log("---error: ", error);
+  }
+}
+
+export function* fetchTestsSaga() {
+  try {
+    const result = yield call(fetchTestsApi);
+
+    console.log("--result: ", result)
+
+    // if (result?.status === 200) {
+    //   yield put(setTestsToStore({
+    //     ...data.payload
+    //   }));
+    // }
+
   } catch (error) {
     console.log("---error: ", error);
   }
