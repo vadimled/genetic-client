@@ -61,10 +61,7 @@ export function fetchVariantDataApi(data) {
 
 export function updateVariantApi(data) {
 
-
   const temporaryUrl = "tests/5d4adfb6a1e39700120ad5f2/variants/5d4adfb6a1e39700120ad5f3";
-
-
 
   const { name, value } = data.payload;
   return axios.patch(temporaryUrl, {
