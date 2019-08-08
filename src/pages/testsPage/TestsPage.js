@@ -6,7 +6,7 @@ import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
 import { connect } from "react-redux";
 import cn from "classnames";
-import SidebarFilters from "../mainPage/components/sidebarFilters/SidebarFilters";
+// import SidebarFilters from "../mainPage/components/sidebarFilters/SidebarFilters";
 import TableData from "../mainPage/components/tableData/TableData";
 
 
@@ -40,7 +40,7 @@ class TestsPage extends Component {
             iconOpened={<OpenedIcon />}
             iconClosed={<ClosedIcon />}
           >
-            <SidebarFilters />
+            <h1>Sidebar</h1>
           </SideBarLayout>
         </div>
         <div
