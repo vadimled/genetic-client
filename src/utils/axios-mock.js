@@ -40,7 +40,7 @@ if (mock) {
     id: "vadimmall3xfe2gzdmlnw067",
     category: "In Silico predictor",
     source: "http://example.com",
-    key: 10,
+    key: 1,
     created_at: "7/August/2019",
     user: {
       user_id: "dsfafdasfdas",
@@ -48,7 +48,8 @@ if (mock) {
       pic_url: ""
     },
     description: "This is the test description for mock add the new entry",
-    level: "BP3"
+    level: "A3",
+    classification: "somatic"
   });
 
   mock.onPut(/\/api\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200, {

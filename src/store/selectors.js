@@ -310,7 +310,6 @@ export const getSomaticEvidence = state =>
     state.variantPage.evidenceConfig.evidenceLevelSelect,
   getEvidenceDescription = state =>
     state.variantPage.evidenceConfig.evidenceDescriptionTextarea,
-  
   getSubmitData = createSelector(
     getEvidenceTypeSelect,
     getEvidenceSourceInput,
@@ -319,10 +318,20 @@ export const getSomaticEvidence = state =>
     getVariantPageTestId,
     getVariantId,
     getEvidenceConfigId,
-    (category, source, level, description, testId, variantId, evidenceId) => {
+    getZygosityType,
+    (
+      category,
+      source,
+      level,
+      description,
+      testId,
+      variantId,
+      evidenceId,
+      classification
+    ) => {
       return {
         ids: { testId, variantId, evidenceId },
-        data: { category, source, level, description }
+        data: { category, source, level, description, classification }
       };
     }
   ),

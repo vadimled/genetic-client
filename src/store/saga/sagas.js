@@ -384,17 +384,10 @@ export function* fetchVariantDataGenerator(data) {
   }
 }
 
-
-
-
-
 export function* fetchEvidenceDataSaga(data) {
   try {
-    const result = yield call(fetchEvidenceDataApi, data);
-    console.log(result.data);
-    
-    const newData = getEvidenceData(result.data);
-   
+    const result = yield call(fetchEvidenceDataApi, data),
+      newData = getEvidenceData(result.data);
     yield put(setEvidenceData(newData));
   } catch (e) {
     Sentry.withScope(scope => {
@@ -404,16 +397,11 @@ export function* fetchEvidenceDataSaga(data) {
   }
 }
 
-
-
-
-
-
-
-
 export function* addEvidenceEntrySaga(data) {
+  console.log(data);
   try {
     const result = yield call(addEvidenceEntryApi, data);
+    console.log(result.data);
     yield put(setNewEvidenceEntry(result.data));
   } catch (e) {
     Sentry.withScope(scope => {

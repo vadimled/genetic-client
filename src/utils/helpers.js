@@ -965,12 +965,13 @@ export const setPriority = record => {
 };
 
 export const createTableData = (category, tabContent) => {
-  const obj = Object.keys(tabContent).reduce((accum, val) => {
+  const obj = Object.keys(tabContent).reduce((accum, val, index) => {
     if (tabContent[val].category === category) {
       const newObj = Object.assign(
         {},
         tabContent[val],
         { id: val },
+        { key: index + 1 },
         { source_description: "" },
         { actions: "" }
       );

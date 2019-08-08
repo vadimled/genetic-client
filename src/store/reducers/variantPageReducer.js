@@ -216,16 +216,16 @@ const variantPageReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_NEW_EVIDENCE_ENTRY]: (state, { payload }) => {
-    const { id } = payload;
+    
+    const { id, classification } = payload;
     delete payload.id;
 
     const
-      targetDataName =
-      state.currentZygosity.toLowerCase() === TEXTS.germline
+      targetDataName = classification === TEXTS.germline
         ? "germline_evidence"
         : "somatic_evidence",
+      
       targetData = { ...state[targetDataName], [id]: payload };
-
     return {
       ...state,
       [targetDataName]: targetData
@@ -233,16 +233,17 @@ const variantPageReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_EDITED_EVIDENCE_ENTRY]: (state, { payload }) => {
-    const { id } = payload;
+    const { id, classification } = payload;
+    console.log(id);
     delete payload.id;
-    
+  
     const
-      targetDataName =
-        state.currentZygosity.toLowerCase() === TEXTS.germline
-          ? "germline_evidence"
-          : "somatic_evidence";
-   
-    const targetData = { ...state[targetDataName], [id]: payload };
+      targetDataName = classification === TEXTS.germline
+        ? "germline_evidence"
+        : "somatic_evidence",
+    
+      targetData = { ...state[targetDataName], [id]: payload };
+    console.log(({ [targetDataName]: targetData }));
     return {
       ...state,
       [targetDataName]: targetData
