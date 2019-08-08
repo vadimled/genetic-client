@@ -64,6 +64,7 @@ if (mock) {
       pic_url: ""
     },
     description: "This is the test description for mock edit the existed entry",
-    level: "BP1"
+    level: "BP1",
+    classification: "germline"
   });
 }
