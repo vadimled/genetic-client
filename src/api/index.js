@@ -1,5 +1,10 @@
 import axios from "axios";
 import "Utils/axios-mock";
+import config from "../config"
+
+const {API_URL} = config;
+
+axios.defaults.baseURL = API_URL;
 
 export function fetchBAMFile (BAMFileUrl) {
   return axios.get(`http://localhost:60151/load?file=${BAMFileUrl}`);
@@ -57,7 +62,7 @@ export function fetchVariantDataApi(data) {
 export function updateVariantApi(data) {
 
 
-  const temporaryUrl = "http://localhost:20211/tests/5d4adfb6a1e39700120ad5f2/variants/5d4adfb6a1e39700120ad5f3";
+  const temporaryUrl = "tests/5d4adfb6a1e39700120ad5f2/variants/5d4adfb6a1e39700120ad5f3";
 
 
 
