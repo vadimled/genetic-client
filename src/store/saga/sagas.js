@@ -16,7 +16,8 @@ import {
   sendVariantClassApi,
   addEvidenceEntryApi,
   editEvidenceEntryApi,
-  fetchEvidenceDataApi
+  fetchEvidenceDataApi,
+  deleteEvidenceEntryApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -50,7 +51,8 @@ import {
   setVariantClassification,
   setNewEvidenceEntry,
   setEditedEvidenceEntry,
-  setEvidenceData
+  setEvidenceData,
+  deleteEvidenceFromStore
 } from "Actions/variantPageActions";
 import { zygosityType, setPriority, getEvidenceData } from "Utils/helpers";
 
@@ -398,10 +400,8 @@ export function* fetchEvidenceDataSaga(data) {
 }
 
 export function* addEvidenceEntrySaga(data) {
-  console.log(data);
   try {
     const result = yield call(addEvidenceEntryApi, data);
-    console.log(result.data);
     yield put(setNewEvidenceEntry(result.data));
   } catch (e) {
     Sentry.withScope(scope => {
@@ -418,6 +418,20 @@ export function* editEvidenceEntrySaga(data) {
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["editEvidenceEntrySaga"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* deleteEvidenceEntrySaga(action) {
+  try {
+    const result = yield call(deleteEvidenceEntryApi, action);
+    if (result?.status === 200) {
+      yield put(deleteEvidenceFromStore(action.payload));
+    }
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["deleteEvidenceEntrySaga"]);
       Sentry.captureException(e);
     });
   }

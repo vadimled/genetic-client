@@ -28,4 +28,11 @@ export const editEvidenceEntry = data => {
   };
 };
 
+export const deleteEvidenceEntry = data => {
+  return {
+    type: actionsTypes.DELETE_EVIDENCE_ENTRY,
+    payload: data
+  };
+};
+
 

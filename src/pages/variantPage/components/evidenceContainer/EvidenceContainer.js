@@ -1,25 +1,32 @@
 import React, { Component } from "react";
 import style from "./EvidenceContainer.module.scss";
-// import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { Tabs } from "antd";
 import TabPaneHeader from "variantComponents/evidenceContainer/components/tabPaneHeader";
-import PropTypes from "prop-types";
-import { getTabPaneHeaders } from "Store/selectors";
-import { connect } from "react-redux";
 import EvidenceTable from "variantComponents/evidenceContainer/components/evidenceTable";
-import SimpleButton from "GenericComponents/simpleButton";
-import { setEvidenceActionMode } from "Actions/evidenceConfigActions";
-import { TEXTS } from "Utils/constants";
 import ActionDeleteEvidence from "variantComponents/evidenceContainer/components/actionDeleteEvidence";
+import {
+  getSubmitData,
+  getTabPaneHeaders,
+  getEvidenceConfigId
+} from "Store/selectors";
+import { connect } from "react-redux";
+import SimpleButton from "GenericComponents/simpleButton";
+import {
+  setEvidenceActionMode,
+  deleteEvidenceEntry
+} from "Actions/evidenceConfigActions";
+import { TEXTS } from "Utils/constants";
 
 const { TabPane } = Tabs;
 
 class EvidenceContainer extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
-      isDelete: false
+      isDelete: false,
+      deleteId: null
     };
   }
 
@@ -41,24 +48,25 @@ class EvidenceContainer extends Component {
   };
 
   handleDeleteEntry = (e, id) => {
-    this.props.onAction({
+    this.setState({ isDelete: !this.state.isDelete, deleteId: id });
+  };
+
+  handleDeleteYes = () => {
+    const { deleteEvidenceEntry, onAction, deleteData } = this.props;
+    onAction({
       actionSlideBarStatus: false,
-      id,
+      id: this.state.deleteId,
       mode: TEXTS.delete
     });
-    this.setState({isDelete: !this.state.isDelete});
+    this.setState({ isDelete: !this.state.isDelete, deleteId: null });
+    deleteData.ids.evidenceId = this.state.deleteId;
+    deleteEvidenceEntry(deleteData);
   };
-  
-  handleDeleteYes = () => {
-    console.log(this.props);
-    this.setState({isDelete: !this.state.isDelete});
+
+  handleDeleteNo = () => {
+    this.setState({ isDelete: !this.state.isDelete, deleteId: null });
   };
-  
-  handleDeleteNo = (e) => {
-    console.log(e.target);
-    this.setState({isDelete: !this.state.isDelete});
-  };
-  
+
   render() {
     const { tabPaneHeaders } = this.props;
     return (
@@ -97,12 +105,12 @@ class EvidenceContainer extends Component {
               );
             })}
         </Tabs>
-        {this.state.isDelete &&
-        <ActionDeleteEvidence
-          onClickYes={this.handleDeleteYes}
-          onClickNo={this.handleDeleteNo}
-        />
-        }
+        {this.state.isDelete && (
+          <ActionDeleteEvidence
+            onClickYes={this.handleDeleteYes}
+            onClickNo={this.handleDeleteNo}
+          />
+        )}
       </div>
     );
   }
@@ -119,13 +127,16 @@ EvidenceContainer.defaultProps = {
 
 const mapStateToProps = state => {
   return {
-    tabPaneHeaders: getTabPaneHeaders(state)
+    tabPaneHeaders: getTabPaneHeaders(state),
+    deleteData: getSubmitData(state),
+    id: getEvidenceConfigId(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    onAction: status => dispatch(setEvidenceActionMode(status))
+    onAction: status => dispatch(setEvidenceActionMode(status)),
+    deleteEvidenceEntry: data => dispatch(deleteEvidenceEntry(data))
   };
 }
 

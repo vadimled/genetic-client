@@ -67,4 +67,6 @@ if (mock) {
     level: "BP1",
     classification: "germline"
   });
+  
+  mock.onDelete(/\/api\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200);
 }

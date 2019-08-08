@@ -76,3 +76,10 @@ export const setEditedEvidenceEntry = data => {
     payload: data
   };
 };
+
+export const deleteEvidenceFromStore = data => {
+  return {
+    type: actionsTypes.DELETE_EVIDENCE_ENTRY_FROM_STORE,
+    payload: data
+  };
+};
