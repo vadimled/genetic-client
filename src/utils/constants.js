@@ -396,6 +396,10 @@ export const EVIDENCE_CATEGORIES = [
   "Variant DB’s",
   "Drug",
   "Therapy",
+  "Indel/Nonsense",
+  "Mechanism of disease",
+  "Segregation",
+  "Protein structure",
   "Other"
 ];
 
@@ -406,6 +410,10 @@ export const EVIDENCE_CATEGORIES_OPTIONS = [
   { value: "variantDB", label: "Variant DB’s" },
   { value: "drug", label: "Drug" },
   { value: "therapy", label: "Therapy" },
+  { value: "indelNonsense", label: "Indel/Nonsense" },
+  { value: "Mechanism of disease", label: "Mechanism of disease" },
+  { value: "segregation", label: "Segregation" },
+  { value: "proteinStructure", label: "Protein structure" },
   { value: "other", label: "Other" }
 ];
 
