@@ -22,7 +22,7 @@ class TestsPage extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchTests()
+    this.props.fetchTests();
   }
 
   handleClick = () => {

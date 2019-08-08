@@ -321,7 +321,7 @@ export function* fetchTestsSaga() {
   try {
     const result = yield call(fetchTestsApi);
 
-    console.log("--result: ", result)
+    console.log("--result: ", result);
 
     // if (result?.status === 200) {
     //   yield put(setTestsToStore({
