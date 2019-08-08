@@ -321,18 +321,25 @@ export function* handleZygositySaga(data) {
 
     console.log("--result: ", result);
 
-    const {record, value} = data.payload;
+    const variant = result.data;
 
-    const newRecord = Object.assign({}, record);
+    // console.log("--variant: ", variant);
 
-    newRecord.zygosity = value;
+    const {record} = data.payload;
+    console.log("--result: ", record);
+    //
+    // const newRecord = Object.assign({}, record);
+    //
+    // newRecord.zygosity = value;
 
-    setPriority(newRecord);
+    setPriority(variant);
+
+    console.log("--variant: ", variant);
 
     if (result?.status === 200) {
       yield put(setZygosity({
         ...data.payload,
-        record: newRecord
+        record: variant
       }));
     }
   }
