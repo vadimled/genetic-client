@@ -43,7 +43,7 @@ export const TEXTS = {
   delete: "delete",
   edit: "edit",
   editEvidence: "Edit evidence",
-  addEvidence:"Add evidence"
+  addEvidence: "Add evidence"
 };
 
 export const LIMITS = {
@@ -105,7 +105,7 @@ export const ZYGOSITY = {
   notReal: { value: "notReal", label: "Not Real" },
   unknown: { value: "unknown", label: "Unknown" },
   hemi: { value: "hemi", label: "Hemi" },
-  notDefined: { value: "notDefined", label: "Not Defined" },
+  notDefined: { value: "notDefined", label: "Not Defined" }
 };
 
 export const VARIANT_CLASS_GERMLINE = {
@@ -389,63 +389,203 @@ export const VALIDATION_FAILD_FIELDS = {
   fragmentSize: "fragmentSize"
 };
 
-export const EVIDENCE_CATEGORIES = [
-  "Publications",
-  "Frequency",
-  "In Silico predictor",
-  "Variant DB’s",
-  "Drug",
-  "Therapy",
-  "Indel/Nonsense",
-  "Mechanism of disease",
-  "Segregation",
-  "Protein structure",
-  "Other"
-];
+export const EC_VALUES = {
+  publications: "publications",
+  frequency: "frequency",
+  silicoPredictor: "silicoPredictor",
+  variantDB: "variantDB",
+  drug: "drug",
+  therapy: "therapy",
+  indelNonsense: "indelNonsense",
+  mechanismDisease: "mechanismDisease",
+  segregation: "segregation",
+  proteinStructure: "proteinStructure",
+  other: "other"
+};
 
 export const EVIDENCE_CATEGORIES_OPTIONS = [
-  { value: "publications", label: "Publications" },
-  { value: "frequency", label: "Frequency" },
-  { value: "silicoPredictor", label: "In Silico predictor" },
-  { value: "variantDB", label: "Variant DB’s" },
-  { value: "drug", label: "Drug" },
-  { value: "therapy", label: "Therapy" },
-  { value: "indelNonsense", label: "Indel/Nonsense" },
-  { value: "Mechanism of disease", label: "Mechanism of disease" },
-  { value: "segregation", label: "Segregation" },
-  { value: "proteinStructure", label: "Protein structure" },
-  { value: "other", label: "Other" }
+  { value: EC_VALUES.publications, label: "Publications" },
+  { value: EC_VALUES.frequency, label: "Frequency" },
+  { value: EC_VALUES.silicoPredictor, label: "In Silico predictor" },
+  { value: EC_VALUES.variantDB, label: "Variant DB’s" },
+  { value: EC_VALUES.drug, label: "Drug" },
+  { value: EC_VALUES.therapy, label: "Therapy" },
+  { value: EC_VALUES.indelNonsense, label: "Indel/Nonsense" },
+  { value: EC_VALUES.mechanismDisease, label: "Mechanism of disease" },
+  { value: EC_VALUES.segregation, label: "Segregation" },
+  { value: EC_VALUES.proteinStructure, label: "Protein structure" },
+  { value: EC_VALUES.other, label: "Other" }
 ];
 
 export const EVIDENCE_LEVEL_OPTIONS = [
-  { value: "PVS1", label: "PVS1", type: TEXTS.germline },
-  { value: "PS1", label: "PS1", type: TEXTS.germline },
-  { value: "PS2", label: "PS2", type: TEXTS.germline },
-  { value: "PS3", label: "PS3", type: TEXTS.germline },
-  { value: "PS4", label: "PS4", type: TEXTS.germline },
-  { value: "PM1", label: "PM1", type: TEXTS.germline },
-  { value: "PM2", label: "PM2", type: TEXTS.germline },
-  { value: "PM3", label: "PM3", type: TEXTS.germline },
-  { value: "PM4", label: "PM4", type: TEXTS.germline },
-  { value: "PM5", label: "PM5", type: TEXTS.germline },
-  { value: "PM6", label: "PM6", type: TEXTS.germline },
-  { value: "PP1", label: "PP1", type: TEXTS.germline },
-  { value: "PP2", label: "PP2", type: TEXTS.germline },
-  { value: "PP3", label: "PP3", type: TEXTS.germline },
-  { value: "PP4", label: "PP4", type: TEXTS.germline },
-  { value: "PP5", label: "PP5", type: TEXTS.germline },
-  { value: "BP7", label: "BP7", type: TEXTS.germline },
-  { value: "BP6", label: "BP6", type: TEXTS.germline },
-  { value: "BP5", label: "BP5", type: TEXTS.germline },
-  { value: "BP4", label: "BP4", type: TEXTS.germline },
-  { value: "BP3", label: "BP3", type: TEXTS.germline },
-  { value: "BP2", label: "BP2", type: TEXTS.germline },
-  { value: "BP1", label: "BP1", type: TEXTS.germline },
-  { value: "BS4", label: "BS4", type: TEXTS.germline },
-  { value: "BS3", label: "BS3", type: TEXTS.germline },
-  { value: "BS2", label: "BS2", type: TEXTS.germline },
-  { value: "BS1", label: "BS1", type: TEXTS.germline },
-  { value: "BA1", label: "BA1", type: TEXTS.germline },
+  {
+    value: "PVS1",
+    label: "PVS1",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.indelNonsense]
+  },
+  {
+    value: "PS1",
+    label: "PS1",
+    type: TEXTS.germline,
+    category: [
+      EC_VALUES.publications,
+      EC_VALUES.variantDB,
+      EC_VALUES.mechanismDisease
+    ]
+  },
+  {
+    value: "PS2",
+    label: "PS2",
+    type: TEXTS.germline,
+    category: [
+      EC_VALUES.publications,
+      EC_VALUES.variantDB,
+      EC_VALUES.segregation
+    ]
+  },
+  {
+    value: "PS3",
+    label: "PS3",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications]
+  },
+  {
+    value: "PS4",
+    label: "PS4",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications]
+  },
+  {
+    value: "PM1",
+    label: "PM1",
+    type: TEXTS.germline,
+    category: [
+      EC_VALUES.publications,
+      EC_VALUES.proteinStructure,
+      EC_VALUES.mechanismDisease
+    ]
+  },
+  {
+    value: "PM2",
+    label: "PM2",
+    type: TEXTS.germline,
+    category: [EC_VALUES.frequency]
+  },
+  {
+    value: "PM3",
+    label: "PM3",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.mechanismDisease]
+  },
+  {
+    value: "PM4",
+    label: "PM4",
+    type: TEXTS.germline,
+    category: [EC_VALUES.indelNonsense]
+  },
+  {
+    value: "PM5",
+    label: "PM5",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.mechanismDisease]
+  },
+  {
+    value: "PM6",
+    label: "PM6",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.segregation]
+  },
+  {
+    value: "PP1",
+    label: "PP1",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.segregation]
+  },
+  {
+    value: "PP2",
+    label: "PP2",
+    type: TEXTS.germline,
+    category: [EC_VALUES.mechanismDisease]
+  },
+  {
+    value: "PP3",
+    label: "PP3",
+    type: TEXTS.germline,
+    category: [EC_VALUES.silicoPredictor]
+  },
+  {
+    value: "PP4",
+    label: "PP4",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.other]
+  },
+  {
+    value: "BP7",
+    label: "BP7",
+    type: TEXTS.germline,
+    category: [EC_VALUES.silicoPredictor]
+  },
+  {
+    value: "BP5",
+    label: "BP5",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.mechanismDisease]
+  },
+  {
+    value: "BP4",
+    label: "BP4",
+    type: TEXTS.germline,
+    category: [EC_VALUES.silicoPredictor]
+  },
+  {
+    value: "BP3",
+    label: "BP3",
+    type: TEXTS.germline,
+    category: [EC_VALUES.indelNonsense]
+  },
+  {
+    value: "BP2",
+    label: "BP2",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.mechanismDisease]
+  },
+  {
+    value: "BP1",
+    label: "BP1",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.mechanismDisease]
+  },
+  {
+    value: "BS4",
+    label: "BS4",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.segregation]
+  },
+  {
+    value: "BS3",
+    label: "BS3",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications]
+  },
+  {
+    value: "BS2",
+    label: "BS2",
+    type: TEXTS.germline,
+    category: [EC_VALUES.frequency]
+  },
+  {
+    value: "BS1",
+    label: "BS1",
+    type: TEXTS.germline,
+    category: [EC_VALUES.frequency]
+  },
+  {
+    value: "BA1",
+    label: "BA1",
+    type: TEXTS.germline,
+    category: [EC_VALUES.frequency]
+  },
   { value: "A1", label: "A1", type: TEXTS.somatic },
   { value: "A2", label: "A2", type: TEXTS.somatic },
   { value: "B", label: "B", type: TEXTS.somatic },
@@ -471,9 +611,7 @@ export const LEVEL_COLOR = {
   PP2: "#FDD23B",
   PP3: "#FAC714",
   PP4: "#F1BD05",
-  PP5: "#DFAF02",
   BP7: "#26D17F",
-  BP6: "#22B36E",
   BP5: "#16AD64",
   BP4: "#079F56",
   BP3: "#048B4A",

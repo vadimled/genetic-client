@@ -22,8 +22,25 @@ const ActionAddEditEvidence = ({
   typeValue,
   sourceValue,
   levelValue,
-  descriptionValue
+  descriptionValue,
+  classification,
+  evidenceCategory
 }) => {
+  const isRelevant = ({ type, category }) => {
+    let isRelevant = false;
+
+    if (
+      (classification === type &&
+        Array.isArray(category) &&
+        category.includes(evidenceCategory)) ||
+      (classification === type && !category)
+    ) {
+      isRelevant = true;
+    }
+    // console.log({classification, type, category, evidenceCategory});
+    return isRelevant;
+  };
+
   return (
     <div className={style["evidence-form-wrapper"]}>
       <form className="evidence-form" onSubmit={submit}>
@@ -65,9 +82,11 @@ const ActionAddEditEvidence = ({
           >
             {EVIDENCE_LEVEL_OPTIONS.map(option => {
               return (
-                <Option key={option.value} value={option.value}>
-                  <TableLevel level={option.label} />
-                </Option>
+                isRelevant(option) && (
+                  <Option key={option.value} value={option.value}>
+                    <TableLevel level={option.label} />
+                  </Option>
+                )
               );
             })}
           </Select>

@@ -1,7 +1,7 @@
 export const evidences = [
   {
     id: "6gzhbamall3xfe2gzdmlnw9aj",
-    category: "Publications",
+    category: "publications",
     created_at: "17/May/2018",
     user: {
       user_id: "dsfafdasfdas",
@@ -20,7 +20,7 @@ export const evidences = [
   },
   {
     id: "7gzhbamall3xfe2gzdmlnw9aj",
-    category: "Publications",
+    category: "publications",
     created_at: "1/Apr/2018",
     user: {
       user_id: "qwqmmbnvb",
@@ -36,7 +36,7 @@ export const evidences = [
   },
   {
     id: "8gzhbamall3xfe2gzdmlnw9aj",
-    category: "Frequency",
+    category: "frequency",
     created_at: "24/Marc/2018",
     user: {
       user_id: "dsfafdasfdas",
@@ -54,7 +54,7 @@ export const evidences = [
   },
   {
     id: "9gzhbamall3xfe2gzdmlnw9aj",
-    category: "Other",
+    category: "other",
     created_at: "2/Feb/2018",
     user: {
       user_id: "dsfafdasfdas",
@@ -73,7 +73,7 @@ export const evidences = [
   },
   {
     id: "10zhbamall3xfe2gzdmlnw9aj",
-    category: "Other",
+    category: "other",
     created_at: "1/Jun/2018",
 
     user: {
@@ -91,7 +91,7 @@ export const evidences = [
   },
   {
     id: "1gzhbamall3xfe2gzdmlnw9aj",
-    category: "Publications",
+    category: "publications",
     created_at: "17/May/2018",
     user: {
       user_id: "dsfafdasfdas",
@@ -110,7 +110,7 @@ export const evidences = [
   },
   {
     id: "2gzhbamall3xfe2gzdmlnw9aj",
-    category: "Publications",
+    category: "publications",
     created_at: "1/Apr/2018",
     user: {
       user_id: "qwqmmbnvb",
@@ -126,7 +126,7 @@ export const evidences = [
   },
   {
     id: "3gzhbamall3xfe2gzdmlnw9aj",
-    category: "Frequency",
+    category: "frequency",
     created_at: "24/Marc/2018",
     user: {
       user_id: "dsfafdasfdas",
@@ -144,7 +144,7 @@ export const evidences = [
   },
   {
     id: "4gzhbamall3xfe2gzdmlnw9aj",
-    category: "Variant DB’s",
+    category: "variantDB",
     created_at: "2/Feb/2018",
     user: {
       user_id: "dsfafdasfdas",
@@ -163,7 +163,7 @@ export const evidences = [
   },
   {
     id: "5gzhbamall3xfe2gzdmlnw9aj",
-    category: "Variant DB’s",
+    category: "variantDB",
     created_at: "1/Jun/2018",
 
     user: {

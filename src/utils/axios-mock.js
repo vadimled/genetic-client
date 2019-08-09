@@ -38,7 +38,7 @@ if (mock) {
 
   mock.onPost(/\/api\/tests\/.+\/variants\/.+\/evidences/).reply(200, {
     id: "vadimmall3xfe2gzdmlnw067",
-    category: "In Silico predictor",
+    category: "silicoPredictor",
     source: "http://example.com",
     key: 1,
     created_at: "7/August/2019",
@@ -54,7 +54,7 @@ if (mock) {
 
   mock.onPut(/\/api\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200, {
     id: "1gzhbamall3xfe2gzdmlnw9aj",
-    category: "Publications",
+    category: "publications",
     source: "http://en.Wikipedia/wiki/DNA",
     key: 0,
     created_at: "7/August/2019",

@@ -100,7 +100,7 @@ class EvidenceContainer extends Component {
                 >
                   {
                     <EvidenceTable
-                      category={header.title}
+                      category={header.value}
                       handleEditEntry={this.handleEditEntry}
                       handleDeleteEntry={this.handleDeleteEntry}
                     />

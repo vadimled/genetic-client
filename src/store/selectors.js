@@ -1,9 +1,9 @@
 import {
+  EVIDENCE_CATEGORIES_OPTIONS,
   FILTERS,
   GNOM_AD,
   SORTING_ORDER,
-  TEXTS,
-  EVIDENCE_CATEGORIES
+  TEXTS
 } from "Utils/constants";
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
@@ -354,53 +354,32 @@ export const getSomaticEvidence = state =>
             .map(key => allData[key].category)
             .sort(),
           arrLng = sortedArray.length,
-          getObj = (title, length) => {
-            return { title, length };
+          
+          getObj = (title, value, length) => {
+            return { title, value, length };
           },
-          formattedArray = [],
-          arr = [];
+          
+          formattedArray = [];
 
-        let tempStr = "",
-          count = 0;
-
+        let newObj = {};
         for (let i = 0; i < arrLng; i++) {
           const str = sortedArray[i];
-          if (i === 0) {
-            tempStr = str;
-            count++;
-          } else if (tempStr === str) {
-            count++;
-            if (i === arrLng - 1) {
-              arr.push(getObj(str, count));
-            }
-          } else if (tempStr !== str) {
-            arr.push(getObj(tempStr, count));
-            tempStr = str;
-            count = 1;
+
+          if (newObj.hasOwnProperty(str)) {
+            newObj[str]++;
+          } else {
+            newObj[str] = 1;
           }
         }
 
-        for (let i = 0; i < EVIDENCE_CATEGORIES.length; i++) {
-          const sorted = arr.find(
-            item => item.title === EVIDENCE_CATEGORIES[i]
-          );
-          sorted
-            ? formattedArray.push(sorted)
-            : formattedArray.push(getObj(EVIDENCE_CATEGORIES[i], 0));
-        }
-        return formattedArray;
-      }
-    }
-  ),
-  getTabContent = createSelector(
-    getCurrentEvidenceData,
-    allData => {
-      if (allData) {
-        const sortedArray = Object.keys(allData).map(key => {
-          console.log(allData[key]);
+        Object.keys(EVIDENCE_CATEGORIES_OPTIONS).map(item => {
+          const
+            { label, value } = EVIDENCE_CATEGORIES_OPTIONS[item],
+            val = Object.keys(newObj).find(a => a === value);
+  
+          formattedArray.push(getObj(label, value, val ? newObj[val] : 0));
         });
-
-        return sortedArray;
+        return formattedArray;
       }
     }
   );

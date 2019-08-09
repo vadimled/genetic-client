@@ -13,7 +13,8 @@ import {
   getEvidenceDescription,
   getEvidenceLevelSelect,
   getEvidenceSourceInput,
-  getEvidenceTypeSelect
+  getEvidenceTypeSelect,
+  getZygosityType
 } from "Store/selectors";
 import { connect } from "react-redux";
 import SlideBar from "GenericComponents/slideBar";
@@ -56,7 +57,8 @@ class EvidenceConfig extends Component {
       evidenceTypeSelect,
       evidenceSourceInput,
       evidenceLevelSelect,
-      evidenceDescriptionTextarea
+      evidenceDescriptionTextarea,
+      classification
     } = this.props;
 
     const actionMode =
@@ -66,6 +68,8 @@ class EvidenceConfig extends Component {
         <ActionAddEditEvidence
           mode={actionMode}
           submit={this.handleSubmit}
+          classification={classification}
+          evidenceCategory={evidenceTypeSelect}
           onChange={this.handleOnChange}
           typeValue={evidenceTypeSelect}
           sourceValue={evidenceSourceInput}
@@ -84,6 +88,7 @@ const mapStateToProps = state => {
     isOpen: getEvidenceConfigIsOpen(state),
     mode: getEvidenceConfigMode(state),
     id: getEvidenceConfigId(state),
+    classification: getZygosityType(state),
     evidenceTypeSelect: getEvidenceTypeSelect(state),
     evidenceSourceInput: getEvidenceSourceInput(state),
     evidenceLevelSelect: getEvidenceLevelSelect(state),
