@@ -143,14 +143,7 @@ class EvidenceTable extends Component {
               bordered
               columns={columns}
               dataSource={this.data}
-              scroll={{ y: this.state.tableMinHeight }}
-              // onRow={(record, rowIndex) => {
-              //   return {
-              //     onMouseEnter: event => { console.log(event, record, rowIndex); }, // mouse enter row
-              //     // onMouseLeave: event => {}, // mouse leave row
-              //   };
-              // }
-              // }
+              scroll={{ y: "300px" }}
             />
           </Fragment>
         )}

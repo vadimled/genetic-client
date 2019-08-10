@@ -2,8 +2,6 @@
 
 .evidence-wrapper :global {
   width: 100%;
-  height: auto;
-  border-bottom: 1px solid $border_color;
   overflow: hidden !important;
 
   .add-evidence-button-text {
@@ -23,18 +21,6 @@
   }
   .ant-tabs {
     text-align: left;
-    //&.ant-tabs-nav-wrap{
-    //
-    //  &.ant-tabs-nav-scroll{
-    //
-    //    &.ant-tabs-nav .ant-tabs-nav-animated{
-    //
-    //      &.ant-tabs-tab-active .ant-tabs-tab{
-    //        padding: 27px 10px 10px 0 !important;
-    //      }
-    //    }
-    //  }
-    //}
     .ant-tabs-ink-bar-animated {
       height: 5px !important;
     }
