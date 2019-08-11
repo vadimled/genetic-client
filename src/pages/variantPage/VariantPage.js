@@ -52,17 +52,16 @@ class VariantPage extends Component {
     props.setResources(createResourcesLinks(props.variantData));
   }
 
+  componentDidMount() {
+    const {fetchClassificationHistory} = this.props;
+    fetchClassificationHistory();
+  }
 
   handleClick = () => {
     this.setState({
       sidebarToggle: !this.state.sidebarToggle
     });
   };
-
-  componentDidMount() {
-    const {fetchClassificationHistory} = this.props;
-    fetchClassificationHistory();
-  }
 
   render() {
     const { sidebarToggle } = this.state;
