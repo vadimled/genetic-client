@@ -1,7 +1,5 @@
 import React from "react";
 import { Button, Input, Select } from "antd";
-// import { ReactComponent as EditIcon } from "assets/edit.svg";
-// import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect/SimpleSelect";
 import style from "./ActionAddEditEvidence.module.scss";
 import {
@@ -37,7 +35,6 @@ const ActionAddEditEvidence = ({
     ) {
       isRelevant = true;
     }
-    // console.log({classification, type, category, evidenceCategory});
     return isRelevant;
   };
 
@@ -108,10 +105,7 @@ const ActionAddEditEvidence = ({
           />
         </div>
         <div className="divider" />
-        <Button
-          type="primary"
-          htmlType="submit"
-          disabled={!isSubmitEnabled()}>
+        <Button type="primary" htmlType="submit" disabled={!isSubmitEnabled()}>
           {mode}
         </Button>
       </form>

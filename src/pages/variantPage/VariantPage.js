@@ -65,6 +65,8 @@ class VariantPage extends Component {
       externalResources,
       variantData,
       selectedZygosityType,
+      somaticEvidence,
+      germlineEvidence,
       testId,
       variantId
     } = this.props;
@@ -135,8 +137,8 @@ class VariantPage extends Component {
               <EvidenceContainer
                 data={
                   selectedZygosityType === "somatic"
-                    ? somaticClassHistoryData
-                    : germlineClassHistoryData
+                    ? somaticEvidence
+                    : germlineEvidence
                 }
                 typeData={
                   selectedZygosityType === "somatic"
