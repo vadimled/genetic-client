@@ -75,7 +75,7 @@ export function fetchTestsApi() {
 
 export function fetchClassificationHistoryApi() {
 
-  console.log("--here")
+  console.log("--here");
 
   return axios.get(`/class-history`);
 }
