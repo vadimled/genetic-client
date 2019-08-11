@@ -43,6 +43,7 @@ import {
 } from "Actions/resultConfigActions";
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { setTestData } from "Actions/testActions";
+import { setTestsToStore } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
 import { setVariantData, setVariantClassification } from "Actions/variantPageActions";
 import { zygosityType, setPriority } from "Utils/helpers";
@@ -323,11 +324,9 @@ export function* fetchTestsSaga() {
 
     console.log("--result: ", result);
 
-    // if (result?.status === 200) {
-    //   yield put(setTestsToStore({
-    //     ...data.payload
-    //   }));
-    // }
+    if (result?.status === 200) {
+      yield put(setTestsToStore(result.data));
+    }
 
   } catch (error) {
     console.log("---error: ", error);

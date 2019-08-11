@@ -6,10 +6,12 @@ const initialState = {
 };
 
 const testsReducer = createReducer(initialState, {
-  [actionsTypes.FETCH_TESTS]: (state, { payload }) => {
+
+  [actionsTypes.SET_TESTS_TO_STORE]: (state, { payload }) => {
+
     return {
       ...state,
-      ...payload
+      tests: payload
     };
   },
 

@@ -6,9 +6,10 @@ export const fetchTests = () =>{
   };
 };
 
-export const setTestsToStore = () =>{
+export const setTestsToStore = (data) =>{
   return{
-    type: actionsTypes.SET_TESTS_TO_STORE
+    type: actionsTypes.SET_TESTS_TO_STORE,
+    payload: data
   };
 };
 
