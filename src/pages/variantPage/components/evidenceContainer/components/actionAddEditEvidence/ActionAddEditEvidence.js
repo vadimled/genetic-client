@@ -41,6 +41,10 @@ const ActionAddEditEvidence = ({
     return isRelevant;
   };
 
+  const isSubmitEnabled = () => {
+    return typeValue && sourceValue && levelValue;
+  };
+
   return (
     <div className={style["evidence-form-wrapper"]}>
       <form className="evidence-form" onSubmit={submit}>
@@ -63,6 +67,7 @@ const ActionAddEditEvidence = ({
             className={"form-item-source"}
             value={sourceValue}
             placeholder="Paste source"
+            required
           />
         </div>
         <div className="form-item">
@@ -103,7 +108,10 @@ const ActionAddEditEvidence = ({
           />
         </div>
         <div className="divider" />
-        <Button type="primary" htmlType="submit">
+        <Button
+          type="primary"
+          htmlType="submit"
+          disabled={!isSubmitEnabled()}>
           {mode}
         </Button>
       </form>
