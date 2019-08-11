@@ -132,6 +132,22 @@ class TestsTable extends Component {
     ]
   };
 
+  handleResize = index => (e, { size }) => {
+    this.setState(({ columns }) => {
+      const nextColumns = [...columns];
+      nextColumns[index] = {
+        ...nextColumns[index],
+        width: size.width
+      };
+      return { columns: nextColumns };
+    });
+  };
+
+  componentDidMount() {
+    const {fetchTableData} = this.props;
+    fetchTableData();
+  }
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -210,7 +226,7 @@ class TestsTable extends Component {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               <div className="table-select-wrapper">
-               xxx
+                xxx
               </div>
             </HighlightedCell>
           );
@@ -253,7 +269,7 @@ class TestsTable extends Component {
           return (
             <HighlightedCell isHighlighted={data[1].isAdded}>
               xx
-x            </HighlightedCell>
+              x            </HighlightedCell>
           );
         };
       }
@@ -295,22 +311,6 @@ x            </HighlightedCell>
       return column;
     });
   };
-
-  handleResize = index => (e, { size }) => {
-    this.setState(({ columns }) => {
-      const nextColumns = [...columns];
-      nextColumns[index] = {
-        ...nextColumns[index],
-        width: size.width
-      };
-      return { columns: nextColumns };
-    });
-  };
-
-  componentDidMount() {
-    const {fetchTableData} = this.props;
-    fetchTableData();
-  }
 
   components = {
     header: {
