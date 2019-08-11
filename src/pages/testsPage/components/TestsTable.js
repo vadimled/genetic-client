@@ -132,6 +132,11 @@ class TestsTable extends Component {
     ]
   };
 
+  componentDidMount() {
+    const {fetchTableData} = this.props;
+    fetchTableData();
+  }
+
   handleResize = index => (e, { size }) => {
     this.setState(({ columns }) => {
       const nextColumns = [...columns];
@@ -142,11 +147,6 @@ class TestsTable extends Component {
       return { columns: nextColumns };
     });
   };
-
-  componentDidMount() {
-    const {fetchTableData} = this.props;
-    fetchTableData();
-  }
 
   columnsConverter = columns => {
     return columns.map((col, index) => {
