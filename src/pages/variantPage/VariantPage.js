@@ -10,23 +10,27 @@ import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
 import {
   getExternalResources,
+  getGermlineEvidence,
   getHistoryGermline,
   getHistorySomatic,
-  getVariantData,
   getSomaticEvidence,
-  getGermlineEvidence
+  getVariantData,
+  getZygosityType,
+  getVariantId,
+  getVariantPageTestId
 } from "Store/selectors";
 import { connect } from "react-redux";
 import {
-  setExternalResources,
-  fetchVariantData,
   fetchEvidenceData,
+  fetchVariantData,
+  setExternalResources,
   setSelectedZygosityType,
   setTestInformation
 } from "Actions/variantPageActions";
 import { createResourcesLinks, getDataArray } from "Utils/helpers";
 import { SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 import queryString from "query-string";
+import { GERMLINE_VARIANT_CLASS_OPTIONS } from "../../utils/constants";
 
 class VariantPage extends Component {
   constructor(props) {
@@ -35,7 +39,9 @@ class VariantPage extends Component {
     const { selectedZygosityType } = queryString.parse(window.location.search);
 
     this.state = {
-      sidebarToggle: true
+      sidebarToggle: true,
+      germlineClassHistoryData: getDataArray(props.germlineClassHistory),
+      somaticClassHistoryData: getDataArray(props.somaticClassHistory)
     };
 
     props.fetchVariantData({ testId, variantId });
@@ -58,9 +64,12 @@ class VariantPage extends Component {
     const {
       externalResources,
       variantData,
-      somaticClassHistory,
-      germlineEvidence
+      selectedZygosityType,
+      testId,
+      variantId
     } = this.props;
+
+    const { somaticClassHistoryData, germlineClassHistoryData } = this.state;
     return (
       <div className={style["variant-page-wrapper"]}>
         <div
@@ -76,7 +85,10 @@ class VariantPage extends Component {
             iconOpened={<OpenedIcon />}
             iconClosed={<ClosedIcon />}
           >
-            <ExternalResources externalResources={externalResources} />
+            <ExternalResources
+              externalResources={externalResources}
+              selectedZygosityType={selectedZygosityType}
+            />
           </SideBarLayout>
         </div>
 
@@ -90,6 +102,8 @@ class VariantPage extends Component {
             <VariantPageHeader
               sidebarToggle={sidebarToggle}
               variantData={variantData}
+              testId={testId}
+              variantId={variantId}
             />
           </div>
           <div className="main-data">
@@ -100,8 +114,16 @@ class VariantPage extends Component {
               ])}
             >
               <ClassificationHistoryTable
-                data={getDataArray(somaticClassHistory)}
-                typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
+                data={
+                  selectedZygosityType === "somatic"
+                    ? somaticClassHistoryData
+                    : germlineClassHistoryData
+                }
+                typeData={
+                  selectedZygosityType === "somatic"
+                    ? SOMATIC_VARIANT_CLASS_OPTIONS
+                    : GERMLINE_VARIANT_CLASS_OPTIONS
+                }
               />
             </div>
             <div
@@ -111,8 +133,16 @@ class VariantPage extends Component {
               ])}
             >
               <EvidenceContainer
-                data={germlineEvidence}
-                typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
+                data={
+                  selectedZygosityType === "somatic"
+                    ? somaticClassHistoryData
+                    : germlineClassHistoryData
+                }
+                typeData={
+                  selectedZygosityType === "somatic"
+                    ? SOMATIC_VARIANT_CLASS_OPTIONS
+                    : GERMLINE_VARIANT_CLASS_OPTIONS
+                }
               />
             </div>
           </div>
@@ -131,7 +161,10 @@ const mapStateToProps = state => {
     somaticClassHistory: getHistorySomatic(state),
     somaticEvidence: getSomaticEvidence(state),
     germlineEvidence: getGermlineEvidence(state),
-    externalResources: getExternalResources(state)
+    externalResources: getExternalResources(state),
+    selectedZygosityType: getZygosityType(state),
+    testId: getVariantPageTestId(state),
+    variantId: getVariantId(state)
   };
 };
 

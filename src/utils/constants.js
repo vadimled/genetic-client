@@ -21,7 +21,9 @@ export const FILTERS = {
   vaf: "vaf",
   gnomAD: "gnomAD",
   cancerDBs: "canserBDs",
-  searchText: "searchText"
+  searchText: "searchText",
+  zygosity: "zygosity",
+  effect: "effect"
 };
 
 export const TEXTS = {
@@ -106,6 +108,14 @@ export const ZYGOSITY = {
   unknown: { value: "unknown", label: "Unknown" },
   hemi: { value: "hemi", label: "Hemi" },
   notDefined: { value: "notDefined", label: "Not Defined" }
+};
+
+export const EFFECT = {
+  high: { value: "high", label: "High" },
+  modifier: { value: "modifier", label: "Modifier" },
+  insignificant: { value: "insignificant", label: "Insignificant" },
+  moderate: { value: "moderate", label: "Moderate" },
+  low: { value: "low", label: "Low" },
 };
 
 export const VARIANT_CLASS_GERMLINE = {
@@ -630,3 +640,35 @@ export const LEVEL_COLOR = {
   D: "#FED955",
   None: "#424D55"
 };
+
+
+export const EXTERNAL_RESOURCES_GERMLINE = [
+  "UCSC",
+  "ClinVar",
+  "ICGC",
+  "OncoKB",
+  "PMKB",
+  "Uniport",
+  "Varsome",
+  "dnSNP",
+  "gnomAD",
+  "Pubmed",
+  "Google Scholar",
+  "Damaging score"
+];
+
+export const EXTERNAL_RESOURCES_SOMATIC = [
+  "UCSC",
+  "ClinVar",
+  "ICGC",
+  "OncoKB",
+  "PMKB",
+  "Uniport",
+  "Varsome",
+  "dnSNP",
+  "gnomAD",
+  "COSMIC",
+  "Pubmed",
+  "Google Scholar",
+  "Damaging score"
+];

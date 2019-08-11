@@ -9,6 +9,10 @@ import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
 
 export const getFilterType = state => state?.filters?.[FILTERS.type],
+  getFilterZygosity = state =>
+    state?.filters?.[FILTERS.zygosity],
+  getFilterEffect = state =>
+    state?.filters?.[FILTERS.effect],
   getFilterVariantClass = state =>
     state?.filters?.[FILTERS.variantClassGermline],
   getFilterSomaticClass = state =>
@@ -104,7 +108,6 @@ export const getSearchResult = createSelector(
       const searchQueryInLowerCase = searchQuery.toLowerCase();
       return (
         item.gene.toLowerCase().includes(searchQueryInLowerCase) ||
-        item.variantClass.toLowerCase().includes(searchQueryInLowerCase) ||
         item.coding.toLowerCase().includes(searchQueryInLowerCase) ||
         item.protein.toLowerCase().includes(searchQueryInLowerCase)
       );
@@ -122,6 +125,9 @@ const getAppliedFilters = createSelector(
   getFilterVaf,
   getFilterCancerDBs,
   getFilterGnomId,
+  getFilterZygosity,
+  getFilterEffect,
+
   (
     type,
     variantClass,
@@ -131,7 +137,9 @@ const getAppliedFilters = createSelector(
     roi,
     vaf,
     cancerDBs,
-    gnomFilter
+    gnomFilter,
+    zygosity,
+    effect
   ) => {
     const filters = {
       ...(variantClass.length && {
@@ -172,7 +180,15 @@ const getAppliedFilters = createSelector(
             }
           });
         }
-      })
+      }),
+      ...(zygosity.length && {
+        zygosity: item =>
+          zygosity.some(filter => item.zygosity === filter)
+      }),
+      ...(effect.length && {
+        effect: item =>
+          effect.some(filter => item.effect === filter)
+      }),
     };
 
     return filters;

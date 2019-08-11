@@ -87,7 +87,6 @@ export function deleteEvidenceEntryApi(action) {
   const {
     ids: { testId, variantId, evidenceId }
   } = action.payload;
-  console.log(action.payload);
   return axios.delete(`/api/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`);
 }
 
@@ -95,15 +94,3 @@ export function fetchEvidenceDataApi(action) {
   const { testId, variantId } = action.payload;
   return axios.get(`/api/tests/${testId}/variants/${variantId}/evidences`);
 }
-
-
-// export function handleZygosityApi(data) {
-//
-//   const { item, value, testId } = data.payload;
-//
-//   console.log(item, value, testId);
-//
-//   return axios.patch(`/api/tests/${testId}/variants/${item.id}`, {
-//     zygosity: value
-//   });
-// }

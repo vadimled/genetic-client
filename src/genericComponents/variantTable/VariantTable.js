@@ -64,7 +64,7 @@ class VariantTable extends Component {
         width: 200,
       },
       {
-        title: "coding",
+        title: "Coding",
         dataIndex: "coding",
         key: "7",
         width: 100
@@ -103,7 +103,7 @@ class VariantTable extends Component {
         width: 200
       },
       {
-        title: "coverage",
+        title: "Coverage",
         dataIndex: "coverage",
         key: "13",
         width: 100
