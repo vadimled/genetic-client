@@ -308,3 +308,6 @@ export const getActivityLog = (state, recordId) => {
 };
 
 export const getTestType = state => state?.test?.panel_type;
+
+export const getTests = state => state?.tests?.tests;
+export const getLoadingStatus = state => state?.tests?.isLoading;

@@ -13,3 +13,10 @@ export const setTestsToStore = (data) =>{
   };
 };
 
+export const setTestsLoading = (data) =>{
+  return{
+    type: actionsTypes.SET_TESTS_LOADING,
+    payload: data
+  };
+};
+

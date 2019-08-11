@@ -9,7 +9,9 @@ import {
   getSelectedRows,
   getSortOrder,
   getSortParam,
-  getTestId
+  getTestId,
+  getTests,
+  getLoadingStatus
 } from "Store/selectors";
 import {
   handleSelectedRow,
@@ -30,6 +32,7 @@ import cn from "classnames";
 import { Checkbox, Table, Tooltip } from "antd";
 import HighlightedCell from "../../../genericComponents/variantTable/components/highlightedCell/HighlightedCell";
 import style from "../../../genericComponents/variantTable/VariantTable.module.scss";
+import Spinner from "../../../genericComponents/spinner";
 
 class TestsTable extends Component {
 
@@ -319,9 +322,17 @@ class TestsTable extends Component {
   };
 
   render() {
-    const { filteredData } = this.props;
+    const { filteredData, tests, loadingStatus } = this.props;
+
+    console.log("-tests: ", tests)
+    console.log("-loadingStatus: ", loadingStatus )
 
     const columns = this.columnsConverter(this.state.columns);
+
+    if(loadingStatus){
+      return <Spinner />
+      // return <div>LOADING...</div>
+    }
 
     return (
       <TableLayout>
@@ -350,7 +361,9 @@ function mapStateToProps(state) {
     selectedRows: getSelectedRows(state),
     sortOrder: getSortOrder(state),
     sortParam: getSortParam(state),
-    testId: getTestId(state)
+    testId: getTestId(state),
+    tests: getTests(state),
+    loadingStatus: getLoadingStatus(state),
   };
 }
 

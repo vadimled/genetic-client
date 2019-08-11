@@ -100,6 +100,7 @@ const SET_TEST_INFORMATION = "SET_TEST_INFORMATION";
 // Tests
 const FETCH_TESTS = "FETCH_TESTS";
 const SET_TESTS_TO_STORE = "SET_TESTS_TO_STORE";
+const SET_TESTS_LOADING = "SET_TESTS_LOADING";
 
 export default {
   // filters
@@ -202,5 +203,6 @@ export default {
 
   // Tests
   FETCH_TESTS,
-  SET_TESTS_TO_STORE
+  SET_TESTS_TO_STORE,
+  SET_TESTS_LOADING
 };

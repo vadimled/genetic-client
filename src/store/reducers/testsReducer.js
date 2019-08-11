@@ -2,7 +2,8 @@ import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 
 const initialState = {
-  tests: []
+  tests: [],
+  isLoading: false
 };
 
 const testsReducer = createReducer(initialState, {
@@ -12,6 +13,14 @@ const testsReducer = createReducer(initialState, {
     return {
       ...state,
       tests: payload
+    };
+  },
+
+  [actionsTypes.SET_TESTS_LOADING]: (state, { payload }) => {
+
+    return {
+      ...state,
+      isLoading: payload
     };
   },
 
