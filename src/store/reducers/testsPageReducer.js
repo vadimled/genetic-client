@@ -6,7 +6,7 @@ const initialState = {
   isLoading: false
 };
 
-const testsReducer = createReducer(initialState, {
+const testsPageReducer = createReducer(initialState, {
 
   [actionsTypes.SET_TESTS_TO_STORE]: (state, { payload }) => {
 
@@ -26,4 +26,4 @@ const testsReducer = createReducer(initialState, {
 
 });
 
-export default testsReducer;
+export default testsPageReducer;

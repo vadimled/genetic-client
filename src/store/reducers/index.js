@@ -8,11 +8,11 @@ import alertReducer from "./alertReducer";
 import resultConfigReducer from "./resultConfigReducer";
 import variantPageReducer from "./variantPageReducer";
 import testReducer from "./testReducer";
-import testsReducer from "./testsReducer";
+import testsPageReducer from "./testsPageReducer";
 
 export default combineReducers({
   test: testReducer,
-  tests: testsReducer,
+  tests: testsPageReducer,
   filters: filtersReducer,
   table: tableReducer,
   variants: variantsReducer,
