@@ -7,8 +7,8 @@ import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
 import { connect } from "react-redux";
 import cn from "classnames";
 // import SidebarFilters from "../mainPage/components/sidebarFilters/SidebarFilters";
-import TableData from "../mainPage/components/tableData/TableData";
 import { fetchTests } from "../../store/actions/testsActions";
+import TestsTable from "./components/TestsTable";
 
 
 
@@ -54,7 +54,7 @@ class TestsPage extends Component {
             { "sidebar-open": sidebarToggle }
           ])}
         >
-          <TableData />
+          <TestsTable />
         </div>
 
       </div>
