@@ -132,12 +132,6 @@ class TestsTable extends Component {
     ]
   };
 
-  components = {
-    header: {
-      cell: ResizeableTitle
-    }
-  };
-
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -313,11 +307,16 @@ x            </HighlightedCell>
     });
   };
 
-
   componentDidMount() {
     const {fetchTableData} = this.props;
     fetchTableData();
   }
+
+  components = {
+    header: {
+      cell: ResizeableTitle
+    }
+  };
 
   render() {
     const {
