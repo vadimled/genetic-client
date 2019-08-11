@@ -48,3 +48,28 @@ export const setTestInformation = data => {
     payload: data
   };
 };
+
+export const fetchClassificationHistory = data => {
+  return {
+    type: actionsTypes.FETCH_CLASSIFICATION_HISTORY,
+    payload: data
+  };
+};
+
+export const setClassificationHistoryToStore = data => {
+  return {
+    type: actionsTypes.SET_CLASSIFICATION_HISTORY_TO_STORE,
+    payload: data
+  };
+};
+
+export const setVariantPageLoading = data => {
+  return {
+    type: actionsTypes.SET_VARIANT_PAGE_LOADING,
+    payload: data
+  };
+};
+
+
+
+

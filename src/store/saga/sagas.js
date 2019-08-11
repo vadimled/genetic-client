@@ -47,6 +47,7 @@ import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
 import { setVariantData, setVariantClassification } from "Actions/variantPageActions";
 import { zygosityType, setPriority } from "Utils/helpers";
+import { setVariantPageLoading } from "../actions/variantPageActions";
 
 
 
@@ -411,5 +412,25 @@ export function* sendVariantClassGenerator(variantClass) {
       scope.setFingerprint(["sendVariantClassGenerator"]);
       Sentry.captureException(e);
     });
+  }
+}
+
+export function* fetchClassificationHistorySaga() {
+  try {
+    yield put(setVariantPageLoading(true));
+
+    const result = yield call(fetchClassificationHistoryApi);
+
+    console.log("--result: ", result);
+
+    if (result?.status === 200) {
+      yield put(setClassificationHistoryToStore(result.data));
+    }
+
+    yield put(setVariantPageLoading(false));
+
+  } catch (error) {
+    console.log("---error: ", error);
+    yield put(setVariantPageLoading(false));
   }
 }
