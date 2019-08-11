@@ -17,12 +17,11 @@ const ActionAddEditEvidence = ({
   mode,
   submit,
   onChange,
-  typeValue,
+  evidenceCategory,
   sourceValue,
   levelValue,
   descriptionValue,
-  classification,
-  evidenceCategory
+  classification
 }) => {
   const isRelevant = ({ type, category }) => {
     let isRelevant = false;
@@ -39,7 +38,7 @@ const ActionAddEditEvidence = ({
   };
 
   const isSubmitEnabled = () => {
-    return typeValue && sourceValue && levelValue;
+    return evidenceCategory && sourceValue && levelValue;
   };
 
   return (
@@ -50,7 +49,7 @@ const ActionAddEditEvidence = ({
             label={"Evidence type"}
             testId={`evidence-type-select`}
             name={`evidenceTypeSelect`}
-            value={typeValue}
+            value={evidenceCategory}
             options={EVIDENCE_CATEGORIES_OPTIONS}
             onChange={onChange}
           />

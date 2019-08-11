@@ -1,0 +1,197 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ActionAddEditEvidence /> snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="evidence-form-wrapper"
+  >
+    <form
+      class="evidence-form"
+    >
+      <div
+        class="form-item"
+      >
+        <label>
+          Evidence type
+        </label>
+        <div
+          class="ant-select ant-select-enabled"
+        >
+          <div
+            aria-autocomplete="list"
+            aria-controls="test-uuid"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="ant-select-selection
+            ant-select-selection--single"
+            data-testid="evidence-type-select"
+            role="combobox"
+            tabindex="0"
+          >
+            <div
+              class="ant-select-selection__rendered"
+            >
+              <div
+                class="ant-select-selection-selected-value"
+                style="display: block; opacity: 1;"
+                title=""
+              >
+                <div
+                  class="labeled-tag-wrapper"
+                >
+                  <div
+                    class="label-text"
+                  >
+                    Publications
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span
+              class="ant-select-arrow"
+              style="user-select: none;"
+              unselectable="on"
+            >
+              <i
+                aria-label="icon: down"
+                class="anticon anticon-down ant-select-arrow-icon"
+              >
+                <svg
+                  aria-hidden="true"
+                  class=""
+                  data-icon="down"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                  />
+                </svg>
+              </i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="form-item"
+      >
+        <label
+          for="evidence-source"
+        >
+          Source
+        </label>
+        <input
+          class="ant-input form-item-source"
+          id="evidence-source"
+          name="evidenceSourceInput"
+          placeholder="Paste source"
+          required=""
+          type="text"
+          value="http://example.com"
+        />
+      </div>
+      <div
+        class="form-item"
+      >
+        <label
+          for="evidence-level-select"
+        >
+          Level
+        </label>
+        <div
+          class="ant-select ant-select-enabled"
+          id="evidence-level-select"
+        >
+          <div
+            aria-autocomplete="list"
+            aria-controls="test-uuid"
+            aria-expanded="false"
+            aria-haspopup="true"
+            class="ant-select-selection
+            ant-select-selection--single"
+            data-testid="evidence-level-select"
+            role="combobox"
+            tabindex="0"
+          >
+            <div
+              class="ant-select-selection__rendered"
+            >
+              <div
+                class="ant-select-selection-selected-value"
+                style="display: block; opacity: 1;"
+                title=""
+              >
+                <div
+                  class="table-level-wrapper"
+                >
+                  <div
+                    class="level"
+                    style="color: rgb(215, 5, 19);"
+                  >
+                    A1
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span
+              class="ant-select-arrow"
+              style="user-select: none;"
+              unselectable="on"
+            >
+              <i
+                aria-label="icon: down"
+                class="anticon anticon-down ant-select-arrow-icon"
+              >
+                <svg
+                  aria-hidden="true"
+                  class=""
+                  data-icon="down"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                  />
+                </svg>
+              </i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="form-item"
+      >
+        <label
+          for="evidence-description-textarea"
+        >
+          Description
+        </label>
+        <textarea
+          class="ant-input"
+          data-testid="evidence-description-textarea"
+          name="evidenceDescriptionTextarea"
+          placeholder="Type here"
+          style="height: 0px; min-height: -9007199254740991px; max-height: 9007199254740991px;"
+        />
+      </div>
+      <div
+        class="divider"
+      />
+      <button
+        class="ant-btn ant-btn-primary"
+        type="submit"
+      >
+        <span>
+          add
+        </span>
+      </button>
+    </form>
+  </div>
+</DocumentFragment>
+`;

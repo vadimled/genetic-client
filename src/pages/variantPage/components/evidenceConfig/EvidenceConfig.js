@@ -71,7 +71,6 @@ class EvidenceConfig extends Component {
           classification={classification}
           evidenceCategory={evidenceTypeSelect}
           onChange={this.handleOnChange}
-          typeValue={evidenceTypeSelect}
           sourceValue={evidenceSourceInput}
           levelValue={evidenceLevelSelect}
           descriptionValue={evidenceDescriptionTextarea}
