@@ -73,5 +73,14 @@ export function fetchTestsApi() {
   return axios.get(`/tests/`);
 }
 
+export function fetchClassificationHistoryApi() {
+
+  console.log("--here")
+
+  return axios.get(`/class-history`);
+}
+
+
+
 
 

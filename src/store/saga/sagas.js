@@ -48,6 +48,7 @@ import { setMutationType } from "Actions/variantsActions";
 import { setVariantData, setVariantClassification } from "Actions/variantPageActions";
 import { zygosityType, setPriority } from "Utils/helpers";
 import { setVariantPageLoading } from "../actions/variantPageActions";
+import { fetchClassificationHistoryApi } from "../../api";
 
 
 

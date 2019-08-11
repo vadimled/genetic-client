@@ -19,12 +19,13 @@ import {
   setExternalResources,
   fetchVariantData,
   setSelectedZygosityType,
-  setTestInformation
+  setTestInformation,
+  fetchClassificationHistory
 } from "Actions/variantPageActions";
 import { createResourcesLinks, getDataArray } from "Utils/helpers";
 import { SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 import queryString from "query-string";
-import { GERMLINE_VARIANT_CLASS_OPTIONS } from "../../utils/constants";
+import { GERMLINE_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 
 
 class VariantPage extends Component {
@@ -57,6 +58,11 @@ class VariantPage extends Component {
       sidebarToggle: !this.state.sidebarToggle
     });
   };
+
+  componentDidMount() {
+    const {fetchClassificationHistory} = this.props;
+    fetchClassificationHistory();
+  }
 
   render() {
     const { sidebarToggle } = this.state;
@@ -145,7 +151,8 @@ function mapDispatchToProps(dispatch) {
     setResources: data => dispatch(setExternalResources(data)),
     fetchVariantData: () => dispatch(fetchVariantData()),
     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
-    setTestInformation: data => dispatch(setTestInformation(data))
+    setTestInformation: data => dispatch(setTestInformation(data)),
+    fetchClassificationHistory: () => dispatch(fetchClassificationHistory()),
   };
 }
 
