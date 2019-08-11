@@ -50,10 +50,22 @@
     .main-data {
       display: flex;
       height: calc(100vh - 170px);
-      justify-content: flex-start;
+      justify-content: space-between;
       flex-direction: column;
 
-      .history,
+      .history {
+        display: flex;
+        width: calc(100vw - 40px);
+        padding: 15px 15px 15px 40px;
+        max-height: 455px;
+        box-sizing: border-box;
+        transition: 0.3s ease-in;
+
+        &.links-wrapper-open {
+          width: calc(100vw - 203px);
+          transition: 0.4s ease-in;
+        }
+      }
       .evidence {
         display: flex;
         width: calc(100vw - 40px);

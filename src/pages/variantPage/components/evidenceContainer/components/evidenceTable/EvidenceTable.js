@@ -143,7 +143,7 @@ class EvidenceTable extends Component {
               bordered
               columns={columns}
               dataSource={this.data}
-              scroll={{ y: "280px" }}
+              scroll={{ y: "240px" }}
             />
           </Fragment>
         )}
