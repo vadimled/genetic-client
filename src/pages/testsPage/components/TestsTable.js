@@ -324,14 +324,12 @@ class TestsTable extends Component {
   render() {
     const { filteredData, tests, loadingStatus } = this.props;
 
-    console.log("-tests: ", tests)
-    console.log("-loadingStatus: ", loadingStatus )
+    console.log("-tests: ", tests);
 
     const columns = this.columnsConverter(this.state.columns);
 
     if(loadingStatus){
-      return <Spinner />
-      // return <div>LOADING...</div>
+      return <Spinner />;
     }
 
     return (
