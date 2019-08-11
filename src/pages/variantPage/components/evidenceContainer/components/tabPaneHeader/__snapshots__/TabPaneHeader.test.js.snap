@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TabPaneHeader/> snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="tab-pane-content-wrapper"
+  >
+    <div
+      class="flex flex-row justify-start content-center"
+    >
+      <div
+        class="title"
+      >
+        header.title
+      </div>
+      <div
+        class="amount"
+      >
+        (2)
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
