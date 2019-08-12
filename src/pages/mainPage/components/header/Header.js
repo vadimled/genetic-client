@@ -7,8 +7,15 @@ import User from "Pages/mainPage/components/header/components/user";
 import { getTumorInfoMode, getTestId } from "Store/selectors";
 import { setTumorInfoMode } from "Actions/testActions";
 import { connect } from "react-redux";
+import { Link, withRouter } from "react-router-dom";
+import { ROUTES } from "Utils/constants";
 
 class Header extends Component {
+  isVariantPage = () => {
+    const regex = RegExp(ROUTES.isVariantPageRegex);
+    return regex.test(this.props.location.pathname);
+  };
+
   handelNotification = e => {
     console.log(e.target);
   };
@@ -25,8 +32,18 @@ class Header extends Component {
             {/* TODO: Logo place*/}
             LOGO
           </div>
+          <div className="left-wrapper">{this.props.testId}</div>
           <div className="left-wrapper">
-            {this.props.testId}
+            {this.isVariantPage() && (
+              <Link
+                to={`/`} // TODO `/test/${this.props.testId}`
+                data-testid={`go-back-button`}
+                id={`go-back-button`}
+                className={"go-back-button"}
+              >
+                <div className="go-back-button-text">{`< Go back`}</div>
+              </Link>
+            )}
           </div>
         </div>
         <div className="flex justify-start flex-row">
@@ -63,7 +80,7 @@ class Header extends Component {
 const mapStateToProps = state => {
   return {
     showTumorInfo: getTumorInfoMode(state),
-    testId: getTestId(state),
+    testId: getTestId(state)
   };
 };
 
@@ -73,8 +90,9 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Header);
-
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Header)
+);
