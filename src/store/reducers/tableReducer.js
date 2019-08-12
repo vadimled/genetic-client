@@ -106,7 +106,7 @@ const tableReducer = createReducer(initialState, {
 
     const record = data[item.id];
 
-    if(record?.zygosity === "homo" || record?.zygosity === "hetro"){
+    if(record?.zygosity === "homo" || record?.zygosity === "hetero"){
       record.variantClassGermline = value;
     }else if(item?.zygosity === "somatic"){
       record.variantClassSomatic = value;
