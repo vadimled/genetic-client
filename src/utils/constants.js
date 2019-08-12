@@ -74,7 +74,7 @@ export const SORTING_ORDER = {
 
 export const ZYGOSITY_OPTIONS = [
   { value: "homo", label: "Homo" },
-  { value: "hetro", label: "Hetro" },
+  { value: "hetero", label: "Hetero" },
   { value: "hemi", label: "Hemi" },
   { value: "insignificant", label: "Insignificant" },
   { value: "somatic", label: "Somatic" },
@@ -82,7 +82,7 @@ export const ZYGOSITY_OPTIONS = [
   { value: "unknown", label: "Unknown" },
   { value: "notDefined", label: "Not Defined" }
 ];
-/* Germline - for Homo, Hetro and Hemi.
+/* Germline - for Homo, Hetero and Hemi.
   Somatic - for Somatic.
   Insignificant - for Insignificant.
   Unkown - for Unkown.
@@ -91,7 +91,7 @@ export const ZYGOSITY_OPTIONS = [
 
 export const ZYGOSITY_TYPES = [
   { value: "homo", label: "Germline" },
-  { value: "hetro", label: "Germline" },
+  { value: "hetero", label: "Germline" },
   { value: "hemi", label: "Germline" },
   { value: "insignificant", label: "Insignificant" },
   { value: "somatic", label: "Somatic" },
@@ -101,7 +101,7 @@ export const ZYGOSITY_TYPES = [
 
 export const ZYGOSITY = {
   homo: { value: "homo", label: "Homo" },
-  hetro: { value: "hetro", label: "Hetro" },
+  hetero: { value: "hetero", label: "Hetero" },
   insignificant: { value: "insignificant", label: "Insignificant" },
   somatic: { value: "somatic", label: "Somatic" },
   notReal: { value: "notReal", label: "Not Real" },

@@ -551,7 +551,7 @@ export const generateDNAVariantTableMockData = amount => {
       // zygosity: "notDefined",
       zygosity: faker.random.arrayElement([
         "notDefined",
-        "notReal", "insignificant", "unknown", "somatic", "homo", "hemi", "hetro"]),
+        "notReal", "insignificant", "unknown", "somatic", "homo", "hemi", "hetero"]),
       effect: faker.random.arrayElement(["high", "modifier", "moderate", "low"]),
       variantClassGermline: faker.random.arrayElement(["unclassified", "path", "lpath", "vus", "lben", "ben"]),
       variantClassSomatic: faker.random.arrayElement(["unclassified", "tier1", "tier2", "tier3", "tier4"]),

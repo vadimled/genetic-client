@@ -113,7 +113,7 @@ describe("SideBarFilters component test", () => {
     fireEvent.click(getByTestId("filter-checkbox-zygosity-Not Real"));
     fireEvent.click(getByTestId("filter-checkbox-zygosity-Insignificant"));
     fireEvent.click(getByTestId("filter-checkbox-zygosity-Homo"));
-    fireEvent.click(getByTestId("filter-checkbox-zygosity-Hetro"));
+    fireEvent.click(getByTestId("filter-checkbox-zygosity-Hetero"));
     fireEvent.click(getByTestId("filter-checkbox-zygosity-Hemi"));
     fireEvent.click(getByTestId("filter-checkbox-zygosity-Somatic"));
     fireEvent.click(getByTestId("filter-checkbox-zygosity-Not Defined"));
@@ -123,7 +123,7 @@ describe("SideBarFilters component test", () => {
     const indicator2 = await waitForElement(() => getByTestId("filter-zygosity-Not Real"));
     const indicator3 = await waitForElement(() => getByTestId("filter-zygosity-Insignificant"));
     const indicator4 = await waitForElement(() => getByTestId("filter-zygosity-Homo"));
-    const indicator5 = await waitForElement(() => getByTestId("filter-zygosity-Hetro"));
+    const indicator5 = await waitForElement(() => getByTestId("filter-zygosity-Hetero"));
     const indicator6 = await waitForElement(() => getByTestId("filter-zygosity-Hemi"));
     const indicator7 = await waitForElement(() => getByTestId("filter-zygosity-Somatic"));
     const indicator8 = await waitForElement(() => getByTestId("filter-zygosity-Not Defined"));
