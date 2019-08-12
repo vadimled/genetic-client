@@ -672,3 +672,7 @@ export const EXTERNAL_RESOURCES_SOMATIC = [
   "Google Scholar",
   "Damaging score"
 ];
+
+export const ROUTES = {
+  isVariantPageRegex :"/variant/.+"
+};
