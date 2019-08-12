@@ -1,0 +1,42 @@
+@import "Css/Colors.scss";
+
+.evidence-table-wrapper :global {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid $border_color;
+  overflow: hidden !important;
+
+  .empty-state {
+    height: 177px;
+  }
+
+  /*
+
+  ant-table ant-table-default ant-table-bordered ant-table-fixed-header ant-table-scroll-position-left
+  */
+  .ant-table-wrapper {
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    width: 100%;
+
+    &.evidence-ant-table-wrapper {
+      overflow-y: scroll;
+      overflow-x: hidden !important;
+
+      .ant-table-content {
+        .ant-table-scroll {
+          overflow: hidden !important;
+          -webkit-transition: all 0.4s ease;
+          -moz-transition: all 0.4s ease;
+          transition: all 0.4s ease;
+
+          .ant-table-body {
+            //max-height: 255px !important;
+            height: 145px !important;
+          }
+        }
+      }
+    }
+  }
+}

@@ -51,14 +51,46 @@ export function fetchTestDataApi(id) {
 
 export function fetchVariantDataApi(data) {
   const { testId, variantId } = data.payload;
-  return axios.get(`/api/tests/${testId}/variant/${variantId}`);
+  return axios.get(`/api/tests/${testId}/variants/${variantId}/`);
 }
 
 export function sendVariantClassApi(data) {
   const { testId, variantId, name, value } = data.payload;
-  return axios.patch(`/api/tests/${testId}/variant/${variantId}`, {
+  return axios.patch(`/api/tests/${testId}/variants/${variantId}`, {
     [name]: value
   });
 }
 
+export function addEvidenceEntryApi(action) {
+  const {
+    ids: { testId, variantId },
+    data
+  } = action.payload;
 
+  return axios.post(`/api/tests/${testId}/variants/${variantId}/evidences`, {
+    data
+  });
+}
+
+export function editEvidenceEntryApi(action) {
+  const {
+    ids: { testId, variantId, evidenceId },
+    data
+  } = action.payload;
+
+  return axios.put(`/api/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`, {
+    data
+  });
+}
+
+export function deleteEvidenceEntryApi(action) {
+  const {
+    ids: { testId, variantId, evidenceId }
+  } = action.payload;
+  return axios.delete(`/api/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`);
+}
+
+export function fetchEvidenceDataApi(action) {
+  const { testId, variantId } = action.payload;
+  return axios.get(`/api/tests/${testId}/variants/${variantId}/evidences`);
+}
