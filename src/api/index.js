@@ -1,4 +1,6 @@
 import axios from "axios";
+import axios_based from "./axios-base";
+
 import "Utils/axios-mock";
 
 export function fetchBAMFile(BAMFileUrl) {
@@ -46,28 +48,19 @@ export function editResult(data) {
 }
 
 export function fetchTestDataApi(id) {
-  return axios.get(`${process.env.REACT_APP_API_URL}/tests/${id.payload}`);
+  return axios_based.get(`/tests/${id.payload}`);
 }
 
 export function fetchVariantDataApi(data) {
   const { testId, variantId } = data.payload;
-  return axios.get(
-    `${
-      process.env.REACT_APP_API_URL
-    }/api/tests/${testId}/variants/${variantId}/`
-  );
+  return axios_based.get(`/api/tests/${testId}/variants/${variantId}/`);
 }
 
 export function sendVariantClassApi(data) {
   const { testId, variantId, name, value } = data.payload;
-  return axios.patch(
-    `${
-      process.env.REACT_APP_API_URL
-    }/api/tests/${testId}/variants/${variantId}`,
-    {
-      [name]: value
-    }
-  );
+  return axios_based.patch(`/api/tests/${testId}/variants/${variantId}`, {
+    [name]: value
+  });
 }
 
 export function addEvidenceEntryApi(action) {
@@ -76,10 +69,8 @@ export function addEvidenceEntryApi(action) {
     data
   } = action.payload;
 
-  return axios.post(
-    `${
-      process.env.REACT_APP_API_URL
-    }/api/tests/${testId}/variants/${variantId}/evidences`,
+  return axios_based.post(
+    `/api/tests/${testId}/variants/${variantId}/evidences`,
     {
       data
     }
@@ -92,10 +83,8 @@ export function editEvidenceEntryApi(action) {
     data
   } = action.payload;
 
-  return axios.put(
-    `${
-      process.env.REACT_APP_API_URL
-    }/api/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`,
+  return axios_based.put(
+    `/api/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`,
     {
       data
     }
@@ -106,18 +95,14 @@ export function deleteEvidenceEntryApi(action) {
   const {
     ids: { testId, variantId, evidenceId }
   } = action.payload;
-  return axios.delete(
-    `${
-      process.env.REACT_APP_API_URL
-    }/api/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`
+  return axios_based.delete(
+    `/api/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`
   );
 }
 
 export function fetchEvidenceDataApi(action) {
   const { testId, variantId } = action.payload;
-  return axios.get(
-    `${
-      process.env.REACT_APP_API_URL
-    }/api/tests/${testId}/variants/${variantId}/evidences`
+  return axios_based.get(
+    `/api/tests/${testId}/variants/${variantId}/evidences`
   );
 }
