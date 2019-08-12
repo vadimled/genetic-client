@@ -224,7 +224,65 @@ const variantPageReducer = createReducer(initialState, {
       ...state,
       ...payload
     };
-  }
+  },
+
+  [actionsTypes.SET_NEW_EVIDENCE_ENTRY]: (state, { payload }) => {
+    
+    const { id, classification } = payload;
+    delete payload.id;
+
+    const
+      targetDataName = classification === TEXTS.germline
+        ? "germline_evidence"
+        : "somatic_evidence",
+      
+      targetData = { ...state[targetDataName], [id]: payload };
+    return {
+      ...state,
+      [targetDataName]: targetData
+    };
+  },
+
+  [actionsTypes.SET_EDITED_EVIDENCE_ENTRY]: (state, { payload }) => {
+    const { id, classification } = payload;
+    delete payload.id;
+  
+    const
+      targetDataName = classification === TEXTS.germline
+        ? "germline_evidence"
+        : "somatic_evidence",
+    
+      targetData = { ...state[targetDataName], [id]: payload };
+    return {
+      ...state,
+      [targetDataName]: targetData
+    };
+  },
+  
+  [actionsTypes.DELETE_EVIDENCE_ENTRY_FROM_STORE]: (state, { payload }) => {
+    const
+      { ids: {evidenceId } , data:{classification} } = payload,
+    
+      targetDataName = classification === TEXTS.germline
+        ? "germline_evidence"
+        : "somatic_evidence",
+      
+      targetData = Object.assign({}, state[targetDataName]);
+    
+    delete targetData[evidenceId];
+    return {
+      ...state,
+      [targetDataName]: targetData
+    };
+  },
+  
+  [actionsTypes.SET_EVIDENCE_DATA]: (state, { payload }) => {
+    return {
+      ...state,
+      ...payload
+    };
+  },
+  
 });
 
 export default variantPageReducer;

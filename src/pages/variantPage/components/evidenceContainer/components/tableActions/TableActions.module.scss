@@ -1,0 +1,61 @@
+@import "Css/Colors.scss";
+
+.table-actions-wrapper :global {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+
+  .table-actions {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .edit {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 10px 0 0;
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+      &:hover {
+        border-radius: 4px;
+        background-color: $brand_primary_color;
+        svg path {
+          fill: $white;
+        }
+      }
+    }
+    .delete {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+      &:hover {
+        border-radius: 4px;
+        background-color: $remove-btn;
+        svg {
+          g {
+            opacity: 1;
+            path {
+              fill: $white;
+            }
+          }
+        }
+      }
+    }
+  }
+}

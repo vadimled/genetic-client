@@ -49,26 +49,36 @@
 
     .main-data {
       display: flex;
-      justify-content: flex-start;
+      height: calc(100vh - 170px);
+      justify-content: space-between;
       flex-direction: column;
 
       .history {
         display: flex;
-        width: calc(100vw - 58px);
-        padding: 30px 15px 15px 50px;
-        max-height: 450px;
-        overflow: hidden;
+        width: calc(100vw - 40px);
+        padding: 15px 15px 15px 40px;
+        max-height: 455px;
         box-sizing: border-box;
+        transition: 0.3s ease-in;
 
         &.links-wrapper-open {
-          width: calc(100vw - 218px);
+          width: calc(100vw - 203px);
           transition: 0.4s ease-in;
         }
       }
-
       .evidence {
         display: flex;
-        height: 100px;
+        width: calc(100vw - 40px);
+        padding: 15px 15px 15px 40px;
+        max-height: 455px;
+        overflow: hidden;
+        box-sizing: border-box;
+        transition: 0.3s ease-in;
+
+        &.links-wrapper-open {
+          width: calc(100vw - 203px);
+          transition: 0.4s ease-in;
+        }
       }
     }
   }
