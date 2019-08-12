@@ -213,7 +213,7 @@ export const getDataArray = data => {
 };
 
 export const zygosityType = data => {
-  /* Germline - for Homo, Hetro and Hemi.
+  /* Germline - for Homo, Hetero and Hemi.
     Somatic - for Somatic.
     Insignificant - for Insignificant.
     Unkown - for Unkown.
@@ -250,7 +250,7 @@ export const setPriority = record => {
     }
   }
 
-  else if(record.zygosity === ZYGOSITY.hetro.value){
+  else if(record.zygosity === ZYGOSITY.hetero.value){
     if(record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value){
       record.priority = 142;
     }

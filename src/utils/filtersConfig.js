@@ -25,8 +25,8 @@ export default {
         label: ZYGOSITY.homo.label
       },
       {
-        id: ZYGOSITY.hetro.value,
-        label: ZYGOSITY.hetro.label
+        id: ZYGOSITY.hetero.value,
+        label: ZYGOSITY.hetero.label
       },
       {
         id: ZYGOSITY.hemi.value,
