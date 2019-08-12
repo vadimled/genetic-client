@@ -9,6 +9,7 @@ import resultConfigReducer from "./resultConfigReducer";
 import variantPageReducer from "./variantPageReducer";
 import testReducer from "./testReducer";
 import testsPageReducer from "./testsPageReducer";
+import evidenceConfigReducer from "./evidenceConfigReducer";
 
 export default combineReducers({
   test: testReducer,
@@ -20,5 +21,8 @@ export default combineReducers({
   confirmation: confirmationReducer,
   alert: alertReducer,
   resultConfig: resultConfigReducer,
-  variantPage: variantPageReducer,
+  variantPage: combineReducers({
+    pageData: variantPageReducer,
+    evidenceConfig: evidenceConfigReducer
+  })
 });

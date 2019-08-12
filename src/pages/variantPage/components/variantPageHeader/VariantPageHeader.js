@@ -41,7 +41,9 @@ const VariantPageHeader = ({ sidebarToggle, variantData, testId, variantId }) =>
 
 VariantPageHeader.propTypes = {
   sidebarToggle: PropTypes.bool,
-  variantData: PropTypes.object
+  variantData: PropTypes.object,
+  testId: PropTypes.string,
+  variantId: PropTypes.string
 };
 
 export default memo(VariantPageHeader);

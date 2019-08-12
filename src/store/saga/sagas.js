@@ -14,7 +14,11 @@ import {
   fetchTestDataApi,
   fetchVariantDataApi,
   updateVariantApi,
-  fetchTestsApi
+  fetchTestsApi,
+  addEvidenceEntryApi,
+  editEvidenceEntryApi,
+  fetchEvidenceDataApi,
+  deleteEvidenceEntryApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -28,7 +32,6 @@ import {
   setDataToStore,
   setZygosity
 } from "Actions/tableActions";
-// import {setTestsToStore} from "Actions/testsActions";
 import {
   handleOnConfirmation,
   setConfirmationData
@@ -45,10 +48,15 @@ import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { setTestData } from "Actions/testActions";
 import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
-import { setVariantData, setVariantClassification } from "Actions/variantPageActions";
-import { zygosityType, setPriority } from "Utils/helpers";
-
-
+import {
+  setVariantData,
+  setVariantClassification,
+  setNewEvidenceEntry,
+  setEditedEvidenceEntry,
+  setEvidenceData,
+  deleteEvidenceFromStore
+} from "Actions/variantPageActions";
+import { zygosityType, setPriority, getEvidenceData } from "Utils/helpers";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -413,3 +421,55 @@ export function* sendVariantClassGenerator(variantClass) {
     });
   }
 }
+
+export function* fetchEvidenceDataSaga(data) {
+  try {
+    const result = yield call(fetchEvidenceDataApi, data),
+      newData = getEvidenceData(result.data);
+    yield put(setEvidenceData(newData));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchEvidenceDataSaga"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* addEvidenceEntrySaga(data) {
+  try {
+    const result = yield call(addEvidenceEntryApi, data);
+    yield put(setNewEvidenceEntry(result.data));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["addEvidenceEntrySaga"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* editEvidenceEntrySaga(data) {
+  try {
+    const result = yield call(editEvidenceEntryApi, data);
+    yield put(setEditedEvidenceEntry(result.data));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["editEvidenceEntrySaga"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* deleteEvidenceEntrySaga(action) {
+  try {
+    const result = yield call(deleteEvidenceEntryApi, action);
+    if (result?.status === 200) {
+      yield put(deleteEvidenceFromStore(action.payload));
+    }
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["deleteEvidenceEntrySaga"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+

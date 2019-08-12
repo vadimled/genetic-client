@@ -231,7 +231,7 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                   >
                     <input
                       class="ant-checkbox-input"
-                      data-testid="filter-checkbox-zygosity-Hetro"
+                      data-testid="filter-checkbox-zygosity-Hetero"
                       type="checkbox"
                       value=""
                     />
@@ -249,7 +249,7 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                         <div
                           class="label-text"
                         >
-                          Hetro
+                          Hetero
                         </div>
                       </div>
                     </div>
