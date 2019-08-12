@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<TabPaneHeader/> snapshot 1`] = `
+exports[`<TabPaneHeader /> snapshot 1`] = `
 <DocumentFragment>
   <div
     class="tab-pane-content-wrapper"
@@ -11,12 +11,12 @@ exports[`<TabPaneHeader/> snapshot 1`] = `
       <div
         class="title"
       >
-        header.title
+        Publications
       </div>
       <div
         class="amount"
       >
-        (2)
+        (5)
       </div>
     </div>
   </div>

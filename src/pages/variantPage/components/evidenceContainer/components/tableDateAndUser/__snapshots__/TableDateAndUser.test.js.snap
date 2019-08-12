@@ -11,13 +11,11 @@ exports[`<TableDateAndUser /> snapshot 1`] = `
       <div
         class="date"
       >
-        date
+        Aug/12,/2019
       </div>
       <div
         class="user"
-      >
-        Name
-      </div>
+      />
     </div>
   </div>
 </DocumentFragment>

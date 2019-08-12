@@ -10,10 +10,14 @@ exports[`<TableSourceDescription /> snapshot 1`] = `
     >
       <div
         class="source"
-      />
+      >
+        http://example.com
+      </div>
       <div
         class="description"
-      />
+      >
+        description
+      </div>
     </div>
   </div>
 </DocumentFragment>
