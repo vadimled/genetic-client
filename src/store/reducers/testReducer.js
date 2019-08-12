@@ -4,7 +4,7 @@ import actionsTypes from "../actionsTypes";
 const initialState = {
   gsid: null,
   panel_type: null,
-  test_id: null,
+  id: null,
   showTumorInfo: false,
   mutation_types: [],
   tumor_info: {

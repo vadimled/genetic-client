@@ -12,8 +12,8 @@ if (mock) {
   });
 
   mock.onGet(/\/api\/tests\/?\w+$/).reply(200, {
-    test_id: "GS00115NP050818_TS1_01",
-    gsid: "GS00115NP050818_TS1_01",
+    id: "5d511f574651a20020a0ab50",
+    gsid: "GS00115",
     panel_type: "risk",
     mutation_types: ["dna", "rna", "agena"],
     tumor_info: {

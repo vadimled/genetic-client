@@ -349,9 +349,11 @@ export function* handleZygositySaga(data) {
 export function* fetchTestDataGenerator(id) {
   try {
     const result = yield call(fetchTestDataApi, id);
+    console.log(result);
     yield put(setTestData(result?.data));
     yield put(setMutationType(result?.data?.mutation_types[0]));
   } catch (e) {
+    console.log(e);
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchTestDataGenerator"]);
       Sentry.captureException(e);

@@ -29,7 +29,7 @@ class MainPage extends Component {
   constructor(props) {
     super(props);
   
-    props.fetchTestData("GS00115NP050818_TS1_01");
+    props.fetchTestData("5d511f574651a20020a0ab50");
   
     this.state = {
       sidebarToggle: true
