@@ -15,7 +15,7 @@ function TableDateAndUser({ date, user }) {
     <div className={style["table-date-and-user-wrapper"]}>
       <div className="table-date-and-user">
         <div className="date">{formattedDate}</div>
-        <div className="user">{user.name}</div>
+        {user && <div className="user">{user.name}</div>}
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ class ClassificationHistoryTable extends Component {
       {
         key: "1",
         title: "Date",
-        dataIndex: "date",
+        dataIndex: "created_at",
         width: 140
       },
       {
@@ -85,8 +85,8 @@ class ClassificationHistoryTable extends Component {
         })
       };
       if (col.dataIndex === "created_at") {
-        column.render = (date, obj) => {
-          return <TableDateAndUser date={date} user={obj.user} />;
+        column.render = (date) => {
+          return <TableDateAndUser date={date} />;
         };
       }
       else if (col.dataIndex === "class") {
