@@ -28,5 +28,14 @@ export const setTumorInfo = data => {
   };
 };
 
+export function setLoading(status) {
+  return {
+    type: actionsTypes.SET_LOADING,
+    payload: status
+  };
+}
+
+
+
 
 

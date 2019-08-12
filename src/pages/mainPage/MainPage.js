@@ -20,17 +20,19 @@ import {
   getAlertStatus,
   getAlertTitle,
   getAlertMessage,
-  getTumorInfoMode
+  getTumorInfoMode,
+  getLoading
 } from "Store/selectors";
 import { setAlert } from "Actions/alertActions";
 import { fetchTestData } from "Actions/testActions";
+import Spinner from "GenericComponents/spinner";
 
 class MainPage extends Component {
   constructor(props) {
     super(props);
-  
+
     props.fetchTestData("5d511f574651a20020a0ab50");
-  
+
     this.state = {
       sidebarToggle: true
     };
@@ -52,7 +54,8 @@ class MainPage extends Component {
       alertTitle,
       alertMessage,
       setAlert,
-      showTumorInfo
+      showTumorInfo,
+      isLoading
     } = this.props;
 
     return (
@@ -69,22 +72,28 @@ class MainPage extends Component {
             <SidebarFilters />
           </SideBarLayout>
         </div>
-        <div
-          className={cn([
-            "main-content-wrapper",
-            { "sidebar-open": sidebarToggle }
-          ])}
-        >
+        {isLoading ? (
+          <Spinner />
+        ) : (
           <div
-            className={cn(["tumor-toolbar-collapse", { out: showTumorInfo }])}
+            className={cn([
+              "main-content-wrapper",
+              { "sidebar-open": sidebarToggle }
+            ])}
           >
-            <TumorToolbar sidebarToggle={sidebarToggle} />
+            <div
+              className={cn(["tumor-toolbar-collapse", { out: showTumorInfo }])}
+            >
+              <TumorToolbar sidebarToggle={sidebarToggle} />
+            </div>
+            <div
+              className={cn(["toolbar-collapse", { shadow: showTumorInfo }])}
+            >
+              <Toolbar sidebarToggle={sidebarToggle} />
+            </div>
+            <TableData />
           </div>
-          <div className={cn(["toolbar-collapse", { shadow: showTumorInfo }])}>
-            <Toolbar sidebarToggle={sidebarToggle} />
-          </div>
-          <TableData />
-        </div>
+        )}
         {!!isIgvAlertShow && <IgvAlertPopup />}
         {!!isOnConfirmation && <SendForConfirmationPopup />}
         {!!uncheckConfirmationData && <UncheckConfirmationPopup />}
@@ -109,7 +118,8 @@ const mapStateToProps = state => {
     alertStatus: getAlertStatus(state),
     alertTitle: getAlertTitle(state),
     alertMessage: getAlertMessage(state),
-    showTumorInfo: getTumorInfoMode(state)
+    showTumorInfo: getTumorInfoMode(state),
+    isLoading: getLoading(state)
   };
 };
 

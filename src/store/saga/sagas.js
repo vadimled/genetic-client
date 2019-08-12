@@ -44,7 +44,7 @@ import {
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
-import { setTestData } from "Actions/testActions";
+import { setTestData, setLoading } from "Actions/testActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
   setVariantData,
@@ -348,16 +348,18 @@ export function* handleZygositySaga(data) {
 
 export function* fetchTestDataGenerator(id) {
   try {
+    yield put(setLoading(true));
     const result = yield call(fetchTestDataApi, id);
     console.log(result);
     yield put(setTestData(result?.data));
     yield put(setMutationType(result?.data?.mutation_types[0]));
+    yield put(setLoading(false));
   } catch (e) {
-    console.log(e);
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchTestDataGenerator"]);
       Sentry.captureException(e);
     });
+    yield put(setLoading(false));
   }
 }
 
