@@ -47,7 +47,7 @@ export function editResult(data) {
   return mockResult;
 }
 
-export function fetchTestDataApi(id) {
+export function fetchTestMetadataApi(id) {
   return axios_based.get(`/tests/${id.payload}`);
 }
 

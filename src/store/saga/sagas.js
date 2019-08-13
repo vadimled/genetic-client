@@ -11,7 +11,7 @@ import {
   loadHgvs,
   addResult,
   editResult,
-  fetchTestDataApi,
+  fetchTestMetadataApi,
   fetchVariantDataApi,
   sendVariantClassApi,
   addEvidenceEntryApi,
@@ -346,17 +346,17 @@ export function* handleZygositySaga(data) {
   }
 }
 
-export function* fetchTestDataGenerator(id) {
+export function* fetchTestMetadataGenerator(id) {
   try {
     yield put(setLoading(true));
-    const result = yield call(fetchTestDataApi, id);
+    const result = yield call(fetchTestMetadataApi, id);
     console.log(result);
     yield put(setTestData(result?.data));
     yield put(setMutationType(result?.data?.mutation_types[0]));
     yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchTestDataGenerator"]);
+      scope.setFingerprint(["fetchTestMetadataGenerator"]);
       Sentry.captureException(e);
     });
     yield put(setLoading(false));

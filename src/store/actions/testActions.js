@@ -1,8 +1,8 @@
 import actionsTypes from "../actionsTypes";
 
-export const fetchTestData = id =>{
+export const fetchTestMetadata = id =>{
   return{
-    type: actionsTypes.FETCH_TEST_DATA,
+    type: actionsTypes.FETCH_TEST_METADATA,
     payload: id
   };
 };

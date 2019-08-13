@@ -24,14 +24,14 @@ import {
   getLoading
 } from "Store/selectors";
 import { setAlert } from "Actions/alertActions";
-import { fetchTestData } from "Actions/testActions";
+import { fetchTestMetadata } from "Actions/testActions";
 import Spinner from "GenericComponents/spinner";
 
 class MainPage extends Component {
   constructor(props) {
     super(props);
 
-    props.fetchTestData("5d511f574651a20020a0ab50");
+    props.fetchTestMetadata("5d511f574651a20020a0ab50");
 
     this.state = {
       sidebarToggle: true
@@ -126,7 +126,7 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     setAlert: data => dispatch(setAlert(data)),
-    fetchTestData: id => dispatch(fetchTestData(id))
+    fetchTestMetadata: id => dispatch(fetchTestMetadata(id))
   };
 }
 
