@@ -2,7 +2,7 @@ export const evidences = [
   {
     id: "6gzhbamall3xfe2gzdmlnw9aj",
     category: "publications",
-    created_at: "17/May/2018",
+    created_at: "Thu May 17 2018 03:00:00 GMT+0300 (Israel Daylight Time)",// 17/May/2018
     user: {
       user_id: "dsfafdasfdas",
       name: "Taly Yafe",
@@ -21,7 +21,7 @@ export const evidences = [
   {
     id: "7gzhbamall3xfe2gzdmlnw9aj",
     category: "publications",
-    created_at: "1/Apr/2018",
+    created_at: "Sun Jun 17 2018 03:00:00 GMT+0300 (Israel Daylight Time)",
     user: {
       user_id: "qwqmmbnvb",
       name: "Lior GoldBerg",
@@ -37,7 +37,7 @@ export const evidences = [
   {
     id: "61zhbamall3xfe2gzdmlnw9aj",
     category: "publications",
-    created_at: "3/Sep/2018",
+    created_at: "Mon Sep 03 2018 03:00:00 GMT+0300 (Israel Daylight Time)",
     user: {
       user_id: "dsfafdasfdas",
       name: "Taly Yafe",
@@ -56,7 +56,7 @@ export const evidences = [
   {
     id: "71zhbamall3xfe2gzdmlnw9aj",
     category: "publications",
-    created_at: "31/Apr/2018",
+    created_at: "Sat Mar 31 2018 03:00:00 GMT+0300 (Israel Daylight Time)",
     user: {
       user_id: "qwqmmbnvb",
       name: "Lior GoldBerg",
@@ -72,7 +72,7 @@ export const evidences = [
   {
     id: "8gzhbamall3xfe2gzdmlnw9aj",
     category: "frequency",
-    created_at: "24/Marc/2018",
+    created_at: "Fri Feb 23 2018 02:00:00 GMT+0200 (Israel Standard Time)",
     user: {
       user_id: "dsfafdasfdas",
       name: "Taly Yafe",
@@ -90,7 +90,7 @@ export const evidences = [
   {
     id: "9gzhbamall3xfe2gzdmlnw9aj",
     category: "other",
-    created_at: "2/Feb/2018",
+    created_at: "Fri Apr 13 2018 03:00:00 GMT+0300 (Israel Daylight Time)",
     user: {
       user_id: "dsfafdasfdas",
       name: "Taly Yafe",
@@ -109,7 +109,7 @@ export const evidences = [
   {
     id: "10zhbamall3xfe2gzdmlnw9aj",
     category: "other",
-    created_at: "1/Jun/2018",
+    created_at: "Fri Jun 01 2018 03:00:00 GMT+0300 (Israel Daylight Time)",
 
     user: {
       user_id: "qwqmmbnvb",
@@ -127,7 +127,7 @@ export const evidences = [
   {
     id: "1gzhbamall3xfe2gzdmlnw9aj",
     category: "publications",
-    created_at: "17/May/2018",
+    created_at: "Sun Jun 17 2018 03:00:00 GMT+0300 (Israel Daylight Time)",
     user: {
       user_id: "dsfafdasfdas",
       name: "Taly Yafe",
@@ -146,7 +146,7 @@ export const evidences = [
   {
     id: "2gzhbamall3xfe2gzdmlnw9aj",
     category: "publications",
-    created_at: "1/Apr/2018",
+    created_at: "Thu May 17 2018 03:00:00 GMT+0300 (Israel Daylight Time)",
     user: {
       user_id: "qwqmmbnvb",
       name: "Lior GoldBerg",
@@ -162,7 +162,7 @@ export const evidences = [
   {
     id: "3gzhbamall3xfe2gzdmlnw9aj",
     category: "frequency",
-    created_at: "24/Marc/2018",
+    created_at: "Mon Sep 03 2018 03:00:00 GMT+0300 (Israel Daylight Time)",
     user: {
       user_id: "dsfafdasfdas",
       name: "Taly Yafe",
@@ -180,7 +180,7 @@ export const evidences = [
   {
     id: "4gzhbamall3xfe2gzdmlnw9aj",
     category: "variantDB",
-    created_at: "2/Feb/2018",
+    created_at: "Fri Feb 23 2018 02:00:00 GMT+0200 (Israel Standard Time)",
     user: {
       user_id: "dsfafdasfdas",
       name: "Taly Yafe",
@@ -199,7 +199,7 @@ export const evidences = [
   {
     id: "5gzhbamall3xfe2gzdmlnw9aj",
     category: "variantDB",
-    created_at: "1/Jun/2018",
+    created_at: "Fri Jun 01 2018 03:00:00 GMT+0300 (Israel Daylight Time)",
 
     user: {
       user_id: "qwqmmbnvb",
