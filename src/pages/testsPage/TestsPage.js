@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import style from "./TestsPage.module.scss";
-// import cn from "classnames";
 import SideBarLayout from "Pages/mainPage/components/sideBarLayout";
 import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
 import { connect } from "react-redux";
 import cn from "classnames";
-// import SidebarFilters from "../mainPage/components/sidebarFilters/SidebarFilters";
 import { fetchTests } from "../../store/actions/testsActions";
 import { getTests } from "../../store/selectors";
 import { Link } from "react-router-dom";
@@ -35,8 +33,6 @@ class TestsPage extends Component {
   render() {
     const { sidebarToggle } = this.state;
     const { tests } = this.props;
-
-    console.log("--tests: ", tests)
 
     return (
       <div className={style["tests-page-wrapper"]}>
