@@ -53,6 +53,8 @@ class VariantPage extends Component {
 
     // TODO: this action must be dispatched from the Saga
     props.setResources(createResourcesLinks(props.variantData));
+
+
   }
 
   handleClick = () => {
