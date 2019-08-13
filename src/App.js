@@ -15,9 +15,9 @@ function App() {
         <Header />
       </div>
       <Switch>
-        <Route path="/" exact component={MainPage} />
+        <Route path="/tests" exact component={TestsPage} />
+        <Route path="/tests/:testId" exact component={MainPage} />
         <Route path="/test/:testId/variant/:variantId/" component={VariantPage} />
-        <Route path="/tests" component={TestsPage} />
       </Switch>
       <ResultConfig />
       <EvidenceConfig />
