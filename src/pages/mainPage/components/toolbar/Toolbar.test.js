@@ -115,7 +115,7 @@ describe('Toolbar', () => {
   });
 
   it("if some text inserted to Autocomplete and 'clear-filters-button' clicked", () => {
-    const { getByTestId, store } = renderWithRedux(<MainPage />);
+    const { getByTestId, store } = initSteps();
 
     store.dispatch(updateSearch("a"));
 
