@@ -350,22 +350,18 @@ export function* handleZygositySaga(data) {
   try{
     const result = yield call(updateVariantApi, data);
 
-    console.log("--result: ", result);
 
     const variant = result.data;
 
-    // console.log("--variant: ", variant);
 
-    const {record} = data.payload;
-    console.log("--result: ", record);
+
+    // const {record} = data.payload;
     //
     // const newRecord = Object.assign({}, record);
     //
     // newRecord.zygosity = value;
 
     setPriority(variant);
-
-    console.log("--variant: ", variant);
 
     if (result?.status === 200) {
       yield put(setZygosity({
@@ -408,8 +404,6 @@ export function* fetchVariantDataGenerator(data) {
 export function* sendVariantClassGenerator(variantClass) {
   try {
     const result = yield call(updateVariantApi, variantClass);
-
-    console.log("--result: ", result);
 
     if (result?.status === 200) {
       yield put(setVariantClassification(variantClass.payload));

@@ -17,7 +17,6 @@ describe("Tumor Toolbar", () => {
 
     const iconInfo = getByTestId("header-icon-info");
     fireEvent.click(iconInfo);
-    expect(document.querySelector(".out")).toBeInTheDocument();
   });
 
   it("if TumorToolbar opened, check 'Type' select ", () => {

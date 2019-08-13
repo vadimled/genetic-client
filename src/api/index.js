@@ -2,11 +2,6 @@ import axios from "axios";
 import axios_based from "./axios-base";
 import "Utils/axios-mock";
 
-const API_URL = process.env.REACT_APP_API_URL;
-
-console.log(API_URL);
-
-axios.defaults.baseURL = API_URL;
 
 export function fetchBAMFile (BAMFileUrl) {
   return axios.get(`http://localhost:60151/load?file=${BAMFileUrl}`);
