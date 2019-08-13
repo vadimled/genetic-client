@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import style from "./Header.module.scss";
 import HeaderIcon from "GenericComponents/headerIcon";
 import { ReactComponent as NotificationIcon } from "Assets/notifications.svg";
@@ -11,6 +11,11 @@ import { Link, withRouter } from "react-router-dom";
 import { ROUTES } from "Utils/constants";
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.isMVP = process.env.REACT_APP_MVP_CONFIG === "true";
+  }
+
   isVariantPage = () => {
     const regex = RegExp(ROUTES.isVariantPageRegex);
     return regex.test(this.props.location.pathname);
@@ -55,20 +60,25 @@ class Header extends Component {
               handelOnClick={this.handelInfo}
             />
           </div>
-          <div className="right-side-item">
-            <HeaderIcon
-              // isActive
-              customClassName={"notification"}
-              icon={<NotificationIcon />}
-              handelOnClick={this.handelNotification}
-            />
-          </div>
-          <div className="right-side-item">
-            <User
-              userName={"vadim malckin"}
-              avatarUrl={`https://randomuser.me/api/portraits/men/34.jpg`}
-            />
-          </div>
+          {!this.isMVP && (
+            <Fragment>
+              <div className="right-side-item">
+                <HeaderIcon
+                  // isActive
+                  customClassName={"notification"}
+                  icon={<NotificationIcon />}
+                  handelOnClick={this.handelNotification}
+                />
+              </div>
+
+              <div className="right-side-item">
+                <User
+                  userName={"vadim malckin"}
+                  avatarUrl={`https://randomuser.me/api/portraits/men/34.jpg`}
+                />
+              </div>
+            </Fragment>
+          )}
         </div>
       </div>
     );
