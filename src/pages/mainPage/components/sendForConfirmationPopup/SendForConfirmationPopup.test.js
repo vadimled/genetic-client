@@ -119,7 +119,7 @@ describe("SendForConfirmationPopup", () => {
     expect(confirmationData4.length).toEqual(0);
   });
 
-  it("SendForConfirmationPopup data flow success", () => {
+  xit("SendForConfirmationPopup data flow success", () => {
     const { store, getByTestId, getAllByTestId } = initSteps();
     const sendBtn = getByTestId("send-btn");
 
