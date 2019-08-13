@@ -8,6 +8,7 @@ const initialState = {
     protein: "p.Leu2303Leu",
     chrPosition: "chr1:45797505",
     alleleChange: "C > GA",
+    alleleChangeLong: "C.7634+21 > GA_110509.1",
     ref: "C",
     alt: "GA",
     dbSNP: "rs3219489",
