@@ -21,7 +21,9 @@ import {
   getAlertTitle,
   getAlertMessage,
   getTumorInfoMode,
-  getLoading
+  getLoading,
+  getMutationTypesValues,
+  getTestId
 } from "Store/selectors";
 import { setAlert } from "Actions/alertActions";
 import { fetchTestMetadata } from "Actions/testActions";
@@ -40,8 +42,13 @@ class MainPage extends Component {
   }
   
   componentDidMount() {
-    const {fetchTableData} = this.props;
-    fetchTableData();
+    const {fetchTableData, testId, match} = this.props;
+    console.log(testId);
+    
+    fetchTableData({
+      testId: match?.params?.testId,
+      mutation: "dna" // getMutationTypesValues
+    });
   }
   
   handleClick = () => {
@@ -125,7 +132,9 @@ const mapStateToProps = state => {
     alertTitle: getAlertTitle(state),
     alertMessage: getAlertMessage(state),
     showTumorInfo: getTumorInfoMode(state),
-    isLoading: getLoading(state)
+    isLoading: getLoading(state),
+    getMutationTypesValues: getMutationTypesValues(state),
+    testId: getTestId(state),
   };
 };
 

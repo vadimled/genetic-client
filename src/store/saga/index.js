@@ -6,7 +6,7 @@ import {
 import types from "Store/actionsTypes";
 
 import {
-  fetchTableData,
+  fetchTableDataSaga,
   fetchTestMetadataGenerator,
   fetchBAMFileGenerator,
   goToChrPositionIgvGenerator,
@@ -28,7 +28,7 @@ export function* watchSaga() {
   yield takeLatest(types.FETCH_BAM_FILE, fetchBAMFileGenerator);
   yield takeLatest(types.GO_TO_CHR_POSITION_IGV, goToChrPositionIgvGenerator);
   yield takeLatest(types.SEND_FOR_CONFIRMATION, sendForConfirmationGenerator);
-  yield takeEvery(types.FETCH_TABLE_DATA, fetchTableData);
+  yield takeEvery(types.FETCH_TABLE_DATA, fetchTableDataSaga);
   yield takeEvery(types.HANDLE_ZYGOSITY, handleZygositySaga);
   yield takeLatest(types.RESULT_CONFIG_LOAD_HGVS, resultConfigLoadHgvsGenerator);
   yield takeLatest(types.RESULT_CONFIG_ADD_RESULT, resultConfigAddResultGenerator);

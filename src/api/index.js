@@ -106,3 +106,12 @@ export function fetchEvidenceDataApi(action) {
     `/api/tests/${testId}/variants/${variantId}/evidences`
   );
 }
+
+export function fetchTableDataApi(action) {
+  const { testId, mutation } = action.payload;
+  return axios_based.get(`/tests/${testId}/variants`, {
+    params: {
+      mutation
+    }
+  });
+}

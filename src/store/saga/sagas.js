@@ -17,7 +17,8 @@ import {
   addEvidenceEntryApi,
   editEvidenceEntryApi,
   fetchEvidenceDataApi,
-  deleteEvidenceEntryApi
+  deleteEvidenceEntryApi,
+  fetchTableDataApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -43,7 +44,6 @@ import {
   handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
-import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { setTestData, setLoading } from "Actions/testActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
@@ -304,23 +304,6 @@ export function* resultConfigEditResultGenerator(data) {
   }
 }
 
-export function* fetchTableData() {
-  try {
-    const result = generateDNAVariantTableMockData(500);
-
-    for (let item in result) {
-      const record = result[item];
-
-      setPriority(record);
-    }
-
-    yield put(setDataToStore(result));
-    // yield put(setLoading(false));
-  } catch (error) {
-    console.log("---error: ", error);
-  }
-}
-
 export function* handleZygositySaga(data) {
   try {
     const result = yield call(sendVariantClassApi, data);
@@ -343,6 +326,33 @@ export function* handleZygositySaga(data) {
     }
   } catch (e) {
     console.log("-err: ", e);
+  }
+}
+
+
+export function* fetchTableDataSaga(action) {
+  try {
+    yield put(setLoading(true));
+  
+    const result = yield call(fetchTableDataApi, action);
+    console.log(result);
+    
+    // const result = generateDNAVariantTableMockData(500);
+    
+    for (let item in result) {
+      const record = result[item];
+      
+      setPriority(record);
+    }
+    
+    yield put(setDataToStore(result));
+    yield put(setLoading(false));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchTableDataSaga"]);
+      Sentry.captureException(e);
+    });
+    yield put(setLoading(false));
   }
 }
 
