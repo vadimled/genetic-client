@@ -139,7 +139,7 @@ export const VARIANT_CLASS_SOMATIC = {
   tier1: { value: "tier1", label: "Tier1", tagColor: TAG_COLORS.red },
   tier2: { value: "tier2", label: "Tier2", tagColor: TAG_COLORS.orange },
   tier3: { value: "tier3", label: "Tier3", tagColor: TAG_COLORS.yellow },
-  tier4: { value: "tier4", label: "Tier4", tagColor: TAG_COLORS.blueLight }
+  tier4: { value: "tier4", label: "Tier4", tagColor: TAG_COLORS.blue }
 };
 
 export const GERMLINE_VARIANT_CLASS_OPTIONS = [
