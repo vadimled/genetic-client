@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from "react-router-dom";
 import { Table, Tooltip, Checkbox } from "antd";
 import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect";
@@ -246,7 +246,7 @@ class VariantTable extends Component {
 
                 <Link
                   to={{
-                    pathname: `test/${this.props.testId}/variant/${record.id}/?selectedZygosityType=germline`,
+                    pathname: `${this.props.match.url}/variant/${record.id}/?selectedZygosityType=germline`,
                     // state: {type: "germline"}
                   }}
                 >
@@ -267,7 +267,7 @@ class VariantTable extends Component {
               <div className="table-select-wrapper">
                 <Link
                   to={{
-                    pathname: `test/${this.props.testId}/variant/${record.id}/?selectedZygosityType=somatic`,
+                    pathname: `${this.props.match.url}/variant/${record.id}/?selectedZygosityType=somatic`,
                     // state: {testId:this.props.testId, variantId: record.id, selectedZygosityType: "somatic"}
                   }}
                 >
@@ -426,4 +426,4 @@ VariantTable.defaultProps = {
   selectedRows: []
 };
 
-export default VariantTable;
+export default withRouter(VariantTable);

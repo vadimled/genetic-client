@@ -26,18 +26,24 @@ import {
 import { setAlert } from "Actions/alertActions";
 import { fetchTestMetadata } from "Actions/testActions";
 import Spinner from "GenericComponents/spinner";
+import { withRouter } from "react-router-dom";
+import { fetchTableData } from "Actions/tableActions";
 
 class MainPage extends Component {
   constructor(props) {
     super(props);
-
-    props.fetchTestMetadata("5d511f574651a20020a0ab50");
+    props.fetchTestMetadata(props?.match?.params?.testId);
 
     this.state = {
       sidebarToggle: true
     };
   }
-
+  
+  componentDidMount() {
+    const {fetchTableData} = this.props;
+    fetchTableData();
+  }
+  
   handleClick = () => {
     this.setState({
       sidebarToggle: !this.state.sidebarToggle
@@ -126,11 +132,12 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     setAlert: data => dispatch(setAlert(data)),
+    fetchTableData: data => dispatch(fetchTableData(data)),
     fetchTestMetadata: id => dispatch(fetchTestMetadata(id))
   };
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(MainPage);
+)(MainPage));
