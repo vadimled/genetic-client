@@ -8,7 +8,8 @@ import { connect } from "react-redux";
 import cn from "classnames";
 // import SidebarFilters from "../mainPage/components/sidebarFilters/SidebarFilters";
 import { fetchTests } from "../../store/actions/testsActions";
-import TestsTable from "./components/TestsTable";
+import { getTests } from "../../store/selectors";
+import { Link } from "react-router-dom";
 
 
 
@@ -33,6 +34,9 @@ class TestsPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
+    const { tests } = this.props;
+
+    console.log("--tests: ", tests)
 
     return (
       <div className={style["tests-page-wrapper"]}>
@@ -54,7 +58,19 @@ class TestsPage extends Component {
             { "sidebar-open": sidebarToggle }
           ])}
         >
-          <TestsTable />
+          {
+            tests.map(test => (
+              <Link
+                key={test.id}
+                to={`tests/${test.id}`}
+              >
+                <h1>gsid: {test.gsid}</h1>
+                <h1>panel_type: {test.panel_type}</h1>
+              </Link>
+            ))
+          }
+
+
         </div>
 
       </div>
@@ -64,16 +80,12 @@ class TestsPage extends Component {
 
 TestsPage.propTypes = {};
 
-// const mapStateToProps = state => {
-//   return {
-//     variantData: getVariantData(state),
-//     germlineClassHistory: getHistoryGermline(state),
-//     somaticClassHistory: getHistorySomatic(state),
-//     externalResources: getExternalResources(state),
-//     selectedZygosityType: getZygosityType(state)
-//   };
-// };
-//
+const mapStateToProps = state => {
+  return {
+    tests: getTests(state),
+  };
+};
+
 function mapDispatchToProps(dispatch) {
   return {
     fetchTests: () => dispatch(fetchTests()),
@@ -81,6 +93,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(TestsPage);

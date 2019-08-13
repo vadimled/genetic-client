@@ -1,8 +1,9 @@
 import axios from "axios";
 import "Utils/axios-mock";
-import config from "../config";
 
-const {API_URL} = config;
+const API_URL = process.env.REACT_APP_API_URL;
+
+console.log(API_URL);
 
 axios.defaults.baseURL = API_URL;
 

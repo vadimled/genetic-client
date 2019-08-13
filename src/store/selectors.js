@@ -403,3 +403,5 @@ export const getSomaticEvidence = state =>
       }
     }
   );
+
+// export const getTests = state => state?.test?.panel_type;
