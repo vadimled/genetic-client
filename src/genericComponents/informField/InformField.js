@@ -1,13 +1,24 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 import style from "./InformField.module.scss";
+import { Tooltip } from "antd";
 
-function InformField({ label, text, icon, name }) {
+function InformField({ label, text, icon, name, tooltip }) {
   return (
     <div className={style["inform-field-wrapper"]}>
       <div className="icon">{!!icon && icon}</div>
       <label>{!!label && label}</label>
-      <div data-testid={name} className="text">{text}</div>
+      {tooltip ? (
+        <Tooltip placement="topLeft" title={tooltip}>
+          <div data-testid={name} className="text">
+            {text}
+          </div>
+        </Tooltip>
+      ) : (
+        <div data-testid={name} className="text">
+          {text}
+        </div>
+      )}
     </div>
   );
 }
