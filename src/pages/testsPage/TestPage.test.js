@@ -24,7 +24,7 @@ const initSteps = () => {
 
   wait(()=> store.dispatch(fetchTests()));
 
-  return {store, getByTestId, getAllByTestId, asFragment};
+  return {store, getByTestId, asFragment};
 };
 
 describe('TestsPage', () => {
@@ -35,9 +35,11 @@ describe('TestsPage', () => {
     const { getByTestId, store } = initSteps();
     const test = await waitForElement(() => store.getState().tests.tests);
 
-    // console.log("--test: ", test)
+    console.log("--test: ", test)
 
     const testElem = await waitForElement(() => getByTestId('tests-5d4adfb6a1e39700120ad5f2'));
-  })
+
+    console.log("--testElem: ", testElem)
+  });
 
 });
