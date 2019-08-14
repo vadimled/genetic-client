@@ -1013,7 +1013,7 @@ const createNewTableDataItem = item => {
   newObj.alleleChange = `${item.ref[0]} > ${item.alt[0]}`;
   newObj.alleleChangeLong = `${item.ref} > ${item.alt}`;
   newObj.transcript = item.transcript;
-  newObj.zygosity = item.zygosity;
+  newObj.zygosity = item.zygosity || "unknown";
   newObj.clinvar = item.clinvar_variation_id;
   newObj.coding = "????????";
   newObj.codingLong = "????????";
