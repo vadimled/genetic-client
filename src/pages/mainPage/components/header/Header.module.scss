@@ -12,8 +12,29 @@
   text-align: left;
 
   .left-wrapper {
-    width: 319px;
-    margin-left: 1em;
+    margin-left: 2em;
+
+    .go-back-button {
+      display: flex;
+      width: 110px;
+      height: 33px;
+      justify-content: center;
+      align-items: center;
+      background-color: $brand_primary_color;
+      border-radius: 5px;
+      cursor: pointer;
+
+      .go-back-button-text {
+        font-weight: 600;
+        font-size: 18px;
+        text-align: center;
+        color: $white;
+      }
+
+      &:hover {
+        background-color: $brand_primary_hover_color;
+      }
+    }
   }
 
   .right-side-item {

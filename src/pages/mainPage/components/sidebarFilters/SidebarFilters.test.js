@@ -9,7 +9,7 @@ import SidebarFilters from "Pages/mainPage/components/sidebarFilters/SidebarFilt
 import { renderWithRedux } from "Utils/test_helpers";
 import { setFilterVaf } from "Store/actions/filtersActions";
 import MainPage from "../../MainPage";
-import { fetchTestData } from "../../../../store/actions/testActions";
+import { fetchTestMetadata } from "../../../../store/actions/testActions";
 import { fetchTableData } from "../../../../store/actions/tableActions";
 import { BrowserRouter as Router } from "react-router-dom";
 import { setDefaultFilters } from "../../../../store/actions/filtersActions";
@@ -28,7 +28,7 @@ const initSteps = () => {
 
   store.dispatch(setDefaultFilters());
 
-  store.dispatch(fetchTestData("GS00115NP050818_TS1_01"));
+  store.dispatch(fetchTestMetadata("GS00115NP050818_TS1_01"));
 
   return {store, getByTestId, getAllByTestId};
 };
@@ -113,7 +113,7 @@ describe("SideBarFilters component test", () => {
     fireEvent.click(getByTestId("filter-checkbox-zygosity-Not Real"));
     fireEvent.click(getByTestId("filter-checkbox-zygosity-Insignificant"));
     fireEvent.click(getByTestId("filter-checkbox-zygosity-Homo"));
-    fireEvent.click(getByTestId("filter-checkbox-zygosity-Hetro"));
+    fireEvent.click(getByTestId("filter-checkbox-zygosity-Hetero"));
     fireEvent.click(getByTestId("filter-checkbox-zygosity-Hemi"));
     fireEvent.click(getByTestId("filter-checkbox-zygosity-Somatic"));
     fireEvent.click(getByTestId("filter-checkbox-zygosity-Not Defined"));
@@ -123,7 +123,7 @@ describe("SideBarFilters component test", () => {
     const indicator2 = await waitForElement(() => getByTestId("filter-zygosity-Not Real"));
     const indicator3 = await waitForElement(() => getByTestId("filter-zygosity-Insignificant"));
     const indicator4 = await waitForElement(() => getByTestId("filter-zygosity-Homo"));
-    const indicator5 = await waitForElement(() => getByTestId("filter-zygosity-Hetro"));
+    const indicator5 = await waitForElement(() => getByTestId("filter-zygosity-Hetero"));
     const indicator6 = await waitForElement(() => getByTestId("filter-zygosity-Hemi"));
     const indicator7 = await waitForElement(() => getByTestId("filter-zygosity-Somatic"));
     const indicator8 = await waitForElement(() => getByTestId("filter-zygosity-Not Defined"));

@@ -1124,9 +1124,9 @@ th {
   }
 }
 
-.ant-select-dropdown.ant-select-dropdown--single {
-  width: 130px !important;
-}
+//.ant-select-dropdown.ant-select-dropdown--single {
+//  width: 130px !important;
+//}
 
 .zygosity-type-radio-group {
   .ant-select.ant-select-enabled {
@@ -1174,7 +1174,7 @@ th {
 .ant-table-wrapper {
   &.classification-history-table-wrapper {
     width: 100vw;
-    height: 164px;
+    height: 182px;
     overflow: hidden !important;
 
     .ant-table-thead > tr > th {

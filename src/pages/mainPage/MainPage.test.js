@@ -5,11 +5,12 @@ import { renderWithRedux } from "Utils/test_helpers";
 import { handleOnConfirmation } from "Actions/confirmationActions";
 import { handleUncheckConfirmationData } from "Actions/tableActions";
 import { getOnConfirmation, getUncheckConfirmationData } from "Store/selectors";
+import { BrowserRouter as Router } from "react-router-dom";
 
 describe('MainPage', () => {
 
   it('showing send-for-confirmation-popup', () => {
-    const { getByTestId, store } = renderWithRedux(<MainPage />);
+    const { getByTestId, store } = renderWithRedux(<Router><MainPage /></Router>);
 
     const isOnConfirmatio1 = getOnConfirmation(store.getState());
     expect(isOnConfirmatio1).toEqual(false);
@@ -22,7 +23,7 @@ describe('MainPage', () => {
   });
 
   it('showing UncheckConfirmationPopup', () => {
-    const { getByTestId, store } = renderWithRedux(<MainPage />);
+    const { getByTestId, store } = renderWithRedux(<Router><MainPage /></Router>);
 
     const uncheckConfirmationData1 = getUncheckConfirmationData(store.getState());
     expect(uncheckConfirmationData1).toEqual(null);
