@@ -1,27 +1,31 @@
 import React from "react";
 import { createStore, applyMiddleware } from "redux";
-import createSagaMiddleware from "redux-saga";
+import createSagaMiddleware from 'redux-saga';
 import { watchSaga } from "Store/saga";
 import reducers from "Store/reducers";
 import { renderWithRedux } from "Utils/test_helpers";
 import { fireEvent, waitForElement, wait } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import TableData from "./TableData";
+import TableData from './TableData';
 import {
   CONFIRMATION_VALUES,
   ZYGOSITY_OPTIONS,
   GERMLINE_VARIANT_CLASS_OPTIONS,
-  SOMATIC_VARIANT_CLASS_OPTIONS
+  SOMATIC_VARIANT_CLASS_OPTIONS,
 } from "Utils/constants";
 import {
   handleZygosity,
   handleVariantClass,
   handleConfirmationStatus,
-  handleUncheckConfirmationData,
-  fetchTableData
+  handleUncheckConfirmationData, fetchTableData
 } from "Actions/tableActions";
-import { getUncheckConfirmationData } from "Store/selectors";
+import {
+  getUncheckConfirmationData
+} from "Store/selectors";
 import { BrowserRouter as Router } from "react-router-dom";
+
+
+
 const initSteps = () => {
   const sagaMiddleware = createSagaMiddleware();
   const { getByTestId, store, getAllByTestId, asFragment } = renderWithRedux(
@@ -31,23 +35,33 @@ const initSteps = () => {
     createStore(reducers, applyMiddleware(sagaMiddleware))
   );
   sagaMiddleware.run(watchSaga);
+
+
   store.dispatch(fetchTableData());
-  return { store, getByTestId, getAllByTestId, asFragment };
+
+  return {store, getByTestId, getAllByTestId, asFragment};
 };
-describe("TableData", () => {
-  it("handle selection-checkbox", () => {
+
+describe('TableData', () => {
+
+  it('handle selection-checkbox', () => {
     const { getAllByTestId, store } = initSteps();
-    const chbxs = getAllByTestId("selection-checkbox");
+    const chbxs = getAllByTestId('selection-checkbox');
     const firstChbx = chbxs[0];
-    const rowId = firstChbx.dataset["testitemid"];
+    const rowId = firstChbx.dataset['testitemid'];
+
     const row1 = store.getState().table.data[rowId];
     expect(row1.selected).toBeUndefined();
+
     fireEvent.click(firstChbx);
+
     const row2 = store.getState().table.data[rowId];
     expect(row2.selected).toEqual(true);
   });
-  it("handle confirmation status", () => {
+
+  it('handle confirmation status', () => {
     const { store } = initSteps();
+
     // find first item with status in table data and select one
     const tableData1 = store.getState().table.data;
     let itemId; // = tableData1[Object.keys(tableData1)[0]].id;
@@ -60,111 +74,98 @@ describe("TableData", () => {
         }
       }
     }
+
     // CONFIRMED
-    store.dispatch(
-      handleConfirmationStatus({
-        id: itemId,
-        status: CONFIRMATION_VALUES.CONFIRMED.value
-      })
-    );
+    store.dispatch(handleConfirmationStatus({
+      id: itemId,
+      status: CONFIRMATION_VALUES.CONFIRMED.value
+    }));
+
     const tableData2 = store.getState().table.data;
     const item2 = tableData2[itemId];
     expect(item2.status).toEqual(CONFIRMATION_VALUES.CONFIRMED.value);
+
     // NOT_CONFIRMED
-    store.dispatch(
-      handleConfirmationStatus({
-        id: itemId,
-        status: CONFIRMATION_VALUES.NOT_CONFIRMED.value
-      })
-    );
+    store.dispatch(handleConfirmationStatus({
+      id: itemId,
+      status: CONFIRMATION_VALUES.NOT_CONFIRMED.value
+    }));
+
     const tableData3 = store.getState().table.data;
     const item3 = tableData3[itemId];
     expect(item3.status).toEqual(CONFIRMATION_VALUES.NOT_CONFIRMED.value);
+
     // PENDING
-    store.dispatch(
-      handleConfirmationStatus({
-        id: itemId,
-        status: CONFIRMATION_VALUES.PENDING.value
-      })
-    );
+    store.dispatch(handleConfirmationStatus({
+      id: itemId,
+      status: CONFIRMATION_VALUES.PENDING.value
+    }));
+
     const tableData4 = store.getState().table.data;
     const item4 = tableData4[itemId];
     expect(item4.status).toEqual(CONFIRMATION_VALUES.PENDING.value);
+
     // null
-    const uncheckConfirmationData1 = getUncheckConfirmationData(
-      store.getState()
-    );
+    const uncheckConfirmationData1 = getUncheckConfirmationData(store.getState());
     expect(uncheckConfirmationData1).toEqual(null);
-    store.dispatch(
-      handleUncheckConfirmationData({
-        id: itemId,
-        status: null
-      })
-    );
-    const uncheckConfirmationData2 = getUncheckConfirmationData(
-      store.getState()
-    );
+
+    store.dispatch(handleUncheckConfirmationData({
+      id: itemId,
+      status: null
+    }));
+
+    const uncheckConfirmationData2 = getUncheckConfirmationData(store.getState());
     expect(uncheckConfirmationData2).toEqual({
       id: itemId,
       status: null
     });
   });
-  it("zygosity and variant class change", async () => {
+
+  it('zygosity and variant class change', async () => {
     const { getAllByTestId, store } = initSteps();
-    const select = getAllByTestId("zygosity-select");
+    const select = getAllByTestId('zygosity-select');
     const firstSelect = select[0];
-    const rowId = firstSelect.dataset["testitemid"];
+    const rowId = firstSelect.dataset['testitemid'];
     const zygosityValue = ZYGOSITY_OPTIONS?.[0]?.value;
     const notReal = ZYGOSITY_OPTIONS?.[5]?.value;
-    const germlineVariantClassValue =
-      GERMLINE_VARIANT_CLASS_OPTIONS?.[0]?.value;
+    const germlineVariantClassValue = GERMLINE_VARIANT_CLASS_OPTIONS?.[0]?.value;
     const somaticVariantClassValue = SOMATIC_VARIANT_CLASS_OPTIONS?.[0]?.value;
     const tier2 = SOMATIC_VARIANT_CLASS_OPTIONS?.[2]?.value;
     const path = GERMLINE_VARIANT_CLASS_OPTIONS?.[1]?.value;
+
     expect(firstSelect).toBeDefined();
     expect(rowId).toBeDefined();
     expect(zygosityValue).toBeDefined();
-    wait(() =>
-      store.dispatch(
-        handleZygosity({ item: { id: rowId }, value: zygosityValue })
-      )
-    );
+
+    wait(()=> store.dispatch(handleZygosity({ item: { id: rowId }, value: zygosityValue })));
+
     const row2 = await waitForElement(() => store.getState().table.data[rowId]);
     expect(row2.zygosity).toEqual(zygosityValue);
-    wait(() =>
-      store.dispatch(
-        handleVariantClass({
-          item: { id: rowId },
-          value: germlineVariantClassValue
-        })
-      )
-    );
-    wait(() =>
-      store.dispatch(
-        handleVariantClass({
-          item: { id: rowId },
-          value: somaticVariantClassValue
-        })
-      )
-    );
+
+    wait(()=> store.dispatch(handleVariantClass({ item: { id: rowId }, value: germlineVariantClassValue })));
+
+
+    wait(()=> store.dispatch(handleVariantClass({ item: { id: rowId }, value: somaticVariantClassValue })));
+
     const row4 = store.getState().table.data[rowId];
     expect(row4.variantClassGermline).toEqual("path");
-    wait(() =>
-      store.dispatch(
-        handleVariantClass({ item: { id: rowId }, value: notReal })
-      )
-    );
+
+    wait(() => store.dispatch(handleVariantClass({ item: { id: rowId }, value: notReal })));
+
     const row5 = store.getState().table.data[rowId];
+
     expect(row5.priority).toEqual(1);
-    wait(() =>
-      store.dispatch(handleVariantClass({ item: { id: rowId }, value: tier2 }))
-    );
+
+    wait(() => store.dispatch(handleVariantClass({ item: { id: rowId }, value: tier2 })));
+
     const row6 = store.getState().table.data[rowId];
+
     expect(row6.priority).toEqual(1);
-    wait(() =>
-      store.dispatch(handleVariantClass({ item: { id: rowId }, value: path }))
-    );
+
+    wait(() => store.dispatch(handleVariantClass({ item: { id: rowId }, value: path })));
+
     const row7 = store.getState().table.data[rowId];
+
     expect(row7.priority).toEqual(1);
   });
 });
