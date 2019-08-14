@@ -13,7 +13,8 @@ import {
   editResult,
   fetchTestMetadataApi,
   fetchVariantDataApi,
-  sendVariantClassApi,
+  updateVariantApi,
+  fetchTestsApi,
   addEvidenceEntryApi,
   editEvidenceEntryApi,
   fetchEvidenceDataApi,
@@ -45,6 +46,7 @@ import {
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
 import { setTestData, setLoading } from "Actions/testActions";
+import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
   setVariantData,
@@ -305,27 +307,69 @@ export function* resultConfigEditResultGenerator(data) {
   }
 }
 
-export function* handleZygositySaga(data) {
+export function* fetchTableData() {
   try {
-    const result = yield call(sendVariantClassApi, data);
+    const result = generateDNAVariantTableMockData(500);
 
-    const { record, value } = data.payload;
+    for(let item in result){
 
-    const newRecord = Object.assign({}, record);
+      const record = result[item];
 
-    newRecord.zygosity = value;
+      setPriority(record);
+    }
 
-    setPriority(newRecord);
+    yield put(setDataToStore(result));
+    // yield put(setLoading(false));
+  } catch (error) {
+    console.log("---error: ", error);
+  }
+}
+
+export function* fetchTestsSaga() {
+  try {
+    yield put(setTestsLoading(true));
+
+    const result = yield call(fetchTestsApi);
+
+    console.log("--result: ", result);
 
     if (result?.status === 200) {
-      yield put(
-        setZygosity({
-          ...data.payload,
-          record: newRecord
-        })
-      );
+      yield put(setTestsToStore(result.data));
     }
-  } catch (e) {
+
+    yield put(setTestsLoading(false));
+
+  } catch (error) {
+    console.log("---error: ", error);
+    yield put(setTestsLoading(false));
+  }
+}
+
+export function* handleZygositySaga(data) {
+  try{
+    const result = yield call(updateVariantApi, data);
+
+
+    const variant = result.data;
+
+
+
+    // const {record} = data.payload;
+    //
+    // const newRecord = Object.assign({}, record);
+    //
+    // newRecord.zygosity = value;
+
+    setPriority(variant);
+
+    if (result?.status === 200) {
+      yield put(setZygosity({
+        ...data.payload,
+        record: variant
+      }));
+    }
+  }
+  catch (e) {
     console.log("-err: ", e);
   }
 }
@@ -373,20 +417,6 @@ export function* fetchTestMetadataGenerator(id) {
   }
 }
 
-export function* sendVariantClassGenerator(variantClass) {
-  try {
-    const result = yield call(sendVariantClassApi, variantClass);
-    if (result?.status === 200) {
-      yield put(setVariantClassification(variantClass.payload));
-    }
-  } catch (e) {
-    Sentry.withScope(scope => {
-      scope.setFingerprint(["sendVariantClassGenerator"]);
-      Sentry.captureException(e);
-    });
-  }
-}
-
 export function* fetchVariantDataGenerator(data) {
   try {
     const result = yield call(fetchVariantDataApi, data),
@@ -395,6 +425,21 @@ export function* fetchVariantDataGenerator(data) {
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchVariantDataGenerator"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* sendVariantClassGenerator(variantClass) {
+  try {
+    const result = yield call(updateVariantApi, variantClass);
+
+    if (result?.status === 200) {
+      yield put(setVariantClassification(variantClass.payload));
+    }
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["sendVariantClassGenerator"]);
       Sentry.captureException(e);
     });
   }

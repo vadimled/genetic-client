@@ -2,12 +2,25 @@ import React from "react";
 import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { renderWithRedux } from "Utils/test_helpers";
+import App from "../../../../App";
+import { BrowserRouter as Router } from "react-router-dom";
 import TumorToolbar from "Pages/mainPage/components/tumorToolbar/TumorToolbar";
 import { setTumorInfo } from "Actions/testActions";
 
 describe("Tumor Toolbar", () => {
+  it("if Icon Info reacted to click", () => {
+    const { getByTestId } = renderWithRedux(
+      <Router>
+        <App />
+      </Router>
+    );
+
+    const iconInfo = getByTestId("header-icon-info");
+    fireEvent.click(iconInfo);
+  });
+
   it("if TumorToolbar opened, check 'Type' select ", () => {
-    const { getByTestId, store } = renderWithRedux( <TumorToolbar  sidebarToggle />);
+    const { getByTestId, store } = renderWithRedux(<TumorToolbar />);
 
     const locationSelect = getByTestId("tumor-type-select");
     expect(locationSelect).toBeInTheDocument();
@@ -20,7 +33,7 @@ describe("Tumor Toolbar", () => {
   });
 
   it("if TumorToolbar opened, check 'Location' select ", () => {
-    const { getByTestId, store } = renderWithRedux( <TumorToolbar  sidebarToggle />);
+    const { getByTestId, store } = renderWithRedux(<TumorToolbar />);
 
     const locationSelect = getByTestId("tumor-location-select");
     expect(locationSelect).toBeInTheDocument();
@@ -35,7 +48,7 @@ describe("Tumor Toolbar", () => {
   });
 
   it("if TumorToolbar opened, check 'Percent' select ", () => {
-    const { getByTestId, store } = renderWithRedux( <TumorToolbar  sidebarToggle />);
+    const { getByTestId, store } = renderWithRedux(<TumorToolbar />);
 
     const inputNumber = getByTestId("tumor-percent-inputNumber");
     expect(inputNumber).toBeInTheDocument();
@@ -48,7 +61,7 @@ describe("Tumor Toolbar", () => {
   });
 
   it("if TumorToolbar opened, check 'tumor-panel-close-icon clicked", () => {
-    const { getByTestId } = renderWithRedux( <TumorToolbar  sidebarToggle />);
+    const { getByTestId } = renderWithRedux(<TumorToolbar />);
 
     const closeIcon = getByTestId("tumor-save-inputNumber");
     expect(closeIcon).toBeInTheDocument();

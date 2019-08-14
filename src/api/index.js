@@ -1,6 +1,5 @@
 import axios from "axios";
 import axios_based from "./axios-base";
-
 import "Utils/axios-mock";
 
 export function fetchBAMFile(BAMFileUrl) {
@@ -56,11 +55,18 @@ export function fetchVariantDataApi(data) {
   return axios_based.get(`/api/tests/${testId}/variants/${variantId}/`);
 }
 
-export function sendVariantClassApi(data) {
-  const { testId, variantId, name, value } = data.payload;
-  return axios_based.patch(`/api/tests/${testId}/variants/${variantId}`, {
+export function updateVariantApi(data) {
+  const temporaryUrl =
+    "tests/5d4adfb6a1e39700120ad5f2/variants/5d4adfb6a1e39700120ad5f3";
+
+  const { name, value } = data.payload;
+  return axios_based.patch(temporaryUrl, {
     [name]: value
   });
+}
+
+export function fetchTestsApi() {
+  return axios_based.get(`/tests/`);
 }
 
 export function addEvidenceEntryApi(action) {
