@@ -1034,7 +1034,7 @@ const createNewTableDataItem = item => {
   newObj.snp = item.snps;
   newObj.protein = "????????";
   newObj.omim = "????????";
-  newObj.status = "????????";
+  newObj.status = null;
   newObj.vaf = "????????";
   newObj.variantClassGermline = item.germline_class || "unclassified";
   newObj.variantClassSomatic = item.somatic_class || "unclassified";
