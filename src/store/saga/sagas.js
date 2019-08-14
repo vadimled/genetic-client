@@ -3,15 +3,15 @@ import * as Sentry from "@sentry/browser";
 import {
   ALERT_STATUSES,
   ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS,
-} from 'Utils/constants';
+  VALIDATION_FAILD_FIELDS
+} from "Utils/constants";
 import {
   fetchBAMFile,
   goToChrPositionIgv,
   loadHgvs,
   addResult,
   editResult,
-  fetchTestDataApi,
+  fetchTestMetadataApi,
   fetchVariantDataApi,
   updateVariantApi,
   fetchTestsApi,
@@ -45,7 +45,7 @@ import {
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
-import { setTestData } from "Actions/testActions";
+import { setTestData, setLoading } from "Actions/testActions";
 import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
@@ -306,7 +306,6 @@ export function* resultConfigEditResultGenerator(data) {
   }
 }
 
-
 export function* fetchTableData() {
   try {
     const result = generateDNAVariantTableMockData(500);
@@ -316,7 +315,6 @@ export function* fetchTableData() {
       const record = result[item];
 
       setPriority(record);
-
     }
 
     yield put(setDataToStore(result));
@@ -331,8 +329,6 @@ export function* fetchTestsSaga() {
     yield put(setTestsLoading(true));
 
     const result = yield call(fetchTestsApi);
-
-    console.log("--result: ", result);
 
     if (result?.status === 200) {
       yield put(setTestsToStore(result.data));
@@ -375,16 +371,20 @@ export function* handleZygositySaga(data) {
   }
 }
 
-export function* fetchTestDataGenerator(id) {
+export function* fetchTestMetadataGenerator(id) {
   try {
-    const result = yield call(fetchTestDataApi, id);
+    yield put(setLoading(true));
+    const result = yield call(fetchTestMetadataApi, id);
+    console.log(result);
     yield put(setTestData(result?.data));
     yield put(setMutationType(result?.data?.mutation_types[0]));
+    yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchTestDataGenerator"]);
+      scope.setFingerprint(["fetchTestMetadataGenerator"]);
       Sentry.captureException(e);
     });
+    yield put(setLoading(false));
   }
 }
 
@@ -466,4 +466,3 @@ export function* deleteEvidenceEntrySaga(action) {
     });
   }
 }
-

@@ -72,11 +72,12 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getClicksCounter = state => state?.table?.clicksCounter,
 
   getTumorInfoMode = state => state.test.showTumorInfo,
+  getLoading = state => state.test.isLoading,
   getTumorInfoType = state => state.test.tumor_info?.type,
   getTumorInfoLocation = state => state.test.tumor_info?.location,
   getTumorInfoPercent = state =>
     parseInt(state.test.tumor_info?.cancer_cell_percentage, 10),
-  getTestId = state => state.test.test_id,
+  getTestId = state => state.test.id,
   getSelectedMutationType = state => state.variants.selectedMutation,
   getMutationTypesValues = state => state.test.mutation_types;
 

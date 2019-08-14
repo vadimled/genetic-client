@@ -2,9 +2,10 @@ import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 
 const initialState = {
+  isLoading: false,
   gsid: null,
   panel_type: null,
-  test_id: null,
+  id: null,
   showTumorInfo: false,
   mutation_types: [],
   tumor_info: {
@@ -37,6 +38,12 @@ const testReducer = createReducer(initialState, {
         ...state.tumor_info,
         ...payload
       }
+    };
+  },
+  [actionsTypes.SET_LOADING]: (state, { payload }) => {
+    return {
+      ...state,
+      isLoading: payload
     };
   }
 });

@@ -37,7 +37,6 @@ class Header extends Component {
             {/* TODO: Logo place*/}
             LOGO
           </div>
-          <div className="left-wrapper">{this.props.testId}</div>
           <div className="left-wrapper">
             {this.isVariantPage() && (
               <Link
@@ -50,6 +49,7 @@ class Header extends Component {
               </Link>
             )}
           </div>
+          <div className="left-wrapper">{this.props.testId}</div>
         </div>
         <div className="flex justify-start flex-row">
           <div className="right-side-item">
