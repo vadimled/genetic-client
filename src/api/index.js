@@ -2,6 +2,9 @@ import axios from "axios";
 import axios_based from "./axios-base";
 import "Utils/axios-mock";
 
+const isMock = process.env.REACT_APP_AXIOS_MOCK_ENABLED === "true";
+console.log("isMock = ", isMock);
+
 export function fetchBAMFile(BAMFileUrl) {
   return axios.get(`http://localhost:60151/load?file=${BAMFileUrl}`);
 }
@@ -47,22 +50,32 @@ export function editResult(data) {
 }
 
 export function fetchTestMetadataApi(id) {
-  return axios_based.get(`/tests/${id.payload}`);
+  return !isMock
+    ? axios_based.get(`/tests/${id.payload}`)
+    : axios.get(`/api/tests/${id.payload}`);
 }
 
 export function fetchVariantDataApi(data) {
   const { testId, variantId } = data.payload;
-  return axios_based.get(`/api/tests/${testId}/variants/${variantId}/`);
+  return !isMock
+    ? axios_based.get(`/tests/${testId}/variants/${variantId}/`)
+    : axios.get(`/api/tests/${testId}/variants/${variantId}/`);
 }
 
 export function updateVariantApi(data) {
-  const temporaryUrl =
-    "tests/5d4adfb6a1e39700120ad5f2/variants/5d4adfb6a1e39700120ad5f3";
+  const temporaryUrlMock =
+      "/api/tests/5d4adfb6a1e39700120ad5f2/variants/5d4adfb6a1e39700120ad5f3",
+    temporaryUrl =
+      "/tests/5d4adfb6a1e39700120ad5f2/variants/5d4adfb6a1e39700120ad5f3";
 
   const { name, value } = data.payload;
-  return axios_based.patch(temporaryUrl, {
-    [name]: value
-  });
+  return !isMock
+    ? axios_based.patch(temporaryUrl, {
+      [name]: value
+    })
+    : axios.patch(temporaryUrlMock, {
+      [name]: value
+    });
 }
 
 export function fetchTestsApi() {
@@ -75,12 +88,13 @@ export function addEvidenceEntryApi(action) {
     data
   } = action.payload;
 
-  return axios_based.post(
-    `/api/tests/${testId}/variants/${variantId}/evidences`,
-    {
+  return !isMock
+    ? axios_based.post(`/tests/${testId}/variants/${variantId}/evidences`, {
       data
-    }
-  );
+    })
+    : axios.post(`/api/tests/${testId}/variants/${variantId}/evidences`, {
+      data
+    });
 }
 
 export function editEvidenceEntryApi(action) {
@@ -89,26 +103,41 @@ export function editEvidenceEntryApi(action) {
     data
   } = action.payload;
 
-  return axios_based.put(
-    `/api/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`,
-    {
-      data
-    }
-  );
+  return !isMock
+    ? axios_based.put(
+      `/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`,
+      {
+        data
+      }
+    )
+    : axios.put(
+      `/api/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`,
+      {
+        data
+      }
+    );
 }
 
 export function deleteEvidenceEntryApi(action) {
   const {
     ids: { testId, variantId, evidenceId }
   } = action.payload;
-  return axios_based.delete(
-    `/api/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`
-  );
+  return !isMock
+    ? axios_based.delete(
+      `tests/${testId}/variants/${variantId}/evidences/${evidenceId}`
+    ):
+    axios.delete(
+      `/api/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`
+    )  ;
 }
 
 export function fetchEvidenceDataApi(action) {
   const { testId, variantId } = action.payload;
-  return axios_based.get(
-    `/api/tests/${testId}/variants/${variantId}/evidences`
-  );
+  return !isMock
+    ? axios_based.get(
+      `/tests/${testId}/variants/${variantId}/evidences`
+    ):
+    axios.get(
+      `/api/tests/${testId}/variants/${variantId}/evidences`
+    )  ;
 }
