@@ -16,6 +16,8 @@ const initialState = {
 const tableReducer = createReducer(initialState, {
 
   [actionsTypes.FETCH_TABLE_DATA_SUCCESS]: (state, {payload}) => {
+    console.log(payload);
+    // const data = {}
     return {
       ...state,
       data: payload

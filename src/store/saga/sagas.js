@@ -55,6 +55,7 @@ import {
   deleteEvidenceFromStore
 } from "Actions/variantPageActions";
 import { zygosityType, setPriority, getEvidenceData } from "Utils/helpers";
+// import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -335,17 +336,16 @@ export function* fetchTableDataSaga(action) {
     yield put(setLoading(true));
   
     const result = yield call(fetchTableDataApi, action);
-    console.log(result);
     
     // const result = generateDNAVariantTableMockData(500);
-    
-    for (let item in result) {
-      const record = result[item];
-      
-      setPriority(record);
+    // console.log(generateDNAVariantTableMockData(1));
+    for (let item of result.data) {
+      setPriority(item);
     }
+    // console.log(result.data);
+
     
-    yield put(setDataToStore(result));
+    yield put(setDataToStore(result.data));
     yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
