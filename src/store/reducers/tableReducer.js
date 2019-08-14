@@ -1,10 +1,10 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
-// import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { PRIORITY } from "../../utils/constants";
 import { CONFIRMATION_VALUES } from "Utils/constants";
 
 const initialState = {
+  serverData: {},
   data: {},
   uncheckConfirmationData: null,
   activityLog: {},
@@ -15,17 +15,16 @@ const initialState = {
 
 const tableReducer = createReducer(initialState, {
   [actionsTypes.FETCH_TABLE_DATA_SUCCESS]: (state, { payload }) => {
-
-    const arrayToObject = array =>
-      array.reduce((obj, item) => {
-        obj[item.id] = item;
-        obj[item.id].key = item.id;
-        return obj;
-      }, {});
-
     return {
       ...state,
-      data: arrayToObject(payload)
+      serverData: payload
+    };
+  },
+
+  [actionsTypes.SET_PARSED_DATA_TO_STORE]: (state, { payload }) => {
+    return {
+      ...state,
+      data: payload
     };
   },
 

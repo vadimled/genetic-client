@@ -30,7 +30,8 @@ import {
   applyConfirmation,
   tableDataAddResult,
   tableDataEditResult,
-  setDataToStore,
+  setParsedDataToStore,
+  setServerDataToStore,
   setZygosity
 } from "Actions/tableActions";
 import {
@@ -56,7 +57,7 @@ import {
   setEvidenceData,
   deleteEvidenceFromStore
 } from "Actions/variantPageActions";
-import { zygosityType, setPriority, getEvidenceData } from "Utils/helpers";
+import { zygosityType, setPriority, getEvidenceData, parseTableData } from "Utils/helpers";
 // import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 
 function* onDelay(time) {
@@ -318,7 +319,7 @@ export function* fetchTableData() {
       setPriority(record);
     }
 
-    yield put(setDataToStore(result));
+    yield put(setParsedDataToStore(result));
     // yield put(setLoading(false));
   } catch (error) {
     console.log("---error: ", error);
@@ -378,16 +379,17 @@ export function* fetchTableDataSaga(action) {
     yield put(setLoading(true));
   
     const result = yield call(fetchTableDataApi, action);
-    
+    yield put(setServerDataToStore(result?.data));
     // const result = generateDNAVariantTableMockData(500);
     // console.log(generateDNAVariantTableMockData(1));
-    for (let item of result.data) {
-      setPriority(item);
-    }
+    // for (let item of result.data) {
+    //   setPriority(item);
+    // }
     // console.log(result.data);
-
     
-    yield put(setDataToStore(result.data));
+    const newData = parseTableData(result?.data);
+    
+    yield put(setParsedDataToStore(newData));
     yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {

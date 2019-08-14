@@ -1002,3 +1002,48 @@ export const getEvidenceData = data => {
   });
   return newData;
 };
+
+const createNewTableDataItem = item => {
+  let newObj = {};
+
+  newObj.id=item.id; // or variant_id ?????
+  newObj.key=item.id;
+  newObj.gene=item.gene;
+  newObj.chrPosition = `${item.chr}:${item.position}`;
+  newObj.alleleChange = `${item.ref[0]} > ${item.alt[0]}`;
+  newObj.alleleChangeLong = `${item.ref} > ${item.alt}`;
+  newObj.transcript = item.transcript;
+  newObj.zygosity = item.zygosity;
+  newObj.clinvar = item.clinvar_variation_id;
+  newObj.coding = "????????";
+  newObj.codingLong = "????????";
+  newObj.cosmic = item.cosmic;
+  newObj.coverage = "????????";
+  newObj.effect = item.effect;
+  newObj.exon = item.exome_cov_over_20;
+  newObj.gnomAD = "????????";
+  /* Which from them?
+     gnom_ad_exomes_af: ""
+    gnom_ad_exomes_popmax_af: ""
+    gnom_ad_genomes_af: ""
+    gnom_ad_genomes_flag: ""
+    gnom_ad_genomes_popmax_af: ""*/
+  newObj.hotSpot = "????????";
+  newObj.notes = item.notes;
+  newObj.roi = item.roi;
+  newObj.snp = item.snps;
+  newObj.protein = "????????";
+  newObj.omim = "????????";
+  newObj.status = "????????";
+  newObj.vaf = "????????";
+  newObj.variantClassGermline = item.germline_class || "unclassified";
+  newObj.variantClassSomatic = item.somatic_class || "unclassified";
+  setPriority(newObj);
+  return newObj;
+};
+
+export const parseTableData = array =>
+  array.reduce((obj, item) => {
+    obj[item.id] = createNewTableDataItem(item);
+    return obj;
+  }, {});
