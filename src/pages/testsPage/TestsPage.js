@@ -47,6 +47,7 @@ class TestsPage extends Component {
               <Link
                 key={test.id}
                 to={`tests/${test.id}`}
+                data-testid={`tests-${test.id}`}
               >
                 <div className="test-wrapper">
                   <div className="text-content flex justify-around">
@@ -54,7 +55,7 @@ class TestsPage extends Component {
                       <div>GS ID: {test.gsid}</div>
                       <div>Panel Type: {test.panel_type}</div>
                     </div>
-                    <div>
+                    <div className="flex items-center">
                       Created at: {test.created_at}
                     </div>
                   </div>
