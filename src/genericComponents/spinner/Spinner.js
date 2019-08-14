@@ -1,5 +1,5 @@
 import React from 'react';
-import Portal from "GenericComponents/Portal";
+import Portal from "../portal";
 
 import './style.scss';
 
