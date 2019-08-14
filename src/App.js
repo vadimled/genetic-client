@@ -6,6 +6,7 @@ import Header from "Pages/mainPage/components/header";
 import ResultConfig from "Pages/mainPage/components/resultConfig";
 import EvidenceConfig from "variantComponents/evidenceConfig";
 import VariantPage from "variantPage/";
+import TestsPage from "./pages/testsPage";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         <Header />
       </div>
       <Switch>
-        <Route path="/" exact component={MainPage} />
+        <Route path="/tests" exact component={TestsPage} />
+        <Route path="/tests/:testId" exact component={MainPage} />
         <Route path="/test/:testId/variant/:variantId/" component={VariantPage} />
       </Switch>
       <ResultConfig />
