@@ -86,39 +86,26 @@ export function editEvidenceEntryApi(action) {
     data
   } = action.payload;
 
-  return !isMock
-    ? axios_based.put(
-      `/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`,
-      {
-        data
-      }
-    )
-    : axios.put(
-      `/api/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`,
-      {
-        data
-      }
-    );
+  return axios_based.put(
+    `/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`,
+    {
+      data
+    }
+  );
 }
 
 export function deleteEvidenceEntryApi(action) {
   const {
     ids: { testId, variantId, evidenceId }
   } = action.payload;
-  return !isMock
-    ? axios_based.delete(
-      `tests/${testId}/variants/${variantId}/evidences/${evidenceId}`
-    )
-    : axios.delete(
-      `/api/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`
-    );
+  return axios_based.delete(
+    `/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`
+  );
 }
 
 export function fetchEvidenceDataApi(action) {
   const { testId, variantId } = action.payload;
-  return !isMock
-    ? axios_based.get(`/tests/${testId}/variants/${variantId}/evidences`)
-    : axios.get(`/api/tests/${testId}/variants/${variantId}/evidences`);
+  return axios_based.get(`/tests/${testId}/variants/${variantId}/evidences`);
 }
 
 export function fetchTableDataApi(action) {
