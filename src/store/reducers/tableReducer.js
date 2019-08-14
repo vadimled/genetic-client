@@ -2,7 +2,7 @@ import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 // import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { PRIORITY } from "../../utils/constants";
-import { CONFIRMATION_VALUES } from 'Utils/constants';
+import { CONFIRMATION_VALUES } from "Utils/constants";
 
 const initialState = {
   data: {},
@@ -14,21 +14,25 @@ const initialState = {
 };
 
 const tableReducer = createReducer(initialState, {
+  [actionsTypes.FETCH_TABLE_DATA_SUCCESS]: (state, { payload }) => {
 
-  [actionsTypes.FETCH_TABLE_DATA_SUCCESS]: (state, {payload}) => {
-    console.log(payload);
-    // const data = {}
+    const arrayToObject = array =>
+      array.reduce((obj, item) => {
+        obj[item.id] = item;
+        obj[item.id].key = item.id;
+        return obj;
+      }, {});
+
     return {
       ...state,
-      data: payload
+      data: arrayToObject(payload)
     };
   },
 
-  [actionsTypes.SET_SORT]: (state, {payload}) => {
+  [actionsTypes.SET_SORT]: (state, { payload }) => {
+    const { field, order } = payload;
 
-    const {field, order} = payload;
-
-    if(state.clicksCounter >= 2){
+    if (state.clicksCounter >= 2) {
       return {
         ...state,
         sortParam: field,
@@ -46,7 +50,7 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
-    const {item, value} = payload;
+    const { item, value } = payload;
     let data = state?.data;
 
     data[item.id].selected = value;
@@ -66,13 +70,13 @@ const tableReducer = createReducer(initialState, {
 
         // if an item has already status we cannot select it to send for confirmation
         if (!item.status) {
-          item.selected = payload === false
-            // if all rows selected or on discarding
-            ? false
-            // otherwise
-            : true;
+          item.selected =
+            payload === false
+              ? // if all rows selected or on discarding
+              false
+              : // otherwise
+              true;
         }
-
       }
     }
 
@@ -83,8 +87,7 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_ZYGOSITY]: (state, { payload }) => {
-
-    const {variantId, record} = payload;
+    const { variantId, record } = payload;
     let data = state?.data;
 
     data[variantId] = record;
@@ -99,8 +102,7 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_VARIANT_CLASS]: (state, { payload }) => {
-
-    const {item, value} = payload;
+    const { item, value } = payload;
 
     const priority = PRIORITY[value];
 
@@ -108,9 +110,9 @@ const tableReducer = createReducer(initialState, {
 
     const record = data[item.id];
 
-    if(record?.zygosity === "homo" || record?.zygosity === "hetero"){
+    if (record?.zygosity === "homo" || record?.zygosity === "hetero") {
       record.variantClassGermline = value;
-    }else if(item?.zygosity === "somatic"){
+    } else if (item?.zygosity === "somatic") {
       record.variantClassSomatic = value;
     }
 
@@ -142,7 +144,7 @@ const tableReducer = createReducer(initialState, {
     let data = state?.data;
 
     // payload includes confirmed rows
-    payload.forEach((row) => {
+    payload.forEach(row => {
       let dataRow = data[row.id];
       dataRow.status = CONFIRMATION_VALUES.PENDING.value;
       dataRow.selected = false;
@@ -173,9 +175,8 @@ const tableReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.UPDATE_ACTIVITY_LOG]: (state, {payload}) => {
-
-    const {item, prevValue, changedField} = payload;
+  [actionsTypes.UPDATE_ACTIVITY_LOG]: (state, { payload }) => {
+    const { item, prevValue, changedField } = payload;
 
     let activityLog = state?.activityLog;
 
@@ -186,15 +187,17 @@ const tableReducer = createReducer(initialState, {
       type: changedField
     };
 
-    let changesArr =  activityLog[item.id] && activityLog[item.id][changedField]
-      ? activityLog[item.id][changedField] : [];
+    let changesArr =
+      activityLog[item.id] && activityLog[item.id][changedField]
+        ? activityLog[item.id][changedField]
+        : [];
 
     activityLog[item.id] = {
       ...activityLog[item.id],
       [changedField]: [...changesArr, changes]
     };
 
-    return{
+    return {
       ...state,
       activityLog
     };
@@ -230,10 +233,7 @@ const tableReducer = createReducer(initialState, {
       ...state,
       data
     };
-  },
-
+  }
 });
 
 export default tableReducer;
-
-
