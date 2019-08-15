@@ -417,7 +417,6 @@ export function* fetchTestMetadataGenerator(id) {
   try {
     yield put(setLoading(true));
     const result = yield call(fetchTestMetadataApi, id);
-    console.log(result);
     yield put(setTestData(result?.data));
     yield put(setMutationType(result?.data?.mutation_types[0]));
     yield put(setLoading(false));
@@ -511,15 +510,7 @@ export function* deleteEvidenceEntrySaga(action) {
 
 export function* handleConfirmationStatusSaga(data) {
 
-  console.log("--data: ", data);
-
   const newData = Object.assign({}, data);
-
-  // const variants = newData.payload;
-  //
-  //
-  //
-  // console.log("--variants: ", variants);
 
   newData.payload = {
     value: data.payload.status,
@@ -530,12 +521,6 @@ export function* handleConfirmationStatusSaga(data) {
 
     yield put(setTableReducerLoading(true));
 
-
-    // yield all(variants.map(variant => {
-    //
-    //   call(updateVariantApi, newData))
-    // }
-
     const result = yield call(updateVariantApi, newData);
 
     const variant = result.data;
@@ -543,6 +528,7 @@ export function* handleConfirmationStatusSaga(data) {
     console.log("--variant: ", variant);
 
     if (result?.status === 200) {
+      console.log("--Here ");
       yield put(setConfirmationStatusToStore({
         // check why notes does not return from server
         ...data.payload,

@@ -160,19 +160,19 @@ const tableReducer = createReducer(initialState, {
     };
   },
 
-  // [actionsTypes.HANDLE_CONFIRMATION_STATUS]: (state, { payload }) => {
-  //   const { id, status } = payload;
-  //   let data = state?.data;
-  //
-  //   console.log("--status: ", status);
-  //
-  //   data[id].status = status;
-  //
-  //   return {
-  //     ...state,
-  //     data: { ...data }
-  //   };
-  // },
+  [actionsTypes.SET_CONFIRMATION_STATUS_TO_STORE]: (state, { payload }) => {
+    const { id, status } = payload;
+    let data = state?.data;
+
+    console.log("--status: ", status);
+
+    data[id].status = status;
+
+    return {
+      ...state,
+      data: { ...data }
+    };
+  },
 
   [actionsTypes.HANDLE_UNCHECK_CONFIRMATION_DATA]: (state, { payload }) => {
     return {
