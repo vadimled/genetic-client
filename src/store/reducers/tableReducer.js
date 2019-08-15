@@ -10,10 +10,18 @@ const initialState = {
   activityLog: {},
   sortParam: "priority",
   sortOrder: "default",
-  clicksCounter: 1
+  clicksCounter: 1,
+  isLoading: false
 };
 
 const tableReducer = createReducer(initialState, {
+
+  [actionsTypes.SET_TABLE_REDUCER_LOADING]: (state, {payload}) => {
+    return {
+      ...state,
+      isLoading: payload
+    };
+  },
 
   [actionsTypes.FETCH_TABLE_DATA_SUCCESS]: (state, {payload}) => {
     return {
@@ -112,8 +120,6 @@ const tableReducer = createReducer(initialState, {
       record.variantClassSomatic = value;
     }
 
-    // data[item.id].variantClass = value;
-
     data[item.id].priority = priority;
 
     const newData = Object.assign({}, data);
@@ -125,8 +131,9 @@ const tableReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_NOTES]: (state, { payload }) => {
+  [actionsTypes.SET_NOTES_TO_STORE]: (state, { payload }) => {
     const { id, notes } = payload;
+
     let data = state?.data;
     data[id].notes = notes;
 
@@ -139,9 +146,15 @@ const tableReducer = createReducer(initialState, {
   [actionsTypes.APPLY_CONFIRMATION]: (state, { payload }) => {
     let data = state?.data;
 
+
+    console.log("--payload: ", payload)
+
     // payload includes confirmed rows
     payload.forEach((row) => {
       let dataRow = data[row.id];
+
+      console.log("--dataRow: ", dataRow)
+
       dataRow.status = CONFIRMATION_VALUES.PENDING.value;
       dataRow.selected = false;
     });

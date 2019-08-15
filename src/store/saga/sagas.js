@@ -30,7 +30,8 @@ import {
   tableDataAddResult,
   tableDataEditResult,
   setDataToStore,
-  setZygosity
+  setZygosity,
+  setNotesToStore
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
@@ -57,6 +58,7 @@ import {
   deleteEvidenceFromStore
 } from "Actions/variantPageActions";
 import { zygosityType, setPriority, getEvidenceData } from "Utils/helpers";
+import { setTableReducerLoading } from "../actions/tableActions";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -367,6 +369,47 @@ export function* handleZygositySaga(data) {
     }
   }
   catch (e) {
+    console.log("-err: ", e);
+  }
+}
+
+export function* setNotesSaga(data) {
+
+  console.log("-data: ", data);
+
+  // data.payload = {
+  //
+  // }
+
+  const newData = Object.assign({}, data);
+
+  newData.payload = {
+    value: data.payload.notes,
+    name: "notes"
+  };
+
+  try{
+
+    yield put(setTableReducerLoading(true));
+
+    const result = yield call(updateVariantApi, newData);
+
+    const variant = result.data;
+
+    console.log("--variant: ", variant);
+
+    if (result?.status === 200) {
+      yield put(setNotesToStore({
+        // check why notes does not return from server
+        ...data.payload,
+        record: variant
+      }));
+    }
+
+    yield put(setTableReducerLoading(false));
+  }
+  catch (e) {
+    yield put(setTableReducerLoading(false));
     console.log("-err: ", e);
   }
 }
