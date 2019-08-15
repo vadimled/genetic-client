@@ -1003,6 +1003,15 @@ export const getEvidenceData = data => {
   return newData;
 };
 
+const createVaf = (numb) => {
+  if(numb){
+    return Math.round(parseFloat(numb)*100);
+  }
+  else{
+    return "";
+  }
+};
+
 const createNewTableDataItem = item => {
   let newObj = {};
 
@@ -1016,10 +1025,10 @@ const createNewTableDataItem = item => {
   newObj.zygosity = item?.zygosity;
   newObj.protein = item?.hgvs_p;
   newObj.coverage = item?.coverage || "10";// "????????";
-  newObj.vaf = item?.vaf || "30";// "????????";
+  newObj.vaf = createVaf(item.variant);
   newObj.notes = item?.notes;
-  newObj.coding = item?.hgvs_c;
-  newObj.codingLong = item?.hgvs_c;// "????????";
+  newObj.coding = item?.hgvs_c.slice(0,12);
+  newObj.codingLong = item?.hgvs_c;
   newObj.exon = item?.exon || "1";
   newObj.variantClassGermline = item?.germline_class || "unclassified";
   newObj.variantClassSomatic = item?.somatic_class || "unclassified";
