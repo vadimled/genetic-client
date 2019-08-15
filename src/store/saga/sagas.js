@@ -379,16 +379,10 @@ export function* fetchTableDataSaga(action) {
     yield put(setLoading(true));
   
     const result = yield call(fetchTableDataApi, action);
+    console.log(result);
     yield put(setServerDataToStore(result?.data));
-    // const result = generateDNAVariantTableMockData(500);
-    // console.log(generateDNAVariantTableMockData(1));
-    // for (let item of result.data) {
-    //   setPriority(item);
-    // }
-    // console.log(result.data);
-    
     const newData = parseTableData(result?.data);
-    
+    console.log(newData);
     yield put(setParsedDataToStore(newData));
     yield put(setLoading(false));
   } catch (e) {
