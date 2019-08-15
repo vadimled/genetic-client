@@ -70,9 +70,6 @@ export function updateVariantApi(data) {
 
   const { name, value } = data.payload;
 
-  console.log("-name: ", name, " value: ", value)
-
-
   return !isMock
     ? axios_based.patch(temporaryUrl, {
       [name]: value
