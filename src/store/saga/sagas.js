@@ -227,7 +227,7 @@ export function* goToChrPositionIgvGenerator(data) {
 
 export function* sendForConfirmationGenerator(data) {
 
-  console.log("--data6: ", data)
+  console.log("--data6: ", data);
 
   try {
     // -> API request
@@ -513,11 +513,11 @@ export function* applyConfirmationSaga(data) {
 
   const newData = Object.assign({}, data);
 
-  const variants = newData.payload
+  const variants = newData.payload;
 
 
 
-  console.log("--variants: ", variants)
+  console.log("--variants: ", variants);
 
   // newData.payload = {
   //   value: data.payload.status,
