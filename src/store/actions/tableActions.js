@@ -127,6 +127,10 @@ export const setTableReducerLoading = data => {
   };
 };
 
-
-
+export const setConfirmationStatusToStore = data => {
+  return{
+    type: actionsTypes.SET_CONFIRMATION_STATUS_TO_STORE,
+    payload: data
+  };
+};
 

@@ -31,7 +31,9 @@ import {
   tableDataEditResult,
   setDataToStore,
   setZygosity,
-  setNotesToStore
+  setNotesToStore,
+  setTableReducerLoading,
+  setConfirmationStatusToStore
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
@@ -58,7 +60,7 @@ import {
   deleteEvidenceFromStore
 } from "Actions/variantPageActions";
 import { zygosityType, setPriority, getEvidenceData } from "Utils/helpers";
-import { setTableReducerLoading } from "../actions/tableActions";
+
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -224,6 +226,9 @@ export function* goToChrPositionIgvGenerator(data) {
 }
 
 export function* sendForConfirmationGenerator(data) {
+
+  console.log("--data6: ", data)
+
   try {
     // -> API request
 
@@ -375,12 +380,6 @@ export function* handleZygositySaga(data) {
 
 export function* setNotesSaga(data) {
 
-  console.log("-data: ", data);
-
-  // data.payload = {
-  //
-  // }
-
   const newData = Object.assign({}, data);
 
   newData.payload = {
@@ -507,5 +506,52 @@ export function* deleteEvidenceEntrySaga(action) {
       scope.setFingerprint(["deleteEvidenceEntrySaga"]);
       Sentry.captureException(e);
     });
+  }
+}
+
+export function* applyConfirmationSaga(data) {
+
+  const newData = Object.assign({}, data);
+
+  const variants = newData.payload
+
+
+
+  console.log("--variants: ", variants)
+
+  // newData.payload = {
+  //   value: data.payload.status,
+  //   name: "status"
+  // };
+
+  try{
+
+    yield put(setTableReducerLoading(true));
+
+
+    // yield all(variants.map(variant => {
+    //
+    //   call(updateVariantApi, newData))
+    // }
+
+    const result = yield call(updateVariantApi, newData);
+
+    const variant = result.data;
+
+    console.log("--variant: ", variant);
+
+    if (result?.status === 200) {
+      yield put(setConfirmationStatusToStore({
+        // check why notes does not return from server
+        ...data.payload,
+        record: variant
+      }));
+    }
+
+    yield put(setTableReducerLoading(false));
+  }
+  catch (e) {
+    yield put(setTableReducerLoading(false));
+    console.log("-err: ", e);
   }
 }
