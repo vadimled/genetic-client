@@ -55,25 +55,25 @@ class VariantTable extends Component {
         title: "Exon",
         dataIndex: "exon",
         key: "5",
-        width: 100
+        width: 50
       },
       {
         title: "Allele change",
         dataIndex: "alleleChange",
         key: "6",
-        width: 200,
+        width: 50,
       },
       {
         title: "Coding",
         dataIndex: "coding",
         key: "7",
-        width: 100
+        width: 160
       },
       {
         title: "Protein",
         dataIndex: "protein",
         key: "8",
-        width: 100
+        width: 160
       },
       {
         title: <TableSorter title="VAF" setSort={this.props.setSort} field="vaf" />,

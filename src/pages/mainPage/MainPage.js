@@ -23,7 +23,8 @@ import {
   getTumorInfoMode,
   getLoading,
   getMutationTypesValues,
-  getTestId
+  getTestId,
+  getSelectedMutationType
 } from "Store/selectors";
 import { setAlert } from "Actions/alertActions";
 import { fetchTestMetadata } from "Actions/testActions";
@@ -37,20 +38,23 @@ class MainPage extends Component {
     props.fetchTestMetadata(props?.match?.params?.testId);
 
     this.state = {
-      sidebarToggle: true
+      sidebarToggle: true,
+      isMutationType: false
     };
   }
-  
-  componentDidMount() {
-    const {fetchTableData, testId, match} = this.props;
-    console.log(testId);
-    
-    fetchTableData({
-      testId: match?.params?.testId,
-      mutation: "dna" // getMutationTypesValues
-    });
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.getMutationTypesValues.length > 0 && !state.isMutationType) {
+      const { fetchTableData, match, getMutationTypesValues } = props;
+      fetchTableData({
+        testId: match?.params?.testId,
+        mutation: getMutationTypesValues[0]
+      });
+      return { isMutationType: true };
+    }
+    return null;
   }
-  
+
   handleClick = () => {
     this.setState({
       sidebarToggle: !this.state.sidebarToggle
@@ -134,7 +138,8 @@ const mapStateToProps = state => {
     showTumorInfo: getTumorInfoMode(state),
     isLoading: getLoading(state),
     getMutationTypesValues: getMutationTypesValues(state),
-    testId: getTestId(state),
+    mutation: getSelectedMutationType(state),
+    testId: getTestId(state)
   };
 };
 
@@ -146,7 +151,9 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MainPage));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(MainPage)
+);

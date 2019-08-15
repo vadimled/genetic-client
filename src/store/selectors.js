@@ -1,10 +1,4 @@
-import {
-  EVIDENCE_CATEGORIES_OPTIONS,
-  FILTERS,
-  GNOM_AD,
-  SORTING_ORDER,
-  TEXTS
-} from "Utils/constants";
+import { EVIDENCE_CATEGORIES_OPTIONS, FILTERS, GNOM_AD, SORTING_ORDER, TEXTS } from "Utils/constants";
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
 
@@ -253,10 +247,14 @@ export const getFilteredSearchQueries = createSelector(
   getSearchQueries,
   getSearchQuery,
   (queries, searchQuery) => {
-    const filteredSearchQueries = queries.filter(query =>
-      query.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    return filteredSearchQueries;
+    return queries.filter(query => {
+      if(searchQuery){
+        return query.toLowerCase().includes(searchQuery.toLowerCase());
+      }
+      else {
+        return query;
+      }
+    });
   }
 );
 
