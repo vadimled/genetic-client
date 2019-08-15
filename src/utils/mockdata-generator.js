@@ -525,8 +525,8 @@ export const generateDNAVariantTableMockData = amount =>
       ]),
       hgvs_c: faker.random.arrayElement(["gCc/gTc", "aGc/tCg", "cAc/gTa"]),
       hgvs_p: faker.random.alphaNumeric(5),
-      
-      vaf: faker.random.number(100) ,
+  
+      variant: faker.random.number({ min: 0.001, max: 1 }),
       coverage: faker.random.number({ min: 100, max: 500 }),
       
       hotSpot: faker.random.arrayElement([faker.random.boolean(), undefined]),
