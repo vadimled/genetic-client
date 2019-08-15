@@ -23,7 +23,7 @@ import {
   fetchEvidenceDataSaga,
   deleteEvidenceEntrySaga,
   setNotesSaga,
-  applyConfirmationSaga
+  handleConfirmationStatusSaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -34,7 +34,7 @@ export function* watchSaga() {
   yield takeEvery(types.FETCH_TABLE_DATA, fetchTableData);
   yield takeEvery(types.HANDLE_ZYGOSITY, handleZygositySaga);
   yield takeEvery(types.SET_NOTES, setNotesSaga);
-  yield takeEvery(types.APPLY_CONFIRMATION, applyConfirmationSaga);
+  yield takeEvery(types.HANDLE_CONFIRMATION_STATUS, handleConfirmationStatusSaga);
 
   yield takeLatest(types.RESULT_CONFIG_LOAD_HGVS, resultConfigLoadHgvsGenerator);
   yield takeLatest(types.RESULT_CONFIG_ADD_RESULT, resultConfigAddResultGenerator);

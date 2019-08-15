@@ -509,20 +509,22 @@ export function* deleteEvidenceEntrySaga(action) {
   }
 }
 
-export function* applyConfirmationSaga(data) {
+export function* handleConfirmationStatusSaga(data) {
+
+  console.log("--data: ", data);
 
   const newData = Object.assign({}, data);
 
-  const variants = newData.payload;
+  // const variants = newData.payload;
+  //
+  //
+  //
+  // console.log("--variants: ", variants);
 
-
-
-  console.log("--variants: ", variants);
-
-  // newData.payload = {
-  //   value: data.payload.status,
-  //   name: "status"
-  // };
+  newData.payload = {
+    value: data.payload.status,
+    name: "status"
+  };
 
   try{
 
