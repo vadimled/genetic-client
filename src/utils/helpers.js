@@ -964,7 +964,7 @@ export const setPriority = record => {
   return record;
 };
 
-export const createTableData = (category, tabContent) => {
+export const createEvidenceTableData = (category, tabContent) => {
   const obj = Object.keys(tabContent).reduce((accum, val, index) => {
     if (tabContent[val].category === category) {
       const newObj = Object.assign(
@@ -1003,46 +1003,71 @@ export const getEvidenceData = data => {
   return newData;
 };
 
-const createVaf = (numb) => {
-  if(numb){
-    return Math.round(parseFloat(numb)*100);
-  }
-  else{
+const createVaf = numb => {
+  if (numb) {
+    return Math.round(parseFloat(numb) * 100);
+  } else {
     return "";
   }
 };
 
-const createNewTableDataItem = item => {
+const createNewTableDataItem = ({
+  alt,
+  chr,
+  clinvar_variation_id,
+  cosmic,
+  coverage,
+  db_snp,
+  effect,
+  exon,
+  gene,
+  germline_class,
+  gnomAD,
+  hgvs_c,
+  hgvs_p,
+  hotSpot,
+  id,
+  notes,
+  omim,
+  position,
+  ref,
+  roi,
+  somatic_class,
+  status,
+  transcript,
+  variant,
+  zygosity
+}) => {
   let newObj = {};
 
-  newObj.id=item.id;
-  newObj.key=item.id;
-  newObj.gene=item.gene;
-  newObj.chrPosition = `${item?.chr}:${item?.position}`;
-  newObj.alleleChange = `${item.ref?.slice(0,1)} > ${item.alt?.slice(0,1)}`;
-  newObj.alleleChangeLong = `${item?.ref} > ${item?.alt}`;
-  newObj.transcript = item?.transcript;
-  newObj.zygosity = item?.zygosity;
-  newObj.protein = item?.hgvs_p;
-  newObj.coverage = item?.coverage || "10";// "????????";
-  newObj.vaf = createVaf(item.variant);
-  newObj.notes = item?.notes;
-  newObj.coding = item?.hgvs_c.slice(0,12);
-  newObj.codingLong = item?.hgvs_c;
-  newObj.exon = item?.exon || "1";
-  newObj.variantClassGermline = item?.germline_class || "unclassified";
-  newObj.variantClassSomatic = item?.somatic_class || "unclassified";
-  newObj.status = item?.status || null;
+  newObj.id = id;
+  newObj.key = id;
+  newObj.gene = gene;
+  newObj.chrPosition = `${chr}:${position}`;
+  newObj.alleleChange = `${ref?.slice(0, 1)} > ${alt?.slice(0, 1)}`;
+  newObj.alleleChangeLong = `${ref} > ${alt}`;
+  newObj.transcript = transcript;
+  newObj.zygosity = zygosity;
+  newObj.protein = hgvs_p;
+  newObj.coverage = coverage || "10"; // "????????";
+  newObj.vaf = createVaf(variant);
+  newObj.notes = notes;
+  newObj.coding = hgvs_c.slice(0, 12);
+  newObj.codingLong = hgvs_c;
+  newObj.exon = exon || "1";
+  newObj.variantClassGermline = germline_class || "unclassified";
+  newObj.variantClassSomatic = somatic_class || "unclassified";
+  newObj.status = status || null;
   // filters
-  newObj.clinvar = item?.clinvar_variation_id;
-  newObj.cosmic = item?.cosmic;
-  newObj.effect = item?.effect;
-  newObj.hotSpot = item?.hotSpot;
-  newObj.roi = item?.roi;
-  newObj.snp = item?.db_snp;
-  newObj.omim = item?.omim || false;
-  newObj.gnomAD = item?.gnomAD || null;
-  
+  newObj.clinvar = clinvar_variation_id;
+  newObj.cosmic = cosmic;
+  newObj.effect = effect;
+  newObj.hotSpot = hotSpot;
+  newObj.roi = roi;
+  newObj.snp = db_snp;
+  newObj.omim = omim || false;
+  newObj.gnomAD = gnomAD || null;
+
   setPriority(newObj);
   return newObj;
 };
