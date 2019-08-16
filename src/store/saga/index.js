@@ -43,8 +43,10 @@ export function* watchSaga() {
   yield takeLatest(types.ADD_EVIDENCE_ENTRY, addEvidenceEntrySaga);
   yield takeLatest(types.EDIT_EVIDENCE_ENTRY, editEvidenceEntrySaga);
   yield takeLatest(types.DELETE_EVIDENCE_ENTRY, deleteEvidenceEntrySaga);
-  yield takeLatest(types.FETCH_TEST_METADATA, fetchTestMetadataGenerator);
-  yield takeEvery(types.FETCH_TABLE_DATA, fetchTableDataSaga);
+  yield all([
+    yield takeLatest(types.FETCH_TEST_METADATA, fetchTestMetadataGenerator),
+    yield takeEvery(types.FETCH_TABLE_DATA, fetchTableDataSaga)
+  ]);
   yield all([
     takeEvery(types.FETCH_VARIANT_DATA, fetchVariantDataGenerator),
     takeEvery(types.FETCH_EVIDENCE_DATA, fetchEvidenceDataSaga)

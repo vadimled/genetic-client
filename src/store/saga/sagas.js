@@ -374,35 +374,31 @@ export function* handleZygositySaga(data) {
 }
 
 
-export function* fetchTableDataSaga(action) {
+export function* fetchTestMetadataGenerator(id) {
   try {
     yield put(setLoading(true));
-    const result = yield call(fetchTableDataApi, action);
-    yield put(setServerDataToStore(result?.data));
-    const newData = parseTableData(result?.data);
-    // console.log(newData);
-    yield put(setParsedDataToStore(newData));
-    yield put(setLoading(false));
+    const result = yield call(fetchTestMetadataApi, id);
+    yield put(setTestData(result?.data));
+    yield put(setMutationType(result?.data?.mutation_types[0]));
   } catch (e) {
     Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchTableDataSaga"]);
+      scope.setFingerprint(["fetchTestMetadataGenerator"]);
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
   }
 }
 
-export function* fetchTestMetadataGenerator(id) {
+export function* fetchTableDataSaga(action) {
   try {
-    yield put(setLoading(true));
-    const result = yield call(fetchTestMetadataApi, id);
-    // console.log(result);
-    yield put(setTestData(result?.data));
-    yield put(setMutationType(result?.data?.mutation_types[0]));
+    const result = yield call(fetchTableDataApi, action);
+    yield put(setServerDataToStore(result?.data));
+    const newData = parseTableData(result?.data);
+    yield put(setParsedDataToStore(newData));
     yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchTestMetadataGenerator"]);
+      scope.setFingerprint(["fetchTableDataSaga"]);
       Sentry.captureException(e);
     });
     yield put(setLoading(false));

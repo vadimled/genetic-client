@@ -21,7 +21,7 @@ import {
   getAlertTitle,
   getAlertMessage,
   getTumorInfoMode,
-  getLoading,
+  getLoadingStatus,
   getMutationTypesValues,
   getTestId,
   getSelectedMutationType
@@ -136,7 +136,7 @@ const mapStateToProps = state => {
     alertTitle: getAlertTitle(state),
     alertMessage: getAlertMessage(state),
     showTumorInfo: getTumorInfoMode(state),
-    isLoading: getLoading(state),
+    isLoading: getLoadingStatus(state),
     getMutationTypesValues: getMutationTypesValues(state),
     mutation: getSelectedMutationType(state),
     testId: getTestId(state)
