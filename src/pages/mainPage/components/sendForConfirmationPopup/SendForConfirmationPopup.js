@@ -20,6 +20,7 @@ import {
 } from "Actions/confirmationActions";
 import { goToChrPositionIgv } from "Actions/igvActions";
 import { getConfirmationData } from "Store/selectors";
+import { handleConfirmationStatus } from "../../../../store/actions/tableActions";
 
 const SendForConfirmationPopup = (props) => {
   const {
@@ -27,6 +28,7 @@ const SendForConfirmationPopup = (props) => {
     handleOnConfirmation,
     removeConfirmationRow,
     sendForConfirmation,
+    handleConfirmationStatus,
     handleConfirmationNotes,
     handleConfirmationPrimer,
     handleConfirmationFragmentSize,
@@ -34,6 +36,18 @@ const SendForConfirmationPopup = (props) => {
     removeAdditionalConfirmationData,
     goToChrPositionIgv
   } = props;
+
+  const handleOnClick = () => {
+
+    data.map(record => {
+      handleConfirmationStatus({
+        id: record.id,
+        status: "PENDING"
+      });
+    });
+
+    sendForConfirmation(data);
+  };
 
   return (
     <Portal>
@@ -75,7 +89,7 @@ const SendForConfirmationPopup = (props) => {
             </Button>
             <Button
               className="confirmation-btn"
-              onClick={sendForConfirmation.bind(null, data)}
+              onClick={()=> handleOnClick()}
               disabled={!data.length}
               data-testid="send-btn"
             >
@@ -108,6 +122,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     removeConfirmationRow: data => dispatch(removeConfirmationRow(data)),
     sendForConfirmation: data => dispatch(sendForConfirmation(data)),
+    handleConfirmationStatus: data => dispatch(handleConfirmationStatus(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
     handleConfirmationNotes: (data) => dispatch(handleConfirmationNotes(data)),
     handleConfirmationPrimer: (data) => dispatch(handleConfirmationPrimer(data)),
