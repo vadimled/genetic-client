@@ -141,15 +141,9 @@ const tableReducer = createReducer(initialState, {
 
   [actionsTypes.APPLY_CONFIRMATION]: (state, { payload }) => {
     let data = state?.data;
-
-    console.log("--payload: ", payload);
-
     // payload includes confirmed rows
     payload.forEach(row => {
       let dataRow = data[row.id];
-
-      console.log("--dataRow: ", dataRow);
-
       dataRow.status = CONFIRMATION_VALUES.PENDING.value;
       dataRow.selected = false;
     });
@@ -163,8 +157,6 @@ const tableReducer = createReducer(initialState, {
   [actionsTypes.SET_CONFIRMATION_STATUS_TO_STORE]: (state, { payload }) => {
     const { id, status } = payload;
     let data = state?.data;
-
-    console.log("--status: ", status);
 
     data[id].status = status;
 

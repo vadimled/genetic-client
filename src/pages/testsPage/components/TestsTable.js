@@ -322,9 +322,7 @@ class TestsTable extends Component {
   };
 
   render() {
-    const { filteredData, tests, loadingStatus } = this.props;
-
-    console.log("-tests: ", tests);
+    const { filteredData, loadingStatus } = this.props;
 
     const columns = this.columnsConverter(this.state.columns);
 

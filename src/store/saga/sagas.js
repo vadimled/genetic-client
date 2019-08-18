@@ -227,8 +227,6 @@ export function* goToChrPositionIgvGenerator(data) {
 
 export function* sendForConfirmationGenerator(data) {
 
-  console.log("--data6: ", data);
-
   try {
     // -> API request
 
@@ -395,8 +393,6 @@ export function* setNotesSaga(data) {
 
     const variant = result.data;
 
-    console.log("--variant: ", variant);
-
     if (result?.status === 200) {
       yield put(setNotesToStore({
         // check why notes does not return from server
@@ -525,10 +521,7 @@ export function* handleConfirmationStatusSaga(data) {
 
     const variant = result.data;
 
-    console.log("--variant: ", variant);
-
     if (result?.status === 200) {
-      console.log("--Here ");
       yield put(setConfirmationStatusToStore({
         // check why notes does not return from server
         ...data.payload,
