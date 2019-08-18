@@ -1,6 +1,6 @@
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { evidences } from "Utils/variant-page-mock-data";
+import { evidences, classificationHistory} from "Utils/variant-page-mock-data";
 
 export const mock =
   process.env.REACT_APP_AXIOS_MOCK_ENABLED === "true" &&
@@ -69,4 +69,8 @@ if (mock) {
   });
   
   mock.onDelete(/\/api\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200);
+
+  mock.onGet(/\/api\/tests\/.+\/variants\/.+\/classification-history/).reply(200, {
+    classificationHistory
+  });
 }
