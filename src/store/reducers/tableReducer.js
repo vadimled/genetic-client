@@ -1,7 +1,7 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 // import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
-import { PRIORITY } from "../../utils/constants";
+import { PRIORITY } from "Utils/constants";
 import { CONFIRMATION_VALUES } from "Utils/constants";
 
 const initialState = {

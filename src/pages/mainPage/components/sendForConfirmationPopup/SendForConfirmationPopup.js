@@ -20,7 +20,7 @@ import {
 } from "Actions/confirmationActions";
 import { goToChrPositionIgv } from "Actions/igvActions";
 import { getConfirmationData } from "Store/selectors";
-import { handleConfirmationStatus } from "../../../../store/actions/tableActions";
+import { handleConfirmationStatus } from "Store/actions/tableActions";
 
 const SendForConfirmationPopup = (props) => {
   const {
