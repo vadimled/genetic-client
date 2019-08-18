@@ -83,3 +83,12 @@ export const deleteEvidenceFromStore = data => {
     payload: data
   };
 };
+
+export const setVariantLoading = data => {
+  return {
+    type: actionsTypes.SET_VARIANT_LOADING,
+    payload: data
+  };
+};
+
+

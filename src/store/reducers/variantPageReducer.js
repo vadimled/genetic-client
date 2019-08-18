@@ -180,7 +180,8 @@ const initialState = {
       analystName: "Taly Yafe",
       class: "VUS"
     }
-  }
+  },
+  isLoading: false
 };
 
 const variantPageReducer = createReducer(initialState, {
@@ -281,6 +282,14 @@ const variantPageReducer = createReducer(initialState, {
     return {
       ...state,
       ...payload
+    };
+  },
+
+  [actionsTypes.SET_VARIANT_LOADING]: (state, { payload }) => {
+
+    return {
+      ...state,
+      isLoading: payload
     };
   },
   

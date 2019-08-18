@@ -54,9 +54,12 @@ import {
   setNewEvidenceEntry,
   setEditedEvidenceEntry,
   setEvidenceData,
-  deleteEvidenceFromStore
+  deleteEvidenceFromStore,
+  setVariantLoading
 } from "Actions/variantPageActions";
 import { zygosityType, setPriority, getEvidenceData } from "Utils/helpers";
+
+
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -390,11 +393,13 @@ export function* fetchTestMetadataGenerator(id) {
 
 export function* fetchVariantDataGenerator(data) {
   try {
+    yield put(setVariantLoading(true));
     // wait for an GET API
     const result = yield call(fetchVariantDataApi, data),
       newData = zygosityType(result?.data);
     yield put(setVariantData(newData));
   } catch (e) {
+    yield put(setVariantLoading(false));
     console.log("-e: ", e);
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchVariantDataGenerator"]);
