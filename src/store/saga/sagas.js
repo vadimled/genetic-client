@@ -390,6 +390,7 @@ export function* fetchTestMetadataGenerator(id) {
 
 export function* fetchVariantDataGenerator(data) {
   try {
+    // wait for an GET API
     const result = yield call(fetchVariantDataApi, data),
       newData = zygosityType(result?.data);
     yield put(setVariantData(newData));
