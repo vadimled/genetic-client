@@ -91,7 +91,7 @@ class VariantTable extends Component {
         width: 250
       },
       {
-        title: "Germline Class ",
+        title: "Germline Class",
         dataIndex: "variantClassGermline",
         key: "11",
         width: 200
@@ -112,7 +112,7 @@ class VariantTable extends Component {
         title: "Notes",
         dataIndex: "notes",
         key: "14",
-        width: 700
+        width: 750
       },
       {
         title: "Activity log",
