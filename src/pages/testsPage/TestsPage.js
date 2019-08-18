@@ -46,7 +46,7 @@ class TestsPage extends Component {
             tests.map(test => (
               <Link
                 key={test.id}
-                to={`tests/${test.id}`}
+                to={`/tests/${test.id}`}
                 data-testid={`tests-${test.id}`}
               >
                 <div className="test-wrapper">
