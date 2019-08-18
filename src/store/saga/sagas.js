@@ -14,7 +14,11 @@ import {
   fetchTestDataApi,
   fetchVariantDataApi,
   updateVariantApi,
-  fetchTestsApi
+  fetchTestsApi,
+  addEvidenceEntryApi,
+  editEvidenceEntryApi,
+  fetchEvidenceDataApi,
+  deleteEvidenceEntryApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -28,7 +32,6 @@ import {
   setDataToStore,
   setZygosity
 } from "Actions/tableActions";
-// import {setTestsToStore} from "Actions/testsActions";
 import {
   handleOnConfirmation,
   setConfirmationData
@@ -45,10 +48,19 @@ import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { setTestData } from "Actions/testActions";
 import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
-import { setVariantData, setVariantClassification } from "Actions/variantPageActions";
-import { zygosityType, setPriority } from "Utils/helpers";
-import { setVariantPageLoading } from "../actions/variantPageActions";
+import {
+  setVariantData,
+  setVariantClassification,
+  setNewEvidenceEntry,
+  setEditedEvidenceEntry,
+  setEvidenceData,
+  deleteEvidenceFromStore
+} from "Actions/variantPageActions";
+import { zygosityType, setPriority, getEvidenceData } from "Utils/helpers";
+import { setClassificationHistoryToStore, setVariantPageLoading } from "../actions/variantPageActions";
 import { fetchClassificationHistoryApi } from "../../api";
+
+
 
 
 
@@ -344,22 +356,18 @@ export function* handleZygositySaga(data) {
   try{
     const result = yield call(updateVariantApi, data);
 
-    console.log("--result: ", result);
 
     const variant = result.data;
 
-    // console.log("--variant: ", variant);
 
-    const {record} = data.payload;
-    console.log("--result: ", record);
+
+    // const {record} = data.payload;
     //
     // const newRecord = Object.assign({}, record);
     //
     // newRecord.zygosity = value;
 
     setPriority(variant);
-
-    console.log("--variant: ", variant);
 
     if (result?.status === 200) {
       yield put(setZygosity({
@@ -403,14 +411,63 @@ export function* sendVariantClassGenerator(variantClass) {
   try {
     const result = yield call(updateVariantApi, variantClass);
 
-    console.log("--result: ", result);
-
     if (result?.status === 200) {
       yield put(setVariantClassification(variantClass.payload));
     }
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["sendVariantClassGenerator"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* fetchEvidenceDataSaga(data) {
+  try {
+    const result = yield call(fetchEvidenceDataApi, data),
+      newData = getEvidenceData(result.data);
+    yield put(setEvidenceData(newData));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchEvidenceDataSaga"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* addEvidenceEntrySaga(data) {
+  try {
+    const result = yield call(addEvidenceEntryApi, data);
+    yield put(setNewEvidenceEntry(result.data));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["addEvidenceEntrySaga"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* editEvidenceEntrySaga(data) {
+  try {
+    const result = yield call(editEvidenceEntryApi, data);
+    yield put(setEditedEvidenceEntry(result.data));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["editEvidenceEntrySaga"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* deleteEvidenceEntrySaga(action) {
+  try {
+    const result = yield call(deleteEvidenceEntryApi, action);
+    if (result?.status === 200) {
+      yield put(deleteEvidenceFromStore(action.payload));
+    }
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["deleteEvidenceEntrySaga"]);
       Sentry.captureException(e);
     });
   }
@@ -435,3 +492,4 @@ export function* fetchClassificationHistorySaga() {
     yield put(setVariantPageLoading(false));
   }
 }
+

@@ -5,19 +5,25 @@ import SideBarLayout from "Pages/mainPage/components/sideBarLayout";
 import VariantPageHeader from "variantComponents/variantPageHeader";
 import ExternalResources from "variantComponents/externalResources";
 import ClassificationHistoryTable from "variantComponents/classificationHistoryTable";
+import EvidenceContainer from "variantComponents/evidenceContainer";
 import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
 import {
   getExternalResources,
+  getGermlineEvidence,
   getHistoryGermline,
   getHistorySomatic,
+  getSomaticEvidence,
   getVariantData,
-  getZygosityType
+  getZygosityType,
+  getVariantId,
+  getVariantPageTestId
 } from "Store/selectors";
 import { connect } from "react-redux";
 import {
-  setExternalResources,
+  fetchEvidenceData,
   fetchVariantData,
+  setExternalResources,
   setSelectedZygosityType,
   setTestInformation,
   fetchClassificationHistory
@@ -27,16 +33,11 @@ import { SOMATIC_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 import queryString from "query-string";
 import { GERMLINE_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 
-
 class VariantPage extends Component {
   constructor(props) {
     super(props);
-
-    const {testId, variantId} = props.match.params;
-
-    const {selectedZygosityType} = queryString.parse(window.location.search);
-
-    props.setSelectedZygosityType({selectedZygosityType, testId, variantId});
+    const { testId, variantId } = props.match.params;
+    const { selectedZygosityType } = queryString.parse(window.location.search);
 
     this.state = {
       sidebarToggle: true,
@@ -45,6 +46,7 @@ class VariantPage extends Component {
     };
 
     props.fetchVariantData({ testId, variantId });
+    props.fetchEvidenceData({ testId, variantId });
     props.setSelectedZygosityType({ selectedZygosityType, testId, variantId });
     props.setTestInformation({ testId, variantId });
 
@@ -68,10 +70,14 @@ class VariantPage extends Component {
     const {
       externalResources,
       variantData,
-      selectedZygosityType
+      selectedZygosityType,
+      somaticEvidence,
+      germlineEvidence,
+      testId,
+      variantId
     } = this.props;
-    const {testId, variantId} = this.props.match.params;
 
+    const { somaticClassHistoryData, germlineClassHistoryData } = this.state;
     return (
       <div className={style["variant-page-wrapper"]}>
         <div
@@ -87,7 +93,10 @@ class VariantPage extends Component {
             iconOpened={<OpenedIcon />}
             iconClosed={<ClosedIcon />}
           >
-            <ExternalResources externalResources={externalResources} selectedZygosityType={selectedZygosityType} />
+            <ExternalResources
+              externalResources={externalResources}
+              selectedZygosityType={selectedZygosityType}
+            />
           </SideBarLayout>
         </div>
 
@@ -114,18 +123,36 @@ class VariantPage extends Component {
             >
               <ClassificationHistoryTable
                 data={
-                  selectedZygosityType === "somatic" ?
-                    this.state.somaticClassHistoryData :
-                    this.state.germlineClassHistoryData
+                  selectedZygosityType === "somatic"
+                    ? somaticClassHistoryData
+                    : germlineClassHistoryData
                 }
                 typeData={
-                  selectedZygosityType === "somatic" ?
-                    SOMATIC_VARIANT_CLASS_OPTIONS :
-                    GERMLINE_VARIANT_CLASS_OPTIONS
+                  selectedZygosityType === "somatic"
+                    ? SOMATIC_VARIANT_CLASS_OPTIONS
+                    : GERMLINE_VARIANT_CLASS_OPTIONS
                 }
               />
             </div>
-            <div className="evidence" />
+            <div
+              className={cn([
+                "evidence",
+                { "links-wrapper-open": sidebarToggle }
+              ])}
+            >
+              <EvidenceContainer
+                data={
+                  selectedZygosityType === "somatic"
+                    ? somaticEvidence
+                    : germlineEvidence
+                }
+                typeData={
+                  selectedZygosityType === "somatic"
+                    ? SOMATIC_VARIANT_CLASS_OPTIONS
+                    : GERMLINE_VARIANT_CLASS_OPTIONS
+                }
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -140,15 +167,20 @@ const mapStateToProps = state => {
     variantData: getVariantData(state),
     germlineClassHistory: getHistoryGermline(state),
     somaticClassHistory: getHistorySomatic(state),
+    somaticEvidence: getSomaticEvidence(state),
+    germlineEvidence: getGermlineEvidence(state),
     externalResources: getExternalResources(state),
-    selectedZygosityType: getZygosityType(state)
+    selectedZygosityType: getZygosityType(state),
+    testId: getVariantPageTestId(state),
+    variantId: getVariantId(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     setResources: data => dispatch(setExternalResources(data)),
-    fetchVariantData: () => dispatch(fetchVariantData()),
+    fetchVariantData: data => dispatch(fetchVariantData(data)),
+    fetchEvidenceData: data => dispatch(fetchEvidenceData(data)),
     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
     setTestInformation: data => dispatch(setTestInformation(data)),
     fetchClassificationHistory: () => dispatch(fetchClassificationHistory()),

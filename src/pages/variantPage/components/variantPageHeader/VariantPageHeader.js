@@ -5,8 +5,21 @@ import VariantClassificationContainer from "variantComponents/variantClassificat
 import cn from "classnames";
 import PropTypes from "prop-types";
 
-const VariantPageHeader = ({ sidebarToggle, variantData, testId, variantId }) => {
-  const { gene, protein, chrPosition, alleleChange, coding, transcript } = variantData || {};
+const VariantPageHeader = ({
+  sidebarToggle,
+  variantData,
+  testId,
+  variantId
+}) => {
+  const {
+    gene,
+    protein,
+    chrPosition,
+    alleleChange,
+    coding,
+    transcript,
+    alleleChangeLong
+  } = variantData || {};
   return (
     <div className={style["variant-page-header-wrapper"]}>
       <div className="left-data-wrapper">
@@ -21,7 +34,11 @@ const VariantPageHeader = ({ sidebarToggle, variantData, testId, variantId }) =>
             <InformField name="inform-field-chrPosition" text={chrPosition} />
           </div>
           <div className="gene">
-            <InformField name="inform-field-alleleChange" text={alleleChange} />
+            <InformField
+              name="inform-field-alleleChange"
+              text={alleleChange}
+              tooltip={alleleChangeLong}
+            />
           </div>
           <div className="gene">
             <InformField name="inform-field-coding" text={coding} />
@@ -41,7 +58,9 @@ const VariantPageHeader = ({ sidebarToggle, variantData, testId, variantId }) =>
 
 VariantPageHeader.propTypes = {
   sidebarToggle: PropTypes.bool,
-  variantData: PropTypes.object
+  variantData: PropTypes.object,
+  testId: PropTypes.string,
+  variantId: PropTypes.string
 };
 
 export default memo(VariantPageHeader);

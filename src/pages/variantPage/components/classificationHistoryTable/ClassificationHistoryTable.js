@@ -10,6 +10,8 @@ import LabeledTag from "GenericComponents/labeledTag";
 import { TEXTS } from "Utils/constants";
 import EmptyState from "GenericComponents/emptyState/EmptyState";
 import defaultImage from "Assets/smallEmptyState.svg";
+import TableDateAndUser from "variantComponents/evidenceContainer/components/tableDateAndUser";
+
 
 class ClassificationHistoryTable extends Component {
   state = {
@@ -17,7 +19,7 @@ class ClassificationHistoryTable extends Component {
       {
         key: "1",
         title: "Date",
-        dataIndex: "date",
+        dataIndex: "created_at",
         width: 140
       },
       {
@@ -82,7 +84,12 @@ class ClassificationHistoryTable extends Component {
           onResize: this.handleResize(index)
         })
       };
-      if (col.dataIndex === "class") {
+      if (col.dataIndex === "created_at") {
+        column.render = (date) => {
+          return <TableDateAndUser date={date} />;
+        };
+      }
+      else if (col.dataIndex === "class") {
         column.render = text => {
           return (
             <div className="label-custom-style">

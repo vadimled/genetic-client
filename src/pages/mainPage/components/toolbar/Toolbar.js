@@ -37,21 +37,29 @@ import { setSort } from "../../../../store/actions/tableActions";
 
 
 class Toolbar extends Component {
+  constructor(props) {
+    super(props);
+    this.isMVP = process.env.REACT_APP_MVP_CONFIG === "true";
+  }
+  
+  
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
   };
 
   createMutationOptions = labels => {
-    return this.props.getMutationTypesValues.map(type => {
-      switch (type) {
-        case "dna":
-          return { value: type, label: labels.dna };
-        case "rna":
-          return { value: type, label: labels.rna };
-        case "agena":
-          return { value: type, label: labels.agena };
-      }
-    });
+    return !this.isMVP ?
+      this.props.getMutationTypesValues.map(type => {
+        switch (type) {
+          case "dna":
+            return { value: type, label: labels.dna };
+          case "rna":
+            return { value: type, label: labels.rna };
+          case "agena":
+            return { value: type, label: labels.agena };
+        }
+      }):
+      [{ value: "dna", label: labels.dna }];
   };
 
   render() {
@@ -90,7 +98,7 @@ class Toolbar extends Component {
                   onChange={this.handleOnChange}
                   name="mutation"
                   value={selectedMutation}
-                  // disabled
+                  disabled={this.isMVP}
                 />
               </div>
             }
@@ -110,7 +118,7 @@ class Toolbar extends Component {
               <div className="toolbar-divider-line"/>
             </Fragment>}
 
-            {(!selectedRows?.length || selectedRows?.length === 1) &&
+            {!this.isMVP && (!selectedRows?.length || selectedRows?.length === 1) &&
               !selectedIsAddedRows?.length && (
               <Fragment>
                 <AddResult selectedResult={selectedRows[0]} />
@@ -118,7 +126,7 @@ class Toolbar extends Component {
               </Fragment>
             )}
 
-            {!!selectedIsAddedRows?.length &&
+            {!this.isMVP && !!selectedIsAddedRows?.length &&
             selectedIsAddedRows?.length === 1 &&
             selectedRows?.length === 1 && (
               <Fragment>
@@ -127,7 +135,7 @@ class Toolbar extends Component {
               </Fragment>
             )}
 
-            {!!selectedRows?.length && (
+            {!this.isMVP && !!selectedRows?.length && (
               <Fragment>
                 <button
                   className={cn([

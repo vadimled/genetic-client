@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import style from "./TestsPage.module.scss";
-// import cn from "classnames";
-import SideBarLayout from "Pages/mainPage/components/sideBarLayout";
-import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
-import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
+// import SideBarLayout from "Pages/mainPage/components/sideBarLayout";
+// import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
+// import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
 import { connect } from "react-redux";
 import cn from "classnames";
-// import SidebarFilters from "../mainPage/components/sidebarFilters/SidebarFilters";
 import { fetchTests } from "../../store/actions/testsActions";
-import TestsTable from "./components/TestsTable";
+import { getTests } from "../../store/selectors";
+import { Link } from "react-router-dom";
 
 
 
@@ -33,28 +32,39 @@ class TestsPage extends Component {
 
   render() {
     const { sidebarToggle } = this.state;
+    const { tests } = this.props;
 
     return (
       <div className={style["tests-page-wrapper"]}>
-        <div
-          className={cn(["sidebar-wrapper", { "sidebar-open": sidebarToggle }])}
-        >
-          <SideBarLayout
-            handleClick={this.handleClick}
-            mode={sidebarToggle}
-            iconOpened={<OpenedIcon />}
-            iconClosed={<ClosedIcon />}
-          >
-            <h1>Sidebar</h1>
-          </SideBarLayout>
-        </div>
         <div
           className={cn([
             "main-content-wrapper",
             { "sidebar-open": sidebarToggle }
           ])}
         >
-          <TestsTable />
+          {
+            tests.map(test => (
+              <Link
+                key={test.id}
+                to={`/tests/${test.id}`}
+                data-testid={`tests-${test.id}`}
+              >
+                <div className="test-wrapper">
+                  <div className="text-content flex justify-around">
+                    <div>
+                      <div>GS ID: {test.gsid}</div>
+                      <div>Panel Type: {test.panel_type}</div>
+                    </div>
+                    <div className="flex items-center">
+                      Created at: {test.created_at}
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))
+          }
+
+
         </div>
 
       </div>
@@ -64,16 +74,12 @@ class TestsPage extends Component {
 
 TestsPage.propTypes = {};
 
-// const mapStateToProps = state => {
-//   return {
-//     variantData: getVariantData(state),
-//     germlineClassHistory: getHistoryGermline(state),
-//     somaticClassHistory: getHistorySomatic(state),
-//     externalResources: getExternalResources(state),
-//     selectedZygosityType: getZygosityType(state)
-//   };
-// };
-//
+const mapStateToProps = state => {
+  return {
+    tests: getTests(state),
+  };
+};
+
 function mapDispatchToProps(dispatch) {
   return {
     fetchTests: () => dispatch(fetchTests()),
@@ -81,6 +87,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(TestsPage);

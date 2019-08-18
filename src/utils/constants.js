@@ -38,7 +38,14 @@ export const TEXTS = {
   seeAll: "See All",
   seeLess: "See Less",
   currentZygosity: "Current zygosity:",
-  unclassified: "Unclassified"
+  unclassified: "Unclassified",
+  evidence: "evidence",
+  evidenceUp: "Evidence",
+  add: "add",
+  delete: "delete",
+  edit: "edit",
+  editEvidence: "Edit evidence",
+  addEvidence: "Add evidence"
 };
 
 export const LIMITS = {
@@ -52,11 +59,11 @@ export const MUTATION = {
 };
 
 export const FILTERS_CONFIGURATIONS = [
-  {value: "defaultFilters", label: "Default filters"},
+  { value: "defaultFilters", label: "Default filters" }
 ];
 
 export const SORTING_CONFIGURATIONS = [
-  {value: "defaultSorting", label: "Default Sorting"},
+  { value: "defaultSorting", label: "Default Sorting" }
 ];
 
 export const SORTING_ORDER = {
@@ -67,15 +74,14 @@ export const SORTING_ORDER = {
 
 export const ZYGOSITY_OPTIONS = [
   { value: "homo", label: "Homo" },
-  { value: "hetro", label: "Hetro" },
+  { value: "hetero", label: "Hetero" },
   { value: "hemi", label: "Hemi" },
   { value: "insignificant", label: "Insignificant" },
   { value: "somatic", label: "Somatic" },
   { value: "notReal", label: "Not-Real" },
-  { value: "unknown", label: "Unknown" },
-  { value: "notDefined", label: "Not Defined" }
+  { value: "unknown", label: "Unknown" }
 ];
-/* Germline - for Homo, Hetro and Hemi.
+/* Germline - for Homo, Hetero and Hemi.
   Somatic - for Somatic.
   Insignificant - for Insignificant.
   Unkown - for Unkown.
@@ -84,7 +90,7 @@ export const ZYGOSITY_OPTIONS = [
 
 export const ZYGOSITY_TYPES = [
   { value: "homo", label: "Germline" },
-  { value: "hetro", label: "Germline" },
+  { value: "hetero", label: "Germline" },
   { value: "hemi", label: "Germline" },
   { value: "insignificant", label: "Insignificant" },
   { value: "somatic", label: "Somatic" },
@@ -94,13 +100,13 @@ export const ZYGOSITY_TYPES = [
 
 export const ZYGOSITY = {
   homo: { value: "homo", label: "Homo" },
-  hetro: { value: "hetro", label: "Hetro" },
+  hetero: { value: "hetero", label: "Hetero" },
   insignificant: { value: "insignificant", label: "Insignificant" },
   somatic: { value: "somatic", label: "Somatic" },
   notReal: { value: "notReal", label: "Not Real" },
   unknown: { value: "unknown", label: "Unknown" },
   hemi: { value: "hemi", label: "Hemi" },
-  notDefined: { value: "notDefined", label: "Not Defined" },
+  notDefined: { value: "notDefined", label: "Not Defined" }
 };
 
 export const EFFECT = {
@@ -133,7 +139,7 @@ export const VARIANT_CLASS_SOMATIC = {
   tier1: { value: "tier1", label: "Tier1", tagColor: TAG_COLORS.red },
   tier2: { value: "tier2", label: "Tier2", tagColor: TAG_COLORS.orange },
   tier3: { value: "tier3", label: "Tier3", tagColor: TAG_COLORS.yellow },
-  tier4: { value: "tier4", label: "Tier4", tagColor: TAG_COLORS.blueLight }
+  tier4: { value: "tier4", label: "Tier4", tagColor: TAG_COLORS.blue }
 };
 
 export const GERMLINE_VARIANT_CLASS_OPTIONS = [
@@ -392,6 +398,248 @@ export const VALIDATION_FAILD_FIELDS = {
   fragmentSize: "fragmentSize"
 };
 
+export const EC_VALUES = {
+  publications: "publications",
+  frequency: "frequency",
+  silicoPredictor: "silicoPredictor",
+  variantDB: "variantDB",
+  drug: "drug",
+  therapy: "therapy",
+  indelNonsense: "indelNonsense",
+  mechanismDisease: "mechanismDisease",
+  segregation: "segregation",
+  proteinStructure: "proteinStructure",
+  other: "other"
+};
+
+export const EVIDENCE_CATEGORIES_OPTIONS = [
+  { value: EC_VALUES.publications, label: "Publications" },
+  { value: EC_VALUES.frequency, label: "Frequency" },
+  { value: EC_VALUES.silicoPredictor, label: "In Silico predictor" },
+  { value: EC_VALUES.variantDB, label: "Variant DB’s" },
+  { value: EC_VALUES.drug, label: "Drug" },
+  { value: EC_VALUES.therapy, label: "Therapy" },
+  { value: EC_VALUES.indelNonsense, label: "Indel/Nonsense" },
+  { value: EC_VALUES.mechanismDisease, label: "Mechanism of disease" },
+  { value: EC_VALUES.segregation, label: "Segregation" },
+  { value: EC_VALUES.proteinStructure, label: "Protein structure" },
+  { value: EC_VALUES.other, label: "Other" }
+];
+
+export const EVIDENCE_LEVEL_OPTIONS = [
+  {
+    value: "PVS1",
+    label: "PVS1",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.indelNonsense]
+  },
+  {
+    value: "PS1",
+    label: "PS1",
+    type: TEXTS.germline,
+    category: [
+      EC_VALUES.publications,
+      EC_VALUES.variantDB,
+      EC_VALUES.mechanismDisease
+    ]
+  },
+  {
+    value: "PS2",
+    label: "PS2",
+    type: TEXTS.germline,
+    category: [
+      EC_VALUES.publications,
+      EC_VALUES.variantDB,
+      EC_VALUES.segregation
+    ]
+  },
+  {
+    value: "PS3",
+    label: "PS3",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications]
+  },
+  {
+    value: "PS4",
+    label: "PS4",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications]
+  },
+  {
+    value: "PM1",
+    label: "PM1",
+    type: TEXTS.germline,
+    category: [
+      EC_VALUES.publications,
+      EC_VALUES.proteinStructure,
+      EC_VALUES.mechanismDisease
+    ]
+  },
+  {
+    value: "PM2",
+    label: "PM2",
+    type: TEXTS.germline,
+    category: [EC_VALUES.frequency]
+  },
+  {
+    value: "PM3",
+    label: "PM3",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.mechanismDisease]
+  },
+  {
+    value: "PM4",
+    label: "PM4",
+    type: TEXTS.germline,
+    category: [EC_VALUES.indelNonsense]
+  },
+  {
+    value: "PM5",
+    label: "PM5",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.mechanismDisease]
+  },
+  {
+    value: "PM6",
+    label: "PM6",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.segregation]
+  },
+  {
+    value: "PP1",
+    label: "PP1",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.segregation]
+  },
+  {
+    value: "PP2",
+    label: "PP2",
+    type: TEXTS.germline,
+    category: [EC_VALUES.mechanismDisease]
+  },
+  {
+    value: "PP3",
+    label: "PP3",
+    type: TEXTS.germline,
+    category: [EC_VALUES.silicoPredictor]
+  },
+  {
+    value: "PP4",
+    label: "PP4",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.other]
+  },
+  {
+    value: "BP7",
+    label: "BP7",
+    type: TEXTS.germline,
+    category: [EC_VALUES.silicoPredictor]
+  },
+  {
+    value: "BP5",
+    label: "BP5",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.mechanismDisease]
+  },
+  {
+    value: "BP4",
+    label: "BP4",
+    type: TEXTS.germline,
+    category: [EC_VALUES.silicoPredictor]
+  },
+  {
+    value: "BP3",
+    label: "BP3",
+    type: TEXTS.germline,
+    category: [EC_VALUES.indelNonsense]
+  },
+  {
+    value: "BP2",
+    label: "BP2",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.mechanismDisease]
+  },
+  {
+    value: "BP1",
+    label: "BP1",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.mechanismDisease]
+  },
+  {
+    value: "BS4",
+    label: "BS4",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications, EC_VALUES.segregation]
+  },
+  {
+    value: "BS3",
+    label: "BS3",
+    type: TEXTS.germline,
+    category: [EC_VALUES.publications]
+  },
+  {
+    value: "BS2",
+    label: "BS2",
+    type: TEXTS.germline,
+    category: [EC_VALUES.frequency]
+  },
+  {
+    value: "BS1",
+    label: "BS1",
+    type: TEXTS.germline,
+    category: [EC_VALUES.frequency]
+  },
+  {
+    value: "BA1",
+    label: "BA1",
+    type: TEXTS.germline,
+    category: [EC_VALUES.frequency]
+  },
+  { value: "A1", label: "A1", type: TEXTS.somatic },
+  { value: "A2", label: "A2", type: TEXTS.somatic },
+  { value: "B", label: "B", type: TEXTS.somatic },
+  { value: "C1", label: "C1", type: TEXTS.somatic },
+  { value: "C2", label: "C2", type: TEXTS.somatic },
+  { value: "D", label: "D", type: TEXTS.somatic },
+  { value: "none", label: "None", type: TEXTS.somatic }
+];
+
+export const LEVEL_COLOR = {
+  PVS1: "#D70513",
+  PS1: "#F11E2C",
+  PS2: "#F11E2C",
+  PS3: "#F11E2C",
+  PS4: "#F11E2C",
+  PM1: "#FF835C",
+  PM2: "#FE784D",
+  PM3: "#FF6F41",
+  PM4: "#FF5F2C",
+  PM5: "#F94E18",
+  PM6: "#ED3B03",
+  PP1: "#FED955",
+  PP2: "#FDD23B",
+  PP3: "#FAC714",
+  PP4: "#F1BD05",
+  BP7: "#26D17F",
+  BP5: "#16AD64",
+  BP4: "#079F56",
+  BP3: "#048B4A",
+  BP2: "#01763E",
+  BP1: "#01552D",
+  BS4: "#21A0FA",
+  BS3: "#0E8CE6",
+  BS2: "#067ED3",
+  BS1: "#026AB5",
+  BA1: "#2D42FF",
+  A1: "#D70513",
+  A2: "#D70513",
+  B: "#F11E2C",
+  C1: "#FF835C",
+  C2: "#FF835C",
+  D: "#FED955",
+  None: "#424D55"
+};
+
 
 export const EXTERNAL_RESOURCES_GERMLINE = [
   "UCSC",
@@ -423,3 +671,7 @@ export const EXTERNAL_RESOURCES_SOMATIC = [
   "Google Scholar",
   "Damaging score"
 ];
+
+export const ROUTES = {
+  isVariantPageRegex :"/variant/.+"
+};
