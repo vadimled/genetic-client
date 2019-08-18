@@ -91,7 +91,7 @@ describe('TableData', () => {
 
     expect(item2.status).toEqual(CONFIRMATION_VALUES.CONFIRMED.value);
 
-    NOT_CONFIRMED
+    NOT_CONFIRMED;
     store.dispatch(handleConfirmationStatus({
       id: itemId,
       status: CONFIRMATION_VALUES.NOT_CONFIRMED.value
