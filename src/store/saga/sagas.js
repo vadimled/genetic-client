@@ -394,6 +394,7 @@ export function* fetchVariantDataGenerator(data) {
       newData = zygosityType(result?.data);
     yield put(setVariantData(newData));
   } catch (e) {
+    console.log("-e: ", e);
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchVariantDataGenerator"]);
       Sentry.captureException(e);

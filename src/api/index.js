@@ -59,7 +59,7 @@ export function fetchVariantDataApi(data) {
   const { testId, variantId } = data.payload;
   return !isMock
     ? axios_based.get(`/tests/${testId}/variants/${variantId}/`)
-    : axios.get(`/api/tests/${testId}/variants/${variantId}/`);
+    : axios.get(`/tests/${testId}/variants/${variantId}/`);
 }
 
 export function updateVariantApi(data) {
