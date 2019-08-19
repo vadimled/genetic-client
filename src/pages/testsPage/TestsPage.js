@@ -33,14 +33,7 @@ class TestsPage extends Component {
   render() {
     const { sidebarToggle } = this.state;
     const { tests } = this.props;
-
     const options = { day: "2-digit", month: "short", year: "numeric" };
-
-    // const  fDate = new Date(date),
-    //   formattedDate = fDate
-    //     .toLocaleDateString("en-GB", options)
-    //     .split(" ")
-    //     .join("/");
 
     return (
       <div className={style["tests-page-wrapper"]}>
