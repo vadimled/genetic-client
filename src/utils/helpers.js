@@ -1005,7 +1005,6 @@ export const getEvidenceData = data => {
 
 const createVaf = numb => {
   if (numb) {
-    console.log(numb);
     return Math.round(parseFloat(numb) * 100);
   } else {
     return "";
