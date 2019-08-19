@@ -46,8 +46,8 @@ import {
   handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
+import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { setTestData, setLoading } from "Actions/testActions";
-import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
   setVariantData,
@@ -59,6 +59,10 @@ import {
 } from "Actions/variantPageActions";
 import { zygosityType, setPriority, getEvidenceData, parseTableData } from "Utils/helpers";
 // import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
+import { setClassificationHistoryToStore, setVariantPageLoading } from "Actions/variantPageActions";
+import { fetchClassificationHistoryApi } from "../../api";
+import { setTestsLoading } from "Actions/testsActions";
+
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -483,3 +487,24 @@ export function* deleteEvidenceEntrySaga(action) {
     });
   }
 }
+
+export function* fetchClassificationHistorySaga() {
+  try {
+    yield put(setVariantPageLoading(true));
+
+    const result = yield call(fetchClassificationHistoryApi);
+
+    console.log("--result: ", result);
+
+    if (result?.status === 200) {
+      yield put(setClassificationHistoryToStore(result.data));
+    }
+
+    yield put(setVariantPageLoading(false));
+
+  } catch (error) {
+    console.log("---error: ", error);
+    yield put(setVariantPageLoading(false));
+  }
+}
+

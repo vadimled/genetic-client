@@ -312,6 +312,7 @@ export const getTestType = state => state?.test?.panel_type;
 
 export const getTests = state => state?.tests?.tests;
 
+
 // Variant page: Evidence
 export const getSomaticEvidence = state =>
     state.variantPage.pageData.somatic_evidence,
@@ -401,5 +402,3 @@ export const getSomaticEvidence = state =>
       }
     }
   );
-
-// export const getTests = state => state?.test?.panel_type;

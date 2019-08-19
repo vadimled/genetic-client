@@ -1,6 +1,6 @@
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { evidences } from "Utils/variant-page-mock-data";
+import { evidences, classificationHistory } from "Utils/variant-page-mock-data";
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 
 export const mock =
@@ -70,9 +70,13 @@ if (mock) {
   });
   
   mock.onDelete(/\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200);
-  
+
   mock.onGet(/\/tests\/.+\/variants/,
     { params: {mutation : 'dna' } }).reply(
     () => [200,  generateDNAVariantTableMockData(50)]
   );
+
+  mock.onGet(/\/api\/tests\/.+\/variants\/.+\/classification-history/).reply(200, {
+    classificationHistory
+  });
 }

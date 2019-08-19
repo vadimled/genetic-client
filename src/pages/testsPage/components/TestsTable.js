@@ -1,37 +1,41 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import {connect} from "react-redux";
 
 import TableLayout from "../../mainPage/components/tableLayout";
 import EmptyState from "GenericComponents/emptyState";
 import {
-  checkIsAllRowSelected,
   getFilteredData,
+  checkIsAllRowSelected,
   getSelectedRows,
   getSortOrder,
   getSortParam,
   getTestId,
-  getTests
+  getTests,
+  getLoadingStatus
 } from "Store/selectors";
 import {
-  fetchTableData,
-  handleConfirmationStatus,
-  handleSelectAllRows,
   handleSelectedRow,
-  handleUncheckConfirmationData,
-  handleVariantClass,
+  handleSelectAllRows,
   handleZygosity,
+  handleVariantClass,
+  handleConfirmationStatus,
+  handleUncheckConfirmationData,
   setNotes,
-  setSort,
-  updateActivityLog
+  updateActivityLog,
+  fetchTableData, setSort
 } from "Actions/tableActions";
-import { goToChrPositionIgv } from "Actions/igvActions";
+import {
+  goToChrPositionIgv
+} from "Actions/igvActions";
 import ResizeableTitle from "../../../genericComponents/variantTable/components/resizeableTitle";
 import cn from "classnames";
 import { Checkbox, Table, Tooltip } from "antd";
 import HighlightedCell from "../../../genericComponents/variantTable/components/highlightedCell/HighlightedCell";
 import style from "../../../genericComponents/variantTable/VariantTable.module.scss";
+import Spinner from "../../../genericComponents/spinner";
 
 class TestsTable extends Component {
+
   state = {
     columns: [
       {
@@ -39,7 +43,7 @@ class TestsTable extends Component {
         dataIndex: "selection",
         width: 40,
         fixed: "left",
-        className: "selection-cell"
+        className: "selection-cell",
       },
       {
         title: "Gene",
@@ -69,7 +73,7 @@ class TestsTable extends Component {
         title: "Allele change",
         dataIndex: "alleleChange",
         key: "6",
-        width: 200
+        width: 200,
       },
       {
         title: "Coding",
@@ -132,7 +136,7 @@ class TestsTable extends Component {
   };
 
   componentDidMount() {
-    const { fetchTableData } = this.props;
+    const {fetchTableData} = this.props;
     fetchTableData();
   }
 
@@ -160,22 +164,14 @@ class TestsTable extends Component {
       // construction if/else is required
 
       if (column.dataIndex === "selection") {
-        column.title = (
-          <div
-            className={cn("table-header-selection-chbx", {
-              partly:
-                !!this.props.selectedRows.length && !this.props.isAllRowSelected
-            })}
-          >
-            <Checkbox
-              checked={this.props.isAllRowSelected}
-              onChange={this.props.handleSelectAllRows.bind(
-                null,
-                this.props.isAllRowSelected
-              )}
-            />
-          </div>
-        );
+        column.title = <div className={cn("table-header-selection-chbx", {
+          'partly': !!this.props.selectedRows.length && !this.props.isAllRowSelected
+        })}>
+          <Checkbox
+            checked={this.props.isAllRowSelected}
+            onChange={this.props.handleSelectAllRows.bind(null, this.props.isAllRowSelected)}
+          />
+        </div>;
 
         column.render = (text, record) => {
           if (record.status) {
@@ -199,33 +195,49 @@ class TestsTable extends Component {
             </HighlightedCell>
           );
         };
-      } else if (column.dataIndex === "zygosity") {
+      }
+
+      else if (column.dataIndex === "zygosity") {
         column.render = (text, record) => (
           <HighlightedCell isHighlighted={record.isAdded}>
-            <div className="table-select-wrapper">xxx</div>
-            {record.priority}
+            <div className="table-select-wrapper">
+              xxx
+            </div>{record.priority}
           </HighlightedCell>
         );
         column.className = "select";
-      } else if (column.dataIndex === "variantClassGermline") {
+      }
+
+      else if (column.dataIndex === "variantClassGermline") {
+
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              <div className="table-select-wrapper">xxx</div>
+              <div className="table-select-wrapper">
+
+                xxx
+
+              </div>
             </HighlightedCell>
           );
         };
         column.className = "select";
-      } else if (column.dataIndex === "variantClassSomatic") {
+      }
+
+      else if (column.dataIndex === "variantClassSomatic") {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              <div className="table-select-wrapper">xxx</div>
+              <div className="table-select-wrapper">
+                xxx
+              </div>
             </HighlightedCell>
           );
         };
         column.className = "select";
-      } else if (col.dataIndex === "notes") {
+      }
+
+      else if (col.dataIndex === "notes") {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
@@ -233,7 +245,9 @@ class TestsTable extends Component {
             </HighlightedCell>
           );
         };
-      } else if (col.dataIndex === "transcript") {
+      }
+
+      else if (col.dataIndex === "transcript") {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
@@ -241,7 +255,9 @@ class TestsTable extends Component {
             </HighlightedCell>
           );
         };
-      } else if (col.dataIndex === "chrPosition") {
+      }
+
+      else if (col.dataIndex === "chrPosition") {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
@@ -249,15 +265,19 @@ class TestsTable extends Component {
             </HighlightedCell>
           );
         };
-      } else if (col.dataIndex === "activityLog") {
+      }
+
+      else if (col.dataIndex === "activityLog") {
         column.render = (...data) => {
           return (
             <HighlightedCell isHighlighted={data[1].isAdded}>
-              xx x{" "}
-            </HighlightedCell>
+              xx
+              x            </HighlightedCell>
           );
         };
-      } else if (col.dataIndex === "alleleChange") {
+      }
+
+      else if (col.dataIndex === "alleleChange") {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
@@ -267,7 +287,9 @@ class TestsTable extends Component {
             </HighlightedCell>
           );
         };
-      } else if (col.dataIndex === "coding") {
+      }
+
+      else if (col.dataIndex === "coding") {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
@@ -277,7 +299,9 @@ class TestsTable extends Component {
             </HighlightedCell>
           );
         };
-      } else {
+      }
+
+      else {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
@@ -298,23 +322,31 @@ class TestsTable extends Component {
   };
 
   render() {
-    const { filteredData } = this.props;
+    const { filteredData, tests, loadingStatus } = this.props;
+
+    console.log("-tests: ", tests);
+
     const columns = this.columnsConverter(this.state.columns);
+
+    if(loadingStatus){
+      return <Spinner />;
+    }
+
     return (
       <TableLayout>
-        {!!filteredData?.length && (
-          <Table
-            className={style["variant-table-wrapper"]}
-            components={this.components}
-            pagination={{ pageSize: 20 }}
-            bordered
-            columns={columns}
-            dataSource={filteredData}
-            scroll={{ x: "max-content", y: "true" }}
-          />
-        )}
+        {!!filteredData?.length &&
+        <Table
+          className={style["variant-table-wrapper"]}
+          components={this.components}
+          pagination={{ pageSize: 20 }}
+          bordered
+          columns={columns}
+          dataSource={filteredData}
+          scroll={{ x: "max-content", y: "true" }}
+        />
+        }
 
-        {!filteredData?.length && <EmptyState />}
+        {!filteredData?.length && <EmptyState/>}
       </TableLayout>
     );
   }
@@ -328,32 +360,31 @@ function mapStateToProps(state) {
     sortOrder: getSortOrder(state),
     sortParam: getSortParam(state),
     testId: getTestId(state),
-    tests: getTests(state)
+    tests: getTests(state),
+    loadingStatus: getLoadingStatus(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleSelectedRow: data => dispatch(handleSelectedRow(data)),
-    handleSelectAllRows: data => dispatch(handleSelectAllRows(data)),
-    handleZygosity: data => dispatch(handleZygosity(data)),
-    handleVariantClass: data => dispatch(handleVariantClass(data)),
-    handleConfirmationStatus: data => {
+    handleSelectedRow: (data) => dispatch(handleSelectedRow(data)),
+    handleSelectAllRows: (data) => dispatch(handleSelectAllRows(data)),
+    handleZygosity: (data) => dispatch(handleZygosity(data)),
+    handleVariantClass: (data) => dispatch(handleVariantClass(data)),
+    handleConfirmationStatus: (data) => {
       if (data?.status) {
         dispatch(handleConfirmationStatus(data));
-      } else if (data?.status === null) {
+      }
+      else if (data?.status === null) {
         dispatch(handleUncheckConfirmationData(data));
       }
     },
     updateActivityLog: data => dispatch(updateActivityLog(data)),
-    goToChrPositionIgv: data => dispatch(goToChrPositionIgv(data)),
+    goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
     setNotes: data => dispatch(setNotes(data)),
     fetchTableData: data => dispatch(fetchTableData(data)),
-    setSort: data => dispatch(setSort(data))
+    setSort: data => dispatch(setSort(data)),
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TestsTable);
+export default connect(mapStateToProps, mapDispatchToProps)(TestsTable);

@@ -25,13 +25,11 @@ import {
   fetchVariantData,
   setExternalResources,
   setSelectedZygosityType,
-  setTestInformation
+  setTestInformation,
+  fetchClassificationHistory
 } from "Actions/variantPageActions";
 import { createResourcesLinks, getDataArray } from "Utils/helpers";
-import {
-  SOMATIC_VARIANT_CLASS_OPTIONS,
-  GERMLINE_VARIANT_CLASS_OPTIONS
-} from "Utils/constants";
+import { SOMATIC_VARIANT_CLASS_OPTIONS, GERMLINE_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 import queryString from "query-string";
 
 class VariantPage extends Component {
@@ -53,8 +51,11 @@ class VariantPage extends Component {
 
     // TODO: this action must be dispatched from the Saga
     props.setResources(createResourcesLinks(props.variantData));
+  }
 
-
+  componentDidMount() {
+    const {fetchClassificationHistory} = this.props;
+    fetchClassificationHistory();
   }
 
   handleClick = () => {
@@ -158,6 +159,7 @@ class VariantPage extends Component {
   }
 }
 
+
 VariantPage.propTypes = {};
 
 const mapStateToProps = state => {
@@ -180,7 +182,8 @@ function mapDispatchToProps(dispatch) {
     fetchVariantData: data => dispatch(fetchVariantData(data)),
     fetchEvidenceData: data => dispatch(fetchEvidenceData(data)),
     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
-    setTestInformation: data => dispatch(setTestInformation(data))
+    setTestInformation: data => dispatch(setTestInformation(data)),
+    fetchClassificationHistory: () => dispatch(fetchClassificationHistory()),
   };
 }
 

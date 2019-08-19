@@ -215,3 +215,5 @@ export const evidences = [
     classification: "germline"
   }
 ];
+
+export const classificationHistory = [];
