@@ -352,6 +352,7 @@ export function* fetchTestsSaga() {
 }
 
 export function* handleZygositySaga(data) {
+  console.log(data);
   try{
     const result = yield call(updateVariantApi, data);
 
