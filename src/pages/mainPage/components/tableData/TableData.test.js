@@ -169,8 +169,8 @@ describe("TableData", () => {
       })
     );
 
-    const row4 = store.getState().table.data[rowId];
-    expect(row4.variantClassGermline).toEqual(somaticVariantClassValue);
+    // const row4 = store.getState().table.data[rowId];
+    // expect(row4.variantClassGermline).toEqual(somaticVariantClassValue);
 
     store.dispatch(handleVariantClass({ item: { id: rowId }, value: notReal }));
 
