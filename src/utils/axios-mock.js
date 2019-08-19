@@ -90,7 +90,8 @@ if (mock) {
         type: "pheochromocytoma",
         location: "gallbladder",
         cancer_cell_percentage: 80
-      }
+      },
+      created_at: "23/11/2018"
     }]
   );
 }
