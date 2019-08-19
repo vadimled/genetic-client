@@ -1,10 +1,4 @@
-import {
-  EVIDENCE_CATEGORIES_OPTIONS,
-  FILTERS,
-  GNOM_AD,
-  SORTING_ORDER,
-  TEXTS
-} from "Utils/constants";
+import { EVIDENCE_CATEGORIES_OPTIONS, FILTERS, GNOM_AD, SORTING_ORDER, TEXTS } from "Utils/constants";
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
 
@@ -72,7 +66,7 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getClicksCounter = state => state?.table?.clicksCounter,
 
   getTumorInfoMode = state => state.test.showTumorInfo,
-  getLoading = state => state.test.isLoading,
+  getLoadingStatus = state => state.test.isLoading,
   getTumorInfoType = state => state.test.tumor_info?.type,
   getTumorInfoLocation = state => state.test.tumor_info?.location,
   getTumorInfoPercent = state =>
@@ -216,7 +210,7 @@ export const getFilteredData = createSelector(
     });
 
     const filteredData = data.filter(item => {
-      return filtersArray.some(filter => filter(item));
+      return filtersArray.every(filter => filter(item));
     });
 
     if(order === SORTING_ORDER.ascending){
@@ -253,10 +247,14 @@ export const getFilteredSearchQueries = createSelector(
   getSearchQueries,
   getSearchQuery,
   (queries, searchQuery) => {
-    const filteredSearchQueries = queries.filter(query =>
-      query.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    return filteredSearchQueries;
+    return queries.filter(query => {
+      if(searchQuery){
+        return query.toLowerCase().includes(searchQuery.toLowerCase());
+      }
+      else {
+        return query;
+      }
+    });
   }
 );
 
@@ -313,7 +311,6 @@ export const getActivityLog = (state, recordId) => {
 export const getTestType = state => state?.test?.panel_type;
 
 export const getTests = state => state?.tests?.tests;
-export const getLoadingStatus = state => state?.tests?.isLoading;
 
 // Variant page: Evidence
 export const getSomaticEvidence = state =>

@@ -76,7 +76,7 @@ describe('UncheckConfirmationPopup', () => {
   });
 
 
-  it('handle yes btn', () => {
+  xit('handle yes btn', () => {
     const { getByTestId, store } = initSteps();
 
     // UncheckConfirmationPopup is only visible when uncheckConfirmationData2 has defined

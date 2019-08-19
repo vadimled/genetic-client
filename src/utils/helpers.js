@@ -964,7 +964,7 @@ export const setPriority = record => {
   return record;
 };
 
-export const createTableData = (category, tabContent) => {
+export const createEvidenceTableData = (category, tabContent) => {
   const obj = Object.keys(tabContent).reduce((accum, val, index) => {
     if (tabContent[val].category === category) {
       const newObj = Object.assign(
@@ -1002,3 +1002,78 @@ export const getEvidenceData = data => {
   });
   return newData;
 };
+
+const createVaf = numb => {
+  if (numb) {
+    return Math.round(parseFloat(numb) * 100);
+  } else {
+    return "";
+  }
+};
+
+const createNewTableDataItem = ({
+  alt,
+  chr,
+  clinvar_variation_id,
+  cosmic,
+  dp,
+  db_snp,
+  effect,
+  exon,
+  gene,
+  germline_class,
+  gnomAD,
+  hgvs_c,
+  hgvs_p,
+  hotSpot,
+  id,
+  notes,
+  omim,
+  position,
+  ref,
+  roi,
+  somatic_class,
+  status,
+  transcript,
+  variant,
+  zygosity
+}) => {
+  let newObj = {};
+
+  newObj.id = id;
+  newObj.key = id;
+  newObj.gene = gene;
+  newObj.chrPosition = `${chr}:${position}`;
+  newObj.alleleChange = `${ref?.slice(0, 1)} > ${alt?.slice(0, 1)}`;
+  newObj.alleleChangeLong = `${ref} > ${alt}`;
+  newObj.transcript = transcript;
+  newObj.zygosity = zygosity;
+  newObj.protein = hgvs_p;
+  newObj.coverage = parseInt(dp, 10);
+  newObj.vaf = createVaf(variant);
+  newObj.notes = notes;
+  newObj.coding = hgvs_c.length > 12 ? hgvs_c.slice(0, 12) : hgvs_c;
+  newObj.codingLong = hgvs_c;
+  newObj.exon = exon; // temporary removed from the table
+  newObj.variantClassGermline = germline_class || "unclassified";
+  newObj.variantClassSomatic = somatic_class || "unclassified";
+  newObj.status = status || null;
+  // filters
+  newObj.clinvar = clinvar_variation_id;
+  newObj.cosmic = cosmic;
+  newObj.effect = effect;
+  newObj.hotSpot = hotSpot;
+  newObj.roi = roi;
+  newObj.snp = db_snp;
+  newObj.omim = omim || false;
+  newObj.gnomAD = gnomAD || null;
+
+  setPriority(newObj);
+  return newObj;
+};
+
+export const parseTableData = array =>
+  array.reduce((obj, item) => {
+    obj[item.id] = createNewTableDataItem(item);
+    return obj;
+  }, {});

@@ -6,9 +6,7 @@ import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import ConfirmationStatus from "GenericComponents/confirmationStatus";
 import Notes from "GenericComponents/notes";
-import {
-  ZYGOSITY_OPTIONS
-} from "Utils/constants";
+import { ZYGOSITY_OPTIONS } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
 import ActivityLog from "./components/ActivityLog";
@@ -19,7 +17,8 @@ import HighlightedCell from "./components/highlightedCell";
 import LabeledTag from "../labeledTag";
 import {
   GERMLINE_VARIANT_CLASS_OPTIONS,
-  SOMATIC_VARIANT_CLASS_OPTIONS, VARIANT_CLASS_GERMLINE,
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  VARIANT_CLASS_GERMLINE,
   VARIANT_CLASS_SOMATIC
 } from "../../utils/constants";
 
@@ -51,12 +50,12 @@ class VariantTable extends Component {
         key: "4",
         width: 200
       },
-      {
-        title: "Exon",
-        dataIndex: "exon",
-        key: "5",
-        width: 40
-      },
+      // {
+      //   title: "Exon",
+      //   dataIndex: "exon",
+      //   key: "5",
+      //   width: 50
+      // },
       {
         title: "Allele change",
         dataIndex: "alleleChange",
