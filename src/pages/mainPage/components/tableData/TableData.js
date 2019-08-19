@@ -21,18 +21,13 @@ import {
   handleUncheckConfirmationData,
   setNotes,
   updateActivityLog,
-  fetchTableData, setSort
+  setSort
 } from "Actions/tableActions";
 import {
   goToChrPositionIgv
 } from "Actions/igvActions";
 
 class TableData extends Component {
-
-  componentDidMount() {
-    const {fetchTableData} = this.props;
-    fetchTableData();
-  }
 
   render() {
     const {
@@ -109,7 +104,6 @@ function mapDispatchToProps(dispatch) {
     updateActivityLog: data => dispatch(updateActivityLog(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
     setNotes: data => dispatch(setNotes(data)),
-    fetchTableData: data => dispatch(fetchTableData(data)),
     setSort: data => dispatch(setSort(data)),
   };
 }

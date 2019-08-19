@@ -10,7 +10,7 @@ import EmptyState from "GenericComponents/emptyState/EmptyState";
 import defaultImage from "Assets/smallEmptyState.svg";
 import { getCurrentEvidenceData } from "Store/selectors";
 import { connect } from "react-redux";
-import { createTableData } from "Utils/helpers";
+import { createEvidenceTableData } from "Utils/helpers";
 import TableDateAndUser from "variantComponents/evidenceContainer/components/tableDateAndUser";
 import TableSourceDescription from "variantComponents/evidenceContainer/components/tableSourceDescription";
 import TableLevel from "variantComponents/evidenceContainer/components/tableLevel";
@@ -118,7 +118,7 @@ class EvidenceTable extends Component {
 
   render() {
     const { category, tabContent } = this.props;
-    this.data = createTableData(category, tabContent);
+    this.data = createEvidenceTableData(category, tabContent);
     const { length } = this.data;
 
     // add options to columns

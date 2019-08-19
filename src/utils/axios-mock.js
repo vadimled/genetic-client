@@ -1,6 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { evidences, classificationHistory} from "Utils/variant-page-mock-data";
+import { evidences, classificationHistory } from "Utils/variant-page-mock-data";
+import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 
 export const mock =
   process.env.REACT_APP_AXIOS_MOCK_ENABLED === "true" &&
@@ -11,9 +12,9 @@ if (mock) {
     users: [{ id: 1, name: "John Smith" }]
   });
 
-  mock.onGet(/\/api\/tests\/?\w+$/).reply(200, {
-    test_id: "GS00115NP050818_TS1_01",
-    gsid: "GS00115NP050818_TS1_01",
+  mock.onGet(/\/tests\/?\w+$/).reply(200, {
+    id: "5d511f574651a20020a0ab50",
+    gsid: "GS00115",
     panel_type: "risk",
     mutation_types: ["dna", "rna", "agena"],
     tumor_info: {
@@ -23,20 +24,20 @@ if (mock) {
     }
   });
 
-  mock.onGet(/\/api\/tests\/.+\/variants\/.+\/$/).reply(200, {
+  mock.onGet(/\/tests\/.+\/variants\/.+\/$/).reply(200, {
     // /api/tests/GS00115NP050818_TS1_01/variant/1gr3ekk8qbb29u5vljto219bn
     currentZygosity: "Homo",
     germline_variant_class: "LPATH",
     somatic_variant_class: "Tier2"
   });
 
-  mock.onGet(/\/api\/tests\/.+\/variants\/.+\/evidences/).reply(200, {
+  mock.onGet(/\/tests\/.+\/variants\/.+\/evidences/).reply(200, {
     evidences
   });
 
-  mock.onPatch(/\/api\/tests\/.+\/variants\/.+/).reply(200);
+  mock.onPatch(/\/tests\/.+\/variants\/.+/).reply(200);
 
-  mock.onPost(/\/api\/tests\/.+\/variants\/.+\/evidences/).reply(200, {
+  mock.onPost(/\/tests\/.+\/variants\/.+\/evidences/).reply(200, {
     id: "vadimmall3xfe2gzdmlnw067",
     category: "silicoPredictor",
     source: "http://example.com",
@@ -52,7 +53,7 @@ if (mock) {
     classification: "somatic"
   });
 
-  mock.onPut(/\/api\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200, {
+  mock.onPut(/\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200, {
     id: "1gzhbamall3xfe2gzdmlnw9aj",
     category: "publications",
     source: "http://en.Wikipedia/wiki/DNA",
@@ -68,7 +69,12 @@ if (mock) {
     classification: "germline"
   });
   
-  mock.onDelete(/\/api\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200);
+  mock.onDelete(/\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200);
+
+  mock.onGet(/\/tests\/.+\/variants/,
+    { params: {mutation : 'dna' } }).reply(
+    () => [200,  generateDNAVariantTableMockData(50)]
+  );
 
   mock.onGet(/\/api\/tests\/.+\/variants\/.+\/classification-history/).reply(200, {
     classificationHistory
