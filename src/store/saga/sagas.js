@@ -3,8 +3,8 @@ import * as Sentry from "@sentry/browser";
 import {
   ALERT_STATUSES,
   ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS,
-} from 'Utils/constants';
+  VALIDATION_FAILD_FIELDS
+} from "Utils/constants";
 import {
   fetchBAMFile,
   goToChrPositionIgv,
@@ -18,7 +18,8 @@ import {
   addEvidenceEntryApi,
   editEvidenceEntryApi,
   fetchEvidenceDataApi,
-  deleteEvidenceEntryApi
+  deleteEvidenceEntryApi,
+  fetchTableDataApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -29,7 +30,8 @@ import {
   applyConfirmation,
   tableDataAddResult,
   tableDataEditResult,
-  setDataToStore,
+  setParsedDataToStore,
+  setServerDataToStore,
   setZygosity,
   setNotesToStore,
   setTableReducerLoading,
@@ -59,7 +61,10 @@ import {
   setEvidenceData,
   deleteEvidenceFromStore
 } from "Actions/variantPageActions";
-import { zygosityType, setPriority, getEvidenceData } from "Utils/helpers";
+import { zygosityType, setPriority, getEvidenceData, parseTableData } from "Utils/helpers";
+import { setClassificationHistoryToStore, setVariantPageLoading } from "Actions/variantPageActions";
+import { fetchClassificationHistoryApi } from "../../api";
+
 
 
 function* onDelay(time) {
@@ -226,7 +231,6 @@ export function* goToChrPositionIgvGenerator(data) {
 }
 
 export function* sendForConfirmationGenerator(data) {
-
   try {
     // -> API request
 
@@ -322,7 +326,7 @@ export function* fetchTableData() {
       setPriority(record);
     }
 
-    yield put(setDataToStore(result));
+    yield put(setParsedDataToStore(result));
     // yield put(setLoading(false));
   } catch (error) {
     console.log("---error: ", error);
@@ -351,16 +355,7 @@ export function* handleZygositySaga(data) {
   try{
     const result = yield call(updateVariantApi, data);
 
-
     const variant = result.data;
-
-
-
-    // const {record} = data.payload;
-    //
-    // const newRecord = Object.assign({}, record);
-    //
-    // newRecord.zygosity = value;
 
     setPriority(variant);
 
@@ -409,16 +404,31 @@ export function* setNotesSaga(data) {
   }
 }
 
-export function* fetchTestMetadataGenerator(id) {
+export function* fetchTestMetadataGenerator(action) {
   try {
     yield put(setLoading(true));
-    const result = yield call(fetchTestMetadataApi, id);
+    const result = yield call(fetchTestMetadataApi, action);
     yield put(setTestData(result?.data));
     yield put(setMutationType(result?.data?.mutation_types[0]));
-    yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchTestMetadataGenerator"]);
+      Sentry.captureException(e);
+    });
+    yield put(setLoading(false));
+  }
+}
+
+export function* fetchTableDataSaga(action) {
+  try {
+    const result = yield call(fetchTableDataApi, action);
+    yield put(setServerDataToStore(result?.data));
+    const newData = parseTableData(result?.data);
+    yield put(setParsedDataToStore(newData));
+    yield put(setLoading(false));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchTableDataSaga"]);
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
@@ -501,6 +511,26 @@ export function* deleteEvidenceEntrySaga(action) {
       scope.setFingerprint(["deleteEvidenceEntrySaga"]);
       Sentry.captureException(e);
     });
+  }
+}
+
+export function* fetchClassificationHistorySaga() {
+  try {
+    yield put(setVariantPageLoading(true));
+
+    const result = yield call(fetchClassificationHistoryApi);
+
+    console.log("--result: ", result);
+
+    if (result?.status === 200) {
+      yield put(setClassificationHistoryToStore(result.data));
+    }
+
+    yield put(setVariantPageLoading(false));
+
+  } catch (error) {
+    console.log("---error: ", error);
+    yield put(setVariantPageLoading(false));
   }
 }
 

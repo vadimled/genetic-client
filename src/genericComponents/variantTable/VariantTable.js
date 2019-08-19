@@ -6,9 +6,7 @@ import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import ConfirmationStatus from "GenericComponents/confirmationStatus";
 import Notes from "GenericComponents/notes";
-import {
-  ZYGOSITY_OPTIONS
-} from "Utils/constants";
+import { ZYGOSITY_OPTIONS } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
 import ActivityLog from "./components/ActivityLog";
@@ -19,7 +17,8 @@ import HighlightedCell from "./components/highlightedCell";
 import LabeledTag from "../labeledTag";
 import {
   GERMLINE_VARIANT_CLASS_OPTIONS,
-  SOMATIC_VARIANT_CLASS_OPTIONS, VARIANT_CLASS_GERMLINE,
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  VARIANT_CLASS_GERMLINE,
   VARIANT_CLASS_SOMATIC
 } from "../../utils/constants";
 
@@ -37,7 +36,7 @@ class VariantTable extends Component {
         title: "Gene",
         dataIndex: "gene",
         key: "2",
-        width: 200
+        width: 150
       },
       {
         title: "Chr: position",
@@ -51,17 +50,17 @@ class VariantTable extends Component {
         key: "4",
         width: 200
       },
-      {
-        title: "Exon",
-        dataIndex: "exon",
-        key: "5",
-        width: 100
-      },
+      // {
+      //   title: "Exon",
+      //   dataIndex: "exon",
+      //   key: "5",
+      //   width: 50
+      // },
       {
         title: "Allele change",
         dataIndex: "alleleChange",
         key: "6",
-        width: 200,
+        width: 130,
       },
       {
         title: "Coding",
@@ -79,7 +78,7 @@ class VariantTable extends Component {
         title: <TableSorter title="VAF" setSort={this.props.setSort} field="vaf" />,
         dataIndex: "vaf",
         key: "9",
-        width: 100,
+        width: 60,
         className: "sorter"
         // sorter: (a, b) => a.vaf - b.vaf,
         // sortOrder: sortedInfo.columnKey === 'vaf' && sortedInfo.order,
@@ -88,13 +87,13 @@ class VariantTable extends Component {
         title: "Zygosity",
         dataIndex: "zygosity",
         key: "10",
-        width: 250
+        width: 150
       },
       {
-        title: "Germline Class ",
+        title: "Germline Class",
         dataIndex: "variantClassGermline",
         key: "11",
-        width: 200
+        width: 160
       },
       {
         title: "Somatic Class",

@@ -92,9 +92,16 @@ export const fetchTableData = data => {
   };
 };
 
-export function setDataToStore(data) {
+export function setServerDataToStore(data) {
   return {
     type: actionsTypes.FETCH_TABLE_DATA_SUCCESS,
+    payload: data
+  };
+}
+
+export function setParsedDataToStore(data) {
+  return {
+    type: actionsTypes.SET_PARSED_DATA_TO_STORE,
     payload: data
   };
 }

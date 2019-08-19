@@ -29,11 +29,6 @@ import {
 
 class TableData extends Component {
 
-  // componentDidMount() {
-  //   const {fetchTableData} = this.props;
-  //   fetchTableData();
-  // }
-
   render() {
     const {
       filteredData,

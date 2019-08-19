@@ -180,7 +180,9 @@ const initialState = {
       analystName: "Taly Yafe",
       class: "VUS"
     }
-  }
+  },
+  classificationHistory: [],
+  isLoading: false
 };
 
 const variantPageReducer = createReducer(initialState, {
@@ -228,7 +230,7 @@ const variantPageReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_NEW_EVIDENCE_ENTRY]: (state, { payload }) => {
-    
+
     const { id, classification } = payload;
     delete payload.id;
 
@@ -236,7 +238,7 @@ const variantPageReducer = createReducer(initialState, {
       targetDataName = classification === TEXTS.germline
         ? "germline_evidence"
         : "somatic_evidence",
-      
+
       targetData = { ...state[targetDataName], [id]: payload };
     return {
       ...state,
@@ -247,43 +249,59 @@ const variantPageReducer = createReducer(initialState, {
   [actionsTypes.SET_EDITED_EVIDENCE_ENTRY]: (state, { payload }) => {
     const { id, classification } = payload;
     delete payload.id;
-  
+
     const
       targetDataName = classification === TEXTS.germline
         ? "germline_evidence"
         : "somatic_evidence",
-    
+
       targetData = { ...state[targetDataName], [id]: payload };
     return {
       ...state,
       [targetDataName]: targetData
     };
   },
-  
+
   [actionsTypes.DELETE_EVIDENCE_ENTRY_FROM_STORE]: (state, { payload }) => {
     const
       { ids: {evidenceId } , data:{classification} } = payload,
-    
+
       targetDataName = classification === TEXTS.germline
         ? "germline_evidence"
         : "somatic_evidence",
-      
+
       targetData = Object.assign({}, state[targetDataName]);
-    
+
     delete targetData[evidenceId];
     return {
       ...state,
       [targetDataName]: targetData
     };
   },
-  
+
   [actionsTypes.SET_EVIDENCE_DATA]: (state, { payload }) => {
     return {
       ...state,
       ...payload
     };
   },
-  
+
+  [actionsTypes.SET_CLASSIFICATION_HISTORY_TO_STORE]: (state, { payload }) => {
+
+    return {
+      ...state,
+      classificationHistory: payload
+    };
+  },
+
+  [actionsTypes.SET_VARIANT_PAGE_LOADING]: (state, { payload }) => {
+
+    return {
+      ...state,
+      isLoading: payload
+    };
+  },
+
 });
 
 export default variantPageReducer;

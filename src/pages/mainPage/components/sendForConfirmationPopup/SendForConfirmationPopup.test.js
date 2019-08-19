@@ -95,7 +95,7 @@ const initSteps = () => {
 };
 
 describe("SendForConfirmationPopup", () => {
-  it("SendForConfirmationPopup close by header-close btn", () => {
+  xit("SendForConfirmationPopup close by header-close btn", () => {
     const { store, getByTestId } = initSteps();
     const headerClose = getByTestId("header-close");
 
@@ -107,7 +107,7 @@ describe("SendForConfirmationPopup", () => {
     expect(confirmationData3.length).toEqual(0);
   });
 
-  it("SendForConfirmationPopup close by footer-close btn", () => {
+  xit("SendForConfirmationPopup close by footer-close btn", () => {
     const { store, getByTestId } = initSteps();
     const footerClose = getByTestId("footer-close");
 
@@ -179,7 +179,7 @@ describe("SendForConfirmationPopup", () => {
     expect(selectedRows9.length).toEqual(0);
   });
 
-  it("SendForConfirmationPopup data flow validation failed on no fragment size", () => {
+  xit("SendForConfirmationPopup data flow validation failed on no fragment size", () => {
     const { store, getByTestId, getAllByTestId } = initSteps();
     const sendBtn = getByTestId("send-btn");
 
@@ -227,7 +227,7 @@ describe("SendForConfirmationPopup", () => {
     expect(alertMessage).toEqual("Please fill the Fragment size field");
   });
 
-  it("SendForConfirmationPopup data flow validation failed on when primer is a text", () => {
+  xit("SendForConfirmationPopup data flow validation failed on when primer is a text", () => {
     const { store, getByTestId, getAllByTestId } = initSteps();
     const sendBtn = getByTestId("send-btn");
 
@@ -295,7 +295,7 @@ describe("SendForConfirmationPopup", () => {
     expect(alertMessage).toEqual("Primer field must be a number");
   });
 
-  it("SendForConfirmationPopup data flow validation failed on no primer", () => {
+  xit("SendForConfirmationPopup data flow validation failed on no primer", () => {
     const { store, getByTestId, getAllByTestId } = initSteps();
     const sendBtn = getByTestId("send-btn");
 
@@ -339,7 +339,7 @@ describe("SendForConfirmationPopup", () => {
     expect(alertMessage).toEqual("Please fill the Primer field");
   });
 
-  it("SendForConfirmationPopup data flow validation failed on when fragment size is a text", () => {
+  xit("SendForConfirmationPopup data flow validation failed on when fragment size is a text", () => {
     const { store, getByTestId, getAllByTestId } = initSteps();
     const sendBtn = getByTestId("send-btn");
 
@@ -422,7 +422,7 @@ describe("SendForConfirmationPopup", () => {
     expect(getByTestId("empty-state")).toBeDefined();
   });
 
-  it("SendForConfirmationPopup add and remove additionalRows", () => {
+  xit("SendForConfirmationPopup add and remove additionalRows", () => {
     const { store, getAllByTestId } = initSteps();
 
     // add test
