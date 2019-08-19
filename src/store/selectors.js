@@ -1,10 +1,4 @@
-import {
-  EVIDENCE_CATEGORIES_OPTIONS,
-  FILTERS,
-  GNOM_AD,
-  SORTING_ORDER,
-  TEXTS
-} from "Utils/constants";
+import { EVIDENCE_CATEGORIES_OPTIONS, FILTERS, GNOM_AD, SORTING_ORDER, TEXTS } from "Utils/constants";
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
 
@@ -72,11 +66,12 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getClicksCounter = state => state?.table?.clicksCounter,
 
   getTumorInfoMode = state => state.test.showTumorInfo,
+  getLoadingStatus = state => state.test.isLoading,
   getTumorInfoType = state => state.test.tumor_info?.type,
   getTumorInfoLocation = state => state.test.tumor_info?.location,
   getTumorInfoPercent = state =>
     parseInt(state.test.tumor_info?.cancer_cell_percentage, 10),
-  getTestId = state => state.test.test_id,
+  getTestId = state => state.test.id,
   getSelectedMutationType = state => state.variants.selectedMutation,
   getMutationTypesValues = state => state.test.mutation_types;
 
@@ -205,7 +200,6 @@ export const getFilteredData = createSelector(
   getSortOrder,
   (data, appliedFilters, sortParam, order) => {
     if (isEmpty(appliedFilters)) {
-
       const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
       return sortedData;
     }
@@ -252,10 +246,14 @@ export const getFilteredSearchQueries = createSelector(
   getSearchQueries,
   getSearchQuery,
   (queries, searchQuery) => {
-    const filteredSearchQueries = queries.filter(query =>
-      query.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    return filteredSearchQueries;
+    return queries.filter(query => {
+      if(searchQuery){
+        return query.toLowerCase().includes(searchQuery.toLowerCase());
+      }
+      else {
+        return query;
+      }
+    });
   }
 );
 
@@ -312,7 +310,7 @@ export const getActivityLog = (state, recordId) => {
 export const getTestType = state => state?.test?.panel_type;
 
 export const getTests = state => state?.tests?.tests;
-export const getLoadingStatus = state => state?.tests?.isLoading;
+
 
 // Variant page: Evidence
 export const getSomaticEvidence = state =>

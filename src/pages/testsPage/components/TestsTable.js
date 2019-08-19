@@ -346,6 +346,7 @@ class TestsTable extends Component {
         />
         }
 
+        {!filteredData?.length && <EmptyState />}
         {!filteredData?.length && <EmptyState/>}
       </TableLayout>
     );

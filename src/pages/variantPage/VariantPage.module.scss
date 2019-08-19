@@ -55,14 +55,13 @@
 
       .history {
         display: flex;
-        width: calc(100vw - 40px);
+        width: calc(100vw - 58px);
         padding: 15px 15px 15px 40px;
         max-height: 455px;
         box-sizing: border-box;
-        transition: 0.3s ease-in;
 
         &.links-wrapper-open {
-          width: calc(100vw - 203px);
+          width: calc(100vw - 218px);
           transition: 0.4s ease-in;
         }
       }

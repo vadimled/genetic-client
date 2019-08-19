@@ -20,20 +20,39 @@ import {
   getAlertStatus,
   getAlertTitle,
   getAlertMessage,
-  getTumorInfoMode
+  getTumorInfoMode,
+  getLoadingStatus,
+  getMutationTypesValues,
+  getTestId,
+  getSelectedMutationType
 } from "Store/selectors";
 import { setAlert } from "Actions/alertActions";
-import { fetchTestData } from "Actions/testActions";
+import { fetchTestMetadata } from "Actions/testActions";
+import Spinner from "GenericComponents/spinner";
+import { withRouter } from "react-router-dom";
+import { fetchTableData } from "Actions/tableActions";
 
 class MainPage extends Component {
   constructor(props) {
     super(props);
-  
-    props.fetchTestData("GS00115NP050818_TS1_01");
-  
+    props.fetchTestMetadata(props?.match?.params?.testId);
+
     this.state = {
-      sidebarToggle: true
+      sidebarToggle: true,
+      isMutationType: false
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.getMutationTypesValues.length > 0 && !state.isMutationType) {
+      const { fetchTableData, match, getMutationTypesValues } = props;
+      fetchTableData({
+        testId: match?.params?.testId,
+        mutation: getMutationTypesValues[0]
+      });
+      return { isMutationType: true };
+    }
+    return null;
   }
 
   handleClick = () => {
@@ -52,7 +71,8 @@ class MainPage extends Component {
       alertTitle,
       alertMessage,
       setAlert,
-      showTumorInfo
+      showTumorInfo,
+      isLoading
     } = this.props;
 
     return (
@@ -69,22 +89,28 @@ class MainPage extends Component {
             <SidebarFilters />
           </SideBarLayout>
         </div>
-        <div
-          className={cn([
-            "main-content-wrapper",
-            { "sidebar-open": sidebarToggle }
-          ])}
-        >
+        {isLoading ? (
+          <Spinner />
+        ) : (
           <div
-            className={cn(["tumor-toolbar-collapse", { out: showTumorInfo }])}
+            className={cn([
+              "main-content-wrapper",
+              { "sidebar-open": sidebarToggle }
+            ])}
           >
-            <TumorToolbar sidebarToggle={sidebarToggle} />
+            <div
+              className={cn(["tumor-toolbar-collapse", { out: showTumorInfo }])}
+            >
+              <TumorToolbar sidebarToggle={sidebarToggle} />
+            </div>
+            <div
+              className={cn(["toolbar-collapse", { shadow: showTumorInfo }])}
+            >
+              <Toolbar sidebarToggle={sidebarToggle} />
+            </div>
+            <TableData />
           </div>
-          <div className={cn(["toolbar-collapse", { shadow: showTumorInfo }])}>
-            <Toolbar sidebarToggle={sidebarToggle} />
-          </div>
-          <TableData />
-        </div>
+        )}
         {!!isIgvAlertShow && <IgvAlertPopup />}
         {!!isOnConfirmation && <SendForConfirmationPopup />}
         {!!uncheckConfirmationData && <UncheckConfirmationPopup />}
@@ -109,18 +135,25 @@ const mapStateToProps = state => {
     alertStatus: getAlertStatus(state),
     alertTitle: getAlertTitle(state),
     alertMessage: getAlertMessage(state),
-    showTumorInfo: getTumorInfoMode(state)
+    showTumorInfo: getTumorInfoMode(state),
+    isLoading: getLoadingStatus(state),
+    getMutationTypesValues: getMutationTypesValues(state),
+    mutation: getSelectedMutationType(state),
+    testId: getTestId(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     setAlert: data => dispatch(setAlert(data)),
-    fetchTestData: id => dispatch(fetchTestData(id))
+    fetchTableData: data => dispatch(fetchTableData(data)),
+    fetchTestMetadata: id => dispatch(fetchTestMetadata(id))
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MainPage);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(MainPage)
+);

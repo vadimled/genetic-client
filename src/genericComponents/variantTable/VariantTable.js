@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from "react-router-dom";
 import { Table, Tooltip, Checkbox } from "antd";
 import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect";
@@ -55,25 +55,25 @@ class VariantTable extends Component {
         title: "Exon",
         dataIndex: "exon",
         key: "5",
-        width: 100
+        width: 50
       },
       {
         title: "Allele change",
         dataIndex: "alleleChange",
         key: "6",
-        width: 200,
+        width: 50,
       },
       {
         title: "Coding",
         dataIndex: "coding",
         key: "7",
-        width: 100
+        width: 160
       },
       {
         title: "Protein",
         dataIndex: "protein",
         key: "8",
-        width: 100
+        width: 160
       },
       {
         title: <TableSorter title="VAF" setSort={this.props.setSort} field="vaf" />,
@@ -246,7 +246,7 @@ class VariantTable extends Component {
 
                 <Link
                   to={{
-                    pathname: `test/${this.props.testId}/variant/${record.id}/?selectedZygosityType=germline`,
+                    pathname: `${this.props.match.url}/variant/${record.id}/?selectedZygosityType=germline`,
                     // state: {type: "germline"}
                   }}
                 >
@@ -267,7 +267,7 @@ class VariantTable extends Component {
               <div className="table-select-wrapper">
                 <Link
                   to={{
-                    pathname: `test/${this.props.testId}/variant/${record.id}/?selectedZygosityType=somatic`,
+                    pathname: `${this.props.match.url}/variant/${record.id}/?selectedZygosityType=somatic`,
                     // state: {testId:this.props.testId, variantId: record.id, selectedZygosityType: "somatic"}
                   }}
                 >
@@ -426,4 +426,4 @@ VariantTable.defaultProps = {
   selectedRows: []
 };
 
-export default VariantTable;
+export default withRouter(VariantTable);

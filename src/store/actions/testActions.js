@@ -1,8 +1,8 @@
 import actionsTypes from "../actionsTypes";
 
-export const fetchTestData = id =>{
+export const fetchTestMetadata = id =>{
   return{
-    type: actionsTypes.FETCH_TEST_DATA,
+    type: actionsTypes.FETCH_TEST_METADATA,
     payload: id
   };
 };
@@ -27,6 +27,15 @@ export const setTumorInfo = data => {
     payload: data
   };
 };
+
+export function setLoading(status) {
+  return {
+    type: actionsTypes.SET_LOADING,
+    payload: status
+  };
+}
+
+
 
 
 
