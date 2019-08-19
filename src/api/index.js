@@ -69,9 +69,7 @@ export function fetchTestsApi() {
   return axios_based.get(`/tests/`);
 }
 
-export function fetchClassificationHistoryApi() {
-
-  console.log("--here");
+export function fetchClassificationHistoryApi(action) {
   const { testId, variantId } = action.payload;
 
   return axios.get(`/api/tests/${testId}/variants/${variantId}/classification-history`);

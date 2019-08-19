@@ -487,9 +487,6 @@ export function* fetchClassificationHistorySaga() {
     yield put(setVariantPageLoading(true));
 
     const result = yield call(fetchClassificationHistoryApi);
-
-    console.log("--result: ", result);
-
     if (result?.status === 200) {
       yield put(setClassificationHistoryToStore(result.data));
     }
@@ -497,7 +494,6 @@ export function* fetchClassificationHistorySaga() {
     yield put(setVariantPageLoading(false));
 
   } catch (error) {
-    console.log("---error: ", error);
     yield put(setVariantPageLoading(false));
   }
 }
