@@ -65,6 +65,7 @@ class ConfirmationStatus extends PureComponent {
       <div
         className={style["confirmation-status"]}
         ref={this.confStatusComponent}
+        data-testid={`confirmation-${status}`}
       >
         <div
           className="panel-trigger"
