@@ -1016,7 +1016,7 @@ const createNewTableDataItem = ({
   chr,
   clinvar_variation_id,
   cosmic,
-  coverage,
+  dp,
   db_snp,
   effect,
   exon,
@@ -1049,12 +1049,12 @@ const createNewTableDataItem = ({
   newObj.transcript = transcript;
   newObj.zygosity = zygosity;
   newObj.protein = hgvs_p;
-  newObj.coverage = coverage || "10"; // "????????";
+  newObj.coverage = parseInt(dp, 10);
   newObj.vaf = createVaf(variant);
   newObj.notes = notes;
   newObj.coding = hgvs_c.length > 12 ? hgvs_c.slice(0, 12) : hgvs_c;
   newObj.codingLong = hgvs_c;
-  newObj.exon = exon || "1";
+  newObj.exon = exon; // temporary removed from the table
   newObj.variantClassGermline = germline_class || "unclassified";
   newObj.variantClassSomatic = somatic_class || "unclassified";
   newObj.status = status || null;

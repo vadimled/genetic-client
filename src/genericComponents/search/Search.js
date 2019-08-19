@@ -35,7 +35,7 @@ class Search extends Component {
           dataSource={tableData}
           value={searchText}
           onChange={this.handleOnSearchChange}
-          autoFocus
+
         />
 
         {searchText && (

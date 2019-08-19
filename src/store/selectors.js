@@ -200,6 +200,7 @@ export const getFilteredData = createSelector(
   getSortOrder,
   (data, appliedFilters, sortParam, order) => {
     if (isEmpty(appliedFilters)) {
+
       const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
       return sortedData;
     }
@@ -209,7 +210,7 @@ export const getFilteredData = createSelector(
     });
 
     const filteredData = data.filter(item => {
-      return filtersArray.some(filter => filter(item));
+      return filtersArray.every(filter => filter(item));
     });
 
     if(order === SORTING_ORDER.ascending){
@@ -401,5 +402,3 @@ export const getSomaticEvidence = state =>
       }
     }
   );
-
-// export const getTests = state => state?.test?.panel_type;
