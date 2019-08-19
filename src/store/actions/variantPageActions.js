@@ -63,6 +63,27 @@ export const setTestInformation = data => {
   };
 };
 
+export const fetchClassificationHistory = data => {
+  return {
+    type: actionsTypes.FETCH_CLASSIFICATION_HISTORY,
+    payload: data
+  };
+};
+
+export const setClassificationHistoryToStore = data => {
+  return {
+    type: actionsTypes.SET_CLASSIFICATION_HISTORY_TO_STORE,
+    payload: data
+  };
+};
+
+export const setVariantPageLoading = data => {
+  return {
+    type: actionsTypes.SET_VARIANT_PAGE_LOADING,
+    payload: data
+  };
+};
+
 export const setNewEvidenceEntry = data => {
   return {
     type: actionsTypes.SET_NEW_EVIDENCE_ENTRY,
@@ -83,3 +104,5 @@ export const deleteEvidenceFromStore = data => {
     payload: data
   };
 };
+
+

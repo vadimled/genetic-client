@@ -181,7 +181,9 @@ const initialState = {
       analystName: "Taly Yafe",
       class: "VUS"
     }
-  }
+  },
+  classificationHistory: [],
+  isLoading: false
 };
 
 const variantPageReducer = createReducer(initialState, {
@@ -283,7 +285,23 @@ const variantPageReducer = createReducer(initialState, {
       ...payload
     };
   },
-  
+
+  [actionsTypes.SET_CLASSIFICATION_HISTORY_TO_STORE]: (state, { payload }) => {
+
+    return {
+      ...state,
+      classificationHistory: payload
+    };
+  },
+
+  [actionsTypes.SET_VARIANT_PAGE_LOADING]: (state, { payload }) => {
+
+    return {
+      ...state,
+      isLoading: payload
+    };
+  },
+
 });
 
 export default variantPageReducer;

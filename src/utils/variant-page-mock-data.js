@@ -212,3 +212,5 @@ export const evidences = [
     zygosity_type: "germline"
   }
 ];
+
+export const classificationHistory = [];

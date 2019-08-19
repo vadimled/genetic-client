@@ -17,7 +17,8 @@ import {
   addEvidenceEntrySaga,
   editEvidenceEntrySaga,
   fetchEvidenceDataSaga,
-  deleteEvidenceEntrySaga
+  deleteEvidenceEntrySaga,
+  fetchClassificationHistorySaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -50,4 +51,6 @@ export function* watchSaga() {
     // takeEvery(types.FETCH_VARIANT_DATA, fetchVariantMetadataDataSaga),
     takeEvery(types.FETCH_EVIDENCE_DATA, fetchEvidenceDataSaga)
   ]);
+  yield takeEvery(types.FETCH_CLASSIFICATION_HISTORY, fetchClassificationHistorySaga);
+
 }
