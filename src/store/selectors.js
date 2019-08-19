@@ -216,7 +216,7 @@ export const getFilteredData = createSelector(
     });
 
     const filteredData = data.filter(item => {
-      return filtersArray.some(filter => filter(item));
+      return filtersArray.every(filter => filter(item));
     });
 
     if(order === SORTING_ORDER.ascending){
