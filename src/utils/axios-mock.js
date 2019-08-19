@@ -70,7 +70,8 @@ if (mock) {
   mock
     .onGet(/\/tests\/.+\/variants/, { params: { mutation: "dna" } })
     .reply(() => [200, generateDNAVariantTableMockData(50)]);
+  
+  mock.onGet(/\/api\/tests\/.+\/variants\/.+\/classification-history/).reply(200, {
+    classificationHistory
+  });
 }
-mock.onGet(/\/api\/tests\/.+\/variants\/.+\/classification-history/).reply(200, {
-  classificationHistory
-});
