@@ -1005,6 +1005,7 @@ export const getEvidenceData = data => {
 
 const createVaf = numb => {
   if (numb) {
+    console.log(numb);
     return Math.round(parseFloat(numb) * 100);
   } else {
     return "";
@@ -1049,12 +1050,12 @@ const createNewTableDataItem = ({
   newObj.transcript = transcript;
   newObj.zygosity = zygosity;
   newObj.protein = hgvs_p;
-  newObj.coverage = coverage || "10"; // "????????";
+  newObj.coverage = coverage; // "????????";
   newObj.vaf = createVaf(variant);
   newObj.notes = notes;
   newObj.coding = hgvs_c.length > 12 ? hgvs_c.slice(0, 12) : hgvs_c;
   newObj.codingLong = hgvs_c;
-  newObj.exon = exon || "1";
+  newObj.exon = exon; // temporary removed from the table
   newObj.variantClassGermline = germline_class || "unclassified";
   newObj.variantClassSomatic = somatic_class || "unclassified";
   newObj.status = status || null;
