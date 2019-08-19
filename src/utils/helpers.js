@@ -1016,7 +1016,7 @@ const createNewTableDataItem = ({
   chr,
   clinvar_variation_id,
   cosmic,
-  coverage,
+  dp,
   db_snp,
   effect,
   exon,
@@ -1049,7 +1049,7 @@ const createNewTableDataItem = ({
   newObj.transcript = transcript;
   newObj.zygosity = zygosity;
   newObj.protein = hgvs_p;
-  newObj.coverage = coverage; // "????????";
+  newObj.coverage = parseInt(dp, 10);
   newObj.vaf = createVaf(variant);
   newObj.notes = notes;
   newObj.coding = hgvs_c.length > 12 ? hgvs_c.slice(0, 12) : hgvs_c;
