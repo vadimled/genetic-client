@@ -345,11 +345,17 @@ export const getSomaticEvidence = state =>
       testId,
       variantId,
       evidenceId,
-      classification
+      zygosity_type
     ) => {
+      const sendData = {
+        category,
+        source,
+        level,
+        zygosity_type
+      };
       return {
         ids: { testId, variantId, evidenceId },
-        data: { category, source, level, description, classification }
+        data: description ? {...sendData, description} : sendData
       };
     }
   ),

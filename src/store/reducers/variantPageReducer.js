@@ -19,8 +19,9 @@ const initialState = {
     AminoAcidChange: "I1564ISLKN",
     DamagingScore: "TTCATGAGAGAAGGTGAGTGG"
   },
-  somatic_variant_class: null,
-  germline_variant_class: null,
+  currentZygosity: "Homo",
+  germline_variant_class: "LPATH",
+  somatic_variant_class: "Tier2",
   externalResources: [],
   selectedZygosityType: null,
   somaticClassHistory: {
@@ -228,12 +229,11 @@ const variantPageReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_NEW_EVIDENCE_ENTRY]: (state, { payload }) => {
-    
-    const { id, classification } = payload;
+    const { zygosity_type, id } = payload;
     delete payload.id;
 
     const
-      targetDataName = classification === TEXTS.germline
+      targetDataName = zygosity_type === TEXTS.germline
         ? "germline_evidence"
         : "somatic_evidence",
       

@@ -50,7 +50,7 @@ export function fetchTestMetadataApi(id) {
   return axios_based.get(`/tests/${id.payload}`);
 }
 
-export function fetchVariantDataApi(data) {
+export function fetchVariantMetadataDataApi(data) {
   const { testId, variantId } = data.payload;
   return axios_based.get(`/tests/${testId}/variants/${variantId}/`);
 }
@@ -76,7 +76,7 @@ export function addEvidenceEntryApi(action) {
   } = action.payload;
 
   return axios_based.post(`/tests/${testId}/variants/${variantId}/evidences`, {
-    data
+    ...data
   });
 }
 
@@ -104,8 +104,7 @@ export function deleteEvidenceEntryApi(action) {
 }
 
 export function fetchEvidenceDataApi(action) {
-  const { testId, variantId } = action.payload;
-  return axios_based.get(`/tests/${testId}/variants/${variantId}/evidences`);
+  return axios_based.get(`/variants/${action.payload}/evidences`);
 }
 
 export function fetchTableDataApi(action) {

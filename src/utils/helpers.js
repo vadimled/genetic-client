@@ -992,9 +992,9 @@ export const getEvidenceData = data => {
       delete newObj.id;
       return newObj;
     };
-  data.evidences.map(evidence => {
+  data.map(evidence => {
     const targetDataName =
-      evidence.classification === TEXTS.germline
+      evidence.zygosity_type === TEXTS.germline
         ? "germline_evidence"
         : "somatic_evidence";
 

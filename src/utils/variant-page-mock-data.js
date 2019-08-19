@@ -16,7 +16,7 @@ export const evidences = [
       "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the DNA molecule," +
       " minimizing their interaction with the solvation shell.",
     level: "A1",
-    classification: "somatic"
+    zygosity_type: "somatic"
   },
   {
     id: "7gzhbamall3xfe2gzdmlnw9aj",
@@ -28,11 +28,8 @@ export const evidences = [
       pic_url: ""
     },
     source: "http://en.Wikipedia/wiki/GSID-Genom",
-    description:
-      "The DNA double helix is stabilized primarily by two forces: " +
-      "hydrogen and base-stacking interactions.",
     level: "A2",
-    classification: "somatic"
+    zygosity_type: "somatic"
   },
   {
     id: "61zhbamall3xfe2gzdmlnw9aj",
@@ -51,7 +48,7 @@ export const evidences = [
       "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the DNA molecule," +
       " minimizing their interaction with the solvation shell.",
     level: "C1",
-    classification: "somatic"
+    zygosity_type: "somatic"
   },
   {
     id: "71zhbamall3xfe2gzdmlnw9aj",
@@ -67,7 +64,7 @@ export const evidences = [
       "The DNA double helix is stabilized primarily by two forces: " +
       "hydrogen and base-stacking interactions.",
     level: "none",
-    classification: "somatic"
+    zygosity_type: "somatic"
   },
   {
     id: "8gzhbamall3xfe2gzdmlnw9aj",
@@ -85,7 +82,7 @@ export const evidences = [
       "In the cytosol of the cell,\n" +
       "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the RNA molecule",
     level: "B",
-    classification: "somatic"
+    zygosity_type: "somatic"
   },
   {
     id: "9gzhbamall3xfe2gzdmlnw9aj",
@@ -104,7 +101,7 @@ export const evidences = [
       "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the DNA molecule," +
       " minimizing their interaction with the solvation shell.",
     level: "C1",
-    classification: "somatic"
+    zygosity_type: "somatic"
   },
   {
     id: "10zhbamall3xfe2gzdmlnw9aj",
@@ -122,7 +119,7 @@ export const evidences = [
       "hydrogen and base-stacking interactions.",
 
     level: "D",
-    classification: "somatic"
+    zygosity_type: "somatic"
   },
   {
     id: "1gzhbamall3xfe2gzdmlnw9aj",
@@ -141,7 +138,7 @@ export const evidences = [
       "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the DNA molecule," +
       " minimizing their interaction with the solvation shell.",
     level: "PVS1",
-    classification: "germline"
+    zygosity_type: "germline"
   },
   {
     id: "2gzhbamall3xfe2gzdmlnw9aj",
@@ -157,7 +154,7 @@ export const evidences = [
       "The DNA double helix is stabilized primarily by two forces: " +
       "hydrogen and base-stacking interactions.",
     level: "PM1",
-    classification: "germline"
+    zygosity_type: "germline"
   },
   {
     id: "3gzhbamall3xfe2gzdmlnw9aj",
@@ -175,7 +172,7 @@ export const evidences = [
       "In the cytosol of the cell,\n" +
       "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the RNA molecule",
     level: "PP1",
-    classification: "germline"
+    zygosity_type: "germline"
   },
   {
     id: "4gzhbamall3xfe2gzdmlnw9aj",
@@ -194,7 +191,7 @@ export const evidences = [
       "the conjugated pi bonds of nucleotide bases align perpendicular to the axis of the DNA molecule," +
       " minimizing their interaction with the solvation shell.",
     level: "BP6",
-    classification: "germline"
+    zygosity_type: "germline"
   },
   {
     id: "5gzhbamall3xfe2gzdmlnw9aj",
@@ -212,6 +209,6 @@ export const evidences = [
       "hydrogen and base-stacking interactions.",
 
     level: "BS4",
-    classification: "germline"
+    zygosity_type: "germline"
   }
 ];

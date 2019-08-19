@@ -250,7 +250,7 @@ class VariantTable extends Component {
               <div className="table-select-wrapper">
                 <Link
                   to={{
-                    pathname: `${this.props.match.url}/variant/${
+                    pathname: `${this.props.match.url}/variants/${
                       record.id
                     }/?selectedZygosityType=germline`
                     // state: {type: "germline"}
@@ -273,7 +273,7 @@ class VariantTable extends Component {
               <div className="table-select-wrapper">
                 <Link
                   to={{
-                    pathname: `${this.props.match.url}/variant/${
+                    pathname: `${this.props.match.url}/variants/${
                       record.id
                     }/?selectedZygosityType=somatic`
                     // state: {testId:this.props.testId, variantId: record.id, selectedZygosityType: "somatic"}

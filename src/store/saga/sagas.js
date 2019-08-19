@@ -12,7 +12,7 @@ import {
   addResult,
   editResult,
   fetchTestMetadataApi,
-  fetchVariantDataApi,
+  fetchVariantMetadataDataApi,
   updateVariantApi,
   fetchTestsApi,
   addEvidenceEntryApi,
@@ -405,56 +405,49 @@ export function* fetchTableDataSaga(action) {
   }
 }
 
-export function* fetchVariantDataGenerator(data) {
+// Variant page
+export function* fetchVariantMetadataDataSaga(data) {
   try {
-    const result = yield call(fetchVariantDataApi, data),
+    const result = yield call(fetchVariantMetadataDataApi, data),
       newData = zygosityType(result?.data);
     yield put(setVariantData(newData));
   } catch (e) {
     Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchVariantDataGenerator"]);
+      scope.setFingerprint(["fetchVariantMetadataDataSaga"]);
       Sentry.captureException(e);
     });
-  }
-}
-
-export function* sendVariantClassGenerator(variantClass) {
-  try {
-    const result = yield call(updateVariantApi, variantClass);
-
-    if (result?.status === 200) {
-      yield put(setVariantClassification(variantClass.payload));
-    }
-  } catch (e) {
-    Sentry.withScope(scope => {
-      scope.setFingerprint(["sendVariantClassGenerator"]);
-      Sentry.captureException(e);
-    });
+    yield put(setLoading(false));
   }
 }
 
 export function* fetchEvidenceDataSaga(data) {
   try {
+    yield put(setLoading(true));
     const result = yield call(fetchEvidenceDataApi, data),
       newData = getEvidenceData(result.data);
     yield put(setEvidenceData(newData));
+    yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchEvidenceDataSaga"]);
       Sentry.captureException(e);
     });
+    yield put(setLoading(false));
   }
 }
 
 export function* addEvidenceEntrySaga(data) {
   try {
+    yield put(setLoading(true));
     const result = yield call(addEvidenceEntryApi, data);
     yield put(setNewEvidenceEntry(result.data));
+    yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["addEvidenceEntrySaga"]);
       Sentry.captureException(e);
     });
+    yield put(setLoading(false));
   }
 }
 
@@ -479,6 +472,21 @@ export function* deleteEvidenceEntrySaga(action) {
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["deleteEvidenceEntrySaga"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* sendVariantClassGenerator(variantClass) {
+  try {
+    const result = yield call(updateVariantApi, variantClass);
+    
+    if (result?.status === 200) {
+      yield put(setVariantClassification(variantClass.payload));
+    }
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["sendVariantClassGenerator"]);
       Sentry.captureException(e);
     });
   }

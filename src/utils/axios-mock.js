@@ -31,26 +31,22 @@ if (mock) {
     somatic_variant_class: "Tier2"
   });
 
-  mock.onGet(/\/tests\/.+\/variants\/.+\/evidences/).reply(200, {
-    evidences
-  });
+  mock.onGet(/\/variants\/.+\/evidences/).reply(() => [200, evidences]);
 
   mock.onPatch(/\/tests\/.+\/variants\/.+/).reply(200);
 
   mock.onPost(/\/tests\/.+\/variants\/.+\/evidences/).reply(200, {
     id: "vadimmall3xfe2gzdmlnw067",
     category: "silicoPredictor",
-    source: "http://example.com",
-    key: 1,
-    created_at: "7/August/2019",
+    created_at: "2019-08-19T10:02:48.537Z",
+    source: "http://en.Wikipedia/wiki/DNA",
+    zygosity_type: "germline",
     user: {
       user_id: "dsfafdasfdas",
       name: "Vadim Malckin",
       pic_url: ""
     },
-    description: "This is the test description for mock add the new entry",
-    level: "A3",
-    classification: "somatic"
+    description: "This is the test description for mock add the new entry"
   });
 
   mock.onPut(/\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200, {
@@ -68,11 +64,10 @@ if (mock) {
     level: "BP1",
     classification: "germline"
   });
-  
+
   mock.onDelete(/\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200);
-  
-  mock.onGet(/\/tests\/.+\/variants/,
-    { params: {mutation : 'dna' } }).reply(
-    () => [200,  generateDNAVariantTableMockData(50)]
-  );
+
+  mock
+    .onGet(/\/tests\/.+\/variants/, { params: { mutation: "dna" } })
+    .reply(() => [200, generateDNAVariantTableMockData(50)]);
 }
