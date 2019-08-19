@@ -374,10 +374,10 @@ export function* handleZygositySaga(data) {
 }
 
 
-export function* fetchTestMetadataGenerator(id) {
+export function* fetchTestMetadataGenerator(action) {
   try {
     yield put(setLoading(true));
-    const result = yield call(fetchTestMetadataApi, id);
+    const result = yield call(fetchTestMetadataApi, action);
     yield put(setTestData(result?.data));
     yield put(setMutationType(result?.data?.mutation_types[0]));
   } catch (e) {
