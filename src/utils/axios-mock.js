@@ -54,7 +54,7 @@ if (mock) {
     category: "publications",
     source: "http://en.Wikipedia/wiki/DNA",
     key: 0,
-    created_at: "7/August/2019",
+    created_at: "Sun Jun 17 2018 03:00:00 GMT+0300 (Israel Daylight Time)",
     user: {
       user_id: "dsfafdasfdas",
       name: "Van Disel",
@@ -62,7 +62,7 @@ if (mock) {
     },
     description: "This is the test description for mock edit the existed entry",
     level: "BP1",
-    classification: "germline"
+    zygosity_type: "germline"
   });
 
   mock.onDelete(/\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200);

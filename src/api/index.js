@@ -97,7 +97,7 @@ export function editEvidenceEntryApi(action) {
   return axios_based.put(
     `/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`,
     {
-      data
+      ...data
     }
   );
 }

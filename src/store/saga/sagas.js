@@ -455,13 +455,16 @@ export function* addEvidenceEntrySaga(data) {
 
 export function* editEvidenceEntrySaga(data) {
   try {
+    yield put(setLoading(true));
     const result = yield call(editEvidenceEntryApi, data);
     yield put(setEditedEvidenceEntry(result.data));
+    yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["editEvidenceEntrySaga"]);
       Sentry.captureException(e);
     });
+    yield put(setLoading(false));
   }
 }
 
