@@ -355,7 +355,7 @@ export function* handleZygositySaga(data) {
   try{
     const result = yield call(updateVariantApi, data);
 
-    console.log("--result: ", result)
+    console.log("--result: ", result);
 
     const variant = result.data;
 
