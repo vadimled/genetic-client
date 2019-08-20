@@ -42,7 +42,7 @@ const NonActiveButton = ({
   return (
     <Link
       to={
-        `/tests/${testId}/variant/${variantId}/?selectedZygosityType=${zygosityType}`
+        `/tests/${testId}/variants/${variantId}/?selectedZygosityType=${zygosityType}`
       }
       data-testid={`non-active-button-${type}`}
       id={type}
