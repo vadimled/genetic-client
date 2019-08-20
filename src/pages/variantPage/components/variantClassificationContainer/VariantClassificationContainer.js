@@ -55,7 +55,7 @@ class VariantClassificationContainer extends React.Component {
 
     const zygosityType = selectedZygosityType === "somatic" ? "germline" : "somatic";
 
-    this.props.history.push(`/tests/${testId}/variants/${variantId}/?selectedZygosityType=${zygosityType}`)
+    this.props.history.push(`/tests/${testId}/variants/${variantId}/?selectedZygosityType=${zygosityType}`);
   };
 
   render() {
