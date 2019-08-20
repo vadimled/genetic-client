@@ -3,11 +3,9 @@ import {
   TAG_COLORS,
   VARIANT_CLASS_GERMLINE,
   ZYGOSITY_OPTIONS,
-  ZYGOSITY_TYPES,
   ZYGOSITY,
   TEXTS
 } from "./constants";
-import has from "lodash.has";
 
 export const getPrevTagColor = title => {
   let prevTagColor = "";
@@ -137,43 +135,44 @@ export const createResourcesLinks = variantData => {
   console.log(variantData);
   const {
     coding: hgvs_c,
-    AminoAcidChange,
-    dbSNP,
+    Amino_acid_change,
+    db_snp,
     clinvar_variation_id,
     ref,
     protein,
     gene,
-    DamagingScore,
+    Damaging_score,
     transcript,
-    chrPosition,
+    chr,
+    position,
     alt,
-    COSMIC
+    cosmic
   } = variantData || {};
   const variantDBs = {
     title: "Variant DBs",
     UCSC:
       `https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&lastVirtModeType=default&` +
-      `lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=${encodeURIComponent(
-        chrPosition
-      )}&hgsid=731360955_9ebZL49sAeyPO3PxgbWCQ1DZ5e4N`,
-    gnomAD: `https://gnomad.broadinstitute.org/variant/${[
-      ...chrPosition.split(":")[0]
-    ]
+      `lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=${
+        chr && position ?
+          encodeURIComponent(`${chr}:${position}`):
+          0
+      }&hgsid=731360955_9ebZL49sAeyPO3PxgbWCQ1DZ5e4N`,
+    gnomAD: `https://gnomad.broadinstitute.org/variant/${[...chr]
       .slice(3)
-      .join("")}-${chrPosition.split(":")[1]}-${ref}-${alt}`,
-    dbSNP: `https://www.ncbi.nlm.nih.gov/snp/?term=${dbSNP}`,
-    ClinVar: `https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvar_variation_id}`,
+      .join("")}-${position}-${ref}-${alt}`,
+    dbSNP: `https://www.ncbi.nlm.nih.gov/snp/?term=${db_snp || ""}`,
+    ClinVar: `https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvar_variation_id || 0 }`,
     COSMIC: getLinksArray(
-      COSMIC,
+      cosmic,
       "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id="
     ),
     OncoKB: `https://oncokb.org/gene/${gene}`,
     PMKB: `https://pmkb.weill.cornell.edu/search?utf8=%E2%9C%93&search=${gene}`,
-    Varsome: `https://varsome.com/variant/hg19/${[...chrPosition.split(":")[0]]
+    Varsome: `https://varsome.com/variant/hg19/${[...chr]
       .slice(3)
-      .join("")}-${chrPosition.split(":")[1]}-${ref}-${alt}`,
+      .join("")}-${position}-${ref}-${alt}`,
     ICGC: `https://dcc.icgc.org/q?q=${encodeURIComponent(
-      `${gene} ${AminoAcidChange}`
+      `${gene} ${Amino_acid_change}`
     )}`,
     Uniprot: `https://www.uniprot.org/uniprot/?query=${transcript}+AND+reviewed%3Ayes&sort=score`
   };
@@ -184,12 +183,12 @@ export const createResourcesLinks = variantData => {
     Pubmed: `https://www.ncbi.nlm.nih.gov/pubmed/?term=${gene}+AND+(${encodeURIComponent(
       protein
     )}+OR+${encodeURIComponent(hgvs_c)}+OR+${encodeURIComponent(
-      AminoAcidChange
+      Amino_acid_change
     )})`,
     "Google Scholar": `https://scholar.google.co.il/scholar?start=50&q=${gene}+AND+(${encodeURIComponent(
       protein
     )}+OR+${encodeURIComponent(hgvs_c)}+OR+${encodeURIComponent(
-      AminoAcidChange
+      Amino_acid_change
     )})&hl=en&as_sdt=0,5`
   };
 
@@ -197,10 +196,9 @@ export const createResourcesLinks = variantData => {
 
   const inSilicoPredictors = {
     title: "In Silico predictors",
-    "Damaging score": DamagingScore
+    "Damaging score": Damaging_score
   };
   externalResources.push(inSilicoPredictors);
-
   return externalResources;
 };
 
@@ -212,25 +210,6 @@ export const getDataArray = data => {
     }
   }
   return arrayData;
-};
-
-export const zygosityType = data => {
-  console.log(data);
-  /* Germline - for Homo, Hetero and Hemi.
-    Somatic - for Somatic.
-    Insignificant - for Insignificant.
-    Unkown - for Unkown.
-    Not-Real - for Not-Real.
-  */
-  if (has(data, "zygosity")) {
-    for (let key in ZYGOSITY_TYPES) {
-      const { label, value } = ZYGOSITY_TYPES[key];
-      if (value.toLowerCase() === data.zygosity.toLowerCase()) {
-        return { ...data, zygosity: label };
-      }
-    }
-  }
-  return "";
 };
 
 export const setPriority = record => {

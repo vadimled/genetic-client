@@ -217,7 +217,6 @@ const variantPageReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_VARIANT_METADATA]: (state, { payload }) => {
-    console.log(payload);
     return {
       ...state,
       variantData: payload

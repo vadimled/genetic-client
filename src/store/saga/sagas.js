@@ -448,7 +448,6 @@ export function* fetchVariantMetadataDataSaga(data) {
   try {
     const result = yield call(fetchVariantMetadataDataApi, data);
     yield put(setServerVariantMetadataToStore(result?.data));
-    // newData = zygosityType(result?.data);
     const newData = parseTableDataObj(result?.data);
     yield put(setVariantMetadataData(newData));
     yield put(setExternalResources(createResourcesLinks(result?.data)));
