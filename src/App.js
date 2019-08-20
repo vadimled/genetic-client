@@ -15,7 +15,7 @@ function App() {
         <Header />
       </div>
       <Switch>
-        <Route path="/tests" exact component={TestsPage} />
+        <Route path="/" exact component={TestsPage} />
         <Route path="/tests/:testId" exact component={MainPage} />
         <Route path="/tests/:testId/variants/:variantId/" component={VariantPage} />
       </Switch>

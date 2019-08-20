@@ -350,16 +350,7 @@ export function* handleZygositySaga(data) {
   try{
     const result = yield call(updateVariantApi, data);
 
-
     const variant = result.data;
-
-
-
-    // const {record} = data.payload;
-    //
-    // const newRecord = Object.assign({}, record);
-    //
-    // newRecord.zygosity = value;
 
     setPriority(variant);
 
@@ -374,7 +365,6 @@ export function* handleZygositySaga(data) {
     console.log("-err: ", e);
   }
 }
-
 
 export function* fetchTestMetadataGenerator(action) {
   try {

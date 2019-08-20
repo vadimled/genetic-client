@@ -33,6 +33,7 @@ class TestsPage extends Component {
   render() {
     const { sidebarToggle } = this.state;
     const { tests } = this.props;
+    const options = { day: "2-digit", month: "short", year: "numeric" };
 
     return (
       <div className={style["tests-page-wrapper"]}>
@@ -56,7 +57,9 @@ class TestsPage extends Component {
                       <div>Panel Type: {test.panel_type}</div>
                     </div>
                     <div className="flex items-center">
-                      Created at: {test.created_at}
+                      Created at: {new Date(test.created_at).toLocaleDateString("en-GB", options)
+                        .split(" ")
+                        .join("/")}
                     </div>
                   </div>
                 </div>
