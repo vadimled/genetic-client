@@ -10,7 +10,7 @@ import {
   resultConfigLoadHgvsGenerator,
   resultConfigAddResultGenerator,
   resultConfigEditResultGenerator,
-  fetchVariantDataGenerator,
+  fetchVariantMetadataDataSaga,
   sendVariantClassGenerator,
   handleZygositySaga,
   fetchTestsSaga,
@@ -42,7 +42,6 @@ export function* watchSaga() {
     types.RESULT_CONFIG_EDIT_RESULT,
     resultConfigEditResultGenerator
   );
-  yield takeLatest(types.FETCH_VARIANT_DATA, fetchVariantDataGenerator);
   yield takeLatest(types.SEND_VARIANT_CLASS, sendVariantClassGenerator);
   yield takeEvery(types.FETCH_TESTS, fetchTestsSaga);
   yield takeLatest(types.ADD_EVIDENCE_ENTRY, addEvidenceEntrySaga);
@@ -53,7 +52,7 @@ export function* watchSaga() {
     yield takeEvery(types.FETCH_TABLE_DATA, fetchTableDataSaga)
   ]);
   yield all([
-    takeEvery(types.FETCH_VARIANT_DATA, fetchVariantDataGenerator),
+    takeEvery(types.FETCH_VARIANT_DATA, fetchVariantMetadataDataSaga),
     takeEvery(types.FETCH_EVIDENCE_DATA, fetchEvidenceDataSaga)
   ]);
   yield takeEvery(types.FETCH_CLASSIFICATION_HISTORY, fetchClassificationHistorySaga);

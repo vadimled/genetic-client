@@ -22,7 +22,7 @@ import {
 import { connect } from "react-redux";
 import {
   fetchEvidenceData,
-  fetchVariantData,
+  fetchVariantMetadataData,
   setExternalResources,
   setSelectedZygosityType,
   setTestInformation,
@@ -44,7 +44,7 @@ class VariantPage extends Component {
       somaticClassHistoryData: getDataArray(props.somaticClassHistory)
     };
 
-    props.fetchVariantData({ testId, variantId });
+    props.fetchVariantMetadataData({ testId, variantId });
     props.fetchEvidenceData({ testId, variantId });
     props.setSelectedZygosityType({ selectedZygosityType, testId, variantId });
     props.setTestInformation({ testId, variantId });
@@ -179,7 +179,7 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     setResources: data => dispatch(setExternalResources(data)),
-    fetchVariantData: data => dispatch(fetchVariantData(data)),
+    fetchVariantMetadataData: data => dispatch(fetchVariantMetadataData(data)),
     fetchEvidenceData: data => dispatch(fetchEvidenceData(data)),
     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
     setTestInformation: data => dispatch(setTestInformation(data)),

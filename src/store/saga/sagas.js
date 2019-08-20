@@ -12,7 +12,7 @@ import {
   addResult,
   editResult,
   fetchTestMetadataApi,
-  fetchVariantDataApi,
+  fetchVariantMetadataDataApi,
   updateVariantApi,
   fetchTestsApi,
   addEvidenceEntryApi,
@@ -438,18 +438,16 @@ export function* fetchTableDataSaga(action) {
   }
 }
 
-export function* fetchVariantDataGenerator(data) {
+export function* fetchVariantMetadataDataSaga(data) {
   try {
-    yield put(setVariantLoading(true));
-    // wait for an GET API
-    const result = yield call(fetchVariantDataApi, data),
+    const result = yield call(fetchVariantMetadataDataApi, data),
       newData = zygosityType(result?.data);
+    console.log(newData);
     yield put(setVariantData(newData));
   } catch (e) {
     yield put(setVariantLoading(false));
-    console.log("-e: ", e);
     Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchVariantDataGenerator"]);
+      scope.setFingerprint(["fetchVariantMetadataDataSaga"]);
       Sentry.captureException(e);
     });
   }
