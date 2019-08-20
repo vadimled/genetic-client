@@ -20,19 +20,27 @@ import {
   getVariantId
 } from "Store/selectors";
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
+import { Link, withRouter } from "react-router-dom";
 // import { withRouter } from "react-router-dom";
 
 class VariantClassificationContainer extends React.Component {
   onChangeType = (e, id) => {
-    const { value, name } = e?.target || {},
-      {
-        sendVariantClass,
-        setZygosityType,
-        selectedZygosityType,
-        currentZygosityType,
-        testId,
-        variantId
-      } = this.props;
+    const { value, name } = e?.target || {};
+
+    console.log("--history: ", this.props.history);
+    console.log("--value: ", value);
+    console.log("--name: ", name);
+
+
+
+    const  {
+      sendVariantClass,
+      setZygosityType,
+      selectedZygosityType,
+      currentZygosityType,
+      testId,
+      variantId
+    } = this.props;
     if (!value && selectedZygosityType !== id) {
       setZygosityType({ selectedZygosityType: id });
     } else if (value) {
@@ -44,6 +52,10 @@ class VariantClassificationContainer extends React.Component {
         name: `${currentZygosityType.toLowerCase()}Classification`
       });
     }
+
+    const zygosityType = selectedZygosityType === "somatic" ? "germline" : "somatic";
+
+    this.props.history.push(`/tests/${testId}/variants/${variantId}/?selectedZygosityType=${zygosityType}`)
   };
 
   render() {
@@ -56,6 +68,7 @@ class VariantClassificationContainer extends React.Component {
       variantId
     } = this.props;
 
+    // const zygosityType = selectedZygosityType === "somatic" ? "germline" : "somatic";
 
     return (
       <div className={style["zygosity-type-wrapper"]}>
@@ -64,7 +77,9 @@ class VariantClassificationContainer extends React.Component {
           <div className="context">{currentZygosityType}</div>
         </div>
         <div className="zygosity-type-radio-group">
+
           <div className="first-button flex items-center justify-center">
+
             <ZygosityTypeButton
               currentZygosity={currentZygosityType}
               selectedZygosityType={selectedZygosityType}
@@ -75,8 +90,12 @@ class VariantClassificationContainer extends React.Component {
               typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
               testId={testId}
               variantId={variantId}
+              onClick={()=> this.handleGermlineClick}
             />
           </div>
+
+
+
           <ZygosityTypeButton
             currentZygosity={currentZygosityType}
             selectedZygosityType={selectedZygosityType}
@@ -88,6 +107,11 @@ class VariantClassificationContainer extends React.Component {
             testId={testId}
             variantId={variantId}
           />
+
+
+          <Link to={`/tests/${testId}/variants/${variantId}/?selectedZygosityType=germline111`}>Germline</Link>
+          <Link to={`/tests/${testId}/variants/${variantId}/?selectedZygosityType=somatic222`}>Somatic</Link>
+
         </div>
       </div>
     );
@@ -119,7 +143,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(VariantClassificationContainer);
+)(VariantClassificationContainer));

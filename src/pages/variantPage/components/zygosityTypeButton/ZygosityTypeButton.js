@@ -16,7 +16,7 @@ function ZygosityTypeButton({
   typeData,
   currValue,
   variantId,
-  testId
+  testId,
 }) {
   const [isSelect, setOpen] = useState(true),
     currZygosityFormatted = currentZygosity?.toLowerCase(),
@@ -35,6 +35,8 @@ function ZygosityTypeButton({
         setOpen(true);
       }
     };
+
+  // const zygosityType = selectedZygosityType === "somatic" ? "germline" : "somatic";
 
   return currZygosityFormatted === type ? (
     <div

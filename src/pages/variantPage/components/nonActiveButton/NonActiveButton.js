@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import cn from "classnames";
 import style from "./NonActiveButton.module.scss";
 import LabeledTag from "GenericComponents/labeledTag";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const NonActiveButton = ({
   title,
@@ -11,9 +11,9 @@ const NonActiveButton = ({
   onClick,
   typeData,
   currValue,
-  testId,
-  variantId,
-  selectedZygosityType,
+  // testId,
+  // variantId,
+  // selectedZygosityType,
   selectedType
 }) => {
 
@@ -35,15 +35,14 @@ const NonActiveButton = ({
     />
   );
 
-  const zygosityType = selectedZygosityType === "somatic" ? "germline" : "somatic";
+  // const zygosityType = selectedZygosityType === "somatic" ? "germline" : "somatic";
 
   const active = selectedType === type;
 
+
+
   return (
-    <Link
-      to={
-        `/tests/${testId}/variants/${variantId}/?selectedZygosityType=${zygosityType}`
-      }
+    <div
       data-testid={`non-active-button-${type}`}
       id={type}
       className={style["select-non-active-wrapper"]}
@@ -55,7 +54,7 @@ const NonActiveButton = ({
         </div>
         <div className="select-non-active-class">{renderVariantClass()}</div>
       </div>
-    </Link>
+    </div>
   );
 };
 

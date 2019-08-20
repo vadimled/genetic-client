@@ -267,7 +267,6 @@ class VariantTable extends Component {
                 <Link
                   to={{
                     pathname: `${this.props.match.url}/variants/${record.id}/?selectedZygosityType=somatic`,
-                    // state: {testId:this.props.testId, variantId: record.id, selectedZygosityType: "somatic"}
                   }}
                 >
                   <LabeledTag typeData={SOMATIC_VARIANT_CLASS_OPTIONS} label={VARIANT_CLASS_SOMATIC[text]?.label} />
