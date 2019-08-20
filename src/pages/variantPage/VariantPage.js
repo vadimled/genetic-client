@@ -23,12 +23,12 @@ import { connect } from "react-redux";
 import {
   fetchEvidenceData,
   fetchVariantMetadataData,
-  setExternalResources,
+  // setExternalResources,
   setSelectedZygosityType,
   setTestInformation,
   fetchClassificationHistory
 } from "Actions/variantPageActions";
-import { createResourcesLinks, getDataArray } from "Utils/helpers";
+import { getDataArray } from "Utils/helpers";
 import { SOMATIC_VARIANT_CLASS_OPTIONS, GERMLINE_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 import queryString from "query-string";
 
@@ -48,9 +48,6 @@ class VariantPage extends Component {
     props.fetchEvidenceData({ testId, variantId });
     props.setSelectedZygosityType({ selectedZygosityType, testId, variantId });
     props.setTestInformation({ testId, variantId });
-
-    // TODO: this action must be dispatched from the Saga
-    props.setResources(createResourcesLinks(props.variantData));
   }
 
   componentDidMount() {
@@ -178,7 +175,7 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setResources: data => dispatch(setExternalResources(data)),
+    // setResources: data => dispatch(setExternalResources(data)),
     fetchVariantMetadataData: data => dispatch(fetchVariantMetadataData(data)),
     fetchEvidenceData: data => dispatch(fetchEvidenceData(data)),
     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),

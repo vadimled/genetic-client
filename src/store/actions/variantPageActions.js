@@ -21,16 +21,23 @@ export const setExternalResources = data => {
   };
 };
 
-export const setVariantData = data => {
+export const setVariantMetadataData = data => {
   return {
-    type: actionsTypes.SET_VARIANT_DATA,
+    type: actionsTypes.SET_VARIANT_METADATA,
+    payload: data
+  };
+};
+
+export const setServerVariantMetadataToStore = data => {
+  return {
+    type: actionsTypes.SET_SERVER_VARIANT_METADATA,
     payload: data
   };
 };
 
 export const fetchVariantMetadataData = data => {
   return {
-    type: actionsTypes.FETCH_VARIANT_DATA,
+    type: actionsTypes.FETCH_VARIANT_METADATA,
     payload: data
   };
 };

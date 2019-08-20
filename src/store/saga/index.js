@@ -52,7 +52,7 @@ export function* watchSaga() {
     yield takeEvery(types.FETCH_TABLE_DATA, fetchTableDataSaga)
   ]);
   yield all([
-    takeEvery(types.FETCH_VARIANT_DATA, fetchVariantMetadataDataSaga),
+    takeEvery(types.FETCH_VARIANT_METADATA, fetchVariantMetadataDataSaga),
     takeEvery(types.FETCH_EVIDENCE_DATA, fetchEvidenceDataSaga)
   ]);
   yield takeEvery(types.FETCH_CLASSIFICATION_HISTORY, fetchClassificationHistorySaga);

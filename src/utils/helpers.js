@@ -134,12 +134,12 @@ const getLinksArray = (data, link) => {
 
 export const createResourcesLinks = variantData => {
   let externalResources = [];
-
+  console.log(variantData);
   const {
-    coding,
+    coding: hgvs_c,
     AminoAcidChange,
     dbSNP,
-    clinvarVariationId,
+    clinvar_variation_id,
     ref,
     protein,
     gene,
@@ -162,7 +162,7 @@ export const createResourcesLinks = variantData => {
       .slice(3)
       .join("")}-${chrPosition.split(":")[1]}-${ref}-${alt}`,
     dbSNP: `https://www.ncbi.nlm.nih.gov/snp/?term=${dbSNP}`,
-    ClinVar: `https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvarVariationId}`,
+    ClinVar: `https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvar_variation_id}`,
     COSMIC: getLinksArray(
       COSMIC,
       "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id="
@@ -183,12 +183,12 @@ export const createResourcesLinks = variantData => {
     title: "Publications",
     Pubmed: `https://www.ncbi.nlm.nih.gov/pubmed/?term=${gene}+AND+(${encodeURIComponent(
       protein
-    )}+OR+${encodeURIComponent(coding)}+OR+${encodeURIComponent(
+    )}+OR+${encodeURIComponent(hgvs_c)}+OR+${encodeURIComponent(
       AminoAcidChange
     )})`,
     "Google Scholar": `https://scholar.google.co.il/scholar?start=50&q=${gene}+AND+(${encodeURIComponent(
       protein
-    )}+OR+${encodeURIComponent(coding)}+OR+${encodeURIComponent(
+    )}+OR+${encodeURIComponent(hgvs_c)}+OR+${encodeURIComponent(
       AminoAcidChange
     )})&hl=en&as_sdt=0,5`
   };
@@ -215,17 +215,18 @@ export const getDataArray = data => {
 };
 
 export const zygosityType = data => {
+  console.log(data);
   /* Germline - for Homo, Hetero and Hemi.
     Somatic - for Somatic.
     Insignificant - for Insignificant.
     Unkown - for Unkown.
     Not-Real - for Not-Real.
   */
-  if (has(data, "currentZygosity")) {
+  if (has(data, "zygosity")) {
     for (let key in ZYGOSITY_TYPES) {
       const { label, value } = ZYGOSITY_TYPES[key];
-      if (value.toLowerCase() === data.currentZygosity.toLowerCase()) {
-        return { ...data, currentZygosity: label };
+      if (value.toLowerCase() === data.zygosity.toLowerCase()) {
+        return { ...data, zygosity: label };
       }
     }
   }
@@ -1077,3 +1078,5 @@ export const parseTableData = array =>
     obj[item.id] = createNewTableDataItem(item);
     return obj;
   }, {});
+
+export const parseTableDataObj = data => createNewTableDataItem(data);

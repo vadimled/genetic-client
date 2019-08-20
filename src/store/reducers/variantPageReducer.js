@@ -3,7 +3,8 @@ import actionsTypes from "../actionsTypes";
 import { TEXTS } from "Utils/constants";
 
 const initialState = {
-  variantData: {
+  variantData: null,
+  /* {
     gene: "A1CF",
     protein: "p.Leu2303Leu",
     chrPosition: "chr1:45797505",
@@ -18,7 +19,7 @@ const initialState = {
     COSMIC: ["COSM3997243", "COSM3997245", "COSM3997244"],
     AminoAcidChange: "I1564ISLKN",
     DamagingScore: "TTCATGAGAGAAGGTGAGTGG"
-  },
+  }*/
   somatic_variant_class: null,
   germline_variant_class: null,
   externalResources: [],
@@ -215,10 +216,18 @@ const variantPageReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_VARIANT_DATA]: (state, { payload }) => {
+  [actionsTypes.SET_VARIANT_METADATA]: (state, { payload }) => {
+    console.log(payload);
     return {
       ...state,
-      ...payload
+      variantData: payload
+    };
+  },
+
+  [actionsTypes.SET_SERVER_VARIANT_METADATA]: (state, { payload }) => {
+    return {
+      ...state,
+      serverData: payload
     };
   },
 
