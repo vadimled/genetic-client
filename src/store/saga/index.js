@@ -18,7 +18,9 @@ import {
   editEvidenceEntrySaga,
   fetchEvidenceDataSaga,
   deleteEvidenceEntrySaga,
-  fetchClassificationHistorySaga
+  fetchClassificationHistorySaga,
+  setNotesSaga,
+  handleConfirmationStatusSaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -26,6 +28,8 @@ export function* watchSaga() {
   yield takeLatest(types.GO_TO_CHR_POSITION_IGV, goToChrPositionIgvGenerator);
   yield takeLatest(types.SEND_FOR_CONFIRMATION, sendForConfirmationGenerator);
   yield takeEvery(types.HANDLE_ZYGOSITY, handleZygositySaga);
+  yield takeEvery(types.SET_NOTES, setNotesSaga);
+  yield takeEvery(types.HANDLE_CONFIRMATION_STATUS, handleConfirmationStatusSaga);
   yield takeLatest(
     types.RESULT_CONFIG_LOAD_HGVS,
     resultConfigLoadHgvsGenerator

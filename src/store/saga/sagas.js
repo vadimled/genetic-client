@@ -32,7 +32,10 @@ import {
   tableDataEditResult,
   setParsedDataToStore,
   setServerDataToStore,
-  setZygosity
+  setZygosity,
+  setNotesToStore,
+  setTableReducerLoading,
+  setConfirmationStatusToStore
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
@@ -58,7 +61,6 @@ import {
   deleteEvidenceFromStore
 } from "Actions/variantPageActions";
 import { zygosityType, setPriority, getEvidenceData, parseTableData } from "Utils/helpers";
-// import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { setClassificationHistoryToStore, setVariantPageLoading } from "Actions/variantPageActions";
 import { fetchClassificationHistoryApi } from "../../api";
 
@@ -351,6 +353,39 @@ export function* handleZygositySaga(data) {
   }
 }
 
+export function* setNotesSaga(data) {
+
+  const newData = Object.assign({}, data);
+
+  newData.payload = {
+    value: data.payload.notes,
+    name: "notes"
+  };
+
+  try{
+
+    yield put(setTableReducerLoading(true));
+
+    const result = yield call(updateVariantApi, newData);
+
+    const variant = result.data;
+
+    if (result?.status === 200) {
+      yield put(setNotesToStore({
+        // check why notes does not return from server
+        ...data.payload,
+        record: variant
+      }));
+    }
+
+    yield put(setTableReducerLoading(false));
+  }
+  catch (e) {
+    yield put(setTableReducerLoading(false));
+    console.log("-err: ", e);
+  }
+}
+
 export function* fetchTestMetadataGenerator(action) {
   try {
     yield put(setLoading(true));
@@ -393,7 +428,21 @@ export function* fetchVariantMetadataDataSaga(data) {
       scope.setFingerprint(["fetchVariantMetadataDataSaga"]);
       Sentry.captureException(e);
     });
-    yield put(setLoading(false));
+  }
+}
+
+export function* sendVariantClassGenerator(variantClass) {
+  try {
+    const result = yield call(updateVariantApi, variantClass);
+
+    if (result?.status === 200) {
+      yield put(setVariantClassification(variantClass.payload));
+    }
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["sendVariantClassGenerator"]);
+      Sentry.captureException(e);
+    });
   }
 }
 
@@ -477,18 +526,35 @@ export function* fetchClassificationHistorySaga() {
   }
 }
 
+export function* handleConfirmationStatusSaga(data) {
 
-export function* sendVariantClassGenerator(variantClass) {
-  try {
-    const result = yield call(updateVariantApi, variantClass);
-    
+  const newData = Object.assign({}, data);
+
+  newData.payload = {
+    value: data.payload.status,
+    name: "status"
+  };
+
+  try{
+
+    yield put(setTableReducerLoading(true));
+
+    const result = yield call(updateVariantApi, newData);
+
+    const variant = result.data;
+
     if (result?.status === 200) {
-      yield put(setVariantClassification(variantClass.payload));
+      yield put(setConfirmationStatusToStore({
+        // check why notes does not return from server
+        ...data.payload,
+        record: variant
+      }));
     }
-  } catch (e) {
-    Sentry.withScope(scope => {
-      scope.setFingerprint(["sendVariantClassGenerator"]);
-      Sentry.captureException(e);
-    });
+
+    yield put(setTableReducerLoading(false));
+  }
+  catch (e) {
+    yield put(setTableReducerLoading(false));
+    console.log("-err: ", e);
   }
 }

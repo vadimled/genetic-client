@@ -56,11 +56,11 @@ export function fetchVariantMetadataDataApi(data) {
 }
 
 export function updateVariantApi(data) {
-  const temporaryUrl =
-    "/tests/5d4adfb6a1e39700120ad5f2/variants/5d4adfb6a1e39700120ad5f3";
+  console.log(data);
+  // const temporaryUrl = "/tests/5d4adfb6a1e39700120ad5f2/variants/5d4adfb6a1e39700120ad5f3";
 
-  const { name, value } = data.payload;
-  return axios_based.patch(temporaryUrl, {
+  const { name, value, testId, variantId } = data.payload;
+  return axios_based.patch(`/tests/${testId}/variants/${variantId}`, {
     [name]: value
   });
 }
