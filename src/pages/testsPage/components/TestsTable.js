@@ -27,12 +27,12 @@ import {
 import {
   goToChrPositionIgv
 } from "Actions/igvActions";
-import ResizeableTitle from "../../../genericComponents/variantTable/components/resizeableTitle";
+import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
 import cn from "classnames";
 import { Checkbox, Table, Tooltip } from "antd";
-import HighlightedCell from "../../../genericComponents/variantTable/components/highlightedCell/HighlightedCell";
-import style from "../../../genericComponents/variantTable/VariantTable.module.scss";
-import Spinner from "../../../genericComponents/spinner";
+import HighlightedCell from "GenericComponents/variantTable/components/highlightedCell/HighlightedCell";
+import style from "GenericComponents/variantTable/VariantTable.module.scss";
+import Spinner from "GenericComponents/spinner";
 
 class TestsTable extends Component {
 
@@ -322,9 +322,7 @@ class TestsTable extends Component {
   };
 
   render() {
-    const { filteredData, tests, loadingStatus } = this.props;
-
-    console.log("-tests: ", tests);
+    const { filteredData, loadingStatus } = this.props;
 
     const columns = this.columnsConverter(this.state.columns);
 

@@ -53,6 +53,9 @@ class Notes extends Component {
   handleDone = () => {
     const { setNotes, updateActivityLog, value: prevValue, tableRow } = this.props;
     setNotes(this.state.editNotes);
+
+    //
+
     updateActivityLog({
       prevValue,
       item: tableRow,

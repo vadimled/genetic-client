@@ -8,6 +8,13 @@ export const setNotes = data => {
   };
 };
 
+export const setNotesToStore = data => {
+  return {
+    type: actionsTypes.SET_NOTES_TO_STORE,
+    payload: data
+  };
+};
+
 export const handleSelectedRow = data => {
   return {
     type: actionsTypes.HANDLE_SELECTED_ROW,
@@ -119,3 +126,18 @@ export const tableDataEditResult = data => {
     payload: data
   };
 };
+
+export const setTableReducerLoading = data => {
+  return{
+    type: actionsTypes.SET_TABLE_REDUCER_LOADING,
+    payload: data
+  };
+};
+
+export const setConfirmationStatusToStore = data => {
+  return{
+    type: actionsTypes.SET_CONFIRMATION_STATUS_TO_STORE,
+    payload: data
+  };
+};
+

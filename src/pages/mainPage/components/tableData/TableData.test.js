@@ -7,7 +7,6 @@ import {
   handleZygosity,
   handleVariantClass,
   handleConfirmationStatus,
-  handleUncheckConfirmationData
 } from "Actions/tableActions";
 import {
   CONFIRMATION_VALUES,
@@ -15,7 +14,6 @@ import {
   GERMLINE_VARIANT_CLASS_OPTIONS,
   SOMATIC_VARIANT_CLASS_OPTIONS
 } from "Utils/constants";
-import { getUncheckConfirmationData } from "Store/selectors";
 
 describe("TableData", () => {
   it("handle selection-checkbox", async () => {
@@ -68,11 +66,15 @@ describe("TableData", () => {
       })
     );
 
-    const tableData2 = store.getState().table.data;
-    const item2 = tableData2[itemId];
-    expect(item2.status).toEqual(CONFIRMATION_VALUES.CONFIRMED.value);
+    await waitForElement(() => {
+      return getAllByTestId("confirmation-CONFIRMED");
+    });
 
-    // NOT_CONFIRMED
+    const confirmationConfirmed = getAllByTestId("confirmation-CONFIRMED");
+
+    expect(confirmationConfirmed[0]).toBeInTheDocument();
+
+    // // NOT_CONFIRMED
     store.dispatch(
       handleConfirmationStatus({
         id: itemId,
@@ -80,11 +82,15 @@ describe("TableData", () => {
       })
     );
 
-    const tableData3 = store.getState().table.data;
-    const item3 = tableData3[itemId];
-    expect(item3.status).toEqual(CONFIRMATION_VALUES.NOT_CONFIRMED.value);
+    await waitForElement(() => {
+      return getAllByTestId("confirmation-NOT_CONFIRMED");
+    });
 
-    // PENDING
+    const confirmationNotConfirmed = getAllByTestId("confirmation-NOT_CONFIRMED");
+
+    expect(confirmationNotConfirmed[0]).toBeInTheDocument();
+
+    // // PENDING
     store.dispatch(
       handleConfirmationStatus({
         id: itemId,
@@ -92,30 +98,14 @@ describe("TableData", () => {
       })
     );
 
-    const tableData4 = store.getState().table.data;
-    const item4 = tableData4[itemId];
-    expect(item4.status).toEqual(CONFIRMATION_VALUES.PENDING.value);
-
-    // null
-    const uncheckConfirmationData1 = getUncheckConfirmationData(
-      store.getState()
-    );
-    expect(uncheckConfirmationData1).toEqual(null);
-
-    store.dispatch(
-      handleUncheckConfirmationData({
-        id: itemId,
-        status: null
-      })
-    );
-
-    const uncheckConfirmationData2 = getUncheckConfirmationData(
-      store.getState()
-    );
-    expect(uncheckConfirmationData2).toEqual({
-      id: itemId,
-      status: null
+    await waitForElement(() => {
+      return getAllByTestId("confirmation-PENDING");
     });
+
+    const confirmationPending = getAllByTestId("confirmation-PENDING");
+
+    expect(confirmationPending[0]).toBeInTheDocument();
+
   });
 
   it("zygosity and variant class change", async () => {
