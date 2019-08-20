@@ -444,13 +444,13 @@ export function* fetchTableDataSaga(action) {
 }
 
 // --------------- VARIANT PAGE ---------------
-export function* fetchVariantMetadataDataSaga(data) {
+export function* fetchVariantMetadataDataSaga(action) {
   try {
-    const result = yield call(fetchVariantMetadataDataApi, data);
-    yield put(setServerVariantMetadataToStore(result?.data));
-    const newData = parseTableDataObj(result?.data);
+    const { data } = yield call(fetchVariantMetadataDataApi, action);
+    yield put(setServerVariantMetadataToStore(data));
+    const newData = parseTableDataObj(data);
     yield put(setVariantMetadataData(newData));
-    yield put(setExternalResources(createResourcesLinks(result?.data)));
+    yield put(setExternalResources(createResourcesLinks(data)));
   } catch (e) {
     yield put(setVariantLoading(false));
     Sentry.withScope(scope => {

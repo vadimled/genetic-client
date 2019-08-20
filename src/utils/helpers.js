@@ -4,7 +4,8 @@ import {
   VARIANT_CLASS_GERMLINE,
   ZYGOSITY_OPTIONS,
   ZYGOSITY,
-  TEXTS
+  TEXTS,
+  ZYGOSITY_TYPES
 } from "./constants";
 
 export const getPrevTagColor = title => {
@@ -135,13 +136,13 @@ export const createResourcesLinks = variantData => {
   console.log(variantData);
   const {
     coding: hgvs_c,
-    Amino_acid_change,
+    amino_acid_change,
     db_snp,
     clinvar_variation_id,
     ref,
     protein,
     gene,
-    Damaging_score,
+    damaging_score,
     transcript,
     chr,
     position,
@@ -172,7 +173,7 @@ export const createResourcesLinks = variantData => {
       .slice(3)
       .join("")}-${position}-${ref}-${alt}`,
     ICGC: `https://dcc.icgc.org/q?q=${encodeURIComponent(
-      `${gene} ${Amino_acid_change}`
+      `${gene} ${amino_acid_change}`
     )}`,
     Uniprot: `https://www.uniprot.org/uniprot/?query=${transcript}+AND+reviewed%3Ayes&sort=score`
   };
@@ -183,12 +184,12 @@ export const createResourcesLinks = variantData => {
     Pubmed: `https://www.ncbi.nlm.nih.gov/pubmed/?term=${gene}+AND+(${encodeURIComponent(
       protein
     )}+OR+${encodeURIComponent(hgvs_c)}+OR+${encodeURIComponent(
-      Amino_acid_change
+      amino_acid_change
     )})`,
     "Google Scholar": `https://scholar.google.co.il/scholar?start=50&q=${gene}+AND+(${encodeURIComponent(
       protein
     )}+OR+${encodeURIComponent(hgvs_c)}+OR+${encodeURIComponent(
-      Amino_acid_change
+      amino_acid_change
     )})&hl=en&as_sdt=0,5`
   };
 
@@ -196,7 +197,7 @@ export const createResourcesLinks = variantData => {
 
   const inSilicoPredictors = {
     title: "In Silico predictors",
-    "Damaging score": Damaging_score
+    "Damaging score": damaging_score
   };
   externalResources.push(inSilicoPredictors);
   return externalResources;
@@ -210,6 +211,24 @@ export const getDataArray = data => {
     }
   }
   return arrayData;
+};
+
+export const zygosityTypeByName = name => {
+  /* Germline - for Homo, Hetero and Hemi.
+    Somatic - for Somatic.
+    Insignificant - for Insignificant.
+    Unkown - for Unkown.
+    Not-Real - for Not-Real.
+  */
+ 
+  for (let key in ZYGOSITY_TYPES) {
+    const { label, value } = ZYGOSITY_TYPES[key];
+    if (value.toLowerCase() === name?.toLowerCase()) {
+      return  label ;
+    }
+  }
+
+  return "";
 };
 
 export const setPriority = record => {
