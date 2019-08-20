@@ -310,24 +310,6 @@ export function* resultConfigEditResultGenerator(data) {
   }
 }
 
-export function* fetchTableData() {
-  try {
-    const result = generateDNAVariantTableMockData(500);
-
-    for(let item in result){
-
-      const record = result[item];
-
-      setPriority(record);
-    }
-
-    yield put(setParsedDataToStore(result));
-    // yield put(setLoading(false));
-  } catch (error) {
-    console.log("---error: ", error);
-  }
-}
-
 export function* fetchTestsSaga() {
   try {
     yield put(setTestsLoading(true));
@@ -341,7 +323,6 @@ export function* fetchTestsSaga() {
     yield put(setTestsLoading(false));
 
   } catch (error) {
-    console.log("---error: ", error);
     yield put(setTestsLoading(false));
   }
 }
@@ -362,7 +343,11 @@ export function* handleZygositySaga(data) {
     }
   }
   catch (e) {
-    console.log("-err: ", e);
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["handleZygositySaga"]);
+      Sentry.captureException(e);
+    });
+  
   }
 }
 
@@ -484,6 +469,10 @@ export function* fetchClassificationHistorySaga() {
     yield put(setVariantPageLoading(false));
 
   } catch (error) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchClassificationHistorySaga"]);
+      Sentry.captureException(error);
+    });
     yield put(setVariantPageLoading(false));
   }
 }
