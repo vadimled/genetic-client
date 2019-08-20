@@ -40,7 +40,7 @@ class Header extends Component {
           <div className="left-wrapper">
             {this.isVariantPage() && (
               <Link
-                to={`/`} // TODO `/test/${this.props.testId}`
+                to={`/tests/${this.props.testId}`}
                 data-testid={`go-back-button`}
                 id={`go-back-button`}
                 className={"go-back-button"}
