@@ -8,6 +8,13 @@ export const setNotes = data => {
   };
 };
 
+export const setNotesToStore = data => {
+  return {
+    type: actionsTypes.SET_NOTES_TO_STORE,
+    payload: data
+  };
+};
+
 export const handleSelectedRow = data => {
   return {
     type: actionsTypes.HANDLE_SELECTED_ROW,
@@ -85,9 +92,16 @@ export const fetchTableData = data => {
   };
 };
 
-export function setDataToStore(data) {
+export function setServerDataToStore(data) {
   return {
     type: actionsTypes.FETCH_TABLE_DATA_SUCCESS,
+    payload: data
+  };
+}
+
+export function setParsedDataToStore(data) {
+  return {
+    type: actionsTypes.SET_PARSED_DATA_TO_STORE,
     payload: data
   };
 }
@@ -112,3 +126,18 @@ export const tableDataEditResult = data => {
     payload: data
   };
 };
+
+export const setTableReducerLoading = data => {
+  return{
+    type: actionsTypes.SET_TABLE_REDUCER_LOADING,
+    payload: data
+  };
+};
+
+export const setConfirmationStatusToStore = data => {
+  return{
+    type: actionsTypes.SET_CONFIRMATION_STATUS_TO_STORE,
+    payload: data
+  };
+};
+
