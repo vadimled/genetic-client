@@ -60,7 +60,6 @@ import {
   setEditedEvidenceEntry,
   setEvidenceData,
   deleteEvidenceFromStore,
-  setVariantLoading
 } from "Actions/variantPageActions";
 import {
   setPriority,
@@ -446,13 +445,15 @@ export function* fetchTableDataSaga(action) {
 // --------------- VARIANT PAGE ---------------
 export function* fetchVariantMetadataDataSaga(action) {
   try {
+    yield put(setLoading(true));
     const { data } = yield call(fetchVariantMetadataDataApi, action);
     yield put(setServerVariantMetadataToStore(data));
     const newData = parseTableDataObj(data);
     yield put(setVariantMetadataData(newData));
     yield put(setExternalResources(createResourcesLinks(data)));
+    yield put(setLoading(false));
   } catch (e) {
-    yield put(setVariantLoading(false));
+    yield put(setLoading(false));
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchVariantMetadataDataSaga"]);
       Sentry.captureException(e);

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import style from "./VariantPage.module.scss";
 import cn from "classnames";
 import SideBarLayout from "Pages/mainPage/components/sideBarLayout";
@@ -17,7 +17,8 @@ import {
   getVariantData,
   getZygosityType,
   getVariantId,
-  getVariantPageTestId
+  getVariantPageTestId,
+  getLoadingStatus
 } from "Store/selectors";
 import { connect } from "react-redux";
 import {
@@ -29,8 +30,12 @@ import {
   fetchClassificationHistory
 } from "Actions/variantPageActions";
 import { getDataArray } from "Utils/helpers";
-import { SOMATIC_VARIANT_CLASS_OPTIONS, GERMLINE_VARIANT_CLASS_OPTIONS } from "Utils/constants";
+import {
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  GERMLINE_VARIANT_CLASS_OPTIONS
+} from "Utils/constants";
 import queryString from "query-string";
+import Spinner from "GenericComponents/spinner";
 
 class VariantPage extends Component {
   constructor(props) {
@@ -51,7 +56,7 @@ class VariantPage extends Component {
   }
 
   componentDidMount() {
-    const {fetchClassificationHistory} = this.props;
+    const { fetchClassificationHistory } = this.props;
     fetchClassificationHistory();
   }
 
@@ -70,92 +75,97 @@ class VariantPage extends Component {
       somaticEvidence,
       germlineEvidence,
       testId,
-      variantId
+      variantId,
+      isLoading
     } = this.props;
 
     const { somaticClassHistoryData, germlineClassHistoryData } = this.state;
     return (
       <div className={style["variant-page-wrapper"]}>
-        <div
-          className={cn([
-            "links-wrapper",
-            { "links-wrapper-open": sidebarToggle }
-          ])}
-        >
-          <SideBarLayout
-            handleClick={this.handleClick}
-            mode={sidebarToggle}
-            className={"external-resources"}
-            iconOpened={<OpenedIcon />}
-            iconClosed={<ClosedIcon />}
-          >
-            <ExternalResources
-              externalResources={externalResources}
-              selectedZygosityType={selectedZygosityType}
-            />
-          </SideBarLayout>
-        </div>
-
-        <div
-          className={cn([
-            "main-wrapper",
-            { "links-wrapper-open": sidebarToggle }
-          ])}
-        >
-          <div className="main-header-data">
-            <VariantPageHeader
-              sidebarToggle={sidebarToggle}
-              variantData={variantData}
-              testId={testId}
-              variantId={variantId}
-            />
-          </div>
-          <div className="main-data">
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <Fragment>
             <div
               className={cn([
-                "history",
+                "links-wrapper",
                 { "links-wrapper-open": sidebarToggle }
               ])}
             >
-              <ClassificationHistoryTable
-                data={
-                  selectedZygosityType === "somatic"
-                    ? somaticClassHistoryData
-                    : germlineClassHistoryData
-                }
-                typeData={
-                  selectedZygosityType === "somatic"
-                    ? SOMATIC_VARIANT_CLASS_OPTIONS
-                    : GERMLINE_VARIANT_CLASS_OPTIONS
-                }
-              />
+              <SideBarLayout
+                handleClick={this.handleClick}
+                mode={sidebarToggle}
+                className={"external-resources"}
+                iconOpened={<OpenedIcon />}
+                iconClosed={<ClosedIcon />}
+              >
+                <ExternalResources
+                  externalResources={externalResources}
+                  selectedZygosityType={selectedZygosityType}
+                />
+              </SideBarLayout>
             </div>
             <div
               className={cn([
-                "evidence",
+                "main-wrapper",
                 { "links-wrapper-open": sidebarToggle }
               ])}
             >
-              <EvidenceContainer
-                data={
-                  selectedZygosityType === "somatic"
-                    ? somaticEvidence
-                    : germlineEvidence
-                }
-                typeData={
-                  selectedZygosityType === "somatic"
-                    ? SOMATIC_VARIANT_CLASS_OPTIONS
-                    : GERMLINE_VARIANT_CLASS_OPTIONS
-                }
-              />
+              <div className="main-header-data">
+                <VariantPageHeader
+                  sidebarToggle={sidebarToggle}
+                  variantData={variantData}
+                  testId={testId}
+                  variantId={variantId}
+                />
+              </div>
+              <div className="main-data">
+                <div
+                  className={cn([
+                    "history",
+                    { "links-wrapper-open": sidebarToggle }
+                  ])}
+                >
+                  <ClassificationHistoryTable
+                    data={
+                      selectedZygosityType === "somatic"
+                        ? somaticClassHistoryData
+                        : germlineClassHistoryData
+                    }
+                    typeData={
+                      selectedZygosityType === "somatic"
+                        ? SOMATIC_VARIANT_CLASS_OPTIONS
+                        : GERMLINE_VARIANT_CLASS_OPTIONS
+                    }
+                  />
+                </div>
+                <div
+                  className={cn([
+                    "evidence",
+                    { "links-wrapper-open": sidebarToggle }
+                  ])}
+                >
+                  <EvidenceContainer
+                    data={
+                      selectedZygosityType === "somatic"
+                        ? somaticEvidence
+                        : germlineEvidence
+                    }
+                    typeData={
+                      selectedZygosityType === "somatic"
+                        ? SOMATIC_VARIANT_CLASS_OPTIONS
+                        : GERMLINE_VARIANT_CLASS_OPTIONS
+                    }
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </Fragment>
+        )}
       </div>
     );
   }
 }
-
 
 VariantPage.propTypes = {};
 
@@ -169,6 +179,7 @@ const mapStateToProps = state => {
     externalResources: getExternalResources(state),
     selectedZygosityType: getZygosityType(state),
     testId: getVariantPageTestId(state),
+    isLoading: getLoadingStatus(state),
     variantId: getVariantId(state)
   };
 };
@@ -180,7 +191,7 @@ function mapDispatchToProps(dispatch) {
     fetchEvidenceData: data => dispatch(fetchEvidenceData(data)),
     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
     setTestInformation: data => dispatch(setTestInformation(data)),
-    fetchClassificationHistory: () => dispatch(fetchClassificationHistory()),
+    fetchClassificationHistory: () => dispatch(fetchClassificationHistory())
   };
 }
 
