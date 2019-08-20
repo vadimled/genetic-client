@@ -3,24 +3,7 @@ import actionsTypes from "../actionsTypes";
 import { TEXTS } from "Utils/constants";
 
 const initialState = {
-  variantData: {
-    gene: "A1CF",
-    protein: "p.Leu2303Leu",
-    chrPosition: "chr1:45797505",
-    alleleChange: "C > GA",
-    alleleChangeLong: "C.7634+21 > GA_110509.1",
-    ref: "C",
-    alt: "GA",
-    dbSNP: "rs3219489",
-    clinvarVariationId: "516652",
-    coding: "c.7634+21_7634+22insTCATCATGAGAGAAGGTGAGTGGGGCTCTCAAAGTG",
-    transcript: "NM_110509.1",
-    COSMIC: ["COSM3997243", "COSM3997245", "COSM3997244"],
-    AminoAcidChange: "I1564ISLKN",
-    DamagingScore: "TTCATGAGAGAAGGTGAGTGG"
-  },
-  somatic_variant_class: null,
-  germline_variant_class: null,
+  variantData: null,
   externalResources: [],
   selectedZygosityType: null,
   somaticClassHistory: {
@@ -190,14 +173,17 @@ const variantPageReducer = createReducer(initialState, {
     const { value, name } = payload;
     return {
       ...state,
-      somatic_variant_class:
+      variantData:{
+        ...state.variantData,
+        variantClassSomatic:
         name.indexOf(TEXTS.somatic) !== -1
           ? value.toLowerCase()
-          : state.somatic_variant_class.toLowerCase(),
-      germline_variant_class:
+          : state.variantData.variantClassSomatic.toLowerCase(),
+        variantClassGermline:
         name.indexOf(TEXTS.germline) !== -1
           ? value.toLowerCase()
-          : state.germline_variant_class.toLowerCase()
+          : state.variantData.variantClassGermline.toLowerCase()
+      }
     };
   },
 
@@ -215,10 +201,17 @@ const variantPageReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_VARIANT_DATA]: (state, { payload }) => {
+  [actionsTypes.SET_VARIANT_METADATA]: (state, { payload }) => {
     return {
       ...state,
-      ...payload
+      variantData: payload
+    };
+  },
+
+  [actionsTypes.SET_SERVER_VARIANT_METADATA]: (state, { payload }) => {
+    return {
+      ...state,
+      serverData: payload
     };
   },
 
@@ -285,6 +278,15 @@ const variantPageReducer = createReducer(initialState, {
       ...payload
     };
   },
+
+  [actionsTypes.SET_VARIANT_LOADING]: (state, { payload }) => {
+
+    return {
+      ...state,
+      isLoading: payload
+    };
+  },
+  
 
   [actionsTypes.SET_CLASSIFICATION_HISTORY_TO_STORE]: (state, { payload }) => {
 
