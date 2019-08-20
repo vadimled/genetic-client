@@ -1036,7 +1036,7 @@ const createNewTableDataItem = ({
   somatic_class,
   status,
   transcript,
-  variant,
+  percentage_variants,
   zygosity
 }) => {
   let newObj = {};
@@ -1051,7 +1051,7 @@ const createNewTableDataItem = ({
   newObj.zygosity = zygosity;
   newObj.protein = hgvs_p;
   newObj.coverage = parseInt(dp, 10);
-  newObj.vaf = createVaf(variant);
+  newObj.vaf = createVaf(percentage_variants);
   newObj.notes = notes;
   newObj.coding = hgvs_c.length > 12 ? hgvs_c.slice(0, 12) : hgvs_c;
   newObj.codingLong = hgvs_c;
