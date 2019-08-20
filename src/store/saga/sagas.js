@@ -66,7 +66,6 @@ import { setClassificationHistoryToStore, setVariantPageLoading } from "Actions/
 import { fetchClassificationHistoryApi } from "../../api";
 
 
-
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
 }
@@ -352,7 +351,7 @@ export function* fetchTestsSaga() {
 }
 
 export function* handleZygositySaga(data) {
-  console.log(data);
+
   try{
     const result = yield call(updateVariantApi, data);
 
