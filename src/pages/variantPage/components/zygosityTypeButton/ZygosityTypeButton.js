@@ -12,43 +12,44 @@ function ZygosityTypeButton({
   selectedZygosityType,
   title,
   type,
-  onChangeType,
   typeData,
   currValue,
   variantId,
   testId,
+  onChangeClassification,
+  onChangeSelectedZygosityType
 }) {
-  const [isSelect, setOpen] = useState(true),
-    currZygosityFormatted = currentZygosity?.toLowerCase(),
-    handelFocus = () => {
-      if (selectedZygosityType !== currZygosityFormatted) {
-        setOpen(false);
-        onChangeType(
-          {
-            target: {
-              name: undefined,
-              value: undefined
-            }
-          },
-          selectedZygosityType === TEXTS.somatic ? TEXTS.germline : TEXTS.somatic
-        );
-        setOpen(true);
-      }
-    };
 
-  // const zygosityType = selectedZygosityType === "somatic" ? "germline" : "somatic";
+  const [isClassificationAllowed, setOpen] = useState(true);
+
+  const currZygosityFormatted = currentZygosity?.toLowerCase();
+
+  const  handelFocus = () => {
+    if (selectedZygosityType !== currZygosityFormatted) {
+      setOpen(false);
+      onChangeClassification(
+        {
+          target: {
+            name: undefined,
+            value: undefined
+          }
+        },
+        selectedZygosityType === TEXTS.somatic ? TEXTS.germline : TEXTS.somatic
+      );
+      setOpen(true);
+    }
+  };
 
   return currZygosityFormatted === type ? (
     <div
       className={style["zygosity-type-button-wrapper"]}
-      onClick={e => onChangeType(e, type)}
     >
       <div
         className={cn("zygosity-type-button", {
           active: selectedZygosityType !== type
         })}
       >
-        {isSelect ? (
+        {isClassificationAllowed ? (
           <Fragment>
             <div
               data-testid={`select-title-${title}`}
@@ -62,7 +63,7 @@ function ZygosityTypeButton({
               name={type}
               value={currValue?.toLowerCase()}
               options={typeData}
-              onChange={onChangeType}
+              onChange={onChangeClassification}
               showArrow={currZygosityFormatted === type}
               suffixIcon={<EditIcon />}
               selectHeaderClass={cn("select-header-text-style", {
@@ -78,6 +79,7 @@ function ZygosityTypeButton({
             selectedType={selectedZygosityType}
             typeData={typeData}
             currValue={currValue}
+            selectedZygosityType={selectedZygosityType}
           />
         )}
       </div>
@@ -85,7 +87,7 @@ function ZygosityTypeButton({
   ) : (
     <NonActiveButton
       title={title}
-      onClick={onChangeType}
+      onClick={onChangeSelectedZygosityType}
       type={type}
       selectedType={selectedZygosityType}
       typeData={typeData}
