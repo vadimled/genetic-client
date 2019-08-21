@@ -10,7 +10,7 @@ import {
   resultConfigLoadHgvsGenerator,
   resultConfigAddResultGenerator,
   resultConfigEditResultGenerator,
-  // fetchVariantMetadataDataSaga,
+  fetchVariantMetadataDataSaga,
   sendVariantClassGenerator,
   handleZygositySaga,
   fetchTestsSaga,
@@ -52,9 +52,9 @@ export function* watchSaga() {
     yield takeEvery(types.FETCH_TABLE_DATA, fetchTableDataSaga)
   ]);
   yield all([
-    // takeEvery(types.FETCH_VARIANT_DATA, fetchVariantMetadataDataSaga),
-    takeEvery(types.FETCH_EVIDENCE_DATA, fetchEvidenceDataSaga)
+    takeEvery(types.FETCH_VARIANT_METADATA, fetchVariantMetadataDataSaga),
+    takeEvery(types.FETCH_EVIDENCE_DATA, fetchEvidenceDataSaga),
+    takeEvery(types.FETCH_CLASSIFICATION_HISTORY, fetchClassificationHistorySaga)
   ]);
-  yield takeEvery(types.FETCH_CLASSIFICATION_HISTORY, fetchClassificationHistorySaga);
 
 }

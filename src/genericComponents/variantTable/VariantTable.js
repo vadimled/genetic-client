@@ -36,7 +36,7 @@ class VariantTable extends Component {
         title: "Gene",
         dataIndex: "gene",
         key: "2",
-        width: 200
+        width: 150
       },
       {
         title: "Chr: position",
@@ -66,18 +66,16 @@ class VariantTable extends Component {
         title: "Coding",
         dataIndex: "coding",
         key: "7",
-        width: 160
+        width: 150
       },
       {
         title: "Protein",
         dataIndex: "protein",
         key: "8",
-        width: 160
+        width: 200
       },
       {
-        title: (
-          <TableSorter title="VAF" setSort={this.props.setSort} field="vaf" />
-        ),
+        title: <TableSorter title="VAF" setSort={this.props.setSort} field="vaf" />,
         dataIndex: "vaf",
         key: "9",
         width: 60,
@@ -89,13 +87,13 @@ class VariantTable extends Component {
         title: "Zygosity",
         dataIndex: "zygosity",
         key: "10",
-        width: 250
+        width: 200
       },
       {
-        title: "Germline Class ",
+        title: "Germline Class",
         dataIndex: "variantClassGermline",
         key: "11",
-        width: 200
+        width: 160
       },
       {
         title: "Somatic Class",
@@ -134,9 +132,9 @@ class VariantTable extends Component {
     console.log({ e: e.target, data });
   };
 
-  handleZygosity = data => {
-    const { handleZygosity, updateActivityLog, testId } = this.props;
-    const { item, value, prevValue } = data;
+  handleZygosity = (data) =>{
+    const {handleZygosity, updateActivityLog, testId} = this.props;
+    const {item, value, prevValue} = data;
 
     handleZygosity({
       variantId: item.id,
@@ -145,19 +143,19 @@ class VariantTable extends Component {
       name: "zygosity",
       record: item
     });
-    updateActivityLog({ prevValue, item, changedField: "zygosity" });
+    updateActivityLog({prevValue, item, changedField: "zygosity"});
   };
 
   handleVariantClass = data => {
-    const { handleVariantClass, updateActivityLog } = this.props;
-    const { item, value, prevValue } = data;
+    const {handleVariantClass, updateActivityLog} = this.props;
+    const {item, value, prevValue} = data;
 
     handleVariantClass({
       item,
-      value
+      value,
     });
 
-    updateActivityLog({ prevValue, item, changedField: "variantClass" });
+    updateActivityLog({prevValue, item, changedField: "variantClass"});
   };
 
   columnsConverter = columns => {
@@ -244,9 +242,7 @@ class VariantTable extends Component {
               <div className="table-select-wrapper">
                 <Link
                   to={{
-                    pathname: `${this.props.match.url}/variants/${
-                      record.id
-                    }/?selectedZygosityType=germline`
+                    pathname: `${this.props.match.url}/variants/${record.id}/?selectedZygosityType=germline`,
                     // state: {type: "germline"}
                   }}
                 >
@@ -267,9 +263,7 @@ class VariantTable extends Component {
               <div className="table-select-wrapper">
                 <Link
                   to={{
-                    pathname: `${this.props.match.url}/variants/${
-                      record.id
-                    }/?selectedZygosityType=somatic`
+                    pathname: `${this.props.match.url}/variants/${record.id}/?selectedZygosityType=somatic`,
                     // state: {testId:this.props.testId, variantId: record.id, selectedZygosityType: "somatic"}
                   }}
                 >

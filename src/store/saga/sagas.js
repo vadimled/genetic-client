@@ -3,7 +3,8 @@ import * as Sentry from "@sentry/browser";
 import {
   ALERT_STATUSES,
   ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS
+  VALIDATION_FAILD_FIELDS,
+  TEXTS
 } from "Utils/constants";
 import {
   fetchBAMFile,
@@ -53,16 +54,29 @@ import { setTestData, setLoading } from "Actions/testActions";
 import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
-  setVariantData,
+  setVariantMetadataData,
   setVariantClassification,
   setNewEvidenceEntry,
   setEditedEvidenceEntry,
   setEvidenceData,
-  deleteEvidenceFromStore
+  deleteEvidenceFromStore,
+  setHistoryTableData
 } from "Actions/variantPageActions";
-import { zygosityType, setPriority, getEvidenceData, parseTableData } from "Utils/helpers";
-import { setClassificationHistoryToStore, setVariantPageLoading } from "Actions/variantPageActions";
+import {
+  setPriority,
+  getEvidenceData,
+  parseTableData,
+  parseTableDataObj,
+  createResourcesLinks,
+  getHistoryTableData
+} from "Utils/helpers";
+import {
+  setClassificationHistoryToStore,
+  setServerVariantMetadataToStore,
+  setExternalResources
+} from "Actions/variantPageActions";
 import { fetchClassificationHistoryApi } from "../../api";
+
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -323,14 +337,13 @@ export function* fetchTestsSaga() {
     }
 
     yield put(setTestsLoading(false));
-
   } catch (error) {
     yield put(setTestsLoading(false));
   }
 }
 
 export function* handleZygositySaga(data) {
-  try{
+  try {
     const result = yield call(updateVariantApi, data);
 
     const variant = result.data;
@@ -338,10 +351,12 @@ export function* handleZygositySaga(data) {
     setPriority(variant);
 
     if (result?.status === 200) {
-      yield put(setZygosity({
-        ...data.payload,
-        record: variant
-      }));
+      yield put(
+        setZygosity({
+          ...data.payload,
+          record: variant
+        })
+      );
     }
   }
   catch (e) {
@@ -354,7 +369,6 @@ export function* handleZygositySaga(data) {
 }
 
 export function* setNotesSaga(data) {
-
   const newData = Object.assign({}, data);
 
   newData.payload = {
@@ -362,8 +376,7 @@ export function* setNotesSaga(data) {
     name: "notes"
   };
 
-  try{
-
+  try {
     yield put(setTableReducerLoading(true));
 
     const result = yield call(updateVariantApi, newData);
@@ -371,16 +384,17 @@ export function* setNotesSaga(data) {
     const variant = result.data;
 
     if (result?.status === 200) {
-      yield put(setNotesToStore({
-        // check why notes does not return from server
-        ...data.payload,
-        record: variant
-      }));
+      yield put(
+        setNotesToStore({
+          // check why notes does not return from server
+          ...data.payload,
+          record: variant
+        })
+      );
     }
 
     yield put(setTableReducerLoading(false));
-  }
-  catch (e) {
+  } catch (e) {
     yield put(setTableReducerLoading(false));
     console.log("-err: ", e);
   }
@@ -417,13 +431,17 @@ export function* fetchTableDataSaga(action) {
   }
 }
 
-// Variant page
-export function* fetchVariantMetadataDataSaga(data) {
+// --------------- VARIANT PAGE ---------------
+export function* fetchVariantMetadataDataSaga(action) {
   try {
-    const result = yield call(fetchVariantMetadataDataApi, data),
-      newData = zygosityType(result?.data);
-    yield put(setVariantData(newData));
+    yield put(setLoading(true));
+    const { data } = yield call(fetchVariantMetadataDataApi, action);
+    yield put(setServerVariantMetadataToStore(data));
+    const newData = parseTableDataObj(data);
+    yield put(setVariantMetadataData(newData));
+    yield put(setExternalResources(createResourcesLinks(data)));
   } catch (e) {
+    yield put(setLoading(false));
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchVariantMetadataDataSaga"]);
       Sentry.captureException(e);
@@ -506,28 +524,36 @@ export function* deleteEvidenceEntrySaga(action) {
   }
 }
 
-export function* fetchClassificationHistorySaga() {
+export function* fetchClassificationHistorySaga(action) {
   try {
-    yield put(setVariantPageLoading(true));
-
-    const result = yield call(fetchClassificationHistoryApi);
+    yield put(setLoading(true));
+    const result = yield call(fetchClassificationHistoryApi, action);
     if (result?.status === 200) {
       yield put(setClassificationHistoryToStore(result.data));
+      yield put(
+        setHistoryTableData({
+          data: getHistoryTableData(result.data, TEXTS.somatic),
+          type: TEXTS.somatic
+        })
+      );
+      yield put(
+        setHistoryTableData({
+          data: getHistoryTableData(result.data, TEXTS.germline),
+          type: TEXTS.germline
+        })
+      );
     }
-
-    yield put(setVariantPageLoading(false));
-
+    yield put(setLoading(false));
   } catch (error) {
+    yield put(setLoading(false));
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchClassificationHistorySaga"]);
       Sentry.captureException(error);
     });
-    yield put(setVariantPageLoading(false));
   }
 }
 
 export function* handleConfirmationStatusSaga(data) {
-
   const newData = Object.assign({}, data);
 
   newData.payload = {
@@ -535,8 +561,7 @@ export function* handleConfirmationStatusSaga(data) {
     name: "status"
   };
 
-  try{
-
+  try {
     yield put(setTableReducerLoading(true));
 
     const result = yield call(updateVariantApi, newData);
@@ -544,16 +569,17 @@ export function* handleConfirmationStatusSaga(data) {
     const variant = result.data;
 
     if (result?.status === 200) {
-      yield put(setConfirmationStatusToStore({
-        // check why notes does not return from server
-        ...data.payload,
-        record: variant
-      }));
+      yield put(
+        setConfirmationStatusToStore({
+          // check why notes does not return from server
+          ...data.payload,
+          record: variant
+        })
+      );
     }
 
     yield put(setTableReducerLoading(false));
-  }
-  catch (e) {
+  } catch (e) {
     yield put(setTableReducerLoading(false));
     console.log("-err: ", e);
   }

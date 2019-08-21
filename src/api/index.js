@@ -56,9 +56,6 @@ export function fetchVariantMetadataDataApi(data) {
 }
 
 export function updateVariantApi(data) {
-  console.log(data);
-  // const temporaryUrl = "/tests/5d4adfb6a1e39700120ad5f2/variants/5d4adfb6a1e39700120ad5f3";
-
   const { name, value, testId, variantId } = data.payload;
   return axios_based.patch(`/tests/${testId}/variants/${variantId}`, {
     [name]: value
@@ -70,9 +67,7 @@ export function fetchTestsApi() {
 }
 
 export function fetchClassificationHistoryApi(action) {
-  const { testId, variantId } = action.payload;
-
-  return axios.get(`/api/tests/${testId}/variants/${variantId}/classification-history`);
+  return axios_based.get(`/variants/${action.payload}/classification`);
 }
 
 export function addEvidenceEntryApi(action) {

@@ -9,14 +9,14 @@ describe("ClassificationHistoryTable component", () => {
   const dataShort = [
     {
       analystName: "Taly Yafe",
-      class: "Tier1",
+      class: "tier1",
       date: "10/nov/2017",
       gsid: "GS00115NP050818_TS1_01",
       key: 0
     },
     {
       analystName: "Lior GoldBerg",
-      class: "Unclassified",
+      class: "unclassified",
       date: "5/Jul/2017",
       gsid: "GS00115NP050817_TS1_01",
       key: 1
@@ -25,28 +25,28 @@ describe("ClassificationHistoryTable component", () => {
   const dataLong = [
     {
       analystName: "Taly Yafe",
-      class: "Tier1",
+      class: "tier1",
       date: "10/nov/2017",
       gsid: "GS00115NP050818_TS1_01",
       key: 0
     },
     {
       analystName: "Lior GoldBerg",
-      class: "Unclassified",
+      class: "unclassified",
       date: "5/Jul/2017",
       gsid: "GS00115NP050817_TS1_01",
       key: 1
     },
     {
       analystName: "Taly Yafe",
-      class: "Tier1",
+      class: "tier1",
       date: "10/nov/2017",
       gsid: "GS00115NP050818_TS1_01",
       key: 3
     },
     {
       analystName: "Lior GoldBerg",
-      class: "Unclassified",
+      class: "unclassified",
       date: "5/Jul/2017",
       gsid: "GS00115NP050817_TS1_01",
       key: 4

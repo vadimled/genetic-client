@@ -17,6 +17,7 @@ const VariantPageHeader = ({
     chrPosition,
     alleleChange,
     coding,
+    codingLong,
     transcript,
     alleleChangeLong
   } = variantData || {};
@@ -41,7 +42,11 @@ const VariantPageHeader = ({
             />
           </div>
           <div className="gene">
-            <InformField name="inform-field-coding" text={coding} />
+            <InformField
+              name="inform-field-coding"
+              text={coding}
+              tooltip={codingLong}
+            />
           </div>
           <div className="gene">
             <InformField name="inform-field-transcript" text={transcript} />

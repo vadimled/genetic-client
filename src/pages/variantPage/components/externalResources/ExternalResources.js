@@ -72,11 +72,11 @@ function ExternalResources({ externalResources, selectedZygosityType }) {
   const renderResourceData = resourceData => {
     return Object.keys(resourceData).map((label, index) => {
       const resourceValue = resourceData[label];
-      if (label !== "title" && variantDbLinks.includes(label)) {
+      if (label !== "title" && variantDbLinks?.includes(label)) {
         return (
           <li key={`${index}-${label}`}>
             {!Array.isArray(resourceValue)
-              ? resourceValue.includes("http")
+              ? resourceValue?.includes("http")
                 ? renderLink(label, resourceValue)
                 : renderText(label, resourceValue)
               : renderLinksArray(label, resourceValue)}

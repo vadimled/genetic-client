@@ -25,7 +25,7 @@ function InformField({ label, text, icon, name, tooltip }) {
 
 InformField.propTypes = {
   label: PropTypes.string,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   icon: PropTypes.node
 };
 

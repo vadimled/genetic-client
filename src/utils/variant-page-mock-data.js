@@ -2,7 +2,7 @@ export const evidences = [
   {
     id: "6gzhbamall3xfe2gzdmlnw9aj",
     category: "publications",
-    created_at: "Thu May 17 2018 03:00:00 GMT+0300 (Israel Daylight Time)",// 17/May/2018
+    created_at: "Thu May 17 2018 03:00:00 GMT+0300 (Israel Daylight Time)", // 17/May/2018
     user: {
       user_id: "dsfafdasfdas",
       name: "Taly Yafe",
@@ -212,5 +212,3 @@ export const evidences = [
     zygosity_type: "germline"
   }
 ];
-
-export const classificationHistory = [];

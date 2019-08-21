@@ -1,7 +1,8 @@
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { evidences, classificationHistory } from "Utils/variant-page-mock-data";
+import { evidences } from "Utils/variant-page-mock-data";
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
+import { generateHistoryTableMockData } from "Utils/mock-history-generator";
 
 export const mock =
   process.env.REACT_APP_AXIOS_MOCK_ENABLED === "true" &&
@@ -26,10 +27,54 @@ if (mock) {
   });
 
   mock.onGet(/\/tests\/.+\/variants\/.+\/$/).reply(200, {
-    // /api/tests/GS00115NP050818_TS1_01/variant/1gr3ekk8qbb29u5vljto219bn
-    currentZygosity: "Homo",
-    germline_variant_class: "LPATH",
-    somatic_variant_class: "Tier2"
+    activity_log: [
+      {
+        action: {
+          curr_val: "homo",
+          field: "zygosity",
+          prev_val: ""
+        }
+      }
+    ],
+    alt: "A",
+    callers: "freebayes,mutect,varscan,vardict",
+    chr: "chr1",
+    class: "SILENT",
+    clinvar_variation_id: "167306.0",
+    cosmic: "",
+    damaging_score: "T",
+    db_snp: "rs4846051",
+    dp: "443.0",
+    effect: "SYNONYMOUS_CODING",
+    effect_impact: "LOW",
+    exome_cov_over_20: "0.999",
+    fathmm_score: "",
+    gene: "MTHFR",
+    genome_cov_over_20: "0.905",
+    gnom_ad_exomes_af: "",
+    gnom_ad_exomes_popmax_af: "",
+    gnom_ad_genomes_af: "",
+    gnom_ad_genomes_flag: "",
+    gnom_ad_genomes_popmax_af: "",
+    hgvs_c: "c.1305C>T",
+    hgvs_p: "p.Phe435Phe",
+    id: "5d5bcc6608589e00124bfd77",
+    large_deletion: "False",
+    large_insertion: "False",
+    mutation_taster_score: "",
+    mutation_type: "dna",
+    position: "11854457",
+    provean_score: "",
+    quality: "34.3640488656",
+    ref: "G",
+    roi: "True",
+    snps: "",
+    test_id: "5d5bcc6608589e00124bfd76",
+    transcript: "NM_005957.4",
+    zygosity: "homo",
+    germline_class: "lpath",
+    somatic_class: "tier2",
+    amino_acid_change: "E429A"
   });
 
   mock.onGet(/\/variants\/.+\/evidences/).reply(() => [200, evidences]);
@@ -65,14 +110,14 @@ if (mock) {
     level: "BP1",
     zygosity_type: "germline"
   });
-  
+
   mock.onDelete(/\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200);
 
   mock
     .onGet(/\/tests\/.+\/variants/, { params: { mutation: "dna" } })
     .reply(() => [200, generateDNAVariantTableMockData(50)]);
-  
-  mock.onGet(/\/api\/tests\/.+\/variants\/.+\/classification-history/).reply(200, {
-    classificationHistory
-  });
+
+  mock
+    .onGet(/\/variants\/.+\/classification/)
+    .reply(() => [200, generateHistoryTableMockData(20)]);
 }

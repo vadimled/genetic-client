@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import style from "./VariantPage.module.scss";
 import cn from "classnames";
 import SideBarLayout from "Pages/mainPage/components/sideBarLayout";
@@ -13,11 +13,12 @@ import {
   getGermlineEvidence,
   getHistoryGermline,
   getHistorySomatic,
+  getLoadingStatus,
   getSomaticEvidence,
   getVariantData,
   getZygosityType,
   getVariantId,
-  getVariantPageTestId, getLoadingStatus
+  getVariantPageTestId
 } from "Store/selectors";
 import { connect } from "react-redux";
 import {
@@ -28,10 +29,11 @@ import {
   setTestInformation,
   fetchClassificationHistory
 } from "Actions/variantPageActions";
-import { createResourcesLinks, getDataArray } from "Utils/helpers";
+
 import {
+  GERMLINE_VARIANT_CLASS_OPTIONS,
   SOMATIC_VARIANT_CLASS_OPTIONS,
-  GERMLINE_VARIANT_CLASS_OPTIONS
+  TEXTS
 } from "Utils/constants";
 import queryString from "query-string";
 import Spinner from "GenericComponents/spinner/Spinner";
@@ -39,27 +41,27 @@ import Spinner from "GenericComponents/spinner/Spinner";
 class VariantPage extends Component {
   constructor(props) {
     super(props);
-    const { testId, variantId } = props.match.params;
+
+    const {
+      fetchEvidenceData,
+      fetchVariantMetadataData,
+      match,
+      fetchCH,
+      setSelectedZygosityType,
+      setTestInformation
+    } = props;
+    const { testId, variantId } = match.params;
     const { selectedZygosityType } = queryString.parse(window.location.search);
 
+    fetchVariantMetadataData({ testId, variantId });
+    fetchEvidenceData(variantId);
+    setSelectedZygosityType({ selectedZygosityType, testId, variantId });
+    setTestInformation({ testId, variantId });
+    fetchCH(variantId);
+
     this.state = {
-      sidebarToggle: true,
-      germlineClassHistoryData: getDataArray(props.germlineClassHistory),
-      somaticClassHistoryData: getDataArray(props.somaticClassHistory)
+      sidebarToggle: true
     };
-
-    // props.fetchVariantMetadataData({ testId, variantId });
-    props.fetchEvidenceData(variantId);
-    props.setSelectedZygosityType({ selectedZygosityType, testId, variantId });
-    props.setTestInformation({ testId, variantId });
-
-    // TODO: this action must be dispatched from the Saga
-    props.setResources(createResourcesLinks(props.variantData));
-  }
-
-  componentDidMount() {
-    const { fetchClassificationHistory } = this.props;
-    fetchClassificationHistory();
   }
 
   handleClick = () => {
@@ -78,91 +80,93 @@ class VariantPage extends Component {
       germlineEvidence,
       testId,
       variantId,
-      isLoading
+      isLoading,
+      germlineClassHistory,
+      somaticClassHistory
     } = this.props;
 
-    const { somaticClassHistoryData, germlineClassHistoryData } = this.state;
     return (
       <div className={style["variant-page-wrapper"]}>
-        <div
-          className={cn([
-            "links-wrapper",
-            { "links-wrapper-open": sidebarToggle }
-          ])}
-        >
-          <SideBarLayout
-            handleClick={this.handleClick}
-            mode={sidebarToggle}
-            className={"external-resources"}
-            iconOpened={<OpenedIcon />}
-            iconClosed={<ClosedIcon />}
-          >
-            <ExternalResources
-              externalResources={externalResources}
-              selectedZygosityType={selectedZygosityType}
-            />
-          </SideBarLayout>
-        </div>
-
-        <div
-          className={cn([
-            "main-wrapper",
-            { "links-wrapper-open": sidebarToggle }
-          ])}
-        >
-          <div className="main-header-data">
-            <VariantPageHeader
-              sidebarToggle={sidebarToggle}
-              variantData={variantData}
-              testId={testId}
-              variantId={variantId}
-            />
-          </div>
-          <div className="main-data">
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <Fragment>
             <div
               className={cn([
-                "history",
+                "links-wrapper",
                 { "links-wrapper-open": sidebarToggle }
               ])}
             >
-              <ClassificationHistoryTable
-                data={
-                  selectedZygosityType === "somatic"
-                    ? somaticClassHistoryData
-                    : germlineClassHistoryData
-                }
-                typeData={
-                  selectedZygosityType === "somatic"
-                    ? SOMATIC_VARIANT_CLASS_OPTIONS
-                    : GERMLINE_VARIANT_CLASS_OPTIONS
-                }
-              />
-            </div>
-            {isLoading ? (
-              <Spinner />
-            ) : (
-              <div
-                className={cn([
-                  "evidence",
-                  { "links-wrapper-open": sidebarToggle }
-                ])}
+              <SideBarLayout
+                handleClick={this.handleClick}
+                mode={sidebarToggle}
+                className={"external-resources"}
+                iconOpened={<OpenedIcon />}
+                iconClosed={<ClosedIcon />}
               >
-                <EvidenceContainer
-                  data={
-                    selectedZygosityType === "somatic"
-                      ? somaticEvidence
-                      : germlineEvidence
-                  }
-                  typeData={
-                    selectedZygosityType === "somatic"
-                      ? SOMATIC_VARIANT_CLASS_OPTIONS
-                      : GERMLINE_VARIANT_CLASS_OPTIONS
-                  }
+                <ExternalResources
+                  externalResources={externalResources}
+                  selectedZygosityType={selectedZygosityType}
+                />
+              </SideBarLayout>
+            </div>
+            <div
+              className={cn([
+                "main-wrapper",
+                { "links-wrapper-open": sidebarToggle }
+              ])}
+            >
+              <div className="main-header-data">
+                <VariantPageHeader
+                  sidebarToggle={sidebarToggle}
+                  variantData={variantData}
+                  testId={testId}
+                  variantId={variantId}
                 />
               </div>
-            )}
-          </div>
-        </div>
+              <div className="main-data">
+                <div
+                  className={cn([
+                    "history",
+                    { "links-wrapper-open": sidebarToggle }
+                  ])}
+                >
+                  <ClassificationHistoryTable
+                    data={
+                      selectedZygosityType === TEXTS.somatic
+                        ? somaticClassHistory
+                        : germlineClassHistory
+                    }
+                    typeData={
+                      selectedZygosityType === TEXTS.somatic
+                        ? SOMATIC_VARIANT_CLASS_OPTIONS
+                        : GERMLINE_VARIANT_CLASS_OPTIONS
+                    }
+                  />
+                </div>
+                <div
+                  className={cn([
+                    "evidence",
+                    { "links-wrapper-open": sidebarToggle }
+                  ])}
+                >
+                  <EvidenceContainer
+                    data={
+                      selectedZygosityType === "somatic"
+                        ? somaticEvidence
+                        : germlineEvidence
+                    }
+                    typeData={
+                      selectedZygosityType === "somatic"
+                        ? SOMATIC_VARIANT_CLASS_OPTIONS
+                        : GERMLINE_VARIANT_CLASS_OPTIONS
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </Fragment>
+        )}
       </div>
     );
   }
@@ -180,19 +184,19 @@ const mapStateToProps = state => {
     externalResources: getExternalResources(state),
     selectedZygosityType: getZygosityType(state),
     testId: getVariantPageTestId(state),
-    variantId: getVariantId(state),
     isLoading: getLoadingStatus(state),
+    variantId: getVariantId(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     setResources: data => dispatch(setExternalResources(data)),
+    fetchCH: data => dispatch(fetchClassificationHistory(data)),
     fetchVariantMetadataData: data => dispatch(fetchVariantMetadataData(data)),
     fetchEvidenceData: data => dispatch(fetchEvidenceData(data)),
     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
-    setTestInformation: data => dispatch(setTestInformation(data)),
-    fetchClassificationHistory: () => dispatch(fetchClassificationHistory())
+    setTestInformation: data => dispatch(setTestInformation(data))
   };
 }
 
