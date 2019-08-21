@@ -1,7 +1,8 @@
 import MockAdapter from "axios-mock-adapter";
 import axios from "axios";
-import { evidences, classificationHistory } from "Utils/variant-page-mock-data";
+import { evidences } from "Utils/variant-page-mock-data";
 import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
+import { generateHistoryTableMockData } from "Utils/mock-history-generator";
 
 export const mock =
   process.env.REACT_APP_AXIOS_MOCK_ENABLED === "true" &&
@@ -25,12 +26,15 @@ if (mock) {
   });
 
   mock.onGet(/\/tests\/.+\/variants\/.+\/$/).reply(200, {
-    activity_log: [{
-      action:{
-        curr_val: "homo",
-        field: "zygosity",
-        prev_val: ""}
-    }],
+    activity_log: [
+      {
+        action: {
+          curr_val: "homo",
+          field: "zygosity",
+          prev_val: ""
+        }
+      }
+    ],
     alt: "A",
     callers: "freebayes,mutect,varscan,vardict",
     chr: "chr1",
@@ -168,20 +172,19 @@ if (mock) {
     level: "BP1",
     classification: "germline"
   });
-  
+
   mock.onDelete(/\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200);
 
-  mock.onGet(/\/tests\/.+\/variants/,
-    { params: {mutation : 'dna' } }).reply(
-    () => [200,  generateDNAVariantTableMockData(50)]
-  );
+  mock
+    .onGet(/\/tests\/.+\/variants/, { params: { mutation: "dna" } })
+    .reply(() => [200, generateDNAVariantTableMockData(50)]);
 
-  mock.onGet(/\/tests\/.+\/variants\/.+\/classification-history/).reply(200, {
-    classificationHistory
-  });
+  mock
+    .onGet(/\/variants\/.+\/classification/)
+    .reply(() => [200, generateHistoryTableMockData(20)]);
 
-  mock.onGet(/\/tests/).reply(200,
-    [{
+  mock.onGet(/\/tests/).reply(200, [
+    {
       id: "5d511f574651a20020a0ab50",
       gsid: "GS00115",
       panel_type: "risk",
@@ -192,6 +195,6 @@ if (mock) {
         cancer_cell_percentage: 80
       },
       created_at: Date()
-    }]
-  );
+    }
+  ]);
 }

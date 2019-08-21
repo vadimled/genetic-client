@@ -133,7 +133,6 @@ const getLinksArray = (data, link) => {
 
 export const createResourcesLinks = variantData => {
   let externalResources = [];
-  console.log(variantData);
   const {
     coding: hgvs_c,
     amino_acid_change,
@@ -1078,3 +1077,22 @@ export const parseTableData = array =>
   }, {});
 
 export const parseTableDataObj = data => createNewTableDataItem(data);
+
+export const getHistoryTableData = (data, type) => {
+  return data.reduce((arr, val, index) => {
+    if (val.zygosity_type === type) {
+      const newObj = Object.assign(
+        {},
+        { id: val.id },
+        { key: index + 1 },
+        { created_at: val.created_at },
+        { gsid: val.gsid },
+        { class: val.class },
+        { analystName: val.user?.name },
+      );
+      arr.push(newObj);
+      return arr;
+    }
+    return arr;
+  }, []);
+};

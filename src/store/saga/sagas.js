@@ -3,7 +3,8 @@ import * as Sentry from "@sentry/browser";
 import {
   ALERT_STATUSES,
   ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS
+  VALIDATION_FAILD_FIELDS,
+  TEXTS
 } from "Utils/constants";
 import {
   fetchBAMFile,
@@ -60,17 +61,18 @@ import {
   setEditedEvidenceEntry,
   setEvidenceData,
   deleteEvidenceFromStore,
+  setHistoryTableData
 } from "Actions/variantPageActions";
 import {
   setPriority,
   getEvidenceData,
   parseTableData,
   parseTableDataObj,
-  createResourcesLinks
+  createResourcesLinks,
+  getHistoryTableData
 } from "Utils/helpers";
 import {
   setClassificationHistoryToStore,
-  setVariantPageLoading,
   setServerVariantMetadataToStore,
   setExternalResources
 } from "Actions/variantPageActions";
@@ -453,7 +455,6 @@ export function* fetchVariantMetadataDataSaga(action) {
     const newData = parseTableDataObj(data);
     yield put(setVariantMetadataData(newData));
     yield put(setExternalResources(createResourcesLinks(data)));
-    yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {
@@ -529,19 +530,32 @@ export function* deleteEvidenceEntrySaga(action) {
   }
 }
 
-export function* fetchClassificationHistorySaga() {
+export function* fetchClassificationHistorySaga(action) {
   try {
-    yield put(setVariantPageLoading(true));
-
-    const result = yield call(fetchClassificationHistoryApi);
-
+    yield put(setLoading(true));
+    const result = yield call(fetchClassificationHistoryApi, action);
     if (result?.status === 200) {
       yield put(setClassificationHistoryToStore(result.data));
+      yield put(
+        setHistoryTableData({
+          data: getHistoryTableData(result.data, TEXTS.somatic),
+          type: TEXTS.somatic
+        })
+      );
+      yield put(
+        setHistoryTableData({
+          data: getHistoryTableData(result.data, TEXTS.germline),
+          type: TEXTS.germline
+        })
+      );
     }
-
-    yield put(setVariantPageLoading(false));
+    yield put(setLoading(false));
   } catch (error) {
-    yield put(setVariantPageLoading(false));
+    yield put(setLoading(false));
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchClassificationHistorySaga"]);
+      Sentry.captureException(error);
+    });
   }
 }
 
