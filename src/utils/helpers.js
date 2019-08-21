@@ -133,7 +133,6 @@ const getLinksArray = (data, link) => {
 
 export const createResourcesLinks = variantData => {
   let externalResources = [];
-  console.log(variantData);
   const {
     coding: hgvs_c,
     amino_acid_change,

@@ -17,7 +17,7 @@ function App() {
       <Switch>
         <Route path="/" exact component={TestsPage} />
         <Route path="/tests/:testId" exact component={MainPage} />
-        <Route path="/tests/:testId/variant/:variantId/" component={VariantPage} />
+        <Route path="/tests/:testId/variants/:variantId/" component={VariantPage} />
       </Switch>
       <ResultConfig />
       <EvidenceConfig />

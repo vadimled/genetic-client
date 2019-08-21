@@ -13,26 +13,26 @@ import {
   getGermlineEvidence,
   getHistoryGermline,
   getHistorySomatic,
+  getLoadingStatus,
   getSomaticEvidence,
   getVariantData,
-  getZygosityType,
   getVariantId,
   getVariantPageTestId,
-  getLoadingStatus
+  getZygosityType
 } from "Store/selectors";
 import { connect } from "react-redux";
 import {
+  fetchClassificationHistory,
   fetchEvidenceData,
   fetchVariantMetadataData,
-  // setExternalResources,
   setSelectedZygosityType,
-  setTestInformation,
-  fetchClassificationHistory
+  setTestInformation
 } from "Actions/variantPageActions";
 import { getDataArray } from "Utils/helpers";
 import {
+  GERMLINE_VARIANT_CLASS_OPTIONS,
   SOMATIC_VARIANT_CLASS_OPTIONS,
-  GERMLINE_VARIANT_CLASS_OPTIONS
+  TEXTS
 } from "Utils/constants";
 import queryString from "query-string";
 import Spinner from "GenericComponents/spinner";
@@ -40,24 +40,31 @@ import Spinner from "GenericComponents/spinner";
 class VariantPage extends Component {
   constructor(props) {
     super(props);
-    const { testId, variantId } = props.match.params;
+
+    const {
+      germlineClassHistory,
+      fetchEvidenceData,
+      fetchVariantMetadataData,
+      match,
+      fetchCH,
+      setSelectedZygosityType,
+      setTestInformation,
+      somaticClassHistory
+    } = props;
+    const { testId, variantId } = match.params;
     const { selectedZygosityType } = queryString.parse(window.location.search);
 
+    fetchVariantMetadataData({ testId, variantId });
+    fetchEvidenceData({ testId, variantId });
+    setSelectedZygosityType({ selectedZygosityType, testId, variantId });
+    setTestInformation({ testId, variantId });
+    fetchCH(variantId);
+ 
     this.state = {
       sidebarToggle: true,
-      germlineClassHistoryData: getDataArray(props.germlineClassHistory),
-      somaticClassHistoryData: getDataArray(props.somaticClassHistory)
+      germlineClassHistoryData: getDataArray(germlineClassHistory),
+      somaticClassHistoryData: getDataArray(somaticClassHistory)
     };
-
-    props.fetchVariantMetadataData({ testId, variantId });
-    props.fetchEvidenceData({ testId, variantId });
-    props.setSelectedZygosityType({ selectedZygosityType, testId, variantId });
-    props.setTestInformation({ testId, variantId });
-  }
-
-  componentDidMount() {
-    const { fetchClassificationHistory } = this.props;
-    fetchClassificationHistory();
   }
 
   handleClick = () => {
@@ -128,12 +135,12 @@ class VariantPage extends Component {
                 >
                   <ClassificationHistoryTable
                     data={
-                      selectedZygosityType === "somatic"
+                      selectedZygosityType === TEXTS.somatic
                         ? somaticClassHistoryData
                         : germlineClassHistoryData
                     }
                     typeData={
-                      selectedZygosityType === "somatic"
+                      selectedZygosityType === TEXTS.somatic
                         ? SOMATIC_VARIANT_CLASS_OPTIONS
                         : GERMLINE_VARIANT_CLASS_OPTIONS
                     }
@@ -147,12 +154,12 @@ class VariantPage extends Component {
                 >
                   <EvidenceContainer
                     data={
-                      selectedZygosityType === "somatic"
+                      selectedZygosityType === TEXTS.somatic
                         ? somaticEvidence
                         : germlineEvidence
                     }
                     typeData={
-                      selectedZygosityType === "somatic"
+                      selectedZygosityType === TEXTS.somatic
                         ? SOMATIC_VARIANT_CLASS_OPTIONS
                         : GERMLINE_VARIANT_CLASS_OPTIONS
                     }
@@ -186,12 +193,11 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // setResources: data => dispatch(setExternalResources(data)),
+    fetchCH: data => dispatch(fetchClassificationHistory(data)),
     fetchVariantMetadataData: data => dispatch(fetchVariantMetadataData(data)),
     fetchEvidenceData: data => dispatch(fetchEvidenceData(data)),
     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
-    setTestInformation: data => dispatch(setTestInformation(data)),
-    fetchClassificationHistory: () => dispatch(fetchClassificationHistory())
+    setTestInformation: data => dispatch(setTestInformation(data))
   };
 }
 

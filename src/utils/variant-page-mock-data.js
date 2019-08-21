@@ -216,4 +216,343 @@ export const evidences = [
   }
 ];
 
-export const classificationHistory = [];
+export const classificationHistory = [
+  {
+    id: "0gzhbamall3xfe2gzdmlnw9aj",
+    created_at: "Thu May 17 2018 03:00:00 GMT+0300",// 17/May/2018
+    user: {
+      user_id: "dsfafdasfdas",
+      name: "Taly Yafe",
+      pic_url: ""
+    },
+    gsid: "GS00115NP050818_TS1_01",
+    test_id: "GS00115NP050818_TS1_01",
+    class: "path",
+    zygosity_type: "germline",
+    gene: "",
+    alt: "A",
+    ref: "G",
+    chr: "",
+    position: "",
+  },
+  {
+    id: "16gzhbamall3xfe2gzdmlnw9aj",
+    created_at: "Sun Jun 17 2018 03:00:00 GMT+0300 (Israel Daylight Time)",
+    user: {
+      user_id: "dsfafdasfdas",
+      name: "Taly Yafe",
+      pic_url: ""
+    },
+    gsid: "GS00115NP050818_TS1_01",
+    test_id: "GS00115NP050818_TS1_01",
+    class: "path",
+    zygosity_type: "germline",
+    gene: "",
+    coding: "",
+    protein: "",
+    chr: "",
+    position: "",
+  },
+  {
+    id: "26gzhbamall3xfe2gzdmlnw9aj",
+    created_at: "Thu May 17 2018 03:00:00 GMT+0300",// 17/May/2018
+    user: {
+      user_id: "dsfafdasfdas",
+      name: "Taly Yafe",
+      pic_url: ""
+    },
+    gsid: "GS00115NP050818_TS1_01",
+    test_id: "GS00115NP050818_TS1_01",
+    class: "path",
+    zygosity_type: "germline",
+    gene: "",
+    coding: "",
+    protein: "",
+    chr: "",
+    position: "",
+  },
+  {
+    id: "36gzhbamall3xfe2gzdmlnw9aj",
+    created_at: "Thu May 17 2018 03:00:00 GMT+0300",// 17/May/2018
+    user: {
+      user_id: "dsfafdasfdas",
+      name: "Taly Yafe",
+      pic_url: ""
+    },
+    gsid: "GS00115NP050818_TS1_01",
+    test_id: "GS00115NP050818_TS1_01",
+    class: "path",
+    zygosity_type: "germline",
+    gene: "",
+    coding: "",
+    protein: "",
+    chr: "",
+    position: "",
+  },
+  {
+    id: "46gzhbamall3xfe2gzdmlnw9aj",
+    created_at: "Thu May 17 2018 03:00:00 GMT+0300",// 17/May/2018
+    user: {
+      user_id: "dsfafdasfdas",
+      name: "Taly Yafe",
+      pic_url: ""
+    },
+    gsid: "GS00115NP050818_TS1_01",
+    test_id: "GS00115NP050818_TS1_01",
+    class: "path",
+    zygosity_type: "germline",
+    gene: "",
+    coding: "",
+    protein: "",
+    chr: "",
+    position: "",
+  },
+  {
+    id: "56gzhbamall3xfe2gzdmlnw9aj",
+    created_at: "Thu May 17 2018 03:00:00 GMT+0300",// 17/May/2018
+    user: {
+      user_id: "dsfafdasfdas",
+      name: "Taly Yafe",
+      pic_url: ""
+    },
+    gsid: "GS00115NP050818_TS1_01",
+    test_id: "GS00115NP050818_TS1_01",
+    class: "path",
+    zygosity_type: "germline",
+    gene: "",
+    coding: "",
+    protein: "",
+    chr: "",
+    position: "",
+  },
+  {
+    id: "66gzhbamall3xfe2gzdmlnw9aj",
+    created_at: "Thu May 17 2018 03:00:00 GMT+0300",// 17/May/2018
+    user: {
+      user_id: "dsfafdasfdas",
+      name: "Taly Yafe",
+      pic_url: ""
+    },
+    gsid: "GS00115NP050818_TS1_01",
+    test_id: "GS00115NP050818_TS1_01",
+    class: "path",
+    zygosity_type: "germline",
+    gene: "",
+    coding: "",
+    protein: "",
+    chr: "",
+    position: "",
+  },
+  {
+    id: "76gzhbamall3xfe2gzdmlnw9aj",
+    created_at: "Thu May 17 2018 03:00:00 GMT+0300",// 17/May/2018
+    user: {
+      user_id: "dsfafdasfdas",
+      name: "Taly Yafe",
+      pic_url: ""
+    },
+    gsid: "GS00115NP050818_TS1_01",
+    test_id: "GS00115NP050818_TS1_01",
+    class: "path",
+    zygosity_type: "germline",
+    gene: "",
+    coding: "",
+    protein: "",
+    chr: "",
+    position: "",
+  },
+  {
+    id: "86gzhbamall3xfe2gzdmlnw9aj",
+    created_at: "Thu May 17 2018 03:00:00 GMT+0300",// 17/May/2018
+    user: {
+      user_id: "dsfafdasfdas",
+      name: "Taly Yafe",
+      pic_url: ""
+    },
+    gsid: "GS00115NP050818_TS1_01",
+    test_id: "GS00115NP050818_TS1_01",
+    class: "path",
+    zygosity_type: "germline",
+    gene: "",
+    coding: "",
+    protein: "",
+    chr: "",
+    position: "",
+  },
+  {
+    id: "96gzhbamall3xfe2gzdmlnw9aj",
+    created_at: "Mon Sep 03 2017 03:00:00 GMT+0300 (Israel Daylight Time)",
+    user: {
+      user_id: "dsfafdasfdas",
+      name: "Taly Yafe",
+      pic_url: ""
+    },
+    gsid: "GS00115NP050818_TS1_01",
+    test_id: "GS00115NP050818_TS1_01",
+    class: "lpath",
+    zygosity_type: "germline",
+    gene: "",
+    coding: "",
+    protein: "",
+    chr: "",
+    position: "",
+  },
+
+];
+/*
+
+somaticClassHistory: {
+  "0gzhbamall3xfe2gzdmlnw9aj": {
+    key: 0,
+   },
+  "1gzhbamall3xfe2gzdmlnw9aj": {
+    key: 1,
+      created_at: "5/Jul/2017",
+      gsid: "GS00115NP050817_TS1_01",
+      analystName: "Lior GoldBerg",
+      class: "Unclassified"
+  },
+  "2gzhbamall3xfe2gzdmlnw9aj": {
+    key: 2,
+      created_at: "10/nov/2017",
+      gsid: "GS00115NP050816_TS1_01",
+      analystName: "Taly Yafe",
+      class: "Tier3"
+  },
+  "3gzhbamall3xfe2gzdmlnw9aj": {
+    key: 3,
+      created_at: "10/nov/2017",
+      gsid: "GS00115NP050815_TS1_01",
+      analystName: "Lior GoldBerg",
+      class: "Tier4"
+  },
+  "4gzhbamall3xfe2gzdmlnw9aj": {
+    key: 4,
+      created_at: "9/nov/2017",
+      gsid: "GS00115NP050814_TS1_01",
+      analystName: "Taly Yafe",
+      class: "Tier1"
+  },
+  "5gzhbamall3xfe2gzdmlnw9aj": {
+    key: 5,
+      created_at: "8/nov/2017",
+      gsid: "GS00115NP050813_TS1_01",
+      analystName: "Lior GoldBerg",
+      class: "Tier2"
+  },
+  "6gzhbamall3xfe2gzdmlnw9aj": {
+    key: 6,
+      created_at: "7/nov/2017",
+      gsid: "GS00115NP050812_TS1_01",
+      analystName: "Waly Yafe",
+      class: "Tier3"
+  },
+  "7gzhbamall3xfe2gzdmlnw9aj": {
+    key: 7,
+      created_at: "6/nov/2017",
+      gsid: "GS00115NP050811_TS1_01",
+      analystName: "Lior GoldBerg",
+      class: "Tier4"
+  },
+  "8gzhbamall3xfe2gzdmlnw9aj": {
+    key: 8,
+      created_at: "5/nov/2017",
+      gsid: "GS00115NP050810_TS1_01",
+      analystName: "Taly Yafe",
+      class: "Tier1"
+  },
+  "9gzhbamall3xfe2gzdmlnw9aj": {
+    key: 9,
+      created_at: "4/nov/2017",
+      gsid: "GS00115NP050828_TS1_01",
+      analystName: "Lior GoldBerg",
+      class: "Tier2"
+  },
+  "10zhbamall3xfe2gzdmlnw9aj": {
+    key: 10,
+      created_at: "3/nov/2017",
+      gsid: "GS00115NP050838_TS1_01",
+      analystName: "Taly Yafe",
+      class: "Tier3"
+  }
+},
+germlineClassHistory: {
+  "0gzhbamall3xfe2gzdmlnw9aj": {
+    key: 1,
+      created_at: "10/nov/2017",
+      gsid: "GS00115NP050818_TS1_01",
+      analystName: "Taly Yafe",
+      class: "VUS"
+  },
+  "1gzhbamall3xfe2gzdmlnw9aj": {
+    key: 2,
+      created_at: "5/Jul/2017",
+      gsid: "GS00115NP050817_TS1_01",
+      analystName: "Lior GoldBerg",
+      class: "LPATH"
+  },
+  "2gzhbamall3xfe2gzdmlnw9aj": {
+    key: 3,
+      created_at: "10/nov/2017",
+      gsid: "GS00115NP050816_TS1_01",
+      analystName: "Taly Yafe",
+      class: "VUS"
+  },
+  "3gzhbamall3xfe2gzdmlnw9aj": {
+    key: 4,
+      created_at: "10/nov/2017",
+      gsid: "GS00115NP050815_TS1_01",
+      analystName: "Lior GoldBerg",
+      class: "LBEN"
+  },
+  "4gzhbamall3xfe2gzdmlnw9aj": {
+    key: 5,
+      created_at: "9/nov/2017",
+      gsid: "GS00115NP050814_TS1_01",
+      analystName: "Taly Yafe",
+      class: "PATH"
+  },
+  "5gzhbamall3xfe2gzdmlnw9aj": {
+    key: 6,
+      created_at: "8/nov/2017",
+      gsid: "GS00115NP050813_TS1_01",
+      analystName: "Lior GoldBerg",
+      class: "LPATH"
+  },
+  "6gzhbamall3xfe2gzdmlnw9aj": {
+    key: 7,
+      created_at: "7/nov/2017",
+      gsid: "GS00115NP050812_TS1_01",
+      analystName: "Taly Yafe",
+      class: "VUS"
+  },
+  "7gzhbamall3xfe2gzdmlnw9aj": {
+    key: 8,
+      created_at: "6/nov/2017",
+      gsid: "GS00115NP050811_TS1_01",
+      analystName: "Lior GoldBerg",
+      class: "LPATH"
+  },
+  "8gzhbamall3xfe2gzdmlnw9aj": {
+    key: 9,
+      created_at: "5/nov/2017",
+      gsid: "GS00115NP050810_TS1_01",
+      analystName: "Taly Yafe",
+      class: "VUS"
+  },
+  "9gzhbamall3xfe2gzdmlnw9aj": {
+    key: 10,
+      created_at: "4/nov/2017",
+      gsid: "GS00115NP050828_TS1_01",
+      analystName: "Lior GoldBerg",
+      class: "VUS"
+  },
+  "10zhbamall3xfe2gzdmlnw9aj": {
+    key: 11,
+      created_at: "3/nov/2017",
+      gsid: "GS00115NP050838_TS1_01",
+      analystName: "Taly Yafe",
+      class: "VUS"
+  }
+},
+*/

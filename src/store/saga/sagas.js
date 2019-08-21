@@ -70,7 +70,6 @@ import {
 } from "Utils/helpers";
 import {
   setClassificationHistoryToStore,
-  setVariantPageLoading,
   setServerVariantMetadataToStore,
   setExternalResources
 } from "Actions/variantPageActions";
@@ -451,7 +450,6 @@ export function* fetchVariantMetadataDataSaga(action) {
     const newData = parseTableDataObj(data);
     yield put(setVariantMetadataData(newData));
     yield put(setExternalResources(createResourcesLinks(data)));
-    yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {
@@ -527,19 +525,21 @@ export function* deleteEvidenceEntrySaga(action) {
   }
 }
 
-export function* fetchClassificationHistorySaga() {
+export function* fetchClassificationHistorySaga(action) {
   try {
-    yield put(setVariantPageLoading(true));
-
-    const result = yield call(fetchClassificationHistoryApi);
-
+    yield put(setLoading(true));
+    const result = yield call(fetchClassificationHistoryApi, action);
     if (result?.status === 200) {
       yield put(setClassificationHistoryToStore(result.data));
     }
-
-    yield put(setVariantPageLoading(false));
+    yield put(setLoading(false));
   } catch (error) {
-    yield put(setVariantPageLoading(false));
+    yield put(setLoading(false));
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchClassificationHistorySaga"]);
+      Sentry.captureException(error);
+    });
+
   }
 }
 

@@ -66,11 +66,9 @@ export function fetchTestsApi() {
   return axios_based.get(`/tests/`);
 }
 
-export function fetchClassificationHistoryApi() {
-
-  const { testId, variantId } = action.payload;
-
-  return axios.get(`/api/tests/${testId}/variants/${variantId}/classification-history`);
+export function fetchClassificationHistoryApi(action) {
+  console.log(action.payload);
+  return axios_based.get(`/variants/${action.payload}/classification`);
 }
 
 export function addEvidenceEntryApi(action) {
