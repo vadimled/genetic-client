@@ -1083,13 +1083,14 @@ export const getHistoryTableData = (data, type) => {
     if (val.zygosity_type === type) {
       const newObj = Object.assign(
         {},
+        { id: val.id },
         { key: index + 1 },
         { created_at: val.created_at },
         { gsid: val.gsid },
         { class: val.class },
         { analystName: val.user?.name },
       );
-      arr.push({[val.id]:newObj});
+      arr.push(newObj);
       return arr;
     }
     return arr;

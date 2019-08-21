@@ -28,7 +28,7 @@ import {
   setSelectedZygosityType,
   setTestInformation
 } from "Actions/variantPageActions";
-import { getDataArray } from "Utils/helpers";
+
 import {
   GERMLINE_VARIANT_CLASS_OPTIONS,
   SOMATIC_VARIANT_CLASS_OPTIONS,
@@ -42,14 +42,12 @@ class VariantPage extends Component {
     super(props);
 
     const {
-      germlineClassHistory,
       fetchEvidenceData,
       fetchVariantMetadataData,
       match,
       fetchCH,
       setSelectedZygosityType,
-      setTestInformation,
-      somaticClassHistory
+      setTestInformation
     } = props;
     const { testId, variantId } = match.params;
     const { selectedZygosityType } = queryString.parse(window.location.search);
@@ -59,11 +57,9 @@ class VariantPage extends Component {
     setSelectedZygosityType({ selectedZygosityType, testId, variantId });
     setTestInformation({ testId, variantId });
     fetchCH(variantId);
- 
+
     this.state = {
-      sidebarToggle: true,
-      germlineClassHistoryData: getDataArray(germlineClassHistory),
-      somaticClassHistoryData: getDataArray(somaticClassHistory)
+      sidebarToggle: true
     };
   }
 
@@ -83,10 +79,11 @@ class VariantPage extends Component {
       germlineEvidence,
       testId,
       variantId,
-      isLoading
+      isLoading,
+      germlineClassHistory,
+      somaticClassHistory
     } = this.props;
 
-    const { somaticClassHistoryData, germlineClassHistoryData } = this.state;
     return (
       <div className={style["variant-page-wrapper"]}>
         {isLoading ? (
@@ -136,8 +133,8 @@ class VariantPage extends Component {
                   <ClassificationHistoryTable
                     data={
                       selectedZygosityType === TEXTS.somatic
-                        ? somaticClassHistoryData
-                        : germlineClassHistoryData
+                        ? somaticClassHistory
+                        : germlineClassHistory
                     }
                     typeData={
                       selectedZygosityType === TEXTS.somatic
