@@ -97,10 +97,10 @@ export function editEvidenceEntryApi(action) {
 
 export function deleteEvidenceEntryApi(action) {
   const {
-    ids: { testId, variantId, evidenceId }
+    ids: { variantId, evidenceId }
   } = action.payload;
   return axios_based.delete(
-    `/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`
+    `/variants/${variantId}/evidences/${evidenceId}`
   );
 }
 

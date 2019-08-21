@@ -981,7 +981,6 @@ export const createEvidenceTableData = (category, tabContent) => {
 };
 
 export const getEvidenceData = data => {
-  console.log(data);
   const newData = {
       germline_evidence: {},
       somatic_evidence: {}

@@ -170,7 +170,7 @@ if (mock) {
     zygosity_type: "germline"
   });
 
-  mock.onDelete(/\/tests\/.+\/variants\/.+\/evidences\/.+/).reply(200);
+  mock.onDelete(/\/variants\/.+\/evidences\/.+/).reply(200);
 
   mock
     .onGet(/\/tests\/.+\/variants/, { params: { mutation: "dna" } })

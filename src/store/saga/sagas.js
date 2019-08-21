@@ -76,6 +76,7 @@ import {
   setExternalResources
 } from "Actions/variantPageActions";
 import { fetchClassificationHistoryApi } from "../../api";
+import { cleanEvidenceActionData } from "Actions/evidenceConfigActions";
 
 
 function* onDelay(time) {
@@ -345,9 +346,6 @@ export function* fetchTestsSaga() {
 export function* handleZygositySaga(data) {
   try {
     const result = yield call(updateVariantApi, data);
-
-    console.log("--result: ", result);
-
     const variant = result.data;
 
     setPriority(variant);
@@ -513,16 +511,21 @@ export function* editEvidenceEntrySaga(data) {
 }
 
 export function* deleteEvidenceEntrySaga(action) {
+  console.log(action);
   try {
+    yield put(setLoading(true));
     const result = yield call(deleteEvidenceEntryApi, action);
     if (result?.status === 200) {
+      yield put(cleanEvidenceActionData());
       yield put(deleteEvidenceFromStore(action.payload));
     }
+    yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["deleteEvidenceEntrySaga"]);
       Sentry.captureException(e);
     });
+    yield put(setLoading(false));
   }
 }
 
