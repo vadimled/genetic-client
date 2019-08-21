@@ -21,16 +21,23 @@ export const setExternalResources = data => {
   };
 };
 
-export const setVariantData = data => {
+export const setVariantMetadataData = data => {
   return {
-    type: actionsTypes.SET_VARIANT_DATA,
+    type: actionsTypes.SET_VARIANT_METADATA,
     payload: data
   };
 };
 
-export const fetchVariantData = data => {
+export const setServerVariantMetadataToStore = data => {
   return {
-    type: actionsTypes.FETCH_VARIANT_DATA,
+    type: actionsTypes.SET_SERVER_VARIANT_METADATA,
+    payload: data
+  };
+};
+
+export const fetchVariantMetadataData = data => {
+  return {
+    type: actionsTypes.FETCH_VARIANT_METADATA,
     payload: data
   };
 };
@@ -101,6 +108,13 @@ export const setEditedEvidenceEntry = data => {
 export const deleteEvidenceFromStore = data => {
   return {
     type: actionsTypes.DELETE_EVIDENCE_ENTRY_FROM_STORE,
+    payload: data
+  };
+};
+
+export const setVariantLoading = data => {
+  return {
+    type: actionsTypes.SET_VARIANT_LOADING,
     payload: data
   };
 };

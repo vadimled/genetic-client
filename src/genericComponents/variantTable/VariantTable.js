@@ -66,13 +66,13 @@ class VariantTable extends Component {
         title: "Coding",
         dataIndex: "coding",
         key: "7",
-        width: 100
+        width: 150
       },
       {
         title: "Protein",
         dataIndex: "protein",
         key: "8",
-        width: 100
+        width: 200
       },
       {
         title: <TableSorter title="VAF" setSort={this.props.setSort} field="vaf" />,
@@ -87,7 +87,7 @@ class VariantTable extends Component {
         title: "Zygosity",
         dataIndex: "zygosity",
         key: "10",
-        width: 150
+        width: 200
       },
       {
         title: "Germline Class",

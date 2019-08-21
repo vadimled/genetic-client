@@ -12,7 +12,7 @@ import {
   addResult,
   editResult,
   fetchTestMetadataApi,
-  fetchVariantDataApi,
+  fetchVariantMetadataDataApi,
   updateVariantApi,
   fetchTestsApi,
   addEvidenceEntryApi,
@@ -54,17 +54,27 @@ import { setTestData, setLoading } from "Actions/testActions";
 import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
-  setVariantData,
+  setVariantMetadataData,
   setVariantClassification,
   setNewEvidenceEntry,
   setEditedEvidenceEntry,
   setEvidenceData,
-  deleteEvidenceFromStore
+  deleteEvidenceFromStore,
 } from "Actions/variantPageActions";
-import { zygosityType, setPriority, getEvidenceData, parseTableData } from "Utils/helpers";
-import { setClassificationHistoryToStore, setVariantPageLoading } from "Actions/variantPageActions";
+import {
+  setPriority,
+  getEvidenceData,
+  parseTableData,
+  parseTableDataObj,
+  createResourcesLinks
+} from "Utils/helpers";
+import {
+  setClassificationHistoryToStore,
+  setVariantPageLoading,
+  setServerVariantMetadataToStore,
+  setExternalResources
+} from "Actions/variantPageActions";
 import { fetchClassificationHistoryApi } from "../../api";
-
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -318,8 +328,7 @@ export function* fetchTableData() {
   try {
     const result = generateDNAVariantTableMockData(500);
 
-    for(let item in result){
-
+    for (let item in result) {
       const record = result[item];
 
       setPriority(record);
@@ -343,7 +352,6 @@ export function* fetchTestsSaga() {
     }
 
     yield put(setTestsLoading(false));
-
   } catch (error) {
     console.log("---error: ", error);
     yield put(setTestsLoading(false));
@@ -351,8 +359,7 @@ export function* fetchTestsSaga() {
 }
 
 export function* handleZygositySaga(data) {
-
-  try{
+  try {
     const result = yield call(updateVariantApi, data);
 
     console.log("--result: ", result);
@@ -362,19 +369,19 @@ export function* handleZygositySaga(data) {
     setPriority(variant);
 
     if (result?.status === 200) {
-      yield put(setZygosity({
-        ...data.payload,
-        record: variant
-      }));
+      yield put(
+        setZygosity({
+          ...data.payload,
+          record: variant
+        })
+      );
     }
-  }
-  catch (e) {
+  } catch (e) {
     console.log("-err: ", e);
   }
 }
 
 export function* setNotesSaga(data) {
-
   const newData = Object.assign({}, data);
 
   newData.payload = {
@@ -382,8 +389,7 @@ export function* setNotesSaga(data) {
     name: "notes"
   };
 
-  try{
-
+  try {
     yield put(setTableReducerLoading(true));
 
     const result = yield call(updateVariantApi, newData);
@@ -391,16 +397,17 @@ export function* setNotesSaga(data) {
     const variant = result.data;
 
     if (result?.status === 200) {
-      yield put(setNotesToStore({
-        // check why notes does not return from server
-        ...data.payload,
-        record: variant
-      }));
+      yield put(
+        setNotesToStore({
+          // check why notes does not return from server
+          ...data.payload,
+          record: variant
+        })
+      );
     }
 
     yield put(setTableReducerLoading(false));
-  }
-  catch (e) {
+  } catch (e) {
     yield put(setTableReducerLoading(false));
     console.log("-err: ", e);
   }
@@ -437,14 +444,20 @@ export function* fetchTableDataSaga(action) {
   }
 }
 
-export function* fetchVariantDataGenerator(data) {
+// --------------- VARIANT PAGE ---------------
+export function* fetchVariantMetadataDataSaga(action) {
   try {
-    const result = yield call(fetchVariantDataApi, data),
-      newData = zygosityType(result?.data);
-    yield put(setVariantData(newData));
+    yield put(setLoading(true));
+    const { data } = yield call(fetchVariantMetadataDataApi, action);
+    yield put(setServerVariantMetadataToStore(data));
+    const newData = parseTableDataObj(data);
+    yield put(setVariantMetadataData(newData));
+    yield put(setExternalResources(createResourcesLinks(data)));
+    yield put(setLoading(false));
   } catch (e) {
+    yield put(setLoading(false));
     Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchVariantDataGenerator"]);
+      scope.setFingerprint(["fetchVariantMetadataDataSaga"]);
       Sentry.captureException(e);
     });
   }
@@ -522,22 +535,17 @@ export function* fetchClassificationHistorySaga() {
 
     const result = yield call(fetchClassificationHistoryApi);
 
-    console.log("--result: ", result);
-
     if (result?.status === 200) {
       yield put(setClassificationHistoryToStore(result.data));
     }
 
     yield put(setVariantPageLoading(false));
-
   } catch (error) {
-    console.log("---error: ", error);
     yield put(setVariantPageLoading(false));
   }
 }
 
 export function* handleConfirmationStatusSaga(data) {
-
   const newData = Object.assign({}, data);
 
   newData.payload = {
@@ -545,8 +553,7 @@ export function* handleConfirmationStatusSaga(data) {
     name: "status"
   };
 
-  try{
-
+  try {
     yield put(setTableReducerLoading(true));
 
     const result = yield call(updateVariantApi, newData);
@@ -554,16 +561,17 @@ export function* handleConfirmationStatusSaga(data) {
     const variant = result.data;
 
     if (result?.status === 200) {
-      yield put(setConfirmationStatusToStore({
-        // check why notes does not return from server
-        ...data.payload,
-        record: variant
-      }));
+      yield put(
+        setConfirmationStatusToStore({
+          // check why notes does not return from server
+          ...data.payload,
+          record: variant
+        })
+      );
     }
 
     yield put(setTableReducerLoading(false));
-  }
-  catch (e) {
+  } catch (e) {
     yield put(setTableReducerLoading(false));
     console.log("-err: ", e);
   }

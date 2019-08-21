@@ -21,6 +21,7 @@ import {
 } from "Store/selectors";
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 import { withRouter } from "react-router-dom";
+import { zygosityTypeByName } from "Utils/helpers";
 // import { withRouter } from "react-router-dom";
 
 class VariantClassificationContainer extends React.Component {
@@ -86,11 +87,9 @@ class VariantClassificationContainer extends React.Component {
           <div className="context">{currentZygosityType}</div>
         </div>
         <div className="zygosity-type-radio-group">
-
           <div className="first-button flex items-center justify-center">
-
             <ZygosityTypeButton
-              currentZygosity={currentZygosityType}
+              currentZygosity={zygosityTypeByName(currentZygosityType)}
               selectedZygosityType={selectedZygosityType}
               type={TEXTS.germline}
               currValue={germlineValue}
@@ -105,7 +104,7 @@ class VariantClassificationContainer extends React.Component {
           </div>
 
           <ZygosityTypeButton
-            currentZygosity={currentZygosityType}
+            currentZygosity={zygosityTypeByName(currentZygosityType)}
             selectedZygosityType={selectedZygosityType}
             type={TEXTS.somatic}
             currValue={somaticValue}
@@ -117,7 +116,6 @@ class VariantClassificationContainer extends React.Component {
             onChangeClassification={this.onChangeClassification}
             onChangeSelectedZygosityType={this.onChangeSelectedZygosityType}
           />
-
         </div>
       </div>
     );
