@@ -112,6 +112,13 @@ export const deleteEvidenceFromStore = data => {
   };
 };
 
+export const setHistoryTableData = data => {
+  return {
+    type: actionsTypes.SET_HISTORY_TABLE_DATA,
+    payload: data
+  };
+};
+
 export const setVariantLoading = data => {
   return {
     type: actionsTypes.SET_VARIANT_LOADING,

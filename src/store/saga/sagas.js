@@ -3,7 +3,8 @@ import * as Sentry from "@sentry/browser";
 import {
   ALERT_STATUSES,
   ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS
+  VALIDATION_FAILD_FIELDS,
+  TEXTS
 } from "Utils/constants";
 import {
   fetchBAMFile,
@@ -60,13 +61,15 @@ import {
   setEditedEvidenceEntry,
   setEvidenceData,
   deleteEvidenceFromStore,
+  setHistoryTableData
 } from "Actions/variantPageActions";
 import {
   setPriority,
   getEvidenceData,
   parseTableData,
   parseTableDataObj,
-  createResourcesLinks
+  createResourcesLinks,
+  getHistoryTableData
 } from "Utils/helpers";
 import {
   setClassificationHistoryToStore,
@@ -531,6 +534,18 @@ export function* fetchClassificationHistorySaga(action) {
     const result = yield call(fetchClassificationHistoryApi, action);
     if (result?.status === 200) {
       yield put(setClassificationHistoryToStore(result.data));
+      yield put(
+        setHistoryTableData({
+          data: getHistoryTableData(result.data, TEXTS.somatic),
+          type: TEXTS.somatic
+        })
+      );
+      yield put(
+        setHistoryTableData({
+          data: getHistoryTableData(result.data, TEXTS.germline),
+          type: TEXTS.germline
+        })
+      );
     }
     yield put(setLoading(false));
   } catch (error) {
@@ -539,7 +554,6 @@ export function* fetchClassificationHistorySaga(action) {
       scope.setFingerprint(["fetchClassificationHistorySaga"]);
       Sentry.captureException(error);
     });
-
   }
 }
 

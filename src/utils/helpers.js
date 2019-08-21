@@ -1077,3 +1077,21 @@ export const parseTableData = array =>
   }, {});
 
 export const parseTableDataObj = data => createNewTableDataItem(data);
+
+export const getHistoryTableData = (data, type) => {
+  return data.reduce((arr, val, index) => {
+    if (val.zygosity_type === type) {
+      const newObj = Object.assign(
+        {},
+        { key: index + 1 },
+        { created_at: val.created_at },
+        { gsid: val.gsid },
+        { class: val.class },
+        { analystName: val.user?.name },
+      );
+      arr.push({[val.id]:newObj});
+      return arr;
+    }
+    return arr;
+  }, []);
+};
