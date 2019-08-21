@@ -121,12 +121,12 @@ describe("TableData", () => {
     const firstSelect = select[0];
     const rowId = firstSelect.dataset["testitemid"];
     const zygosityValue = ZYGOSITY_OPTIONS?.[0]?.value;
-    const notReal = ZYGOSITY_OPTIONS?.[5]?.value;
+    // const notReal = ZYGOSITY_OPTIONS?.[5]?.value;
     const germlineVariantClassValue =
       GERMLINE_VARIANT_CLASS_OPTIONS?.[0]?.value;
     const somaticVariantClassValue = SOMATIC_VARIANT_CLASS_OPTIONS?.[0]?.value;
-    const tier2 = SOMATIC_VARIANT_CLASS_OPTIONS?.[2]?.value;
-    const path = GERMLINE_VARIANT_CLASS_OPTIONS?.[1]?.value;
+    // const tier2 = SOMATIC_VARIANT_CLASS_OPTIONS?.[2]?.value;
+    // const path = GERMLINE_VARIANT_CLASS_OPTIONS?.[1]?.value;
 
     expect(firstSelect).toBeDefined();
     expect(rowId).toBeDefined();
@@ -162,18 +162,18 @@ describe("TableData", () => {
     // const row4 = store.getState().table.data[rowId];
     // expect(row4.variantClassGermline).toEqual(somaticVariantClassValue);
 
-    store.dispatch(handleVariantClass({ item: { id: rowId }, value: notReal }));
+    // store.dispatch(handleVariantClass({ item: { id: rowId }, value: notReal }));
 
     // const row5 = store.getState().table.data[rowId];
 
     // expect(row5.priority).toEqual(PRIORITY[notReal]);
 
-    store.dispatch(handleVariantClass({ item: { id: rowId }, value: tier2 }));
+    // store.dispatch(handleVariantClass({ item: { id: rowId }, value: tier2 }));
 
     // const row6 = store.getState().table.data[rowId];
     // expect(row6.priority).toEqual(PRIORITY[tier2]);
 
-    store.dispatch(handleVariantClass({ item: { id: rowId }, value: path }));
+    // store.dispatch(handleVariantClass({ item: { id: rowId }, value: path }));
 
     // const row7 = store.getState().table.data[rowId];
     // expect(row7.priority).toEqual(PRIORITY[path]);
