@@ -51,6 +51,9 @@
 
     .ant-btn {
       height: 44px !important;
+      & > span {
+        width: 100%;
+      }
     }
   }
 }
