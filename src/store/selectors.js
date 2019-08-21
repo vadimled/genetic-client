@@ -128,7 +128,7 @@ const getAppliedFilters = createSelector(
 
   (
     type,
-    variantClass,
+    germlineClass,
     somaticClass,
     hotSpot,
     snp,
@@ -139,15 +139,18 @@ const getAppliedFilters = createSelector(
     zygosity,
     effect
   ) => {
+    const variantClass = germlineClass.concat(somaticClass);
     const filters = {
-      ...(variantClass.length && {
+      ...((variantClass.length || somaticClass.length)  && {
         variantClass: item =>
-          variantClass.some(filter => item.variantClassGermline === filter)
+          variantClass.some(filter => {
+            return item.variantClassGermline === filter || item.variantClassSomatic === filter
+          })
       }),
-      ...(somaticClass.length && {
-        somaticClass: item =>
-          somaticClass.some(filter => item.variantClassSomatic === filter)
-      }),
+      // ...(somaticClass.length && {
+      //   somaticClass: item =>
+      //     somaticClass.some(filter => item.variantClassSomatic === filter)
+      // }),
       ...(hotSpot.length && {
         hotSpot: item => hotSpot.some(filter => item.hotSpot === filter)
       }),
