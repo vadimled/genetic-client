@@ -94,7 +94,7 @@ class ClassificationHistoryTable extends Component {
           return (
             <div className="label-custom-style">
               <LabeledTag
-                label={text}
+                value={text}
                 typeData={typeData}
               />
             </div>
@@ -115,7 +115,7 @@ class ClassificationHistoryTable extends Component {
 
   render() {
     const { data } = this.props;
-    const { length } = data;
+    const length = data ? data.length : 0;
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
 
