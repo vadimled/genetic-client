@@ -144,7 +144,7 @@ const getAppliedFilters = createSelector(
       ...((variantClass.length || somaticClass.length)  && {
         variantClass: item =>
           variantClass.some(filter => {
-            return item.variantClassGermline === filter || item.variantClassSomatic === filter
+            return item.variantClassGermline === filter || item.variantClassSomatic === filter;
           })
       }),
       // ...(somaticClass.length && {
