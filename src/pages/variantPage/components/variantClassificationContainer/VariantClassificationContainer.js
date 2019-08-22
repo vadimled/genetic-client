@@ -84,7 +84,7 @@ class VariantClassificationContainer extends React.Component {
       <div className={style["zygosity-type-wrapper"]}>
         <div className="current-zygosity-wrapper">
           <div className="title">{TEXTS.currentZygosity}</div>
-          <div className="context">{currentZygosityType}</div>
+          <div className="context">{zygosityTypeByName(currentZygosityType)}</div>
         </div>
         <div className="zygosity-type-radio-group">
           <div className="first-button flex items-center justify-center">
