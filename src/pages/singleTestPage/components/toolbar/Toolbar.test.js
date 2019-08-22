@@ -6,7 +6,7 @@ import reducers from "Store/reducers";
 import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { renderWithRedux } from "Utils/test_helpers";
-import SingleTestPage from "pages/mainPage/SingleTestPage";
+import SingleTestPage from "Pages/singleTestPage/SingleTestPage";
 // import Toolbar from "./Toolbar";
 import {
   updateSearch

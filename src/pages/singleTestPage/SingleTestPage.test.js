@@ -1,6 +1,6 @@
 import React from "react";
 import "jest-dom/extend-expect";
-import SingleTestPage from 'pages/mainPage/SingleTestPage';
+import SingleTestPage from './SingleTestPage';
 import { renderWithRedux } from "Utils/test_helpers";
 import { handleOnConfirmation } from "Actions/confirmationActions";
 import { handleUncheckConfirmationData } from "Actions/tableActions";

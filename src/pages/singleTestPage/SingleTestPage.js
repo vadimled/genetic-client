@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import style from "pages/mainPage/SingleTestPage.module.scss";
+import style from "./SingleTestPage.module.scss";
 import cn from "classnames";
 import SideBarLayout from "./components/sideBarLayout";
 import { ReactComponent as OpenedIcon } from "Assets/openedFiltersPanel.svg";
@@ -12,7 +12,7 @@ import IgvAlertPopup from "./components/igvAlertPopup";
 import SendForConfirmationPopup from "./components/sendForConfirmationPopup";
 import UncheckConfirmationPopup from "./components/uncheckConfirmationPopup";
 import Alert from "GenericComponents/alert";
-import TumorToolbar from "Pages/mainPage/components/tumorToolbar";
+import TumorToolbar from "Pages/singleTestPage/components/tumorToolbar";
 import {
   getIgvAlertShow,
   getOnConfirmation,

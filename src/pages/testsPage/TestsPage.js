@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import style from "./TestsPage.module.scss";
-// import SideBarLayout from "Pages/mainPage/components/sideBarLayout";
+// import SideBarLayout from "Pages/singleTestPage/components/sideBarLayout";
 // import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
 // import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
 import { connect } from "react-redux";

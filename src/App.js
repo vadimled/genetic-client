@@ -1,9 +1,9 @@
 import React from "react";
 import "Css/App.scss";
 import { Route, Switch } from "react-router-dom";
-import SingleTestPage from "Pages/mainPage";
-import Header from "Pages/mainPage/components/header";
-import ResultConfig from "Pages/mainPage/components/resultConfig";
+import SingleTestPage from "Pages/singleTestPage";
+import Header from "Pages/singleTestPage/components/header";
+import ResultConfig from "Pages/singleTestPage/components/resultConfig";
 import EvidenceConfig from "variantComponents/evidenceConfig";
 import VariantPage from "variantPage/";
 import TestsPage from "Pages/testsPage";
