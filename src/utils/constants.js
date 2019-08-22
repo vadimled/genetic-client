@@ -673,5 +673,5 @@ export const EXTERNAL_RESOURCES_SOMATIC = [
 ];
 
 export const ROUTES = {
-  isVariantPageRegex :"/variant/.+"
+  isVariantPageRegex :"/variants/.+"
 };
