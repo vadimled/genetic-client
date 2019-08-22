@@ -203,7 +203,6 @@ export const getFilteredData = createSelector(
   getSortOrder,
   (data, appliedFilters, sortParam, order) => {
     if (isEmpty(appliedFilters)) {
-
       const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
       return sortedData;
     }
