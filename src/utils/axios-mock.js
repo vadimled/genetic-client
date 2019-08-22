@@ -179,4 +179,21 @@ if (mock) {
   mock
     .onGet(/\/variants\/.+\/classification/)
     .reply(() => [200, generateHistoryTableMockData(20)]);
+  
+  
+  mock.onGet(/\/tests/).reply(200, [
+    {
+      id: "5d511f574651a20020a0ab50",
+      gsid: "GS00115",
+      panel_type: "risk",
+      mutation_types: ["dna", "rna", "agena"],
+      tumor_info: {
+        type: "pheochromocytoma",
+        location: "gallbladder",
+        cancer_cell_percentage: 70
+      },
+      created_at: Date()
+    }
+  ]);
+  
 }
