@@ -19,6 +19,7 @@ const evidenceConfigReducer = createReducer(initialState, {
       status = Object.assign(
         {},
         { actionSlideBarStatus: false },
+        { id: null },
         { mode: null },
         { evidenceTypeSelect: null },
         { evidenceSourceInput: null },
@@ -43,10 +44,17 @@ const evidenceConfigReducer = createReducer(initialState, {
       ...status
     };
   },
+  
   [actionsTypes.SET_EVIDENCE_ACTION_DATA]: (state, { payload }) => {
     return {
       ...state,
       ...payload
+    };
+  },
+  
+  [actionsTypes.CLEAN_EVIDENCE_ACTION_DATA]: () => {
+    return {
+      ...initialState
     };
   }
 });

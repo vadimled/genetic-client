@@ -6,15 +6,16 @@ import TabPaneHeader from "variantComponents/evidenceContainer/components/tabPan
 import EvidenceTable from "variantComponents/evidenceContainer/components/evidenceTable";
 import ActionDeleteEvidence from "variantComponents/evidenceContainer/components/actionDeleteEvidence";
 import {
+  getEvidenceConfigId,
   getSubmitData,
-  getTabPaneHeaders,
-  getEvidenceConfigId
+  getTabPaneHeaders
 } from "Store/selectors";
 import { connect } from "react-redux";
 import SimpleButton from "GenericComponents/simpleButton";
 import {
-  setEvidenceActionMode,
-  deleteEvidenceEntry
+  cleanEvidenceActionData,
+  deleteEvidenceEntry,
+  setEvidenceActionMode
 } from "Actions/evidenceConfigActions";
 import { TEXTS } from "Utils/constants";
 
@@ -25,17 +26,8 @@ class EvidenceContainer extends Component {
     super(props);
 
     this.state = {
-      isDelete: false,
-      deleteId: null
+      showPopupDelete: false
     };
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    if (props.id && state.deleteId && props.id === state.deleteId) {
-      props.deleteEvidenceEntry(props.deleteData);
-      return { isDelete: !state.isDelete, deleteId: null };
-    }
-    return null;
   }
 
   handleAddEvidence = () => {
@@ -56,19 +48,23 @@ class EvidenceContainer extends Component {
   };
 
   handleDeleteEntry = (e, id) => {
-    this.setState({ isDelete: !this.state.isDelete, deleteId: id });
-  };
-
-  handleDeleteYes = () => {
+    this.setState({ showPopupDelete: !this.state.showPopupDelete });
     this.props.onAction({
       actionSlideBarStatus: false,
-      id: this.state.deleteId,
+      id,
       mode: TEXTS.delete
     });
   };
 
+  handleDeleteYes = () => {
+    const { deleteEntry, deleteData } = this.props;
+    deleteEntry(deleteData);
+    this.setState({ showPopupDelete: !this.state.showPopupDelete });
+  };
+
   handleDeleteNo = () => {
-    this.setState({ isDelete: !this.state.isDelete, deleteId: null });
+    this.setState({ showPopupDelete: !this.state.showPopupDelete });
+    this.props.cleanData();
   };
 
   render() {
@@ -109,7 +105,7 @@ class EvidenceContainer extends Component {
               );
             })}
         </Tabs>
-        {this.state.isDelete && (
+        {this.state.showPopupDelete && (
           <ActionDeleteEvidence
             onClickYes={this.handleDeleteYes}
             onClickNo={this.handleDeleteNo}
@@ -140,7 +136,8 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     onAction: status => dispatch(setEvidenceActionMode(status)),
-    deleteEvidenceEntry: data => dispatch(deleteEvidenceEntry(data))
+    deleteEntry: data => dispatch(deleteEvidenceEntry(data)),
+    cleanData: () => dispatch(cleanEvidenceActionData())
   };
 }
 

@@ -9,24 +9,7 @@ const initialState = {
   selectedZygosityType: null,
   classificationHistory: [],
   somaticClassHistory: null,
-  //  "1gzhbamall3xfe2gzdmlnw9aj": {
-  //   key: 1,
-  //   created_at: "5/Jul/2017",
-  //   gsid: "GS00115NP050817_TS1_01",
-  //   analystName: "Lior GoldBerg",
-  //   class: "Unclassified"
-  // },
-
   germlineClassHistory: null
-  // {
-  // "10zhbamall3xfe2gzdmlnw9aj": {
-  //     key: 11,
-  //     created_at: "3/nov/2017",
-  //     gsid: "GS00115NP050838_TS1_01",
-  //     analystName: "Taly Yafe",
-  //     class: "VUS"
-  //   }
-  // }
 };
 
 const variantPageReducer = createReducer(initialState, {
@@ -99,13 +82,14 @@ const variantPageReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_NEW_EVIDENCE_ENTRY]: (state, { payload }) => {
-    const { id, classification } = payload;
+    const { zygosity_type, id } = payload;
     delete payload.id;
 
-    const targetDataName =
-        classification === TEXTS.germline
-          ? "germline_evidence"
-          : "somatic_evidence",
+    const
+      targetDataName = zygosity_type === TEXTS.germline
+        ? "germline_evidence"
+        : "somatic_evidence",
+      
       targetData = { ...state[targetDataName], [id]: payload };
     return {
       ...state,
@@ -114,38 +98,38 @@ const variantPageReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_EDITED_EVIDENCE_ENTRY]: (state, { payload }) => {
-    const { id, classification } = payload;
+    const { zygosity_type, id  } = payload;
     delete payload.id;
-
-    const targetDataName =
-        classification === TEXTS.germline
-          ? "germline_evidence"
-          : "somatic_evidence",
+  
+    const
+      targetDataName = zygosity_type === TEXTS.germline
+        ? "germline_evidence"
+        : "somatic_evidence",
+    
       targetData = { ...state[targetDataName], [id]: payload };
     return {
       ...state,
       [targetDataName]: targetData
     };
   },
-
+  
   [actionsTypes.DELETE_EVIDENCE_ENTRY_FROM_STORE]: (state, { payload }) => {
-    const {
-        ids: { evidenceId },
-        data: { classification }
-      } = payload,
-      targetDataName =
-        classification === TEXTS.germline
-          ? "germline_evidence"
-          : "somatic_evidence",
+    const
+      { ids: {evidenceId } , data:{ zygosity_type } } = payload,
+    
+      targetDataName =  zygosity_type === TEXTS.germline
+        ? "germline_evidence"
+        : "somatic_evidence",
+      
       targetData = Object.assign({}, state[targetDataName]);
-
+    
     delete targetData[evidenceId];
     return {
       ...state,
       [targetDataName]: targetData
     };
   },
-
+  
   [actionsTypes.SET_EVIDENCE_DATA]: (state, { payload }) => {
     return {
       ...state,

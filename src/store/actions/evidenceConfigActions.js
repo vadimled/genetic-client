@@ -35,4 +35,11 @@ export const deleteEvidenceEntry = data => {
   };
 };
 
+export const cleanEvidenceActionData = data => {
+  return {
+    type: actionsTypes.CLEAN_EVIDENCE_ACTION_DATA,
+    payload: data
+  };
+};
+
 

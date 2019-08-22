@@ -77,7 +77,7 @@ export function addEvidenceEntryApi(action) {
   } = action.payload;
 
   return axios_based.post(`/tests/${testId}/variants/${variantId}/evidences`, {
-    data
+    ...data
   });
 }
 
@@ -90,23 +90,22 @@ export function editEvidenceEntryApi(action) {
   return axios_based.put(
     `/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`,
     {
-      data
+      ...data
     }
   );
 }
 
 export function deleteEvidenceEntryApi(action) {
   const {
-    ids: { testId, variantId, evidenceId }
+    ids: { variantId, evidenceId }
   } = action.payload;
   return axios_based.delete(
-    `/tests/${testId}/variants/${variantId}/evidences/${evidenceId}`
+    `/variants/${variantId}/evidences/${evidenceId}`
   );
 }
 
 export function fetchEvidenceDataApi(action) {
-  const { testId, variantId } = action.payload;
-  return axios_based.get(`/tests/${testId}/variants/${variantId}/evidences`);
+  return axios_based.get(`/variants/${action.payload}/evidences`);
 }
 
 export function fetchTableDataApi(action) {

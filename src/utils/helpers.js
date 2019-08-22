@@ -990,9 +990,9 @@ export const getEvidenceData = data => {
       delete newObj.id;
       return newObj;
     };
-  data.evidences.map(evidence => {
+  data.map(evidence => {
     const targetDataName =
-      evidence.classification === TEXTS.germline
+      evidence.zygosity_type === TEXTS.germline
         ? "germline_evidence"
         : "somatic_evidence";
 
@@ -1033,7 +1033,7 @@ const createNewTableDataItem = ({
   somatic_class,
   status,
   transcript,
-  variant,
+  percentage_variants,
   zygosity
 }) => {
   let newObj = {};
@@ -1048,7 +1048,7 @@ const createNewTableDataItem = ({
   newObj.zygosity = zygosity;
   newObj.protein = hgvs_p;
   newObj.coverage = parseInt(dp, 10);
-  newObj.vaf = createVaf(variant);
+  newObj.vaf = createVaf(percentage_variants);
   newObj.notes = notes;
   newObj.coding = hgvs_c.length > 12 ? hgvs_c.slice(0, 12) : hgvs_c;
   newObj.codingLong = hgvs_c;

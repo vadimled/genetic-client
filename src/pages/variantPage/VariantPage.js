@@ -16,17 +16,18 @@ import {
   getLoadingStatus,
   getSomaticEvidence,
   getVariantData,
+  getZygosityType,
   getVariantId,
-  getVariantPageTestId,
-  getZygosityType
+  getVariantPageTestId
 } from "Store/selectors";
 import { connect } from "react-redux";
 import {
-  fetchClassificationHistory,
   fetchEvidenceData,
   fetchVariantMetadataData,
+  setExternalResources,
   setSelectedZygosityType,
-  setTestInformation
+  setTestInformation,
+  fetchClassificationHistory
 } from "Actions/variantPageActions";
 
 import {
@@ -35,7 +36,7 @@ import {
   TEXTS
 } from "Utils/constants";
 import queryString from "query-string";
-import Spinner from "GenericComponents/spinner";
+import Spinner from "GenericComponents/spinner/Spinner";
 
 class VariantPage extends Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class VariantPage extends Component {
     const { selectedZygosityType } = queryString.parse(window.location.search);
 
     fetchVariantMetadataData({ testId, variantId });
-    fetchEvidenceData({ testId, variantId });
+    fetchEvidenceData(variantId);
     setSelectedZygosityType({ selectedZygosityType, testId, variantId });
     setTestInformation({ testId, variantId });
     fetchCH(variantId);
@@ -151,12 +152,12 @@ class VariantPage extends Component {
                 >
                   <EvidenceContainer
                     data={
-                      selectedZygosityType === TEXTS.somatic
+                      selectedZygosityType === "somatic"
                         ? somaticEvidence
                         : germlineEvidence
                     }
                     typeData={
-                      selectedZygosityType === TEXTS.somatic
+                      selectedZygosityType === "somatic"
                         ? SOMATIC_VARIANT_CLASS_OPTIONS
                         : GERMLINE_VARIANT_CLASS_OPTIONS
                     }
@@ -190,6 +191,7 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setResources: data => dispatch(setExternalResources(data)),
     fetchCH: data => dispatch(fetchClassificationHistory(data)),
     fetchVariantMetadataData: data => dispatch(fetchVariantMetadataData(data)),
     fetchEvidenceData: data => dispatch(fetchEvidenceData(data)),

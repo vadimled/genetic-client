@@ -50,7 +50,6 @@ import {
   handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
-import { generateDNAVariantTableMockData } from "Utils/mockdata-generator";
 import { setTestData, setLoading } from "Actions/testActions";
 import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
@@ -77,6 +76,8 @@ import {
   setExternalResources
 } from "Actions/variantPageActions";
 import { fetchClassificationHistoryApi } from "../../api";
+import { cleanEvidenceActionData } from "Actions/evidenceConfigActions";
+
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -326,23 +327,6 @@ export function* resultConfigEditResultGenerator(data) {
   }
 }
 
-export function* fetchTableData() {
-  try {
-    const result = generateDNAVariantTableMockData(500);
-
-    for (let item in result) {
-      const record = result[item];
-
-      setPriority(record);
-    }
-
-    yield put(setParsedDataToStore(result));
-    // yield put(setLoading(false));
-  } catch (error) {
-    console.log("---error: ", error);
-  }
-}
-
 export function* fetchTestsSaga() {
   try {
     yield put(setTestsLoading(true));
@@ -355,7 +339,6 @@ export function* fetchTestsSaga() {
 
     yield put(setTestsLoading(false));
   } catch (error) {
-    console.log("---error: ", error);
     yield put(setTestsLoading(false));
   }
 }
@@ -363,7 +346,6 @@ export function* fetchTestsSaga() {
 export function* handleZygositySaga(data) {
   try {
     const result = yield call(updateVariantApi, data);
-
     const variant = result.data;
 
     setPriority(variant);
@@ -376,8 +358,13 @@ export function* handleZygositySaga(data) {
         })
       );
     }
-  } catch (e) {
-    console.log("-err: ", e);
+  }
+  catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["handleZygositySaga"]);
+      Sentry.captureException(e);
+    });
+  
   }
 }
 
@@ -479,52 +466,66 @@ export function* sendVariantClassGenerator(variantClass) {
 
 export function* fetchEvidenceDataSaga(data) {
   try {
+    yield put(setLoading(true));
     const result = yield call(fetchEvidenceDataApi, data),
       newData = getEvidenceData(result.data);
     yield put(setEvidenceData(newData));
+    yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchEvidenceDataSaga"]);
       Sentry.captureException(e);
     });
+    yield put(setLoading(false));
   }
 }
 
 export function* addEvidenceEntrySaga(data) {
   try {
+    yield put(setLoading(true));
     const result = yield call(addEvidenceEntryApi, data);
     yield put(setNewEvidenceEntry(result.data));
+    yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["addEvidenceEntrySaga"]);
       Sentry.captureException(e);
     });
+    yield put(setLoading(false));
   }
 }
 
 export function* editEvidenceEntrySaga(data) {
   try {
+    yield put(setLoading(true));
     const result = yield call(editEvidenceEntryApi, data);
     yield put(setEditedEvidenceEntry(result.data));
+    yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["editEvidenceEntrySaga"]);
       Sentry.captureException(e);
     });
+    yield put(setLoading(false));
   }
 }
 
 export function* deleteEvidenceEntrySaga(action) {
+  console.log(action);
   try {
+    yield put(setLoading(true));
     const result = yield call(deleteEvidenceEntryApi, action);
     if (result?.status === 200) {
+      yield put(cleanEvidenceActionData());
       yield put(deleteEvidenceFromStore(action.payload));
     }
+    yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["deleteEvidenceEntrySaga"]);
       Sentry.captureException(e);
     });
+    yield put(setLoading(false));
   }
 }
 
