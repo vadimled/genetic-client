@@ -6,7 +6,7 @@ import reducers from "Store/reducers";
 import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { renderWithRedux } from "Utils/test_helpers";
-import MainPage from "Pages/mainPage/MainPage";
+import SingleTestPage from "Pages/singleTestPage/SingleTestPage";
 // import Toolbar from "./Toolbar";
 import {
   updateSearch
@@ -34,7 +34,7 @@ const initSteps = () => {
   const sagaMiddleware = createSagaMiddleware();
   const { getByTestId, store, getAllByTestId } = renderWithRedux(
     <Router>
-      <MainPage />
+      <SingleTestPage />
     </Router>,
     createStore(reducers, applyMiddleware(sagaMiddleware))
   );

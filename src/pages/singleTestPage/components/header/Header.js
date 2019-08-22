@@ -3,7 +3,7 @@ import style from "./Header.module.scss";
 import HeaderIcon from "GenericComponents/headerIcon";
 import { ReactComponent as NotificationIcon } from "Assets/notifications.svg";
 import { ReactComponent as InfoIcon } from "Assets/info.svg";
-import User from "Pages/mainPage/components/header/components/user";
+import User from "Pages/singleTestPage/components/header/components/user";
 import { getTumorInfoMode, getTestId, getVariantPageTestId } from "Store/selectors";
 import { setTumorInfoMode } from "Actions/testActions";
 import { connect } from "react-redux";

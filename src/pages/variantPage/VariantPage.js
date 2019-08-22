@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import style from "./VariantPage.module.scss";
 import cn from "classnames";
-import SideBarLayout from "Pages/mainPage/components/sideBarLayout";
+import SideBarLayout from "Pages/singleTestPage/components/sideBarLayout";
 import VariantPageHeader from "variantComponents/variantPageHeader";
 import ExternalResources from "variantComponents/externalResources";
 import ClassificationHistoryTable from "variantComponents/classificationHistoryTable";

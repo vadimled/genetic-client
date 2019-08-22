@@ -4,7 +4,7 @@ import "jest-dom/extend-expect";
 import { renderWithRedux } from "Utils/test_helpers";
 import App from "../../../../App";
 import { BrowserRouter as Router } from "react-router-dom";
-import TumorToolbar from "Pages/mainPage/components/tumorToolbar/TumorToolbar";
+import TumorToolbar from "Pages/singleTestPage/components/tumorToolbar/TumorToolbar";
 import { setTumorInfo } from "Actions/testActions";
 
 describe("Tumor Toolbar", () => {

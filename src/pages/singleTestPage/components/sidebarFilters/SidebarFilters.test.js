@@ -5,10 +5,10 @@ import { watchSaga } from "Store/saga";
 import reducers from "Store/reducers";
 import { fireEvent, waitForElement } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import SidebarFilters from "Pages/mainPage/components/sidebarFilters/SidebarFilters";
+import SidebarFilters from "Pages/singleTestPage/components/sidebarFilters/SidebarFilters";
 import { renderWithRedux } from "Utils/test_helpers";
 import { setFilterVaf } from "Store/actions/filtersActions";
-import MainPage from "../../MainPage";
+import SingleTestPage from "Pages/singleTestPage/SingleTestPage";
 import { fetchTestMetadata } from "../../../../store/actions/testActions";
 import { fetchTableData } from "../../../../store/actions/tableActions";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -18,7 +18,7 @@ const initSteps = () => {
   const sagaMiddleware = createSagaMiddleware();
   const { getByTestId, store, getAllByTestId } = renderWithRedux(
     <Router>
-      <MainPage />
+      <SingleTestPage />
     </Router>,
     createStore(reducers, applyMiddleware(sagaMiddleware))
   );

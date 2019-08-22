@@ -6,7 +6,7 @@ import SimpleSelect from "GenericComponents/simpleSelect";
 import Search from "GenericComponents/search";
 import style from "./Toolbar.module.scss";
 import { MUTATION } from "Utils/constants";
-import NumberVariants from "Pages/mainPage/components/numberVariants";
+import NumberVariants from "Pages/singleTestPage/components/numberVariants";
 import IgvLoadBAM from "./components/IgvLoadBAM";
 import AddResult from "./components/addResult";
 import EditResult from "./components/editResult";

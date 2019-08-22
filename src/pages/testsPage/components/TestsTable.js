@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
 
-import TableLayout from "../../mainPage/components/tableLayout";
+import TableLayout from "../../singleTestPage/components/tableLayout";
 import EmptyState from "GenericComponents/emptyState";
 import {
   getFilteredData,
