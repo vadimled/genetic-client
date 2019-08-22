@@ -1,80 +1,66 @@
-import { call, put, delay } from "redux-saga/effects";
+import { call, delay, put } from "redux-saga/effects";
 import * as Sentry from "@sentry/browser";
+import { ALERT_STATUSES, ALLELE_TYPES, TEXTS, VALIDATION_FAILD_FIELDS } from "Utils/constants";
 import {
-  ALERT_STATUSES,
-  ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS,
-  TEXTS
-} from "Utils/constants";
-import {
+  addEvidenceEntryApi,
+  addResult,
+  deleteEvidenceEntryApi,
+  editEvidenceEntryApi,
+  editResult,
   fetchBAMFile,
+  fetchEvidenceDataApi,
+  fetchTableDataApi,
+  fetchTestMetadataApi,
+  fetchTestsApi,
+  fetchVariantMetadataDataApi,
   goToChrPositionIgv,
   loadHgvs,
-  addResult,
-  editResult,
-  fetchTestMetadataApi,
-  fetchVariantMetadataDataApi,
-  updateVariantApi,
-  fetchTestsApi,
-  addEvidenceEntryApi,
-  editEvidenceEntryApi,
-  fetchEvidenceDataApi,
-  deleteEvidenceEntryApi,
-  fetchTableDataApi
+  updateVariantApi
 } from "Api/index";
-import {
-  handleIgvAlertShow,
-  setFetchBAMFileStatus,
-  setIgvLastQuery
-} from "Actions/igvActions";
+import { handleIgvAlertShow, setFetchBAMFileStatus, setIgvLastQuery } from "Actions/igvActions";
 import {
   applyConfirmation,
-  tableDataAddResult,
-  tableDataEditResult,
+  setConfirmationStatusToStore,
+  setNotesToStore,
   setParsedDataToStore,
   setServerDataToStore,
-  setZygosity,
-  setNotesToStore,
   setTableReducerLoading,
-  setConfirmationStatusToStore
+  setZygosity,
+  tableDataAddResult,
+  tableDataEditResult
 } from "Actions/tableActions";
-import {
-  handleOnConfirmation,
-  setConfirmationData
-} from "Actions/confirmationActions";
+import { handleOnConfirmation, setConfirmationData } from "Actions/confirmationActions";
 import { setAlert } from "Actions/alertActions";
 import {
   handleResultConfigCoding,
+  handleResultConfigIsHgvsLoaded,
   handleResultConfigProtein,
   handleResultConfigValidationFaildFields,
-  handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
-import { setTestData, setLoading } from "Actions/testActions";
-import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
+import { setLoading, setTestData } from "Actions/testActions";
+import { setTestsLoading, setTestsToStore } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
-  setVariantMetadataData,
-  setVariantClassification,
-  setNewEvidenceEntry,
+  deleteEvidenceFromStore,
+  setClassificationHistoryToStore,
   setEditedEvidenceEntry,
   setEvidenceData,
-  deleteEvidenceFromStore,
-  setHistoryTableData
+  setExternalResources,
+  setHistoryTableData,
+  setNewEvidenceEntry,
+  setServerVariantMetadataToStore,
+  setVariantClassification,
+  setVariantMetadataData
 } from "Actions/variantPageActions";
 import {
-  setPriority,
+  createResourcesLinks,
   getEvidenceData,
+  getHistoryTableData,
   parseTableData,
   parseTableDataObj,
-  createResourcesLinks,
-  getHistoryTableData
+  setPriority
 } from "Utils/helpers";
-import {
-  setClassificationHistoryToStore,
-  setServerVariantMetadataToStore,
-  setExternalResources
-} from "Actions/variantPageActions";
 import { fetchClassificationHistoryApi } from "../../api";
 import { cleanEvidenceActionData } from "Actions/evidenceConfigActions";
 
@@ -369,34 +355,36 @@ export function* handleZygositySaga(data) {
 }
 
 export function* setNotesSaga(data) {
-  const newData = Object.assign({}, data);
-
+  const
+    newData = {...data},
+    { notes, testId, variantId } = data.payload;
+  
   newData.payload = {
-    value: data.payload.notes,
-    name: "notes"
+    value: notes,
+    name: "notes",
+    testId: testId,
+    variantId: variantId
   };
-
   try {
-    yield put(setTableReducerLoading(true));
-
+    yield put(setLoading(true));
     const result = yield call(updateVariantApi, newData);
-
-    const variant = result.data;
-
     if (result?.status === 200) {
       yield put(
         setNotesToStore({
-          // check why notes does not return from server
           ...data.payload,
-          record: variant
+          record: result.data
         })
       );
     }
-
-    yield put(setTableReducerLoading(false));
-  } catch (e) {
-    yield put(setTableReducerLoading(false));
-    console.log("-err: ", e);
+  
+    yield put(setLoading(false));
+  }
+  catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["setNotesSaga"]);
+      Sentry.captureException(e);
+    });
+    yield put(setLoading(false));
   }
 }
 
