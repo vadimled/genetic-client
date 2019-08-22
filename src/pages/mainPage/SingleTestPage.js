@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import style from "./MainPage.module.scss";
+import style from "pages/mainPage/SingleTestPage.module.scss";
 import cn from "classnames";
 import SideBarLayout from "./components/sideBarLayout";
 import { ReactComponent as OpenedIcon } from "Assets/openedFiltersPanel.svg";
@@ -32,7 +32,7 @@ import Spinner from "GenericComponents/spinner";
 import { withRouter } from "react-router-dom";
 import { fetchTableData } from "Actions/tableActions";
 
-class MainPage extends Component {
+class SingleTestPage extends Component {
   constructor(props) {
     super(props);
     props.fetchTestMetadata(props?.match?.params?.testId);
@@ -155,5 +155,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(MainPage)
+  )(SingleTestPage)
 );

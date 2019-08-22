@@ -1,7 +1,7 @@
 import React from "react";
 import "Css/App.scss";
 import { Route, Switch } from "react-router-dom";
-import MainPage from "Pages/mainPage";
+import SingleTestPage from "Pages/mainPage";
 import Header from "Pages/mainPage/components/header";
 import ResultConfig from "Pages/mainPage/components/resultConfig";
 import EvidenceConfig from "variantComponents/evidenceConfig";
@@ -16,7 +16,7 @@ function App() {
       </div>
       <Switch>
         <Route path="/" exact component={TestsPage} />
-        <Route path="/tests/:testId" exact component={MainPage} />
+        <Route path="/tests/:testId" exact component={SingleTestPage} />
         <Route path="/tests/:testId/variants/:variantId/" component={VariantPage} />
       </Switch>
       <ResultConfig />

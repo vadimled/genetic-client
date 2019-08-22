@@ -8,7 +8,7 @@ import "jest-dom/extend-expect";
 import SidebarFilters from "Pages/mainPage/components/sidebarFilters/SidebarFilters";
 import { renderWithRedux } from "Utils/test_helpers";
 import { setFilterVaf } from "Store/actions/filtersActions";
-import MainPage from "../../MainPage";
+import SingleTestPage from "pages/mainPage/SingleTestPage";
 import { fetchTestMetadata } from "../../../../store/actions/testActions";
 import { fetchTableData } from "../../../../store/actions/tableActions";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -18,7 +18,7 @@ const initSteps = () => {
   const sagaMiddleware = createSagaMiddleware();
   const { getByTestId, store, getAllByTestId } = renderWithRedux(
     <Router>
-      <MainPage />
+      <SingleTestPage />
     </Router>,
     createStore(reducers, applyMiddleware(sagaMiddleware))
   );
