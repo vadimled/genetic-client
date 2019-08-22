@@ -174,7 +174,7 @@ if (mock) {
 
   mock
     .onGet(/\/tests\/.+\/variants/, { params: { mutation: "dna" } })
-    .reply(() => [200, generateDNAVariantTableMockData(50)]);
+    .reply(() => [200, generateDNAVariantTableMockData(20)]);
 
   mock
     .onGet(/\/variants\/.+\/classification/)

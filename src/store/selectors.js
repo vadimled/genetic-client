@@ -204,7 +204,7 @@ export const getFilteredData = createSelector(
   (data, appliedFilters, sortParam, order) => {
     if (isEmpty(appliedFilters)) {
 
-      const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
+      const sortedData = data.sort((a, b) => a.priority - b.priority).slice();
       return sortedData;
     }
 
