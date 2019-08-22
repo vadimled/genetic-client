@@ -7,12 +7,8 @@ import { TEXTS } from "Utils/constants";
 
 function LabeledTag({ value, label, typeData, tagColor, customClassName }) {
 
-  // console.log("--typeData: ", typeData)
-  // console.log("--value: ", value)
-  // console.log("--label: ", label)
-
   if(!label && !value){
-    return null
+    return null;
   }
 
   let type;
