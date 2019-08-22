@@ -121,8 +121,15 @@ class SidebarFilters extends Component {
   filtersConfigConverter = initFilters => {
     return {
       [FILTERS.zygosity]: initFilters[FILTERS.zygosity],
-      [FILTERS.variantClassGermline]: initFilters[FILTERS.variantClassGermline],
-      [FILTERS.variantClassSomatic]: initFilters[FILTERS.variantClassSomatic],
+
+      ["variantClass"]: {
+        title: "Variant class",
+        type: ["somatic"],
+        children: {
+          [FILTERS.variantClassGermline]: initFilters[FILTERS.variantClassGermline],
+          [FILTERS.variantClassSomatic]: initFilters[FILTERS.variantClassSomatic],
+        }
+      },
       ["variantPanels"]: {
         title: "Variant panels",
         type: ["somatic"],
