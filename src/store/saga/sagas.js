@@ -55,7 +55,6 @@ import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
   setVariantMetadataData,
-  setVariantClassification,
   setNewEvidenceEntry,
   setEditedEvidenceEntry,
   setEvidenceData,
@@ -449,12 +448,14 @@ export function* fetchVariantMetadataDataSaga(action) {
   }
 }
 
-export function* sendVariantClassGenerator(variantClass) {
+export function* sendVariantClassGenerator(action) {
   try {
-    const result = yield call(updateVariantApi, variantClass);
-
-    if (result?.status === 200) {
-      yield put(setVariantClassification(variantClass.payload));
+    const {status, data} = yield call(updateVariantApi, action);
+    if (status === 200) {
+      yield put(setServerVariantMetadataToStore(data));
+      const newData = parseTableDataObj(data);
+      yield put(setVariantMetadataData(newData));
+      yield put(setExternalResources(createResourcesLinks(data)));
     }
   } catch (e) {
     Sentry.withScope(scope => {
