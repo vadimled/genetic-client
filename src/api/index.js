@@ -116,3 +116,7 @@ export function fetchTableDataApi(action) {
     }
   });
 }
+
+export function exportTableApi(testId) {
+  return axios_based.post(`/tests/${testId}/export`, {gsId: testId});
+}
