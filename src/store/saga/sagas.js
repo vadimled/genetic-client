@@ -228,9 +228,11 @@ export function* fetchBAMFileGenerator(data) {
 
 export function* goToChrPositionIgvGenerator(data) {
   try {
+    yield put(setLoading(true));
     yield put(setIgvLastQuery({ type: "CHR_POS", data: data.payload }));
     yield call(goToChrPositionIgv, data.payload);
     yield put(setIgvLastQuery(null));
+    yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["goToChrPositionIgvGenerator"]);
@@ -238,6 +240,7 @@ export function* goToChrPositionIgvGenerator(data) {
     });
     yield consoleErrors(e);
     yield put(handleIgvAlertShow(true));
+    yield put(setLoading(false));
   }
 }
 

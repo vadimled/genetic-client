@@ -10,7 +10,8 @@ const VariantPageHeader = ({
   sidebarToggle,
   variantData,
   testId,
-  variantId
+  variantId,
+  onChrPosition
 }) => {
   const {
     gene,
@@ -20,9 +21,14 @@ const VariantPageHeader = ({
     coding,
     codingLong,
     transcript,
-    alleleChangeLong,
-    onChrPosition
+    alleleChangeLong
   } = variantData || {};
+  
+  const externalHandler = () => {
+    console.log("externalHandler");
+    onChrPosition(chrPosition);
+  };
+  
   return (
     <div className={style["variant-page-header-wrapper"]}>
       <div className="left-data-wrapper">
@@ -35,8 +41,9 @@ const VariantPageHeader = ({
           </div>
           <div className="gene gene-external-link">
             <ExternalLink
+              name={"chrPosition"}
               data={chrPosition}
-              externalHandler={onChrPosition}
+              externalHandler={externalHandler}
             />
           </div>
           <div className="gene">

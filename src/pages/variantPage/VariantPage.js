@@ -18,7 +18,8 @@ import {
   getVariantData,
   getZygosityType,
   getVariantId,
-  getVariantPageTestId
+  getVariantPageTestId,
+  getIgvAlertShow
 } from "Store/selectors";
 import { connect } from "react-redux";
 import {
@@ -37,6 +38,8 @@ import {
 } from "Utils/constants";
 import queryString from "query-string";
 import Spinner from "GenericComponents/spinner/Spinner";
+import { goToChrPositionIgv } from "Actions/igvActions";
+import IgvAlertPopup from "Pages/singleTestPage/components/igvAlertPopup/IgvAlertPopup";
 
 class VariantPage extends Component {
   constructor(props) {
@@ -70,8 +73,8 @@ class VariantPage extends Component {
     });
   };
   
-  handelChrPosition = (e, data) => {
-    console.log({ e: e.target, data });
+  handelChrPosition = chrPosition => {
+    this.props.goToChrPositionIgv(chrPosition);
   };
   
   render() {
@@ -86,7 +89,8 @@ class VariantPage extends Component {
       variantId,
       isLoading,
       germlineClassHistory,
-      somaticClassHistory
+      somaticClassHistory,
+      isIgvAlertShow
     } = this.props;
 
     return (
@@ -170,6 +174,7 @@ class VariantPage extends Component {
                 </div>
               </div>
             </div>
+            {!!isIgvAlertShow && <IgvAlertPopup />}
           </Fragment>
         )}
       </div>
@@ -190,7 +195,8 @@ const mapStateToProps = state => {
     selectedZygosityType: getZygosityType(state),
     testId: getVariantPageTestId(state),
     isLoading: getLoadingStatus(state),
-    variantId: getVariantId(state)
+    variantId: getVariantId(state),
+    isIgvAlertShow: getIgvAlertShow(state),
   };
 };
 
@@ -201,7 +207,8 @@ function mapDispatchToProps(dispatch) {
     fetchVariantMetadataData: data => dispatch(fetchVariantMetadataData(data)),
     fetchEvidenceData: data => dispatch(fetchEvidenceData(data)),
     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
-    setTestInformation: data => dispatch(setTestInformation(data))
+    setTestInformation: data => dispatch(setTestInformation(data)),
+    goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
   };
 }
 
