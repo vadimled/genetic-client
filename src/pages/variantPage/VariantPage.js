@@ -69,7 +69,11 @@ class VariantPage extends Component {
       sidebarToggle: !this.state.sidebarToggle
     });
   };
-
+  
+  handelChrPosition = (e, data) => {
+    console.log({ e: e.target, data });
+  };
+  
   render() {
     const { sidebarToggle } = this.state;
     const {
@@ -122,6 +126,7 @@ class VariantPage extends Component {
                   variantData={variantData}
                   testId={testId}
                   variantId={variantId}
+                  onChrPosition={this.handelChrPosition}
                 />
               </div>
               <div className="main-data">

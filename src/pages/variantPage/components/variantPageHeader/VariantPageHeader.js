@@ -4,6 +4,7 @@ import InformField from "GenericComponents/informField";
 import VariantClassificationContainer from "variantComponents/variantClassificationContainer";
 import cn from "classnames";
 import PropTypes from "prop-types";
+import ExternalLink from "GenericComponents/externalLink";
 
 const VariantPageHeader = ({
   sidebarToggle,
@@ -19,7 +20,8 @@ const VariantPageHeader = ({
     coding,
     codingLong,
     transcript,
-    alleleChangeLong
+    alleleChangeLong,
+    onChrPosition
   } = variantData || {};
   return (
     <div className={style["variant-page-header-wrapper"]}>
@@ -31,8 +33,11 @@ const VariantPageHeader = ({
           <div className="gene">
             <InformField name="inform-field-protein" text={protein} />
           </div>
-          <div className="gene">
-            <InformField name="inform-field-chrPosition" text={chrPosition} />
+          <div className="gene gene-external-link">
+            <ExternalLink
+              data={chrPosition}
+              externalHandler={onChrPosition}
+            />
           </div>
           <div className="gene">
             <InformField
