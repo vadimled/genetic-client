@@ -350,12 +350,9 @@ export function* handleZygositySaga(data) {
     setPriority(variant);
 
     if (result?.status === 200) {
-      yield put(
-        setZygosity({
-          ...data.payload,
-          record: variant
-        })
-      );
+
+      const parsedData = parseTableDataObj(result.data);
+      yield put(setZygosity(parsedData));
     }
   }
   catch (e) {
