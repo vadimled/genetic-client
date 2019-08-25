@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 // import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { ROUTES } from "utils/constants";
+import { ROUTES } from "Utils/constants";
 
 function GoBackButton({ pathname, text, className, layout }) {
   const isBackButton = () => {
@@ -11,7 +11,7 @@ function GoBackButton({ pathname, text, className, layout }) {
     if(isVariantPage()){
       return {
         show: true,
-        to: `/tests/${this.props.testId}`
+        to: `/tests/`// ${this.props.testId}
       };
     }
     else if(isSingleTestPage()){
