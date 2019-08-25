@@ -111,7 +111,7 @@ if (mock) {
     gnom_ad_genomes_popmax_af: "",
     hgvs_c: "c.1305C>T",
     hgvs_p: "p.Phe435Phe",
-    id: "5d5bcc6608589e00124bfd77",
+    id: "vadimmavsyia5xxhcari50od9",
     large_deletion: "False",
     large_insertion: "False",
     mutation_taster_score: "",
@@ -125,9 +125,10 @@ if (mock) {
     test_id: "5d5bcc6608589e00124bfd76",
     transcript: "NM_005957.4",
     zygosity: "homo",
-    germline_class: "path",
+    germline_class: "lpath",
     somatic_class: "tier2",
-    amino_acid_change: "E429A"
+    amino_acid_change: "E429A",
+    notes: "Mock-data faked notes"
   });
 
   mock.onPost(/\/tests\/.+\/variants\/.+\/evidences/).reply(200, {

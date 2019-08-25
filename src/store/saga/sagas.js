@@ -368,34 +368,31 @@ export function* handleZygositySaga(data) {
 }
 
 export function* setNotesSaga(data) {
-  const newData = Object.assign({}, data);
-
+  const
+    newData = {...data},
+    { notes, testId, variantId } = data.payload;
+  
   newData.payload = {
-    value: data.payload.notes,
-    name: "notes"
+    value: notes,
+    name: "notes",
+    testId,
+    variantId
   };
-
   try {
-    yield put(setTableReducerLoading(true));
-
+    yield put(setLoading(true));
     const result = yield call(updateVariantApi, newData);
-
-    const variant = result.data;
-
     if (result?.status === 200) {
-      yield put(
-        setNotesToStore({
-          // check why notes does not return from server
-          ...data.payload,
-          record: variant
-        })
-      );
+      const parsedData = parseTableDataObj(result.data);
+      yield put(setNotesToStore(parsedData));
     }
-
-    yield put(setTableReducerLoading(false));
-  } catch (e) {
-    yield put(setTableReducerLoading(false));
-    console.log("-err: ", e);
+    yield put(setLoading(false));
+  }
+  catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["setNotesSaga"]);
+      Sentry.captureException(e);
+    });
+    yield put(setLoading(false));
   }
 }
 

@@ -145,19 +145,17 @@ class VariantTable extends Component {
     });
     updateActivityLog({prevValue, item, changedField: "zygosity"});
   };
-
-  handleVariantClass = data => {
-    const {handleVariantClass, updateActivityLog} = this.props;
-    const {item, value, prevValue} = data;
-
-    handleVariantClass({
-      item,
-      value,
-    });
-
-    updateActivityLog({prevValue, item, changedField: "variantClass"});
+  
+  handleNotes = (notes, id) =>{
+    const {setNotes, testId} = this.props;
+    setNotes(
+      {
+        testId,
+        variantId: id,
+        notes
+      });
   };
-
+  
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -283,12 +281,7 @@ class VariantTable extends Component {
             <HighlightedCell isHighlighted={record.isAdded}>
               <Notes
                 updateActivityLog={this.props.updateActivityLog}
-                setNotes={notes =>
-                  this.props.setNotes({
-                    id: record.id,
-                    notes
-                  })
-                }
+                setNotes={(notes) => this.handleNotes(notes, record.id)}
                 value={record.notes}
                 tableRow={record}
               />
