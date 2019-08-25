@@ -52,7 +52,7 @@ describe("VariantPageHeader ", () => {
   });
 
   it("should - received text be equal to text of textField (chrPosition)  ", () => {
-    const chrPositionElement = getByTestId("inform-field-chrPosition");
+    const chrPositionElement = getByTestId("external-link-chrPosition");
     expect(chrPositionElement).toBeInTheDocument();
     expect(chrPositionElement.textContent).toEqual(variantData.chrPosition);
   });
