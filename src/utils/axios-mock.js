@@ -80,64 +80,54 @@ if (mock) {
   mock.onGet(/\/variants\/.+\/evidences/).reply(() => [200, evidences]);
 
   mock.onPatch(/\/tests\/.+\/variants\/.+/).reply(200, {
-    "id": "string",
-    "test_id": "string",
-    "mutation_type": "dna",
-    "roi": "string",
-    "chr": "string",
-    "position": "string",
-    "ref": "string",
-    "alt": "string",
-    "gene": "string",
-    "hgvs_c": "string",
-    "hgvs_p": "string",
-    "variant": "string",
-    "quality": "string",
-    "dp": "string",
-    "callers": "string",
-    "transcript": "string",
-    "db_snp": "string",
-    "cosmic": "string",
-    "snps": "string",
-    "clinvar_variation_id": "string",
-    "class": "string",
-    "effect": "string",
-    "effect_impact": "string",
-    "genome_cov_over_20": "string",
-    "exome_cov_over_20": "string",
-    "gnom_ad_exomes_af": "string",
-    "gnom_ad_exomes_popmax_af": "string",
-    "gnom_ad_genomes_flag": "string",
-    "gnom_ad_genomes_af": "string",
-    "gnom_ad_genomes_popmax_af": "string",
-    "damaging_score": "string",
-    "provean_score": "string",
-    "fathmm_score": "string",
-    "mutation_taster_score": "string",
-    "large_insertion": "string",
-    "large_deletion": "string",
-    "activity_log": [
+    activity_log: [
       {
-        "user": {
-          "user_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-          "name": "string",
-          "pic_url": "string"
-        },
-        "action": {
-          "prev_val": "string",
-          "curr_val": "string",
-          "field": "string"
-        },
-        "timestamp": "2019-08-20T14:48:00.747Z"
+        action: {
+          curr_val: "homo",
+          field: "zygosity",
+          prev_val: ""
+        }
       }
     ],
-    "manual": true,
-    "variant_id": "string",
-    "zygosity": "homo",
-    "germline_class": "path",
-    "somatic_class": "tier1",
-    "status": "string",
-    "notes": "string"
+    alt: "A",
+    callers: "freebayes,mutect,varscan,vardict",
+    chr: "chr1",
+    class: "SILENT",
+    clinvar_variation_id: "167306.0",
+    cosmic: "",
+    damaging_score: "T",
+    db_snp: "rs4846051",
+    dp: "443.0",
+    effect: "SYNONYMOUS_CODING",
+    effect_impact: "LOW",
+    exome_cov_over_20: "0.999",
+    fathmm_score: "",
+    gene: "MTHFR",
+    genome_cov_over_20: "0.905",
+    gnom_ad_exomes_af: "",
+    gnom_ad_exomes_popmax_af: "",
+    gnom_ad_genomes_af: "",
+    gnom_ad_genomes_flag: "",
+    gnom_ad_genomes_popmax_af: "",
+    hgvs_c: "c.1305C>T",
+    hgvs_p: "p.Phe435Phe",
+    id: "5d5bcc6608589e00124bfd77",
+    large_deletion: "False",
+    large_insertion: "False",
+    mutation_taster_score: "",
+    mutation_type: "dna",
+    position: "11854457",
+    provean_score: "",
+    quality: "34.3640488656",
+    ref: "G",
+    roi: "True",
+    snps: "",
+    test_id: "5d5bcc6608589e00124bfd76",
+    transcript: "NM_005957.4",
+    zygosity: "homo",
+    germline_class: "path",
+    somatic_class: "tier2",
+    amino_acid_change: "E429A"
   });
 
   mock.onPost(/\/tests\/.+\/variants\/.+\/evidences/).reply(200, {
@@ -174,7 +164,7 @@ if (mock) {
 
   mock
     .onGet(/\/tests\/.+\/variants/, { params: { mutation: "dna" } })
-    .reply(() => [200, generateDNAVariantTableMockData(50)]);
+    .reply(() => [200, generateDNAVariantTableMockData(20)]);
 
   mock
     .onGet(/\/variants\/.+\/classification/)

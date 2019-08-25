@@ -6,14 +6,17 @@ import cn from "classnames";
 import { TEXTS } from "Utils/constants";
 
 function LabeledTag({ value, label, typeData, tagColor, customClassName }) {
+
+  if(!label && !value){
+    return null;
+  }
+
   let type;
-  const
-    getLabelByValue = () =>
-    typeData?.find(item => item.value === value).label,
+  const getLabelByValue = () => typeData?.find(item => item?.value === value).label;
     
-    labelText = label ? label : getLabelByValue(),
+  const labelText = label ? label : getLabelByValue();
     
-    getTextOnly = text => {
+  const getTextOnly = text => {
       return (
         <div
           className={cn("label-text", {

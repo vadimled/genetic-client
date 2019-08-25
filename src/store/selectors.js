@@ -61,6 +61,9 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getHistoryGermline = state => state.variantPage.pageData.germlineClassHistory,
   getVariantId = state => state.variantPage.pageData.variantId,
   getVariantPageTestId = state => state.variantPage.pageData.testId,
+  getVariantPageServerData = state => state.variantPage.pageData.serverData,
+
+
   getSortParam = state => state?.table?.sortParam,
   getSortOrder = state => state?.table?.sortOrder,
   getClicksCounter = state => state?.table?.clicksCounter,
@@ -203,7 +206,8 @@ export const getFilteredData = createSelector(
   getSortOrder,
   (data, appliedFilters, sortParam, order) => {
     if (isEmpty(appliedFilters)) {
-      const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
+
+      const sortedData = data.sort((a, b) => a.priority - b.priority).slice();
       return sortedData;
     }
 
@@ -408,5 +412,23 @@ export const getSomaticEvidence = state =>
         });
         return formattedArray;
       }
+    }
+  ),
+  getDataVariantClassChanged = createSelector(
+    getVariantPageServerData,
+    (obj) => {
+      const {
+        notes,
+        status,
+        somatic_class,
+        germline_class,
+        zygosity } = obj || {};
+      return {
+        zygosity: zygosity,
+        germline_class: germline_class,
+        somatic_class: somatic_class,
+        status: status,
+        notes: notes
+      };
     }
   );
