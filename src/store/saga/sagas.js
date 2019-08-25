@@ -1,66 +1,79 @@
-import { call, delay, put } from "redux-saga/effects";
+import { call, put, delay } from "redux-saga/effects";
 import * as Sentry from "@sentry/browser";
-import { ALERT_STATUSES, ALLELE_TYPES, TEXTS, VALIDATION_FAILD_FIELDS } from "Utils/constants";
 import {
-  addEvidenceEntryApi,
-  addResult,
-  deleteEvidenceEntryApi,
-  editEvidenceEntryApi,
-  editResult,
+  ALERT_STATUSES,
+  ALLELE_TYPES,
+  VALIDATION_FAILD_FIELDS,
+  TEXTS
+} from "Utils/constants";
+import {
   fetchBAMFile,
-  fetchEvidenceDataApi,
-  fetchTableDataApi,
-  fetchTestMetadataApi,
-  fetchTestsApi,
-  fetchVariantMetadataDataApi,
   goToChrPositionIgv,
   loadHgvs,
-  updateVariantApi
+  addResult,
+  editResult,
+  fetchTestMetadataApi,
+  fetchVariantMetadataDataApi,
+  updateVariantApi,
+  fetchTestsApi,
+  addEvidenceEntryApi,
+  editEvidenceEntryApi,
+  fetchEvidenceDataApi,
+  deleteEvidenceEntryApi,
+  fetchTableDataApi
 } from "Api/index";
-import { handleIgvAlertShow, setFetchBAMFileStatus, setIgvLastQuery } from "Actions/igvActions";
+import {
+  handleIgvAlertShow,
+  setFetchBAMFileStatus,
+  setIgvLastQuery
+} from "Actions/igvActions";
 import {
   applyConfirmation,
-  setConfirmationStatusToStore,
-  setNotesToStore,
+  tableDataAddResult,
+  tableDataEditResult,
   setParsedDataToStore,
   setServerDataToStore,
-  setTableReducerLoading,
   setZygosity,
-  tableDataAddResult,
-  tableDataEditResult
+  setNotesToStore,
+  setTableReducerLoading,
+  setConfirmationStatusToStore
 } from "Actions/tableActions";
-import { handleOnConfirmation, setConfirmationData } from "Actions/confirmationActions";
+import {
+  handleOnConfirmation,
+  setConfirmationData
+} from "Actions/confirmationActions";
 import { setAlert } from "Actions/alertActions";
 import {
   handleResultConfigCoding,
-  handleResultConfigIsHgvsLoaded,
   handleResultConfigProtein,
   handleResultConfigValidationFaildFields,
+  handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
-import { setLoading, setTestData } from "Actions/testActions";
-import { setTestsLoading, setTestsToStore } from "Actions/testsActions";
+import { setTestData, setLoading } from "Actions/testActions";
+import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
-  deleteEvidenceFromStore,
-  setClassificationHistoryToStore,
+  setVariantMetadataData,
+  setNewEvidenceEntry,
   setEditedEvidenceEntry,
   setEvidenceData,
-  setExternalResources,
-  setHistoryTableData,
-  setNewEvidenceEntry,
-  setServerVariantMetadataToStore,
-  setVariantClassification,
-  setVariantMetadataData
+  deleteEvidenceFromStore,
+  setHistoryTableData
 } from "Actions/variantPageActions";
 import {
-  createResourcesLinks,
+  setPriority,
   getEvidenceData,
-  getHistoryTableData,
   parseTableData,
   parseTableDataObj,
-  setPriority
+  createResourcesLinks,
+  getHistoryTableData
 } from "Utils/helpers";
+import {
+  setClassificationHistoryToStore,
+  setServerVariantMetadataToStore,
+  setExternalResources
+} from "Actions/variantPageActions";
 import { fetchClassificationHistoryApi } from "../../api";
 import { cleanEvidenceActionData } from "Actions/evidenceConfigActions";
 
@@ -432,12 +445,14 @@ export function* fetchVariantMetadataDataSaga(action) {
   }
 }
 
-export function* sendVariantClassGenerator(variantClass) {
+export function* sendVariantClassGenerator(action) {
   try {
-    const result = yield call(updateVariantApi, variantClass);
-
-    if (result?.status === 200) {
-      yield put(setVariantClassification(variantClass.payload));
+    const {status, data} = yield call(updateVariantApi, action);
+    if (status === 200) {
+      yield put(setServerVariantMetadataToStore(data));
+      const newData = parseTableDataObj(data);
+      yield put(setVariantMetadataData(newData));
+      yield put(setExternalResources(createResourcesLinks(data)));
     }
   } catch (e) {
     Sentry.withScope(scope => {
