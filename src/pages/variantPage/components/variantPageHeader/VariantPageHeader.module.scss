@@ -25,7 +25,11 @@
       padding: 40px 5px 30px 40px;
 
       .gene {
-        padding: 10px;
+        padding: 0 10px;
+
+        &.gene-external-link {
+          padding: 0 10px;
+        }
       }
     }
   }
