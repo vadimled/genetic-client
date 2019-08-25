@@ -57,7 +57,6 @@ export function fetchVariantMetadataDataApi(data) {
 
 export function updateVariantApi(data) {
   const { name, value, testId, variantId } = data.payload;
-  console.log(data);
   return axios_based.patch(`/tests/${testId}/variants/${variantId}`, {
     [name]: value
   });

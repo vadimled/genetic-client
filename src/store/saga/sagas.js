@@ -362,21 +362,16 @@ export function* setNotesSaga(data) {
   newData.payload = {
     value: notes,
     name: "notes",
-    testId: testId,
-    variantId: variantId
+    testId,
+    variantId
   };
   try {
     yield put(setLoading(true));
     const result = yield call(updateVariantApi, newData);
     if (result?.status === 200) {
-      yield put(
-        setNotesToStore({
-          ...data.payload,
-          record: result.data
-        })
-      );
+      const parsedData = parseTableDataObj(result.data);
+      yield put(setNotesToStore(parsedData));
     }
-  
     yield put(setLoading(false));
   }
   catch (e) {
