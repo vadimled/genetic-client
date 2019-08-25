@@ -136,10 +136,8 @@ const tableReducer = createReducer(initialState, {
 
   [actionsTypes.SET_NOTES_TO_STORE]: (state, { payload }) => {
     const { id, notes } = payload;
-
     let data = state?.data;
     data[id].notes = notes;
-
     return {
       ...state,
       data: { ...data }
