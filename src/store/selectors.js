@@ -62,8 +62,8 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getVariantId = state => state.variantPage.pageData.variantId,
   getVariantPageTestId = state => state.variantPage.pageData.testId,
   getVariantPageServerData = state => state.variantPage.pageData.serverData,
-  
-  
+
+
   getSortParam = state => state?.table?.sortParam,
   getSortOrder = state => state?.table?.sortOrder,
   getClicksCounter = state => state?.table?.clicksCounter,
