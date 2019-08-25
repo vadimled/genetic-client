@@ -677,3 +677,8 @@ export const ROUTES = {
   isSingleTestPageRegex :"/tests/.+",
   isRootRegex :"/",
 };
+
+export const BACK_BUTTON = {
+  isVariantPageRegex :"/variants/.+",
+  isSingleTestPageRegex :"/tests/.+",
+};
