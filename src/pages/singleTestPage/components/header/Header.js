@@ -25,6 +25,11 @@ class Header extends Component {
     return regex.test(this.props.location.pathname);
   };
 
+  isSingleTestPage = () => {
+    const regex = RegExp(ROUTES.isSingleTestRegex);
+    return regex.test(this.props.location.pathname);
+  };
+
   handelNotification = e => {
     console.log(e.target);
   };
@@ -35,6 +40,7 @@ class Header extends Component {
   };
 
   render() {
+    console.log(this.props.location.pathname);
     return (
       <div className={style["header-wrapper"]}>
         <div className="flex justify-start flex-row">
