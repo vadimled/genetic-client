@@ -25,7 +25,6 @@ const VariantPageHeader = ({
   } = variantData || {};
   
   const externalHandler = () => {
-    console.log("externalHandler");
     onChrPosition(chrPosition);
   };
   

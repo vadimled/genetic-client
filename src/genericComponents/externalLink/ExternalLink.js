@@ -29,7 +29,7 @@ function ExternalLink({name, data, externalHandler }) {
 }
 
 ExternalLink.propTypes = {
-  name: PropTypes.name,
+  name: PropTypes.string,
   data: PropTypes.string,
   externalHandler: PropTypes.func
 };
