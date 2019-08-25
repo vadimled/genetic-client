@@ -16,7 +16,7 @@ import {
 } from "Utils/constants";
 
 describe("TableData", () => {
-  it("handle selection-checkbox", async () => {
+  xit("handle selection-checkbox", async () => {
     const { getAllByTestId, store } = renderWithReduxAndRouter(<App />, {
       route: "/tests/5d511f574651a20020a0ab50"
     });
@@ -37,7 +37,7 @@ describe("TableData", () => {
     expect(row2.selected).toEqual(true);
   });
 
-  it("handle confirmation status", async () => {
+  xit("handle confirmation status", async () => {
     const { store, getAllByTestId } = renderWithReduxAndRouter(<App />, {
       route: "/tests/5d511f574651a20020a0ab50"
     });
@@ -108,7 +108,7 @@ describe("TableData", () => {
 
   });
 
-  it("zygosity and variant class change", async () => {
+  xit("zygosity and variant class change", async () => {
     const { getAllByTestId, store } = renderWithReduxAndRouter(<App />, {
       route: "/tests/5d511f574651a20020a0ab50"
     });
