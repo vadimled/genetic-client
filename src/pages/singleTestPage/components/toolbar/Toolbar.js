@@ -64,7 +64,6 @@ class Toolbar extends Component {
   };
 
   handleExportTable = () => {
-    console.log("here");
     const {testId, exportTable} = this.props;
     exportTable(testId);
   }
