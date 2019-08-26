@@ -109,7 +109,6 @@ export const getSearchResult = createSelector(
       if(!searchQuery) {
         return item;
       } else{
-        console.log(searchQuery);
         const searchQueryInLowerCase = searchQuery.toLowerCase();
         return (
           item.gene?.toLowerCase().includes(searchQueryInLowerCase) ||
