@@ -9,6 +9,7 @@ import { setTumorInfoMode } from "Actions/testActions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import GoBackButton from "Pages/singleTestPage/components/header/components/goBackButton";
+import { TEXTS } from "Utils/constants";
 
 class Header extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class Header extends Component {
             <GoBackButton
               pathname={location.pathname}
               testId={testId}
-              text={`< Go back`}
+              text={TEXTS.goBack}
               className={"go-back-button"}
             />
           </div>

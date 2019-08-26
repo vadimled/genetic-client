@@ -1,16 +1,17 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { ROUTES } from "Utils/constants";
+import { layout } from "Utils/helpers";
+import { TEXTS } from "Utils/constants";
 
 function GoBackButton({ pathname, text, className, testId }) {
-  const isBackButton = () => {
-    if (isVariantPage()) {
+  const buttonProperties = () => {
+    if (layout(pathname, TEXTS.variantPage)) {
       return {
         show: true,
         to: `/tests/${testId}`
       };
-    } else if (isSingleTestPage()) {
+    } else if (layout(pathname, TEXTS.singleTestPage)) {
       return {
         show: true,
         to: `/`
@@ -23,20 +24,10 @@ function GoBackButton({ pathname, text, className, testId }) {
     };
   };
 
-  const isVariantPage = () => {
-    const regex = RegExp(ROUTES.isVariantPageRegex);
-    return regex.test(pathname);
-  };
-
-  const isSingleTestPage = () => {
-    const regex = RegExp(ROUTES.isSingleTestPageRegex);
-    return regex.test(pathname);
-  };
-
   return (
-    isBackButton().show && (
+    buttonProperties().show && (
       <Link
-        to={isBackButton().to}
+        to={buttonProperties().to}
         data-testid={`go-back-button`}
         id={`go-back-button`}
         className={className}
