@@ -5,8 +5,7 @@ import cn from 'classnames';
 import style from './IgvLoadBAM.module.scss';
 import {
   getIgvFetchBAMFileStatus,
-  getBAMFileUrl,
-  getBAMIndexFileUrl
+  getBAMFileUrl
 } from "Store/selectors";
 import {
   fetchBAMFile
@@ -16,8 +15,7 @@ const IgvLoadBAM = (props) => {
   const {
     fetchBAMFileStatus,
     BAMFileUrl,
-    fetchBAMFile,
-    BAMIndexFileUrl
+    fetchBAMFile
   } = props;
 
   return (
@@ -27,7 +25,7 @@ const IgvLoadBAM = (props) => {
     )}>
       <Button
         type={fetchBAMFileStatus ? 'primary' : ''}
-        onClick={fetchBAMFile.bind(null,{ BAMFileUrl, BAMIndexFileUrl })}
+        onClick={fetchBAMFile.bind(null, BAMFileUrl)}
         disabled={fetchBAMFileStatus}
         className={fetchBAMFileStatus ? `progress progress--${fetchBAMFileStatus}` : ''}
         data-testid="open-igv-btn"
@@ -42,7 +40,6 @@ const mapStateToProps = state => {
   return {
     fetchBAMFileStatus: getIgvFetchBAMFileStatus(state),
     BAMFileUrl: getBAMFileUrl(state),
-    BAMIndexFileUrl: getBAMIndexFileUrl(state),
   };
 };
 

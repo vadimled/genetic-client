@@ -30,7 +30,6 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
   getIgvLastQuery = state => state?.igv?.igvLastQuery,
   getBAMFileUrl = state => state?.igv?.BAMFileUrl,
-  getBAMIndexFileUrl = state => state?.igv?.BAMIndexFileUrl,
 
   getResultConfigIsOpen = state => state?.resultConfig?.isOpen,
   getResultConfigIsHgvsLoaded = state => state?.resultConfig?.isHgvsLoaded,
