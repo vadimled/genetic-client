@@ -674,11 +674,5 @@ export const EXTERNAL_RESOURCES_SOMATIC = [
 
 export const ROUTES = {
   isVariantPageRegex :"/variants/.+",
-  isSingleTestPageRegex :"/tests/.+",
-  isRootRegex :"/",
-};
-
-export const BACK_BUTTON = {
-  isVariantPageRegex :"/variants/.+",
-  isSingleTestPageRegex :"/tests/.+",
+  isSingleTestPageRegex :"/tests/.+"
 };

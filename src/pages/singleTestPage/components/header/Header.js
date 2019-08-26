@@ -26,6 +26,7 @@ class Header extends Component {
   };
 
   render() {
+    const { showTumorInfo, testId, location } = this.props;
     return (
       <div className={style["header-wrapper"]}>
         <div className="flex justify-start flex-row">
@@ -35,18 +36,18 @@ class Header extends Component {
           </div>
           <div className="left-wrapper">
             <GoBackButton
-              pathname={this.props.location.pathname}
-              // to={`/tests/${this.props.testId}`}
+              pathname={location.pathname}
+              testId={testId}
               text={`< Go back`}
               className={"go-back-button"}
             />
           </div>
-          <div className="left-wrapper">{this.props.testId}</div>
+          <div className="left-wrapper">{testId}</div>
         </div>
         <div className="flex justify-start flex-row">
           <div className="right-side-item">
             <HeaderIcon
-              isActive={this.props.showTumorInfo}
+              isActive={showTumorInfo}
               customClassName={"info"}
               icon={<InfoIcon />}
               handelOnClick={this.handelInfo}
