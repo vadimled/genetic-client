@@ -12,18 +12,14 @@ import {
 import { setTumorInfoMode } from "Actions/testActions";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { ROUTES } from "Utils/constants";
+import { TEXTS } from "Utils/constants";
+import { layout } from "Utils/helpers";
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.isMVP = process.env.REACT_APP_MVP_CONFIG === "true";
   }
-
-  isVariantPage = () => {
-    const regex = RegExp(ROUTES.isVariantPageRegex);
-    return regex.test(this.props.location.pathname);
-  };
 
   handelNotification = e => {
     console.log(e.target);
@@ -34,7 +30,22 @@ class Header extends Component {
     setTumorInfoMode(!showTumorInfo);
   };
 
+  renderInfoIcon = () => {
+    const { showTumorInfo } = this.props;
+    return (
+      <div className="right-side-item">
+        <HeaderIcon
+          isActive={showTumorInfo}
+          customClassName={"info"}
+          icon={<InfoIcon />}
+          handelOnClick={this.handelInfo}
+        />
+      </div>
+    );
+  };
+
   render() {
+    const { testId, location } = this.props;
     return (
       <div className={style["header-wrapper"]}>
         <div className="flex justify-start flex-row">
@@ -43,9 +54,9 @@ class Header extends Component {
             LOGO
           </div>
           <div className="left-wrapper">
-            {this.isVariantPage() && (
+            {layout(location.pathname, TEXTS.variantPage) && (
               <Link
-                to={`/tests/${this.props.testId}`}
+                to={`/tests/${testId}`}
                 data-testid={`go-back-button`}
                 id={`go-back-button`}
                 className={"go-back-button"}
@@ -54,17 +65,13 @@ class Header extends Component {
               </Link>
             )}
           </div>
-          <div className="left-wrapper">{this.props.testId}</div>
+          <div className="left-wrapper">{testId}</div>
         </div>
         <div className="flex justify-start flex-row">
-          <div className="right-side-item">
-            <HeaderIcon
-              isActive={this.props.showTumorInfo}
-              customClassName={"info"}
-              icon={<InfoIcon />}
-              handelOnClick={this.handelInfo}
-            />
-          </div>
+          {!this.isMVP
+            ? this.renderInfoIcon()
+            : layout(location.pathname, TEXTS.singleTestPage) &&
+              this.renderInfoIcon()}
           {!this.isMVP && (
             <Fragment>
               <div className="right-side-item">
