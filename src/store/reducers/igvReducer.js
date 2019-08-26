@@ -10,7 +10,7 @@ const initialState = {
   igvLastQuery: null, // null | { type: 'BAM_FILE' | 'CHR_POS', data }
   // eslint-disable-next-line
   BAMFileUrl: `${baseBamUrl}wgEncodeUwRepliSeqGm12801G1bAlnRep1.bam`,
-  BAMIndexFileUrl: `${baseBamUrl}wgEncodeUwRepliSeqGm12801G1bAlnRep1`
+  BAMIndexFileUrl: `${baseBamUrl}wgEncodeUwRepliSeqGm12801G1bAlnRep1.bam.bai`
 };
 
 const tableReducer = createReducer(initialState, {
