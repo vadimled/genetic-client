@@ -2,8 +2,8 @@ import axios from "axios";
 import axios_based from "./axios-base";
 import "Utils/axios-mock";
 
-export function fetchBAMFile({BAMFileUrl, BAMIndexFileUrl}) {
-  return axios.get(`http://localhost:60151/load?file=${BAMFileUrl}&index=${BAMIndexFileUrl}`);
+export function fetchBAMFile(BAMFileUrl) {
+  return axios.get(`http://localhost:60151/load?file=${BAMFileUrl}`);
 }
 
 export function goToChrPositionIgv(chrPosition) {
