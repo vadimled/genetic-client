@@ -186,5 +186,9 @@ if (mock) {
       created_at: Date()
     }
   ]);
+
+  mock.onPost(/\/tests\/.+\/export/).reply(200);
+
+
   
 }

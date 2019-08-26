@@ -20,7 +20,8 @@ import {
   deleteEvidenceEntrySaga,
   fetchClassificationHistorySaga,
   setNotesSaga,
-  handleConfirmationStatusSaga
+  handleConfirmationStatusSaga,
+  exportTableSaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -56,5 +57,5 @@ export function* watchSaga() {
     takeEvery(types.FETCH_EVIDENCE_DATA, fetchEvidenceDataSaga),
     takeEvery(types.FETCH_CLASSIFICATION_HISTORY, fetchClassificationHistorySaga)
   ]);
-
+  yield takeEvery(types.EXPORT_TABLE, exportTableSaga);
 }

@@ -141,3 +141,13 @@ export const setConfirmationStatusToStore = data => {
   };
 };
 
+export const exportTable = data => {
+  return{
+    type: actionsTypes.EXPORT_TABLE,
+    payload: data
+  };
+};
+
+
+
+
