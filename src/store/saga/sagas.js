@@ -20,7 +20,8 @@ import {
   editEvidenceEntryApi,
   fetchEvidenceDataApi,
   deleteEvidenceEntryApi,
-  fetchTableDataApi
+  fetchTableDataApi,
+  exportTableApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -582,6 +583,25 @@ export function* handleConfirmationStatusSaga(data) {
     }
 
     yield put(setTableReducerLoading(false));
+  } catch (e) {
+    yield put(setTableReducerLoading(false));
+    console.log("-err: ", e);
+  }
+}
+
+export function* exportTableSaga (action) {
+  const testId = action.payload;
+
+  try {
+    yield put(setTableReducerLoading(true));
+
+    const result = yield call(exportTableApi, testId);
+
+    if(result.status === 200){
+      yield put(setTableReducerLoading(false));
+    }
+
+
   } catch (e) {
     yield put(setTableReducerLoading(false));
     console.log("-err: ", e);
