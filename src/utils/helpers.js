@@ -5,7 +5,8 @@ import {
   ZYGOSITY_OPTIONS,
   ZYGOSITY,
   TEXTS,
-  ZYGOSITY_TYPES
+  ZYGOSITY_TYPES,
+  ROUTES
 } from "./constants";
 
 export const getPrevTagColor = title => {
@@ -1100,4 +1101,16 @@ export const getHistoryTableData = (data, type) => {
     }
     return arr;
   }, []);
+};
+
+export const layout = (pathname, name) => {
+  switch (name) {
+    case TEXTS.variantPage: {
+      return RegExp(ROUTES.isVariantPageRegex).test(pathname);
+    }
+    case TEXTS.singleTestPage: {
+      return RegExp(ROUTES.isSingleTestPageRegex).test(pathname);
+    }
+    default: return false;
+  }
 };

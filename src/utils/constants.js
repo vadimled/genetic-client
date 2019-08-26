@@ -45,7 +45,10 @@ export const TEXTS = {
   delete: "delete",
   edit: "edit",
   editEvidence: "Edit evidence",
-  addEvidence: "Add evidence"
+  addEvidence: "Add evidence",
+  goBack: "< Go back",
+  variantPage: "variantPage",
+  singleTestPage: "singleTestPage",
 };
 
 export const LIMITS = {
@@ -674,11 +677,5 @@ export const EXTERNAL_RESOURCES_SOMATIC = [
 
 export const ROUTES = {
   isVariantPageRegex :"/variants/.+",
-  isSingleTestPageRegex :"/tests/.+",
-  isRootRegex :"/",
-};
-
-export const BACK_BUTTON = {
-  isVariantPageRegex :"/variants/.+",
-  isSingleTestPageRegex :"/tests/.+",
+  isSingleTestPageRegex :"/tests/.+"
 };
