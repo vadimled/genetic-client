@@ -10,12 +10,8 @@ import NumberVariants from "Pages/singleTestPage/components/numberVariants";
 import IgvLoadBAM from "./components/IgvLoadBAM";
 import AddResult from "./components/addResult";
 import EditResult from "./components/editResult";
-import {
-  setMutationType
-} from "Actions/variantsActions";
-import {
-  updateSearch
-} from "Actions/tableActions";
+import { setMutationType } from "Actions/variantsActions";
+import { updateSearch } from "Actions/tableActions";
 import {
   handleOnConfirmation,
   setConfirmationData
@@ -35,38 +31,33 @@ import Filter from "./components/Filter";
 import { setSort, exportTable } from "Store/actions/tableActions";
 import ExportButton from "./components/exportButton/ExportButton";
 
-
-
 class Toolbar extends Component {
   constructor(props) {
     super(props);
     this.isMVP = process.env.REACT_APP_MVP_CONFIG === "true";
   }
-  
-  
+
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
   };
 
   createMutationOptions = labels => {
-    return !this.isMVP ?
-      this.props.getMutationTypesValues.map(type => {
-        switch (type) {
-          case "dna":
-            return { value: type, label: labels.dna };
-          case "rna":
-            return { value: type, label: labels.rna };
-          case "agena":
-            return { value: type, label: labels.agena };
-        }
-      }):
-      [{ value: "dna", label: labels.dna }];
+    return this.props.getMutationTypesValues.map(type => {
+      switch (type) {
+        case "dna":
+          return { value: type, label: labels.dna };
+        case "rna":
+          return { value: type, label: labels.rna };
+        case "agena":
+          return { value: type, label: labels.agena };
+      }
+    });
   };
 
   handleExportTable = () => {
     const {testId, exportTable} = this.props;
     exportTable(testId);
-  }
+  };
 
   render() {
     const {
@@ -95,25 +86,23 @@ class Toolbar extends Component {
           // </button>
         }
         <Fragment>
-
           <div className="left-wrapper">
-            {!selectedRows?.length &&
-              <div className="mutation-select-wrapper">
-                <SimpleSelect
-                  options={this.createMutationOptions(MUTATION)}
-                  onChange={this.handleOnChange}
-                  name="mutation"
-                  value={selectedMutation}
-                  disabled={this.isMVP}
-                />
-              </div>
-            }
+            {this.isMVP ?
+              null :
+              !selectedRows?.length && (
+                <div className="mutation-select-wrapper">
+                  <SimpleSelect
+                    options={this.createMutationOptions(MUTATION)}
+                    onChange={this.handleOnChange}
+                    name="mutation"
+                    value={selectedMutation}
+                  />
+                </div>
+              )}
           </div>
 
           <div className="search-field-wrapper flex items-center">
-            {!selectedRows?.length &&
-              <Search />
-            }
+            {!selectedRows?.length && <Search />}
           </div>
 
           <div className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}>
@@ -127,7 +116,8 @@ class Toolbar extends Component {
               <div className="toolbar-divider-line"/>
             </Fragment>}
 
-            {!this.isMVP && (!selectedRows?.length || selectedRows?.length === 1) &&
+            {!this.isMVP &&
+              (!selectedRows?.length || selectedRows?.length === 1) &&
               !selectedIsAddedRows?.length && (
               <Fragment>
                 <AddResult selectedResult={selectedRows[0]} />
@@ -135,9 +125,10 @@ class Toolbar extends Component {
               </Fragment>
             )}
 
-            {!this.isMVP && !!selectedIsAddedRows?.length &&
-            selectedIsAddedRows?.length === 1 &&
-            selectedRows?.length === 1 && (
+            {!this.isMVP &&
+              !!selectedIsAddedRows?.length &&
+              selectedIsAddedRows?.length === 1 &&
+              selectedRows?.length === 1 && (
               <Fragment>
                 <EditResult selectedResult={selectedIsAddedRows[0]} />
                 <div className="toolbar-divider-line" />
@@ -160,13 +151,11 @@ class Toolbar extends Component {
               </Fragment>
             )}
 
-            {!selectedRows?.length &&
+            {!selectedRows?.length && (
               <NumberVariants filtered={filtered} total={total} />
-            }
+            )}
           </div>
-
         </Fragment>
-
       </div>
     );
   }

@@ -4,12 +4,17 @@ import HeaderIcon from "GenericComponents/headerIcon";
 import { ReactComponent as NotificationIcon } from "Assets/notifications.svg";
 import { ReactComponent as InfoIcon } from "Assets/info.svg";
 import User from "Pages/singleTestPage/components/header/components/user";
-import { getTestId, getTumorInfoMode, getVariantPageTestId } from "Store/selectors";
+import {
+  getTestId,
+  getTumorInfoMode,
+  getVariantPageTestId
+} from "Store/selectors";
 import { setTumorInfoMode } from "Actions/testActions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import GoBackButton from "Pages/singleTestPage/components/header/components/goBackButton";
 import { TEXTS } from "Utils/constants";
+import { layout } from "Utils/helpers";
 
 class Header extends Component {
   constructor(props) {
@@ -26,8 +31,22 @@ class Header extends Component {
     setTumorInfoMode(!showTumorInfo);
   };
 
+  renderInfoIcon = () => {
+    const { showTumorInfo } = this.props;
+    return (
+      <div className="right-side-item">
+        <HeaderIcon
+          isActive={showTumorInfo}
+          customClassName={"info"}
+          icon={<InfoIcon />}
+          handelOnClick={this.handelInfo}
+        />
+      </div>
+    );
+  };
+
   render() {
-    const { showTumorInfo, testId, location } = this.props;
+    const { testId, location } = this.props;
     return (
       <div className={style["header-wrapper"]}>
         <div className="flex justify-start flex-row">
@@ -43,17 +62,13 @@ class Header extends Component {
               className={"go-back-button"}
             />
           </div>
-          <div className="left-wrapper">{testId}</div>
+          <div className="left-wrapper">{this.props.testId}</div>
         </div>
         <div className="flex justify-start flex-row">
-          <div className="right-side-item">
-            <HeaderIcon
-              isActive={showTumorInfo}
-              customClassName={"info"}
-              icon={<InfoIcon />}
-              handelOnClick={this.handelInfo}
-            />
-          </div>
+          {!this.isMVP
+            ? this.renderInfoIcon()
+            : layout(location.pathname, TEXTS.singleTestPage) &&
+              this.renderInfoIcon()}
           {!this.isMVP && (
             <Fragment>
               <div className="right-side-item">
