@@ -29,10 +29,11 @@ import {
   getMutationTypesValues
 } from "Store/selectors";
 import Sort from "./components/Sort";
-import { setDefaultFilters } from "../../../../store/actions/filtersActions";
-import { getTestType } from "../../../../store/selectors";
+import { setDefaultFilters } from "Store/actions/filtersActions";
+import { getTestType, getTestId } from "Store/selectors";
 import Filter from "./components/Filter";
-import { setSort } from "../../../../store/actions/tableActions";
+import { setSort, exportTable } from "Store/actions/tableActions";
+import ExportButton from "./components/exportButton/ExportButton";
 
 
 
@@ -61,6 +62,11 @@ class Toolbar extends Component {
       }):
       [{ value: "dna", label: labels.dna }];
   };
+
+  handleExportTable = () => {
+    const {testId, exportTable} = this.props;
+    exportTable(testId);
+  }
 
   render() {
     const {
@@ -115,6 +121,9 @@ class Toolbar extends Component {
               <Filter setDefaultFilters={setDefaultFilters} testType={testType} />
               <Sort setSort={setSort} />
               <IgvLoadBAM />
+
+              <ExportButton exportTable={this.handleExportTable} />
+
               <div className="toolbar-divider-line"/>
             </Fragment>}
 
@@ -178,7 +187,8 @@ const mapStateToProps = state => {
     selectedRows: getSelectedRows(state),
     selectedIsAddedRows: getSelectedIsAddedRows(state),
     testType: getTestType(state),
-    getMutationTypesValues: getMutationTypesValues(state)
+    getMutationTypesValues: getMutationTypesValues(state),
+    testId: getTestId(state)
   };
 };
 
@@ -192,6 +202,7 @@ function mapDispatchToProps(dispatch) {
     updateSearch: data => dispatch(updateSearch(data)),
     setDefaultFilters: data => dispatch(setDefaultFilters(data)),
     setSort: data => dispatch(setSort(data)),
+    exportTable: data => dispatch(exportTable(data)),
   };
 }
 
