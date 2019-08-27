@@ -8,8 +8,9 @@ import { getTestId, getTumorInfoMode, getVariantPageTestId } from "Store/selecto
 import { setTumorInfoMode } from "Actions/testActions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import GoBackButton from "Pages/singleTestPage/components/header/components/goBackButton";
 import { TEXTS } from "Utils/constants";
+import { layout } from "Utils/helpers";
+import GoBackButton from "Pages/singleTestPage/components/header/components/goBackButton";
 
 class Header extends Component {
   constructor(props) {
@@ -26,8 +27,22 @@ class Header extends Component {
     setTumorInfoMode(!showTumorInfo);
   };
 
+  renderInfoIcon = () => {
+    const { showTumorInfo } = this.props;
+    return (
+      <div className="right-side-item">
+        <HeaderIcon
+          isActive={showTumorInfo}
+          customClassName={"info"}
+          icon={<InfoIcon />}
+          handelOnClick={this.handelInfo}
+        />
+      </div>
+    );
+  };
+
   render() {
-    const { showTumorInfo, testId, location } = this.props;
+    const { testId, location } = this.props;
     return (
       <div className={style["header-wrapper"]}>
         <div className="flex justify-start flex-row">
@@ -46,14 +61,10 @@ class Header extends Component {
           <div className="left-wrapper">{testId}</div>
         </div>
         <div className="flex justify-start flex-row">
-          <div className="right-side-item">
-            <HeaderIcon
-              isActive={showTumorInfo}
-              customClassName={"info"}
-              icon={<InfoIcon />}
-              handelOnClick={this.handelInfo}
-            />
-          </div>
+          {!this.isMVP
+            ? this.renderInfoIcon()
+            : layout(location.pathname, TEXTS.singleTestPage) &&
+              this.renderInfoIcon()}
           {!this.isMVP && (
             <Fragment>
               <div className="right-side-item">
