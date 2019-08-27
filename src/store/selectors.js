@@ -107,13 +107,16 @@ export const getSearchResult = createSelector(
   getSearchQuery,
   (data, searchQuery) => {
     return data.filter(item => {
-      const searchQueryInLowerCase = searchQuery.toLowerCase();
-      return (
-        item.gene.toLowerCase().includes(searchQueryInLowerCase) ||
-        item.coding.toLowerCase().includes(searchQueryInLowerCase) ||
-        item.protein.toLowerCase().includes(searchQueryInLowerCase)
-      );
-    });
+      if(!searchQuery) {
+        return item;
+      } else{
+        const searchQueryInLowerCase = searchQuery.toLowerCase();
+        return (
+          item.gene?.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.coding?.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.protein?.toLowerCase().includes(searchQueryInLowerCase)
+        );
+      }});
   }
 );
 
@@ -256,7 +259,7 @@ export const getFilteredSearchQueries = createSelector(
   (queries, searchQuery) => {
     return queries.filter(query => {
       if(searchQuery){
-        return query.toLowerCase().includes(searchQuery.toLowerCase());
+        return query?.toLowerCase().includes(searchQuery.toLowerCase());
       }
       else {
         return query;
