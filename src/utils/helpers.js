@@ -232,6 +232,7 @@ export const zygosityTypeByName = name => {
 };
 
 export const setPriority = record => {
+
   if (record.zygosity === ZYGOSITY.somatic.value) {
     if (record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value) {
       record.priority = 143;
@@ -965,17 +966,13 @@ export const setPriority = record => {
       record.priority = 16;
     }
   }
-  // else if  (!record.zygosity){
-  //   record.priority = 166666;
-  // }
 
   return record;
 };
 
 export const setDefaultZygosity = variant => {
-  // console.log(variant);
   if(!variant.zygosity){
-    variant.zygosity = "notDef66";
+    variant.zygosity = "notDefined";
   }
   return variant;
 };
@@ -1085,8 +1082,8 @@ const createNewTableDataItem = ({
   newObj.omim = omim || false;
   newObj.gnomAD = gnomAD || null;
 
-  setPriority(newObj);
   setDefaultZygosity(newObj);
+  setPriority(newObj);
   return newObj;
 };
 
