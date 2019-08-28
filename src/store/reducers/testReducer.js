@@ -30,16 +30,16 @@ const testReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_TUMOR_INFO]: (state, { payload }) => {
-    // const {type: [val](|| location || cancer_cell_percentage)} = payload;
-    return {
-      ...state,
-      tumor_info: {
-        ...state.tumor_info,
-        ...payload
-      }
-    };
-  },
+  // [actionsTypes.SET_TUMOR_INFO]: (state, { payload }) => {
+  //   // const {type: [val](|| location || cancer_cell_percentage)} = payload;
+  //   return {
+  //     ...state,
+  //     tumor_info: {
+  //       ...state.tumor_info,
+  //       ...payload
+  //     }
+  //   };
+  // },
   [actionsTypes.SET_LOADING]: (state, { payload }) => {
     return {
       ...state,

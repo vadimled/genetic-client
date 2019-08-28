@@ -3,7 +3,7 @@ import types from "Store/actionsTypes";
 
 import {
   fetchTableDataSaga,
-  fetchTestMetadataGenerator,
+  fetchTestMetadataSaga,
   fetchBAMFileGenerator,
   goToChrPositionIgvGenerator,
   sendForConfirmationGenerator,
@@ -21,7 +21,8 @@ import {
   fetchClassificationHistorySaga,
   setNotesSaga,
   handleConfirmationStatusSaga,
-  exportTableSaga
+  exportTableSaga,
+  setTumorInfoSaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -49,7 +50,7 @@ export function* watchSaga() {
   yield takeLatest(types.EDIT_EVIDENCE_ENTRY, editEvidenceEntrySaga);
   yield takeLatest(types.DELETE_EVIDENCE_ENTRY, deleteEvidenceEntrySaga);
   yield all([
-    yield takeLatest(types.FETCH_TEST_METADATA, fetchTestMetadataGenerator),
+    yield takeLatest(types.FETCH_TEST_METADATA, fetchTestMetadataSaga),
     yield takeEvery(types.FETCH_TABLE_DATA, fetchTableDataSaga)
   ]);
   yield all([
@@ -58,4 +59,5 @@ export function* watchSaga() {
     takeEvery(types.FETCH_CLASSIFICATION_HISTORY, fetchClassificationHistorySaga)
   ]);
   yield takeEvery(types.EXPORT_TABLE, exportTableSaga);
+  yield takeEvery(types.SET_TUMOR_INFO, setTumorInfoSaga);
 }
