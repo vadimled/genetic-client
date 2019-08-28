@@ -21,7 +21,8 @@ import {
   fetchEvidenceDataApi,
   deleteEvidenceEntryApi,
   fetchTableDataApi,
-  exportTableApi
+  exportTableApi,
+  setTumorInfoApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -399,7 +400,7 @@ export function* setNotesSaga(data) {
   }
 }
 
-export function* fetchTestMetadataGenerator(action) {
+export function* fetchTestMetadataSaga(action) {
   try {
     yield put(setLoading(true));
     const result = yield call(fetchTestMetadataApi, action);
@@ -407,7 +408,7 @@ export function* fetchTestMetadataGenerator(action) {
     yield put(setMutationType(result?.data?.mutation_types[0]));
   } catch (e) {
     Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchTestMetadataGenerator"]);
+      scope.setFingerprint(["fetchTestMetadataSaga"]);
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
@@ -430,6 +431,24 @@ export function* fetchTableDataSaga(action) {
     yield put(setLoading(false));
   }
 }
+
+export function* setTumorInfoSaga(action) {
+  try {
+    yield put(setLoading(true));
+    const {status, data} = yield call(setTumorInfoApi, action);
+    if (status === 200) {
+      yield put(setTestData(data));
+    }
+    yield put(setLoading(false));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["setTumorInfoSaga"]);
+      Sentry.captureException(e);
+    });
+    yield put(setLoading(false));
+  }
+}
+
 
 // --------------- VARIANT PAGE ---------------
 export function* fetchVariantMetadataDataSaga(action) {
