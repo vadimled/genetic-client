@@ -64,7 +64,7 @@ import {
   setHistoryTableData
 } from "Actions/variantPageActions";
 import {
-  setPriority,
+  // setPriority,
   getEvidenceData,
   parseTableData,
   parseTableDataObj,
@@ -78,6 +78,7 @@ import {
 } from "Actions/variantPageActions";
 import { fetchClassificationHistoryApi } from "../../api";
 import { cleanEvidenceActionData } from "Actions/evidenceConfigActions";
+import { setDefaultZygosity } from "../../utils/helpers";
 
 
 function* onDelay(time) {
@@ -352,11 +353,12 @@ export function* handleZygositySaga(data) {
     const result = yield call(updateVariantApi, data);
     const variant = result.data;
 
-    setPriority(variant);
+
+    setDefaultZygosity(variant);
 
     if (result?.status === 200) {
-
       const parsedData = parseTableDataObj(result.data);
+      // setPriority(parsedData);
       yield put(setZygosity(parsedData));
     }
   }
@@ -418,6 +420,7 @@ export function* fetchTableDataSaga(action) {
     const result = yield call(fetchTableDataApi, action);
     yield put(setServerDataToStore(result?.data));
     const newData = parseTableData(result?.data);
+
     yield put(setParsedDataToStore(newData));
     yield put(setLoading(false));
   } catch (e) {
@@ -529,7 +532,6 @@ export function* editEvidenceEntrySaga(data) {
 }
 
 export function* deleteEvidenceEntrySaga(action) {
-  console.log(action);
   try {
     yield put(setLoading(true));
     const result = yield call(deleteEvidenceEntryApi, action);

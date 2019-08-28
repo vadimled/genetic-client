@@ -232,6 +232,7 @@ export const zygosityTypeByName = name => {
 };
 
 export const setPriority = record => {
+
   if (record.zygosity === ZYGOSITY.somatic.value) {
     if (record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value) {
       record.priority = 143;
@@ -301,7 +302,8 @@ export const setPriority = record => {
     ) {
       record.priority = 2;
     }
-  } else if (record.zygosity === ZYGOSITY.homo.value) {
+  }
+  else if (record.zygosity === ZYGOSITY.homo.value) {
     if (record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value) {
       record.priority = 140;
     } else if (
@@ -968,6 +970,14 @@ export const setPriority = record => {
   return record;
 };
 
+export const setDefaultZygosity = variant => {
+  if(!variant.zygosity){
+    variant.zygosity = "notDefined";
+  }
+  return variant;
+};
+
+
 export const createEvidenceTableData = (category, tabContent) => {
   const obj = Object.keys(tabContent).reduce((accum, val, index) => {
     if (tabContent[val].category === category) {
@@ -1072,6 +1082,7 @@ const createNewTableDataItem = ({
   newObj.omim = omim || false;
   newObj.gnomAD = gnomAD || null;
 
+  setDefaultZygosity(newObj);
   setPriority(newObj);
   return newObj;
 };
@@ -1114,3 +1125,4 @@ export const layout = (pathname, name) => {
     default: return false;
   }
 };
+
