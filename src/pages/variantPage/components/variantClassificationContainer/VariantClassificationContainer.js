@@ -27,7 +27,7 @@ import { zygosityTypeByName } from "Utils/helpers";
 
 class VariantClassificationContainer extends React.Component {
   createVariantClassType = () => {
-    return this.props.currentZygosityType === TEXTS.somatic
+    return this.props.currentZygosityType === TEXTS.somaticUp
       ? "somatic_class"
       : "germline_class";
   };
