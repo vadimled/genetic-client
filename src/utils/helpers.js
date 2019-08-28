@@ -965,12 +965,21 @@ export const setPriority = record => {
       record.priority = 16;
     }
   }
-  else if  (!record.zygosity){
-    record.priority = 166666;
-  }
+  // else if  (!record.zygosity){
+  //   record.priority = 166666;
+  // }
 
   return record;
 };
+
+export const setDefaultZygosity = variant => {
+  // console.log(variant);
+  if(!variant.zygosity){
+    variant.zygosity = "notDef66"
+  }
+  return variant
+}
+
 
 export const createEvidenceTableData = (category, tabContent) => {
   const obj = Object.keys(tabContent).reduce((accum, val, index) => {
@@ -1077,6 +1086,7 @@ const createNewTableDataItem = ({
   newObj.gnomAD = gnomAD || null;
 
   setPriority(newObj);
+  setDefaultZygosity(newObj)
   return newObj;
 };
 
@@ -1118,3 +1128,4 @@ export const layout = (pathname, name) => {
     default: return false;
   }
 };
+
