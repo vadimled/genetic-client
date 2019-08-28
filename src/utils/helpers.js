@@ -975,10 +975,10 @@ export const setPriority = record => {
 export const setDefaultZygosity = variant => {
   // console.log(variant);
   if(!variant.zygosity){
-    variant.zygosity = "notDef66"
+    variant.zygosity = "notDef66";
   }
-  return variant
-}
+  return variant;
+};
 
 
 export const createEvidenceTableData = (category, tabContent) => {
@@ -1086,7 +1086,7 @@ const createNewTableDataItem = ({
   newObj.gnomAD = gnomAD || null;
 
   setPriority(newObj);
-  setDefaultZygosity(newObj)
+  setDefaultZygosity(newObj);
   return newObj;
 };
 
