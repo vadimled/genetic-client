@@ -301,7 +301,8 @@ export const setPriority = record => {
     ) {
       record.priority = 2;
     }
-  } else if (record.zygosity === ZYGOSITY.homo.value) {
+  }
+  else if (record.zygosity === ZYGOSITY.homo.value) {
     if (record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value) {
       record.priority = 140;
     } else if (
@@ -963,6 +964,9 @@ export const setPriority = record => {
     ) {
       record.priority = 16;
     }
+  }
+  else if  (!record.zygosity){
+    record.priority = 166666;
   }
 
   return record;
