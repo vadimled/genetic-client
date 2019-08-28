@@ -4,17 +4,13 @@ import HeaderIcon from "GenericComponents/headerIcon";
 import { ReactComponent as NotificationIcon } from "Assets/notifications.svg";
 import { ReactComponent as InfoIcon } from "Assets/info.svg";
 import User from "Pages/singleTestPage/components/header/components/user";
-import {
-  getTestId,
-  getTumorInfoMode,
-  getVariantPageTestId
-} from "Store/selectors";
+import { getTestId, getTumorInfoMode, getVariantPageTestId } from "Store/selectors";
 import { setTumorInfoMode } from "Actions/testActions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import GoBackButton from "Pages/singleTestPage/components/header/components/goBackButton";
 import { TEXTS } from "Utils/constants";
 import { layout } from "Utils/helpers";
+import GoBackButton from "Pages/singleTestPage/components/header/components/goBackButton";
 
 class Header extends Component {
   constructor(props) {
@@ -62,7 +58,7 @@ class Header extends Component {
               className={"go-back-button"}
             />
           </div>
-          <div className="left-wrapper">{this.props.testId}</div>
+          <div className="left-wrapper">{testId}</div>
         </div>
         <div className="flex justify-start flex-row">
           {!this.isMVP
