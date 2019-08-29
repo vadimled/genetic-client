@@ -292,7 +292,7 @@ class VariantTable extends Component {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              <ExternalLink data={record.transcript} />
+              {record.transcript}
             </HighlightedCell>
           );
         };

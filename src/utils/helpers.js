@@ -132,15 +132,38 @@ const getLinksArray = (data, link) => {
     : `${link}${[...data].slice(4).join("")}`;
 };
 
+const createRequestConditions = (protein, hgvs_c, amino_acid_change) =>{
+  const createPartOR = (param, isLast) => {
+    return param ? `${encodeURIComponent(param)}${!isLast ? "+OR+" : ""}` : ``;
+  };
+  if (!protein && !hgvs_c && !amino_acid_change) {
+    return ``;
+  } else {
+    const { length } = [protein, hgvs_c, amino_acid_change].filter(
+      item => item
+    );
+    if (length > 1) {
+      return `+AND+(${createPartOR(protein)}${createPartOR(
+        hgvs_c
+      )}${createPartOR(amino_acid_change, true)})`;
+    } else {
+      return `+AND+${createPartOR(protein, true)}${createPartOR(
+        hgvs_c,
+        true
+      )}${createPartOR(amino_acid_change, true)}`;
+    }
+  }
+};
+
 export const createResourcesLinks = variantData => {
   let externalResources = [];
   const {
-    coding: hgvs_c,
+    hgvs_c,
     amino_acid_change,
     db_snp,
     clinvar_variation_id,
     ref,
-    protein,
+    hgvs_p,
     gene,
     damaging_score,
     transcript,
@@ -149,20 +172,20 @@ export const createResourcesLinks = variantData => {
     alt,
     cosmic
   } = variantData || {};
+
   const variantDBs = {
     title: "Variant DBs",
     UCSC:
       `https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg19&lastVirtModeType=default&` +
       `lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&position=${
-        chr && position ?
-          encodeURIComponent(`${chr}:${position}`):
-          0
+        chr && position ? encodeURIComponent(`${chr}:${position}`) : 0
       }&hgsid=731360955_9ebZL49sAeyPO3PxgbWCQ1DZ5e4N`,
     gnomAD: `https://gnomad.broadinstitute.org/variant/${[...chr]
       .slice(3)
       .join("")}-${position}-${ref}-${alt}`,
     dbSNP: `https://www.ncbi.nlm.nih.gov/snp/?term=${db_snp || ""}`,
-    ClinVar: `https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvar_variation_id || 0 }`,
+    ClinVar: `https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvar_variation_id ||
+      0}`,
     COSMIC: getLinksArray(
       cosmic,
       "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id="
@@ -181,16 +204,16 @@ export const createResourcesLinks = variantData => {
 
   const publications = {
     title: "Publications",
-    Pubmed: `https://www.ncbi.nlm.nih.gov/pubmed/?term=${gene}+AND+(${encodeURIComponent(
-      protein
-    )}+OR+${encodeURIComponent(hgvs_c)}+OR+${encodeURIComponent(
+    Pubmed: `https://www.ncbi.nlm.nih.gov/pubmed/?term=${gene}${createRequestConditions(
+      hgvs_p,
+      hgvs_c,
       amino_acid_change
-    )})`,
-    "Google Scholar": `https://scholar.google.co.il/scholar?start=50&q=${gene}+AND+(${encodeURIComponent(
-      protein
-    )}+OR+${encodeURIComponent(hgvs_c)}+OR+${encodeURIComponent(
+    )}`,
+    "Google Scholar": `https://scholar.google.co.il/scholar?start=50&q=${gene}${createRequestConditions(
+      hgvs_p,
+      hgvs_c,
       amino_acid_change
-    )})&hl=en&as_sdt=0,5`
+    )}&hl=en&as_sdt=0,5`
   };
 
   externalResources.push(publications);
@@ -220,11 +243,11 @@ export const zygosityTypeByName = name => {
     Unkown - for Unkown.
     Not-Real - for Not-Real.
   */
- 
+
   for (let key in ZYGOSITY_TYPES) {
     const { label, value } = ZYGOSITY_TYPES[key];
     if (value.toLowerCase() === name?.toLowerCase()) {
-      return  label ;
+      return label;
     }
   }
 
@@ -232,7 +255,6 @@ export const zygosityTypeByName = name => {
 };
 
 export const setPriority = record => {
-
   if (record.zygosity === ZYGOSITY.somatic.value) {
     if (record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value) {
       record.priority = 143;
@@ -277,8 +299,7 @@ export const setPriority = record => {
     ) {
       record.priority = 3;
     }
-  }
-  else if (record.zygosity === ZYGOSITY.hemi.value) {
+  } else if (record.zygosity === ZYGOSITY.hemi.value) {
     if (record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value) {
       record.priority = 141;
     } else if (
@@ -302,8 +323,7 @@ export const setPriority = record => {
     ) {
       record.priority = 2;
     }
-  }
-  else if (record.zygosity === ZYGOSITY.homo.value) {
+  } else if (record.zygosity === ZYGOSITY.homo.value) {
     if (record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value) {
       record.priority = 140;
     } else if (
@@ -327,8 +347,7 @@ export const setPriority = record => {
     ) {
       record.priority = 1;
     }
-  }
-  else if (record.zygosity === ZYGOSITY.notDefined.value) {
+  } else if (record.zygosity === ZYGOSITY.notDefined.value) {
     if (
       record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value &&
       record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value
@@ -485,8 +504,7 @@ export const setPriority = record => {
     ) {
       record.priority = 42;
     }
-  }
-  else if (record.zygosity === ZYGOSITY.notReal.value) {
+  } else if (record.zygosity === ZYGOSITY.notReal.value) {
     if (
       record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value &&
       record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value
@@ -643,8 +661,7 @@ export const setPriority = record => {
     ) {
       record.priority = 100;
     }
-  }
-  else if (record.zygosity === ZYGOSITY.insignificant.value) {
+  } else if (record.zygosity === ZYGOSITY.insignificant.value) {
     if (
       record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value &&
       record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value
@@ -801,8 +818,7 @@ export const setPriority = record => {
     ) {
       record.priority = 74;
     }
-  }
-  else if (record.zygosity === ZYGOSITY.unknown.value) {
+  } else if (record.zygosity === ZYGOSITY.unknown.value) {
     if (
       record.variantClassGermline === VARIANT_CLASS_GERMLINE.ben.value &&
       record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value
@@ -971,12 +987,11 @@ export const setPriority = record => {
 };
 
 export const setDefaultZygosity = variant => {
-  if(!variant.zygosity){
+  if (!variant.zygosity) {
     variant.zygosity = "notDefined";
   }
   return variant;
 };
-
 
 export const createEvidenceTableData = (category, tabContent) => {
   const obj = Object.keys(tabContent).reduce((accum, val, index) => {
@@ -1107,7 +1122,7 @@ export const getHistoryTableData = (data, type) => {
         { created_at: val.created_at },
         { gsid: val.gsid },
         { class: val.class },
-        { analystName: val.user?.name },
+        { analystName: val.user?.name }
       );
       arr.push(newObj);
       return arr;
@@ -1124,7 +1139,7 @@ export const layout = (pathname, name) => {
     case TEXTS.singleTestPage: {
       return RegExp(ROUTES.isSingleTestPageRegex).test(pathname);
     }
-    default: return false;
+    default:
+      return false;
   }
 };
-
