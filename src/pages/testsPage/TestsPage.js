@@ -33,7 +33,8 @@ class TestsPage extends Component {
   render() {
     const { sidebarToggle } = this.state;
     const { tests } = this.props;
-    const options = { day: "2-digit", month: "short", year: "numeric" };
+    const dateOptions = { day: "2-digit", month: "short", year: "numeric" };
+    const timeOptions = { timeStyle: "short"};
 
     return (
       <div className={style["tests-page-wrapper"]}>
@@ -57,16 +58,15 @@ class TestsPage extends Component {
                       <div>Panel Type: {test.panel_type}</div>
                     </div>
                     <div className="flex items-center">
-                      Created at: {new Date(test.created_at).toLocaleDateString("en-GB", options)
+                      Created at: {new Date(test.created_at).toLocaleDateString("en-GB", dateOptions)
                         .split(" ")
-                        .join("/")}
+                        .join("/")} {new Date(test.created_at).toLocaleTimeString("en-GB", timeOptions)}
                     </div>
                   </div>
                 </div>
               </Link>
             ))
           }
-
 
         </div>
 
