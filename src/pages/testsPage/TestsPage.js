@@ -59,9 +59,8 @@ class TestsPage extends Component {
                     <div className="flex items-center">
                       Created at: {new Date(test.created_at).toLocaleDateString("en-GB", options)
                         .split(" ")
-                        .join("/")}
+                        .join("/")} {new Date(test.created_at).toLocaleTimeString()}
                     </div>
-                    <h1>{test.created_at}</h1>
                   </div>
                 </div>
               </Link>
