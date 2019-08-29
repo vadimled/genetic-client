@@ -7,7 +7,8 @@ const initialState = {
   isIgvAlertShowAgaing: true,
   igvLastQuery: null, // null | { type: 'BAM_FILE' | 'CHR_POS', data }
   // eslint-disable-next-line
-  BAMFileUrl: 'http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeUwRepliSeq/wgEncodeUwRepliSeqGm12801G1bAlnRep1.bam',
+  BAMFileUrl: null,
+  BAMIndexFileUrl: null
 };
 
 const tableReducer = createReducer(initialState, {
@@ -37,10 +38,18 @@ const tableReducer = createReducer(initialState, {
   [actionsTypes.SET_IGV_LAST_QUERY]: (state, { payload }) => {
     return {
       ...state,
-      igvLastQuery: state.isIgvAlertShowAgaing ? payload : null,
+      igvLastQuery: state.isIgvAlertShowAgaing ? payload : null
     };
   },
 
+  [actionsTypes.SET_BAM_FILE_TO_STORE]: (state, { payload }) => {
+    const { bam_url, bai_url } = payload;
+    return {
+      ...state,
+      BAMFileUrl: bam_url,
+      BAMIndexFileUrl: bai_url
+    };
+  }
 });
 
 export default tableReducer;

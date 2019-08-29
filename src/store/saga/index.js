@@ -4,14 +4,14 @@ import types from "Store/actionsTypes";
 import {
   fetchTableDataSaga,
   fetchTestMetadataSaga,
-  fetchBAMFileGenerator,
-  goToChrPositionIgvGenerator,
-  sendForConfirmationGenerator,
-  resultConfigLoadHgvsGenerator,
-  resultConfigAddResultGenerator,
-  resultConfigEditResultGenerator,
+  fetchBAMFileSaga,
+  goToChrPositionIgvSaga,
+  sendForConfirmationSaga,
+  resultConfigLoadHgvsSaga,
+  resultConfigAddResultSaga,
+  resultConfigEditResultSaga,
   fetchVariantMetadataDataSaga,
-  sendVariantClassGenerator,
+  sendVariantClassSaga,
   handleZygositySaga,
   fetchTestsSaga,
   addEvidenceEntrySaga,
@@ -26,25 +26,25 @@ import {
 } from "./sagas";
 
 export function* watchSaga() {
-  yield takeLatest(types.FETCH_BAM_FILE, fetchBAMFileGenerator);
-  yield takeLatest(types.GO_TO_CHR_POSITION_IGV, goToChrPositionIgvGenerator);
-  yield takeLatest(types.SEND_FOR_CONFIRMATION, sendForConfirmationGenerator);
+  yield takeLatest(types.FETCH_BAM_FILE, fetchBAMFileSaga);
+  yield takeLatest(types.GO_TO_CHR_POSITION_IGV, goToChrPositionIgvSaga);
+  yield takeLatest(types.SEND_FOR_CONFIRMATION, sendForConfirmationSaga);
   yield takeEvery(types.HANDLE_ZYGOSITY, handleZygositySaga);
   yield takeEvery(types.SET_NOTES, setNotesSaga);
   yield takeEvery(types.HANDLE_CONFIRMATION_STATUS, handleConfirmationStatusSaga);
   yield takeLatest(
     types.RESULT_CONFIG_LOAD_HGVS,
-    resultConfigLoadHgvsGenerator
+    resultConfigLoadHgvsSaga
   );
   yield takeLatest(
     types.RESULT_CONFIG_ADD_RESULT,
-    resultConfigAddResultGenerator
+    resultConfigAddResultSaga
   );
   yield takeLatest(
     types.RESULT_CONFIG_EDIT_RESULT,
-    resultConfigEditResultGenerator
+    resultConfigEditResultSaga
   );
-  yield takeLatest(types.SEND_VARIANT_CLASS, sendVariantClassGenerator);
+  yield takeLatest(types.SEND_VARIANT_CLASS, sendVariantClassSaga);
   yield takeEvery(types.FETCH_TESTS, fetchTestsSaga);
   yield takeLatest(types.ADD_EVIDENCE_ENTRY, addEvidenceEntrySaga);
   yield takeLatest(types.EDIT_EVIDENCE_ENTRY, editEvidenceEntrySaga);
