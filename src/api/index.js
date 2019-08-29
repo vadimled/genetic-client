@@ -50,6 +50,15 @@ export function fetchTestMetadataApi(id) {
   return axios_based.get(`/tests/${id.payload}`);
 }
 
+export function setTumorInfoApi(data) {
+  const { testId,  name, value } = data.payload;
+  return axios_based.patch(`/tests/${testId}`, {
+    tumor_info:{
+      [name]: value
+    }
+  });
+}
+
 export function fetchVariantMetadataDataApi(data) {
   const { testId, variantId } = data.payload;
   return axios_based.get(`/tests/${testId}/variants/${variantId}/`);

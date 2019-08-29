@@ -19,7 +19,7 @@ describe("Tumor Toolbar", () => {
     fireEvent.click(iconInfo);
   });
 
-  it("if TumorToolbar opened, check 'Type' select ", () => {
+  xit("if TumorToolbar opened, check 'Type' select ", () => {
     const { getByTestId, store } = renderWithRedux(<TumorToolbar />);
 
     const locationSelect = getByTestId("tumor-type-select");
@@ -32,7 +32,7 @@ describe("Tumor Toolbar", () => {
     expect(tumorTypeStaticText.innerHTML).toEqual("Test: type static text");
   });
 
-  it("if TumorToolbar opened, check 'Location' select ", () => {
+  xit("if TumorToolbar opened, check 'Location' select ", () => {
     const { getByTestId, store } = renderWithRedux(<TumorToolbar />);
 
     const locationSelect = getByTestId("tumor-location-select");
@@ -47,7 +47,7 @@ describe("Tumor Toolbar", () => {
     );
   });
 
-  it("if TumorToolbar opened, check 'Percent' select ", () => {
+  xit("if TumorToolbar opened, check 'Percent' select ", () => {
     const { getByTestId, store } = renderWithRedux(<TumorToolbar />);
 
     const inputNumber = getByTestId("tumor-percent-inputNumber");
