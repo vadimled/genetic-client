@@ -107,6 +107,7 @@ class Toolbar extends Component {
 
           <div className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}>
             {!selectedRows?.length && <Fragment>
+              <div className="toolbar-divider-line"/>
               <Filter setDefaultFilters={setDefaultFilters} testType={testType} />
               <div className="toolbar-divider-line"/>
               <Sort setSort={setSort} />
