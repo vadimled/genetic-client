@@ -14,6 +14,13 @@ export const setFetchBAMFileStatus = data => {
   };
 };
 
+export const setBamUrlToStore = data => {
+  return {
+    type: actionsTypes.SET_BAM_FILE_TO_STORE,
+    payload: data
+  };
+};
+
 export const handleIgvAlertShow = data => {
   return {
     type: actionsTypes.HANDLE_IGV_ALERT_SHOW,

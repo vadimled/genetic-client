@@ -2,8 +2,8 @@ import axios from "axios";
 import axios_based from "./axios-base";
 import "Utils/axios-mock";
 
-export function fetchBAMFile(BAMFileUrl) {
-  return axios.get(`http://localhost:60151/load?file=${BAMFileUrl}`);
+export function fetchBAMFile({BAMFileUrl, BAMIndexFileUrl}) {
+  return axios.get(`http://localhost:60151/load?file=${BAMFileUrl}&index=${BAMIndexFileUrl}`);
 }
 
 export function goToChrPositionIgv(chrPosition) {
@@ -48,6 +48,15 @@ export function editResult(data) {
 
 export function fetchTestMetadataApi(id) {
   return axios_based.get(`/tests/${id.payload}`);
+}
+
+export function setTumorInfoApi(data) {
+  const { testId,  name, value } = data.payload;
+  return axios_based.patch(`/tests/${testId}`, {
+    tumor_info:{
+      [name]: value
+    }
+  });
 }
 
 export function fetchVariantMetadataDataApi(data) {

@@ -5,6 +5,7 @@ import cn from "classnames";
 import style from "./TumorToolbar.module.scss";
 import { ReactComponent as CloseIcon } from "Assets/close-circle.svg";
 import {
+  getTestId,
   getTumorInfoLocation,
   getTumorInfoMode,
   getTumorInfoPercent,
@@ -20,16 +21,19 @@ class TumorToolbar extends Component {
     this.props.setTumorInfoMode(false);
   };
 
-  handelTumorTypeSelect = val => {
-    this.props.setTumorInfo({ type: val });
+  handelTumorTypeSelect = value => {
+    const { testId, setTumorInfo } = this.props;
+    setTumorInfo({testId, name: "type", value });
   };
 
-  handelTumorLocationSelect = val => {
-    this.props.setTumorInfo({ location: val });
+  handelTumorLocationSelect = value => {
+    const { testId, setTumorInfo } = this.props;
+    setTumorInfo({testId, name: "location", value });
   };
   
-  handelTumorPercentSelect = val => {
-    this.props.setTumorInfo({ cancer_cell_percentage: val });
+  handelTumorPercentSelect = value => {
+    const { testId, setTumorInfo } = this.props;
+    setTumorInfo({testId, name: "cancer_cell_percentage", value });
   };
 
   render() {
@@ -82,7 +86,8 @@ const mapStateToProps = state => {
     showTumorInfo: getTumorInfoMode(state),
     type: getTumorInfoType(state),
     location: getTumorInfoLocation(state),
-    percent: getTumorInfoPercent(state)
+    percent: getTumorInfoPercent(state),
+    testId: getTestId(state)
   };
 };
 

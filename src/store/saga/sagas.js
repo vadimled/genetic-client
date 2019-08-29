@@ -21,12 +21,14 @@ import {
   fetchEvidenceDataApi,
   deleteEvidenceEntryApi,
   fetchTableDataApi,
-  exportTableApi
+  exportTableApi,
+  setTumorInfoApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
   setFetchBAMFileStatus,
-  setIgvLastQuery
+  setIgvLastQuery,
+  setBamUrlToStore
 } from "Actions/igvActions";
 import {
   applyConfirmation,
@@ -206,7 +208,7 @@ function* resultConfigValidation(data, isOnAddResult) {
   }
 }
 
-export function* fetchBAMFileGenerator(data) {
+export function* fetchBAMFileSaga(data) {
   try {
     yield put(setIgvLastQuery({ type: "BAM_FILE", data: data.payload }));
     yield put(setFetchBAMFileStatus(1));
@@ -220,7 +222,7 @@ export function* fetchBAMFileGenerator(data) {
     yield put(setIgvLastQuery(null));
   } catch (e) {
     Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchBAMFileGenerator"]);
+      scope.setFingerprint(["fetchBAMFileSaga"]);
       Sentry.captureException(e);
     });
     yield consoleErrors(e);
@@ -228,7 +230,7 @@ export function* fetchBAMFileGenerator(data) {
   }
 }
 
-export function* goToChrPositionIgvGenerator(data) {
+export function* goToChrPositionIgvSaga(data) {
   try {
     yield put(setLoading(true));
     yield put(setIgvLastQuery({ type: "CHR_POS", data: data.payload }));
@@ -237,7 +239,7 @@ export function* goToChrPositionIgvGenerator(data) {
     yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
-      scope.setFingerprint(["goToChrPositionIgvGenerator"]);
+      scope.setFingerprint(["goToChrPositionIgvSaga"]);
       Sentry.captureException(e);
     });
     yield consoleErrors(e);
@@ -246,7 +248,7 @@ export function* goToChrPositionIgvGenerator(data) {
   }
 }
 
-export function* sendForConfirmationGenerator(data) {
+export function* sendForConfirmationSaga(data) {
   try {
     // -> API request
 
@@ -257,7 +259,7 @@ export function* sendForConfirmationGenerator(data) {
     yield put(handleOnConfirmation(false)); // hide confirmation popup
   } catch (e) {
     Sentry.withScope(scope => {
-      scope.setFingerprint(["sendForConfirmationGenerator"]);
+      scope.setFingerprint(["sendForConfirmationSaga"]);
       Sentry.captureException(e);
     });
     if (e.message !== "Error: Validation error") {
@@ -273,7 +275,7 @@ export function* sendForConfirmationGenerator(data) {
   }
 }
 
-export function* resultConfigLoadHgvsGenerator(data) {
+export function* resultConfigLoadHgvsSaga(data) {
   try {
     yield resultConfigValidation(data.payload, false);
 
@@ -289,7 +291,7 @@ export function* resultConfigLoadHgvsGenerator(data) {
   }
 }
 
-export function* resultConfigAddResultGenerator(data) {
+export function* resultConfigAddResultSaga(data) {
   try {
     yield resultConfigValidation(data.payload, true);
 
@@ -310,7 +312,7 @@ export function* resultConfigAddResultGenerator(data) {
   }
 }
 
-export function* resultConfigEditResultGenerator(data) {
+export function* resultConfigEditResultSaga(data) {
   try {
     yield resultConfigValidation(data.payload, true);
 
@@ -399,15 +401,16 @@ export function* setNotesSaga(data) {
   }
 }
 
-export function* fetchTestMetadataGenerator(action) {
+export function* fetchTestMetadataSaga(action) {
   try {
     yield put(setLoading(true));
-    const result = yield call(fetchTestMetadataApi, action);
-    yield put(setTestData(result?.data));
-    yield put(setMutationType(result?.data?.mutation_types[0]));
+    const { data } = yield call(fetchTestMetadataApi, action);
+    yield put(setTestData(data));
+    yield put(setMutationType(data?.mutation_types[0]));
+    yield put(setBamUrlToStore(data));
   } catch (e) {
     Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchTestMetadataGenerator"]);
+      scope.setFingerprint(["fetchTestMetadataSaga"]);
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
@@ -431,6 +434,24 @@ export function* fetchTableDataSaga(action) {
   }
 }
 
+export function* setTumorInfoSaga(action) {
+  try {
+    yield put(setLoading(true));
+    const {status, data} = yield call(setTumorInfoApi, action);
+    if (status === 200) {
+      yield put(setTestData(data));
+    }
+    yield put(setLoading(false));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["setTumorInfoSaga"]);
+      Sentry.captureException(e);
+    });
+    yield put(setLoading(false));
+  }
+}
+
+
 // --------------- VARIANT PAGE ---------------
 export function* fetchVariantMetadataDataSaga(action) {
   try {
@@ -449,7 +470,7 @@ export function* fetchVariantMetadataDataSaga(action) {
   }
 }
 
-export function* sendVariantClassGenerator(action) {
+export function* sendVariantClassSaga(action) {
   try {
     const {status, data} = yield call(updateVariantApi, action);
     if (status === 200) {
@@ -460,7 +481,7 @@ export function* sendVariantClassGenerator(action) {
     }
   } catch (e) {
     Sentry.withScope(scope => {
-      scope.setFingerprint(["sendVariantClassGenerator"]);
+      scope.setFingerprint(["sendVariantClassSaga"]);
       Sentry.captureException(e);
     });
   }
