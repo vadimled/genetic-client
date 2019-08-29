@@ -10,7 +10,7 @@ import {
   getSelectedRows,
   getSortOrder,
   getSortParam,
-  getTestId
+  getTestId, getTumorInfoMode
 } from "Store/selectors";
 import {
   handleSelectedRow,
@@ -43,7 +43,8 @@ class TableData extends Component {
       setSort,
       sortOrder,
       sortParam,
-      testId
+      testId,
+      showTumorInfo
     } = this.props;
 
     return (
@@ -64,6 +65,7 @@ class TableData extends Component {
             sortOrder={sortOrder}
             sortParam={sortParam}
             testId={testId}
+            tumorInfoPanel={showTumorInfo}
           />
         }
 
@@ -80,7 +82,8 @@ function mapStateToProps(state) {
     selectedRows: getSelectedRows(state),
     sortOrder: getSortOrder(state),
     sortParam: getSortParam(state),
-    testId: getTestId(state)
+    testId: getTestId(state),
+    showTumorInfo: getTumorInfoMode(state)
   };
 }
 

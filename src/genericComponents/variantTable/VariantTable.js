@@ -59,13 +59,13 @@ class VariantTable extends Component {
         title: "Allele change",
         dataIndex: "alleleChange",
         key: "6",
-        width: 130,
+        width: 180
       },
       {
         title: "Coding",
         dataIndex: "coding",
         key: "7",
-        width: 150
+        width: 180
       },
       {
         title: "Protein",
@@ -74,7 +74,9 @@ class VariantTable extends Component {
         width: 200
       },
       {
-        title: <TableSorter title="VAF" setSort={this.props.setSort} field="vaf" />,
+        title: (
+          <TableSorter title="VAF" setSort={this.props.setSort} field="vaf" />
+        ),
         dataIndex: "vaf",
         key: "9",
         width: 60,
@@ -159,7 +161,7 @@ class VariantTable extends Component {
         notes
       });
   };
-
+  
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -173,14 +175,22 @@ class VariantTable extends Component {
       // construction if/else is required
 
       if (column.dataIndex === "selection") {
-        column.title = <div className={cn("table-header-selection-chbx", {
-          'partly': !!this.props.selectedRows.length && !this.props.isAllRowSelected
-        })}>
-          <Checkbox
-            checked={this.props.isAllRowSelected}
-            onChange={this.props.handleSelectAllRows.bind(null, this.props.isAllRowSelected)}
-          />
-        </div>;
+        column.title = (
+          <div
+            className={cn("table-header-selection-chbx", {
+              partly:
+                !!this.props.selectedRows.length && !this.props.isAllRowSelected
+            })}
+          >
+            <Checkbox
+              checked={this.props.isAllRowSelected}
+              onChange={this.props.handleSelectAllRows.bind(
+                null,
+                this.props.isAllRowSelected
+              )}
+            />
+          </div>
+        );
 
         column.render = (text, record) => {
           if (record.status) {
@@ -188,10 +198,12 @@ class VariantTable extends Component {
               <HighlightedCell isHighlighted={record.isAdded}>
                 <ConfirmationStatus
                   status={record.status}
-                  handleStatus={(status) => this.props.handleConfirmationStatus({
-                    id: record.id,
-                    status
-                  })}
+                  handleStatus={status =>
+                    this.props.handleConfirmationStatus({
+                      id: record.id,
+                      status
+                    })
+                  }
                 />
               </HighlightedCell>
             );
@@ -210,9 +222,7 @@ class VariantTable extends Component {
             </HighlightedCell>
           );
         };
-      }
-
-      else if (column.dataIndex === "zygosity") {
+      } else if (column.dataIndex === "zygosity") {
         column.render = (text, record) => (
           <HighlightedCell isHighlighted={record.isAdded}>
             <div className="table-select-wrapper">
@@ -230,21 +240,21 @@ class VariantTable extends Component {
                 testId="zygosity-select"
                 data-testitemid={record.id}
               />
-            </div>{record.priority}
+            </div>
+            {record.priority}
           </HighlightedCell>
         );
         column.className = "select";
-      }
-
-      else if (column.dataIndex === "variantClassGermline") {
-
+      } else if (column.dataIndex === "variantClassGermline") {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               <div className="table-select-wrapper">
                 <Link
                   to={{
-                    pathname: `${this.props.match.url}/variants/${record.id}/?selectedZygosityType=germline`,
+                    pathname: `${this.props.match.url}/variants/${
+                      record.id
+                    }/?selectedZygosityType=germline`
                     // state: {type: "germline"}
                   }}
                 >
@@ -265,7 +275,9 @@ class VariantTable extends Component {
               <div className="table-select-wrapper">
                 <Link
                   to={{
-                    pathname: `${this.props.match.url}/variants/${record.id}/?selectedZygosityType=somatic`,
+                    pathname: `${this.props.match.url}/variants/${
+                      record.id
+                    }/?selectedZygosityType=somatic`
                     // state: {testId:this.props.testId, variantId: record.id, selectedZygosityType: "somatic"}
                   }}
                 >
@@ -284,7 +296,7 @@ class VariantTable extends Component {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               <Notes
-                setNotes={(notes) => this.handleNotes(notes, record.id)}
+                setNotes={notes => this.handleNotes(notes, record.id)}
                 value={record.notes}
               />
             </HighlightedCell>
@@ -326,20 +338,35 @@ class VariantTable extends Component {
         };
       } else if (col.dataIndex === "alleleChange") {
         column.render = (text, record) => {
+          const { alleleChangeLong, isAdded } = record;
           return (
-            <HighlightedCell isHighlighted={record.isAdded}>
-              <Tooltip placement="topLeft" title={record.alleleChangeLong}>
-                <div>{text}</div>
+            <HighlightedCell isHighlighted={isAdded}>
+              <Tooltip placement="topLeft" title={alleleChangeLong}>
+                <div
+                  className={cn("text", {
+                    cut:
+                      alleleChangeLong && alleleChangeLong.length > text.length
+                  })}
+                >
+                  {text}
+                </div>
               </Tooltip>
             </HighlightedCell>
           );
         };
       } else if (col.dataIndex === "coding") {
         column.render = (text, record) => {
+          const { codingLong, isAdded } = record;
           return (
-            <HighlightedCell isHighlighted={record.isAdded}>
-              <Tooltip placement="topLeft" title={record.codingLong}>
-                <div>{text}</div>
+            <HighlightedCell isHighlighted={isAdded}>
+              <Tooltip placement="topLeft" title={codingLong}>
+                <div
+                  className={cn("text", {
+                    cut: codingLong && codingLong.length > text.length
+                  })}
+                >
+                  {text}
+                </div>
               </Tooltip>
             </HighlightedCell>
           );
@@ -370,14 +397,14 @@ class VariantTable extends Component {
   };
 
   render() {
-    const { data } = this.props;
+    const { data, tumorInfoPanel } = this.props;
 
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
 
     return (
       <Table
-        className={style["variant-table-wrapper"]}
+        className={cn(style["variant-table-wrapper"], {"tumor-panel-opened": tumorInfoPanel})}
         components={this.components}
         pagination={{ pageSize: 20 }}
         bordered
@@ -398,6 +425,7 @@ VariantTable.propTypes = {
   handelChrPosition: PropTypes.func,
   handleConfirmationStatus: PropTypes.func,
   isAllRowSelected: PropTypes.bool,
+  tumorInfoPanel: PropTypes.bool,
   selectedRows: PropTypes.array,
   setNotes: PropTypes.func,
   testId: PropTypes.string
