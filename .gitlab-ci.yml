@@ -72,7 +72,6 @@ deploy_dev:
     - apk add --no-cache curl jq python py-pip git
     - pip install awscli
   script:
-    - $(aws ecr get-login --no-include-email --region us-east-1)
     - aws s3 sync --acl public-read --delete build/ s3://analyst-website-dev
     - aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths '/*'
   environment:
