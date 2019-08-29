@@ -1025,6 +1025,8 @@ const createVaf = numb => {
   }
 };
 
+const getAlleleChange = (ref, alt) => `${ref} > ${alt}`;
+
 const createNewTableDataItem = ({
   alt,
   chr,
@@ -1058,8 +1060,8 @@ const createNewTableDataItem = ({
   newObj.key = id;
   newObj.gene = gene;
   newObj.chrPosition = `${chr}:${position}`;
-  newObj.alleleChange = `${ref?.slice(0, 1)} > ${alt?.slice(0, 1)}`;
-  newObj.alleleChangeLong = `${ref} > ${alt}`;
+  newObj.alleleChange = getAlleleChange(ref, alt)?.slice(0, 12);
+  newObj.alleleChangeLong = getAlleleChange(ref, alt);
   newObj.transcript = transcript;
   newObj.zygosity = zygosity;
   newObj.protein = hgvs_p;
