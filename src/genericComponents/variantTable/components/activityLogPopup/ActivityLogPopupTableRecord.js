@@ -25,7 +25,6 @@ const ActivityLogPopupTableRecord = ({ record: {
         prevVal={prev_val}
         currVal={curr_val}
         field={field}
-        // record={record}
       />
       <div className="cell border flex items-center justify-center">
         {dateFormat(timestamp, "H:MM, d mmmm yyyy")}

@@ -93,21 +93,6 @@ const tableReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_ZYGOSITY]: (state, { payload }) => {
-    const { id } = payload;
-    let data = state?.data;
-
-    data[id] = payload;
-
-    const newData = Object.assign({}, data);
-
-    state.data = newData;
-
-    return {
-      ...state
-    };
-  },
-
   [actionsTypes.HANDLE_VARIANT_CLASS]: (state, { payload }) => {
     const { item, value } = payload;
 
@@ -134,13 +119,18 @@ const tableReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_NOTES_TO_STORE]: (state, { payload }) => {
-    const { id, notes } = payload;
+  [actionsTypes.UPDATE_VARIANT_IN_TABLE_DATA]: (state, { payload }) => {
+    const { id } = payload;
     let data = state?.data;
-    data[id].notes = notes;
+
+    data[id] = payload;
+
+    const newData = Object.assign({}, data);
+
+    state.data = newData;
+
     return {
-      ...state,
-      data: { ...data }
+      ...state
     };
   },
 

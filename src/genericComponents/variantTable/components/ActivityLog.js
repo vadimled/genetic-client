@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import ActiveLogDetails from "./activiryLogDetails/ActivityLogDetails";
 import ActivityLogPopup from "./activityLogPopup/ActivityLogPopup";
 import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
-// import {connect} from "react-redux";
-// import {getActivityLog} from "Store/selectors";
 import PropTypes from 'prop-types';
 import cn from "classnames";
 
@@ -74,23 +72,11 @@ class ActivityLog extends Component {
   }
 }
 
-// function mapStateToProps(state, ownProps) {
-
-//   const record = ownProps[1];
-
-//   return {
-//     activityLog: getActivityLog(state, record.id),
-//   };
-// }
-
 ActivityLog.propTypes = {
   activityLog: PropTypes.array,
-  // id: PropTypes.string.isRequired
 };
 ActivityLog.defaultProps = {
   activityLog: []
 };
 
 export default ActivityLog;
-
-// export default connect(mapStateToProps, {})(ActivityLog);

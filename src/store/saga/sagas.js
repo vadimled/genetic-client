@@ -35,10 +35,9 @@ import {
   tableDataEditResult,
   setParsedDataToStore,
   setServerDataToStore,
-  setZygosity,
-  setNotesToStore,
   setTableReducerLoading,
-  setConfirmationStatusToStore
+  setConfirmationStatusToStore,
+  updateVariantInTableData
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
@@ -352,7 +351,7 @@ export function* handleZygositySaga(data) {
 
     if (result?.status === 200) {
       const parsedData = parseTableDataObj(result.data);
-      yield put(setZygosity(parsedData));
+      yield put(updateVariantInTableData(parsedData));
     }
   }
   catch (e) {
@@ -379,7 +378,7 @@ export function* setNotesSaga(data) {
     const result = yield call(updateVariantApi, newData);
     if (result?.status === 200) {
       const parsedData = parseTableDataObj(result.data);
-      yield put(setNotesToStore(parsedData));
+      yield put(updateVariantInTableData(parsedData));
     }
     yield put(setLoading(false));
   }

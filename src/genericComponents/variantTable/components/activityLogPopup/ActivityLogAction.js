@@ -6,8 +6,6 @@ import { ReactComponent as ArrowRight } from "Assets/arrowRight.svg";
 import PropTypes from 'prop-types';
 
 const ActivityLogAction = ({ prevVal, currVal, field }) => {
-  // const { type } = record;
-
   if (field === "notes") {
     return (
       <div className="cell border">

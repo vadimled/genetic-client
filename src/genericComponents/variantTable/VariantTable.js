@@ -326,8 +326,6 @@ class VariantTable extends Component {
               <ActivityLog
                 data-testid={`activity-icon`}
                 activityLog={record.activityLog}
-                // {...data}
-                // id={record.id}
               />
             </HighlightedCell>
           );

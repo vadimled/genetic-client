@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { Button, Modal } from "antd";
-// import { connect } from "react-redux";
-// import { getActivityLog } from "Store/selectors";
 import ActivityLogPopupTableRecord from "./ActivityLogPopupTableRecord";
 
 class ActivityLogPopup extends Component {
@@ -40,14 +38,6 @@ class ActivityLogPopup extends Component {
   }
 }
 
-// function mapStateToProps(state, ownProps) {
-//   const record = ownProps[1];
-
-//   return {
-//     activityLog: getActivityLog(state, record.id)
-//   };
-// }
-
 ActivityLogPopup.propTypes = {
   visible: PropTypes.bool,
   handleOk: PropTypes.func.isRequired,
@@ -60,8 +50,3 @@ ActivityLogPopup.defaultProps = {
 };
 
 export default ActivityLogPopup;
-
-// export default connect(
-//   mapStateToProps,
-//   {}
-// )(ActivityLogPopup);
