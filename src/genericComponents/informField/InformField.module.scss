@@ -28,5 +28,9 @@
     text-overflow: ellipsis;
     color: $title_color;
     margin-left: 4px;
+
+    &.cut {
+      width: 112px;
+    }
   }
 }

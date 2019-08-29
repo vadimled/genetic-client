@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import PropTypes from "prop-types";
 import style from "./InformField.module.scss";
 import { Tooltip } from "antd";
+import cn from "classnames";
 
 function InformField({ label, text, icon, name, tooltip }) {
   return (
@@ -10,7 +11,12 @@ function InformField({ label, text, icon, name, tooltip }) {
       <label>{!!label && label}</label>
       {tooltip ? (
         <Tooltip placement="topLeft" title={tooltip}>
-          <div data-testid={name} className="text">
+          <div
+            data-testid={name}
+            className={cn("text", {
+              cut: tooltip && tooltip.length > name.length
+            })}
+          >
             {text}
           </div>
         </Tooltip>
