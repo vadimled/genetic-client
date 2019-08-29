@@ -21,21 +21,21 @@ install_dependencies:
   tags:
     - build
 
-build:
-  stage: build
-  script:
-    - yarn build
-  artifacts:
-    paths:
-      - build
-  tags:
-    - build
-  dependencies:
-    - install_dependencies
-  only:
-    - dev
-    - s5/master
-    - s6/master
+# build:
+#   stage: build
+#   script:
+#     - yarn build
+#   artifacts:
+#     paths:
+#       - build
+#   tags:
+#     - build
+#   dependencies:
+#     - install_dependencies
+#   only:
+#     - dev
+#     - s5/master
+#     - s6/master
 
 test:
   stage: test
@@ -72,15 +72,19 @@ deploy_dev:
     - apk add --no-cache curl jq python py-pip git
     - pip install awscli
   script:
+    - echo "Building app..."
+    - yarn build
+    - echo "Uploading to s3 bucket..."
     - aws s3 sync --acl public-read --delete build/ s3://analyst-website-dev
+    - echo "Invalidating CloudFront..."
     - aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths '/*'
   environment:
     name: dev
     url: https://analyst.dev.aidgenomics.com
   dependencies:
-    - build
+    - install_dependencies
   tags:
-    - deploy
+    - deploy, build
   only:
     - dev
     - s5/master
