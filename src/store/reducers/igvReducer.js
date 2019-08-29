@@ -43,11 +43,11 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_BAM_FILE_TO_STORE]: (state, { payload }) => {
-    const { bam_url } = payload;
+    const { bam_url, bai_url } = payload;
     return {
       ...state,
       BAMFileUrl: bam_url,
-      BAMIndexFileUrl: bam_url
+      BAMIndexFileUrl: bai_url
     };
   }
 });
