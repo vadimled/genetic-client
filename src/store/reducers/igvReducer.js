@@ -1,16 +1,14 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 
-const baseBamUrl =
-  "http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeUwRepliSeq/";
 const initialState = {
   fetchBAMFileStatus: null, // null | 1 | 2 | 3
   isIgvAlertShow: false,
   isIgvAlertShowAgaing: true,
   igvLastQuery: null, // null | { type: 'BAM_FILE' | 'CHR_POS', data }
   // eslint-disable-next-line
-  BAMFileUrl: `${baseBamUrl}wgEncodeUwRepliSeqGm12801G1bAlnRep1.bam`,
-  BAMIndexFileUrl: `${baseBamUrl}wgEncodeUwRepliSeqGm12801G1bAlnRep1.bam.bai`
+  BAMFileUrl: null,
+  BAMIndexFileUrl: null
 };
 
 const tableReducer = createReducer(initialState, {
@@ -41,6 +39,15 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       igvLastQuery: state.isIgvAlertShowAgaing ? payload : null
+    };
+  },
+
+  [actionsTypes.SET_BAM_FILE_TO_STORE]: (state, { payload }) => {
+    const { bam_url } = payload;
+    return {
+      ...state,
+      BAMFileUrl: bam_url,
+      BAMIndexFileUrl: bam_url
     };
   }
 });
