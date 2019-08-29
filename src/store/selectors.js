@@ -300,23 +300,6 @@ export const checkIsAllRowSelected = createSelector(
   }
 );
 
-// activity log
-export const getActivityLog = (state, recordId) => {
-  const activityLog = state?.table?.activityLog[recordId];
-
-  let activityLogArray = [];
-
-  for (let record in activityLog) {
-    activityLogArray = activityLogArray.concat(activityLog[record]);
-  }
-
-  activityLogArray.sort((a,b) => {
-    return new Date(b.time) - new Date(a.time);
-  });
-
-  return activityLogArray;
-};
-
 export const getTestType = state => state?.test?.panel_type;
 
 export const getTests = state => state?.tests?.tests;

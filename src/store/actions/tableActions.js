@@ -64,13 +64,6 @@ export const handleUncheckConfirmationData = data => {
   };
 };
 
-export const updateActivityLog = data => {
-  return{
-    type: actionsTypes.UPDATE_ACTIVITY_LOG,
-    payload: data
-  };
-};
-
 export const fetchTableData = data => {
   return{
     type: actionsTypes.FETCH_TABLE_DATA,

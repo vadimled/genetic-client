@@ -21,7 +21,6 @@ import {
   handleConfirmationStatus,
   handleUncheckConfirmationData,
   setNotes,
-  updateActivityLog,
   fetchTableData, setSort
 } from "Actions/tableActions";
 import {
@@ -377,7 +376,6 @@ function mapDispatchToProps(dispatch) {
         dispatch(handleUncheckConfirmationData(data));
       }
     },
-    updateActivityLog: data => dispatch(updateActivityLog(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
     setNotes: data => dispatch(setNotes(data)),
     fetchTableData: data => dispatch(fetchTableData(data)),

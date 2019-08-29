@@ -51,16 +51,8 @@ class Notes extends Component {
   };
 
   handleDone = () => {
-    const { setNotes, updateActivityLog, value: prevValue, tableRow } = this.props;
+    const { setNotes } = this.props;
     setNotes(this.state.editNotes);
-
-    //
-
-    updateActivityLog({
-      prevValue,
-      item: tableRow,
-      changedField: "notes"
-    });
 
     this.cleanupState();
   };
@@ -135,16 +127,12 @@ class Notes extends Component {
 
 Notes.propTypes = {
   setNotes: PropTypes.func.isRequired,
-  updateActivityLog: PropTypes.func,
   value: PropTypes.string,
-  tableRow: PropTypes.object,
   placeholder: PropTypes.string
 };
 
 Notes.defaultProps = {
-  value: "",
-  tableRow: {},
-  updateActivityLog: () => false
+  value: ""
 };
 
 export default React.memo(Notes);

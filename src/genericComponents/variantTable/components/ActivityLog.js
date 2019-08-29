@@ -33,11 +33,11 @@ class ActivityLog extends Component {
   };
 
   render() {
-    const {activityLog, id} = this.props;
+    const {activityLog} = this.props;
 
     return (
       <div
-        data-testid={`activity-log-wrapper-${id}`}
+        data-testid={`activity-log-wrapper`}
         className={cn([
           "activity-icon-wrapper flex justify-center",
           { "disabled": !activityLog.length }
@@ -56,11 +56,10 @@ class ActivityLog extends Component {
             handleOk={this.handleOk}
             handleCancel={this.handleCancel}
             activityLog={activityLog}
-            // {...this.props}
           />
         )}
         <div
-          data-testid={`activity-log-icon-${id}`}
+          data-testid={`activity-log-icon`}
           className="icon"
           onClick={this.showActivityPopup}
           onMouseOver={this.showActivityDetails}

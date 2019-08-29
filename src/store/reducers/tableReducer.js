@@ -7,7 +7,6 @@ const initialState = {
   serverData: {},
   data: {},
   uncheckConfirmationData: null,
-  activityLog: {},
   sortParam: "priority",
   sortOrder: "default",
   clicksCounter: 1,
@@ -165,34 +164,6 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       uncheckConfirmationData: payload
-    };
-  },
-
-  [actionsTypes.UPDATE_ACTIVITY_LOG]: (state, { payload }) => {
-    const { item, prevValue, changedField } = payload;
-
-    let activityLog = state?.activityLog;
-
-    const changes = {
-      titleCurr: item[changedField],
-      titlePrev: prevValue,
-      time: new Date(),
-      type: changedField
-    };
-
-    let changesArr =
-      activityLog[item.id] && activityLog[item.id][changedField]
-        ? activityLog[item.id][changedField]
-        : [];
-
-    activityLog[item.id] = {
-      ...activityLog[item.id],
-      [changedField]: [...changesArr, changes]
-    };
-
-    return {
-      ...state,
-      activityLog
     };
   },
 
