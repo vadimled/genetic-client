@@ -62,6 +62,7 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getHistoryGermline = state => state.variantPage.pageData.germlineClassHistory,
   getVariantId = state => state.variantPage.pageData.variantId,
   getVariantPageTestId = state => state.variantPage.pageData.testId,
+  getVariantGSID = state => state.variantPage.pageData.gsid,
   getVariantPageServerData = state => state.variantPage.pageData.serverData,
 
 
@@ -76,6 +77,7 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getTumorInfoPercent = state =>
     parseInt(state.test.tumor_info?.cancer_cell_percentage, 10),
   getTestId = state => state.test.id,
+  getGSID = state => state.test.gsid,
   getSelectedMutationType = state => state.variants.selectedMutation,
   getMutationTypesValues = state => state.test.mutation_types;
 

@@ -49,6 +49,7 @@ export const TEXTS = {
   goBack: "< Go back",
   variantPage: "variantPage",
   singleTestPage: "singleTestPage",
+  testsPage: "testsPage",
 };
 
 export const LIMITS = {
@@ -678,5 +679,6 @@ export const EXTERNAL_RESOURCES_SOMATIC = [
 
 export const ROUTES = {
   isVariantPageRegex :"/variants/.+",
-  isSingleTestPageRegex :"\\/tests\\/?\\w+$"
+  isSingleTestPageRegex :"\\/tests\\/?\\w+$",
+  isRootRegex: "/$"
 };

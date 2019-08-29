@@ -4,7 +4,13 @@ import HeaderIcon from "GenericComponents/headerIcon";
 import { ReactComponent as NotificationIcon } from "Assets/notifications.svg";
 import { ReactComponent as InfoIcon } from "Assets/info.svg";
 import User from "Pages/singleTestPage/components/header/components/user";
-import { getTestId, getTumorInfoMode, getVariantPageTestId } from "Store/selectors";
+import {
+  getTestId,
+  getTumorInfoMode,
+  getVariantPageTestId,
+  getGSID,
+  getVariantGSID
+} from "Store/selectors";
 import { setTumorInfoMode } from "Actions/testActions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -42,10 +48,11 @@ class Header extends Component {
   };
 
   render() {
-    const { testId, location } = this.props;
+    const { testId, location, gsId } = this.props;
+    console.log(location.pathname, layout(location.pathname, TEXTS.testsPage));
     return (
       <div className={style["header-wrapper"]}>
-        <div className="flex justify-start flex-row">
+        <div className="flex justify-start flex-row items-center">
           <div className="left-wrapper">
             {/* TODO: Logo place*/}
             LOGO
@@ -58,7 +65,9 @@ class Header extends Component {
               className={"go-back-button"}
             />
           </div>
-          <div className="left-wrapper">{testId}</div>
+          {!layout(location.pathname, TEXTS.testsPage) && (
+            <div className="left-wrapper">{gsId}</div>
+          )}
         </div>
         <div className="flex justify-start flex-row">
           {!this.isMVP
@@ -95,7 +104,8 @@ class Header extends Component {
 const mapStateToProps = state => {
   return {
     showTumorInfo: getTumorInfoMode(state),
-    testId: getVariantPageTestId(state) || getTestId(state)
+    testId: getVariantPageTestId(state) || getTestId(state),
+    gsId: getVariantGSID(state) || getGSID(state)
   };
 };
 
