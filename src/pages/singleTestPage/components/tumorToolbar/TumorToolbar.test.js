@@ -16,6 +16,7 @@ describe("Tumor Toolbar", () => {
     );
 
     const iconInfo = getByTestId("header-icon-info");
+    console.log("iconInfo", iconInfo);
     fireEvent.click(iconInfo);
   });
 

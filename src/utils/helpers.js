@@ -9,10 +9,10 @@ import {
   ROUTES
 } from "./constants";
 
-export const getPrevTagColor = title => {
+export const getPrevTagColor = ({ prevVal }) => {
   let prevTagColor = "";
 
-  switch (title) {
+  switch (prevVal) {
     case "unclassified":
       prevTagColor = TAG_COLORS.white;
       break;
@@ -40,10 +40,10 @@ export const getPrevTagColor = title => {
   return prevTagColor;
 };
 
-export const getCurrTagColor = title => {
+export const getCurrTagColor = ({ currVal }) => {
   let currTagColor = "";
 
-  switch (title) {
+  switch (currVal) {
     case "unclassified":
       currTagColor = TAG_COLORS.white;
       break;
@@ -71,50 +71,56 @@ export const getCurrTagColor = title => {
   return currTagColor;
 };
 
-export const getTitlePrev = (type, record) => {
+export const getTitlePrev = ({ prevVal, field }) => {
   let titlePrev = "";
 
-  if (type === "variantClass") {
+  if (field === "variantClassGermline" || field === "variantClassSomatic") {
     titlePrev =
-      VARIANT_CLASS_GERMLINE[record.titlePrev]?.label ||
-      VARIANT_CLASS_SOMATIC[record.titlePrev]?.label;
-  } else if (type === "zygosity") {
-    if (record.titlePrev) {
+      VARIANT_CLASS_GERMLINE[prevVal]?.label ||
+      VARIANT_CLASS_SOMATIC[prevVal]?.label;
+  }
+  else if (field === "zygosity") {
+    if (prevVal) {
       titlePrev = ZYGOSITY_OPTIONS.find(
-        option => option.value === record.titlePrev
+        option => option.value === prevVal
       )?.label;
     }
-  } else if (type === "notes") {
-    if (record.titlePrev) {
-      titlePrev = record.titlePrev;
+  }
+  else if (field === "notes") {
+    if (prevVal) {
+      titlePrev = prevVal;
     }
   }
 
   return titlePrev;
 };
 
-export const getTitleCurr = (type, record) => {
+export const getTitleCurr = ({ prevVal, currVal, field }) => {
   let titleCurr = "";
 
-  if (type === "variantClass") {
+  if (field === "variantClassGermline" || field === "variantClassSomatic") {
     titleCurr =
-      VARIANT_CLASS_GERMLINE[record.titleCurr]?.label ||
-      VARIANT_CLASS_SOMATIC[record.titleCurr]?.label;
-  } else if (type === "zygosity") {
-    if (record.titlePrev) {
+      VARIANT_CLASS_GERMLINE[currVal]?.label ||
+      VARIANT_CLASS_SOMATIC[currVal]?.label;
+  }
+  else if (field === "zygosity") {
+    if (prevVal) {
       titleCurr = ZYGOSITY_OPTIONS.find(
-        option => option.value === record.titleCurr
+        option => option.value === currVal
       ).label;
-    } else {
+    }
+    else {
       titleCurr = ZYGOSITY_OPTIONS.find(
-        option => option.value === record.titleCurr
+        option => option.value === currVal
       )?.label;
     }
-  } else if (type === "notes") {
-    if (record.titlePrev) {
-      titleCurr = record.titleCurr;
-    } else {
-      titleCurr = record.titleCurr;
+  }
+  else if (field === "notes") {
+    if (prevVal) {
+      titleCurr = currVal;
+    }
+    else {
+      titleCurr = currVal;
     }
   }
 
@@ -1067,7 +1073,8 @@ const createNewTableDataItem = ({
   status,
   transcript,
   percentage_variants,
-  zygosity
+  zygosity,
+  activity_log
 }) => {
   let newObj = {};
 
@@ -1089,6 +1096,7 @@ const createNewTableDataItem = ({
   newObj.variantClassGermline = germline_class || "unclassified";
   newObj.variantClassSomatic = somatic_class || "unclassified";
   newObj.status = status || null;
+  newObj.activityLog = activity_log || [];
   // filters
   newObj.clinvar = clinvar_variation_id;
   newObj.cosmic = cosmic;

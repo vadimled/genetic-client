@@ -2,12 +2,8 @@ import React, { Component } from "react";
 import ActiveLogDetails from "./activiryLogDetails/ActivityLogDetails";
 import ActivityLogPopup from "./activityLogPopup/ActivityLogPopup";
 import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
-import {connect} from "react-redux";
-import {getActivityLog} from "Store/selectors";
 import PropTypes from 'prop-types';
 import cn from "classnames";
-
-
 
 class ActivityLog extends Component {
   state = {
@@ -16,9 +12,7 @@ class ActivityLog extends Component {
   };
 
   showActivityPopup = () => {
-    this.setState({
-      isActivityPopupShow: true
-    });
+    this.setState({ isActivityPopupShow: true });
     this.hideActivityDetails();
   };
 
@@ -31,24 +25,19 @@ class ActivityLog extends Component {
   };
 
   handleOk = () => {
-    this.setState({
-      isActivityPopupShow: false
-    });
+    this.setState({ isActivityPopupShow: false });
   };
 
   handleCancel = () => {
-    this.setState({
-      isActivityPopupShow: false
-    });
+    this.setState({ isActivityPopupShow: false });
   };
 
   render() {
-
-    const {activityLog, id} = this.props;
+    const {activityLog} = this.props;
 
     return (
       <div
-        data-testid={`activity-log-wrapper-${id}`}
+        data-testid={`activity-log-wrapper`}
         className={cn([
           "activity-icon-wrapper flex justify-center",
           { "disabled": !activityLog.length }
@@ -56,17 +45,21 @@ class ActivityLog extends Component {
         onMouseLeave={this.hideActivityDetails}
       >
         {this.state.isActivityDetailsShow &&
-        <ActiveLogDetails activityLog={activityLog} hideActivityDetails={this.hideActivityDetails} />}
+          <ActiveLogDetails
+            activityLog={activityLog}
+            hideActivityDetails={this.hideActivityDetails}
+          />
+        }
         {this.state.isActivityPopupShow && (
           <ActivityLogPopup
             visible={this.state.isActivityPopupShow}
             handleOk={this.handleOk}
             handleCancel={this.handleCancel}
-            {...this.props}
+            activityLog={activityLog}
           />
         )}
         <div
-          data-testid={`activity-log-icon-${id}`}
+          data-testid={`activity-log-icon`}
           className="icon"
           onClick={this.showActivityPopup}
           onMouseOver={this.showActivityDetails}
@@ -78,17 +71,11 @@ class ActivityLog extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-
-  const record = ownProps[1];
-
-  return {
-    activityLog: getActivityLog(state, record.id),
-  };
-}
-
 ActivityLog.propTypes = {
-  activityLog: PropTypes.array
+  activityLog: PropTypes.array,
+};
+ActivityLog.defaultProps = {
+  activityLog: []
 };
 
-export default connect(mapStateToProps, {})(ActivityLog);
+export default ActivityLog;
