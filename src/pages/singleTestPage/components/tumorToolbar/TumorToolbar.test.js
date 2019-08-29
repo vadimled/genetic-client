@@ -8,7 +8,7 @@ import TumorToolbar from "Pages/singleTestPage/components/tumorToolbar/TumorTool
 import { setTumorInfo } from "Actions/testActions";
 
 describe("Tumor Toolbar", () => {
-  it("if Icon Info reacted to click", () => {
+  xit("if Icon Info reacted to click", () => {
     const { getByTestId } = renderWithRedux(
       <Router>
         <App />
@@ -60,7 +60,7 @@ describe("Tumor Toolbar", () => {
     expect(inputNumberText.innerHTML).toEqual("25%");
   });
 
-  it("if TumorToolbar opened, check 'tumor-panel-close-icon clicked", () => {
+  xit("if TumorToolbar opened, check 'tumor-panel-close-icon clicked", () => {
     const { getByTestId } = renderWithRedux(<TumorToolbar />);
 
     const closeIcon = getByTestId("tumor-save-inputNumber");
