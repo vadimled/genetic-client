@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 import LogRecord from "./LogRecord";
 
-
 const ActiveLogDetails = ({activityLog}) => (
   <div
     className="activity-log-details"
@@ -19,7 +18,10 @@ const ActiveLogDetails = ({activityLog}) => (
 
 ActiveLogDetails.propTypes = {
   activityLog: PropTypes.array,
-  hideActivityDetails: PropTypes.func
+  hideActivityDetails: PropTypes.func.isRequired
+};
+ActiveLogDetails.defaultProps = {
+  activityLog: []
 };
 
 export default ActiveLogDetails;

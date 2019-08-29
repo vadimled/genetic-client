@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import { Button, Modal } from "antd";
-import { connect } from "react-redux";
-import { getActivityLog } from "Store/selectors";
+// import { connect } from "react-redux";
+// import { getActivityLog } from "Store/selectors";
 import ActivityLogPopupTableRecord from "./ActivityLogPopupTableRecord";
-
 
 class ActivityLogPopup extends Component {
   render() {
@@ -41,22 +40,28 @@ class ActivityLogPopup extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  const record = ownProps[1];
+// function mapStateToProps(state, ownProps) {
+//   const record = ownProps[1];
 
-  return {
-    activityLog: getActivityLog(state, record.id)
-  };
-}
+//   return {
+//     activityLog: getActivityLog(state, record.id)
+//   };
+// }
 
 ActivityLogPopup.propTypes = {
   visible: PropTypes.bool,
-  handleOk: PropTypes.func,
-  handleCancel: PropTypes.func,
+  handleOk: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired,
   activityLog: PropTypes.array
 };
+ActivityLogPopup.defaultProps = {
+  visible: false,
+  activityLog: []
+};
 
-export default connect(
-  mapStateToProps,
-  {}
-)(ActivityLogPopup);
+export default ActivityLogPopup;
+
+// export default connect(
+//   mapStateToProps,
+//   {}
+// )(ActivityLogPopup);

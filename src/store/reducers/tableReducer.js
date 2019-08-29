@@ -94,9 +94,7 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_ZYGOSITY]: (state, { payload }) => {
-
     const { id } = payload;
-
     let data = state?.data;
 
     data[id] = payload;

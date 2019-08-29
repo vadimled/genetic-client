@@ -1,26 +1,25 @@
 import React, { Fragment } from "react";
-import { getCurrTagColor, getPrevTagColor, getTitleCurr, getTitlePrev } from "../../../../utils/helpers";
+import { getCurrTagColor, getPrevTagColor, getTitleCurr, getTitlePrev } from "Utils/helpers";
 import { Tooltip } from "antd";
 import Tag from "../../../tag/Tag";
 import { ReactComponent as ArrowRight } from "Assets/arrowRight.svg";
 import PropTypes from 'prop-types';
 
+const ActivityLogAction = ({ prevVal, currVal, field }) => {
+  // const { type } = record;
 
-const ActivityLogAction = ({ record }) => {
-  const { type } = record;
-
-  if (type === "notes") {
+  if (field === "notes") {
     return (
       <div className="cell border">
-        <Tooltip placement="topLeft" title={getTitleCurr(type, record)}>
+        <Tooltip placement="topLeft" title={getTitleCurr({ prevVal, currVal, field })}>
           <div className="curr-note">
-            {getTitleCurr(type, record)}
+            {getTitleCurr({ prevVal, currVal, field })}
           </div>
         </Tooltip>
-        {getTitlePrev(type, record) && (
-          <Tooltip placement="topLeft" title={getTitlePrev(type, record)}>
+        {getTitlePrev({ prevVal, field }) && (
+          <Tooltip placement="topLeft" title={getTitlePrev({ prevVal, field })}>
             <div className="prev-note">
-              {getTitlePrev(type, record)}
+              {getTitlePrev({ prevVal, field })}
             </div>
           </Tooltip>
         )}
@@ -30,26 +29,37 @@ const ActivityLogAction = ({ record }) => {
 
   return (
     <div className="cell border flex items-center justify-between">
-      {record.titlePrev && (
+      {prevVal && (
         <Fragment>
           <div className="flex items-center action-item justify-center">
-            {type === "variantClass" && <Tag color={getPrevTagColor(record.titlePrev)} />}
-            <span className="title-prev">{getTitlePrev(type, record)}</span>
+            {field === "variantClassGermline" || field === "variantClassSomatic" &&
+              <Tag color={getPrevTagColor({ prevVal })} />
+            }
+            <span className="title-prev">{getTitlePrev({ prevVal, field })}</span>
           </div>
           <ArrowRight />
         </Fragment>
       )}
 
       <div className="flex items-center action-item justify-center">
-        {type === "variantClass" && <Tag color={getCurrTagColor(record.titleCurr)} />}
-        <span className="title-curr">{getTitleCurr(type, record)}</span>
+        {field === "variantClassGermline" || field === "variantClassSomatic" &&
+          <Tag color={getCurrTagColor({ currVal })} />
+        }
+        <span className="title-curr">{getTitleCurr({ prevVal, currVal, field })}</span>
       </div>
     </div>
   );
 };
 
 ActivityLogAction.propTypes = {
-  record: PropTypes.object,
+  prevVal: PropTypes.string,
+  currVal: PropTypes.string,
+  field: PropTypes.string,
+};
+ActivityLogAction.defaultProps = {
+  prevVal: '',
+  currVal: '',
+  field: '',
 };
 
 export default ActivityLogAction;

@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import ActiveLogDetails from "./activiryLogDetails/ActivityLogDetails";
 import ActivityLogPopup from "./activityLogPopup/ActivityLogPopup";
 import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
-import {connect} from "react-redux";
-import {getActivityLog} from "Store/selectors";
+// import {connect} from "react-redux";
+// import {getActivityLog} from "Store/selectors";
 import PropTypes from 'prop-types';
 import cn from "classnames";
-
-
 
 class ActivityLog extends Component {
   state = {
@@ -16,9 +14,7 @@ class ActivityLog extends Component {
   };
 
   showActivityPopup = () => {
-    this.setState({
-      isActivityPopupShow: true
-    });
+    this.setState({ isActivityPopupShow: true });
     this.hideActivityDetails();
   };
 
@@ -31,19 +27,14 @@ class ActivityLog extends Component {
   };
 
   handleOk = () => {
-    this.setState({
-      isActivityPopupShow: false
-    });
+    this.setState({ isActivityPopupShow: false });
   };
 
   handleCancel = () => {
-    this.setState({
-      isActivityPopupShow: false
-    });
+    this.setState({ isActivityPopupShow: false });
   };
 
   render() {
-
     const {activityLog, id} = this.props;
 
     return (
@@ -56,13 +47,18 @@ class ActivityLog extends Component {
         onMouseLeave={this.hideActivityDetails}
       >
         {this.state.isActivityDetailsShow &&
-        <ActiveLogDetails activityLog={activityLog} hideActivityDetails={this.hideActivityDetails} />}
+          <ActiveLogDetails
+            activityLog={activityLog}
+            hideActivityDetails={this.hideActivityDetails}
+          />
+        }
         {this.state.isActivityPopupShow && (
           <ActivityLogPopup
             visible={this.state.isActivityPopupShow}
             handleOk={this.handleOk}
             handleCancel={this.handleCancel}
-            {...this.props}
+            activityLog={activityLog}
+            // {...this.props}
           />
         )}
         <div
@@ -78,17 +74,23 @@ class ActivityLog extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+// function mapStateToProps(state, ownProps) {
 
-  const record = ownProps[1];
+//   const record = ownProps[1];
 
-  return {
-    activityLog: getActivityLog(state, record.id),
-  };
-}
+//   return {
+//     activityLog: getActivityLog(state, record.id),
+//   };
+// }
 
 ActivityLog.propTypes = {
-  activityLog: PropTypes.array
+  activityLog: PropTypes.array,
+  // id: PropTypes.string.isRequired
+};
+ActivityLog.defaultProps = {
+  activityLog: []
 };
 
-export default connect(mapStateToProps, {})(ActivityLog);
+export default ActivityLog;
+
+// export default connect(mapStateToProps, {})(ActivityLog);

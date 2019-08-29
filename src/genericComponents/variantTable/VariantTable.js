@@ -133,8 +133,16 @@ class VariantTable extends Component {
   };
 
   handleZygosity = (data) =>{
-    const {handleZygosity, updateActivityLog, testId} = this.props;
-    const {item, value, prevValue} = data;
+    const {
+      handleZygosity,
+      // updateActivityLog,
+      testId
+    } = this.props;
+    const {
+      item,
+      value,
+      // prevValue
+    } = data;
 
     handleZygosity({
       variantId: item.id,
@@ -143,9 +151,9 @@ class VariantTable extends Component {
       name: "zygosity",
       record: item
     });
-    updateActivityLog({prevValue, item, changedField: "zygosity"});
+    // updateActivityLog({prevValue, item, changedField: "zygosity"});
   };
-  
+
   handleNotes = (notes, id) =>{
     const {setNotes, testId} = this.props;
     setNotes(
@@ -155,7 +163,7 @@ class VariantTable extends Component {
         notes
       });
   };
-  
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -312,13 +320,14 @@ class VariantTable extends Component {
           );
         };
       } else if (col.dataIndex === "activityLog") {
-        column.render = (...data) => {
+        column.render = (text, record) => {
           return (
-            <HighlightedCell isHighlighted={data[1].isAdded}>
+            <HighlightedCell isHighlighted={record.isAdded}>
               <ActivityLog
                 data-testid={`activity-icon`}
-                {...data}
-                id={data[1].id}
+                activityLog={record.activityLog}
+                // {...data}
+                // id={record.id}
               />
             </HighlightedCell>
           );
