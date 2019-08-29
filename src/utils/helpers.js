@@ -132,7 +132,7 @@ const getLinksArray = (data, link) => {
     : `${link}${[...data].slice(4).join("")}`;
 };
 
-const getPubmedRequestParameters = (protein, hgvs_c, amino_acid_change) =>{
+const createRequestConditions = (protein, hgvs_c, amino_acid_change) =>{
   const createPartOR = (param, isLast) => {
     return param ? `${encodeURIComponent(param)}${!isLast ? "+OR+" : ""}` : ``;
   };
@@ -204,12 +204,12 @@ export const createResourcesLinks = variantData => {
 
   const publications = {
     title: "Publications",
-    Pubmed: `https://www.ncbi.nlm.nih.gov/pubmed/?term=${gene}${getPubmedRequestParameters(
+    Pubmed: `https://www.ncbi.nlm.nih.gov/pubmed/?term=${gene}${createRequestConditions(
       hgvs_p,
       hgvs_c,
       amino_acid_change
     )}`,
-    "Google Scholar": `https://scholar.google.co.il/scholar?start=50&q=${gene}${getPubmedRequestParameters(
+    "Google Scholar": `https://scholar.google.co.il/scholar?start=50&q=${gene}${createRequestConditions(
       hgvs_p,
       hgvs_c,
       amino_acid_change
