@@ -75,7 +75,6 @@ TableSorter.propTypes = {
 //         dispatch(handleUncheckConfirmationData(data));
 //       }
 //     },
-//     updateActivityLog: data => dispatch(updateActivityLog(data)),
 //     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
 //     setNotes: data => dispatch(setNotes(data)),
 //     fetchTableData: data => dispatch(fetchTableData(data)),

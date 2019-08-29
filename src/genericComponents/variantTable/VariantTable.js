@@ -12,7 +12,6 @@ import style from "./VariantTable.module.scss";
 import ActivityLog from "./components/ActivityLog";
 import ResizeableTitle from "./components/resizeableTitle";
 import TableSorter from "./components/TableSorter";
-
 import HighlightedCell from "./components/highlightedCell";
 import LabeledTag from "../labeledTag";
 import {
@@ -133,8 +132,14 @@ class VariantTable extends Component {
   };
 
   handleZygosity = (data) =>{
-    const {handleZygosity, updateActivityLog, testId} = this.props;
-    const {item, value, prevValue} = data;
+    const {
+      handleZygosity,
+      testId
+    } = this.props;
+    const {
+      item,
+      value,
+    } = data;
 
     handleZygosity({
       variantId: item.id,
@@ -143,9 +148,8 @@ class VariantTable extends Component {
       name: "zygosity",
       record: item
     });
-    updateActivityLog({prevValue, item, changedField: "zygosity"});
   };
-  
+
   handleNotes = (notes, id) =>{
     const {setNotes, testId} = this.props;
     setNotes(
@@ -155,7 +159,7 @@ class VariantTable extends Component {
         notes
       });
   };
-  
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -280,10 +284,8 @@ class VariantTable extends Component {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               <Notes
-                updateActivityLog={this.props.updateActivityLog}
                 setNotes={(notes) => this.handleNotes(notes, record.id)}
                 value={record.notes}
-                tableRow={record}
               />
             </HighlightedCell>
           );
@@ -312,13 +314,12 @@ class VariantTable extends Component {
           );
         };
       } else if (col.dataIndex === "activityLog") {
-        column.render = (...data) => {
+        column.render = (text, record) => {
           return (
-            <HighlightedCell isHighlighted={data[1].isAdded}>
+            <HighlightedCell isHighlighted={record.isAdded}>
               <ActivityLog
                 data-testid={`activity-icon`}
-                {...data}
-                id={data[1].id}
+                activityLog={record.activityLog}
               />
             </HighlightedCell>
           );
@@ -396,7 +397,6 @@ VariantTable.propTypes = {
   handleVariantClass: PropTypes.func.isRequired,
   handelChrPosition: PropTypes.func,
   handleConfirmationStatus: PropTypes.func,
-  updateActivityLog: PropTypes.func.isRequired,
   isAllRowSelected: PropTypes.bool,
   selectedRows: PropTypes.array,
   setNotes: PropTypes.func,

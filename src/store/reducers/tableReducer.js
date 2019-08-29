@@ -7,7 +7,6 @@ const initialState = {
   serverData: {},
   data: {},
   uncheckConfirmationData: null,
-  activityLog: {},
   sortParam: "priority",
   sortOrder: "default",
   clicksCounter: 1,
@@ -93,23 +92,6 @@ const tableReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_ZYGOSITY]: (state, { payload }) => {
-
-    const { id } = payload;
-
-    let data = state?.data;
-
-    data[id] = payload;
-
-    const newData = Object.assign({}, data);
-
-    state.data = newData;
-
-    return {
-      ...state
-    };
-  },
-
   [actionsTypes.HANDLE_VARIANT_CLASS]: (state, { payload }) => {
     const { item, value } = payload;
 
@@ -136,13 +118,18 @@ const tableReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_NOTES_TO_STORE]: (state, { payload }) => {
-    const { id, notes } = payload;
+  [actionsTypes.UPDATE_VARIANT_IN_TABLE_DATA]: (state, { payload }) => {
+    const { id } = payload;
     let data = state?.data;
-    data[id].notes = notes;
+
+    data[id] = payload;
+
+    const newData = Object.assign({}, data);
+
+    state.data = newData;
+
     return {
-      ...state,
-      data: { ...data }
+      ...state
     };
   },
 
@@ -177,34 +164,6 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       uncheckConfirmationData: payload
-    };
-  },
-
-  [actionsTypes.UPDATE_ACTIVITY_LOG]: (state, { payload }) => {
-    const { item, prevValue, changedField } = payload;
-
-    let activityLog = state?.activityLog;
-
-    const changes = {
-      titleCurr: item[changedField],
-      titlePrev: prevValue,
-      time: new Date(),
-      type: changedField
-    };
-
-    let changesArr =
-      activityLog[item.id] && activityLog[item.id][changedField]
-        ? activityLog[item.id][changedField]
-        : [];
-
-    activityLog[item.id] = {
-      ...activityLog[item.id],
-      [changedField]: [...changesArr, changes]
-    };
-
-    return {
-      ...state,
-      activityLog
     };
   },
 

@@ -36,10 +36,9 @@ import {
   tableDataEditResult,
   setParsedDataToStore,
   setServerDataToStore,
-  setZygosity,
-  setNotesToStore,
   setTableReducerLoading,
-  setConfirmationStatusToStore
+  setConfirmationStatusToStore,
+  updateVariantInTableData
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
@@ -79,8 +78,6 @@ import {
 } from "Actions/variantPageActions";
 import { fetchClassificationHistoryApi } from "../../api";
 import { cleanEvidenceActionData } from "Actions/evidenceConfigActions";
-import { setDefaultZygosity } from "../../utils/helpers";
-
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -352,15 +349,10 @@ export function* fetchTestsSaga() {
 export function* handleZygositySaga(data) {
   try {
     const result = yield call(updateVariantApi, data);
-    const variant = result.data;
-
-
-    setDefaultZygosity(variant);
 
     if (result?.status === 200) {
       const parsedData = parseTableDataObj(result.data);
-      // setPriority(parsedData);
-      yield put(setZygosity(parsedData));
+      yield put(updateVariantInTableData(parsedData));
     }
   }
   catch (e) {
@@ -368,7 +360,6 @@ export function* handleZygositySaga(data) {
       scope.setFingerprint(["handleZygositySaga"]);
       Sentry.captureException(e);
     });
-  
   }
 }
 
@@ -376,7 +367,7 @@ export function* setNotesSaga(data) {
   const
     newData = {...data},
     { notes, testId, variantId } = data.payload;
-  
+
   newData.payload = {
     value: notes,
     name: "notes",
@@ -388,7 +379,7 @@ export function* setNotesSaga(data) {
     const result = yield call(updateVariantApi, newData);
     if (result?.status === 200) {
       const parsedData = parseTableDataObj(result.data);
-      yield put(setNotesToStore(parsedData));
+      yield put(updateVariantInTableData(parsedData));
     }
     yield put(setLoading(false));
   }

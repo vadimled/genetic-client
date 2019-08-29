@@ -1,50 +1,35 @@
 import React from "react";
 import { fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import { updateActivityLog } from "Store/actions/tableActions";
 import { renderWithRedux } from "Utils/test_helpers";
 import ActivityLog from "./ActivityLog";
 
-
 describe("Activity Log", () => {
-  let getByTestId, activityLogIcon, store, activityLogWrapper;
+  let getByTestId, activityLogIcon, activityLogWrapper;
 
   const activityLog = [
-    undefined,
     {
-      id: 0,
-      key: 0,
-      gene: "ABCD1P4",
-      chrPosition: "Chr2:176882",
-      transcript: "NM_119875.6",
-      exon: 5,
-      alleleChange: "C > T",
-      alleleChangeLong: "fsghfsghsfghsfsfhsfh",
-      coding: "cAc/gTa",
-      codingLong: "aGc/tCg/zzzczzfzf",
-      protein: "nuo7b",
-      vaf: 76,
-      roi: true,
-      clinvar: "",
-      gnomAD: 3,
-      zygosity: "",
-      variantClass: "",
-      coverage: 151,
-      notes: "Sed recusandae in sint.",
-      status: "pending"
-    },
-    0];
+      user: {
+        user_id: "b30a3160-c8bb-11e9-a57b-df2496b6de72",
+        name: "user1",
+      },
+      action: {
+        prev_val: "",
+        curr_val: "unknown",
+        field: "zygosity",
+      },
+      timestamp: "2019-08-28T14:24:24.398Z"
+    }
+  ];
 
   beforeEach(() => {
-    const queries = renderWithRedux(<ActivityLog {...activityLog} id={0} />);
+    const queries = renderWithRedux(<ActivityLog activityLog={activityLog} />);
 
     getByTestId = queries.getByTestId;
 
-    store = queries.store;
+    activityLogIcon = getByTestId("activity-log-icon");
 
-    activityLogIcon = getByTestId("activity-log-icon-0");
-
-    activityLogWrapper = getByTestId("activity-log-wrapper-0");
+    activityLogWrapper = getByTestId("activity-log-wrapper");
   });
 
   it("activityLogIcon hover", () => {
@@ -54,12 +39,6 @@ describe("Activity Log", () => {
     expect(activityLogWrapper).toBeInTheDocument();
 
     expect(activityLogWrapper).toHaveClass('activity-icon-wrapper');
-
-    store.dispatch(updateActivityLog({
-      prevValue: "LATH",
-      item: activityLog[1],
-      changedField: "variantClass"
-    }));
 
     expect(activityLogWrapper).not.toHaveClass('disabled');
 
@@ -83,12 +62,6 @@ describe("Activity Log", () => {
 
     expect(activityLogWrapper).toHaveClass('activity-icon-wrapper');
 
-    store.dispatch(updateActivityLog({
-      prevValue: "LATH",
-      item: activityLog[1],
-      changedField: "variantClass"
-    }));
-
     expect(activityLogWrapper).not.toHaveClass('disabled');
 
     fireEvent.click(activityLogIcon);
@@ -102,11 +75,6 @@ describe("Activity Log", () => {
     fireEvent.click(popupCloseBtn);
 
     expect(activityLogPopup).not.toBeInTheDocument();
-
-
   });
-
-
-
 
 });

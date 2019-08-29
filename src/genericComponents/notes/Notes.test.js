@@ -11,7 +11,6 @@ describe("Notes", () => {
     const queries = renderWithRedux(<Notes
       value={initValue}
       setNotes={() => true}
-      updateActivityLog={() => {}}
     />);
 
     getByTestId = queries.getByTestId;

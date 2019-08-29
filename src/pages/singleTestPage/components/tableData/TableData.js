@@ -20,7 +20,6 @@ import {
   handleConfirmationStatus,
   handleUncheckConfirmationData,
   setNotes,
-  updateActivityLog,
   setSort
 } from "Actions/tableActions";
 import {
@@ -41,7 +40,6 @@ class TableData extends Component {
       isAllRowSelected,
       selectedRows,
       setNotes,
-      updateActivityLog,
       setSort,
       sortOrder,
       sortParam,
@@ -62,7 +60,6 @@ class TableData extends Component {
             isAllRowSelected={isAllRowSelected}
             selectedRows={selectedRows}
             setNotes={setNotes}
-            updateActivityLog={updateActivityLog}
             setSort={setSort}
             sortOrder={sortOrder}
             sortParam={sortParam}
@@ -101,7 +98,6 @@ function mapDispatchToProps(dispatch) {
         dispatch(handleUncheckConfirmationData(data));
       }
     },
-    updateActivityLog: data => dispatch(updateActivityLog(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
     setNotes: data => dispatch(setNotes(data)),
     setSort: data => dispatch(setSort(data)),

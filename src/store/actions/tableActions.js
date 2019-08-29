@@ -8,13 +8,6 @@ export const setNotes = data => {
   };
 };
 
-export const setNotesToStore = data => {
-  return {
-    type: actionsTypes.SET_NOTES_TO_STORE,
-    payload: data
-  };
-};
-
 export const handleSelectedRow = data => {
   return {
     type: actionsTypes.HANDLE_SELECTED_ROW,
@@ -32,13 +25,6 @@ export const handleSelectAllRows = data => {
 export const handleZygosity = data => {
   return {
     type: actionsTypes.HANDLE_ZYGOSITY,
-    payload: data
-  };
-};
-
-export const setZygosity = data => {
-  return {
-    type: actionsTypes.SET_ZYGOSITY,
     payload: data
   };
 };
@@ -74,13 +60,6 @@ export const applyConfirmation = data => {
 export const handleUncheckConfirmationData = data => {
   return {
     type: actionsTypes.HANDLE_UNCHECK_CONFIRMATION_DATA,
-    payload: data
-  };
-};
-
-export const updateActivityLog = data => {
-  return{
-    type: actionsTypes.UPDATE_ACTIVITY_LOG,
     payload: data
   };
 };
@@ -148,6 +127,11 @@ export const exportTable = data => {
   };
 };
 
-
+export const updateVariantInTableData = data => {
+  return{
+    type: actionsTypes.UPDATE_VARIANT_IN_TABLE_DATA,
+    payload: data
+  };
+};
 
 
