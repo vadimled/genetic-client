@@ -397,14 +397,14 @@ class VariantTable extends Component {
   };
 
   render() {
-    const { data } = this.props;
+    const { data, tumorInfoPanel } = this.props;
 
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
 
     return (
       <Table
-        className={style["variant-table-wrapper"]}
+        className={cn(style["variant-table-wrapper"], {"tumor-panel-opened": tumorInfoPanel})}
         components={this.components}
         pagination={{ pageSize: 20 }}
         bordered
@@ -425,6 +425,7 @@ VariantTable.propTypes = {
   handelChrPosition: PropTypes.func,
   handleConfirmationStatus: PropTypes.func,
   isAllRowSelected: PropTypes.bool,
+  tumorInfoPanel: PropTypes.bool,
   selectedRows: PropTypes.array,
   setNotes: PropTypes.func,
   testId: PropTypes.string
