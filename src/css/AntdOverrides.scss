@@ -3,6 +3,8 @@ $sideBarWidth: 197px;
 $toolBarAndHeader: 96px;
 $heightTableBody: 230px;
 $heightTableContent: 150px;
+$heightTableBodyWithTumorPanel: 278px;
+$heightTableContentWithTumorPanel: 198px;
 
 // button
 .ant-btn {
@@ -942,7 +944,38 @@ th {
   }
 }
 
+.tumor-panel-opened {
+  .ant-table-content {
+    max-height: calc(100vh - #{$heightTableContentWithTumorPanel});
+    transition: all 0.4s ease;
+
+    .ant-table-scroll {
+      height: calc(100vh - #{$heightTableContentWithTumorPanel});
+      overflow-x: auto !important;
+      transition: all 0.4s ease;
+
+      .ant-table-body {
+        height: calc(100vh - #{$heightTableBodyWithTumorPanel}) !important;
+        transition: all 0.4s ease;
+      }
+      table {
+        transition: 0.4s ease;
+        transform: translate(0px, 0px);
+        width: max-content;
+      }
+    }
+    .ant-table-fixed-left {
+      height: calc(100vh - 219px);
+      transition: all 0.4s ease;
+    }
+    .ant-table-body-inner {
+      height: calc(100vh - #{$heightTableBodyWithTumorPanel}) !important;
+    }
+  }
+}
+
 .ant-table-content {
+  transition: all 0.4s ease;
   max-height: calc(100vh - #{$heightTableContent});
 
   .ant-table-scroll {
@@ -951,6 +984,7 @@ th {
 
     .ant-table-body {
       height: calc(100vh - #{$heightTableBody}) !important;
+      transition: all 0.4s ease;
     }
     table {
       transition: 0.4s ease;
@@ -960,6 +994,7 @@ th {
   }
   .ant-table-fixed-left {
     height: calc(100vh - 171px);
+    transition: all 0.4s ease;
   }
 
   .ant-table-body-inner {

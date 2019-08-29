@@ -1046,6 +1046,8 @@ const createVaf = numb => {
   }
 };
 
+const getAlleleChange = (ref, alt) => `${ref} > ${alt}`;
+
 const createNewTableDataItem = ({
   alt,
   chr,
@@ -1080,15 +1082,15 @@ const createNewTableDataItem = ({
   newObj.key = id;
   newObj.gene = gene;
   newObj.chrPosition = `${chr}:${position}`;
-  newObj.alleleChange = `${ref?.slice(0, 1)} > ${alt?.slice(0, 1)}`;
-  newObj.alleleChangeLong = `${ref} > ${alt}`;
+  newObj.alleleChange = getAlleleChange(ref, alt)?.slice(0, 12);
+  newObj.alleleChangeLong = getAlleleChange(ref, alt);
   newObj.transcript = transcript;
   newObj.zygosity = zygosity;
   newObj.protein = hgvs_p;
   newObj.coverage = parseInt(dp, 10);
   newObj.vaf = createVaf(percentage_variants);
   newObj.notes = notes;
-  newObj.coding = hgvs_c.length > 12 ? hgvs_c.slice(0, 12) : hgvs_c;
+  newObj.coding = hgvs_c.length > 15 ? hgvs_c.slice(0, 15) : hgvs_c;
   newObj.codingLong = hgvs_c;
   newObj.exon = exon; // temporary removed from the table
   newObj.variantClassGermline = germline_class || "unclassified";
