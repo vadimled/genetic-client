@@ -8,7 +8,7 @@ import TumorToolbar from "Pages/singleTestPage/components/tumorToolbar/TumorTool
 import { setTumorInfo } from "Actions/testActions";
 
 describe("Tumor Toolbar", () => {
-  it("if Icon Info reacted to click", () => {
+  xit("if Icon Info reacted to click", () => {
     const { getByTestId } = renderWithRedux(
       <Router>
         <App />
@@ -16,6 +16,7 @@ describe("Tumor Toolbar", () => {
     );
 
     const iconInfo = getByTestId("header-icon-info");
+    console.log("iconInfo", iconInfo);
     fireEvent.click(iconInfo);
   });
 
