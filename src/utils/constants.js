@@ -678,7 +678,7 @@ export const EXTERNAL_RESOURCES_SOMATIC = [
 ];
 
 export const ROUTES = {
-  isVariantPageRegex :"/variants/.+",
+  isVariantPageRegex :"\\/tests\\/.+\\/variants\\/.+",
   isSingleTestPageRegex :"\\/tests\\/?\\w+$",
-  isRootRegex: "/$"
+  isRootRegex: "^/$"
 };

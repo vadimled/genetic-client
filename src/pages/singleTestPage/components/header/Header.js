@@ -49,7 +49,6 @@ class Header extends Component {
 
   render() {
     const { testId, location, gsId } = this.props;
-    console.log(location.pathname, layout(location.pathname, TEXTS.testsPage));
     return (
       <div className={style["header-wrapper"]}>
         <div className="flex justify-start flex-row items-center">
