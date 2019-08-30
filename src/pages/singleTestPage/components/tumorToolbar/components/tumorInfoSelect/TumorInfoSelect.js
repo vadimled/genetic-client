@@ -32,11 +32,19 @@ const TumorInfoSelect = ({
   };
 
   const renderOptions = () => {
-    return dataSource.filter(item => {
-      if (item.indexOf(insertedText) !== -1) {
-        return item;
-      }
-    });
+    return dataSource
+      .filter(item => {
+        if (item.indexOf(insertedText) !== -1) {
+          return item;
+        }
+      })
+      .sort((a, b) => {
+        let va = a.toLowerCase();
+        let vb = b.toLowerCase();
+        if (va < vb) return -1;
+        if (va > vb) return 1;
+        return 0;
+      });
   };
 
   const renderInput = () => {
