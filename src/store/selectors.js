@@ -62,7 +62,6 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getHistoryGermline = state => state.variantPage.pageData.germlineClassHistory,
   getVariantId = state => state.variantPage.pageData.variantId,
   getVariantPageTestId = state => state.variantPage.pageData.testId,
-  getVariantGSID = state => state.variantPage.pageData.gsid,
   getVariantPageServerData = state => state.variantPage.pageData.serverData,
 
 
