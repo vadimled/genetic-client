@@ -53,7 +53,7 @@ class TestsPage extends Component {
                 data-testid={`tests-${test.id}`}
               >
                 <div className="test-wrapper">
-                  <div className="text-content flex justify-around">
+                  <div className="flex">
                     <div className="text-content">
                       <div className="title">GSID</div>
                       <div className="content">{test.gsid}</div>

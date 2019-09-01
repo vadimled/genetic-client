@@ -11,14 +11,15 @@
   }
   .main-content-wrapper {
     .test-wrapper {
-      padding: 33px 0;
       margin-top: 10px;
       border-radius: 4px;
       background-color: #fff;
       box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
         0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
       .text-content {
-        min-width: 250px;
+        text-align: left;
+        padding: 33px 60px;
+        min-width: 347px;
         .title {
           font-size: 12px;
           font-weight: bold;
@@ -29,15 +30,6 @@
           color: #000;
           margin-top: 5px;
         }
-      }
-      .gsid {
-        min-width: 250px;
-      }
-      .panel-type {
-        min-width: 250px;
-      }
-      .date {
-        min-width: 250px;
       }
     }
 

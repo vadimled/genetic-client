@@ -311,7 +311,7 @@ export const getTestType = state => state?.test?.panel_type;
 export const getTests = state => {
 
   return state?.tests?.tests.sort(function(a,b){
-    return new Date(b.date) - new Date(a.date);
+    return new Date(b.created_at) - new Date(a.created_at);
   });
 };
 
