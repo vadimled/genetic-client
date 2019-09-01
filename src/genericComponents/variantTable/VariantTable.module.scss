@@ -111,6 +111,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    .ant-select-selection__rendered {
+      margin-left: 0 !important;
+    }
+  }
+
+  .priority {
+    padding-right: 7px;
   }
 
   .text {

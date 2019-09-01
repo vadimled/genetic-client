@@ -234,21 +234,17 @@ describe("SideBarFilters component test", () => {
     
     fireEvent.click(getByTestId("filter-checkbox-canserBDs-Clinvar"));
     fireEvent.click(getByTestId("filter-checkbox-canserBDs-Cosmic"));
-    fireEvent.click(getByTestId("filter-checkbox-canserBDs-Omim"));
-    
+
     const
       indicator1 = getByTestId("filter-canserBDs-Clinvar"),
-      indicator2 = getByTestId("filter-canserBDs-Cosmic"),
-      indicator3 = getByTestId("filter-canserBDs-Omim");
-    
+      indicator2 = getByTestId("filter-canserBDs-Cosmic");
+
     expect(indicator1).toBeInTheDocument();
     expect(indicator2).toBeInTheDocument();
-    expect(indicator3).toBeInTheDocument();
-  
+
     fireEvent.click(getByTestId("button-canserBDs"));
     expect(indicator1).not.toBeInTheDocument();
     expect(indicator2).not.toBeInTheDocument();
-    expect(indicator3).not.toBeInTheDocument();
   });
 
   it("if filter 'gnomAD' clicked; if indicator 'gnomAD' delete clicked", () => {
