@@ -40,6 +40,7 @@ import queryString from "query-string";
 import Spinner from "GenericComponents/spinner/Spinner";
 import { goToChrPositionIgv } from "Actions/igvActions";
 import IgvAlertPopup from "Pages/singleTestPage/components/igvAlertPopup/IgvAlertPopup";
+import { fetchTestMetadata } from "Actions/testActions";
 
 class VariantPage extends Component {
   constructor(props) {
@@ -51,7 +52,8 @@ class VariantPage extends Component {
       match,
       fetchCH,
       setSelectedZygosityType,
-      setTestInformation
+      setTestInformation,
+      fetchTestMetadata
     } = props;
     const { testId, variantId } = match.params;
     const { selectedZygosityType } = queryString.parse(window.location.search);
@@ -61,6 +63,7 @@ class VariantPage extends Component {
     setSelectedZygosityType({ selectedZygosityType, testId, variantId });
     setTestInformation({ testId, variantId });
     fetchCH(variantId);
+    fetchTestMetadata(testId);
 
     this.state = {
       sidebarToggle: true
@@ -209,6 +212,7 @@ function mapDispatchToProps(dispatch) {
     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
     setTestInformation: data => dispatch(setTestInformation(data)),
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
+    fetchTestMetadata: id => dispatch(fetchTestMetadata(id))
   };
 }
 

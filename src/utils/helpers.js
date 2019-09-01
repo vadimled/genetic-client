@@ -1154,6 +1154,9 @@ export const layout = (pathname, name) => {
     case TEXTS.singleTestPage: {
       return RegExp(ROUTES.isSingleTestPageRegex).test(pathname);
     }
+    case TEXTS.testsPage: {
+      return RegExp(ROUTES.isRootRegex).test(pathname);
+    }
     default:
       return false;
   }
