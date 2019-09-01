@@ -1,10 +1,10 @@
 import React from "react";
-import dateFormat from "dateformat";
 import PropTypes from "prop-types";
 import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
 import Tag from "GenericComponents/tag";
 import { Tooltip } from "antd";
 import { getCurrTagColor, getTitleCurr } from "Utils/helpers";
+import { dateOptions, timeOptions } from "Utils/helpers";
 
 const LogRecord = ({ record: {
   action: {
@@ -37,7 +37,9 @@ const LogRecord = ({ record: {
         )}
       </div>
       <div className="record_time record__item flex items-center justify-center">
-        {dateFormat(timestamp, "H:MM, d mmmm yyyy")}
+        {new Date(timestamp).toLocaleDateString("en-GB", dateOptions)
+          .split(" ")
+          .join("/")} {new Date(timestamp).toLocaleTimeString("en-GB", timeOptions)}
       </div>
     </div>
   );

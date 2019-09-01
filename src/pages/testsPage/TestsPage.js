@@ -8,6 +8,7 @@ import cn from "classnames";
 import { fetchTests } from "../../store/actions/testsActions";
 import { getTests } from "../../store/selectors";
 import { Link } from "react-router-dom";
+import { dateOptions, timeOptions } from "Utils/helpers";
 
 
 
@@ -33,8 +34,7 @@ class TestsPage extends Component {
   render() {
     const { sidebarToggle } = this.state;
     const { tests } = this.props;
-    const dateOptions = { day: "2-digit", month: "short", year: "numeric" };
-    const timeOptions = { timeStyle: "short"};
+
 
     return (
       <div className={style["tests-page-wrapper"]}>

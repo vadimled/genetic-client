@@ -1161,3 +1161,6 @@ export const layout = (pathname, name) => {
       return false;
   }
 };
+
+export const dateOptions = { day: "2-digit", month: "short", year: "numeric" };
+export const timeOptions = { timeStyle: "short"};

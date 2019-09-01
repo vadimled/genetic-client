@@ -1,8 +1,8 @@
 import React from "react";
-import dateFormat from "dateformat";
 import ActivityLogAction from "./ActivityLogAction";
 import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
 import PropTypes from 'prop-types';
+import { dateOptions, timeOptions } from "Utils/helpers";
 
 const ActivityLogPopupTableRecord = ({ record: {
   action: {
@@ -15,6 +15,7 @@ const ActivityLogPopupTableRecord = ({ record: {
   } = {},
   timestamp = ''
 } }) => {
+  console.log(timestamp);
   return (
     <div className="flex flex-wrap content-start">
       <div className="cell border flex items-center justify-center">
@@ -27,7 +28,9 @@ const ActivityLogPopupTableRecord = ({ record: {
         field={field}
       />
       <div className="cell border flex items-center justify-center">
-        {dateFormat(timestamp, "H:MM, d mmmm yyyy")}
+        {new Date(timestamp).toLocaleDateString("en-GB", dateOptions)
+          .split(" ")
+          .join("/")} {new Date(timestamp).toLocaleTimeString("en-GB", timeOptions)}
       </div>
     </div>
   );
