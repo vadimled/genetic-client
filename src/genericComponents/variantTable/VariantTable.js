@@ -35,7 +35,7 @@ class VariantTable extends Component {
         title: "Gene",
         dataIndex: "gene",
         key: "2",
-        width: 150
+        width: 120
       },
       {
         title: "Chr: position",
@@ -47,7 +47,7 @@ class VariantTable extends Component {
         title: "Transcript",
         dataIndex: "transcript",
         key: "4",
-        width: 200
+        width: 180
       },
       // {
       //   title: "Exon",
@@ -59,19 +59,19 @@ class VariantTable extends Component {
         title: "Allele change",
         dataIndex: "alleleChange",
         key: "6",
-        width: 180
+        width: 150
       },
       {
         title: "Coding",
         dataIndex: "coding",
         key: "7",
-        width: 180
+        width: 190
       },
       {
         title: "Protein",
         dataIndex: "protein",
         key: "8",
-        width: 200
+        width: 180
       },
       {
         title: (
@@ -79,7 +79,7 @@ class VariantTable extends Component {
         ),
         dataIndex: "vaf",
         key: "9",
-        width: 60,
+        width: 40,
         className: "sorter"
         // sorter: (a, b) => a.vaf - b.vaf,
         // sortOrder: sortedInfo.columnKey === 'vaf' && sortedInfo.order,
@@ -241,7 +241,7 @@ class VariantTable extends Component {
                 data-testitemid={record.id}
               />
             </div>
-            {record.priority}
+            <div className="priority">{record.priority}</div>
           </HighlightedCell>
         );
         column.className = "select";
