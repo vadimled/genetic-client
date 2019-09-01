@@ -72,9 +72,9 @@ export const getCurrTagColor = ({ currVal }) => {
 };
 
 export const getTitlePrev = ({ prevVal, field }) => {
-  let titlePrev = "";
+  let titlePrev = prevVal;
 
-  if (field === "variantClassGermline" || field === "variantClassSomatic") {
+  if (field === "germline_class" || field === "somatic_class") {
     titlePrev =
       VARIANT_CLASS_GERMLINE[prevVal]?.label ||
       VARIANT_CLASS_SOMATIC[prevVal]?.label;
@@ -93,9 +93,9 @@ export const getTitlePrev = ({ prevVal, field }) => {
 };
 
 export const getTitleCurr = ({ prevVal, currVal, field }) => {
-  let titleCurr = "";
+  let titleCurr = currVal;
 
-  if (field === "variantClassGermline" || field === "variantClassSomatic") {
+  if (field === "germline_class" || field === "somatic_class") {
     titleCurr =
       VARIANT_CLASS_GERMLINE[currVal]?.label ||
       VARIANT_CLASS_SOMATIC[currVal]?.label;
@@ -1089,7 +1089,7 @@ const createNewTableDataItem = ({
     newObj.variantClassGermline = germline_class || "unclassified";
     newObj.variantClassSomatic = somatic_class || "unclassified";
     newObj.status = status || null;
-    newObj.activityLog = activity_log || [];
+    newObj.activityLog = getTableSortedByDate(activity_log, "timestamp") || [];
     newObj.db_snp = db_snp;
     // filters
     newObj.clinvar = clinvar_variation_id;
@@ -1117,11 +1117,11 @@ export const parseTableData = array =>
 
 export const parseTableDataObj = data => createNewTableDataItem(data);
 
-export const getTableSortedByDate = data => {
+export const getTableSortedByDate = (data, datePropName) => {
   let newData = [...data];
   return newData.sort(function(a, b) {
-    const aDate = new Date(a.created_at);
-    const bDate = new Date(b.created_at);
+    const aDate = new Date(a[datePropName]);
+    const bDate = new Date(b[datePropName]);
     return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
   });
 };
@@ -1143,7 +1143,7 @@ export const getHistoryTableData = (data, type) => {
     }
     return arr;
   }, []);
-  return getTableSortedByDate(newData);
+  return getTableSortedByDate(newData, "created_at");
 };
 
 export const layout = (pathname, name) => {
@@ -1162,9 +1162,9 @@ export const layout = (pathname, name) => {
   }
 };
 
-
-export const capitalizeFirstLetter = (string) => {
+export const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
+
 export const dateOptions = { day: "2-digit", month: "short", year: "numeric" };
 export const timeOptions = { timeStyle: "short"};
