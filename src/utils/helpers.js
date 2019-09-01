@@ -1055,14 +1055,15 @@ const createNewTableDataItem = ({
   cosmic,
   dp,
   db_snp,
-  effect,
+  effect_impact,
   exon,
   gene,
   germline_class,
   gnomAD,
   hgvs_c,
   hgvs_p,
-  hotSpot,
+  hot_spot,
+  snps,
   id,
   notes,
   omim,
@@ -1076,40 +1077,46 @@ const createNewTableDataItem = ({
   zygosity,
   activity_log
 }) => {
-  let newObj = {};
+  try {
+    let newObj = {};
 
-  newObj.id = id;
-  newObj.key = id;
-  newObj.gene = gene;
-  newObj.chrPosition = `${chr}:${position}`;
-  newObj.alleleChange = getAlleleChange(ref, alt)?.slice(0, 12);
-  newObj.alleleChangeLong = getAlleleChange(ref, alt);
-  newObj.transcript = transcript;
-  newObj.zygosity = zygosity;
-  newObj.protein = hgvs_p;
-  newObj.coverage = parseInt(dp, 10);
-  newObj.vaf = createVaf(percentage_variants);
-  newObj.notes = notes;
-  newObj.coding = hgvs_c.length > 15 ? hgvs_c.slice(0, 15) : hgvs_c;
-  newObj.codingLong = hgvs_c;
-  newObj.exon = exon; // temporary removed from the table
-  newObj.variantClassGermline = germline_class || "unclassified";
-  newObj.variantClassSomatic = somatic_class || "unclassified";
-  newObj.status = status || null;
-  newObj.activityLog = activity_log || [];
-  // filters
-  newObj.clinvar = clinvar_variation_id;
-  newObj.cosmic = cosmic;
-  newObj.effect = effect;
-  newObj.hotSpot = hotSpot;
-  newObj.roi = roi;
-  newObj.snp = db_snp;
-  newObj.omim = omim || false;
-  newObj.gnomAD = gnomAD || null;
+    newObj.id = id;
+    newObj.key = id;
+    newObj.gene = gene;
+    newObj.chrPosition = `${chr}:${position}`;
+    newObj.alleleChange = getAlleleChange(ref, alt)?.slice(0, 12);
+    newObj.alleleChangeLong = getAlleleChange(ref, alt);
+    newObj.transcript = transcript;
+    newObj.zygosity = zygosity;
+    newObj.protein = hgvs_p;
+    newObj.coverage = parseInt(dp, 10);
+    newObj.vaf = createVaf(percentage_variants);
+    newObj.notes = notes;
+    newObj.coding = hgvs_c?.length > 15 ? hgvs_c.slice(0, 15) : hgvs_c;
+    newObj.codingLong = hgvs_c;
+    newObj.exon = exon; // temporary removed from the table
+    newObj.variantClassGermline = germline_class || "unclassified";
+    newObj.variantClassSomatic = somatic_class || "unclassified";
+    newObj.status = status || null;
+    newObj.activityLog = activity_log || [];
+    newObj.db_snp = db_snp;
+    // filters
+    newObj.clinvar = clinvar_variation_id;
+    newObj.cosmic = cosmic;
+    newObj.effect = effect_impact;
+    newObj.hotSpot = hot_spot;
+    newObj.roi = roi;
+    newObj.snp = snps;
+    newObj.omim = omim || false;
+    newObj.gnomAD = gnomAD || null;
 
-  setDefaultZygosity(newObj);
-  setPriority(newObj);
-  return newObj;
+    setDefaultZygosity(newObj);
+    setPriority(newObj);
+    return newObj;
+  }
+  catch(err) {
+    console.error("err", err);
+  }
 };
 
 export const parseTableData = array =>

@@ -8,9 +8,9 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterEffect = state =>
     state?.filters?.[FILTERS.effect],
   getFilterVariantClass = state =>
-           state?.filters?.[FILTERS.variantClassGermline],
+    state?.filters?.[FILTERS.variantClassGermline],
   getFilterSomaticClass = state =>
-           state?.filters?.[FILTERS.variantClassSomatic],
+    state?.filters?.[FILTERS.variantClassSomatic],
   getFilterHotSpot = state => state?.filters?.[FILTERS.hotSpot],
   getFilterSnp = state => state?.filters?.[FILTERS.snp],
   getFilterRoi = state => state?.filters?.[FILTERS.roi],
@@ -132,7 +132,6 @@ const getAppliedFilters = createSelector(
   getFilterGnomId,
   getFilterZygosity,
   getFilterEffect,
-
   (
     type,
     germlineClass,
@@ -148,7 +147,7 @@ const getAppliedFilters = createSelector(
   ) => {
     const variantClass = germlineClass.concat(somaticClass);
     const filters = {
-      ...((variantClass.length || somaticClass.length)  && {
+      ...((variantClass.length || somaticClass.length) && {
         variantClass: item =>
           variantClass.some(filter => {
             return item.variantClassGermline === filter || item.variantClassSomatic === filter;
@@ -195,7 +194,7 @@ const getAppliedFilters = createSelector(
       }),
       ...(effect.length && {
         effect: item =>
-          effect.some(filter => item.effect === filter)
+          effect.some(filter => item.effect.toLowerCase() === filter.toLowerCase())
       }),
     };
 
