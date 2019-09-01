@@ -171,7 +171,12 @@ const getAppliedFilters = createSelector(
         vaf: item => item.vaf >= vaf[0] && item.vaf <= vaf[1]
       }),
       ...(cancerDBs.length && {
-        cancerDBs: item => cancerDBs.some(filter => item[filter] !== undefined)
+        cancerDBs: item => cancerDBs.some(filter => {
+          if(filter === "cosmic"){
+            return item[filter].length > 0
+          }
+          return item[filter] !== undefined;
+        })
       }),
       ...(gnomFilter.length && {
         gnom: item => {

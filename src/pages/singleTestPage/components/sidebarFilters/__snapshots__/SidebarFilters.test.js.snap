@@ -1512,42 +1512,6 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                   </span>
                 </label>
               </div>
-              <div
-                class="filter-item-wrapper filter-item"
-              >
-                <label
-                  class="ant-checkbox-wrapper"
-                >
-                  <span
-                    class="ant-checkbox"
-                  >
-                    <input
-                      class="ant-checkbox-input"
-                      data-testid="filter-checkbox-canserBDs-Omim"
-                      type="checkbox"
-                      value=""
-                    />
-                    <span
-                      class="ant-checkbox-inner"
-                    />
-                  </span>
-                  <span>
-                    <div
-                      class="flex items-center checkbox-inner-content"
-                    >
-                      <div
-                        class="labeled-tag-wrapper"
-                      >
-                        <div
-                          class="label-text"
-                        >
-                          Omim
-                        </div>
-                      </div>
-                    </div>
-                  </span>
-                </label>
-              </div>
             </div>
           </div>
         </div>
