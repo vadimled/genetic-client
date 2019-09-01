@@ -137,7 +137,7 @@ class Toolbar extends Component {
               </Fragment>
             )}
 
-            {!this.isMVP && !!selectedRows?.length && (
+            {!!selectedRows?.length && (
               <Fragment>
                 <button
                   className={cn([
@@ -146,6 +146,7 @@ class Toolbar extends Component {
                   ])}
                   onClick={openConfirmationPopup.bind(null, selectedRows)}
                   data-testid="confirmation-button"
+                  disabled={this.isMVP}
                 >
                   Send for confirmation
                 </button>
