@@ -15,7 +15,6 @@ const ActivityLogPopupTableRecord = ({ record: {
   } = {},
   timestamp = ''
 } }) => {
-  console.log(timestamp);
   return (
     <div className="flex flex-wrap content-start">
       <div className="cell border flex items-center justify-center">
