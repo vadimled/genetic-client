@@ -536,7 +536,7 @@ export const generateHistoryTableMockData = amount =>
         pic_url: null
       },
       zygosity_type: faker.random.arrayElement(["somatic", "germline"]),
-      created_at: `${faker.date.past(3)}`
+      created_at: `${faker.date.past(3).toISOString()}`
     };
   
     result.zygosity_type === "somatic" ?
