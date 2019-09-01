@@ -181,7 +181,6 @@ export default {
     items: [
       { id: "clinvar", label: "Clinvar" },
       { id: "cosmic", label: "Cosmic" },
-      { id: "omim", label: "Omim" }
     ]
   },
 
