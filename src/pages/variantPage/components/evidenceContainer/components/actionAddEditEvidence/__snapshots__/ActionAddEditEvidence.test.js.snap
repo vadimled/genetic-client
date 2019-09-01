@@ -128,7 +128,7 @@ exports[`<ActionAddEditEvidence /> snapshot 1`] = `
                   class="table-level-wrapper"
                 >
                   <div
-                    class="level"
+                    class="evidence-level-text"
                     style="color: rgb(215, 5, 19);"
                   >
                     A1

@@ -16,6 +16,12 @@
       margin-bottom: 26px;
     }
 
+    .evidence-level-text {
+      padding-left: 0;
+      font-weight: normal;
+      font-size: 16px;
+    }
+
     label {
       display: flex;
       margin-bottom: 11px;
@@ -32,6 +38,8 @@
     }
 
     .form-item-source {
+      font-size: 16px;
+      line-height: 21px;
       height: 41px;
     }
 
