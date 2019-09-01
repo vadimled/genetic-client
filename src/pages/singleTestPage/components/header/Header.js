@@ -47,7 +47,7 @@ class Header extends Component {
       <div className={style["header-wrapper"]}>
         <div className="flex justify-start flex-row items-center">
           <div className="left-wrapper">
-            ANALYST
+            Analyst
           </div>
           <div className="left-wrapper">
             <GoBackButton
