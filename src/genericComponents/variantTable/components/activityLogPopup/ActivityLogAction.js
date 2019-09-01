@@ -30,7 +30,7 @@ const ActivityLogAction = ({ prevVal, currVal, field }) => {
       {prevVal && (
         <Fragment>
           <div className="flex items-center action-item justify-center">
-            {field === "variantClassGermline" || field === "variantClassSomatic" &&
+            {(field === "germline_class" || field === "somatic_class" ) &&
               <Tag color={getPrevTagColor({ prevVal })} />
             }
             <span className="title-prev">{getTitlePrev({ prevVal, field })}</span>
@@ -40,7 +40,7 @@ const ActivityLogAction = ({ prevVal, currVal, field }) => {
       )}
 
       <div className="flex items-center action-item justify-center">
-        {field === "variantClassGermline" || field === "variantClassSomatic" &&
+        {(field === "germline_class" || field === "somatic_class" )&&
           <Tag color={getCurrTagColor({ currVal })} />
         }
         <span className="title-curr">{getTitleCurr({ prevVal, currVal, field })}</span>
