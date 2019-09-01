@@ -173,7 +173,7 @@ const getAppliedFilters = createSelector(
       ...(cancerDBs.length && {
         cancerDBs: item => cancerDBs.some(filter => {
           if(filter === "cosmic"){
-            return item[filter].length > 0
+            return item[filter].length > 0;
           }
           return item[filter] !== undefined;
         })
