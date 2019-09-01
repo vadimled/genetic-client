@@ -33,7 +33,6 @@ const variantPageReducer = createReducer(initialState, {
 
   [actionsTypes.SET_HISTORY_TABLE_DATA]: (state, { payload }) => {
     const { data, type } = payload;
-    console.log(data);
     const newData = Object.assign(
       {},
       type === TEXTS.somatic
