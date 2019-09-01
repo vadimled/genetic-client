@@ -92,7 +92,10 @@ class EvidenceTable extends Component {
         };
       } else if (col.dataIndex === "level") {
         column.render = level => {
-          return <TableLevel level={level} />;
+          return <TableLevel
+            level={level}
+            className="evidence-level-text"
+          />;
         };
       } else if (col.dataIndex === "actions") {
         column.render = (text, obj) => {

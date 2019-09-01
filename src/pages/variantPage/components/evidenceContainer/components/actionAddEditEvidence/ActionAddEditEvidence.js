@@ -85,7 +85,9 @@ const ActionAddEditEvidence = ({
               return (
                 isRelevant(option) && (
                   <Option key={option.value} value={option.value}>
-                    <TableLevel level={option.label} />
+                    <TableLevel
+                      level={option.label}
+                      className="evidence-level-text"/>
                   </Option>
                 )
               );
