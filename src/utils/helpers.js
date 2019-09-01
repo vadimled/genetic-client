@@ -78,15 +78,12 @@ export const getTitlePrev = ({ prevVal, field }) => {
     titlePrev =
       VARIANT_CLASS_GERMLINE[prevVal]?.label ||
       VARIANT_CLASS_SOMATIC[prevVal]?.label;
-  }
-  else if (field === "zygosity") {
+  } else if (field === "zygosity") {
     if (prevVal) {
-      titlePrev = ZYGOSITY_OPTIONS.find(
-        option => option.value === prevVal
-      )?.label;
+      titlePrev = ZYGOSITY_OPTIONS.find(option => option.value === prevVal)
+        ?.label;
     }
-  }
-  else if (field === "notes") {
+  } else if (field === "notes") {
     if (prevVal) {
       titlePrev = prevVal;
     }
@@ -102,24 +99,18 @@ export const getTitleCurr = ({ prevVal, currVal, field }) => {
     titleCurr =
       VARIANT_CLASS_GERMLINE[currVal]?.label ||
       VARIANT_CLASS_SOMATIC[currVal]?.label;
-  }
-  else if (field === "zygosity") {
+  } else if (field === "zygosity") {
     if (prevVal) {
-      titleCurr = ZYGOSITY_OPTIONS.find(
-        option => option.value === currVal
-      ).label;
+      titleCurr = ZYGOSITY_OPTIONS.find(option => option.value === currVal)
+        .label;
+    } else {
+      titleCurr = ZYGOSITY_OPTIONS.find(option => option.value === currVal)
+        ?.label;
     }
-    else {
-      titleCurr = ZYGOSITY_OPTIONS.find(
-        option => option.value === currVal
-      )?.label;
-    }
-  }
-  else if (field === "notes") {
+  } else if (field === "notes") {
     if (prevVal) {
       titleCurr = currVal;
-    }
-    else {
+    } else {
       titleCurr = currVal;
     }
   }
@@ -138,7 +129,7 @@ const getLinksArray = (data, link) => {
     : `${link}${[...data].slice(4).join("")}`;
 };
 
-const createRequestConditions = (protein, hgvs_c, amino_acid_change) =>{
+const createRequestConditions = (protein, hgvs_c, amino_acid_change) => {
   const createPartOR = (param, isLast) => {
     return param ? `${encodeURIComponent(param)}${!isLast ? "+OR+" : ""}` : ``;
   };
@@ -1113,8 +1104,7 @@ const createNewTableDataItem = ({
     setDefaultZygosity(newObj);
     setPriority(newObj);
     return newObj;
-  }
-  catch(err) {
+  } catch (err) {
     console.error("err", err);
   }
 };
@@ -1127,8 +1117,17 @@ export const parseTableData = array =>
 
 export const parseTableDataObj = data => createNewTableDataItem(data);
 
+export const getTableSortedByDate = data => {
+  let newData = [...data];
+  return newData.sort(function(a, b) {
+    const aDate = new Date(a.created_at);
+    const bDate = new Date(b.created_at);
+    return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
+  });
+};
+
 export const getHistoryTableData = (data, type) => {
-  return data.reduce((arr, val, index) => {
+  const newData = data.reduce((arr, val, index) => {
     if (val.zygosity_type === type) {
       const newObj = Object.assign(
         {},
@@ -1144,6 +1143,7 @@ export const getHistoryTableData = (data, type) => {
     }
     return arr;
   }, []);
+  return getTableSortedByDate(newData);
 };
 
 export const layout = (pathname, name) => {
@@ -1162,5 +1162,9 @@ export const layout = (pathname, name) => {
   }
 };
 
+
+export const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
 export const dateOptions = { day: "2-digit", month: "short", year: "numeric" };
 export const timeOptions = { timeStyle: "short"};

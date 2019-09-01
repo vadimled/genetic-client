@@ -5,10 +5,10 @@ import style from "./TestsPage.module.scss";
 // import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
 import { connect } from "react-redux";
 import cn from "classnames";
-import { fetchTests } from "../../store/actions/testsActions";
-import { getTests } from "../../store/selectors";
+import { fetchTests } from "Store/actions/testsActions";
+import { getTests } from "Store/selectors";
 import { Link } from "react-router-dom";
-import { dateOptions, timeOptions } from "Utils/helpers";
+import { dateOptions, timeOptions, capitalizeFirstLetter } from "Utils/helpers";
 
 
 
@@ -52,15 +52,22 @@ class TestsPage extends Component {
                 data-testid={`tests-${test.id}`}
               >
                 <div className="test-wrapper">
-                  <div className="text-content flex justify-around">
-                    <div>
-                      <div>GS ID: {test.gsid}</div>
-                      <div>Panel Type: {test.panel_type}</div>
+                  <div className="flex">
+                    <div className="text-content">
+                      <div className="title">GSID</div>
+                      <div className="content">{test.gsid}</div>
                     </div>
-                    <div className="flex items-center">
-                      Created at: {new Date(test.created_at).toLocaleDateString("en-GB", dateOptions)
-                        .split(" ")
-                        .join("/")} {new Date(test.created_at).toLocaleTimeString("en-GB", timeOptions)}
+                    <div className="text-content">
+                      <div className="title">PANEL TYPE</div>
+                      <div className="content">{capitalizeFirstLetter(test.panel_type)}</div>
+                    </div>
+                    <div className="text-content">
+                      <div className="title">CREATED AT</div>
+                      <div className="content">
+                        {new Date(test.created_at).toLocaleDateString("en-GB", dateOptions)
+                          .split(" ")
+                          .join("/")} {new Date(test.created_at).toLocaleTimeString("en-GB", timeOptions)}
+                      </div>
                     </div>
                   </div>
                 </div>
