@@ -252,7 +252,6 @@ export const zygosityTypeByName = name => {
 };
 
 export const setPriority = record => {
-  console.log(record);
   if (record.zygosity === ZYGOSITY.somatic.value) {
     if (record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value) {
       record.priority = 143;
