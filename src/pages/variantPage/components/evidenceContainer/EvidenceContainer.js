@@ -28,8 +28,7 @@ class EvidenceContainer extends Component {
     super(props);
 
     this.state = {
-      showPopupDelete: false,
-      currentTab: "1"
+      showPopupDelete: false
     };
   }
 
