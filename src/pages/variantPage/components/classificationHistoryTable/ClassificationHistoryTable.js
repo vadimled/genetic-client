@@ -11,6 +11,7 @@ import { TEXTS } from "Utils/constants";
 import EmptyState from "GenericComponents/emptyState/EmptyState";
 import defaultImage from "Assets/smallEmptyState.svg";
 import TableDateAndUser from "variantComponents/evidenceContainer/components/tableDateAndUser";
+import { Link } from "react-router-dom";
 
 
 class ClassificationHistoryTable extends Component {
@@ -75,7 +76,7 @@ class ClassificationHistoryTable extends Component {
   };
 
   columnsConverter = columns => {
-    const { typeData } = this.props;
+    const { typeData, testId } = this.props;
     return columns.map((col, index) => {
       let column = {
         ...col,
@@ -87,6 +88,11 @@ class ClassificationHistoryTable extends Component {
       if (col.dataIndex === "created_at") {
         column.render = (date) => {
           return <TableDateAndUser date={date} />;
+        };
+      }
+      else if (col.dataIndex === "gsid") {
+        column.render = (text) => {
+          return <Link to={`/tests/${testId}`}>{text}</Link>;
         };
       }
       else if (col.dataIndex === "class") {

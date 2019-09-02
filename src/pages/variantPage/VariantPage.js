@@ -154,6 +154,7 @@ class VariantPage extends Component {
                         ? SOMATIC_VARIANT_CLASS_OPTIONS
                         : GERMLINE_VARIANT_CLASS_OPTIONS
                     }
+                    testId={testId}
                   />
                 </div>
                 <div
