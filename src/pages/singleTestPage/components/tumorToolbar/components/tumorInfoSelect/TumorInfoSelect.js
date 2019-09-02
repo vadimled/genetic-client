@@ -20,7 +20,7 @@ const TumorInfoSelect = ({
   };
 
   const onEdit = () => {
-    console.log("here2");
+    console.log("here2: ", value);
     updateText(value);
     // onAction("");
   };
@@ -52,7 +52,7 @@ const TumorInfoSelect = ({
   };
 
   const renderInput = () => {
-    if (!value) {
+    if (!value || insertedText) {
       return (
         <div className="tumor-info-select flex items-center">
           <AutoComplete
