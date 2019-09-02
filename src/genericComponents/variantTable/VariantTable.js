@@ -371,6 +371,23 @@ class VariantTable extends Component {
             </HighlightedCell>
           );
         };
+      }else if (col.dataIndex === "protein") {
+        column.render = (text, record) => {
+          const { proteinWholly, isAdded } = record;
+          return (
+            <HighlightedCell isHighlighted={isAdded}>
+              <Tooltip placement="topLeft" title={proteinWholly}>
+                <div
+                  className={cn("text", {
+                    cut: proteinWholly && proteinWholly.length > text.length
+                  })}
+                >
+                  {text}
+                </div>
+              </Tooltip>
+            </HighlightedCell>
+          );
+        };
       } else {
         column.render = (text, record) => {
           return (

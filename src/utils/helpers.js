@@ -1079,7 +1079,8 @@ const createNewTableDataItem = ({
     newObj.alleleChangeLong = getAlleleChange(ref, alt);
     newObj.transcript = transcript;
     newObj.zygosity = zygosity;
-    newObj.protein = hgvs_p;
+    newObj.protein = hgvs_p?.length > 15 ? hgvs_p.slice(0, 15) : hgvs_p;
+    newObj.proteinWholly = hgvs_p;
     newObj.coverage = parseInt(dp, 10);
     newObj.vaf = createVaf(percentage_variants);
     newObj.notes = notes;
@@ -1118,6 +1119,7 @@ export const parseTableData = array =>
 export const parseTableDataObj = data => createNewTableDataItem(data);
 
 export const getTableSortedByDate = (data, datePropName) => {
+  if(!data) return [];
   let newData = [...data];
   return newData.sort(function(a, b) {
     const aDate = new Date(a[datePropName]);

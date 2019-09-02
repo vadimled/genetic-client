@@ -524,7 +524,7 @@ export const generateDNAVariantTableMockData = amount =>
         "C.sdsff","T.DFGvb", "GADER.css11", "AdfR45"
       ]),
       hgvs_c: faker.random.arrayElement(["gCc/gTc", "aGc/tCg", "cAc/gTa"]),
-      hgvs_p: faker.random.alphaNumeric(5),
+      hgvs_p: `p.${faker.random.alphaNumeric(25)}`,
   
       percentage_variants: faker.finance.amount(0, 1, 4),
       dp: faker.finance.amount(100, 500, 4),
