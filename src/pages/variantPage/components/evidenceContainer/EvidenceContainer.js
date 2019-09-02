@@ -8,14 +8,16 @@ import ActionDeleteEvidence from "variantComponents/evidenceContainer/components
 import {
   getEvidenceConfigId,
   getSubmitData,
-  getTabPaneHeaders
+  getTabPaneHeaders,
+  getCurrentEvidenceTab
 } from "Store/selectors";
 import { connect } from "react-redux";
 import SimpleButton from "GenericComponents/simpleButton";
 import {
   cleanEvidenceActionData,
   deleteEvidenceEntry,
-  setEvidenceActionMode
+  setEvidenceActionMode,
+  setCurrentEvidenceTab
 } from "Actions/evidenceConfigActions";
 import { TEXTS } from "Utils/constants";
 
@@ -26,7 +28,8 @@ class EvidenceContainer extends Component {
     super(props);
 
     this.state = {
-      showPopupDelete: false
+      showPopupDelete: false,
+      currentTab: "1"
     };
   }
 
@@ -66,9 +69,13 @@ class EvidenceContainer extends Component {
     this.setState({ showPopupDelete: !this.state.showPopupDelete });
     this.props.cleanData();
   };
-
+  
+  onTabClicked = key => {
+    this.props.setCurrentEvidenceTab(key);
+  };
+  
   render() {
-    const { tabPaneHeaders } = this.props;
+    const { tabPaneHeaders, currentEvidenceTab } = this.props;
     return (
       <div className={style["evidence-wrapper"]}>
         <div className="evidence-title">Evidence:</div>
@@ -81,7 +88,8 @@ class EvidenceContainer extends Component {
             />
           }
           size={"large"}
-          activeKey={"2"}
+          activeKey={currentEvidenceTab}
+          onChange={this.onTabClicked}
         >
           {!!tabPaneHeaders &&
             tabPaneHeaders.map((header, index) => {
@@ -129,6 +137,7 @@ EvidenceContainer.defaultProps = {
 const mapStateToProps = state => {
   return {
     tabPaneHeaders: getTabPaneHeaders(state),
+    currentEvidenceTab: getCurrentEvidenceTab(state),
     deleteData: getSubmitData(state),
     id: getEvidenceConfigId(state)
   };
@@ -138,7 +147,8 @@ function mapDispatchToProps(dispatch) {
   return {
     onAction: status => dispatch(setEvidenceActionMode(status)),
     deleteEntry: data => dispatch(deleteEvidenceEntry(data)),
-    cleanData: () => dispatch(cleanEvidenceActionData())
+    cleanData: () => dispatch(cleanEvidenceActionData()),
+    setCurrentEvidenceTab: key => dispatch(setCurrentEvidenceTab(key)),
   };
 }
 

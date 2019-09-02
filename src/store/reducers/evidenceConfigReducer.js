@@ -4,6 +4,7 @@ import { TEXTS } from "Utils/constants";
 
 const initialState = {
   actionSlideBarStatus: false, // false === closed
+  currentEvidenceTab: "1",
   mode: null,
   id: null,
   evidenceTypeSelect: null,
@@ -16,16 +17,7 @@ const evidenceConfigReducer = createReducer(initialState, {
   [actionsTypes.SET_ACTION_MODE]: (state, { payload }) => {
     let status = {};
     if (!payload.actionSlideBarStatus && payload.mode !== TEXTS.delete) {
-      status = Object.assign(
-        {},
-        { actionSlideBarStatus: false },
-        { id: null },
-        { mode: null },
-        { evidenceTypeSelect: null },
-        { evidenceSourceInput: null },
-        { evidenceLevelSelect: null },
-        { evidenceDescriptionTextarea: null }
-      );
+      status = Object.assign( {}, ...initialState );
     } else if (payload.data) {
       const { data, id, mode, actionSlideBarStatus } = payload;
       status = Object.assign(
@@ -55,6 +47,13 @@ const evidenceConfigReducer = createReducer(initialState, {
   [actionsTypes.CLEAN_EVIDENCE_ACTION_DATA]: () => {
     return {
       ...initialState
+    };
+  },
+  
+  [actionsTypes.SET_CURRENT_EVIDENCE_TAB]: (state, { payload }) => {
+    return {
+      ...state,
+      currentEvidenceTab: payload
     };
   }
 });
