@@ -81,6 +81,7 @@ class EvidenceContainer extends Component {
             />
           }
           size={"large"}
+          activeKey={"2"}
         >
           {!!tabPaneHeaders &&
             tabPaneHeaders.map((header, index) => {
