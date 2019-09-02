@@ -9,9 +9,15 @@ exports[`<TableSourceDescription /> snapshot 1`] = `
       class="table-source-description"
     >
       <div
-        class="source"
+        class="source link"
       >
-        http://example.com
+        <a
+          href="http://example.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          http://example.com
+        </a>
       </div>
       <div
         class="description"
