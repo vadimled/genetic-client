@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ActiveLogDetails from "./activiryLogDetails/ActivityLogDetails";
 import ActivityLogPopup from "./activityLogPopup/ActivityLogPopup";
 import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import cn from "classnames";
 
 class ActivityLog extends Component {
@@ -33,23 +33,24 @@ class ActivityLog extends Component {
   };
 
   render() {
-    const {activityLog} = this.props;
+    const { activityLog } = this.props;
 
     return (
       <div
         data-testid={`activity-log-wrapper`}
         className={cn([
           "activity-icon-wrapper flex justify-center",
-          { "disabled": !activityLog.length }
+          { disabled: !activityLog.length }
         ])}
         onMouseLeave={this.hideActivityDetails}
+        onMouseEnter={this.showActivityDetails}
       >
-        {this.state.isActivityDetailsShow &&
+        {this.state.isActivityDetailsShow && (
           <ActiveLogDetails
             activityLog={activityLog}
             hideActivityDetails={this.hideActivityDetails}
           />
-        }
+        )}
         {this.state.isActivityPopupShow && (
           <ActivityLogPopup
             visible={this.state.isActivityPopupShow}
@@ -58,12 +59,7 @@ class ActivityLog extends Component {
             activityLog={activityLog}
           />
         )}
-        <div
-          data-testid={`activity-log-icon`}
-          className="icon"
-          onClick={this.showActivityPopup}
-          onMouseOver={this.showActivityDetails}
-        >
+        <div data-testid={`activity-log-icon`} onClick={this.showActivityPopup}>
           <ActivityLogIcon />
         </div>
       </div>
@@ -72,7 +68,7 @@ class ActivityLog extends Component {
 }
 
 ActivityLog.propTypes = {
-  activityLog: PropTypes.array,
+  activityLog: PropTypes.array
 };
 ActivityLog.defaultProps = {
   activityLog: []
