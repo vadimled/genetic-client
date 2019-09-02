@@ -11,7 +11,9 @@ const GeneSelect = ({
 }) => {
 
   const renderOptions = () => {
-    return dataSource.filter(item => item.toLowerCase().includes(value.toLowerCase()));
+    return dataSource.filter(item => {
+      return item ? item.toLowerCase().includes(value.toLowerCase()) : item;
+    });
   };
 
   return (
