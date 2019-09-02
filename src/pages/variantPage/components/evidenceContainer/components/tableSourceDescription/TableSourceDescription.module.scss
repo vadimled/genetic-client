@@ -16,9 +16,12 @@
       font-weight: normal;
       font-size: 14px;
       line-height: 18px;
-      color: $brand_primary_color;
       margin-bottom: 4px;
-      cursor: pointer;
+
+      &.link {
+        color: $brand_primary_color;
+        cursor: pointer;
+      }
     }
 
     .description {
