@@ -301,7 +301,9 @@ export const checkIsAllRowSelected = createSelector(
   getTableDataAsArray,
   getSelectedRows,
   (allData, selectedData) => {
-    const notConfirmedData = allData?.filter((item) => !item.status);
+    const notConfirmedData = allData?.filter(item => {
+      item ? !item.status : false;
+    });
     return !!selectedData?.length && notConfirmedData?.length === selectedData?.length;
   }
 );
