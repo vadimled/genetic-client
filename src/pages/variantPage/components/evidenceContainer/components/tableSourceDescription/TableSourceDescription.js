@@ -2,12 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
 import style from "./TableSourceDescription.module.scss";
+import urlRegex from "url-regex";
 
 function TableSourceDescription({ source, description }) {
-  const isSourceLink = () => {
-    const expression = /https?:\/\/[a-z]{2,4}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)/gi;
-    return source.match(new RegExp(expression));
-  };
+  const isSourceLink = () => urlRegex().test(source);
 
   return (
     <div className={style["table-source-description-wrapper"]}>
