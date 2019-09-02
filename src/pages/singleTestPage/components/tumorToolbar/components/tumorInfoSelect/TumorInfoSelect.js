@@ -15,19 +15,23 @@ const TumorInfoSelect = ({
   const [insertedText, updateText] = useState("");
 
   const handleOnSearchChange = value => {
+    console.log("here1");
     updateText(value);
   };
 
   const onEdit = () => {
+    console.log("here2");
     updateText(value);
-    onAction("");
+    // onAction("");
   };
 
   const onSelect = val => {
+    console.log("here3");
     onAction(val);
   };
 
   const clearSearch = () => {
+    console.log("here4");
     updateText("");
   };
 
