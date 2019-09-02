@@ -6,7 +6,8 @@ import {
   ZYGOSITY,
   TEXTS,
   ZYGOSITY_TYPES,
-  ROUTES
+  ROUTES,
+  EVIDENCE_CATEGORIES_OPTIONS
 } from "./constants";
 
 export const getPrevTagColor = ({ prevVal }) => {
@@ -1119,7 +1120,7 @@ export const parseTableData = array =>
 export const parseTableDataObj = data => createNewTableDataItem(data);
 
 export const getTableSortedByDate = (data, datePropName) => {
-  if(!data) return [];
+  if (!data) return [];
   let newData = [...data];
   return newData.sort(function(a, b) {
     const aDate = new Date(a[datePropName]);
@@ -1169,4 +1170,15 @@ export const capitalizeFirstLetter = string => {
 };
 
 export const dateOptions = { day: "2-digit", month: "short", year: "numeric" };
-export const timeOptions = { timeStyle: "short"};
+export const timeOptions = { timeStyle: "short" };
+export const actionModeText = mode => mode === TEXTS.add ? TEXTS.addEvidence : TEXTS.editEvidence;
+
+export const getCurrentEvidenceTabKey = currEvidenceConfig => {
+  const index =
+    Object.keys(EVIDENCE_CATEGORIES_OPTIONS).findIndex(
+      item =>
+        EVIDENCE_CATEGORIES_OPTIONS[item].value ===
+        currEvidenceConfig.data.category
+    ) + 1;
+  return index.toString();
+};

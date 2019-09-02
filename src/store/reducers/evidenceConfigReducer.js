@@ -17,7 +17,7 @@ const evidenceConfigReducer = createReducer(initialState, {
   [actionsTypes.SET_ACTION_MODE]: (state, { payload }) => {
     let status = {};
     if (!payload.actionSlideBarStatus && payload.mode !== TEXTS.delete) {
-      status = Object.assign( {}, ...initialState );
+      status = Object.assign({}, { actionSlideBarStatus: false });
     } else if (payload.data) {
       const { data, id, mode, actionSlideBarStatus } = payload;
       status = Object.assign(
@@ -43,17 +43,24 @@ const evidenceConfigReducer = createReducer(initialState, {
       ...payload
     };
   },
-  
-  [actionsTypes.CLEAN_EVIDENCE_ACTION_DATA]: () => {
+
+  [actionsTypes.CLEAN_EVIDENCE_ACTION_DATA]: state => {
     return {
-      ...initialState
+      ...state,
+      actionSlideBarStatus: false,
+      mode: null,
+      id: null,
+      evidenceTypeSelect: null,
+      evidenceSourceInput: null,
+      evidenceLevelSelect: null,
+      evidenceDescriptionTextarea: null
     };
   },
   
   [actionsTypes.SET_CURRENT_EVIDENCE_TAB]: (state, { payload }) => {
     return {
       ...state,
-      currentEvidenceTab: payload
+      currentEvidenceTab: payload || "1"
     };
   }
 });
