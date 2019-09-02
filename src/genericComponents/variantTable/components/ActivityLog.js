@@ -16,8 +16,7 @@ class ActivityLog extends Component {
     this.hideActivityDetails();
   };
 
-  showActivityDetails = e => {
-    console.log(e.target);
+  showActivityDetails = () => {
     this.setState({ isActivityDetailsShow: true });
   };
 
@@ -44,6 +43,7 @@ class ActivityLog extends Component {
           { disabled: !activityLog.length }
         ])}
         onMouseLeave={this.hideActivityDetails}
+        onMouseEnter={this.showActivityDetails}
       >
         {this.state.isActivityDetailsShow && (
           <ActiveLogDetails
@@ -59,11 +59,9 @@ class ActivityLog extends Component {
             activityLog={activityLog}
           />
         )}
-        <ActivityLogIcon
-          data-testid={`activity-log-icon`}
-          onClick={this.showActivityPopup}
-          onMouseOver={this.showActivityDetails}
-        />
+        <div data-testid={`activity-log-icon`} onClick={this.showActivityPopup}>
+          <ActivityLogIcon />
+        </div>
       </div>
     );
   }

@@ -4,12 +4,15 @@
   .activity-icon-wrapper {
     cursor: pointer;
     position: relative;
-    .icon:hover {
-      padding: 2px 4px 0 4px;
-      background: #e7eef2;
-      border-radius: 4px;
-    }
-    .icon:active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 29px;
+    padding-top: 3px;
+
+    &:active,
+    &:hover {
       background: #0e8ce6;
       border-radius: 4px;
       path {
@@ -26,7 +29,7 @@
   .activity-log-details {
     position: absolute;
     z-index: 9;
-    right: 17px;
+    right: 24px;
     top: -8px;
     min-width: 320px;
     max-height: 121px;
