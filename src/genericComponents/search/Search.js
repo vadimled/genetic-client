@@ -23,7 +23,7 @@ class Search extends Component {
         {!searchText ? (
           <div className="flex items-center search-icons-wrapper">
             <Icon type="search" style={{ color: "#96A2AA" }} />
-            <div className="placeholder">Search</div>
+            <div className="placeholder">Search for Gene, Coding or Protein</div>
           </div>
         ) : (
           <span />
