@@ -50,6 +50,7 @@ export const TEXTS = {
   variantPage: "variantPage",
   singleTestPage: "singleTestPage",
   testsPage: "testsPage",
+  searchPlaceholder: "Search for Gene, Coding or Protein"
 };
 
 export const LIMITS = {
