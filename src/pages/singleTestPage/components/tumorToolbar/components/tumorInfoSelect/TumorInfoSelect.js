@@ -29,7 +29,7 @@ const TumorInfoSelect = ({
 
   const clearSearch = () => {
     updateText("");
-    updateClearedText("")
+    updateClearedText("");
   };
 
   const renderOptions = () => {
