@@ -124,6 +124,10 @@
     padding-right: 7px;
   }
 
+  .ant-table-fixed {
+    table-layout: fixed !important;
+  }
+
   .text {
     width: 70%;
     font-weight: normal;

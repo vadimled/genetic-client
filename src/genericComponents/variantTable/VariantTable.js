@@ -79,7 +79,7 @@ class VariantTable extends Component {
         ),
         dataIndex: "vaf",
         key: "9",
-        width: 40,
+        width: 80,
         className: "sorter"
         // sorter: (a, b) => a.vaf - b.vaf,
         // sortOrder: sortedInfo.columnKey === 'vaf' && sortedInfo.order,
@@ -133,15 +133,9 @@ class VariantTable extends Component {
     console.log({ e: e.target, data });
   };
 
-  handleZygosity = (data) =>{
-    const {
-      handleZygosity,
-      testId
-    } = this.props;
-    const {
-      item,
-      value,
-    } = data;
+  handleZygosity = data => {
+    const { handleZygosity, testId } = this.props;
+    const { item, value } = data;
 
     handleZygosity({
       variantId: item.id,
@@ -152,16 +146,15 @@ class VariantTable extends Component {
     });
   };
 
-  handleNotes = (notes, id) =>{
-    const {setNotes, testId} = this.props;
-    setNotes(
-      {
-        testId,
-        variantId: id,
-        notes
-      });
+  handleNotes = (notes, id) => {
+    const { setNotes, testId } = this.props;
+    setNotes({
+      testId,
+      variantId: id,
+      notes
+    });
   };
-  
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -342,14 +335,7 @@ class VariantTable extends Component {
           return (
             <HighlightedCell isHighlighted={isAdded}>
               <Tooltip placement="topLeft" title={alleleChangeLong}>
-                <div
-                  className={cn("text", {
-                    cut:
-                      alleleChangeLong && alleleChangeLong.length > text.length
-                  })}
-                >
-                  {text}
-                </div>
+                <div className="text">{text}</div>
               </Tooltip>
             </HighlightedCell>
           );
@@ -360,30 +346,18 @@ class VariantTable extends Component {
           return (
             <HighlightedCell isHighlighted={isAdded}>
               <Tooltip placement="topLeft" title={codingLong}>
-                <div
-                  className={cn("text", {
-                    cut: codingLong && codingLong.length > text.length
-                  })}
-                >
-                  {text}
-                </div>
+                <div className="text">{text}</div>
               </Tooltip>
             </HighlightedCell>
           );
         };
-      }else if (col.dataIndex === "protein") {
+      } else if (col.dataIndex === "protein") {
         column.render = (text, record) => {
           const { proteinWholly, isAdded } = record;
           return (
             <HighlightedCell isHighlighted={isAdded}>
               <Tooltip placement="topLeft" title={proteinWholly}>
-                <div
-                  className={cn("text", {
-                    cut: proteinWholly && proteinWholly.length > text.length
-                  })}
-                >
-                  {text}
-                </div>
+                <div className="text">{text}</div>
               </Tooltip>
             </HighlightedCell>
           );
@@ -421,7 +395,9 @@ class VariantTable extends Component {
 
     return (
       <Table
-        className={cn(style["variant-table-wrapper"], {"tumor-panel-opened": tumorInfoPanel})}
+        className={cn(style["variant-table-wrapper"], {
+          "tumor-panel-opened": tumorInfoPanel
+        })}
         components={this.components}
         pagination={{ pageSize: 20 }}
         bordered
