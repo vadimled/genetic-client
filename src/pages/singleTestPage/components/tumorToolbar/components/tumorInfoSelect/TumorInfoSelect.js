@@ -13,26 +13,23 @@ const TumorInfoSelect = ({
   placeholder
 }) => {
   const [insertedText, updateText] = useState("");
+  const [clearedText, updateClearedText] = useState(value);
 
   const handleOnSearchChange = value => {
-    console.log("here1");
     updateText(value);
   };
 
   const onEdit = () => {
-    console.log("here2: ", value);
     updateText(value);
-    // onAction("");
   };
 
   const onSelect = val => {
-    console.log("here3");
     onAction(val);
   };
 
   const clearSearch = () => {
-    console.log("here4");
     updateText("");
+    updateClearedText("")
   };
 
   const renderOptions = () => {
@@ -52,7 +49,7 @@ const TumorInfoSelect = ({
   };
 
   const renderInput = () => {
-    if (!value || insertedText) {
+    if (!value || insertedText || !clearedText) {
       return (
         <div className="tumor-info-select flex items-center">
           <AutoComplete

@@ -426,7 +426,6 @@ export function* fetchTableDataSaga(action) {
 }
 
 export function* setTumorInfoSaga(action) {
-  // console.log("action: ", action)
   try {
     yield put(setLoading(true));
     const {status, data} = yield call(setTumorInfoApi, action);
