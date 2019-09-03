@@ -188,7 +188,7 @@ exports[`<ActionAddEditEvidence /> snapshot 1`] = `
         type="submit"
       >
         <span>
-          add
+          Add evidence
         </span>
       </button>
     </form>

@@ -4,6 +4,7 @@ import { TEXTS } from "Utils/constants";
 
 const initialState = {
   actionSlideBarStatus: false, // false === closed
+  currentEvidenceTab: "1",
   mode: null,
   id: null,
   evidenceTypeSelect: null,
@@ -51,10 +52,24 @@ const evidenceConfigReducer = createReducer(initialState, {
       ...payload
     };
   },
-  
-  [actionsTypes.CLEAN_EVIDENCE_ACTION_DATA]: () => {
+
+  [actionsTypes.CLEAN_EVIDENCE_ACTION_DATA]: state => {
     return {
-      ...initialState
+      ...state,
+      actionSlideBarStatus: false,
+      mode: null,
+      id: null,
+      evidenceTypeSelect: null,
+      evidenceSourceInput: null,
+      evidenceLevelSelect: null,
+      evidenceDescriptionTextarea: null
+    };
+  },
+  
+  [actionsTypes.SET_CURRENT_EVIDENCE_TAB]: (state, { payload }) => {
+    return {
+      ...state,
+      currentEvidenceTab: payload || "1"
     };
   }
 });
