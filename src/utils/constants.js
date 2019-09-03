@@ -50,6 +50,7 @@ export const TEXTS = {
   variantPage: "variantPage",
   singleTestPage: "singleTestPage",
   testsPage: "testsPage",
+  searchPlaceholder: "Search for Gene, Coding or Protein"
 };
 
 export const LIMITS = {
@@ -409,7 +410,7 @@ export const EC_VALUES = {
   silicoPredictor: "silicoPredictor",
   variantDB: "variantDB",
   drug: "drug",
-  therapy: "therapy",
+  clinicalTrials: "clinicalTrials",
   indelNonsense: "indelNonsense",
   mechanismDisease: "mechanismDisease",
   segregation: "segregation",
@@ -423,7 +424,7 @@ export const EVIDENCE_CATEGORIES_OPTIONS = [
   { value: EC_VALUES.silicoPredictor, label: "In Silico predictor" },
   { value: EC_VALUES.variantDB, label: "Variant DB’s" },
   { value: EC_VALUES.drug, label: "Drug" },
-  { value: EC_VALUES.therapy, label: "Therapy" },
+  { value: EC_VALUES.clinicalTrials, label: "Clinical Trials" },
   { value: EC_VALUES.indelNonsense, label: "Indel/Nonsense" },
   { value: EC_VALUES.mechanismDisease, label: "Mechanism of disease" },
   { value: EC_VALUES.segregation, label: "Segregation" },

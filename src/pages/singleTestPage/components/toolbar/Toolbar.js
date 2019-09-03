@@ -55,7 +55,7 @@ class Toolbar extends Component {
   };
 
   handleExportTable = () => {
-    const {testId, exportTable} = this.props;
+    const { testId, exportTable } = this.props;
     exportTable(testId);
   };
 
@@ -87,9 +87,9 @@ class Toolbar extends Component {
         }
         <Fragment>
           <div className="left-wrapper">
-            {this.isMVP ?
-              null :
-              !selectedRows?.length && (
+            {this.isMVP
+              ? null
+              : !selectedRows?.length && (
                 <div className="mutation-select-wrapper">
                   <SimpleSelect
                     options={this.createMutationOptions(MUTATION)}
@@ -99,24 +99,35 @@ class Toolbar extends Component {
                   />
                 </div>
               )}
+            <div
+              className={cn([
+                "search-field-wrapper flex items-center",
+                { "sidebar-open": sidebarToggle }
+              ])}
+            >
+              {!selectedRows?.length && <Search />}
+            </div>
           </div>
 
-          <div className="search-field-wrapper flex items-center">
-            {!selectedRows?.length && <Search />}
-          </div>
-
-          <div className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}>
-            {!selectedRows?.length && <Fragment>
-              <div className="toolbar-divider-line"/>
-              <Filter setDefaultFilters={setDefaultFilters} testType={testType} />
-              <div className="toolbar-divider-line"/>
-              <Sort setSort={setSort} />
-              <div className="toolbar-divider-line"/>
-              <IgvLoadBAM />
-              <div className="toolbar-divider-line"/>
-              <ExportButton exportTable={this.handleExportTable} />
-              <div className="toolbar-divider-line"/>
-            </Fragment>}
+          <div
+            className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}
+          >
+            {!selectedRows?.length && (
+              <Fragment>
+                <div className="toolbar-divider-line" />
+                <Filter
+                  setDefaultFilters={setDefaultFilters}
+                  testType={testType}
+                />
+                <div className="toolbar-divider-line" />
+                <Sort setSort={setSort} />
+                <div className="toolbar-divider-line" />
+                <IgvLoadBAM />
+                <div className="toolbar-divider-line" />
+                <ExportButton exportTable={this.handleExportTable} />
+                <div className="toolbar-divider-line" />
+              </Fragment>
+            )}
 
             {!this.isMVP &&
               (!selectedRows?.length || selectedRows?.length === 1) &&
@@ -194,7 +205,7 @@ function mapDispatchToProps(dispatch) {
     updateSearch: data => dispatch(updateSearch(data)),
     setDefaultFilters: data => dispatch(setDefaultFilters(data)),
     setSort: data => dispatch(setSort(data)),
-    exportTable: data => dispatch(exportTable(data)),
+    exportTable: data => dispatch(exportTable(data))
   };
 }
 
