@@ -10,7 +10,7 @@ import { ZYGOSITY_OPTIONS } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
 import ActivityLog from "./components/ActivityLog";
-// import ResizeableTitle from "./components/resizeableTitle";
+import ResizeableTitle from "./components/resizeableTitle";
 import TableSorter from "./components/TableSorter";
 import HighlightedCell from "./components/highlightedCell";
 import LabeledTag from "../labeledTag";
@@ -123,7 +123,11 @@ class VariantTable extends Component {
     ]
   };
 
-  
+  components = {
+    header: {
+      cell: ResizeableTitle
+    }
+  };
 
   handelChrPosition = (e, data) => {
     console.log({ e: e.target, data });
