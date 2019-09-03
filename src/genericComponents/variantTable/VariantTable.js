@@ -65,13 +65,13 @@ class VariantTable extends Component {
         title: "Coding",
         dataIndex: "coding",
         key: "7",
-        width: 190
+        width: 150
       },
       {
         title: "Protein",
         dataIndex: "protein",
         key: "8",
-        width: 180
+        width: 150
       },
       {
         title: (
