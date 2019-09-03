@@ -60,7 +60,7 @@ const TumorInfoSelect = ({
             onChange={handleOnSearchChange}
             onSelect={onSelect}
             placeholder={placeholder}
-            autoFocus={true}
+            autoFocus
           />
 
           {insertedText && (
