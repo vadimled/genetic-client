@@ -91,9 +91,23 @@ export const clearFilterSection = data => {
   };
 };
 
-export const setDefaultFilters = data =>{
+export const setDefaultFilters = data => {
   return {
     type: actionsTypes.SET_DEFAULT_FILTERS,
+    payload: data
+  };
+};
+
+export const saveUserPreferencesFilters = data => {
+  return {
+    type: actionsTypes.SAVE_USER_PREFERENCES_FILTERS,
+    payload: data
+  };
+};
+
+export const updateSearch = data => {
+  return {
+    type: actionsTypes.UPDATE_SEARCH,
     payload: data
   };
 };

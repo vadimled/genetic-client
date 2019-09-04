@@ -11,7 +11,6 @@ import IgvLoadBAM from "./components/IgvLoadBAM";
 import AddResult from "./components/addResult";
 import EditResult from "./components/editResult";
 import { setMutationType } from "Actions/variantsActions";
-import { updateSearch } from "Actions/tableActions";
 import {
   handleOnConfirmation,
   setConfirmationData
@@ -202,7 +201,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(handleOnConfirmation(true));
       dispatch(setConfirmationData(data));
     },
-    updateSearch: data => dispatch(updateSearch(data)),
     setDefaultFilters: data => dispatch(setDefaultFilters(data)),
     setSort: data => dispatch(setSort(data)),
     exportTable: data => dispatch(exportTable(data))

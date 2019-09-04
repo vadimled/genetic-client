@@ -43,13 +43,6 @@ export const handleConfirmationStatus = data => {
   };
 };
 
-export const updateSearch = data => {
-  return {
-    type: actionsTypes.UPDATE_SEARCH,
-    payload: data
-  };
-};
-
 export const applyConfirmation = data => {
   return {
     type: actionsTypes.APPLY_CONFIRMATION,

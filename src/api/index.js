@@ -51,7 +51,7 @@ export function fetchTestMetadataApi(id) {
 }
 
 export function setTumorInfoApi(data) {
-  const { testId,  name, value } = data.payload;
+  const { testId, name, value } = data.payload;
   return axios_based.patch(`/tests/${testId}`, {
     tumor_info:{
       [name]: value
@@ -134,6 +134,12 @@ export function exportTableApi(testId) {
     link.setAttribute('download', `${testId}.tsv`);
     document.body.appendChild(link);
     link.click();
+  });
+}
+
+export function updateUserPreferences(data) {
+  return axios_based.put(`/user/preferences`, {
+    preferences: data
   });
 }
 

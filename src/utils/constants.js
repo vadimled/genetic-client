@@ -23,7 +23,7 @@ export const FILTERS = {
   cancerDBs: "canserBDs",
   searchText: "searchText",
   zygosity: "zygosity",
-  effect: "effect"
+  effect: "effect",
 };
 
 export const TEXTS = {

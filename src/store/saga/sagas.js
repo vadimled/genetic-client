@@ -22,7 +22,8 @@ import {
   deleteEvidenceEntryApi,
   fetchTableDataApi,
   exportTableApi,
-  setTumorInfoApi
+  setTumorInfoApi,
+  updateUserPreferences
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -623,3 +624,16 @@ export function* exportTableSaga(action) {
     console.log("-err: ", e);
   }
 }
+
+export function* saveUserPreferencesFiltersSaga({ payload }) {
+  try {
+    yield call(updateUserPreferences, { filters: { ...payload } });
+  }
+  catch(err) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["saveUserPreferencesFiltersSaga"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
