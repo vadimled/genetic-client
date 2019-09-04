@@ -26,43 +26,10 @@ const filtersReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_DEFAULT_FILTERS]: (state, {payload}) => {
-
-    let filtersConfig = {};
-    const testType = payload;
-
-    if (testType === "solid" || testType === "hema") {
-
-      filtersConfig = {
-        [FILTERS.variantClassGermline]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
-        [FILTERS.variantClassSomatic]: ['unclassified', 'tier1', 'tier2', 'tier3'],
-        [FILTERS.gnomAD]: ['na', 'veryRare'],
-        [FILTERS.vaf]: [1, 100],
-        [FILTERS.snp]: [],
-        [FILTERS.roi]: [],
-        [FILTERS.cancerDBs]: [],
-        [FILTERS.zygosity]: [],
-        [FILTERS.effect]: [],
-
-      };
-    }
-
-    if (testType === "risk") {
-      filtersConfig = {
-        [FILTERS.variantClassGermline]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
-        [FILTERS.variantClassSomatic]: ['unclassified', 'tier1', 'tier2', 'tier3'],
-        [FILTERS.vaf]: [30, 100],
-        [FILTERS.snp]: [],
-        [FILTERS.roi]: [],
-        [FILTERS.cancerDBs]: [],
-        [FILTERS.zygosity]: [],
-        [FILTERS.effect]: [],
-      };
-    }
-
+  [actionsTypes.SET_DEFAULT_FILTERS]: (state, { payload }) => {
     return {
       ...state,
-      ...filtersConfig
+      ...payload
     };
   },
 

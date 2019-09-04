@@ -16,7 +16,6 @@ import {
   getFilterCancerDBs,
   getFilterGnomId,
   getSearchQuery,
-  getTestType,
   getFilterZygosity,
   getFilterEffect
 } from "Store/selectors";
@@ -35,7 +34,9 @@ import {
   setFilterEffect,
   saveUserPreferencesFilters
 } from "Actions/filtersActions";
-import { FILTERS } from "Utils/constants";
+import {
+  FILTERS
+} from "Utils/constants";
 import style from "./SidebarFilters.module.scss";
 
 // eslint-disable-next-line
@@ -48,23 +49,6 @@ function callback(key) {
 const Arrow = ({ dir }) => <i className={`${dir} arrow`} />;
 
 class SidebarFilters extends Component {
-
-  state = {
-    testType: null
-  };
-
-  static getDerivedStateFromProps(props, state) {
-
-    if (props.testType !== null && state.testType === null) {
-
-      props.setDefaultFilters(props.testType);
-      return {
-        testType: props.testType
-      };
-    }
-    // Return null if the state hasn't changed
-    return null;
-  }
 
   getValueAccordingOnMode = (stateValue, value, mode) => {
     let newValue;
@@ -354,7 +338,6 @@ function mapStateToProps(state) {
       [FILTERS.zygosity]: getFilterZygosity(state),
       [FILTERS.effect]: getFilterEffect(state)
     },
-    testType: getTestType(state)
   };
 }
 

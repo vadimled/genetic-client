@@ -4,7 +4,8 @@ import {
   ALERT_STATUSES,
   ALLELE_TYPES,
   VALIDATION_FAILD_FIELDS,
-  TEXTS
+  TEXTS,
+  DEFAULT_FILTERS
 } from "Utils/constants";
 import {
   fetchBAMFile,
@@ -23,7 +24,8 @@ import {
   fetchTableDataApi,
   exportTableApi,
   setTumorInfoApi,
-  updateUserPreferences
+  updateUserPreferences,
+  fetchUserPreferences
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -39,7 +41,8 @@ import {
   setServerDataToStore,
   setTableReducerLoading,
   setConfirmationStatusToStore,
-  updateVariantInTableData
+  updateVariantInTableData,
+  setSort,
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
@@ -83,6 +86,10 @@ import {
   cleanEvidenceActionData,
   setCurrentEvidenceTab
 } from "Actions/evidenceConfigActions";
+import {
+  setDefaultFilters,
+  saveUserPreferencesFilters,
+} from "Actions/filtersActions";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -644,7 +651,32 @@ export function* saveUserPreferencesSortingSaga({ payload }) {
   catch(err) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["saveUserPreferencesSortingSaga"]);
-      Sentry.captureException(e);
+      Sentry.captureException(err);
+    });
+  }
+}
+
+export function* fetchUserPreferencesSaga() {
+  try {
+    const response = yield call(fetchUserPreferences);
+    const { preferences: { filters, sorting } } = response.data;
+
+    if (filters) {
+      yield put(setDefaultFilters(filters));
+    }
+    else {
+      yield put(setDefaultFilters(DEFAULT_FILTERS));
+      yield put(saveUserPreferencesFilters(DEFAULT_FILTERS));
+    }
+
+    if (sorting) {
+      yield put(setSort(sorting));
+    }
+  }
+  catch(err) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchUserPreferencesSaga"]);
+      Sentry.captureException(err);
     });
   }
 }

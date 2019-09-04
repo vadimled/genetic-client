@@ -30,7 +30,7 @@ import { setAlert } from "Actions/alertActions";
 import { fetchTestMetadata } from "Actions/testActions";
 import Spinner from "GenericComponents/spinner";
 import { withRouter } from "react-router-dom";
-import { fetchTableData } from "Actions/tableActions";
+import { fetchTableData, fetchUserPreferences } from "Actions/tableActions";
 
 class SingleTestPage extends Component {
   constructor(props) {
@@ -53,6 +53,10 @@ class SingleTestPage extends Component {
       return { isMutationType: true };
     }
     return null;
+  }
+
+  componentDidMount() {
+    this.props.fetchUserPreferences();
   }
 
   handleClick = () => {
@@ -147,7 +151,8 @@ function mapDispatchToProps(dispatch) {
   return {
     setAlert: data => dispatch(setAlert(data)),
     fetchTableData: data => dispatch(fetchTableData(data)),
-    fetchTestMetadata: id => dispatch(fetchTestMetadata(id))
+    fetchTestMetadata: id => dispatch(fetchTestMetadata(id)),
+    fetchUserPreferences: () => dispatch(fetchUserPreferences()),
   };
 }
 

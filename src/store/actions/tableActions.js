@@ -134,3 +134,10 @@ export const saveUserPreferencesSorting = data => {
   };
 };
 
+export const fetchUserPreferences = data => {
+  return {
+    type: actionsTypes.FETCH_USER_PREFERENCES,
+    payload: data
+  };
+};
+

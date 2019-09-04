@@ -1,13 +1,13 @@
 import React from 'react';
 // import { ReactComponent as SortIcon } from "Assets/sortArrows.svg";
-import { FILTERS_CONFIGURATIONS } from "../../../../../utils/constants";
+import { FILTERS_CONFIGURATIONS, DEFAULT_FILTERS } from "../../../../../utils/constants";
 import SimpleSelect from "../../../../../genericComponents/simpleSelect/SimpleSelect";
 
 
-const Filter = ({setDefaultFilters, testType}) => {
+const Filter = ({ setDefaultFilters }) => {
 
   const handleOnChange = () => {
-    setDefaultFilters(testType);
+    setDefaultFilters(DEFAULT_FILTERS);
   };
 
   return(

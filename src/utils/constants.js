@@ -683,3 +683,15 @@ export const ROUTES = {
   isSingleTestPageRegex :"\\/tests\\/?\\w+$",
   isRootRegex: "^/$"
 };
+
+export const DEFAULT_FILTERS = {
+  [FILTERS.variantClassGermline]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+  [FILTERS.variantClassSomatic]: ['unclassified', 'tier1', 'tier2', 'tier3'],
+  [FILTERS.gnomAD]: ['na', 'veryRare'],
+  [FILTERS.vaf]: [1, 100],
+  [FILTERS.snp]: [],
+  [FILTERS.roi]: [],
+  [FILTERS.cancerDBs]: [],
+  [FILTERS.zygosity]: [],
+  [FILTERS.effect]: [],
+};

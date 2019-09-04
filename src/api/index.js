@@ -143,3 +143,7 @@ export function updateUserPreferences(data) {
   });
 }
 
+export function fetchUserPreferences() {
+  return axios_based.get(`/user/preferences`);
+}
+
