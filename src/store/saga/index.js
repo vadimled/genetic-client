@@ -24,6 +24,7 @@ import {
   exportTableSaga,
   setTumorInfoSaga,
   saveUserPreferencesFiltersSaga,
+  saveUserPreferencesSortingSaga,
 } from "./sagas";
 
 export function* watchSaga() {
@@ -61,4 +62,5 @@ export function* watchSaga() {
   yield takeEvery(types.SET_TUMOR_INFO, setTumorInfoSaga);
 
   yield takeEvery(types.SAVE_USER_PREFERENCES_FILTERS, saveUserPreferencesFiltersSaga);
+  yield takeEvery(types.SAVE_USER_PREFERENCES_SORTING, saveUserPreferencesSortingSaga);
 }

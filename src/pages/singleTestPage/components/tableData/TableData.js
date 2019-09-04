@@ -10,7 +10,8 @@ import {
   getSelectedRows,
   getSortOrder,
   getSortParam,
-  getTestId, getTumorInfoMode
+  getTestId,
+  getTumorInfoMode
 } from "Store/selectors";
 import {
   handleSelectedRow,
@@ -20,7 +21,8 @@ import {
   handleConfirmationStatus,
   handleUncheckConfirmationData,
   setNotes,
-  setSort
+  setSort,
+  saveUserPreferencesSorting,
 } from "Actions/tableActions";
 import {
   goToChrPositionIgv
@@ -103,7 +105,11 @@ function mapDispatchToProps(dispatch) {
     },
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
     setNotes: data => dispatch(setNotes(data)),
-    setSort: data => dispatch(setSort(data)),
+    setSort: data => {
+      dispatch(setSort(data));
+      dispatch(saveUserPreferencesSorting(data));
+    },
+    saveUserPreferencesSorting: data => dispatch(saveUserPreferencesSorting(data)),
   };
 }
 

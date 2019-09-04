@@ -421,7 +421,8 @@ VariantTable.propTypes = {
   tumorInfoPanel: PropTypes.bool,
   selectedRows: PropTypes.array,
   setNotes: PropTypes.func,
-  testId: PropTypes.string
+  testId: PropTypes.string,
+  setSort: PropTypes.func.isRequired
 };
 
 VariantTable.defaultProps = {

@@ -27,7 +27,7 @@ import Sort from "./components/Sort";
 import { setDefaultFilters } from "Store/actions/filtersActions";
 import { getTestType, getTestId } from "Store/selectors";
 import Filter from "./components/Filter";
-import { setSort, exportTable } from "Store/actions/tableActions";
+import { setSort, saveUserPreferencesSorting, exportTable } from "Store/actions/tableActions";
 import ExportButton from "./components/exportButton/ExportButton";
 
 class Toolbar extends Component {
@@ -202,7 +202,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(setConfirmationData(data));
     },
     setDefaultFilters: data => dispatch(setDefaultFilters(data)),
-    setSort: data => dispatch(setSort(data)),
+    setSort: data => {
+      dispatch(setSort(data));
+      dispatch(saveUserPreferencesSorting(data));
+    },
     exportTable: data => dispatch(exportTable(data))
   };
 }

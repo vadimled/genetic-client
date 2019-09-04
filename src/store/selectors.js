@@ -68,7 +68,6 @@ export const
 
   getSortParam = state => state?.table?.sortParam,
   getSortOrder = state => state?.table?.sortOrder,
-  getClicksCounter = state => state?.table?.clicksCounter,
 
   getTumorInfoMode = state => state.test.showTumorInfo,
   getLoadingStatus = state => state.test.isLoading,

@@ -127,4 +127,10 @@ export const updateVariantInTableData = data => {
   };
 };
 
+export const saveUserPreferencesSorting = data => {
+  return {
+    type: actionsTypes.SAVE_USER_PREFERENCES_SORTING,
+    payload: data
+  };
+};
 

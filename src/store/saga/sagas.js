@@ -637,3 +637,15 @@ export function* saveUserPreferencesFiltersSaga({ payload }) {
   }
 }
 
+export function* saveUserPreferencesSortingSaga({ payload }) {
+  try {
+    yield call(updateUserPreferences, { sorting: { ...payload } });
+  }
+  catch(err) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["saveUserPreferencesSortingSaga"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
