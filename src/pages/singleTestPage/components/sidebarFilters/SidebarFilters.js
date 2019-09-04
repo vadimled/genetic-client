@@ -111,11 +111,6 @@ class SidebarFilters extends Component {
       saveUserPreferencesFilters
     } = this.props;
 
-    // const data = {
-    //   value,
-    //   mode
-    // };
-
     switch (filterSection) {
       case FILTERS.variantClassGermline: {
         const savedValue = this.getValueAccordingOnMode(filters[FILTERS.variantClassGermline], value, mode);
