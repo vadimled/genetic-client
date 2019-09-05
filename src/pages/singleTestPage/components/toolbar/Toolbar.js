@@ -24,7 +24,7 @@ import {
   getMutationTypesValues
 } from "Store/selectors";
 import Sort from "./components/Sort";
-import { setDefaultFilters } from "Store/actions/filtersActions";
+import { setDefaultFilters, saveUserPreferencesFilters } from "Store/actions/filtersActions";
 import { getTestId } from "Store/selectors";
 import Filter from "./components/Filter";
 import { setSort, saveUserPreferencesSorting, exportTable } from "Store/actions/tableActions";
@@ -58,6 +58,18 @@ class Toolbar extends Component {
     exportTable(testId);
   };
 
+  handleSort = (data) => {
+    const { setSort, saveUserPreferencesSorting, testId } = this.props;
+    setSort(data);
+    saveUserPreferencesSorting({ testId, sorting: data });
+  };
+
+  onSetDefaultFilters = (data) => {
+    const { setDefaultFilters, saveUserPreferencesFilters, testId } = this.props;
+    setDefaultFilters(data);
+    saveUserPreferencesFilters({ testId, filters: data });
+  };
+
   render() {
     const {
       filtered,
@@ -67,8 +79,6 @@ class Toolbar extends Component {
       selectedRows,
       selectedIsAddedRows,
       openConfirmationPopup,
-      setDefaultFilters,
-      setSort
     } = this.props;
 
     return (
@@ -114,10 +124,10 @@ class Toolbar extends Component {
               <Fragment>
                 <div className="toolbar-divider-line" />
                 <Filter
-                  setDefaultFilters={setDefaultFilters}
+                  setDefaultFilters={this.onSetDefaultFilters}
                 />
                 <div className="toolbar-divider-line" />
-                <Sort setSort={setSort} />
+                <Sort setSort={this.handleSort} />
                 <div className="toolbar-divider-line" />
                 <IgvLoadBAM />
                 <div className="toolbar-divider-line" />
@@ -199,10 +209,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(setConfirmationData(data));
     },
     setDefaultFilters: data => dispatch(setDefaultFilters(data)),
-    setSort: data => {
-      dispatch(setSort(data));
-      dispatch(saveUserPreferencesSorting(data));
-    },
+    setSort: data => dispatch(setSort(data)),
+    saveUserPreferencesSorting: data => dispatch(saveUserPreferencesSorting(data)),
+    saveUserPreferencesFilters: data => dispatch(saveUserPreferencesFilters(data)),
     exportTable: data => dispatch(exportTable(data))
   };
 }

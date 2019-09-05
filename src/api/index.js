@@ -137,13 +137,13 @@ export function exportTableApi(testId) {
   });
 }
 
-export function updateUserPreferences(data) {
-  return axios_based.put(`/user/preferences`, {
-    preferences: data
+export function updateUserPreferencesApi({ testId, preferences }) {
+  return axios_based.put(`/tests/${testId}/preferences`, {
+    preferences
   });
 }
 
-export function fetchUserPreferences() {
-  return axios_based.get(`/user/preferences`);
+export function fetchUserPreferencesApi({ testId }) {
+  return axios_based.get(`/tests/${testId}/preferences`);
 }
 

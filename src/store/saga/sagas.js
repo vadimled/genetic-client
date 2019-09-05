@@ -24,8 +24,8 @@ import {
   fetchTableDataApi,
   exportTableApi,
   setTumorInfoApi,
-  updateUserPreferences,
-  fetchUserPreferences
+  updateUserPreferencesApi,
+  fetchUserPreferencesApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -634,7 +634,11 @@ export function* exportTableSaga(action) {
 
 export function* saveUserPreferencesFiltersSaga({ payload }) {
   try {
-    yield call(updateUserPreferences, { filters: { ...payload } });
+    const { testId, filters } = payload;
+    yield call(updateUserPreferencesApi, {
+      testId,
+      preferences: { filters }
+    });
   }
   catch(err) {
     Sentry.withScope(scope => {
@@ -646,7 +650,11 @@ export function* saveUserPreferencesFiltersSaga({ payload }) {
 
 export function* saveUserPreferencesSortingSaga({ payload }) {
   try {
-    yield call(updateUserPreferences, { sorting: { ...payload } });
+    const { testId, sorting } = payload;
+    yield call(updateUserPreferencesApi, {
+      testId,
+      preferences: { sorting }
+    });
   }
   catch(err) {
     Sentry.withScope(scope => {
@@ -656,9 +664,10 @@ export function* saveUserPreferencesSortingSaga({ payload }) {
   }
 }
 
-export function* fetchUserPreferencesSaga() {
+export function* fetchUserPreferencesSaga({ payload }) {
   try {
-    const response = yield call(fetchUserPreferences);
+    const { testId } = payload;
+    const response = yield call(fetchUserPreferencesApi, { testId });
     const { preferences: { filters, sorting } } = response.data;
 
     if (filters) {
@@ -666,7 +675,7 @@ export function* fetchUserPreferencesSaga() {
     }
     else {
       yield put(setDefaultFilters(DEFAULT_FILTERS));
-      yield put(saveUserPreferencesFilters(DEFAULT_FILTERS));
+      yield put(saveUserPreferencesFilters({ testId, filters: DEFAULT_FILTERS }));
     }
 
     if (sorting) {

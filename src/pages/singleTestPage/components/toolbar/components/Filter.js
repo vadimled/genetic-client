@@ -3,7 +3,6 @@ import React from 'react';
 import { FILTERS_CONFIGURATIONS, DEFAULT_FILTERS } from "../../../../../utils/constants";
 import SimpleSelect from "../../../../../genericComponents/simpleSelect/SimpleSelect";
 
-
 const Filter = ({ setDefaultFilters }) => {
 
   const handleOnChange = () => {

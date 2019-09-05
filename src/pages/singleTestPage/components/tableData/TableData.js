@@ -30,6 +30,12 @@ import {
 
 class TableData extends Component {
 
+  handleSort = (data) => {
+    const { setSort, saveUserPreferencesSorting, testId } = this.props;
+    setSort(data);
+    saveUserPreferencesSorting({ testId, sorting: data });
+  };
+
   render() {
     const {
       filteredData,
@@ -42,7 +48,6 @@ class TableData extends Component {
       isAllRowSelected,
       selectedRows,
       setNotes,
-      setSort,
       sortOrder,
       sortParam,
       testId,
@@ -63,7 +68,7 @@ class TableData extends Component {
             isAllRowSelected={isAllRowSelected}
             selectedRows={selectedRows}
             setNotes={setNotes}
-            setSort={setSort}
+            setSort={this.handleSort}
             sortOrder={sortOrder}
             sortParam={sortParam}
             testId={testId}
@@ -105,10 +110,7 @@ function mapDispatchToProps(dispatch) {
     },
     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
     setNotes: data => dispatch(setNotes(data)),
-    setSort: data => {
-      dispatch(setSort(data));
-      dispatch(saveUserPreferencesSorting(data));
-    },
+    setSort: data => dispatch(setSort(data)),
     saveUserPreferencesSorting: data => dispatch(saveUserPreferencesSorting(data)),
   };
 }

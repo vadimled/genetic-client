@@ -56,7 +56,10 @@ class SingleTestPage extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchUserPreferences();
+    const { match } = this.props;
+    const testId = match?.params?.testId;
+    console.log("testId", testId);
+    testId && this.props.fetchUserPreferences({ testId });
   }
 
   handleClick = () => {
@@ -151,8 +154,8 @@ function mapDispatchToProps(dispatch) {
   return {
     setAlert: data => dispatch(setAlert(data)),
     fetchTableData: data => dispatch(fetchTableData(data)),
-    fetchTestMetadata: id => dispatch(fetchTestMetadata(id)),
-    fetchUserPreferences: () => dispatch(fetchUserPreferences()),
+    fetchTestMetadata: testId => dispatch(fetchTestMetadata(testId)),
+    fetchUserPreferences: (data) => dispatch(fetchUserPreferences(data)),
   };
 }
 

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // import PropTypes from "prop-types";
 import { AutoComplete, Icon } from "antd";
-import { getFilteredSearchQueries, getSearchQuery } from "Store/selectors";
+import { getFilteredSearchQueries, getSearchQuery, getTestId } from "Store/selectors";
 import { updateSearch, saveUserPreferencesFilters } from "Actions/filtersActions";
 import { ReactComponent as CloseIcon } from "Assets/close.svg";
 import style from "./Search.module.scss";
@@ -10,15 +10,15 @@ import { TEXTS, FILTERS } from "Utils/constants";
 
 class Search extends Component {
   handleOnSearchChange = value => {
-    const { updateSearch, saveUserPreferencesFilters } = this.props;
+    const { updateSearch, saveUserPreferencesFilters, testId } = this.props;
     updateSearch(value);
-    saveUserPreferencesFilters({ [FILTERS.searchText]: value });
+    saveUserPreferencesFilters({ testId, filters: { [FILTERS.searchText]: value } });
   };
 
   clearSearch = () => {
-    const { updateSearch, saveUserPreferencesFilters } = this.props;
+    const { updateSearch, saveUserPreferencesFilters, testId } = this.props;
     updateSearch("");
-    saveUserPreferencesFilters({ [FILTERS.searchText]: "" });
+    saveUserPreferencesFilters({ testId, filters: { [FILTERS.searchText]: "" } });
   };
 
   render() {
@@ -60,7 +60,8 @@ Search.propTypes = {};
 const mapStateToProps = state => {
   return {
     searchText: getSearchQuery(state),
-    tableData: getFilteredSearchQueries(state)
+    tableData: getFilteredSearchQueries(state),
+    testId: getTestId(state),
   };
 };
 
