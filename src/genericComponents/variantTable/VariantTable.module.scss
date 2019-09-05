@@ -144,4 +144,14 @@
       max-width: 110px;
     }
   }
+
+  .numeric {
+    text-align: right;
+
+    .inner {
+      text-align: right;
+      justify-content: flex-end;
+      padding-right: 15px;
+    }
+  }
 }
