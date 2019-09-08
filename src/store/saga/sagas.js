@@ -83,6 +83,7 @@ import {
   cleanEvidenceActionData,
   setCurrentEvidenceTab
 } from "Actions/evidenceConfigActions";
+import { setConfirmationPageMetadataToStore } from "Actions/confirmationPageActions";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -631,7 +632,7 @@ export function* fetchConfirmationMetadataSaga(action) {
     yield put(setLoading(true));
     const { data } = yield call(fetchConfirmationMetadataApi, action);
     console.log(data);
-    // yield put(setConfirmationPageMetadataToStore(data));
+    yield put(setConfirmationPageMetadataToStore(data));
   } catch (e) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {

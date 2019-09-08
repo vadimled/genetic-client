@@ -6,3 +6,10 @@ export const fetchConfirmationMetadata = data => {
     payload: data
   };
 };
+
+export const setConfirmationPageMetadataToStore = data => {
+  return {
+    type: actionsTypes.SET_CONFIRMATION_PAGE_METADATA,
+    payload: data
+  };
+};
