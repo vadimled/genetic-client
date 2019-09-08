@@ -248,8 +248,7 @@ class VariantTable extends Component {
                   to={{
                     pathname: `${this.props.match.url}/variants/${
                       record.id
-                    }/?selectedZygosityType=germline`
-                    // state: {type: "germline"}
+                    }/?selectedZygosityType=${record.zygosity !== "somatic" ? "germline" : "somatic"}`
                   }}
                 >
                   <LabeledTag
@@ -274,8 +273,7 @@ class VariantTable extends Component {
                   to={{
                     pathname: `${this.props.match.url}/variants/${
                       record.id
-                    }/?selectedZygosityType=somatic`
-                    // state: {testId:this.props.testId, variantId: record.id, selectedZygosityType: "somatic"}
+                    }/?selectedZygosityType=${record.zygosity === "somatic" ? "somatic" : "germline"}`
                   }}
                 >
                   <LabeledTag
