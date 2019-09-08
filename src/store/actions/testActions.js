@@ -40,7 +40,7 @@ export const setTumorInfoLoading = data => {
     type: actionsTypes.SET_TUMOR_INFO_LOADING,
     payload: data
   };
-}
+};
 
 
 
