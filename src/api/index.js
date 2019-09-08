@@ -137,3 +137,6 @@ export function exportTableApi(testId) {
   });
 }
 
+export function fetchConfirmationMetadataApi(data) {
+  return axios_based.get(`/confirmations/${data.payload}`);
+}

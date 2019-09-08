@@ -22,7 +22,8 @@ import {
   deleteEvidenceEntryApi,
   fetchTableDataApi,
   exportTableApi,
-  setTumorInfoApi
+  setTumorInfoApi,
+  fetchConfirmationMetadataApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -621,5 +622,21 @@ export function* exportTableSaga(action) {
   } catch (e) {
     yield put(setTableReducerLoading(false));
     console.log("-err: ", e);
+  }
+}
+
+// --------------- CONFIRMATION PAGE ---------------
+export function* fetchConfirmationMetadataSaga(action) {
+  try {
+    yield put(setLoading(true));
+    const { data } = yield call(fetchConfirmationMetadataApi, action);
+    console.log(data);
+    // yield put(setConfirmationPageMetadataToStore(data));
+  } catch (e) {
+    yield put(setLoading(false));
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchConfirmationMetadataSaga"]);
+      Sentry.captureException(e);
+    });
   }
 }

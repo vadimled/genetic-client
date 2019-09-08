@@ -22,7 +22,8 @@ import {
   setNotesSaga,
   handleConfirmationStatusSaga,
   exportTableSaga,
-  setTumorInfoSaga
+  setTumorInfoSaga,
+  fetchConfirmationMetadataSaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -58,4 +59,6 @@ export function* watchSaga() {
   ]);
   yield takeEvery(types.EXPORT_TABLE, exportTableSaga);
   yield takeEvery(types.SET_TUMOR_INFO, setTumorInfoSaga);
+  
+  yield takeEvery(types.FETCH_CONFIRMATION_PAGE_METADATA, fetchConfirmationMetadataSaga);
 }
