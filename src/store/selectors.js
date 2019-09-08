@@ -433,3 +433,5 @@ export const getSomaticEvidence = state =>
       };
     }
   );
+
+export const getIsTumorInfoLoading = state => state?.test?.isTumorInfoLoading;
