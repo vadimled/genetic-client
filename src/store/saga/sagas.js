@@ -633,6 +633,7 @@ export function* fetchConfirmationMetadataSaga(action) {
     const { data } = yield call(fetchConfirmationMetadataApi, action);
     console.log(data);
     yield put(setConfirmationPageMetadataToStore(data));
+    yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {
