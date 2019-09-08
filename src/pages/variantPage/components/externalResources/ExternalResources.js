@@ -76,7 +76,8 @@ function ExternalResources({ externalResources, selectedZygosityType }) {
         return (
           <li key={`${index}-${label}`}>
             {!Array.isArray(resourceValue)
-              ? resourceValue?.includes("http")
+              ? (resourceValue?.includes("http")
+                && !resourceValue?.includes("clinvar") && !resourceValue?.includes("snp"))
                 ? renderLink(label, resourceValue)
                 : renderText(label, resourceValue)
               : renderLinksArray(label, resourceValue)}
