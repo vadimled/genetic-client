@@ -241,9 +241,10 @@ class VariantTable extends Component {
         column.className = "select";
       } else if (column.dataIndex === "variantClassGermline") {
         column.render = (text, record) => {
+          console.log(record)
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              <div className="table-select-wrapper">
+              <div className={cn("table-select-wrapper", {"hidden-classification": record.zygosity === "somatic"})}>
                 <Link
                   to={{
                     pathname: `${this.props.match.url}/variants/${
@@ -266,7 +267,7 @@ class VariantTable extends Component {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              <div className="table-select-wrapper">
+              <div className={cn("table-select-wrapper", {"hidden-classification": ["homo", "hetero", "hemi"].includes(record.zygosity)})}>
                 <Link
                   to={{
                     pathname: `${this.props.match.url}/variants/${
