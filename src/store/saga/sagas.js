@@ -78,6 +78,7 @@ import {
 } from "Actions/variantPageActions";
 import { fetchClassificationHistoryApi } from "../../api";
 import { cleanEvidenceActionData } from "Actions/evidenceConfigActions";
+import { setTumorInfoLoading } from "../actions/testActions";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -427,18 +428,18 @@ export function* fetchTableDataSaga(action) {
 
 export function* setTumorInfoSaga(action) {
   try {
-    yield put(setLoading(true));
+    yield put(setTumorInfoLoading(true));
     const {status, data} = yield call(setTumorInfoApi, action);
     if (status === 200) {
       yield put(setTestData(data));
     }
-    yield put(setLoading(false));
+    yield put(setTumorInfoLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["setTumorInfoSaga"]);
       Sentry.captureException(e);
     });
-    yield put(setLoading(false));
+    yield put(setTumorInfoLoading(false));
   }
 }
 

@@ -35,6 +35,12 @@ export function setLoading(status) {
   };
 }
 
+export const setTumorInfoLoading = data => {
+  return {
+    type: actionsTypes.SET_TUMOR_INFO_LOADING,
+    payload: data
+  };
+}
 
 
 
