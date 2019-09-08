@@ -22,7 +22,8 @@ import {
   deleteEvidenceEntryApi,
   fetchTableDataApi,
   exportTableApi,
-  setTumorInfoApi
+  setTumorInfoApi,
+  fetchClassificationHistoryApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -52,7 +53,7 @@ import {
   handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
-import { setTestData, setLoading } from "Actions/testActions";
+import { setTestData, setLoading, setTumorInfoLoading } from "Actions/testActions";
 import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
@@ -69,16 +70,18 @@ import {
   parseTableData,
   parseTableDataObj,
   createResourcesLinks,
-  getHistoryTableData
+  getHistoryTableData,
+  getCurrentEvidenceTabKey
 } from "Utils/helpers";
 import {
   setClassificationHistoryToStore,
   setServerVariantMetadataToStore,
   setExternalResources
 } from "Actions/variantPageActions";
-import { fetchClassificationHistoryApi } from "../../api";
-import { cleanEvidenceActionData } from "Actions/evidenceConfigActions";
-import { setTumorInfoLoading } from "../actions/testActions";
+import {
+  cleanEvidenceActionData,
+  setCurrentEvidenceTab
+} from "Actions/evidenceConfigActions";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -355,8 +358,7 @@ export function* handleZygositySaga(data) {
       const parsedData = parseTableDataObj(result.data);
       yield put(updateVariantInTableData(parsedData));
     }
-  }
-  catch (e) {
+  } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["handleZygositySaga"]);
       Sentry.captureException(e);
@@ -365,8 +367,7 @@ export function* handleZygositySaga(data) {
 }
 
 export function* setNotesSaga(data) {
-  const
-    newData = {...data},
+  const newData = { ...data },
     { notes, testId, variantId } = data.payload;
 
   newData.payload = {
@@ -383,8 +384,7 @@ export function* setNotesSaga(data) {
       yield put(updateVariantInTableData(parsedData));
     }
     yield put(setLoading(false));
-  }
-  catch (e) {
+  } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["setNotesSaga"]);
       Sentry.captureException(e);
@@ -429,7 +429,7 @@ export function* fetchTableDataSaga(action) {
 export function* setTumorInfoSaga(action) {
   try {
     yield put(setTumorInfoLoading(true));
-    const {status, data} = yield call(setTumorInfoApi, action);
+    const { status, data } = yield call(setTumorInfoApi, action);
     if (status === 200) {
       yield put(setTestData(data));
     }
@@ -442,7 +442,6 @@ export function* setTumorInfoSaga(action) {
     yield put(setTumorInfoLoading(false));
   }
 }
-
 
 // --------------- VARIANT PAGE ---------------
 export function* fetchVariantMetadataDataSaga(action) {
@@ -464,7 +463,7 @@ export function* fetchVariantMetadataDataSaga(action) {
 
 export function* sendVariantClassSaga(action) {
   try {
-    const {status, data} = yield call(updateVariantApi, action);
+    const { status, data } = yield call(updateVariantApi, action);
     if (status === 200) {
       yield put(setServerVariantMetadataToStore(data));
       const newData = parseTableDataObj(data);
@@ -495,11 +494,13 @@ export function* fetchEvidenceDataSaga(data) {
   }
 }
 
-export function* addEvidenceEntrySaga(data) {
+export function* addEvidenceEntrySaga(action) {
   try {
     yield put(setLoading(true));
-    const result = yield call(addEvidenceEntryApi, data);
+    const result = yield call(addEvidenceEntryApi, action);
     yield put(setNewEvidenceEntry(result.data));
+    yield put(setCurrentEvidenceTab(getCurrentEvidenceTabKey(action.payload)));
+    yield put(cleanEvidenceActionData());
     yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
@@ -510,11 +511,13 @@ export function* addEvidenceEntrySaga(data) {
   }
 }
 
-export function* editEvidenceEntrySaga(data) {
+export function* editEvidenceEntrySaga(action) {
   try {
     yield put(setLoading(true));
-    const result = yield call(editEvidenceEntryApi, data);
+    const result = yield call(editEvidenceEntryApi, action);
     yield put(setEditedEvidenceEntry(result.data));
+    yield put(setCurrentEvidenceTab(getCurrentEvidenceTabKey(action.payload)));
+    yield put(cleanEvidenceActionData());
     yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
@@ -604,7 +607,7 @@ export function* handleConfirmationStatusSaga(data) {
   }
 }
 
-export function* exportTableSaga (action) {
+export function* exportTableSaga(action) {
   const testId = action.payload;
 
   try {
@@ -612,11 +615,9 @@ export function* exportTableSaga (action) {
 
     const result = yield call(exportTableApi, testId);
 
-    if(result.status === 200){
+    if (result.status === 200) {
       yield put(setTableReducerLoading(false));
     }
-
-
   } catch (e) {
     yield put(setTableReducerLoading(false));
     console.log("-err: ", e);

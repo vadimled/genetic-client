@@ -334,6 +334,8 @@ export const getSomaticEvidence = state =>
     state.variantPage.evidenceConfig.evidenceLevelSelect,
   getEvidenceDescription = state =>
     state.variantPage.evidenceConfig.evidenceDescriptionTextarea,
+  getCurrentEvidenceTab = state =>
+    state.variantPage.evidenceConfig.currentEvidenceTab,
   getSubmitData = createSelector(
     getEvidenceTypeSelect,
     getEvidenceSourceInput,

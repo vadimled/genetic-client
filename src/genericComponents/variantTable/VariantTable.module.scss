@@ -124,8 +124,12 @@
     padding-right: 7px;
   }
 
+  .ant-table-fixed {
+    table-layout: fixed !important;
+  }
+
   .text {
-    width: 100%;
+    width: 70%;
     font-weight: normal;
     font-size: 16px;
     text-align: left;
@@ -138,6 +142,16 @@
     &.cut {
       width: 65%;
       max-width: 110px;
+    }
+  }
+
+  .numeric {
+    text-align: right;
+
+    .inner {
+      text-align: right;
+      justify-content: flex-end;
+      padding-right: 15px;
     }
   }
 }

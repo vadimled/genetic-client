@@ -6,7 +6,8 @@ import {
   ZYGOSITY,
   TEXTS,
   ZYGOSITY_TYPES,
-  ROUTES
+  ROUTES,
+  EVIDENCE_CATEGORIES_OPTIONS
 } from "./constants";
 
 export const getPrevTagColor = ({ prevVal }) => {
@@ -1075,16 +1076,16 @@ const createNewTableDataItem = ({
     newObj.key = id;
     newObj.gene = gene;
     newObj.chrPosition = `${chr}:${position}`;
-    newObj.alleleChange = getAlleleChange(ref, alt)?.slice(0, 12);
+    newObj.alleleChange = getAlleleChange(ref, alt);
     newObj.alleleChangeLong = getAlleleChange(ref, alt);
     newObj.transcript = transcript;
     newObj.zygosity = zygosity;
-    newObj.protein = hgvs_p?.length > 15 ? hgvs_p.slice(0, 15) : hgvs_p;
+    newObj.protein = hgvs_p;
     newObj.proteinWholly = hgvs_p;
     newObj.coverage = parseInt(dp, 10);
     newObj.vaf = createVaf(percentage_variants);
     newObj.notes = notes;
-    newObj.coding = hgvs_c?.length > 15 ? hgvs_c.slice(0, 15) : hgvs_c;
+    newObj.coding = hgvs_c;
     newObj.codingLong = hgvs_c;
     newObj.exon = exon; // temporary removed from the table
     newObj.variantClassGermline = germline_class || "unclassified";
@@ -1119,7 +1120,7 @@ export const parseTableData = array =>
 export const parseTableDataObj = data => createNewTableDataItem(data);
 
 export const getTableSortedByDate = (data, datePropName) => {
-  if(!data) return [];
+  if (!data) return [];
   let newData = [...data];
   return newData.sort(function(a, b) {
     const aDate = new Date(a[datePropName]);
@@ -1169,4 +1170,15 @@ export const capitalizeFirstLetter = string => {
 };
 
 export const dateOptions = { day: "2-digit", month: "short", year: "numeric" };
-export const timeOptions = { timeStyle: "short"};
+export const timeOptions = { timeStyle: "short" };
+export const actionModeText = mode => mode === TEXTS.add ? TEXTS.addEvidence : TEXTS.editEvidence;
+
+export const getCurrentEvidenceTabKey = currEvidenceConfig => {
+  const index =
+    Object.keys(EVIDENCE_CATEGORIES_OPTIONS).findIndex(
+      item =>
+        EVIDENCE_CATEGORIES_OPTIONS[item].value ===
+        currEvidenceConfig.data.category
+    ) + 1;
+  return index.toString();
+};

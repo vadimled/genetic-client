@@ -20,6 +20,7 @@ import { connect } from "react-redux";
 import SlideBar from "GenericComponents/slideBar";
 import ActionAddEditEvidence from "variantComponents/evidenceContainer/components/actionAddEditEvidence";
 import { TEXTS } from "Utils/constants";
+import { actionModeText } from "Utils/helpers";
 
 // import PropTypes from 'prop-types';
 
@@ -61,12 +62,14 @@ class EvidenceConfig extends Component {
       classification
     } = this.props;
 
-    const actionMode =
-      mode === TEXTS.add ? TEXTS.addEvidence : TEXTS.editEvidence;
     return (
-      <SlideBar isOpen={isOpen} onClose={this.handleClose} title={actionMode}>
+      <SlideBar
+        isOpen={isOpen}
+        onClose={this.handleClose}
+        title={actionModeText(mode)}
+      >
         <ActionAddEditEvidence
-          mode={actionMode}
+          mode={mode}
           submit={this.handleSubmit}
           classification={classification}
           evidenceCategory={evidenceTypeSelect}

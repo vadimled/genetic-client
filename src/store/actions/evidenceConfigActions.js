@@ -42,4 +42,11 @@ export const cleanEvidenceActionData = data => {
   };
 };
 
+export const setCurrentEvidenceTab = data => {
+  return {
+    type: actionsTypes.SET_CURRENT_EVIDENCE_TAB,
+    payload: data
+  };
+};
+
 

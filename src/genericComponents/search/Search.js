@@ -6,6 +6,7 @@ import { getFilteredSearchQueries, getSearchQuery } from "Store/selectors";
 import { updateSearch } from "Actions/tableActions";
 import { ReactComponent as CloseIcon } from "Assets/close.svg";
 import style from "./Search.module.scss";
+import { TEXTS } from "Utils/constants";
 
 class Search extends Component {
   handleOnSearchChange = e => {
@@ -23,7 +24,6 @@ class Search extends Component {
         {!searchText ? (
           <div className="flex items-center search-icons-wrapper">
             <Icon type="search" style={{ color: "#96A2AA" }} />
-            <div className="placeholder">Search for Gene, Coding or Protein</div>
           </div>
         ) : (
           <span />
@@ -35,7 +35,7 @@ class Search extends Component {
           dataSource={tableData}
           value={searchText}
           onChange={this.handleOnSearchChange}
-
+          placeholder={TEXTS.searchPlaceholder}
         />
 
         {searchText && (

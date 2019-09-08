@@ -7,6 +7,7 @@ import {
   EVIDENCE_LEVEL_OPTIONS
 } from "Utils/constants";
 import TableLevel from "variantComponents/evidenceContainer/components/tableLevel";
+import { actionModeText } from "Utils/helpers";
 
 /*eslint-disable*/
 const Option = Select.Option,
@@ -52,6 +53,7 @@ const ActionAddEditEvidence = ({
             value={evidenceCategory}
             options={EVIDENCE_CATEGORIES_OPTIONS}
             onChange={onChange}
+            disabled={mode === "edit"}
           />
         </div>
         <div className="form-item">
@@ -107,7 +109,7 @@ const ActionAddEditEvidence = ({
         </div>
         <div className="divider" />
         <Button type="primary" htmlType="submit" disabled={!isSubmitEnabled()}>
-          {mode}
+          {actionModeText(mode)}
         </Button>
       </form>
     </div>
