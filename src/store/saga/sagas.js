@@ -23,6 +23,7 @@ import {
   fetchTableDataApi,
   exportTableApi,
   setTumorInfoApi,
+  fetchClassificationHistoryApi,
   fetchConfirmationMetadataApi
 } from "Api/index";
 import {
@@ -53,7 +54,7 @@ import {
   handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
-import { setTestData, setLoading } from "Actions/testActions";
+import { setTestData, setLoading, setTumorInfoLoading } from "Actions/testActions";
 import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
@@ -78,7 +79,6 @@ import {
   setServerVariantMetadataToStore,
   setExternalResources
 } from "Actions/variantPageActions";
-import { fetchClassificationHistoryApi } from "../../api";
 import {
   cleanEvidenceActionData,
   setCurrentEvidenceTab
@@ -430,18 +430,18 @@ export function* fetchTableDataSaga(action) {
 
 export function* setTumorInfoSaga(action) {
   try {
-    yield put(setLoading(true));
+    yield put(setTumorInfoLoading(true));
     const { status, data } = yield call(setTumorInfoApi, action);
     if (status === 200) {
       yield put(setTestData(data));
     }
-    yield put(setLoading(false));
+    yield put(setTumorInfoLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["setTumorInfoSaga"]);
       Sentry.captureException(e);
     });
-    yield put(setLoading(false));
+    yield put(setTumorInfoLoading(false));
   }
 }
 
