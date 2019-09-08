@@ -11,6 +11,7 @@ const TumorInfoPercent = ({
   placeholder
 }) => {
   const [insertedText, updateText] = useState("");
+  const [editIsClicked, updateEditIsClicked] = useState(false);
   
   const handleOnSearchChange = value => {
     updateText(value);
@@ -18,7 +19,8 @@ const TumorInfoPercent = ({
   
   const onEdit = () => {
     updateText(value);
-    onAction(-1);
+    updateEditIsClicked(true)
+    // onAction(-1);
   };
   
   const onSave = () => {
@@ -26,7 +28,7 @@ const TumorInfoPercent = ({
   };
   
   const renderInput = () => {
-    if (value >= 0 ) {
+    if (!editIsClicked) {
       return (
         <Tooltip placement="topLeft" title={insertedText}>
           <div
