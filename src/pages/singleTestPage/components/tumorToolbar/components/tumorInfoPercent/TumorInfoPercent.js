@@ -20,7 +20,7 @@ const TumorInfoPercent = ({
   const onEdit = () => {
     updateText(value);
     updateEditIsClicked(true);
-    // onAction(-1);
+    // onAction(-cc);
   };
   
   const onSave = () => {
