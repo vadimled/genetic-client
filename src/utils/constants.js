@@ -23,7 +23,7 @@ export const FILTERS = {
   cancerDBs: "canserBDs",
   searchText: "searchText",
   zygosity: "zygosity",
-  effect: "effect"
+  effect: "effect",
 };
 
 export const TEXTS = {
@@ -682,4 +682,45 @@ export const ROUTES = {
   isVariantPageRegex :"\\/tests\\/.+\\/variants\\/.+",
   isSingleTestPageRegex :"\\/tests\\/?\\w+$",
   isRootRegex: "^/$"
+};
+
+export const PANEL_TYPES = {
+  solid: 'solid',
+  hema: 'hema',
+  risk: 'risk'
+};
+
+export const DEFAULT_FILTERS = {
+  [PANEL_TYPES.solid]: {
+    [FILTERS.variantClassGermline]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+    [FILTERS.variantClassSomatic]: ['unclassified', 'tier1', 'tier2', 'tier3'],
+    [FILTERS.gnomAD]: ['na', 'veryRare'],
+    [FILTERS.vaf]: [1, 100],
+    [FILTERS.snp]: [],
+    [FILTERS.roi]: [],
+    [FILTERS.cancerDBs]: [],
+    [FILTERS.zygosity]: [],
+    [FILTERS.effect]: [],
+  },
+  [PANEL_TYPES.hema]: {
+    [FILTERS.variantClassGermline]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+    [FILTERS.variantClassSomatic]: ['unclassified', 'tier1', 'tier2', 'tier3'],
+    [FILTERS.gnomAD]: ['na', 'veryRare'],
+    [FILTERS.vaf]: [1, 100],
+    [FILTERS.snp]: [],
+    [FILTERS.roi]: [],
+    [FILTERS.cancerDBs]: [],
+    [FILTERS.zygosity]: [],
+    [FILTERS.effect]: [],
+  },
+  [PANEL_TYPES.risk]: {
+    [FILTERS.variantClassGermline]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+    [FILTERS.variantClassSomatic]: ['unclassified', 'tier1', 'tier2', 'tier3'],
+    [FILTERS.vaf]: [30, 100],
+    [FILTERS.snp]: [],
+    [FILTERS.roi]: [],
+    [FILTERS.cancerDBs]: [],
+    [FILTERS.zygosity]: [],
+    [FILTERS.effect]: [],
+  }
 };

@@ -11,7 +11,6 @@ import IgvLoadBAM from "./components/IgvLoadBAM";
 import AddResult from "./components/addResult";
 import EditResult from "./components/editResult";
 import { setMutationType } from "Actions/variantsActions";
-import { updateSearch } from "Actions/tableActions";
 import {
   handleOnConfirmation,
   setConfirmationData
@@ -25,10 +24,10 @@ import {
   getMutationTypesValues
 } from "Store/selectors";
 import Sort from "./components/Sort";
-import { setDefaultFilters } from "Store/actions/filtersActions";
-import { getTestType, getTestId } from "Store/selectors";
+import { setDefaultFilters, saveUserPreferencesFilters } from "Store/actions/filtersActions";
+import { getTestId, getTestType } from "Store/selectors";
 import Filter from "./components/Filter";
-import { setSort, exportTable } from "Store/actions/tableActions";
+import { setSort, saveUserPreferencesSorting, exportTable } from "Store/actions/tableActions";
 import ExportButton from "./components/exportButton/ExportButton";
 
 class Toolbar extends Component {
@@ -59,6 +58,18 @@ class Toolbar extends Component {
     exportTable(testId);
   };
 
+  handleSort = (data) => {
+    const { setSort, saveUserPreferencesSorting, testId } = this.props;
+    setSort(data);
+    saveUserPreferencesSorting({ testId, sorting: data });
+  };
+
+  onSetDefaultFilters = (data) => {
+    const { setDefaultFilters, saveUserPreferencesFilters, testId } = this.props;
+    setDefaultFilters(data);
+    saveUserPreferencesFilters({ testId, filters: data });
+  };
+
   render() {
     const {
       filtered,
@@ -68,9 +79,7 @@ class Toolbar extends Component {
       selectedRows,
       selectedIsAddedRows,
       openConfirmationPopup,
-      setDefaultFilters,
-      testType,
-      setSort
+      testType
     } = this.props;
 
     return (
@@ -116,11 +125,11 @@ class Toolbar extends Component {
               <Fragment>
                 <div className="toolbar-divider-line" />
                 <Filter
-                  setDefaultFilters={setDefaultFilters}
+                  setDefaultFilters={this.onSetDefaultFilters}
                   testType={testType}
                 />
                 <div className="toolbar-divider-line" />
-                <Sort setSort={setSort} />
+                <Sort setSort={this.handleSort} />
                 <div className="toolbar-divider-line" />
                 <IgvLoadBAM />
                 <div className="toolbar-divider-line" />
@@ -189,9 +198,9 @@ const mapStateToProps = state => {
     selectedMutation: getSelectedMutationType(state),
     selectedRows: getSelectedRows(state),
     selectedIsAddedRows: getSelectedIsAddedRows(state),
-    testType: getTestType(state),
     getMutationTypesValues: getMutationTypesValues(state),
-    testId: getTestId(state)
+    testId: getTestId(state),
+    testType: getTestType(state),
   };
 };
 
@@ -202,9 +211,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(handleOnConfirmation(true));
       dispatch(setConfirmationData(data));
     },
-    updateSearch: data => dispatch(updateSearch(data)),
     setDefaultFilters: data => dispatch(setDefaultFilters(data)),
     setSort: data => dispatch(setSort(data)),
+    saveUserPreferencesSorting: data => dispatch(saveUserPreferencesSorting(data)),
+    saveUserPreferencesFilters: data => dispatch(saveUserPreferencesFilters(data)),
     exportTable: data => dispatch(exportTable(data))
   };
 }

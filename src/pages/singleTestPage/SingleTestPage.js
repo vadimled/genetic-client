@@ -147,7 +147,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setAlert: data => dispatch(setAlert(data)),
     fetchTableData: data => dispatch(fetchTableData(data)),
-    fetchTestMetadata: id => dispatch(fetchTestMetadata(id))
+    fetchTestMetadata: testId => dispatch(fetchTestMetadata(testId)),
   };
 }
 

@@ -1,15 +1,14 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 import { PRIORITY } from "../../utils/constants";
-import { CONFIRMATION_VALUES } from "Utils/constants";
+import { CONFIRMATION_VALUES, SORTING_ORDER } from "Utils/constants";
 
 const initialState = {
   serverData: {},
   data: {},
   uncheckConfirmationData: null,
   sortParam: "priority",
-  sortOrder: "default",
-  clicksCounter: 1,
+  sortOrder: SORTING_ORDER.default,
   isLoading: false
 };
 
@@ -38,20 +37,10 @@ const tableReducer = createReducer(initialState, {
   [actionsTypes.SET_SORT]: (state, { payload }) => {
     const { field, order } = payload;
 
-    if (state.clicksCounter >= 2) {
-      return {
-        ...state,
-        sortParam: field,
-        sortOrder: order,
-        clicksCounter: order === "default" ? 1 : 0
-      };
-    }
-
     return {
       ...state,
       sortParam: field,
       sortOrder: order,
-      clicksCounter: order === "default" ? 1 : state.clicksCounter + 1
     };
   },
 
