@@ -13,6 +13,7 @@ const TumorInfoSelect = ({
   placeholder
 }) => {
   const [insertedText, updateText] = useState("");
+  const [clearedText, updateClearedText] = useState(value);
 
   const handleOnSearchChange = value => {
     updateText(value);
@@ -20,7 +21,6 @@ const TumorInfoSelect = ({
 
   const onEdit = () => {
     updateText(value);
-    onAction("");
   };
 
   const onSelect = val => {
@@ -29,6 +29,7 @@ const TumorInfoSelect = ({
 
   const clearSearch = () => {
     updateText("");
+    updateClearedText("");
   };
 
   const renderOptions = () => {
@@ -48,7 +49,7 @@ const TumorInfoSelect = ({
   };
 
   const renderInput = () => {
-    if (!value) {
+    if (!value || insertedText || !clearedText) {
       return (
         <div className="tumor-info-select flex items-center">
           <AutoComplete
@@ -59,6 +60,7 @@ const TumorInfoSelect = ({
             onChange={handleOnSearchChange}
             onSelect={onSelect}
             placeholder={placeholder}
+            autoFocus
           />
 
           {insertedText && (

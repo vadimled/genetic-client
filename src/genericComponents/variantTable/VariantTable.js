@@ -80,7 +80,7 @@ class VariantTable extends Component {
         dataIndex: "vaf",
         key: "9",
         width: 80,
-        className: "sorter"
+        className: "sorter numeric"
         // sorter: (a, b) => a.vaf - b.vaf,
         // sortOrder: sortedInfo.columnKey === 'vaf' && sortedInfo.order,
       },
@@ -106,7 +106,8 @@ class VariantTable extends Component {
         title: "Coverage",
         dataIndex: "coverage",
         key: "13",
-        width: 100
+        width: 100,
+        className: "numeric"
       },
       {
         title: "Notes",
@@ -242,13 +243,12 @@ class VariantTable extends Component {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              <div className="table-select-wrapper">
+              <div className={cn("table-select-wrapper", {"hidden-classification": record.zygosity === "somatic"})}>
                 <Link
                   to={{
                     pathname: `${this.props.match.url}/variants/${
                       record.id
-                    }/?selectedZygosityType=germline`
-                    // state: {type: "germline"}
+                    }/?selectedZygosityType=${record.zygosity !== "somatic" ? "germline" : "somatic"}`
                   }}
                 >
                   <LabeledTag
@@ -265,13 +265,15 @@ class VariantTable extends Component {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              <div className="table-select-wrapper">
+              <div
+                className={cn("table-select-wrapper",
+                  {"hidden-classification": ["homo", "hetero", "hemi"].includes(record.zygosity)})}
+              >
                 <Link
                   to={{
                     pathname: `${this.props.match.url}/variants/${
                       record.id
-                    }/?selectedZygosityType=somatic`
-                    // state: {testId:this.props.testId, variantId: record.id, selectedZygosityType: "somatic"}
+                    }/?selectedZygosityType=${record.zygosity === "somatic" ? "somatic" : "germline"}`
                   }}
                 >
                   <LabeledTag

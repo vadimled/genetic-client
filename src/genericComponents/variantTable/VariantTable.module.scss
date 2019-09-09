@@ -144,4 +144,18 @@
       max-width: 110px;
     }
   }
+
+  .numeric {
+    text-align: right;
+
+    .inner {
+      text-align: right;
+      justify-content: flex-end;
+      padding-right: 15px;
+    }
+  }
+  .hidden-classification {
+    //border: 2px dashed mediumvioletred;
+    opacity: 0.3;
+  }
 }

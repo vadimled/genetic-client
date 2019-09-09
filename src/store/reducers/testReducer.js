@@ -12,7 +12,8 @@ const initialState = {
     type: "",
     location: "",
     cancer_cell_percentage: -1
-  }
+  },
+  isTumorInfoLoading: false
 };
 
 const testReducer = createReducer(initialState, {
@@ -44,6 +45,13 @@ const testReducer = createReducer(initialState, {
     return {
       ...state,
       isLoading: payload
+    };
+  },
+
+  [actionsTypes.SET_TUMOR_INFO_LOADING]: (state, { payload }) => {
+    return {
+      ...state,
+      isTumorInfoLoading: payload
     };
   }
 });

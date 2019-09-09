@@ -11,7 +11,7 @@ import {
   getSortOrder,
   getSortParam,
   getTestId,
-  getTumorInfoMode
+  getTumorInfoMode,
 } from "Store/selectors";
 import {
   handleSelectedRow,
@@ -51,7 +51,7 @@ class TableData extends Component {
       sortOrder,
       sortParam,
       testId,
-      showTumorInfo
+      showTumorInfo,
     } = this.props;
 
     return (
