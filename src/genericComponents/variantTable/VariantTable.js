@@ -194,7 +194,8 @@ class VariantTable extends Component {
                   status={record.status}
                   handleStatus={status =>
                     this.props.handleConfirmationStatus({
-                      id: record.id,
+                      variantId: record.id,
+                      testId,
                       status
                     })
                   }
