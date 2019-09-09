@@ -43,6 +43,7 @@ import {
   setConfirmationStatusToStore,
   updateVariantInTableData,
   setSort,
+  fetchUserPreferences,
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
@@ -56,7 +57,10 @@ import {
   handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
-import { setTestData, setLoading } from "Actions/testActions";
+import {
+  setTestData,
+  setLoading
+} from "Actions/testActions";
 import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
@@ -408,6 +412,7 @@ export function* fetchTestMetadataSaga(action) {
     yield put(setTestData(data));
     yield put(setMutationType(data?.mutation_types[0]));
     yield put(setBamUrlToStore(data));
+    yield put(fetchUserPreferences({ testId: data.id, panelType: data.panel_type }));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchTestMetadataSaga"]);
@@ -666,7 +671,7 @@ export function* saveUserPreferencesSortingSaga({ payload }) {
 
 export function* fetchUserPreferencesSaga({ payload }) {
   try {
-    const { testId } = payload;
+    const { testId, panelType } = payload;
     const response = yield call(fetchUserPreferencesApi, { testId });
     const { preferences: { filters, sorting } } = response.data;
 
@@ -674,8 +679,8 @@ export function* fetchUserPreferencesSaga({ payload }) {
       yield put(setDefaultFilters(filters));
     }
     else {
-      yield put(setDefaultFilters(DEFAULT_FILTERS));
-      yield put(saveUserPreferencesFilters({ testId, filters: DEFAULT_FILTERS }));
+      yield put(setDefaultFilters(DEFAULT_FILTERS[panelType]));
+      yield put(saveUserPreferencesFilters({ testId, filters: DEFAULT_FILTERS[panelType] }));
     }
 
     if (sorting) {

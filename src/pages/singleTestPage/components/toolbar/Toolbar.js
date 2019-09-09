@@ -25,7 +25,7 @@ import {
 } from "Store/selectors";
 import Sort from "./components/Sort";
 import { setDefaultFilters, saveUserPreferencesFilters } from "Store/actions/filtersActions";
-import { getTestId } from "Store/selectors";
+import { getTestId, getTestType } from "Store/selectors";
 import Filter from "./components/Filter";
 import { setSort, saveUserPreferencesSorting, exportTable } from "Store/actions/tableActions";
 import ExportButton from "./components/exportButton/ExportButton";
@@ -79,6 +79,7 @@ class Toolbar extends Component {
       selectedRows,
       selectedIsAddedRows,
       openConfirmationPopup,
+      testType
     } = this.props;
 
     return (
@@ -125,6 +126,7 @@ class Toolbar extends Component {
                 <div className="toolbar-divider-line" />
                 <Filter
                   setDefaultFilters={this.onSetDefaultFilters}
+                  testType={testType}
                 />
                 <div className="toolbar-divider-line" />
                 <Sort setSort={this.handleSort} />
@@ -197,7 +199,8 @@ const mapStateToProps = state => {
     selectedRows: getSelectedRows(state),
     selectedIsAddedRows: getSelectedIsAddedRows(state),
     getMutationTypesValues: getMutationTypesValues(state),
-    testId: getTestId(state)
+    testId: getTestId(state),
+    testType: getTestType(state),
   };
 };
 

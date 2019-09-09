@@ -1,12 +1,12 @@
 import React from 'react';
-// import { ReactComponent as SortIcon } from "Assets/sortArrows.svg";
-import { FILTERS_CONFIGURATIONS, DEFAULT_FILTERS } from "../../../../../utils/constants";
-import SimpleSelect from "../../../../../genericComponents/simpleSelect/SimpleSelect";
+import PropTypes from "prop-types";
+import { FILTERS_CONFIGURATIONS, DEFAULT_FILTERS, PANEL_TYPES } from "Utils/constants";
+import SimpleSelect from "GenericComponents/simpleSelect/SimpleSelect";
 
-const Filter = ({ setDefaultFilters }) => {
+const Filter = ({ setDefaultFilters, testType }) => {
 
   const handleOnChange = () => {
-    setDefaultFilters(DEFAULT_FILTERS);
+    setDefaultFilters(DEFAULT_FILTERS[testType]);
   };
 
   return(
@@ -22,6 +22,14 @@ const Filter = ({ setDefaultFilters }) => {
       />
     </div>
   );
+};
+
+Filter.propTypes = {
+  setDefaultFilters: PropTypes.func.isRequired,
+  testType: PropTypes.string
+};
+Filter.defaultProps = {
+  testType: PANEL_TYPES.solid
 };
 
 export default Filter;
