@@ -263,6 +263,8 @@ export function* goToChrPositionIgvSaga(data) {
 }
 
 export function* sendForConfirmationSaga(data) {
+
+
   try {
     // -> API request
 
@@ -591,8 +593,8 @@ export function* fetchClassificationHistorySaga(action) {
 
 export function* handleConfirmationStatusSaga(data) {
   const newData = Object.assign({}, data);
-
   newData.payload = {
+    ...data.payload,
     value: data.payload.status,
     name: "status"
   };
