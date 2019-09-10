@@ -123,7 +123,7 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.APPLY_CONFIRMATION_SUCCESS]: (state, { payload }) => {
-    console.log("payload: ", payload)
+    console.log("payload: ", payload);
     let data = state?.data;
     // payload includes confirmed rows
     payload.forEach(row => {

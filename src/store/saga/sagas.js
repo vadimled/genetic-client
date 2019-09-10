@@ -711,9 +711,9 @@ export function* applyConfirmationSaga(data){
           primer: item.primer,
           fragment_size: item.fragmentSize,
           instructions: item.notes
-        }
+        };
       })
-    }
+    };
 
   });
 
@@ -725,14 +725,14 @@ export function* applyConfirmationSaga(data){
   const dataToSend = {
     variants: variants,
     testId: testId
-  }
+  };
 
   try {
     yield put(setTableReducerLoading(true));
 
     const result = yield call(sendVariantToConfirmation, dataToSend);
 
-    console.log("result, : ", result)
+    console.log("result, : ", result);
 
     // const variant = result.data;
     //
