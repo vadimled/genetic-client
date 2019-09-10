@@ -79,7 +79,7 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getGSID = state => state.test.gsid,
   getSelectedMutationType = state => state.variants.selectedMutation,
   getMutationTypesValues = state => state.test.mutation_types,
-  getConfirmationPageTableData = state => state.confirmationPage.metaData?.variants;
+  getConfirmationPageTableData = state => state.confirmationPage.metaData;
 
 export const getSearchQuery = state => state?.filters?.searchText;
 

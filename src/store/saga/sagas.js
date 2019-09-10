@@ -633,7 +633,7 @@ export function* fetchConfirmationMetadataSaga(action) {
     yield put(setLoading(true));
     const { data } = yield call(fetchConfirmationMetadataApi, action);
     const newData = getConfirmationPageMetadata(data);
-    console.log(data);
+    console.log(newData);
     yield put(setConfirmationPageMetadataToStore(newData));
     yield put(setLoading(false));
   } catch (e) {

@@ -1184,8 +1184,27 @@ export const getCurrentEvidenceTabKey = currEvidenceConfig => {
 };
 
 export const getConfirmationPageMetadata = confirmationsData => {
-  console.log(confirmationsData);
+  if(!confirmationsData.variants) return [];
   
+  let resultData = [];
+  const getPrimersArray = arr =>{
+    return arr.map( (primer, index) => {
+      primer.keyId = index + 1;
+      return primer;
+    });
+  };
   
-  return confirmationsData;
+  confirmationsData.variants.map(variant => {
+    return resultData.push({
+      id: variant.variant_id,
+      gene: variant.gene,
+      chrPosition: `${variant.chr}:${variant.position.toString()}`,
+      coding: variant.hgvs_c,
+      protein: variant.hgvs_p,
+      transcript: variant.transcript,
+      additionConfirmationData: getPrimersArray(variant.primers)
+    });
+  });
+  
+  return resultData;
 };

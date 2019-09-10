@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { InputNumber, Table, Tooltip } from "antd";
+import { Table, Tooltip } from "antd";
 import style from "./ConfirmationLabTable.module.scss";
 import ExternalLink from "GenericComponents/externalLink";
-import Notes from "GenericComponents/notes";
 import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
+import HighlightedCell from "GenericComponents/variantTable/components/highlightedCell/HighlightedCell";
 
 class ConfirmationLabTable extends Component {
   state = {
@@ -19,49 +19,43 @@ class ConfirmationLabTable extends Component {
         title: "Chr: position",
         dataIndex: "chrPosition",
         key: "3",
-        width: 156
+        width: 180
       },
       {
         title: "Transcript",
         dataIndex: "transcript",
         key: "4",
-        width: 156
+        width: 180
       },
       {
         title: "Coding",
         dataIndex: "coding",
         key: "7",
-        width: 131
+        width: 80
       },
       {
         title: "Protein",
         dataIndex: "protein",
         key: "8",
-        width: 121
+        width: 80
       },
       {
-        title: "Primer*",
+        title: "Primer",
         dataIndex: "primer",
         key: "16",
-        width: 132
+        width: 70
       },
       {
-        title: "Fragment size*",
+        title: "Fragment size",
         dataIndex: "fragmentSize",
         key: "17",
-        width: 220
+        width: 160
       },
       {
         title: "Instructions",
         dataIndex: "confirmationNotes",
         key: "13",
-        width: 150
-      },
-      {
-        title: "",
-        dataIndex: "addConfirmationAdditionData",
-        key: "23",
-        width: 35
+        width: 350
       }
     ]
   };
@@ -121,13 +115,13 @@ class ConfirmationLabTable extends Component {
       }
 
       if (col.dataIndex === "coding") {
-        column.render = (value, row) => {
+        column.render = value => {
           return (
-            <div className="cell-padding full-cell">
-              <Tooltip placement="topLeft" title={row.codingLong}>
-                <div>{value}</div>
+            <HighlightedCell isHighlighted={false}>
+              <Tooltip placement="topLeft" title={value}>
+                <div className="text">{value}</div>
               </Tooltip>
-            </div>
+            </HighlightedCell>
           );
         };
         column.className = "no-padding";
@@ -135,54 +129,47 @@ class ConfirmationLabTable extends Component {
 
       if (col.dataIndex === "protein") {
         column.render = value => {
-          return <div className="cell-padding full-cell">{value}</div>;
+          return (
+            <HighlightedCell isHighlighted={false}>
+              <Tooltip placement="topLeft" title={value}>
+                <div className="text">{value}</div>
+              </Tooltip>
+            </HighlightedCell>
+          );
         };
         column.className = "no-padding";
       }
 
       if (col.dataIndex === "primer") {
         column.render = (value, row) => {
-          return row.additionConfirmationData.map((item, index) => (
-            <div key={`primer-${item.keyId}`} className="table-multiple-row">
-              <div className="table-input-wrapper">
-                <InputNumber
-                  value={item.primer}
-                  data-testid="primer-input"
-                  data-testrowid={row.id}
-                  data-testindex={index}
-                />
-              </div>
+          return row.additionConfirmationData.map(item => (
+            <div
+              key={`primer-${item.keyId}`}
+              className="cell-padding full-cell"
+            >
+              {item.primer}
             </div>
           ));
         };
-        column.className = "input no-padding";
+        column.className = "no-padding";
       }
 
       if (col.dataIndex === "fragmentSize") {
         column.render = (value, row) => {
-          return row.additionConfirmationData.map((item, index) => (
-            <div key={`fsize-${item.keyId}`} className="table-multiple-row">
-              <div className="table-input-wrapper">
-                <InputNumber
-                  value={item.fragmentSize}
-                  data-testid="fragmentSize-input"
-                  data-testrowid={row.id}
-                  data-testindex={index}
-                />
-              </div>
+          return row.additionConfirmationData.map(item => (
+            <div key={`fsize-${item.keyId}`} className="cell-padding full-cell">
+              {item.fragment_size}
             </div>
           ));
         };
-        column.className = "input no-padding";
+        column.className = "no-padding";
       }
 
       if (col.dataIndex === "confirmationNotes") {
         column.render = (value, row) => {
-          return row.additionConfirmationData.map((item) => (
-            <div key={`notes-${item.keyId}`} className="table-multiple-row">
-              <div className="table-input-wrapper notes-confirmation-wrapper">
-                <Notes value={item.notes} />
-              </div>
+          return row.additionConfirmationData.map(item => (
+            <div key={`notes-${item.keyId}`} className="cell-padding full-cell">
+              {item.instructions}
             </div>
           ));
         };
@@ -205,8 +192,6 @@ class ConfirmationLabTable extends Component {
 
   render() {
     const { data } = this.props;
-    console.log(data);
-    // add options to columns
     const columns = this.columnsConverter(this.state.columns);
 
     return (
