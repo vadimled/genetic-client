@@ -31,12 +31,6 @@ class ConfirmationTable extends Component {
         width: 156
       },
       {
-        title: "Exon",
-        dataIndex: "exon",
-        key: "5",
-        width: 75
-      },
-      {
         title: "Coding",
         dataIndex: "coding",
         key: "7",
@@ -167,21 +161,6 @@ class ConfirmationTable extends Component {
               })}
             >
               <ExternalLink data={row.transcript} />
-            </div>
-          );
-        };
-        column.className = "no-padding";
-      }
-
-      if (col.dataIndex === "exon") {
-        column.render = (value, row) => {
-          return (
-            <div
-              className={cn("cell-padding full-cell", {
-                'bg-white': hoveredAdditionalConfirmationRow?.id === row?.id
-              })}
-            >
-              {value}
             </div>
           );
         };

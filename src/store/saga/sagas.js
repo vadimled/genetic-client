@@ -72,7 +72,8 @@ import {
   parseTableDataObj,
   createResourcesLinks,
   getHistoryTableData,
-  getCurrentEvidenceTabKey
+  getCurrentEvidenceTabKey,
+  getConfirmationPageMetadata
 } from "Utils/helpers";
 import {
   setClassificationHistoryToStore,
@@ -631,8 +632,9 @@ export function* fetchConfirmationMetadataSaga(action) {
   try {
     yield put(setLoading(true));
     const { data } = yield call(fetchConfirmationMetadataApi, action);
+    const newData = getConfirmationPageMetadata(data);
     console.log(data);
-    yield put(setConfirmationPageMetadataToStore(data));
+    yield put(setConfirmationPageMetadataToStore(newData));
     yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));

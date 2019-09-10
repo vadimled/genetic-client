@@ -1182,3 +1182,10 @@ export const getCurrentEvidenceTabKey = currEvidenceConfig => {
     ) + 1;
   return index.toString();
 };
+
+export const getConfirmationPageMetadata = confirmationsData => {
+  console.log(confirmationsData);
+  
+  
+  return confirmationsData;
+};
