@@ -95,6 +95,8 @@ import {
   setDefaultFilters,
   saveUserPreferencesFilters,
 } from "Actions/filtersActions";
+import { sendVariantToConfirmation } from "../../api";
+// import { applyConfirmationSuccess } from "../actions/tableActions";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -264,11 +266,10 @@ export function* goToChrPositionIgvSaga(data) {
 
 export function* sendForConfirmationSaga(data) {
 
-
   try {
     // -> API request
 
-    yield confirmationDataValidation(data.payload);
+    yield confirmationDataValidation(data.payload.variants);
 
     yield put(applyConfirmation(data.payload));
     yield put(setConfirmationData(null));
@@ -288,6 +289,38 @@ export function* sendForConfirmationSaga(data) {
       );
       yield consoleErrors(e);
     }
+  }
+}
+
+export function* handleConfirmationStatusSaga(data) {
+  const newData = Object.assign({}, data);
+  newData.payload = {
+    ...data.payload,
+    value: data.payload.status,
+    name: "status"
+  };
+
+  try {
+    yield put(setTableReducerLoading(true));
+
+    const result = yield call(updateVariantApi, newData);
+
+    const variant = result.data;
+
+    if (result?.status === 200) {
+      yield put(
+        setConfirmationStatusToStore({
+          // check why notes does not return from server
+          ...data.payload,
+          record: variant
+        })
+      );
+    }
+
+    yield put(setTableReducerLoading(false));
+  } catch (e) {
+    yield put(setTableReducerLoading(false));
+    console.log("-err: ", e);
   }
 }
 
@@ -591,38 +624,6 @@ export function* fetchClassificationHistorySaga(action) {
   }
 }
 
-export function* handleConfirmationStatusSaga(data) {
-  const newData = Object.assign({}, data);
-  newData.payload = {
-    ...data.payload,
-    value: data.payload.status,
-    name: "status"
-  };
-
-  try {
-    yield put(setTableReducerLoading(true));
-
-    const result = yield call(updateVariantApi, newData);
-
-    const variant = result.data;
-
-    if (result?.status === 200) {
-      yield put(
-        setConfirmationStatusToStore({
-          // check why notes does not return from server
-          ...data.payload,
-          record: variant
-        })
-      );
-    }
-
-    yield put(setTableReducerLoading(false));
-  } catch (e) {
-    yield put(setTableReducerLoading(false));
-    console.log("-err: ", e);
-  }
-}
-
 export function* exportTableSaga(action) {
   const testId = action.payload;
 
@@ -698,3 +699,56 @@ export function* fetchUserPreferencesSaga({ payload }) {
   }
 }
 
+export function* applyConfirmationSaga(data){
+
+  const newData = Object.assign({}, data);
+
+  const variants = newData.payload.variants.map(variant => {
+    return{
+      variant_id: variant.id,
+      primers: variant.additionConfirmationData.map(item => {
+        return {
+          primer: item.primer,
+          fragment_size: item.fragmentSize,
+          instructions: item.notes
+        }
+      })
+    }
+
+  });
+
+  const {testId} = newData.payload;
+
+  // console.log("newData, : ", newData)
+  // console.log("here, variants: ", variants)
+
+  const dataToSend = {
+    variants: variants,
+    testId: testId
+  }
+
+  try {
+    yield put(setTableReducerLoading(true));
+
+    const result = yield call(sendVariantToConfirmation, dataToSend);
+
+    console.log("result, : ", result)
+
+    // const variant = result.data;
+    //
+    // if (result?.status === 200) {
+    //   yield put(
+    //     applyConfirmationSuccess({
+    //       // check why notes does not return from server
+    //       ...data.payload,
+    //       record: variant
+    //     })
+    //   );
+    // }
+
+    yield put(setTableReducerLoading(false));
+  } catch (e) {
+    yield put(setTableReducerLoading(false));
+    console.log("-err: ", e);
+  }
+}
