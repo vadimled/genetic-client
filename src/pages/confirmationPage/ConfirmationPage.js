@@ -25,7 +25,7 @@ class ConfirmationPage extends Component {
 
   render() {
     const { isLoading, data, goToChrPositionIgv } = this.props;
-    console.log(data);
+
     return (
       <div className={style["confirmation-page-wrapper"]}>
         {isLoading ? (

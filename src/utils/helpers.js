@@ -1194,8 +1194,9 @@ export const getConfirmationPageMetadata = confirmationsData => {
     });
   };
   
-  confirmationsData.variants.map(variant => {
+  confirmationsData.variants.map((variant, index) => {
     return resultData.push({
+      key: index + 1,
       id: variant.variant_id,
       gene: variant.gene,
       chrPosition: `${variant.chr}:${variant.position.toString()}`,

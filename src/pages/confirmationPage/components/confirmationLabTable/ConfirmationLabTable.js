@@ -143,11 +143,10 @@ class ConfirmationLabTable extends Component {
       if (col.dataIndex === "primer") {
         column.render = (value, row) => {
           return row.additionConfirmationData.map(item => (
-            <div
-              key={`primer-${item.keyId}`}
-              className="cell-padding full-cell"
-            >
-              {item.primer}
+            <div key={`primer-${item.keyId}`} className="table-multiple-row">
+              <div className="cell-padding full-cell">
+                <div className="text">{item.primer}</div>
+              </div>
             </div>
           ));
         };
@@ -157,8 +156,10 @@ class ConfirmationLabTable extends Component {
       if (col.dataIndex === "fragmentSize") {
         column.render = (value, row) => {
           return row.additionConfirmationData.map(item => (
-            <div key={`fsize-${item.keyId}`} className="cell-padding full-cell">
-              {item.fragment_size}
+            <div key={`fsize-${item.keyId}`} className="table-multiple-row">
+              <div className="cell-padding full-cell">
+                <div className="text">{item.fragment_size}</div>
+              </div>
             </div>
           ));
         };
@@ -168,8 +169,12 @@ class ConfirmationLabTable extends Component {
       if (col.dataIndex === "confirmationNotes") {
         column.render = (value, row) => {
           return row.additionConfirmationData.map(item => (
-            <div key={`notes-${item.keyId}`} className="cell-padding full-cell">
-              {item.instructions}
+            <div key={`notes-${item.keyId}`} className="table-multiple-row">
+              <Tooltip placement="topLeft" title={value}>
+                <div className="cell-padding full-cell">
+                  <div className="text">{item.instructions}</div>
+                </div>
+              </Tooltip>
             </div>
           ));
         };
