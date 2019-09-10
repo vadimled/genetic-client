@@ -27,6 +27,7 @@ import {
   updateUserPreferencesApi,
   fetchUserPreferencesApi,
   fetchClassificationHistoryApi,
+  fetchConfirmationMetadataApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -80,7 +81,8 @@ import {
   parseTableDataObj,
   createResourcesLinks,
   getHistoryTableData,
-  getCurrentEvidenceTabKey
+  getCurrentEvidenceTabKey,
+  getConfirmationPageMetadata
 } from "Utils/helpers";
 import {
   setClassificationHistoryToStore,
@@ -91,6 +93,7 @@ import {
   cleanEvidenceActionData,
   setCurrentEvidenceTab
 } from "Actions/evidenceConfigActions";
+import { setConfirmationPageMetadataToStore } from "Actions/confirmationPageActions";
 import {
   setDefaultFilters,
   saveUserPreferencesFilters,
@@ -263,8 +266,6 @@ export function* goToChrPositionIgvSaga(data) {
 }
 
 export function* sendForConfirmationSaga(data) {
-
-
   try {
     // -> API request
 
@@ -698,3 +699,20 @@ export function* fetchUserPreferencesSaga({ payload }) {
   }
 }
 
+
+// --------------- CONFIRMATION PAGE ---------------
+export function* fetchConfirmationMetadataSaga(action) {
+  try {
+    yield put(setLoading(true));
+    const { data } = yield call(fetchConfirmationMetadataApi, action);
+    const newData = getConfirmationPageMetadata(data);
+    yield put(setConfirmationPageMetadataToStore(newData));
+    yield put(setLoading(false));
+  } catch (e) {
+    yield put(setLoading(false));
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchConfirmationMetadataSaga"]);
+      Sentry.captureException(e);
+    });
+  }
+}

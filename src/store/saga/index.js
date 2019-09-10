@@ -26,6 +26,7 @@ import {
   saveUserPreferencesFiltersSaga,
   saveUserPreferencesSortingSaga,
   fetchUserPreferencesSaga,
+  fetchConfirmationMetadataSaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -65,4 +66,6 @@ export function* watchSaga() {
   yield takeEvery(types.SAVE_USER_PREFERENCES_FILTERS, saveUserPreferencesFiltersSaga);
   yield takeEvery(types.SAVE_USER_PREFERENCES_SORTING, saveUserPreferencesSortingSaga);
   yield takeEvery(types.FETCH_USER_PREFERENCES, fetchUserPreferencesSaga);
+  
+  yield takeEvery(types.FETCH_CONFIRMATION_PAGE_METADATA, fetchConfirmationMetadataSaga);
 }

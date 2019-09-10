@@ -10,6 +10,7 @@ import variantPageReducer from "./variantPageReducer";
 import testReducer from "./testReducer";
 import testsPageReducer from "./testsPageReducer";
 import evidenceConfigReducer from "./evidenceConfigReducer";
+import confirmationPageReducer from "./confirmationPageReducer";
 
 export default combineReducers({
   test: testReducer,
@@ -24,5 +25,6 @@ export default combineReducers({
   variantPage: combineReducers({
     pageData: variantPageReducer,
     evidenceConfig: evidenceConfigReducer
-  })
+  }),
+  confirmationPage: confirmationPageReducer
 });
