@@ -194,7 +194,8 @@ class VariantTable extends Component {
                   status={record.status}
                   handleStatus={status =>
                     this.props.handleConfirmationStatus({
-                      id: record.id,
+                      variantId: record.id,
+                      testId,
                       status
                     })
                   }
@@ -243,13 +244,12 @@ class VariantTable extends Component {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              <div className="table-select-wrapper">
+              <div className={cn("table-select-wrapper", {"hidden-classification": record.zygosity === "somatic"})}>
                 <Link
                   to={{
                     pathname: `${this.props.match.url}/variants/${
                       record.id
-                    }/?selectedZygosityType=germline`
-                    // state: {type: "germline"}
+                    }/?selectedZygosityType=${record.zygosity !== "somatic" ? "germline" : "somatic"}`
                   }}
                 >
                   <LabeledTag
@@ -266,13 +266,15 @@ class VariantTable extends Component {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              <div className="table-select-wrapper">
+              <div
+                className={cn("table-select-wrapper",
+                  {"hidden-classification": ["homo", "hetero", "hemi"].includes(record.zygosity)})}
+              >
                 <Link
                   to={{
                     pathname: `${this.props.match.url}/variants/${
                       record.id
-                    }/?selectedZygosityType=somatic`
-                    // state: {testId:this.props.testId, variantId: record.id, selectedZygosityType: "somatic"}
+                    }/?selectedZygosityType=${record.zygosity === "somatic" ? "somatic" : "germline"}`
                   }}
                 >
                   <LabeledTag
@@ -422,7 +424,8 @@ VariantTable.propTypes = {
   tumorInfoPanel: PropTypes.bool,
   selectedRows: PropTypes.array,
   setNotes: PropTypes.func,
-  testId: PropTypes.string
+  testId: PropTypes.string,
+  setSort: PropTypes.func.isRequired
 };
 
 VariantTable.defaultProps = {

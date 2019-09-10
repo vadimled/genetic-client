@@ -4,24 +4,24 @@ import { SORTING_ORDER } from "../../../utils/constants";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getSortOrder, getSortParam, getClicksCounter } from "../../../store/selectors";
+import { getSortOrder, getSortParam } from "../../../store/selectors";
 
 class TableSorter extends Component {
 
   handleSort = () => {
-    const { setSort, field, clicksCounter } = this.props;
+    const { setSort, field, sortOrder } = this.props;
 
     let order = "";
 
-    switch (clicksCounter) {
-      case 0:
-        order = SORTING_ORDER["default"];
+    switch (sortOrder) {
+      case SORTING_ORDER.descending:
+        order = SORTING_ORDER.default;
         break;
-      case 1:
-        order = SORTING_ORDER["ascending"];
+      case SORTING_ORDER.default:
+        order = SORTING_ORDER.ascending;
         break;
-      case 2:
-        order = SORTING_ORDER["descending"];
+      case SORTING_ORDER.ascending:
+        order = SORTING_ORDER.descending;
         break;
     }
 
@@ -29,7 +29,7 @@ class TableSorter extends Component {
   };
 
   render() {
-    const { title, clicksCounter } = this.props;
+    const { title, sortOrder } = this.props;
 
     return (
       <div
@@ -41,11 +41,13 @@ class TableSorter extends Component {
           <div className="flex flex-column">
             <DropdownArrow
               className={cn("top-arrow", {
-                "arrow-active top-arrow": clicksCounter === 0
+                "arrow-active top-arrow": sortOrder === SORTING_ORDER.ascending
               })}
             />
             <DropdownArrow
-              className={cn({ "arrow-active": clicksCounter === 2 })}
+              className={cn({
+                "arrow-active": sortOrder === SORTING_ORDER.descending
+              })}
             />
           </div>
         </div>
@@ -56,7 +58,7 @@ class TableSorter extends Component {
 }
 
 TableSorter.propTypes = {
-  setSort: PropTypes.func,
+  setSort: PropTypes.func.isRequired,
   field: PropTypes.string,
   title: PropTypes.string,
 };
@@ -86,8 +88,6 @@ function mapStateToProps(state) {
   return {
     sortOrder: getSortOrder(state),
     sortParam: getSortParam(state),
-    clicksCounter: getClicksCounter(state),
-
   };
 }
 

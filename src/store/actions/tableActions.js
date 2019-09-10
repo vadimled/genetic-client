@@ -43,13 +43,6 @@ export const handleConfirmationStatus = data => {
   };
 };
 
-export const updateSearch = data => {
-  return {
-    type: actionsTypes.UPDATE_SEARCH,
-    payload: data
-  };
-};
-
 export const applyConfirmation = data => {
   return {
     type: actionsTypes.APPLY_CONFIRMATION,
@@ -134,4 +127,17 @@ export const updateVariantInTableData = data => {
   };
 };
 
+export const saveUserPreferencesSorting = data => {
+  return {
+    type: actionsTypes.SAVE_USER_PREFERENCES_SORTING,
+    payload: data
+  };
+};
+
+export const fetchUserPreferences = data => {
+  return {
+    type: actionsTypes.FETCH_USER_PREFERENCES,
+    payload: data
+  };
+};
 

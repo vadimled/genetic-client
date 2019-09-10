@@ -23,6 +23,9 @@ import {
   handleConfirmationStatusSaga,
   exportTableSaga,
   setTumorInfoSaga,
+  saveUserPreferencesFiltersSaga,
+  saveUserPreferencesSortingSaga,
+  fetchUserPreferencesSaga,
   fetchConfirmationMetadataSaga
 } from "./sagas";
 
@@ -59,6 +62,10 @@ export function* watchSaga() {
   ]);
   yield takeEvery(types.EXPORT_TABLE, exportTableSaga);
   yield takeEvery(types.SET_TUMOR_INFO, setTumorInfoSaga);
+
+  yield takeEvery(types.SAVE_USER_PREFERENCES_FILTERS, saveUserPreferencesFiltersSaga);
+  yield takeEvery(types.SAVE_USER_PREFERENCES_SORTING, saveUserPreferencesSortingSaga);
+  yield takeEvery(types.FETCH_USER_PREFERENCES, fetchUserPreferencesSaga);
   
   yield takeEvery(types.FETCH_CONFIRMATION_PAGE_METADATA, fetchConfirmationMetadataSaga);
 }

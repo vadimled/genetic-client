@@ -51,7 +51,7 @@ export function fetchTestMetadataApi(id) {
 }
 
 export function setTumorInfoApi(data) {
-  const { testId,  name, value } = data.payload;
+  const { testId, name, value } = data.payload;
   return axios_based.patch(`/tests/${testId}`, {
     tumor_info:{
       [name]: value
@@ -135,6 +135,16 @@ export function exportTableApi(testId) {
     document.body.appendChild(link);
     link.click();
   });
+}
+
+export function updateUserPreferencesApi({ testId, preferences }) {
+  return axios_based.put(`/tests/${testId}/preferences`, {
+    preferences
+  });
+}
+
+export function fetchUserPreferencesApi({ testId }) {
+  return axios_based.get(`/tests/${testId}/preferences`);
 }
 
 export function fetchConfirmationMetadataApi(data) {

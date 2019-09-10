@@ -10,7 +10,7 @@ import SingleTestPage from "Pages/singleTestPage/SingleTestPage";
 // import Toolbar from "./Toolbar";
 import {
   updateSearch
-} from "Store/actions/tableActions";
+} from "Actions/filtersActions";
 import {
   handleSelectedRow,
   handleSelectAllRows,
@@ -105,7 +105,6 @@ describe('Toolbar', () => {
     const { getByTestId, store } = initSteps();
 
     store.dispatch(updateSearch("a"));
-
 
     const indicator = getByTestId("filter-searchText-a");
     expect(indicator).toBeInTheDocument();

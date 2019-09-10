@@ -16,9 +16,9 @@ import {
   getFilterCancerDBs,
   getFilterGnomId,
   getSearchQuery,
-  getTestType,
   getFilterZygosity,
-  getFilterEffect
+  getFilterEffect,
+  getTestId
 } from "Store/selectors";
 import {
   setFilterVariantClassGermline,
@@ -30,11 +30,13 @@ import {
   setFilterCancerDBs,
   setFilterGnomId,
   clearFilterSection,
-  setDefaultFilters,
   setFilterZygosity,
-  setFilterEffect
+  setFilterEffect,
+  saveUserPreferencesFilters
 } from "Actions/filtersActions";
-import { FILTERS } from "Utils/constants";
+import {
+  FILTERS
+} from "Utils/constants";
 import style from "./SidebarFilters.module.scss";
 
 // eslint-disable-next-line
@@ -48,22 +50,34 @@ const Arrow = ({ dir }) => <i className={`${dir} arrow`} />;
 
 class SidebarFilters extends Component {
 
-  state={
-    testType: null
-  };
+  getValueAccordingOnMode = (stateValue, value, mode) => {
+    let newValue;
 
-  static getDerivedStateFromProps(props, state) {
+    if (mode === "multiple") {
+      newValue = stateValue.slice();
 
-    if (props.testType !== null && state.testType === null) {
+      // push or remove value
+      const index = newValue.indexOf(value);
+      if (index === -1) {
+        newValue.push(value);
+      }
+      else {
+        newValue.splice(index, 1);
+      }
 
-      props.setDefaultFilters(props.testType);
-      return {
-        testType: props.testType
-      };
+      return newValue;
     }
-    // Return null if the state hasn't changed
-    return null;
-  }
+    else if (mode === "single") {
+      newValue = value;
+
+      // reset if clicked the same
+      if (newValue === stateValue) newValue = null;
+
+      return newValue;
+    }
+
+    return value;
+  };
 
   onChange = (filterSection, mode, value) => {
     const {
@@ -76,45 +90,73 @@ class SidebarFilters extends Component {
       setFilterCancerDBs,
       setFilterGnomId,
       setFilterZygosity,
-      setFilterEffect
+      setFilterEffect,
+      filters,
+      saveUserPreferencesFilters,
+      testId
     } = this.props;
 
-    const data = {
-      value,
-      mode
-    };
-
     switch (filterSection) {
-      case FILTERS.variantClassGermline:
-        setFilterVariantClassGermline(data);
+      case FILTERS.variantClassGermline: {
+        const savedValue = this.getValueAccordingOnMode(filters[FILTERS.variantClassGermline], value, mode);
+        setFilterVariantClassGermline(savedValue);
+        saveUserPreferencesFilters({ testId, filters: { [FILTERS.variantClassGermline]: savedValue } });
         break;
-      case FILTERS.variantClassSomatic:
-        setFilterVariantClassSomatic(data);
+      }
+      case FILTERS.variantClassSomatic: {
+        const savedValue = this.getValueAccordingOnMode(filters[FILTERS.variantClassSomatic], value, mode);
+        setFilterVariantClassSomatic(savedValue);
+        saveUserPreferencesFilters({ testId, filters: { [FILTERS.variantClassSomatic]: savedValue } });
         break;
-      case FILTERS.hotSpot:
-        setFilterHotSpot(data);
+      }
+      case FILTERS.hotSpot: {
+        const savedValue = this.getValueAccordingOnMode(filters[FILTERS.hotSpot], value, mode);
+        setFilterHotSpot(savedValue);
+        saveUserPreferencesFilters({ testId, filters: { [FILTERS.hotSpot]: savedValue } });
         break;
-      case FILTERS.snp:
-        setFilterSnp(data);
+      }
+      case FILTERS.snp: {
+        const savedValue = this.getValueAccordingOnMode(filters[FILTERS.snp], value, mode);
+        setFilterSnp(savedValue);
+        saveUserPreferencesFilters({ testId, filters: { [FILTERS.snp]: savedValue } });
         break;
-      case FILTERS.roi:
-        setFilterRoi(data);
+      }
+      case FILTERS.roi: {
+        const savedValue = this.getValueAccordingOnMode(filters[FILTERS.roi], value, mode);
+        setFilterRoi(savedValue);
+        saveUserPreferencesFilters({ testId, filters: { [FILTERS.roi]: savedValue } });
         break;
-      case FILTERS.vaf:
-        setFilterVaf(data);
+      }
+      case FILTERS.vaf: {
+        const savedValue = this.getValueAccordingOnMode(filters[FILTERS.vaf], value, mode);
+        setFilterVaf(savedValue);
+        saveUserPreferencesFilters({ testId, filters: { [FILTERS.vaf]: savedValue } });
         break;
-      case FILTERS.cancerDBs:
-        setFilterCancerDBs(data);
+      }
+      case FILTERS.cancerDBs: {
+        const savedValue = this.getValueAccordingOnMode(filters[FILTERS.cancerDBs], value, mode);
+        setFilterCancerDBs(savedValue);
+        saveUserPreferencesFilters({ testId, filters: { [FILTERS.cancerDBs]: savedValue } });
         break;
-      case FILTERS.gnomAD:
-        setFilterGnomId(data);
+      }
+      case FILTERS.gnomAD: {
+        const savedValue = this.getValueAccordingOnMode(filters[FILTERS.gnomAD], value, mode);
+        setFilterGnomId(savedValue);
+        saveUserPreferencesFilters({ testId, filters: { [FILTERS.gnomAD]: savedValue } });
         break;
-      case FILTERS.zygosity:
-        setFilterZygosity(data);
+      }
+      case FILTERS.zygosity: {
+        const savedValue = this.getValueAccordingOnMode(filters[FILTERS.zygosity], value, mode);
+        setFilterZygosity(savedValue);
+        saveUserPreferencesFilters({ testId, filters: { [FILTERS.zygosity]: savedValue } });
         break;
-      case FILTERS.effect:
-        setFilterEffect(data);
+      }
+      case FILTERS.effect: {
+        const savedValue = this.getValueAccordingOnMode(filters[FILTERS.effect], value, mode);
+        setFilterEffect(savedValue);
+        saveUserPreferencesFilters({ testId, filters: { [FILTERS.effect]: savedValue } });
         break;
+      }
     }
   };
 
@@ -147,8 +189,15 @@ class SidebarFilters extends Component {
   };
 
   clearFilterSection = filterSection => {
-    const { clearFilterSection } = this.props;
+    const { clearFilterSection, saveUserPreferencesFilters, testId } = this.props;
+
     clearFilterSection({ filtersKey: filterSection });
+
+    if (filterSection === FILTERS.searchText) {
+      saveUserPreferencesFilters({ testId, filters: { [FILTERS.searchText]: "" } });
+    } else {
+      saveUserPreferencesFilters({ testId, filters: { [filterSection]: [] } });
+    }
   };
 
   clearAllFilters = () => {
@@ -290,7 +339,7 @@ function mapStateToProps(state) {
       [FILTERS.zygosity]: getFilterZygosity(state),
       [FILTERS.effect]: getFilterEffect(state)
     },
-    testType: getTestType(state)
+    testId: getTestId(state),
   };
 }
 
@@ -305,9 +354,9 @@ function mapDispatchToProps(dispatch) {
     setFilterCancerDBs: data => dispatch(setFilterCancerDBs(data)),
     setFilterGnomId: data => dispatch(setFilterGnomId(data)),
     clearFilterSection: data => dispatch(clearFilterSection(data)),
-    setDefaultFilters: data => dispatch(setDefaultFilters(data)),
     setFilterZygosity: data => dispatch(setFilterZygosity(data)),
-    setFilterEffect: data => dispatch(setFilterEffect(data))
+    setFilterEffect: data => dispatch(setFilterEffect(data)),
+    saveUserPreferencesFilters: data => dispatch(saveUserPreferencesFilters(data)),
   };
 }
 export default connect(

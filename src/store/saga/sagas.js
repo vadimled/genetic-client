@@ -4,7 +4,8 @@ import {
   ALERT_STATUSES,
   ALLELE_TYPES,
   VALIDATION_FAILD_FIELDS,
-  TEXTS
+  TEXTS,
+  DEFAULT_FILTERS
 } from "Utils/constants";
 import {
   fetchBAMFile,
@@ -23,6 +24,8 @@ import {
   fetchTableDataApi,
   exportTableApi,
   setTumorInfoApi,
+  updateUserPreferencesApi,
+  fetchUserPreferencesApi,
   fetchClassificationHistoryApi,
   fetchConfirmationMetadataApi
 } from "Api/index";
@@ -40,7 +43,9 @@ import {
   setServerDataToStore,
   setTableReducerLoading,
   setConfirmationStatusToStore,
-  updateVariantInTableData
+  updateVariantInTableData,
+  setSort,
+  fetchUserPreferences,
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
@@ -54,7 +59,11 @@ import {
   handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
-import { setTestData, setLoading, setTumorInfoLoading } from "Actions/testActions";
+import {
+  setTestData,
+  setLoading,
+  setTumorInfoLoading
+} from "Actions/testActions";
 import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
@@ -85,6 +94,10 @@ import {
   setCurrentEvidenceTab
 } from "Actions/evidenceConfigActions";
 import { setConfirmationPageMetadataToStore } from "Actions/confirmationPageActions";
+import {
+  setDefaultFilters,
+  saveUserPreferencesFilters,
+} from "Actions/filtersActions";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -403,6 +416,7 @@ export function* fetchTestMetadataSaga(action) {
     yield put(setTestData(data));
     yield put(setMutationType(data?.mutation_types[0]));
     yield put(setBamUrlToStore(data));
+    yield put(fetchUserPreferences({ testId: data.id, panelType: data.panel_type }));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchTestMetadataSaga"]);
@@ -580,8 +594,8 @@ export function* fetchClassificationHistorySaga(action) {
 
 export function* handleConfirmationStatusSaga(data) {
   const newData = Object.assign({}, data);
-
   newData.payload = {
+    ...data.payload,
     value: data.payload.status,
     name: "status"
   };
@@ -626,6 +640,65 @@ export function* exportTableSaga(action) {
     console.log("-err: ", e);
   }
 }
+
+export function* saveUserPreferencesFiltersSaga({ payload }) {
+  try {
+    const { testId, filters } = payload;
+    yield call(updateUserPreferencesApi, {
+      testId,
+      preferences: { filters }
+    });
+  }
+  catch(err) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["saveUserPreferencesFiltersSaga"]);
+      Sentry.captureException(e);
+    });
+  }
+}
+
+export function* saveUserPreferencesSortingSaga({ payload }) {
+  try {
+    const { testId, sorting } = payload;
+    yield call(updateUserPreferencesApi, {
+      testId,
+      preferences: { sorting }
+    });
+  }
+  catch(err) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["saveUserPreferencesSortingSaga"]);
+      Sentry.captureException(err);
+    });
+  }
+}
+
+export function* fetchUserPreferencesSaga({ payload }) {
+  try {
+    const { testId, panelType } = payload;
+    const response = yield call(fetchUserPreferencesApi, { testId });
+    const { preferences: { filters, sorting } } = response.data;
+
+    if (filters) {
+      yield put(setDefaultFilters(filters));
+    }
+    else {
+      yield put(setDefaultFilters(DEFAULT_FILTERS[panelType]));
+      yield put(saveUserPreferencesFilters({ testId, filters: DEFAULT_FILTERS[panelType] }));
+    }
+
+    if (sorting) {
+      yield put(setSort(sorting));
+    }
+  }
+  catch(err) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchUserPreferencesSaga"]);
+      Sentry.captureException(err);
+    });
+  }
+}
+
 
 // --------------- CONFIRMATION PAGE ---------------
 export function* fetchConfirmationMetadataSaga(action) {

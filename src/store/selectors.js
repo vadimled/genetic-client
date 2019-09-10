@@ -2,7 +2,8 @@ import { EVIDENCE_CATEGORIES_OPTIONS, FILTERS, GNOM_AD, SORTING_ORDER, TEXTS } f
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
 
-export const getFilterType = state => state?.filters?.[FILTERS.type],
+export const
+  getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterZygosity = state =>
     state?.filters?.[FILTERS.zygosity],
   getFilterEffect = state =>
@@ -17,10 +18,11 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVaf = state => state?.filters?.[FILTERS.vaf],
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
+  getSearchQuery = state => state?.filters?.[FILTERS.searchText],
+
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
 
-  getUncheckConfirmationData = state =>
-           state?.table?.uncheckConfirmationData,
+  getUncheckConfirmationData = state => state?.table?.uncheckConfirmationData,
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
   getConfirmationData = state => state?.confirmation?.data,
   getMutationType = state => state.variants.mutations,
@@ -64,10 +66,8 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getVariantPageTestId = state => state.variantPage.pageData.testId,
   getVariantPageServerData = state => state.variantPage.pageData.serverData,
 
-
   getSortParam = state => state?.table?.sortParam,
   getSortOrder = state => state?.table?.sortOrder,
-  getClicksCounter = state => state?.table?.clicksCounter,
 
   getTumorInfoMode = state => state.test.showTumorInfo,
   getLoadingStatus = state => state.test.isLoading,
@@ -80,8 +80,6 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getSelectedMutationType = state => state.variants.selectedMutation,
   getMutationTypesValues = state => state.test.mutation_types,
   getConfirmationPageTableData = state => state.confirmationPage.metaData;
-
-export const getSearchQuery = state => state?.filters?.searchText;
 
 export const getTableDataAsArray = createSelector(
   getTableData,

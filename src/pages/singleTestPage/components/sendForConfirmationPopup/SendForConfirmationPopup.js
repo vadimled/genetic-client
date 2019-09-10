@@ -19,7 +19,7 @@ import {
   setConfirmationData
 } from "Actions/confirmationActions";
 import { goToChrPositionIgv } from "Actions/igvActions";
-import { getConfirmationData } from "Store/selectors";
+import { getConfirmationData, getTestId } from "Store/selectors";
 import { handleConfirmationStatus } from "Store/actions/tableActions";
 
 const SendForConfirmationPopup = (props) => {
@@ -34,15 +34,17 @@ const SendForConfirmationPopup = (props) => {
     handleConfirmationFragmentSize,
     addAdditionalConfirmationData,
     removeAdditionalConfirmationData,
-    goToChrPositionIgv
+    goToChrPositionIgv,
+    testId
   } = props;
 
   const handleOnClick = () => {
 
     data.map(record => {
       handleConfirmationStatus({
-        id: record.id,
-        status: "PENDING"
+        variantId: record.id,
+        status: "PENDING",
+        testId
       });
     });
 
@@ -134,7 +136,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    data: getConfirmationData(state)
+    data: getConfirmationData(state),
+    testId: getTestId(state),
   };
 };
 
