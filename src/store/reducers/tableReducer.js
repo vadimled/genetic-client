@@ -126,7 +126,8 @@ const tableReducer = createReducer(initialState, {
     console.log("payload: ", payload);
     let data = state?.data;
     // payload includes confirmed rows
-    payload.forEach(row => {
+    payload.variants.forEach(row => {
+      console.log("--row: ", row);
       let dataRow = data[row.id];
       dataRow.status = CONFIRMATION_VALUES.PENDING.value;
       dataRow.selected = false;

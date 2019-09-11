@@ -96,6 +96,7 @@ import {
   saveUserPreferencesFilters,
 } from "Actions/filtersActions";
 import { sendVariantToConfirmation } from "../../api";
+import { applyConfirmationSuccess } from "../actions/tableActions";
 // import { applyConfirmationSuccess } from "../actions/tableActions";
 
 function* onDelay(time) {
@@ -719,8 +720,6 @@ export function* applyConfirmationSaga(data){
 
   const {testId} = newData.payload;
 
-  // console.log("newData, : ", newData)
-  // console.log("here, variants: ", variants)
 
   const dataToSend = {
     variants: variants,
@@ -736,15 +735,15 @@ export function* applyConfirmationSaga(data){
 
     // const variant = result.data;
     //
-    // if (result?.status === 200) {
-    //   yield put(
-    //     applyConfirmationSuccess({
-    //       // check why notes does not return from server
-    //       ...data.payload,
-    //       record: variant
-    //     })
-    //   );
-    // }
+    if (result?.status === 200) {
+      yield put(
+        applyConfirmationSuccess({
+          // check why notes does not return from server
+          ...result.data,
+
+        })
+      );
+    }
 
     yield put(setTableReducerLoading(false));
   } catch (e) {
