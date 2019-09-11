@@ -152,7 +152,6 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_UNCHECK_CONFIRMATION_DATA]: (state, { payload }) => {
-    console.log("payload: ", payload);
     return {
       ...state,
       uncheckConfirmationData: payload

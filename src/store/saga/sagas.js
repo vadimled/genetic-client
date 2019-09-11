@@ -704,8 +704,6 @@ export function* applyConfirmationSaga(data){
 
   const newData = Object.assign({}, data);
 
-  console.log("newData, : ", newData);
-
   const variants = newData.payload.variants.map(variant => {
     return{
       variant_id: variant.id,
@@ -733,10 +731,6 @@ export function* applyConfirmationSaga(data){
 
     const result = yield call(sendVariantToConfirmation, dataToSend);
 
-    console.log("result, : ", result);
-
-    // const variant = result.data;
-    //
     if (result?.status === 200) {
       yield put(
         applyConfirmationSuccess(

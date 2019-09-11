@@ -193,7 +193,7 @@ class VariantTable extends Component {
               <HighlightedCell isHighlighted={record.isAdded}>
                 <ConfirmationStatus
                   status={record.status}
-                  handleStatus={status => console.log("++ststus:", status) ||
+                  handleStatus={status =>
                     this.props.handleConfirmationStatus({
                       variantId: record.id,
                       testId: this.props.testId,

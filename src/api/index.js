@@ -148,24 +148,8 @@ export function fetchUserPreferencesApi({ testId }) {
 }
 
 export function sendVariantToConfirmation(data) {
-  console.log("--ajax data: ", data);
   const { variants, testId } = data;
   return axios_based.post(`/tests/${testId}/confirmations`, {
     variants
   });
 }
-
-// {
-//   "variants": [
-//   {
-//     "variant_id": "string",
-//     "primers": [
-//       {
-//         "primer": 0,
-//         "fragment_size": 0,
-//         "instructions": "string"
-//       }
-//     ]
-//   }
-// ]
-// }

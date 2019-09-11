@@ -11,12 +11,6 @@ import { getUncheckConfirmationData } from "Store/selectors";
 
 const UncheckConfirmationPopup = (props) => {
   const { handleUncheckConfirmationData, handleConfirmationStatus, uncheckConfirmationData } = props;
-  console.log(uncheckConfirmationData);
-
-  // const uncheckConfirm = () => {
-  //   handleConfirmationStatus(uncheckConfirmationData)
-  //   handleUncheckConfirmationData("unchecked")
-  // }
 
   return (
     <Portal>
