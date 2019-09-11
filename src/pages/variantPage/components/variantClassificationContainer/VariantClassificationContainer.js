@@ -9,7 +9,8 @@ import style from "./VariantClassificationContainer.module.scss";
 import { connect } from "react-redux";
 import {
   setSelectedZygosityType,
-  sendVariantClass
+  sendVariantClass,
+  setCurrentVariantClass
 } from "Actions/variantPageActions";
 import {
   getZygosityType,
@@ -18,7 +19,8 @@ import {
   getCurrentZygosityType,
   getVariantPageTestId,
   getVariantId,
-  getDataVariantClassChanged
+  getDataVariantClassChanged,
+  getCurrentVariantClass
 } from "Store/selectors";
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 import { withRouter } from "react-router-dom";
@@ -26,6 +28,14 @@ import { zygosityTypeByName } from "Utils/helpers";
 // import { withRouter } from "react-router-dom";
 
 class VariantClassificationContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    const { currentZygosityType, setCurrentVariantClass, somaticValue, germlineValue } = this.props;
+    const classValue = currentZygosityType === TEXTS.somaticUp ? somaticValue : germlineValue;
+    setCurrentVariantClass({currentVariantClass: classValue});
+  }
+  
+  
   createVariantClassType = () => {
     return this.props.currentZygosityType === TEXTS.somaticUp
       ? "somatic_class"
@@ -75,6 +85,36 @@ class VariantClassificationContainer extends React.Component {
     );
   };
 
+  setVariantClassOptionsWithReconfirm = buttonOf => {
+    const { currentZygosityType, currentVariantClass } = this.props;
+    console.log(currentVariantClass);
+    if (!currentZygosityType) return;
+  
+    if (buttonOf !== currentZygosityType) {
+      return buttonOf === TEXTS.somaticUp
+        ? SOMATIC_VARIANT_CLASS_OPTIONS
+        : GERMLINE_VARIANT_CLASS_OPTIONS;
+    }
+
+    let typeData;
+
+    if (currentZygosityType === TEXTS.somaticUp) {
+      typeData = SOMATIC_VARIANT_CLASS_OPTIONS;
+    } else if (currentZygosityType === TEXTS.germlineUp) {
+      typeData = GERMLINE_VARIANT_CLASS_OPTIONS;
+    }
+
+    const nT = typeData.map(item => {
+      if (item.value === currentVariantClass) {
+        return { ...item, reconfirm: TEXTS.reconfirm };
+      } else return item;
+    });
+
+    console.log(nT);
+
+    return nT;
+  };
+
   render() {
     const {
       selectedZygosityType,
@@ -100,7 +140,9 @@ class VariantClassificationContainer extends React.Component {
               currValue={germlineValue}
               onChangeType={this.onChangeType}
               title={TEXTS.germlineUp}
-              typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
+              typeData={this.setVariantClassOptionsWithReconfirm(
+                TEXTS.germlineUp
+              )}
               testId={testId}
               variantId={variantId}
               onChangeClassification={this.onChangeClassification}
@@ -115,7 +157,7 @@ class VariantClassificationContainer extends React.Component {
             currValue={somaticValue}
             onChangeType={this.onChangeType}
             title={TEXTS.somaticUp}
-            typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
+            typeData={this.setVariantClassOptionsWithReconfirm(TEXTS.somaticUp)}
             testId={testId}
             variantId={variantId}
             onChangeClassification={this.onChangeClassification}
@@ -140,6 +182,7 @@ const mapStateToProps = state => {
     currentZygosityType: zygosityTypeByName(getCurrentZygosityType(state)),
     somaticValue: getSomaticValue(state),
     germlineValue: getGermlineValue(state),
+    currentVariantClass: getCurrentVariantClass(state),
     testId: getVariantPageTestId(state),
     variantId: getVariantId(state),
     changeClassData: getDataVariantClassChanged(state)
@@ -149,7 +192,8 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     sendVariantClass: data => dispatch(sendVariantClass(data)),
-    setZygosityType: data => dispatch(setSelectedZygosityType(data))
+    setZygosityType: data => dispatch(setSelectedZygosityType(data)),
+    setCurrentVariantClass: data => dispatch(setCurrentVariantClass(data))
   };
 }
 

@@ -342,6 +342,14 @@ $heightTableContentWithTumorPanel: 198px;
   .ant-select-dropdown-menu-item-selected {
     background-color: $select-option-selected !important;
     font-weight: normal !important;
+
+    .reconfirm {
+      display: block;
+      width: 100%;
+      height: 100%;
+      font-size: 13px;
+      margin-right: 20px;
+    }
   }
 }
 

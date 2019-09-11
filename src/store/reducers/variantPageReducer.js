@@ -53,6 +53,14 @@ const variantPageReducer = createReducer(initialState, {
     };
   },
 
+  [actionsTypes.SET_CURRENT_VARIANT_CLASS]: (state, { payload }) => {
+    console.log(payload);
+    return {
+      ...state,
+      ...payload
+    };
+  },
+
   [actionsTypes.SET_EXTERNAL_RESOURCES]: (state, { payload }) => {
     return {
       ...state,

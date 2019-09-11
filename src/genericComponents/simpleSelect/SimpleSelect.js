@@ -65,6 +65,10 @@ const SimpleSelect = ({
                 tagColor={option?.tagColor}
                 customClassName={selectHeaderClass}
               />
+              {
+                option.reconfirm &&
+                 <div className="reconfirm">{`(${option.reconfirm})`}</div>
+              }
             </Option>
           );
         })}

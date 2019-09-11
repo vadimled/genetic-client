@@ -118,3 +118,10 @@ export const setHistoryTableData = data => {
     payload: data
   };
 };
+
+export const setCurrentVariantClass = data => {
+  return {
+    type: actionsTypes.SET_CURRENT_VARIANT_CLASS,
+    payload: data
+  };
+};

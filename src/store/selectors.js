@@ -56,6 +56,7 @@ export const
   getVariantPage = state => state.variantPage.pageData,
   getZygosityType = state => state.variantPage.pageData.selectedZygosityType,
   getCurrentZygosityType = state => state.variantPage.pageData.serverData?.zygosity,
+  getCurrentVariantClass = state => state.variantPage.pageData.currentVariantClass,
   getSomaticValue = state => state.variantPage.pageData.variantData?.variantClassSomatic,
   getGermlineValue = state => state.variantPage.pageData.variantData?.variantClassGermline,
   getExternalResources = state => state.variantPage.pageData.externalResources,
