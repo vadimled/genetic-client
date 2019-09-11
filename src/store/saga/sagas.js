@@ -27,6 +27,8 @@ import {
   updateUserPreferencesApi,
   fetchUserPreferencesApi,
   fetchClassificationHistoryApi,
+  fetchConfirmationMetadataApi,
+  sendVariantToConfirmation
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -45,6 +47,7 @@ import {
   updateVariantInTableData,
   setSort,
   fetchUserPreferences,
+  applyConfirmationSuccess
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
@@ -80,7 +83,8 @@ import {
   parseTableDataObj,
   createResourcesLinks,
   getHistoryTableData,
-  getCurrentEvidenceTabKey
+  getCurrentEvidenceTabKey,
+  getConfirmationPageMetadata
 } from "Utils/helpers";
 import {
   setClassificationHistoryToStore,
@@ -91,13 +95,11 @@ import {
   cleanEvidenceActionData,
   setCurrentEvidenceTab
 } from "Actions/evidenceConfigActions";
+import { setConfirmationPageMetadataToStore } from "Actions/confirmationPageActions";
 import {
   setDefaultFilters,
   saveUserPreferencesFilters,
 } from "Actions/filtersActions";
-import { sendVariantToConfirmation } from "../../api";
-import { applyConfirmationSuccess } from "../actions/tableActions";
-// import { applyConfirmationSuccess } from "../actions/tableActions";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -700,6 +702,8 @@ export function* fetchUserPreferencesSaga({ payload }) {
   }
 }
 
+
+
 export function* applyConfirmationSaga(data){
 
   const newData = Object.assign({}, data);
@@ -719,7 +723,6 @@ export function* applyConfirmationSaga(data){
   });
 
   const {testId} = newData.payload;
-
 
   const dataToSend = {
     variants: variants,
@@ -745,5 +748,26 @@ export function* applyConfirmationSaga(data){
   } catch (e) {
     yield put(setTableReducerLoading(false));
     console.log("-err: ", e);
+  }
+}
+
+
+
+
+
+// --------------- CONFIRMATION PAGE ---------------
+export function* fetchConfirmationMetadataSaga(action) {
+  try {
+    yield put(setLoading(true));
+    const { data } = yield call(fetchConfirmationMetadataApi, action);
+    const newData = getConfirmationPageMetadata(data);
+    yield put(setConfirmationPageMetadataToStore(newData));
+    yield put(setLoading(false));
+  } catch (e) {
+    yield put(setLoading(false));
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchConfirmationMetadataSaga"]);
+      Sentry.captureException(e);
+    });
   }
 }

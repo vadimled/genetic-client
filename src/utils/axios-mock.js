@@ -170,8 +170,7 @@ if (mock) {
   mock
     .onGet(/\/variants\/.+\/classification/)
     .reply(() => [200, generateHistoryTableMockData(20)]);
-  
-  
+
   mock.onGet(/\/tests/).reply(200, [
     {
       id: "5d511f574651a20020a0ab50",
@@ -189,6 +188,71 @@ if (mock) {
 
   mock.onPost(/\/tests\/.+\/export/).reply(200);
 
-
-  
+  mock.onGet(/\/confirmations\/?\w+$/).reply(200, {
+    id: "5d511f574651a20020a0ab50",
+    variants: [
+      {
+        variant_id: "1d5bcc6608589e00124bfd76",
+        gene: "MTHFR",
+        chr: "ch1",
+        position: 658729120,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+        primers: [
+          {
+            primer: 10,
+            fragment_size: 200,
+            instructions:
+              "We will build a small game during this tutorial. " +
+              "You might be tempted to skip it because you’re not " +
+              "building games — but give it a chance. "
+          }
+        ],
+        activity_log: [
+          {
+            action: {
+              curr_val: "homo",
+              field: "zygosity",
+              prev_val: ""
+            }
+          }
+        ]
+      },
+      {
+        variant_id: "2d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 2,
+            fragment_size: 250,
+            instructions:
+              "The techniques you’ll learn in the tutorial are fundamental " +
+              "to building any React app, and mastering it will give you " +
+              "a deep understanding of React."
+          }
+        ],
+        gene: "KTAR",
+        chr: "ch2",
+        position: 19823208,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "3d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 5,
+            fragment_size: 200
+          }
+        ],
+        gene: "GFaFR",
+        chr: "ch3",
+        position: 164529120,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      }
+    ]
+  });
 }
