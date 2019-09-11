@@ -63,7 +63,7 @@ class ConfirmationStatus extends PureComponent {
 
     const statusBgStyle = CONFIRMATION_VALUES[status] ? {
       backgroundImage: `url(${CONFIRMATION_VALUES[status]?.iconImg})`
-    } : {backgroundImage: "none"}
+    } : {backgroundImage: "none"};
 
     return (
       <div
