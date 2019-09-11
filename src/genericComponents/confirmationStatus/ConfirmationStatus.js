@@ -61,6 +61,10 @@ class ConfirmationStatus extends PureComponent {
   render() {
     const { status, handleStatus } = this.props;
 
+    const statusBgStyle = CONFIRMATION_VALUES[status] ? {
+      backgroundImage: `url(${CONFIRMATION_VALUES[status]?.iconImg})`
+    } : {backgroundImage: "none"}
+
     return (
       <div
         className={style["confirmation-status"]}
@@ -73,9 +77,7 @@ class ConfirmationStatus extends PureComponent {
         >
           <div
             className="confirmation-icon"
-            style={{
-              backgroundImage: `url(${CONFIRMATION_VALUES[status]?.iconImg})`
-            }}
+            style={statusBgStyle}
           />
           <div
             className="confirmation-arrow-down"
