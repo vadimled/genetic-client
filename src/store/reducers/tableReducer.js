@@ -139,12 +139,11 @@ const tableReducer = createReducer(initialState, {
 
   [actionsTypes.SET_CONFIRMATION_STATUS_TO_STORE]: (state, { payload }) => {
 
-    console.log("--payload: ", payload);
+    const { variantId, status } = payload;
 
-    const { id, status } = payload;
     let data = state?.data;
 
-    data[id].status = status;
+    data[variantId].status = status;
 
     return {
       ...state,
