@@ -139,7 +139,7 @@ const tableReducer = createReducer(initialState, {
 
   [actionsTypes.SET_CONFIRMATION_STATUS_TO_STORE]: (state, { payload }) => {
 
-    console.log("--payload: ", payload)
+    console.log("--payload: ", payload);
 
     const { id, status } = payload;
     let data = state?.data;
@@ -153,7 +153,7 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_UNCHECK_CONFIRMATION_DATA]: (state, { payload }) => {
-    console.log("payload: ", payload)
+    console.log("payload: ", payload);
     return {
       ...state,
       uncheckConfirmationData: payload
