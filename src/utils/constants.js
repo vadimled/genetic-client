@@ -180,7 +180,7 @@ export const CONFIRMATION_VALUES = {
     iconImg: ImgCircleX
   },
   PENDING: { value: "PENDING", label: "Pending", iconImg: ImgCircleClock },
-  UNCHECK: { value: "UNCHECK", label: "Uncheck", iconImg: "" }
+  // UNCHECK: { value: "UNCHECK", label: "Uncheck", iconImg: "" }
 };
 
 export const ALERT_STATUSES = {

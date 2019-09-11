@@ -31,7 +31,7 @@ const ConfirmationStatusPanel = ({ handleStatus, selected }) => {
       })}
       <div
         className="status-item"
-        onClick={handleStatus.bind(null, null)}
+        onClick={handleStatus.bind(null, "UNCHECK")}
       >
         <div
           className="confirmation-panel-icon"

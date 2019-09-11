@@ -15,7 +15,6 @@ import TableSorter from "./components/TableSorter";
 import HighlightedCell from "./components/highlightedCell";
 import LabeledTag from "../labeledTag";
 import {
-  CONFIRMATION_VALUES,
   GERMLINE_VARIANT_CLASS_OPTIONS,
   SOMATIC_VARIANT_CLASS_OPTIONS,
   VARIANT_CLASS_GERMLINE,
@@ -188,12 +187,13 @@ class VariantTable extends Component {
         );
 
         column.render = (text, record) => {
-          if (record.status && record.status !== CONFIRMATION_VALUES["UNCHECK"].value) {
+
+          if (record.status && record.status !== "UNCHECK") {
             return (
               <HighlightedCell isHighlighted={record.isAdded}>
                 <ConfirmationStatus
                   status={record.status}
-                  handleStatus={status =>
+                  handleStatus={status => console.log("++ststus:", status) ||
                     this.props.handleConfirmationStatus({
                       variantId: record.id,
                       testId: this.props.testId,

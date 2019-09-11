@@ -101,10 +101,12 @@ function mapDispatchToProps(dispatch) {
     handleZygosity: (data) => dispatch(handleZygosity(data)),
     handleVariantClass: (data) => dispatch(handleVariantClass(data)),
     handleConfirmationStatus: (data) => {
+      console.log("---data.status: ", data?.status)
       if (data?.status) {
         dispatch(handleConfirmationStatus(data));
       }
-      else if (data?.status === null) {
+      else if (data?.status === "UNCHECK") {
+        console.log("---rerere")
         dispatch(handleUncheckConfirmationData(data));
       }
     },
