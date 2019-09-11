@@ -51,7 +51,9 @@ export const TEXTS = {
   singleTestPage: "singleTestPage",
   testsPage: "testsPage",
   searchPlaceholder: "Search for Gene, Coding or Protein",
-  reconfirm: "re-confirm"
+  reconfirm: "re-confirm",
+  germlineClass:"germline_class",
+  somaticClass:"somatic_class"
 };
 
 export const LIMITS = {

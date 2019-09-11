@@ -1,30 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  GERMLINE_VARIANT_CLASS_OPTIONS,
-  SOMATIC_VARIANT_CLASS_OPTIONS,
-  TEXTS
-} from "Utils/constants";
+import { GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS, TEXTS } from "Utils/constants";
 import style from "./VariantClassificationContainer.module.scss";
 import { connect } from "react-redux";
+import { sendVariantClass, setCurrentVariantClass, setSelectedZygosityType } from "Actions/variantPageActions";
 import {
-  setSelectedZygosityType,
-  sendVariantClass,
-  setCurrentVariantClass
-} from "Actions/variantPageActions";
-import {
-  getZygosityType,
+  getCurrentVariantClass,
+  getCurrentZygosityType,
+  getDataVariantClassChanged,
   getGermlineValue,
   getSomaticValue,
-  getCurrentZygosityType,
-  getVariantPageTestId,
   getVariantId,
-  getDataVariantClassChanged,
-  getCurrentVariantClass
+  getVariantPageTestId,
+  getZygosityType
 } from "Store/selectors";
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 import { withRouter } from "react-router-dom";
 import { zygosityTypeByName } from "Utils/helpers";
+
 // import { withRouter } from "react-router-dom";
 
 class VariantClassificationContainer extends React.Component {
@@ -38,8 +31,8 @@ class VariantClassificationContainer extends React.Component {
   
   createVariantClassType = () => {
     return this.props.currentZygosityType === TEXTS.somaticUp
-      ? "somatic_class"
-      : "germline_class";
+      ? TEXTS.somaticClass
+      : TEXTS.germlineClass;
   };
 
   onChangeClassification = (e, id) => {
@@ -51,13 +44,6 @@ class VariantClassificationContainer extends React.Component {
       testId,
       variantId
     } = this.props;
-
-    sendVariantClass({
-      testId,
-      variantId,
-      value,
-      name: this.createVariantClassType()
-    });
 
     if (!value && selectedZygosityType !== id) {
       setZygosityType({ selectedZygosityType: id });
@@ -87,7 +73,6 @@ class VariantClassificationContainer extends React.Component {
 
   setVariantClassOptionsWithReconfirm = buttonOf => {
     const { currentZygosityType, currentVariantClass } = this.props;
-    console.log(currentVariantClass);
     if (!currentZygosityType) return;
   
     if (buttonOf !== currentZygosityType) {
@@ -104,15 +89,11 @@ class VariantClassificationContainer extends React.Component {
       typeData = GERMLINE_VARIANT_CLASS_OPTIONS;
     }
 
-    const nT = typeData.map(item => {
+    return typeData.map(item => {
       if (item.value === currentVariantClass) {
         return { ...item, reconfirm: TEXTS.reconfirm };
       } else return item;
     });
-
-    console.log(nT);
-
-    return nT;
   };
 
   render() {
