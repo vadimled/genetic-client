@@ -1,4 +1,4 @@
-import React, { Fragment, memo, useState } from "react";
+import React, { Fragment, memo } from "react";
 import { Select } from "antd";
 import PropTypes from "prop-types";
 import CloseIcon from "Assets/close.svg";
@@ -25,9 +25,9 @@ const SimpleSelect = ({
   reconfirmMode,
   setReconfirmStatus,
   reconfirmStatus,
+  currentVariantClass,
   ...props
 }) => {
-  const [currentVariantClass, setReconfirmClass] = useState();
   const handleReconfirm = e => {
     if (
       currentVariantClass &&
@@ -81,9 +81,6 @@ const SimpleSelect = ({
         {...props}
       >
         {options?.map(option => {
-          if (option.reconfirm && !currentVariantClass) {
-            setReconfirmClass(option.value);
-          }
           return (
             <Option
               key={option.value}

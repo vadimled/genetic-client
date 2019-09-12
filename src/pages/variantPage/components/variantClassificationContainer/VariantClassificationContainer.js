@@ -169,6 +169,7 @@ class VariantClassificationContainer extends React.Component {
               onChangeSelectedZygosityType={this.onChangeSelectedZygosityType}
               setReconfirmStatus={this.setReconfirmStatus}
               reconfirmStatus={reconfirmStatus}
+              currentVariantClass={currentVariantClass}
             />
             {reconfirmStatus && currentZygosityType === TEXTS.germlineUp && (
               <div className="reconfirm-wrapper">
@@ -200,6 +201,7 @@ class VariantClassificationContainer extends React.Component {
               onChangeSelectedZygosityType={this.onChangeSelectedZygosityType}
               setReconfirmStatus={this.setReconfirmStatus}
               reconfirmStatus={reconfirmStatus}
+              currentVariantClass={currentVariantClass}
             />
             {reconfirmStatus && currentZygosityType === TEXTS.somaticUp && (
               <div className="reconfirm-wrapper">

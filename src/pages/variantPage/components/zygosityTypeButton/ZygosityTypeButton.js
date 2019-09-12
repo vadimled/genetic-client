@@ -19,7 +19,8 @@ function ZygosityTypeButton({
   onChangeClassification,
   onChangeSelectedZygosityType,
   setReconfirmStatus,
-  reconfirmStatus
+  reconfirmStatus,
+  currentVariantClass
 }) {
   const [isClassificationAllowed, setOpen] = useState(true);
 
@@ -72,6 +73,7 @@ function ZygosityTypeButton({
               setReconfirmStatus={setReconfirmStatus}
               reconfirmMode
               reconfirmStatus={reconfirmStatus}
+              currentVariantClass={currentVariantClass}
             />
           </Fragment>
         ) : (
