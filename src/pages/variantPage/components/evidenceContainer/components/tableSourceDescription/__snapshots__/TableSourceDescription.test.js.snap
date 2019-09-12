@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TableSourceDescription /> snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="table-source-description-wrapper"
+  >
+    <div
+      class="table-source-description"
+    >
+      <div
+        class="source link"
+      >
+        <a
+          href="http://example.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          http://example.com
+        </a>
+      </div>
+      <div
+        class="description"
+      >
+        description
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

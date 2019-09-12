@@ -5,46 +5,54 @@ import Tag from "GenericComponents/tag";
 import cn from "classnames";
 import { TEXTS } from "Utils/constants";
 
-function LabeledTag({ label, typeData, tagColor, customClassName }) {
+function LabeledTag({ value, label, typeData, tagColor, customClassName }) {
+
+  if(!label && !value){
+    return null;
+  }
+
   let type;
-
+  const getLabelByValue = () => typeData?.find(item => item?.value === value).label;
+    
+  const labelText = label ? label : getLabelByValue();
+    
   const getTextOnly = text => {
-    return (
-      <div
-        className={cn("label-text", {
-          unclassified: text === TEXTS.unclassified,
-          [customClassName]: !!customClassName
-        })}
-      >
-        {text}
-      </div>
-    );
-  };
+      return (
+        <div
+          className={cn("label-text", {
+            unclassified: text === TEXTS.unclassified,
+            [customClassName]: !!customClassName
+          })}
+        >
+          {text}
+        </div>
+      );
+    },
+    
+    getNode = (color, text) => {
+      return (
+        <Fragment>
+          <Tag color={color} />
+          {getTextOnly(text)}
+        </Fragment>
+      );
+    },
+    
+    renderLabeledTag = () => {
+      if (typeData) {
+        type = typeData?.find(item => item.label === labelText);
 
-  const getNode = (color, text) => {
-    return (
-      <Fragment>
-        <Tag color={color} />
-        {getTextOnly(text)}
-      </Fragment>
-    );
-  };
-
-  const renderLabeledTag = () => {
-    if (typeData) {
-      type = typeData?.find(item => item.label === label);
-
-      if (type) {
-        return getNode(type.tagColor, type.label);
+        if (type) {
+          return getNode(type.tagColor, type.label);
+        } else {
+          return <div className="label-text">{labelText}</div>;
+        }
+      } else if (tagColor) {
+        return getNode(tagColor, labelText);
       } else {
-        return <div className="label-text">{label}</div>;
+        return getTextOnly(labelText);
       }
-    } else if (tagColor) {
-      return getNode(tagColor, label);
-    } else {
-      return getTextOnly(label);
-    }
-  };
+    };
 
   return (
     <div className={style["labeled-tag-wrapper"]}>{renderLabeledTag()}</div>
@@ -52,7 +60,7 @@ function LabeledTag({ label, typeData, tagColor, customClassName }) {
 }
 
 LabeledTag.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   tagColor: PropTypes.string,
   customClassName: PropTypes.string,
   typeData: PropTypes.array

@@ -1,26 +1,42 @@
 import React from "react";
-import dateFormat from "dateformat";
 import ActivityLogAction from "./ActivityLogAction";
 import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
 import PropTypes from 'prop-types';
+import { dateOptions, timeOptions } from "Utils/helpers";
 
-const ActivityLogPopupTableRecord = ({ record }) => {
+const ActivityLogPopupTableRecord = ({ record: {
+  action: {
+    prev_val = '',
+    curr_val = '',
+    field = ''
+  } = {},
+  user: {
+    name = 'No name'
+  } = {},
+  timestamp = ''
+} }) => {
   return (
     <div className="flex flex-wrap content-start">
       <div className="cell border flex items-center justify-center">
         <AvatarName />
-        <span className="user-name">Primary Analyst</span>
+        <span className="user-name">{name}</span>
       </div>
-      <ActivityLogAction record={record} />
+      <ActivityLogAction
+        prevVal={prev_val}
+        currVal={curr_val}
+        field={field}
+      />
       <div className="cell border flex items-center justify-center">
-        {dateFormat(record.time, "H:MM, d mmmm yyyy")}
+        {new Date(timestamp).toLocaleDateString("en-GB", dateOptions)
+          .split(" ")
+          .join("/")} {new Date(timestamp).toLocaleTimeString("en-GB", timeOptions)}
       </div>
     </div>
   );
 };
 
 ActivityLogPopupTableRecord.propTypes = {
-  record: PropTypes.object,
+  record: PropTypes.object.isRequired,
 };
 
 export default ActivityLogPopupTableRecord;

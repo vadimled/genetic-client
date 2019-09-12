@@ -1,11 +1,10 @@
 import faker from "faker";
 import { CONFIRMATION_VALUES } from 'Utils/constants';
 
-export const generateDNAVariantTableMockData = amount => {
-  let data = {};
-  for (let i = 0; i < amount; i++) {
+export const generateDNAVariantTableMockData = amount =>
+  Array.from(new Array(amount), () => {
     let id = faker.random.alphaNumeric(25);
-    data[id] = {
+    return {
       id: id,
       key: id,
       gene: faker.random.arrayElement([
@@ -510,36 +509,30 @@ export const generateDNAVariantTableMockData = amount => {
         "ADH1B",
         "ADH1C"
       ]),
-      chrPosition: `Chr${faker.random.number({
+      
+      chr: `chr${faker.random.number({
         min: 1,
         max: 5
-      })}:${faker.random.number({ min: 100000, max: 350000 })}`,
+      })}`,
+      position:faker.random.number({ min: 100000, max: 350000 }),
       transcript: `NM_${faker.helpers.replaceSymbolWithNumber("######.#")}`,
       exon: faker.random.number({ min: 1, max: 9 }),
-      alleleChange: faker.random.arrayElement([
-        "C > T",
-        "G > A",
-        "T > G",
-        "A > C"
+      alt: faker.random.arrayElement([
+        "C.sdsff","T.DFGvb", "GADER.css11", "AdfR45"
       ]),
-      alleleChangeLong: faker.random.arrayElement([
-        "sdsdddshshh",
-        "sghshsfghsfh",
-        "fsghfsghsfghsfsfhsfh",
-        "sfghsfhsfhsfhfsh"
+      ref: faker.random.arrayElement([
+        "C.sdsff","T.DFGvb", "GADER.css11", "AdfR45"
       ]),
-      coding: faker.random.arrayElement(["gCc/gTc", "aGc/tCg", "cAc/gTa"]),
-      codingLong: faker.random.arrayElement([
-        "gCc/gTc/drgdgdfgdfgdfg",
-        "aGc/tCg/zzzczzfzf",
-        "cAc/gTa/qwertyyuyuiyiyutyutyu"
-      ]),
-      protein: faker.random.alphaNumeric(5),
-      vaf: faker.random.number(100) ,
+      hgvs_c: faker.random.arrayElement(["gCc/gTc", "aGc/tCg", "cAc/gTa"]),
+      hgvs_p: `p.${faker.random.alphaNumeric(25)}`,
+  
+      percentage_variants: faker.finance.amount(0, 1, 4),
+      dp: faker.finance.amount(100, 500, 4),
+      
       hotSpot: faker.random.arrayElement([faker.random.boolean(), undefined]),
-      snp: faker.random.arrayElement([faker.random.boolean(), undefined]),
+      db_snp: faker.random.arrayElement([faker.random.boolean(), undefined]),
       roi: faker.random.arrayElement([faker.random.boolean(), undefined]),
-      clinvar: faker.random.arrayElement(["", undefined]),
+      clinvar_variation_id: faker.random.arrayElement(["", undefined]),
       cosmic: faker.random.arrayElement(["", undefined]),
       omim: faker.random.arrayElement(["", undefined]),
       gnomAD: faker.random.arrayElement([
@@ -548,11 +541,12 @@ export const generateDNAVariantTableMockData = amount => {
         faker.random.number({ min: 1, max: 5 }),
         faker.random.number({ min: 5, max: 100 })
       ]),
-      zygosity: "",
-
-      variantClassGermline: faker.random.arrayElement(["unclassified", "path", "lpath", "vus", "lben", "ben"]),
-      variantClassSomatic: faker.random.arrayElement(["unclassified", "tier1", "tier2", "tier3", "tier4"]),
-      coverage: faker.random.number({ min: 100, max: 500 }),
+      zygosity: faker.random.arrayElement([
+        "notDefined",
+        "notReal", "insignificant", "unknown", "somatic", "homo", "hemi", "hetero"]),
+      effect: faker.random.arrayElement(["high", "modifier", "moderate", "low"]),
+      germline_class: faker.random.arrayElement(["unclassified", "path", "lpath", "vus", "lben", "ben"]),
+      somatic_class: faker.random.arrayElement(["unclassified", "tier1", "tier2", "tier3", "tier4"]),
       notes: faker.lorem.sentence(),
       status: process?.env?.NODE_ENV === 'test'
         ? faker.random.arrayElement([
@@ -563,6 +557,4 @@ export const generateDNAVariantTableMockData = amount => {
         ])
         : null,
     };
-  }
-  return data;
-};
+  });

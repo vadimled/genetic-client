@@ -63,6 +63,20 @@ export const setFilterGnomId = data => {
   };
 };
 
+export const setFilterZygosity = data => {
+  return {
+    type: actionsTypes.SET_FILTER_ZYGOSITY,
+    payload: data
+  };
+};
+
+export const setFilterEffect = data => {
+  return {
+    type: actionsTypes.SET_FILTER_EFFECT,
+    payload: data
+  };
+};
+
 export const getFilteredData = data => {
   return {
     type: actionsTypes.GET_FILTERED_DATA,
@@ -77,9 +91,23 @@ export const clearFilterSection = data => {
   };
 };
 
-export const setDefaultFilters = data =>{
+export const setDefaultFilters = data => {
   return {
     type: actionsTypes.SET_DEFAULT_FILTERS,
+    payload: data
+  };
+};
+
+export const saveUserPreferencesFilters = data => {
+  return {
+    type: actionsTypes.SAVE_USER_PREFERENCES_FILTERS,
+    payload: data
+  };
+};
+
+export const updateSearch = data => {
+  return {
+    type: actionsTypes.UPDATE_SEARCH,
     payload: data
   };
 };

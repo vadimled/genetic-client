@@ -1,23 +1,28 @@
-import { FILTERS, GNOM_AD } from "Utils/constants";
+import { EVIDENCE_CATEGORIES_OPTIONS, FILTERS, GNOM_AD, SORTING_ORDER, TEXTS } from "Utils/constants";
 import { createSelector } from "reselect";
 import isEmpty from "lodash.isempty";
-import { SORTING_ORDER } from "../utils/constants";
 
-export const getFilterType = state => state?.filters?.[FILTERS.type],
+export const
+  getFilterType = state => state?.filters?.[FILTERS.type],
+  getFilterZygosity = state =>
+    state?.filters?.[FILTERS.zygosity],
+  getFilterEffect = state =>
+    state?.filters?.[FILTERS.effect],
   getFilterVariantClass = state =>
-           state?.filters?.[FILTERS.variantClassGermline],
+    state?.filters?.[FILTERS.variantClassGermline],
   getFilterSomaticClass = state =>
-           state?.filters?.[FILTERS.variantClassSomatic],
+    state?.filters?.[FILTERS.variantClassSomatic],
   getFilterHotSpot = state => state?.filters?.[FILTERS.hotSpot],
   getFilterSnp = state => state?.filters?.[FILTERS.snp],
   getFilterRoi = state => state?.filters?.[FILTERS.roi],
   getFilterVaf = state => state?.filters?.[FILTERS.vaf],
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
+  getSearchQuery = state => state?.filters?.[FILTERS.searchText],
+
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
 
-  getUncheckConfirmationData = state =>
-           state?.table?.uncheckConfirmationData,
+  getUncheckConfirmationData = state => state?.table?.uncheckConfirmationData,
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
   getConfirmationData = state => state?.confirmation?.data,
   getMutationType = state => state.variants.mutations,
@@ -27,6 +32,7 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
   getIgvLastQuery = state => state?.igv?.igvLastQuery,
   getBAMFileUrl = state => state?.igv?.BAMFileUrl,
+  getBAMIndexFileUrl = state => state?.igv?.BAMIndexFileUrl,
 
   getResultConfigIsOpen = state => state?.resultConfig?.isOpen,
   getResultConfigIsHgvsLoaded = state => state?.resultConfig?.isHgvsLoaded,
@@ -47,34 +53,33 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,
   getAlertMessage = state => state?.alert?.message,
-  getGeneType = state => state.variantPage.type,
-
-  getZygosityType = state => state.variantPage.selectedZygosityType,
-  getCurrentZygosityType = state => state.variantPage.currentZygosity,
-
-  getSomaticValue = state => state.variantPage.somatic_variant_class,
-  getGermlineValue = state => state.variantPage.germline_variant_class,
-  getExternalResources = state => state.variantPage.externalResources,
-  getVariantData = state => state.variantPage.variantData,
-  getHistorySomatic = state => state.variantPage.somaticClassHistory,
-  getHistoryGermline = state => state.variantPage.germlineClassHistory,
-  getVariantId = state => state.variantPage.variantId,
-  getVariantPageTestId = state => state.variantPage.testId,
+  getVariantPage = state => state.variantPage.pageData,
+  getZygosityType = state => state.variantPage.pageData.selectedZygosityType,
+  getCurrentZygosityType = state => state.variantPage.pageData.serverData?.zygosity,
+  getSomaticValue = state => state.variantPage.pageData.variantData?.variantClassSomatic,
+  getGermlineValue = state => state.variantPage.pageData.variantData?.variantClassGermline,
+  getExternalResources = state => state.variantPage.pageData.externalResources,
+  getVariantData = state => state.variantPage.pageData.variantData,
+  getHistorySomatic = state => state.variantPage.pageData.somaticClassHistory,
+  getHistoryGermline = state => state.variantPage.pageData.germlineClassHistory,
+  getVariantId = state => state.variantPage.pageData.variantId,
+  getVariantPageTestId = state => state.variantPage.pageData.testId,
+  getVariantPageServerData = state => state.variantPage.pageData.serverData,
 
   getSortParam = state => state?.table?.sortParam,
   getSortOrder = state => state?.table?.sortOrder,
-  getClicksCounter = state => state?.table?.clicksCounter,
 
   getTumorInfoMode = state => state.test.showTumorInfo,
+  getLoadingStatus = state => state.test.isLoading,
   getTumorInfoType = state => state.test.tumor_info?.type,
   getTumorInfoLocation = state => state.test.tumor_info?.location,
   getTumorInfoPercent = state =>
     parseInt(state.test.tumor_info?.cancer_cell_percentage, 10),
-  getTestId = state => state.test.test_id,
+  getTestId = state => state.test.id,
+  getGSID = state => state.test.gsid,
   getSelectedMutationType = state => state.variants.selectedMutation,
-  getMutationTypesValues = state => state.test.mutation_types;
-
-export const getSearchQuery = state => state?.filters?.searchText;
+  getMutationTypesValues = state => state.test.mutation_types,
+  getConfirmationPageTableData = state => state.confirmationPage.metaData;
 
 export const getTableDataAsArray = createSelector(
   getTableData,
@@ -102,14 +107,16 @@ export const getSearchResult = createSelector(
   getSearchQuery,
   (data, searchQuery) => {
     return data.filter(item => {
-      const searchQueryInLowerCase = searchQuery.toLowerCase();
-      return (
-        item.gene.toLowerCase().includes(searchQueryInLowerCase) ||
-        item.variantClass.toLowerCase().includes(searchQueryInLowerCase) ||
-        item.coding.toLowerCase().includes(searchQueryInLowerCase) ||
-        item.protein.toLowerCase().includes(searchQueryInLowerCase)
-      );
-    });
+      if(!searchQuery) {
+        return item;
+      } else{
+        const searchQueryInLowerCase = searchQuery.toLowerCase();
+        return (
+          item.gene?.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.coding?.toLowerCase().includes(searchQueryInLowerCase) ||
+        item.protein?.toLowerCase().includes(searchQueryInLowerCase)
+        );
+      }});
   }
 );
 
@@ -123,26 +130,33 @@ const getAppliedFilters = createSelector(
   getFilterVaf,
   getFilterCancerDBs,
   getFilterGnomId,
+  getFilterZygosity,
+  getFilterEffect,
   (
     type,
-    variantClass,
+    germlineClass,
     somaticClass,
     hotSpot,
     snp,
     roi,
     vaf,
     cancerDBs,
-    gnomFilter
+    gnomFilter,
+    zygosity,
+    effect
   ) => {
+    const variantClass = germlineClass.concat(somaticClass);
     const filters = {
-      ...(variantClass.length && {
+      ...((variantClass.length || somaticClass.length) && {
         variantClass: item =>
-          variantClass.some(filter => item.variantClassGermline === filter)
+          variantClass.some(filter => {
+            return item.variantClassGermline === filter || item.variantClassSomatic === filter;
+          })
       }),
-      ...(somaticClass.length && {
-        somaticClass: item =>
-          somaticClass.some(filter => item.variantClassSomatic === filter)
-      }),
+      // ...(somaticClass.length && {
+      //   somaticClass: item =>
+      //     somaticClass.some(filter => item.variantClassSomatic === filter)
+      // }),
       ...(hotSpot.length && {
         hotSpot: item => hotSpot.some(filter => item.hotSpot === filter)
       }),
@@ -156,7 +170,12 @@ const getAppliedFilters = createSelector(
         vaf: item => item.vaf >= vaf[0] && item.vaf <= vaf[1]
       }),
       ...(cancerDBs.length && {
-        cancerDBs: item => cancerDBs.some(filter => item[filter] !== undefined)
+        cancerDBs: item => cancerDBs.some(filter => {
+          if(filter === "cosmic"){
+            return item[filter].length > 0;
+          }
+          return item[filter] !== undefined;
+        })
       }),
       ...(gnomFilter.length && {
         gnom: item => {
@@ -173,7 +192,15 @@ const getAppliedFilters = createSelector(
             }
           });
         }
-      })
+      }),
+      ...(zygosity.length && {
+        zygosity: item =>
+          zygosity.some(filter => item.zygosity === filter)
+      }),
+      ...(effect.length && {
+        effect: item =>
+          effect.some(filter => item.effect.toLowerCase() === filter.toLowerCase())
+      }),
     };
 
     return filters;
@@ -188,7 +215,7 @@ export const getFilteredData = createSelector(
   (data, appliedFilters, sortParam, order) => {
     if (isEmpty(appliedFilters)) {
 
-      const sortedData = data.sort((a, b) => b.priority - a.priority).slice();
+      const sortedData = data.sort((a, b) => a.priority - b.priority).slice();
       return sortedData;
     }
 
@@ -197,7 +224,7 @@ export const getFilteredData = createSelector(
     });
 
     const filteredData = data.filter(item => {
-      return filtersArray.some(filter => filter(item));
+      return filtersArray.every(filter => filter(item));
     });
 
     if(order === SORTING_ORDER.ascending){
@@ -234,10 +261,14 @@ export const getFilteredSearchQueries = createSelector(
   getSearchQueries,
   getSearchQuery,
   (queries, searchQuery) => {
-    const filteredSearchQueries = queries.filter(query =>
-      query.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    return filteredSearchQueries;
+    return queries.filter(query => {
+      if(searchQuery){
+        return query?.toLowerCase().includes(searchQuery.toLowerCase());
+      }
+      else {
+        return query;
+      }
+    });
   }
 );
 
@@ -253,14 +284,14 @@ export const getTotalEntriesAmount = createSelector(
 
 export const getSelectedRows = createSelector(
   getFilteredData,
-  (data) => {
+  data => {
     return data.filter(row => row.selected);
   }
 );
 
 export const getSelectedIsAddedRows = createSelector(
   getSelectedRows,
-  (data) => {
+  data => {
     return data.filter(row => row.isAdded);
   }
 );
@@ -269,26 +300,137 @@ export const checkIsAllRowSelected = createSelector(
   getTableDataAsArray,
   getSelectedRows,
   (allData, selectedData) => {
-    const notConfirmedData = allData?.filter((item) => !item.status);
+    const notConfirmedData = allData?.filter(item => {
+      item ? !item.status : false;
+    });
     return !!selectedData?.length && notConfirmedData?.length === selectedData?.length;
   }
 );
 
-// activity log
-export const getActivityLog = (state, recordId) => {
-  const activityLog = state?.table?.activityLog[recordId];
+export const getTestType = state => state?.test?.panel_type;
 
-  let activityLogArray = [];
+export const getTests = state => {
 
-  for (let record in activityLog) {
-    activityLogArray = activityLogArray.concat(activityLog[record]);
-  }
-
-  activityLogArray.sort((a,b) => {
-    return new Date(b.time) - new Date(a.time);
+  return state?.tests?.tests.sort(function(a,b){
+    return new Date(b.created_at) - new Date(a.created_at);
   });
-
-  return activityLogArray;
 };
 
-export const getTestType = state => state?.test?.panel_type;
+
+// Variant page: Evidence
+export const getSomaticEvidence = state =>
+    state.variantPage.pageData.somatic_evidence,
+  getGermlineEvidence = state => state.variantPage.pageData.germline_evidence,
+  getEvidenceConfigIsOpen = state =>
+    state.variantPage.evidenceConfig.actionSlideBarStatus,
+  getEvidenceConfigMode = state => state.variantPage.evidenceConfig.mode,
+  getEvidenceConfigId = state => state.variantPage.evidenceConfig.id,
+  getEvidenceTypeSelect = state =>
+    state.variantPage.evidenceConfig.evidenceTypeSelect,
+  getEvidenceSourceInput = state =>
+    state.variantPage.evidenceConfig.evidenceSourceInput,
+  getEvidenceLevelSelect = state =>
+    state.variantPage.evidenceConfig.evidenceLevelSelect,
+  getEvidenceDescription = state =>
+    state.variantPage.evidenceConfig.evidenceDescriptionTextarea,
+  getCurrentEvidenceTab = state =>
+    state.variantPage.evidenceConfig.currentEvidenceTab,
+  getSubmitData = createSelector(
+    getEvidenceTypeSelect,
+    getEvidenceSourceInput,
+    getEvidenceLevelSelect,
+    getEvidenceDescription,
+    getVariantPageTestId,
+    getVariantId,
+    getEvidenceConfigId,
+    getZygosityType,
+    (
+      category,
+      source,
+      level,
+      description,
+      testId,
+      variantId,
+      evidenceId,
+      zygosity_type
+    ) => {
+      const sendData = {
+        category,
+        source,
+        level,
+        zygosity_type
+      };
+      return {
+        ids: { testId, variantId, evidenceId },
+        data: description ? {...sendData, description} : sendData
+      };
+    }
+  ),
+  getCurrentEvidenceData = createSelector(
+    getZygosityType,
+    getVariantPage,
+    (type, data) => {
+      const res = Object.keys(data).find(key => {
+        const arr = key.toString().split("_");
+        return arr.includes(type) && arr.includes(TEXTS.evidence);
+      });
+      return data[res];
+    }
+  ),
+  getTabPaneHeaders = createSelector(
+    getCurrentEvidenceData,
+    allData => {
+      if (allData) {
+        const sortedArray = Object.keys(allData)
+            .map(key => allData[key].category)
+            .sort(),
+          arrLng = sortedArray.length,
+
+          getObj = (title, value, length) => {
+            return { title, value, length };
+          },
+
+          formattedArray = [];
+
+        let newObj = {};
+        for (let i = 0; i < arrLng; i++) {
+          const str = sortedArray[i];
+
+          if (newObj.hasOwnProperty(str)) {
+            newObj[str]++;
+          } else {
+            newObj[str] = 1;
+          }
+        }
+
+        Object.keys(EVIDENCE_CATEGORIES_OPTIONS).map(item => {
+          const
+            { label, value } = EVIDENCE_CATEGORIES_OPTIONS[item],
+            val = Object.keys(newObj).find(a => a === value);
+
+          formattedArray.push(getObj(label, value, val ? newObj[val] : 0));
+        });
+        return formattedArray;
+      }
+    }
+  ),
+  getDataVariantClassChanged = createSelector(
+    getVariantPageServerData,
+    (obj) => {
+      const {
+        notes,
+        status,
+        somatic_class,
+        germline_class,
+        zygosity } = obj || {};
+      return {
+        zygosity: zygosity,
+        germline_class: germline_class,
+        somatic_class: somatic_class,
+        status: status,
+        notes: notes
+      };
+    }
+  );
+
+export const getIsTumorInfoLoading = state => state?.test?.isTumorInfoLoading;

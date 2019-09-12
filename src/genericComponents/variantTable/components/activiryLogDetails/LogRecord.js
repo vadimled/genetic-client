@@ -1,71 +1,59 @@
 import React from "react";
-import dateFormat from "dateformat";
-import {
-  VARIANT_CLASS_SOMATIC,
-  VARIANT_CLASS_GERMLINE,
-  ZYGOSITY_OPTIONS
-} from "../../../../utils/constants";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
-import Tag from "../../../tag/Tag";
+import Tag from "GenericComponents/tag";
 import { Tooltip } from "antd";
-import { getCurrTagColor } from "../../../../utils/helpers";
+import { getCurrTagColor, getTitleCurr } from "Utils/helpers";
+import { dateOptions, timeOptions } from "Utils/helpers";
 
-const LogRecord = ({record}) => {
-
-  const {type} = record;
-
-  let titleCurr = "";
-
-  if(type === "variantClass"){
-    titleCurr = VARIANT_CLASS_GERMLINE[record.titleCurr]?.label || VARIANT_CLASS_SOMATIC[record.titleCurr]?.label;
-  }
-  else if(type === "zygosity"){
-    titleCurr = ZYGOSITY_OPTIONS.find(option=> option.value === record.titleCurr).label;
-  }else if (type === "notes") {
-    titleCurr = record.titleCurr;
-  }
-
-
-  // if (type === "notes") {
-  //   return (
-  //     <div className="cell border">
-  //       <Tooltip placement="topLeft" title={titleCurr}>
-  //         <div className="curr-note">
-  //           {titleCurr}
-  //         </div>
-  //       </Tooltip>
-  //     </div>
-  //   );
-  // }
+const LogRecord = ({ record: {
+  action: {
+    prev_val: prevVal = '',
+    curr_val: currVal = '',
+    field = ''
+  } = {},
+  user: {
+    name = 'No name'
+  } = {},
+  timestamp = ''
+} }) => {
 
   return (
     <div className="record flex justify-between items-center">
       <div className="record__user record__item flex items-center justify-center">
-        <AvatarName/>
-        <span className="user-name">PA</span>
-
+        <AvatarName />
+        <span className="user-name">{name}</span>
       </div>
       <div className="record_changed-item record__item flex items-center justify-center">
-        {type === "variantClass" && <Tag color={getCurrTagColor(record.titleCurr)} />}
-        {
-          type === "notes" ?
-            <Tooltip placement="topLeft" title={titleCurr}>
-              <div className="notes">{titleCurr}</div>
-            </Tooltip>
-            :
-            titleCurr
-        }
+        {field === "variantClassGermline" || field === "variantClassSomatic" && (
+          <Tag color={getCurrTagColor({ currVal })} />
+        )}
+        {field === "notes" ? (
+          <Tooltip placement="topLeft" title={getTitleCurr({ prevVal, currVal, field })}>
+            <div className="notes">{getTitleCurr({ prevVal, currVal, field })}</div>
+          </Tooltip>
+        ) : (
+          getTitleCurr({ prevVal, currVal, field })
+        )}
       </div>
       <div className="record_time record__item flex items-center justify-center">
-        {dateFormat(record.time, "H:MM, d mmmm yyyy")}
+        {new Date(timestamp).toLocaleDateString("en-GB", dateOptions)
+          .split(" ")
+          .join("/")} {new Date(timestamp).toLocaleTimeString("en-GB", timeOptions)}
       </div>
     </div>
   );
 };
 
 LogRecord.propTypes = {
-  record: PropTypes.object,
+  prevVal: PropTypes.string,
+  currVal: PropTypes.string,
+  field: PropTypes.string,
+};
+LogRecord.defaultProps = {
+  prevVal: '',
+  currVal: '',
+  field: '',
 };
 
 export default LogRecord;

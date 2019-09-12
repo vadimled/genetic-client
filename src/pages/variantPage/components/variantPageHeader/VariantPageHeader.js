@@ -1,13 +1,33 @@
 import React, { memo } from "react";
 import style from "./VariantPageHeader.module.scss";
 import InformField from "GenericComponents/informField";
-import ExternalLink from "GenericComponents/externalLink";
 import VariantClassificationContainer from "variantComponents/variantClassificationContainer";
 import cn from "classnames";
 import PropTypes from "prop-types";
+import ExternalLink from "GenericComponents/externalLink";
 
-const VariantPageHeader = ({ sidebarToggle, variantData }) => {
-  const { gene, protein, chrPosition, alleleChange, coding, transcript } = variantData || {};
+const VariantPageHeader = ({
+  sidebarToggle,
+  variantData,
+  testId,
+  variantId,
+  onChrPosition
+}) => {
+  const {
+    gene,
+    protein,
+    chrPosition,
+    alleleChange,
+    coding,
+    codingLong,
+    transcript,
+    alleleChangeLong
+  } = variantData || {};
+  
+  const externalHandler = () => {
+    onChrPosition(chrPosition);
+  };
+  
   return (
     <div className={style["variant-page-header-wrapper"]}>
       <div className="left-data-wrapper">
@@ -18,23 +38,35 @@ const VariantPageHeader = ({ sidebarToggle, variantData }) => {
           <div className="gene">
             <InformField name="inform-field-protein" text={protein} />
           </div>
-          <div className="gene">
-            <InformField name="inform-field-chrPosition" text={chrPosition} icon={<ExternalLink data={""} />} />
+          <div className="gene gene-external-link">
+            <ExternalLink
+              name={"chrPosition"}
+              data={chrPosition}
+              externalHandler={externalHandler}
+            />
           </div>
           <div className="gene">
-            <InformField name="inform-field-alleleChange" text={alleleChange} />
+            <InformField
+              name="inform-field-alleleChange"
+              text={alleleChange}
+              tooltip={alleleChangeLong}
+            />
           </div>
           <div className="gene">
-            <InformField name="inform-field-coding" text={coding} />
+            <InformField
+              name="inform-field-coding"
+              text={coding}
+              tooltip={codingLong}
+            />
           </div>
           <div className="gene">
-            <InformField name="inform-field-transcript" text={transcript} icon={<ExternalLink data={""} />} />
+            <InformField name="inform-field-transcript" text={transcript} />
           </div>
         </div>
       </div>
 
       <div className={cn(["right-data", { "sidebar-open": sidebarToggle }])}>
-        <VariantClassificationContainer />
+        <VariantClassificationContainer testId={testId} variantId={variantId} />
       </div>
     </div>
   );
@@ -42,7 +74,9 @@ const VariantPageHeader = ({ sidebarToggle, variantData }) => {
 
 VariantPageHeader.propTypes = {
   sidebarToggle: PropTypes.bool,
-  variantData: PropTypes.object
+  variantData: PropTypes.object,
+  testId: PropTypes.string,
+  variantId: PropTypes.string
 };
 
 export default memo(VariantPageHeader);

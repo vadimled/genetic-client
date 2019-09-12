@@ -1,0 +1,31 @@
+@import "Css/Colors.scss";
+
+.table-date-and-user-wrapper :global {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
+  padding: 10px;
+
+  .table-date-and-user {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+
+    .date {
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 21px;
+      color: $title_color;
+      margin-bottom: 4px;
+    }
+
+    .user {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 18px;
+      color: $brand_primary_color;
+      cursor: pointer;
+    }
+  }
+}

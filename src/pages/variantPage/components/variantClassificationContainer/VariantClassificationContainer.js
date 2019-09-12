@@ -17,21 +17,38 @@ import {
   getSomaticValue,
   getCurrentZygosityType,
   getVariantPageTestId,
-  getVariantId
+  getVariantId,
+  getDataVariantClassChanged
 } from "Store/selectors";
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
+import { withRouter } from "react-router-dom";
+import { zygosityTypeByName } from "Utils/helpers";
+// import { withRouter } from "react-router-dom";
 
 class VariantClassificationContainer extends React.Component {
-  onChangeType = (e, id) => {
-    const { value, name } = e?.target || {},
-      {
-        sendVariantClass,
-        setZygosityType,
-        selectedZygosityType,
-        currentZygosityType,
-        testId,
-        variantId
-      } = this.props;
+  createVariantClassType = () => {
+    return this.props.currentZygosityType === TEXTS.somaticUp
+      ? "somatic_class"
+      : "germline_class";
+  };
+
+  onChangeClassification = (e, id) => {
+    const { value, name } = e?.target || {};
+    const {
+      sendVariantClass,
+      setZygosityType,
+      selectedZygosityType,
+      testId,
+      variantId
+    } = this.props;
+
+    sendVariantClass({
+      testId,
+      variantId,
+      value,
+      name: this.createVariantClassType()
+    });
+
     if (!value && selectedZygosityType !== id) {
       setZygosityType({ selectedZygosityType: id });
     } else if (value) {
@@ -40,9 +57,22 @@ class VariantClassificationContainer extends React.Component {
         testId,
         variantId,
         value,
-        name: `${currentZygosityType.toLowerCase()}Classification`
+        name: this.createVariantClassType()
       });
     }
+
+    this.props.history.push(
+      `/tests/${testId}/variants/${variantId}/?selectedZygosityType=${id ||
+        name}`
+    );
+  };
+
+  onChangeSelectedZygosityType = (e, id) => {
+    const { setZygosityType, testId, variantId } = this.props;
+    setZygosityType({ selectedZygosityType: id });
+    this.props.history.push(
+      `/tests/${testId}/variants/${variantId}/?selectedZygosityType=${id}`
+    );
   };
 
   render() {
@@ -50,8 +80,11 @@ class VariantClassificationContainer extends React.Component {
       selectedZygosityType,
       somaticValue,
       germlineValue,
-      currentZygosityType
+      currentZygosityType,
+      testId,
+      variantId
     } = this.props;
+
     return (
       <div className={style["zygosity-type-wrapper"]}>
         <div className="current-zygosity-wrapper">
@@ -68,8 +101,13 @@ class VariantClassificationContainer extends React.Component {
               onChangeType={this.onChangeType}
               title={TEXTS.germlineUp}
               typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
+              testId={testId}
+              variantId={variantId}
+              onChangeClassification={this.onChangeClassification}
+              onChangeSelectedZygosityType={this.onChangeSelectedZygosityType}
             />
           </div>
+
           <ZygosityTypeButton
             currentZygosity={currentZygosityType}
             selectedZygosityType={selectedZygosityType}
@@ -78,6 +116,10 @@ class VariantClassificationContainer extends React.Component {
             onChangeType={this.onChangeType}
             title={TEXTS.somaticUp}
             typeData={SOMATIC_VARIANT_CLASS_OPTIONS}
+            testId={testId}
+            variantId={variantId}
+            onChangeClassification={this.onChangeClassification}
+            onChangeSelectedZygosityType={this.onChangeSelectedZygosityType}
           />
         </div>
       </div>
@@ -95,11 +137,12 @@ VariantClassificationContainer.propTypes = {
 const mapStateToProps = state => {
   return {
     selectedZygosityType: getZygosityType(state),
-    currentZygosityType: getCurrentZygosityType(state),
+    currentZygosityType: zygosityTypeByName(getCurrentZygosityType(state)),
     somaticValue: getSomaticValue(state),
     germlineValue: getGermlineValue(state),
     testId: getVariantPageTestId(state),
-    variantId: getVariantId(state)
+    variantId: getVariantId(state),
+    changeClassData: getDataVariantClassChanged(state)
   };
 };
 
@@ -110,7 +153,9 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(VariantClassificationContainer);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(VariantClassificationContainer)
+);

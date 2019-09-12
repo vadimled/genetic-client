@@ -10,6 +10,9 @@ import LabeledTag from "GenericComponents/labeledTag";
 import { TEXTS } from "Utils/constants";
 import EmptyState from "GenericComponents/emptyState/EmptyState";
 import defaultImage from "Assets/smallEmptyState.svg";
+import TableDateAndUser from "variantComponents/evidenceContainer/components/tableDateAndUser";
+import { Link } from "react-router-dom";
+
 
 class ClassificationHistoryTable extends Component {
   state = {
@@ -17,7 +20,7 @@ class ClassificationHistoryTable extends Component {
       {
         key: "1",
         title: "Date",
-        dataIndex: "date",
+        dataIndex: "created_at",
         width: 140
       },
       {
@@ -73,7 +76,7 @@ class ClassificationHistoryTable extends Component {
   };
 
   columnsConverter = columns => {
-    const { typeData } = this.props;
+    const { typeData, testId } = this.props;
     return columns.map((col, index) => {
       let column = {
         ...col,
@@ -82,12 +85,22 @@ class ClassificationHistoryTable extends Component {
           onResize: this.handleResize(index)
         })
       };
-      if (col.dataIndex === "class") {
+      if (col.dataIndex === "created_at") {
+        column.render = (date) => {
+          return <TableDateAndUser date={date} />;
+        };
+      }
+      else if (col.dataIndex === "gsid") {
+        column.render = (text) => {
+          return <Link to={`/tests/${testId}`}>{text}</Link>;
+        };
+      }
+      else if (col.dataIndex === "class") {
         column.render = text => {
           return (
             <div className="label-custom-style">
               <LabeledTag
-                label={text}
+                value={text}
                 typeData={typeData}
               />
             </div>
@@ -108,7 +121,7 @@ class ClassificationHistoryTable extends Component {
 
   render() {
     const { data } = this.props;
-    const { length } = data;
+    const length = data ? data.length : 0;
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
 

@@ -2,18 +2,23 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // import PropTypes from "prop-types";
 import { AutoComplete, Icon } from "antd";
-import { getFilteredSearchQueries, getSearchQuery } from "Store/selectors";
-import { updateSearch } from "Actions/tableActions";
+import { getFilteredSearchQueries, getSearchQuery, getTestId } from "Store/selectors";
+import { updateSearch, saveUserPreferencesFilters } from "Actions/filtersActions";
 import { ReactComponent as CloseIcon } from "Assets/close.svg";
 import style from "./Search.module.scss";
+import { TEXTS, FILTERS } from "Utils/constants";
 
 class Search extends Component {
-  handleOnSearchChange = e => {
-    this.props.updateSearch(e);
+  handleOnSearchChange = value => {
+    const { updateSearch, saveUserPreferencesFilters, testId } = this.props;
+    updateSearch(value);
+    saveUserPreferencesFilters({ testId, filters: { [FILTERS.searchText]: value } });
   };
 
   clearSearch = () => {
-    this.props.updateSearch("");
+    const { updateSearch, saveUserPreferencesFilters, testId } = this.props;
+    updateSearch("");
+    saveUserPreferencesFilters({ testId, filters: { [FILTERS.searchText]: "" } });
   };
 
   render() {
@@ -23,7 +28,6 @@ class Search extends Component {
         {!searchText ? (
           <div className="flex items-center search-icons-wrapper">
             <Icon type="search" style={{ color: "#96A2AA" }} />
-            <div className="placeholder">Search</div>
           </div>
         ) : (
           <span />
@@ -35,7 +39,7 @@ class Search extends Component {
           dataSource={tableData}
           value={searchText}
           onChange={this.handleOnSearchChange}
-          autoFocus
+          placeholder={TEXTS.searchPlaceholder}
         />
 
         {searchText && (
@@ -56,13 +60,15 @@ Search.propTypes = {};
 const mapStateToProps = state => {
   return {
     searchText: getSearchQuery(state),
-    tableData: getFilteredSearchQueries(state)
+    tableData: getFilteredSearchQueries(state),
+    testId: getTestId(state),
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    updateSearch: data => dispatch(updateSearch(data))
+    updateSearch: data => dispatch(updateSearch(data)),
+    saveUserPreferencesFilters: data => dispatch(saveUserPreferencesFilters(data)),
   };
 }
 

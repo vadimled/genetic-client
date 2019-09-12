@@ -7,11 +7,12 @@ import LabeledTag from "GenericComponents/labeledTag";
 const NonActiveButton = ({
   title,
   type,
-  selectedType,
   onClick,
   typeData,
-  currValue
+  currValue,
+  selectedType
 }) => {
+
   const getTaggedLabel = typeData => {
     for (let item in typeData) {
       const { label, value } = typeData[item];
@@ -31,6 +32,7 @@ const NonActiveButton = ({
   );
 
   const active = selectedType === type;
+
   return (
     <div
       data-testid={`non-active-button-${type}`}

@@ -4,12 +4,15 @@
   .activity-icon-wrapper {
     cursor: pointer;
     position: relative;
-    .icon:hover {
-      padding: 2px 4px 0 4px;
-      background: #e7eef2;
-      border-radius: 4px;
-    }
-    .icon:active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 29px;
+    padding-top: 3px;
+
+    &:active,
+    &:hover {
       background: #0e8ce6;
       border-radius: 4px;
       path {
@@ -26,7 +29,7 @@
   .activity-log-details {
     position: absolute;
     z-index: 9;
-    right: 98px;
+    right: 24px;
     top: -8px;
     min-width: 320px;
     max-height: 121px;
@@ -35,6 +38,7 @@
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
     border-radius: 4px;
     background: #fff;
+    padding: 0 20px 0 5px;
     .record {
       border-bottom: 1px solid #dae1e6;
       background: #fff;
@@ -110,5 +114,48 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    .ant-select-selection__rendered {
+      margin-left: 0 !important;
+    }
+  }
+
+  .priority {
+    padding-right: 7px;
+  }
+
+  .ant-table-fixed {
+    table-layout: fixed !important;
+  }
+
+  .text {
+    width: 70%;
+    font-weight: normal;
+    font-size: 16px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $title_color;
+    margin-left: 4px;
+
+    &.cut {
+      width: 65%;
+      max-width: 110px;
+    }
+  }
+
+  .numeric {
+    text-align: right;
+
+    .inner {
+      text-align: right;
+      justify-content: flex-end;
+      padding-right: 15px;
+    }
+  }
+  .hidden-classification {
+    //border: 2px dashed mediumvioletred;
+    opacity: 0.3;
   }
 }

@@ -1,10 +1,15 @@
 import React, { memo } from "react";
 import style from "./ExternalResources.module.scss";
-import { TEXTS } from "Utils/constants";
+import { TEXTS, EXTERNAL_RESOURCES_GERMLINE, EXTERNAL_RESOURCES_SOMATIC } from "Utils/constants";
 import PropTypes from "prop-types";
 import { Tooltip } from "antd";
+import urlRegex from "url-regex";
 
-function ExternalResources({ externalResources }) {
+function ExternalResources({ externalResources, selectedZygosityType }) {
+
+  const variantDbLinks =  selectedZygosityType === "germline" ?
+    EXTERNAL_RESOURCES_GERMLINE : EXTERNAL_RESOURCES_SOMATIC;
+
   const renderLink = (label, value) => {
     return (
       <a
@@ -65,14 +70,17 @@ function ExternalResources({ externalResources }) {
     );
   };
 
+  const isSourceLink = (source) => urlRegex().test(source);
+
   const renderResourceData = resourceData => {
     return Object.keys(resourceData).map((label, index) => {
       const resourceValue = resourceData[label];
-      if (label !== "title") {
+      if (label !== "title" && variantDbLinks?.includes(label)) {
         return (
           <li key={`${index}-${label}`}>
             {!Array.isArray(resourceValue)
-              ? resourceValue.includes("http")
+              ? (isSourceLink(resourceValue)
+                && !resourceValue?.includes("clinvar") && !resourceValue?.includes("snp"))
                 ? renderLink(label, resourceValue)
                 : renderText(label, resourceValue)
               : renderLinksArray(label, resourceValue)}

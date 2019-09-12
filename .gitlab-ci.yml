@@ -2,9 +2,9 @@ image: node:10.16.0-alpine
 
 stages:
   - install_dependencies
-  - build
   - deploy_draft
   - test
+  - build
   - deploy
 
 cache:
@@ -27,11 +27,15 @@ install_dependencies:
 #     - yarn build
 #   artifacts:
 #     paths:
-#       - public
+#       - build
 #   tags:
 #     - build
 #   dependencies:
 #     - install_dependencies
+#   only:
+#     - dev
+#     - s5/master
+#     - s6/master
 
 test:
   stage: test
@@ -60,23 +64,31 @@ test:
 #     - dev
 #     - master
 
-# deploy_dev:
-#   stage: deploy
-#   script:
-#     - install_netlify_cli
-#     - netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod --json | tee deploy_dev.json
-#   artifacts:
-#     paths:
-#       - deploy_dev.json
-#   environment:
-#     name: dev
-#     url: https://anaid.netlify.com
-#   dependencies:
-#     - build
-#   tags:
-#     - build
-#   only:
-#     - dev
+deploy_dev:
+  stage: deploy
+  variables:
+    DISTRIBUTION_ID: E3RZZZSN5R94AD
+  before_script:
+    - apk add --no-cache curl jq python py-pip git
+    - pip install awscli
+  script:
+    - echo "Building app..."
+    - yarn build
+    - echo "Uploading to s3 bucket..."
+    - aws s3 sync --acl public-read --delete build/ s3://analyst-website-dev
+    - echo "Invalidating CloudFront..."
+    - aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths '/*'
+  environment:
+    name: dev
+    url: https://analyst.dev.aidgenomics.com
+  dependencies:
+    - install_dependencies
+  tags:
+    - deploy, build
+  only:
+    - dev
+    - s5/master
+    - s6/master
 
 .helper_functions: &helper_functions |
   function install_jq() {

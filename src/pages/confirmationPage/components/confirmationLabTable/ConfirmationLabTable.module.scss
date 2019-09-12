@@ -1,0 +1,23 @@
+@import "Css/Colors.scss";
+
+.confirmation-lab-table :global {
+  .ant-table-empty {
+    .ant-table-body {
+      overflow: hidden !important;
+    }
+  }
+  .ant-table-fixed {
+    table-layout: fixed !important;
+  }
+  .text {
+    width: 70%;
+    font-weight: normal;
+    font-size: 16px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $title_color;
+    margin-left: 4px;
+  }
+}

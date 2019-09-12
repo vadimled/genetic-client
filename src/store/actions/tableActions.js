@@ -43,13 +43,6 @@ export const handleConfirmationStatus = data => {
   };
 };
 
-export const updateSearch = data => {
-  return {
-    type: actionsTypes.UPDATE_SEARCH,
-    payload: data
-  };
-};
-
 export const applyConfirmation = data => {
   return {
     type: actionsTypes.APPLY_CONFIRMATION,
@@ -64,23 +57,23 @@ export const handleUncheckConfirmationData = data => {
   };
 };
 
-export const updateActivityLog = data => {
+export const fetchTableData = data => {
   return{
-    type: actionsTypes.UPDATE_ACTIVITY_LOG,
+    type: actionsTypes.FETCH_TABLE_DATA,
     payload: data
   };
 };
 
-export const fetchData = data => {
-  return{
-    type: actionsTypes.FETCH_DATA,
-    payload: data
-  };
-};
-
-export function setDataToStore(data) {
+export function setServerDataToStore(data) {
   return {
-    type: actionsTypes.FETCH_DATA_SUCCESS,
+    type: actionsTypes.FETCH_TABLE_DATA_SUCCESS,
+    payload: data
+  };
+}
+
+export function setParsedDataToStore(data) {
+  return {
+    type: actionsTypes.SET_PARSED_DATA_TO_STORE,
     payload: data
   };
 }
@@ -105,3 +98,46 @@ export const tableDataEditResult = data => {
     payload: data
   };
 };
+
+export const setTableReducerLoading = data => {
+  return{
+    type: actionsTypes.SET_TABLE_REDUCER_LOADING,
+    payload: data
+  };
+};
+
+export const setConfirmationStatusToStore = data => {
+  return{
+    type: actionsTypes.SET_CONFIRMATION_STATUS_TO_STORE,
+    payload: data
+  };
+};
+
+export const exportTable = data => {
+  return{
+    type: actionsTypes.EXPORT_TABLE,
+    payload: data
+  };
+};
+
+export const updateVariantInTableData = data => {
+  return{
+    type: actionsTypes.UPDATE_VARIANT_IN_TABLE_DATA,
+    payload: data
+  };
+};
+
+export const saveUserPreferencesSorting = data => {
+  return {
+    type: actionsTypes.SAVE_USER_PREFERENCES_SORTING,
+    payload: data
+  };
+};
+
+export const fetchUserPreferences = data => {
+  return {
+    type: actionsTypes.FETCH_USER_PREFERENCES,
+    payload: data
+  };
+};
+

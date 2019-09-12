@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TableDateAndUser /> snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="table-date-and-user-wrapper"
+  >
+    <div
+      class="table-date-and-user"
+    >
+      <div
+        class="date"
+      >
+        Aug/12,/2019
+      </div>
+      <div
+        class="user"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

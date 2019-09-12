@@ -1,8 +1,48 @@
 import { Icon } from "antd";
 import React from "react";
-import { FILTERS, VARIANT_CLASS_GERMLINE, VARIANT_CLASS_SOMATIC } from "Utils/constants";
+import { FILTERS, VARIANT_CLASS_GERMLINE, VARIANT_CLASS_SOMATIC, ZYGOSITY, EFFECT } from "Utils/constants";
 
 export default {
+  [FILTERS.zygosity]: {
+    title: "Zygosity",
+    type: ["somatic", "germline"],
+    mode: "multiple",
+    items: [
+      {
+        id: ZYGOSITY.unknown.value,
+        label: ZYGOSITY.unknown.label
+      },
+      {
+        id: ZYGOSITY.notReal.value,
+        label: ZYGOSITY.notReal.label
+      },
+      {
+        id: ZYGOSITY.insignificant.value,
+        label: ZYGOSITY.insignificant.label
+      },
+      {
+        id: ZYGOSITY.homo.value,
+        label: ZYGOSITY.homo.label
+      },
+      {
+        id: ZYGOSITY.hetero.value,
+        label: ZYGOSITY.hetero.label
+      },
+      {
+        id: ZYGOSITY.hemi.value,
+        label: ZYGOSITY.hemi.label
+      },
+      {
+        id: ZYGOSITY.somatic.value,
+        label: ZYGOSITY.somatic.label
+      },
+      {
+        id: ZYGOSITY.notDefined.value,
+        label: ZYGOSITY.notDefined.label
+      }
+    ]
+  },
+
   [FILTERS.variantClassGermline]: {
     title: "Germline Class",
     type: ["somatic", "germline"],
@@ -74,6 +114,30 @@ export default {
     ]
   },
 
+  [FILTERS.effect]: {
+    title: "Effect",
+    type: ["somatic", "germline"],
+    mode: "multiple",
+    items: [
+      {
+        id: EFFECT.high.value,
+        label: EFFECT.high.label
+      },
+      {
+        id: EFFECT.modifier.value,
+        label: EFFECT.modifier.label
+      },
+      {
+        id: EFFECT.moderate.value,
+        label: EFFECT.moderate.label
+      },
+      {
+        id: EFFECT.low.value,
+        label: EFFECT.low.label
+      },
+    ]
+  },
+
   [FILTERS.hotSpot]: {
     title: "Hot Spot",
     type: ["somatic"],
@@ -117,7 +181,6 @@ export default {
     items: [
       { id: "clinvar", label: "Clinvar" },
       { id: "cosmic", label: "Cosmic" },
-      { id: "omim", label: "Omim" }
     ]
   },
 

@@ -2,16 +2,18 @@ import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 
 const initialState = {
+  isLoading: false,
   gsid: null,
   panel_type: null,
-  test_id: null,
+  id: null,
   showTumorInfo: false,
   mutation_types: [],
   tumor_info: {
     type: "",
     location: "",
     cancer_cell_percentage: -1
-  }
+  },
+  isTumorInfoLoading: false
 };
 
 const testReducer = createReducer(initialState, {
@@ -29,14 +31,27 @@ const testReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_TUMOR_INFO]: (state, { payload }) => {
-    // const {type: [val](|| location || cancer_cell_percentage)} = payload;
+  // [actionsTypes.SET_TUMOR_INFO]: (state, { payload }) => {
+  //   // const {type: [val](|| location || cancer_cell_percentage)} = payload;
+  //   return {
+  //     ...state,
+  //     tumor_info: {
+  //       ...state.tumor_info,
+  //       ...payload
+  //     }
+  //   };
+  // },
+  [actionsTypes.SET_LOADING]: (state, { payload }) => {
     return {
       ...state,
-      tumor_info: {
-        ...state.tumor_info,
-        ...payload
-      }
+      isLoading: payload
+    };
+  },
+
+  [actionsTypes.SET_TUMOR_INFO_LOADING]: (state, { payload }) => {
+    return {
+      ...state,
+      isTumorInfoLoading: payload
     };
   }
 });

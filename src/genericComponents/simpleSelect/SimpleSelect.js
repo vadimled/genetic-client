@@ -61,7 +61,7 @@ const SimpleSelect = ({
           return (
             <Option key={option.value} value={option.value}>
               <LabeledTag
-                label={option.label}
+                label={option.value === "notDefined" ? "" : option.label}
                 tagColor={option?.tagColor}
                 customClassName={selectHeaderClass}
               />
