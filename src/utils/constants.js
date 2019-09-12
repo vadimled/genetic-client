@@ -725,3 +725,5 @@ export const DEFAULT_FILTERS = {
     [FILTERS.effect]: [],
   }
 };
+
+export const UNCHECK = "UNCHECK";

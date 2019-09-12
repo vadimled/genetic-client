@@ -7,7 +7,7 @@ import {
   TEXTS,
   ZYGOSITY_TYPES,
   ROUTES,
-  EVIDENCE_CATEGORIES_OPTIONS
+  EVIDENCE_CATEGORIES_OPTIONS, UNCHECK
 } from "./constants";
 
 export const getPrevTagColor = ({ prevVal }) => {
@@ -1090,7 +1090,7 @@ const createNewTableDataItem = ({
     newObj.exon = exon; // temporary removed from the table
     newObj.variantClassGermline = germline_class || "unclassified";
     newObj.variantClassSomatic = somatic_class || "unclassified";
-    newObj.status = status || "UNCHECK";
+    newObj.status = status || UNCHECK;
     newObj.activityLog = getTableSortedByDate(activity_log, "timestamp") || [];
     newObj.db_snp = db_snp;
     // filters
