@@ -67,7 +67,11 @@ test:
 deploy_dev:
   stage: deploy
   variables:
-    DISTRIBUTION_ID: E3RZZZSN5R94AD
+    DISTRIBUTION_ID: "E3RZZZSN5R94AD"
+    REACT_APP_API_URL: "https://api.analyst.dev.aidgenomics.com"
+    REACT_APP_AXIOS_MOCK_ENABLED: "false"
+    REACT_APP_MVP_CONFIG: "true"
+    S3_BUCKET: "analyst-website-dev"
   before_script:
     - apk add --no-cache curl jq python py-pip git
     - pip install awscli
@@ -75,7 +79,7 @@ deploy_dev:
     - echo "Building app..."
     - yarn build
     - echo "Uploading to s3 bucket..."
-    - aws s3 sync --acl public-read --delete build/ s3://analyst-website-dev
+    - aws s3 sync --acl public-read --delete build/ s3://$S3_BUCKET
     - echo "Invalidating CloudFront..."
     - aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths '/*'
   environment:
@@ -84,11 +88,41 @@ deploy_dev:
   dependencies:
     - install_dependencies
   tags:
-    - deploy, build
+    - build
+    - deploy
   only:
     - dev
     - s5/master
     - s6/master
+
+deploy_staging:
+  stage: deploy
+  variables:
+    DISTRIBUTION_ID: "E2IIZ8X6KQ3MJ3"
+    REACT_APP_API_URL: "https://api.analyst.staging.aidgenomics.com"
+    REACT_APP_AXIOS_MOCK_ENABLED: "false"
+    REACT_APP_MVP_CONFIG: "true"
+    S3_BUCKET: "analyst-website-staging"
+  before_script:
+    - apk add --no-cache curl jq python py-pip git
+    - pip install awscli
+  script:
+    - echo "Building app..."
+    - yarn build
+    - echo "Uploading to s3 bucket..."
+    - aws s3 sync --acl public-read --delete build/ s3://$S3_BUCKET
+    - echo "Invalidating CloudFront..."
+    - aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths '/*'
+  environment:
+    name: staging
+    url: https://analyst.staging.aidgenomics.com
+  dependencies:
+    - install_dependencies
+  tags:
+    - build
+    - deploy
+  only:
+    - staging
 
 .helper_functions: &helper_functions |
   function install_jq() {
