@@ -1,9 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS, TEXTS } from "Utils/constants";
+import {
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  TEXTS
+} from "Utils/constants";
 import style from "./VariantClassificationContainer.module.scss";
 import { connect } from "react-redux";
-import { sendVariantClass, setCurrentVariantClass, setSelectedZygosityType } from "Actions/variantPageActions";
+import {
+  sendVariantClass,
+  setVariantClass,
+  setCurrentVariantClass,
+  setSelectedZygosityType,
+  setReconfirmStatus
+} from "Actions/variantPageActions";
 import {
   getCurrentVariantClass,
   getCurrentZygosityType,
@@ -12,23 +22,33 @@ import {
   getSomaticValue,
   getVariantId,
   getVariantPageTestId,
-  getZygosityType
+  getZygosityType,
+  getReconfirmStatus
 } from "Store/selectors";
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 import { withRouter } from "react-router-dom";
 import { zygosityTypeByName } from "Utils/helpers";
+import LabeledTag from "GenericComponents/labeledTag/LabeledTag";
 
 // import { withRouter } from "react-router-dom";
 
 class VariantClassificationContainer extends React.Component {
   constructor(props) {
     super(props);
-    const { currentZygosityType, setCurrentVariantClass, somaticValue, germlineValue } = this.props;
-    const classValue = currentZygosityType === TEXTS.somaticUp ? somaticValue : germlineValue;
-    setCurrentVariantClass({currentVariantClass: classValue});
+    const {
+      currentZygosityType,
+      setCurrentVariantClass,
+      somaticValue,
+      germlineValue,
+      setReconfirmStatus
+    } = this.props;
+    const classValue =
+      currentZygosityType === TEXTS.somaticUp ? somaticValue : germlineValue;
+
+    setCurrentVariantClass({ currentVariantClass: classValue });
+    setReconfirmStatus(false);
   }
-  
-  
+
   createVariantClassType = () => {
     return this.props.currentZygosityType === TEXTS.somaticUp
       ? TEXTS.somaticClass
@@ -42,19 +62,31 @@ class VariantClassificationContainer extends React.Component {
       setZygosityType,
       selectedZygosityType,
       testId,
-      variantId
+      variantId,
+      currentVariantClass,
+      reconfirmStatus,
+      setVariantClass
     } = this.props;
 
     if (!value && selectedZygosityType !== id) {
       setZygosityType({ selectedZygosityType: id });
-    } else if (value) {
-      setZygosityType({ selectedZygosityType: name });
+    } else if (value && !reconfirmStatus) {
+      console.log({ value, reconfirmStatus, test: e.target.test });
       sendVariantClass({
         testId,
         variantId,
         value,
         name: this.createVariantClassType()
       });
+    } else if (value !== currentVariantClass) {
+      sendVariantClass({
+        testId,
+        variantId,
+        value,
+        name: this.createVariantClassType()
+      });
+    } else if (value === currentVariantClass && reconfirmStatus) {
+      setVariantClass({ value, name: this.createVariantClassType() });
     }
 
     this.props.history.push(
@@ -74,7 +106,7 @@ class VariantClassificationContainer extends React.Component {
   setVariantClassOptionsWithReconfirm = buttonOf => {
     const { currentZygosityType, currentVariantClass } = this.props;
     if (!currentZygosityType) return;
-  
+
     if (buttonOf !== currentZygosityType) {
       return buttonOf === TEXTS.somaticUp
         ? SOMATIC_VARIANT_CLASS_OPTIONS
@@ -96,6 +128,10 @@ class VariantClassificationContainer extends React.Component {
     });
   };
 
+  setReconfirmStatus = val => {
+    this.props.setReconfirmStatus(val);
+  };
+
   render() {
     const {
       selectedZygosityType,
@@ -103,9 +139,12 @@ class VariantClassificationContainer extends React.Component {
       germlineValue,
       currentZygosityType,
       testId,
-      variantId
+      variantId,
+      reconfirmStatus,
+      currentVariantClass
     } = this.props;
 
+    console.log({ reconfirmStatus, currentZygosityType });
     return (
       <div className={style["zygosity-type-wrapper"]}>
         <div className="current-zygosity-wrapper">
@@ -113,7 +152,7 @@ class VariantClassificationContainer extends React.Component {
           <div className="context">{currentZygosityType}</div>
         </div>
         <div className="zygosity-type-radio-group">
-          <div className="first-button flex items-center justify-center">
+          <div className="first-button flex flex-column items-center">
             <ZygosityTypeButton
               currentZygosity={currentZygosityType}
               selectedZygosityType={selectedZygosityType}
@@ -128,22 +167,53 @@ class VariantClassificationContainer extends React.Component {
               variantId={variantId}
               onChangeClassification={this.onChangeClassification}
               onChangeSelectedZygosityType={this.onChangeSelectedZygosityType}
+              setReconfirmStatus={this.setReconfirmStatus}
+              reconfirmStatus={reconfirmStatus}
             />
+            {reconfirmStatus && currentZygosityType === TEXTS.germlineUp && (
+              <div className="reconfirm-wrapper">
+                <LabeledTag
+                  value={currentVariantClass}
+                  typeData={this.setVariantClassOptionsWithReconfirm(
+                    TEXTS.germlineUp
+                  )}
+                  customClassName="reconfirm-labeled-tag"
+                />
+                <div className="reconfirm-text">{` re-confirm`}</div>
+              </div>
+            )}
           </div>
-
-          <ZygosityTypeButton
-            currentZygosity={currentZygosityType}
-            selectedZygosityType={selectedZygosityType}
-            type={TEXTS.somatic}
-            currValue={somaticValue}
-            onChangeType={this.onChangeType}
-            title={TEXTS.somaticUp}
-            typeData={this.setVariantClassOptionsWithReconfirm(TEXTS.somaticUp)}
-            testId={testId}
-            variantId={variantId}
-            onChangeClassification={this.onChangeClassification}
-            onChangeSelectedZygosityType={this.onChangeSelectedZygosityType}
-          />
+          <div className="flex flex-column items-center">
+            <ZygosityTypeButton
+              currentZygosity={currentZygosityType}
+              selectedZygosityType={selectedZygosityType}
+              type={TEXTS.somatic}
+              currValue={somaticValue}
+              onChangeType={this.onChangeType}
+              title={TEXTS.somaticUp}
+              typeData={this.setVariantClassOptionsWithReconfirm(
+                TEXTS.somaticUp
+              )}
+              testId={testId}
+              variantId={variantId}
+              onChangeClassification={this.onChangeClassification}
+              onChangeSelectedZygosityType={this.onChangeSelectedZygosityType}
+              setReconfirmStatus={this.setReconfirmStatus}
+              reconfirmStatus={reconfirmStatus}
+            />
+            {reconfirmStatus && currentZygosityType === TEXTS.somaticUp && (
+              <div className="reconfirm-wrapper">
+                <LabeledTag
+                  value={currentVariantClass}
+                  typeData={this.setVariantClassOptionsWithReconfirm(
+                    TEXTS.somaticUp
+                  )}
+                  customClassName="reconfirm-labeled-tag"
+                />
+                <div className="reconfirm-text">{` re-confirm`}</div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
@@ -166,15 +236,18 @@ const mapStateToProps = state => {
     currentVariantClass: getCurrentVariantClass(state),
     testId: getVariantPageTestId(state),
     variantId: getVariantId(state),
-    changeClassData: getDataVariantClassChanged(state)
+    changeClassData: getDataVariantClassChanged(state),
+    reconfirmStatus: getReconfirmStatus(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     sendVariantClass: data => dispatch(sendVariantClass(data)),
+    setVariantClass: data => dispatch(setVariantClass(data)),
     setZygosityType: data => dispatch(setSelectedZygosityType(data)),
-    setCurrentVariantClass: data => dispatch(setCurrentVariantClass(data))
+    setCurrentVariantClass: data => dispatch(setCurrentVariantClass(data)),
+    setReconfirmStatus: data => dispatch(setReconfirmStatus(data))
   };
 }
 

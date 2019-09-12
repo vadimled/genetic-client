@@ -9,11 +9,12 @@ const initialState = {
   selectedZygosityType: null,
   classificationHistory: [],
   somaticClassHistory: null,
-  germlineClassHistory: null
+  germlineClassHistory: null,
+  isReconfirmed: false
 };
 
 const variantPageReducer = createReducer(initialState, {
-  [actionsTypes.SET_VARIANT_CLASSIFICATION]: (state, { payload }) => {
+  [actionsTypes.SET_VARIANT_CLASS]: (state, { payload }) => {
     const { value, name } = payload;
     return {
       ...state,
@@ -54,7 +55,6 @@ const variantPageReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_CURRENT_VARIANT_CLASS]: (state, { payload }) => {
-    console.log(payload);
     return {
       ...state,
       ...payload
@@ -163,6 +163,13 @@ const variantPageReducer = createReducer(initialState, {
     return {
       ...state,
       isLoading: payload
+    };
+  },
+
+  [actionsTypes.SET_RECONFIRM_STATUS]: (state, { payload }) => {
+    return {
+      ...state,
+      isReconfirmed: payload
     };
   }
 });

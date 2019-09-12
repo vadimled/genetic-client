@@ -1,4 +1,4 @@
-import React, { Fragment, memo } from "react";
+import React, { Fragment, memo, useState } from "react";
 import { Select } from "antd";
 import PropTypes from "prop-types";
 import CloseIcon from "Assets/close.svg";
@@ -22,8 +22,30 @@ const SimpleSelect = ({
   selectHeaderClass,
   className,
   onFocus,
+  reconfirmMode,
+  setReconfirmStatus,
+  reconfirmStatus,
   ...props
 }) => {
+  const [currentVariantClass, setReconfirmClass] = useState();
+  const handleReconfirm = e => {
+    if (
+      currentVariantClass &&
+      currentVariantClass === e.key &&
+      !reconfirmStatus
+    ) {
+      setReconfirmStatus(true);
+      console.log("handleReconfirm - ", e.key);
+      onChange({
+        target: {
+          name: name,
+          value: e.key,
+          test: "test"
+        }
+      });
+    }
+  };
+
   return (
     <Fragment>
       {!!label && <label>{label}</label>}
@@ -34,6 +56,7 @@ const SimpleSelect = ({
         disabled={disabled}
         className={className}
         onChange={val =>
+          console.log("main onChange - ", reconfirmStatus) ||
           onChange({
             target: {
               name: name,
@@ -58,17 +81,23 @@ const SimpleSelect = ({
         {...props}
       >
         {options?.map(option => {
+          if (option.reconfirm && !currentVariantClass) {
+            setReconfirmClass(option.value);
+          }
           return (
-            <Option key={option.value} value={option.value}>
+            <Option
+              key={option.value}
+              value={option.value}
+              onClick={reconfirmMode ? handleReconfirm : null}
+            >
               <LabeledTag
                 label={option.value === "notDefined" ? "" : option.label}
                 tagColor={option?.tagColor}
                 customClassName={selectHeaderClass}
               />
-              {
-                option.reconfirm &&
-                 <div className="reconfirm">{`(${option.reconfirm})`}</div>
-              }
+              {option.reconfirm && (
+                <div className="reconfirm">{`(${option.reconfirm})`}</div>
+              )}
             </Option>
           );
         })}

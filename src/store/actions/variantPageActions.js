@@ -1,8 +1,8 @@
 import actionsTypes from "../actionsTypes";
 
-export const setVariantClassification = data => {
+export const setVariantClass = data => {
   return {
-    type: actionsTypes.SET_VARIANT_CLASSIFICATION,
+    type: actionsTypes.SET_VARIANT_CLASS,
     payload: data
   };
 };
@@ -122,6 +122,13 @@ export const setHistoryTableData = data => {
 export const setCurrentVariantClass = data => {
   return {
     type: actionsTypes.SET_CURRENT_VARIANT_CLASS,
+    payload: data
+  };
+};
+
+export const setReconfirmStatus = data => {
+  return {
+    type: actionsTypes.SET_RECONFIRM_STATUS,
     payload: data
   };
 };
