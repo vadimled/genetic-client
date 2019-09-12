@@ -277,7 +277,8 @@ export function* sendForConfirmationSaga(data) {
     yield put(applyConfirmation(data.payload));
     yield put(setConfirmationData(null));
     yield put(handleOnConfirmation(false)); // hide confirmation popup
-  } catch (e) {
+  }
+  catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["sendForConfirmationSaga"]);
       Sentry.captureException(e);
@@ -321,9 +322,14 @@ export function* handleConfirmationStatusSaga(data) {
     }
 
     yield put(setTableReducerLoading(false));
-  } catch (e) {
+  }
+  catch (e) {
     yield put(setTableReducerLoading(false));
     console.log("-err: ", e);
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["handleConfirmationStatusSaga"]);
+      Sentry.captureException(e);
+    });
   }
 }
 
@@ -748,6 +754,10 @@ export function* applyConfirmationSaga(data){
   } catch (e) {
     yield put(setTableReducerLoading(false));
     console.log("-err: ", e);
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["applyConfirmationSaga"]);
+      Sentry.captureException(e);
+    });
   }
 }
 
