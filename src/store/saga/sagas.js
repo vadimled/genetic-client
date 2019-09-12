@@ -268,7 +268,6 @@ export function* goToChrPositionIgvSaga(data) {
 }
 
 export function* sendForConfirmationSaga(data) {
-
   try {
     // -> API request
 
