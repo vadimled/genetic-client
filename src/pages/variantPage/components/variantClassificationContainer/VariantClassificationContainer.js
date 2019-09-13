@@ -30,8 +30,6 @@ import { withRouter } from "react-router-dom";
 import { zygosityTypeByName } from "Utils/helpers";
 import LabeledTag from "GenericComponents/labeledTag/LabeledTag";
 
-// import { withRouter } from "react-router-dom";
-
 class VariantClassificationContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -56,7 +54,7 @@ class VariantClassificationContainer extends React.Component {
   };
 
   onChangeClassification = (e, id) => {
-    const { value, name } = e?.target || {};
+    const { value, name, reconfirm } = e?.target || {};
     const {
       sendVariantClass,
       setZygosityType,
@@ -65,28 +63,41 @@ class VariantClassificationContainer extends React.Component {
       variantId,
       currentVariantClass,
       reconfirmStatus,
-      setVariantClass
+      setVariantClass,
+      setReconfirmStatus
     } = this.props;
 
+    if (reconfirm) {
+      setReconfirmStatus(true);
+    }
     if (!value && selectedZygosityType !== id) {
       setZygosityType({ selectedZygosityType: id });
-    } else if (value && !reconfirmStatus) {
-      console.log({ value, reconfirmStatus, test: e.target.test });
+    } else if (reconfirm && !reconfirmStatus && value === currentVariantClass) {
       sendVariantClass({
         testId,
         variantId,
         value,
         name: this.createVariantClassType()
       });
-    } else if (value !== currentVariantClass) {
-      sendVariantClass({
-        testId,
-        variantId,
-        value,
-        name: this.createVariantClassType()
-      });
-    } else if (value === currentVariantClass && reconfirmStatus) {
+    } else if (
+      (value === currentVariantClass && reconfirmStatus) ||
+      (!reconfirm && !reconfirmStatus && value === currentVariantClass)
+    ) {
       setVariantClass({ value, name: this.createVariantClassType() });
+    } else if (value && !reconfirmStatus) {
+      sendVariantClass({
+        testId,
+        variantId,
+        value,
+        name: this.createVariantClassType()
+      });
+    } else if (value && reconfirmStatus && value !== currentVariantClass) {
+      sendVariantClass({
+        testId,
+        variantId,
+        value,
+        name: this.createVariantClassType()
+      });
     }
 
     this.props.history.push(
@@ -128,10 +139,6 @@ class VariantClassificationContainer extends React.Component {
     });
   };
 
-  setReconfirmStatus = val => {
-    this.props.setReconfirmStatus(val);
-  };
-
   render() {
     const {
       selectedZygosityType,
@@ -144,7 +151,6 @@ class VariantClassificationContainer extends React.Component {
       currentVariantClass
     } = this.props;
 
-    console.log({ reconfirmStatus, currentZygosityType });
     return (
       <div className={style["zygosity-type-wrapper"]}>
         <div className="current-zygosity-wrapper">
@@ -167,7 +173,6 @@ class VariantClassificationContainer extends React.Component {
               variantId={variantId}
               onChangeClassification={this.onChangeClassification}
               onChangeSelectedZygosityType={this.onChangeSelectedZygosityType}
-              setReconfirmStatus={this.setReconfirmStatus}
               reconfirmStatus={reconfirmStatus}
               currentVariantClass={currentVariantClass}
             />
@@ -199,7 +204,6 @@ class VariantClassificationContainer extends React.Component {
               variantId={variantId}
               onChangeClassification={this.onChangeClassification}
               onChangeSelectedZygosityType={this.onChangeSelectedZygosityType}
-              setReconfirmStatus={this.setReconfirmStatus}
               reconfirmStatus={reconfirmStatus}
               currentVariantClass={currentVariantClass}
             />

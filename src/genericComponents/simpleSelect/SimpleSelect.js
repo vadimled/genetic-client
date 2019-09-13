@@ -23,24 +23,22 @@ const SimpleSelect = ({
   className,
   onFocus,
   reconfirmMode,
-  setReconfirmStatus,
   reconfirmStatus,
   currentVariantClass,
   ...props
 }) => {
   const handleReconfirm = e => {
+    const { key } = e;
     if (
       currentVariantClass &&
-      currentVariantClass === e.key &&
+      currentVariantClass === key &&
       !reconfirmStatus
     ) {
-      setReconfirmStatus(true);
-      console.log("handleReconfirm - ", e.key);
       onChange({
         target: {
           name: name,
-          value: e.key,
-          test: "test"
+          value: key,
+          reconfirm: true
         }
       });
     }
@@ -56,7 +54,6 @@ const SimpleSelect = ({
         disabled={disabled}
         className={className}
         onChange={val =>
-          console.log("main onChange - ", reconfirmStatus) ||
           onChange({
             target: {
               name: name,

@@ -18,7 +18,6 @@ function ZygosityTypeButton({
   testId,
   onChangeClassification,
   onChangeSelectedZygosityType,
-  setReconfirmStatus,
   reconfirmStatus,
   currentVariantClass
 }) {
@@ -70,7 +69,6 @@ function ZygosityTypeButton({
                 active: selectedZygosityType !== type
               })}
               className={selectedZygosityType === type ? "active" : null}
-              setReconfirmStatus={setReconfirmStatus}
               reconfirmMode
               reconfirmStatus={reconfirmStatus}
               currentVariantClass={currentVariantClass}
