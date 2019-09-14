@@ -113,7 +113,10 @@ SimpleSelect.propTypes = {
   showArrow: PropTypes.bool,
   selectHeaderClass: PropTypes.string,
   className: PropTypes.string,
-  onFocus: PropTypes.func
+  onFocus: PropTypes.func,
+  reconfirmMode: PropTypes.bool,
+  reconfirmStatus: PropTypes.bool,
+  currentVariantClass: PropTypes.string,
 };
 
 SimpleSelect.defaultProps = {
