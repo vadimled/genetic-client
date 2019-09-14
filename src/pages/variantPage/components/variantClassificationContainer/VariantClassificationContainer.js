@@ -1,10 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  GERMLINE_VARIANT_CLASS_OPTIONS,
-  SOMATIC_VARIANT_CLASS_OPTIONS,
-  TEXTS
-} from "Utils/constants";
+import {TEXTS} from "Utils/constants";
 import style from "./VariantClassificationContainer.module.scss";
 import { connect } from "react-redux";
 import {
@@ -27,7 +23,7 @@ import {
 } from "Store/selectors";
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 import { withRouter } from "react-router-dom";
-import { zygosityTypeByName } from "Utils/helpers";
+import { zygosityTypeByName, setVariantClassOptionsWithReconfirm } from "Utils/helpers";
 import LabeledTag from "GenericComponents/labeledTag/LabeledTag";
 
 class VariantClassificationContainer extends React.Component {
@@ -114,31 +110,6 @@ class VariantClassificationContainer extends React.Component {
     );
   };
 
-  setVariantClassOptionsWithReconfirm = buttonOf => {
-    const { currentZygosityType, currentVariantClass } = this.props;
-    if (!currentZygosityType) return;
-
-    if (buttonOf !== currentZygosityType) {
-      return buttonOf === TEXTS.somaticUp
-        ? SOMATIC_VARIANT_CLASS_OPTIONS
-        : GERMLINE_VARIANT_CLASS_OPTIONS;
-    }
-
-    let typeData;
-
-    if (currentZygosityType === TEXTS.somaticUp) {
-      typeData = SOMATIC_VARIANT_CLASS_OPTIONS;
-    } else if (currentZygosityType === TEXTS.germlineUp) {
-      typeData = GERMLINE_VARIANT_CLASS_OPTIONS;
-    }
-
-    return typeData.map(item => {
-      if (item.value === currentVariantClass) {
-        return { ...item, reconfirm: TEXTS.reconfirm };
-      } else return item;
-    });
-  };
-
   render() {
     const {
       selectedZygosityType,
@@ -166,8 +137,10 @@ class VariantClassificationContainer extends React.Component {
               currValue={germlineValue}
               onChangeType={this.onChangeType}
               title={TEXTS.germlineUp}
-              typeData={this.setVariantClassOptionsWithReconfirm(
-                TEXTS.germlineUp
+              typeData={setVariantClassOptionsWithReconfirm(
+                TEXTS.germlineUp,
+                currentZygosityType,
+                currentVariantClass
               )}
               testId={testId}
               variantId={variantId}
@@ -180,8 +153,10 @@ class VariantClassificationContainer extends React.Component {
               <div className="reconfirm-wrapper">
                 <LabeledTag
                   value={currentVariantClass}
-                  typeData={this.setVariantClassOptionsWithReconfirm(
-                    TEXTS.germlineUp
+                  typeData={setVariantClassOptionsWithReconfirm(
+                    TEXTS.germlineUp,
+                    currentZygosityType,
+                    currentVariantClass
                   )}
                   customClassName="reconfirm-labeled-tag"
                 />
@@ -197,8 +172,10 @@ class VariantClassificationContainer extends React.Component {
               currValue={somaticValue}
               onChangeType={this.onChangeType}
               title={TEXTS.somaticUp}
-              typeData={this.setVariantClassOptionsWithReconfirm(
-                TEXTS.somaticUp
+              typeData={setVariantClassOptionsWithReconfirm(
+                TEXTS.somaticUp,
+                currentZygosityType,
+                currentVariantClass
               )}
               testId={testId}
               variantId={variantId}
@@ -211,8 +188,10 @@ class VariantClassificationContainer extends React.Component {
               <div className="reconfirm-wrapper">
                 <LabeledTag
                   value={currentVariantClass}
-                  typeData={this.setVariantClassOptionsWithReconfirm(
-                    TEXTS.somaticUp
+                  typeData={setVariantClassOptionsWithReconfirm(
+                    TEXTS.somaticUp,
+                    currentZygosityType,
+                    currentVariantClass
                   )}
                   customClassName="reconfirm-labeled-tag"
                 />
