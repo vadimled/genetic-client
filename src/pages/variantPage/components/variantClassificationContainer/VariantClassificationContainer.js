@@ -1,30 +1,99 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {TEXTS} from "Utils/constants";
+import { TEXTS } from "Utils/constants";
 import style from "./VariantClassificationContainer.module.scss";
 import { connect } from "react-redux";
 import {
   sendVariantClass,
-  setVariantClass,
   setCurrentVariantClass,
+  setReconfirmStatus,
   setSelectedZygosityType,
-  setReconfirmStatus
+  setVariantClass
 } from "Actions/variantPageActions";
 import {
   getCurrentVariantClass,
   getCurrentZygosityType,
-  getDataVariantClassChanged,
   getGermlineValue,
+  getReconfirmStatus,
   getSomaticValue,
   getVariantId,
   getVariantPageTestId,
-  getZygosityType,
-  getReconfirmStatus
+  getZygosityType
 } from "Store/selectors";
 import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
 import { withRouter } from "react-router-dom";
-import { zygosityTypeByName, setVariantClassOptionsWithReconfirm } from "Utils/helpers";
+import {
+  setVariantClassOptionsWithReconfirm,
+  zygosityTypeByName
+} from "Utils/helpers";
 import LabeledTag from "GenericComponents/labeledTag/LabeledTag";
+
+function ZygosityButtonWithReconfirmText(props) {
+  const {
+    onChangeType,
+    reconfirmStatus,
+    currValue,
+    currentVariantClass,
+    currentZygosity,
+    onChangeSelectedZygosityType,
+    onChangeClassification,
+    testId,
+    title,
+    selectedZygosityType,
+    variantId,
+    type
+  } = props;
+  return (
+    <>
+      <ZygosityTypeButton
+        currentZygosity={currentZygosity}
+        selectedZygosityType={selectedZygosityType}
+        type={type} // TEXTS.germline
+        currValue={currValue}
+        onChangeType={onChangeType}
+        title={title}
+        typeData={setVariantClassOptionsWithReconfirm(
+          title,
+          currentZygosity,
+          currentVariantClass
+        )}
+        testId={testId}
+        variantId={variantId}
+        onChangeClassification={onChangeClassification}
+        onChangeSelectedZygosityType={onChangeSelectedZygosityType}
+        reconfirmStatus={reconfirmStatus}
+        currentVariantClass={currentVariantClass}
+      />
+      {reconfirmStatus && currentZygosity === title && (
+        <div className="reconfirm-wrapper">
+          <LabeledTag
+            value={currentVariantClass}
+            typeData={setVariantClassOptionsWithReconfirm(
+              title,
+              currentZygosity,
+              currentVariantClass
+            )}
+            customClassName="reconfirm-labeled-tag"
+          />
+          <div className="reconfirm-text">{` re-confirm`}</div>
+        </div>
+      )}
+    </>
+  );
+}
+
+ZygosityButtonWithReconfirmText.propTypes = {
+  currentZygosity: PropTypes.string,
+  selectedZygosityType: PropTypes.string,
+  currValue: PropTypes.any,
+  onChangeType: PropTypes.string,
+  currentVariantClass: PropTypes.string,
+  testId: PropTypes.string,
+  variantId: PropTypes.string,
+  onChangeClassification: PropTypes.func,
+  onChangeSelectedZygosityType: PropTypes.func,
+  reconfirmStatus: PropTypes.bool
+};
 
 class VariantClassificationContainer extends React.Component {
   constructor(props) {
@@ -130,74 +199,36 @@ class VariantClassificationContainer extends React.Component {
         </div>
         <div className="zygosity-type-radio-group">
           <div className="first-button flex flex-column items-center">
-            <ZygosityTypeButton
+            <ZygosityButtonWithReconfirmText
+              type={TEXTS.germline}
+              title={TEXTS.germlineUp}
               currentZygosity={currentZygosityType}
               selectedZygosityType={selectedZygosityType}
-              type={TEXTS.germline}
               currValue={germlineValue}
               onChangeType={this.onChangeType}
-              title={TEXTS.germlineUp}
-              typeData={setVariantClassOptionsWithReconfirm(
-                TEXTS.germlineUp,
-                currentZygosityType,
-                currentVariantClass
-              )}
+              currentVariantClass={currentVariantClass}
               testId={testId}
               variantId={variantId}
               onChangeClassification={this.onChangeClassification}
               onChangeSelectedZygosityType={this.onChangeSelectedZygosityType}
               reconfirmStatus={reconfirmStatus}
-              currentVariantClass={currentVariantClass}
             />
-            {reconfirmStatus && currentZygosityType === TEXTS.germlineUp && (
-              <div className="reconfirm-wrapper">
-                <LabeledTag
-                  value={currentVariantClass}
-                  typeData={setVariantClassOptionsWithReconfirm(
-                    TEXTS.germlineUp,
-                    currentZygosityType,
-                    currentVariantClass
-                  )}
-                  customClassName="reconfirm-labeled-tag"
-                />
-                <div className="reconfirm-text">{` re-confirm`}</div>
-              </div>
-            )}
           </div>
           <div className="flex flex-column items-center">
-            <ZygosityTypeButton
+            <ZygosityButtonWithReconfirmText
+              type={TEXTS.somatic}
+              title={TEXTS.somaticUp}
               currentZygosity={currentZygosityType}
               selectedZygosityType={selectedZygosityType}
-              type={TEXTS.somatic}
               currValue={somaticValue}
               onChangeType={this.onChangeType}
-              title={TEXTS.somaticUp}
-              typeData={setVariantClassOptionsWithReconfirm(
-                TEXTS.somaticUp,
-                currentZygosityType,
-                currentVariantClass
-              )}
+              currentVariantClass={currentVariantClass}
               testId={testId}
               variantId={variantId}
               onChangeClassification={this.onChangeClassification}
               onChangeSelectedZygosityType={this.onChangeSelectedZygosityType}
               reconfirmStatus={reconfirmStatus}
-              currentVariantClass={currentVariantClass}
             />
-            {reconfirmStatus && currentZygosityType === TEXTS.somaticUp && (
-              <div className="reconfirm-wrapper">
-                <LabeledTag
-                  value={currentVariantClass}
-                  typeData={setVariantClassOptionsWithReconfirm(
-                    TEXTS.somaticUp,
-                    currentZygosityType,
-                    currentVariantClass
-                  )}
-                  customClassName="reconfirm-labeled-tag"
-                />
-                <div className="reconfirm-text">{` re-confirm`}</div>
-              </div>
-            )}
           </div>
         </div>
       </div>
@@ -221,7 +252,6 @@ const mapStateToProps = state => {
     currentVariantClass: getCurrentVariantClass(state),
     testId: getVariantPageTestId(state),
     variantId: getVariantId(state),
-    changeClassData: getDataVariantClassChanged(state),
     reconfirmStatus: getReconfirmStatus(state)
   };
 };
