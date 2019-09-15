@@ -20,80 +20,9 @@ import {
   getVariantPageTestId,
   getZygosityType
 } from "Store/selectors";
-import ZygosityTypeButton from "variantComponents/zygosityTypeButton";
+import ZygosityButtonWithReconfirmText from "variantComponents/zygosityButtonWithReconfirmText";
 import { withRouter } from "react-router-dom";
-import {
-  setVariantClassOptionsWithReconfirm,
-  zygosityTypeByName
-} from "Utils/helpers";
-import LabeledTag from "GenericComponents/labeledTag/LabeledTag";
-
-function ZygosityButtonWithReconfirmText(props) {
-  const {
-    onChangeType,
-    reconfirmStatus,
-    currValue,
-    currentVariantClass,
-    currentZygosity,
-    onChangeSelectedZygosityType,
-    onChangeClassification,
-    testId,
-    title,
-    selectedZygosityType,
-    variantId,
-    type
-  } = props;
-  return (
-    <>
-      <ZygosityTypeButton
-        currentZygosity={currentZygosity}
-        selectedZygosityType={selectedZygosityType}
-        type={type} // TEXTS.germline
-        currValue={currValue}
-        onChangeType={onChangeType}
-        title={title}
-        typeData={setVariantClassOptionsWithReconfirm(
-          title,
-          currentZygosity,
-          currentVariantClass
-        )}
-        testId={testId}
-        variantId={variantId}
-        onChangeClassification={onChangeClassification}
-        onChangeSelectedZygosityType={onChangeSelectedZygosityType}
-        reconfirmStatus={reconfirmStatus}
-        currentVariantClass={currentVariantClass}
-      />
-      {reconfirmStatus && currentZygosity === title && (
-        <div className="reconfirm-wrapper">
-          <LabeledTag
-            value={currentVariantClass}
-            typeData={setVariantClassOptionsWithReconfirm(
-              title,
-              currentZygosity,
-              currentVariantClass
-            )}
-            customClassName="reconfirm-labeled-tag"
-          />
-          <div className="reconfirm-text">{` re-confirm`}</div>
-        </div>
-      )}
-    </>
-  );
-}
-
-ZygosityButtonWithReconfirmText.propTypes = {
-  currentZygosity: PropTypes.string,
-  selectedZygosityType: PropTypes.string,
-  currValue: PropTypes.any,
-  onChangeType: PropTypes.string,
-  currentVariantClass: PropTypes.string,
-  testId: PropTypes.string,
-  variantId: PropTypes.string,
-  onChangeClassification: PropTypes.func,
-  onChangeSelectedZygosityType: PropTypes.func,
-  reconfirmStatus: PropTypes.bool
-};
+import { zygosityTypeByName } from "Utils/helpers";
 
 class VariantClassificationContainer extends React.Component {
   constructor(props) {
