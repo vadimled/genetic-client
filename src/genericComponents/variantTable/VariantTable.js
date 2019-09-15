@@ -16,10 +16,10 @@ import HighlightedCell from "./components/highlightedCell";
 import LabeledTag from "../labeledTag";
 import {
   GERMLINE_VARIANT_CLASS_OPTIONS,
-  SOMATIC_VARIANT_CLASS_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS, UNCHECK,
   VARIANT_CLASS_GERMLINE,
   VARIANT_CLASS_SOMATIC
-} from "../../utils/constants";
+} from "Utils/constants";
 
 class VariantTable extends Component {
   state = {
@@ -187,7 +187,8 @@ class VariantTable extends Component {
         );
 
         column.render = (text, record) => {
-          if (record.status) {
+
+          if (record.status && record.status !== UNCHECK) {
             return (
               <HighlightedCell isHighlighted={record.isAdded}>
                 <ConfirmationStatus
@@ -195,7 +196,7 @@ class VariantTable extends Component {
                   handleStatus={status =>
                     this.props.handleConfirmationStatus({
                       variantId: record.id,
-                      testId,
+                      testId: this.props.testId,
                       status
                     })
                   }

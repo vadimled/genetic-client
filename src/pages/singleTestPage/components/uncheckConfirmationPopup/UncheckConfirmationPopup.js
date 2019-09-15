@@ -11,6 +11,7 @@ import { getUncheckConfirmationData } from "Store/selectors";
 
 const UncheckConfirmationPopup = (props) => {
   const { handleUncheckConfirmationData, handleConfirmationStatus, uncheckConfirmationData } = props;
+
   return (
     <Portal>
       <div className={styles['uncheck-confirmation-popup']} data-testid="uncheck-confirmation-popup">
@@ -38,6 +39,7 @@ const UncheckConfirmationPopup = (props) => {
             <Button
               className="confirmation-btn"
               onClick={handleConfirmationStatus.bind(null, uncheckConfirmationData)}
+              // onClick={uncheckConfirm}
               data-testid="yes-btn"
             >
               Yes

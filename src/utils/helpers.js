@@ -9,7 +9,8 @@ import {
   ROUTES,
   EVIDENCE_CATEGORIES_OPTIONS,
   SOMATIC_VARIANT_CLASS_OPTIONS,
-  GERMLINE_VARIANT_CLASS_OPTIONS
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  UNCHECK
 } from "./constants";
 
 export const getPrevTagColor = ({ prevVal }) => {
@@ -1092,7 +1093,7 @@ const createNewTableDataItem = ({
     newObj.exon = exon; // temporary removed from the table
     newObj.variantClassGermline = germline_class || "unclassified";
     newObj.variantClassSomatic = somatic_class || "unclassified";
-    newObj.status = status || null;
+    newObj.status = status || UNCHECK;
     newObj.activityLog = getTableSortedByDate(activity_log, "timestamp") || [];
     newObj.db_snp = db_snp;
     // filters

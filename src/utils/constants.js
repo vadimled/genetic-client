@@ -182,7 +182,8 @@ export const CONFIRMATION_VALUES = {
     label: "Not Confirmed",
     iconImg: ImgCircleX
   },
-  PENDING: { value: "PENDING", label: "Pending", iconImg: ImgCircleClock }
+  PENDING: { value: "PENDING", label: "Pending", iconImg: ImgCircleClock },
+  // UNCHECK: { value: "UNCHECK", label: "Uncheck", iconImg: "" }
 };
 
 export const ALERT_STATUSES = {
@@ -727,3 +728,5 @@ export const DEFAULT_FILTERS = {
     [FILTERS.effect]: [],
   }
 };
+
+export const UNCHECK = "UNCHECK";

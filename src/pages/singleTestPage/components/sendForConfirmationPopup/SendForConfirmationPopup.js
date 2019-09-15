@@ -48,7 +48,7 @@ const SendForConfirmationPopup = (props) => {
       });
     });
 
-    sendForConfirmation(data);
+    sendForConfirmation({variants: data, testId: testId });
   };
 
   return (
