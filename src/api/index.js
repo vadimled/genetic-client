@@ -150,3 +150,9 @@ export function fetchUserPreferencesApi({ testId }) {
 export function fetchConfirmationMetadataApi(data) {
   return axios_based.get(`/confirmations/${data.payload}`);
 }
+export function sendVariantToConfirmation(data) {
+  const { variants, testId } = data;
+  return axios_based.post(`/tests/${testId}/confirmations`, {
+    variants
+  });
+}

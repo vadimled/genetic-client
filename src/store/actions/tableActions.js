@@ -141,3 +141,10 @@ export const fetchUserPreferences = data => {
   };
 };
 
+
+export const applyConfirmationSuccess = data => {
+  return {
+    type: actionsTypes.APPLY_CONFIRMATION_SUCCESS,
+    payload: data
+  };
+};

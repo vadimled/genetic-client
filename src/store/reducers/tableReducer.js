@@ -122,7 +122,7 @@ const tableReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.APPLY_CONFIRMATION]: (state, { payload }) => {
+  [actionsTypes.APPLY_CONFIRMATION_SUCCESS]: (state, { payload }) => {
     let data = state?.data;
     // payload includes confirmed rows
     payload.forEach(row => {
@@ -138,10 +138,12 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_CONFIRMATION_STATUS_TO_STORE]: (state, { payload }) => {
-    const { id, status } = payload;
+
+    const { variantId, status } = payload;
+
     let data = state?.data;
 
-    data[id].status = status;
+    data[variantId].status = status;
 
     return {
       ...state,
