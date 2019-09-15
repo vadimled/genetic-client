@@ -22,8 +22,28 @@ const SimpleSelect = ({
   selectHeaderClass,
   className,
   onFocus,
+  reconfirmMode,
+  reconfirmStatus,
+  currentVariantClass,
   ...props
 }) => {
+  const handleReconfirm = e => {
+    const { key } = e;
+    if (
+      currentVariantClass &&
+      currentVariantClass === key &&
+      !reconfirmStatus
+    ) {
+      onChange({
+        target: {
+          name: name,
+          value: key,
+          reconfirm: true
+        }
+      });
+    }
+  };
+
   return (
     <Fragment>
       {!!label && <label>{label}</label>}
@@ -59,12 +79,19 @@ const SimpleSelect = ({
       >
         {options?.map(option => {
           return (
-            <Option key={option.value} value={option.value}>
+            <Option
+              key={option.value}
+              value={option.value}
+              onClick={reconfirmMode ? handleReconfirm : null}
+            >
               <LabeledTag
                 label={option.value === "notDefined" ? "" : option.label}
                 tagColor={option?.tagColor}
                 customClassName={selectHeaderClass}
               />
+              {option.reconfirm && (
+                <div className="reconfirm">{`(${option.reconfirm})`}</div>
+              )}
             </Option>
           );
         })}
@@ -86,7 +113,10 @@ SimpleSelect.propTypes = {
   showArrow: PropTypes.bool,
   selectHeaderClass: PropTypes.string,
   className: PropTypes.string,
-  onFocus: PropTypes.func
+  onFocus: PropTypes.func,
+  reconfirmMode: PropTypes.bool,
+  reconfirmStatus: PropTypes.bool,
+  currentVariantClass: PropTypes.string,
 };
 
 SimpleSelect.defaultProps = {

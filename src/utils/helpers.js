@@ -7,7 +7,10 @@ import {
   TEXTS,
   ZYGOSITY_TYPES,
   ROUTES,
-  EVIDENCE_CATEGORIES_OPTIONS, UNCHECK
+  EVIDENCE_CATEGORIES_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  UNCHECK
 } from "./constants";
 
 export const getPrevTagColor = ({ prevVal }) => {
@@ -1171,7 +1174,8 @@ export const capitalizeFirstLetter = string => {
 
 export const dateOptions = { day: "2-digit", month: "short", year: "numeric" };
 export const timeOptions = { timeStyle: "short" };
-export const actionModeText = mode => mode === TEXTS.add ? TEXTS.addEvidence : TEXTS.editEvidence;
+export const actionModeText = mode =>
+  mode === TEXTS.add ? TEXTS.addEvidence : TEXTS.editEvidence;
 
 export const getCurrentEvidenceTabKey = currEvidenceConfig => {
   const index =
@@ -1184,16 +1188,16 @@ export const getCurrentEvidenceTabKey = currEvidenceConfig => {
 };
 
 export const getConfirmationPageMetadata = confirmationsData => {
-  if(!confirmationsData.variants) return [];
-  
+  if (!confirmationsData.variants) return [];
+
   let resultData = [];
-  const getPrimersArray = arr =>{
-    return arr.map( (primer, index) => {
+  const getPrimersArray = arr => {
+    return arr.map((primer, index) => {
       primer.keyId = index + 1;
       return primer;
     });
   };
-  
+
   confirmationsData.variants.map((variant, index) => {
     return resultData.push({
       key: index + 1,
@@ -1206,6 +1210,34 @@ export const getConfirmationPageMetadata = confirmationsData => {
       additionConfirmationData: getPrimersArray(variant.primers)
     });
   });
-  
+
   return resultData;
+};
+
+export const setVariantClassOptionsWithReconfirm = (
+  buttonOf,
+  currentZygosityType,
+  currentVariantClass
+) => {
+  if (!currentZygosityType) return;
+
+  if (buttonOf !== currentZygosityType) {
+    return buttonOf === TEXTS.somaticUp
+      ? SOMATIC_VARIANT_CLASS_OPTIONS
+      : GERMLINE_VARIANT_CLASS_OPTIONS;
+  }
+
+  let typeData;
+
+  if (currentZygosityType === TEXTS.somaticUp) {
+    typeData = SOMATIC_VARIANT_CLASS_OPTIONS;
+  } else if (currentZygosityType === TEXTS.germlineUp) {
+    typeData = GERMLINE_VARIANT_CLASS_OPTIONS;
+  }
+
+  return typeData.map(item => {
+    if (item.value === currentVariantClass) {
+      return { ...item, reconfirm: TEXTS.reconfirm };
+    } else return item;
+  });
 };
