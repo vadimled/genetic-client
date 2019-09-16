@@ -3,6 +3,7 @@ import { Select } from "antd";
 import PropTypes from "prop-types";
 import CloseIcon from "Assets/close.svg";
 import LabeledTag from "GenericComponents/labeledTag";
+import { TEXTS } from "Utils/constants";
 
 // eslint-disable-next-line
 const Option = Select.Option;
@@ -61,7 +62,7 @@ const SimpleSelect = ({
             }
           })
         }
-        value={value}
+        value={value === TEXTS.unclassified ? TEXTS.unclassifiedUp : value}
         name={name}
         allowClear={!!value && isClearAvailable}
         clearIcon={
@@ -116,7 +117,7 @@ SimpleSelect.propTypes = {
   onFocus: PropTypes.func,
   reconfirmMode: PropTypes.bool,
   reconfirmStatus: PropTypes.bool,
-  currentVariantClass: PropTypes.string,
+  currentVariantClass: PropTypes.string
 };
 
 SimpleSelect.defaultProps = {

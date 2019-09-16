@@ -59,5 +59,11 @@
         fill: $neutral_30 !important;
       }
     }
+
+    &.active {
+      .ant-select-selection-selected-value {
+        color: $neutral_30;
+      }
+    }
   }
 }
