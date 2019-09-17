@@ -91,6 +91,13 @@ export const handleResultConfigProtein = data => {
   };
 };
 
+export const handleResultConfigTranscript = data => {
+  return {
+    type: actionsTypes.HANDLE_RESULT_CONFIG_TRANSCRIPT,
+    payload: data
+  };
+};
+
 export const resultConfigLoadHgvs = data => {
   return {
     type: actionsTypes.RESULT_CONFIG_LOAD_HGVS,

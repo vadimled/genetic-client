@@ -10,9 +10,9 @@ import {
 import {
   fetchBAMFile,
   goToChrPositionIgv,
-  loadHgvs,
-  addResult,
-  editResult,
+  loadHgvsApi,
+  addVariantApi,
+  // editResult,
   fetchTestMetadataApi,
   fetchVariantMetadataDataApi,
   updateVariantApi,
@@ -39,7 +39,7 @@ import {
 import {
   applyConfirmation,
   tableDataAddResult,
-  tableDataEditResult,
+  // tableDataEditResult,
   setParsedDataToStore,
   setServerDataToStore,
   setTableReducerLoading,
@@ -57,6 +57,7 @@ import { setAlert } from "Actions/alertActions";
 import {
   handleResultConfigCoding,
   handleResultConfigProtein,
+  handleResultConfigTranscript,
   handleResultConfigValidationFaildFields,
   handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
@@ -106,7 +107,16 @@ function* onDelay(time) {
 }
 
 function* consoleErrors(e) {
-  process?.env?.NODE_ENV === "test" ? yield true : console.log("e", e);
+  process?.env?.NODE_ENV === "test" ? yield true : console.error("e", e);
+  let errorMessage = e.toString();
+  if (e?.response?.data?.error) errorMessage = e?.response?.data?.error;
+  yield put(
+    setAlert({
+      status: ALERT_STATUSES.error,
+      title: 'Error',
+      message: errorMessage
+    })
+  );
 }
 
 function* confirmationDataValidation(data) {
@@ -170,7 +180,7 @@ function* confirmationDataValidation(data) {
   }
 }
 
-function* resultConfigValidation(data, isOnAddResult) {
+function* resultConfigValidation(data, isOnAddOrEditResult) {
   try {
     let validationFaildFields = [];
     const {
@@ -209,7 +219,7 @@ function* resultConfigValidation(data, isOnAddResult) {
       }
     }
 
-    if (isOnAddResult) {
+    if (isOnAddOrEditResult) {
       if (!isHgvsLoaded) {
         validationFaildFields.push(VALIDATION_FAILD_FIELDS.loadHgvs);
       }
@@ -336,10 +346,18 @@ export function* resultConfigLoadHgvsSaga(data) {
   try {
     yield resultConfigValidation(data.payload, false);
 
-    const result = yield call(loadHgvs, data.payload);
+    const result = yield call(loadHgvsApi, data.payload);
+    const resultData = result.data;
+    let coding = resultData['snpeff.ann.hgvs_c'];
+    let protein = resultData['snpeff.ann.hgvs_p'];
+    let transcript = resultData['snpeff.ann.feature_id'];
+    if (Array.isArray(coding)) coding = coding[0];
+    if (Array.isArray(protein)) protein = protein[0];
+    if (Array.isArray(transcript)) transcript = transcript[0];
 
-    yield put(handleResultConfigCoding(result.coding));
-    yield put(handleResultConfigProtein(result.protein));
+    yield put(handleResultConfigCoding(coding));
+    yield put(handleResultConfigProtein(protein));
+    yield put(handleResultConfigTranscript(transcript));
     yield put(handleResultConfigIsHgvsLoaded(true));
   } catch (e) {
     if (e.message !== "Error: Validation error") {
@@ -352,9 +370,11 @@ export function* resultConfigAddResultSaga(data) {
   try {
     yield resultConfigValidation(data.payload, true);
 
-    const result = yield call(addResult, data.payload);
+    const result = yield call(addVariantApi, data.payload);
 
-    yield put(tableDataAddResult(result));
+    const parsedData = parseTableDataObj(result.data);
+    yield put(tableDataAddResult(parsedData));
+
     yield put(resultConfigSetInitialState());
     yield put(
       setAlert({
@@ -372,11 +392,12 @@ export function* resultConfigAddResultSaga(data) {
 export function* resultConfigEditResultSaga(data) {
   try {
     yield resultConfigValidation(data.payload, true);
+    console.log("data.payload", data.payload);
 
-    const result = yield call(editResult, data.payload);
+    // const result = yield call(editResult, data.payload);
 
-    yield put(tableDataEditResult(result));
-    yield put(resultConfigSetInitialState());
+    // yield put(tableDataEditResult(result));
+    // yield put(resultConfigSetInitialState());
     yield put(
       setAlert({
         status: ALERT_STATUSES.success,

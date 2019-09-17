@@ -47,6 +47,7 @@ export const
   getResultConfigCoverage = state => state?.resultConfig?.coverage,
   getResultConfigCoding = state => state?.resultConfig?.coding,
   getResultConfigProtein = state => state?.resultConfig?.protein,
+  getResultConfigTranscript = state => state?.resultConfig?.transcript,
   getResultConfigValidationFaildFields = state => state?.resultConfig?.validationFaildFields,
   getResultConfigid = state => state?.resultConfig?.id,
 
@@ -115,8 +116,8 @@ export const getSearchResult = createSelector(
         const searchQueryInLowerCase = searchQuery.toLowerCase();
         return (
           item.gene?.toLowerCase().includes(searchQueryInLowerCase) ||
-        item.coding?.toLowerCase().includes(searchQueryInLowerCase) ||
-        item.protein?.toLowerCase().includes(searchQueryInLowerCase)
+          item.coding?.toLowerCase().includes(searchQueryInLowerCase) ||
+          item.protein?.toLowerCase().includes(searchQueryInLowerCase)
         );
       }});
   }
@@ -216,7 +217,6 @@ export const getFilteredData = createSelector(
   getSortOrder,
   (data, appliedFilters, sortParam, order) => {
     if (isEmpty(appliedFilters)) {
-
       const sortedData = data.sort((a, b) => a.priority - b.priority).slice();
       return sortedData;
     }
@@ -229,11 +229,11 @@ export const getFilteredData = createSelector(
       return filtersArray.every(filter => filter(item));
     });
 
-    if(order === SORTING_ORDER.ascending){
+    if (order === SORTING_ORDER.ascending){
       return filteredData.sort((a, b) => a[sortParam] - b[sortParam]).slice();
     }
 
-    if(order === SORTING_ORDER.descending){
+    if (order === SORTING_ORDER.descending){
       return filteredData.sort((a, b) => b[sortParam] - a[sortParam]).slice();
     }
 
