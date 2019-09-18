@@ -16,7 +16,7 @@ function ExternalResources({ externalResources, selectedZygosityType }) {
       : EXTERNAL_RESOURCES_SOMATIC;
 
   const renderLink = (label, value) => {
-    if(!value) return null;
+    if (!value || !label) return null;
     return (
       <a
         data-testid={`external-resources-${label}`}
@@ -36,7 +36,6 @@ function ExternalResources({ externalResources, selectedZygosityType }) {
     } else {
       link = data;
     }
-
     return (
       <div className="text-not-link">
         <div
