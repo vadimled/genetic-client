@@ -3,6 +3,11 @@ import PropTypes from "prop-types";
 import cn from "classnames";
 import style from "./NonActiveButton.module.scss";
 import LabeledTag from "GenericComponents/labeledTag";
+import {
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  TEXTS
+} from "Utils/constants";
 
 const NonActiveButton = ({
   title,
@@ -12,8 +17,15 @@ const NonActiveButton = ({
   currValue,
   selectedType
 }) => {
+  const getTypeData =
+    type === TEXTS.germline
+      ? GERMLINE_VARIANT_CLASS_OPTIONS
+      : SOMATIC_VARIANT_CLASS_OPTIONS;
 
   const getTaggedLabel = typeData => {
+    if (!typeData && currValue && currValue !== "unclassified") {
+      return getTypeData.find(obj => obj.value === currValue)?.label;
+    }
     for (let item in typeData) {
       const { label, value } = typeData[item];
       if (currValue?.toLowerCase() === value?.toLowerCase()) {
@@ -26,7 +38,7 @@ const NonActiveButton = ({
   const renderVariantClass = () => (
     <LabeledTag
       label={getTaggedLabel(typeData)}
-      typeData={typeData}
+      typeData={typeData || getTypeData}
       customClassName={cn("label-custom-style", { active })}
     />
   );
