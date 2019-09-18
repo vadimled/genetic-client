@@ -54,7 +54,8 @@ export const TEXTS = {
   searchPlaceholder: "Search for Gene, Coding or Protein",
   reconfirm: "re-confirm",
   germlineClass:"germline_class",
-  somaticClass:"somatic_class"
+  somaticClass:"somatic_class",
+  noLink: "No link"
 };
 
 export const LIMITS = {
@@ -662,7 +663,7 @@ export const EXTERNAL_RESOURCES_GERMLINE = [
   "PMKB",
   "Uniport",
   "Varsome",
-  "dnSNP",
+  "dbSNP",
   "gnomAD",
   "Pubmed",
   "Google Scholar",
@@ -677,7 +678,7 @@ export const EXTERNAL_RESOURCES_SOMATIC = [
   "PMKB",
   "Uniport",
   "Varsome",
-  "dnSNP",
+  "dbSNP",
   "gnomAD",
   "COSMIC",
   "Pubmed",
