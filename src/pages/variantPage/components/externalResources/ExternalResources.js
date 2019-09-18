@@ -1,16 +1,22 @@
 import React, { memo } from "react";
 import style from "./ExternalResources.module.scss";
-import { TEXTS, EXTERNAL_RESOURCES_GERMLINE, EXTERNAL_RESOURCES_SOMATIC } from "Utils/constants";
+import {
+  TEXTS,
+  EXTERNAL_RESOURCES_GERMLINE,
+  EXTERNAL_RESOURCES_SOMATIC
+} from "Utils/constants";
 import PropTypes from "prop-types";
 import { Tooltip } from "antd";
 import urlRegex from "url-regex";
 
 function ExternalResources({ externalResources, selectedZygosityType }) {
-
-  const variantDbLinks =  selectedZygosityType === "germline" ?
-    EXTERNAL_RESOURCES_GERMLINE : EXTERNAL_RESOURCES_SOMATIC;
+  const variantDbLinks =
+    selectedZygosityType === "germline"
+      ? EXTERNAL_RESOURCES_GERMLINE
+      : EXTERNAL_RESOURCES_SOMATIC;
 
   const renderLink = (label, value) => {
+    if(!value) return null;
     return (
       <a
         data-testid={`external-resources-${label}`}
@@ -22,7 +28,15 @@ function ExternalResources({ externalResources, selectedZygosityType }) {
       </a>
     );
   };
-  const renderText = (label, value) => {
+  const renderText = (label, data) => {
+    let childText, link;
+    if (data && typeof data !== "string") {
+      childText = data.childText;
+      link = data.link;
+    } else {
+      link = data;
+    }
+
     return (
       <div className="text-not-link">
         <div
@@ -31,12 +45,12 @@ function ExternalResources({ externalResources, selectedZygosityType }) {
         >
           {label}:
         </div>
-        <Tooltip placement="topLeft" title={value}>
+        <Tooltip placement="topLeft" title={link}>
           <div
             data-testid={`text-not-link-value-${label}`}
             className="text-not-link-value"
           >
-            {value}
+            {renderLink(childText, link) || <span>{TEXTS.noLink}</span>}
           </div>
         </Tooltip>
       </div>
@@ -70,7 +84,7 @@ function ExternalResources({ externalResources, selectedZygosityType }) {
     );
   };
 
-  const isSourceLink = (source) => urlRegex().test(source);
+  const isSourceLink = source => urlRegex().test(source);
 
   const renderResourceData = resourceData => {
     return Object.keys(resourceData).map((label, index) => {
@@ -79,8 +93,9 @@ function ExternalResources({ externalResources, selectedZygosityType }) {
         return (
           <li key={`${index}-${label}`}>
             {!Array.isArray(resourceValue)
-              ? (isSourceLink(resourceValue)
-                && !resourceValue?.includes("clinvar") && !resourceValue?.includes("snp"))
+              ? isSourceLink(resourceValue) &&
+                !resourceValue?.includes("clinvar") &&
+                !resourceValue?.includes("snp")
                 ? renderLink(label, resourceValue)
                 : renderText(label, resourceValue)
               : renderLinksArray(label, resourceValue)}

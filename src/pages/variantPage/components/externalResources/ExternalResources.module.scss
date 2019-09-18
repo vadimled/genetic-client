@@ -61,13 +61,17 @@
             }
 
             .text-not-link-value {
-              flex: 1;
+              flex: 4 1;
               color: $neutral_hover_30;
               width: 20%;
               cursor: pointer;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
+
+              span {
+                cursor: default;
+              }
             }
 
             .external-resources-title {
