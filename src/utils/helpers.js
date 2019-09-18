@@ -1220,19 +1220,23 @@ export const setVariantClassOptionsWithReconfirm = (
   currentVariantClass
 ) => {
   if (!currentZygosityType) return;
-
+  const germlineData = GERMLINE_VARIANT_CLASS_OPTIONS
+    .filter( obj => obj.value !== TEXTS.unclassified);
+  const somaticData = SOMATIC_VARIANT_CLASS_OPTIONS
+    .filter( obj => obj.value !== TEXTS.unclassified);
+  
   if (buttonOf !== currentZygosityType) {
     return buttonOf === TEXTS.somaticUp
-      ? SOMATIC_VARIANT_CLASS_OPTIONS
-      : GERMLINE_VARIANT_CLASS_OPTIONS;
+      ? somaticData
+      : germlineData;
   }
 
   let typeData;
 
   if (currentZygosityType === TEXTS.somaticUp) {
-    typeData = SOMATIC_VARIANT_CLASS_OPTIONS;
+    typeData = somaticData;
   } else if (currentZygosityType === TEXTS.germlineUp) {
-    typeData = GERMLINE_VARIANT_CLASS_OPTIONS;
+    typeData = germlineData;
   }
 
   return typeData.map(item => {
