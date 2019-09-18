@@ -35,6 +35,7 @@
     color: $title_color;
 
     &.ant-input {
+      max-width: 86%;
       height: min-content;
     }
 
