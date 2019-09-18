@@ -98,7 +98,7 @@ import {
 import { setConfirmationPageMetadataToStore } from "Actions/confirmationPageActions";
 import {
   setDefaultFilters,
-  saveUserPreferencesFilters,
+  saveUserPreferencesFilters
 } from "Actions/filtersActions";
 
 function* onDelay(time) {
@@ -286,8 +286,7 @@ export function* sendForConfirmationSaga(data) {
     yield put(applyConfirmation(data.payload));
     yield put(setConfirmationData(null));
     yield put(handleOnConfirmation(false)); // hide confirmation popup
-  }
-  catch (e) {
+  } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["sendForConfirmationSaga"]);
       Sentry.captureException(e);
@@ -330,8 +329,7 @@ export function* handleConfirmationStatusSaga(data) {
     }
 
     yield put(setTableReducerLoading(false));
-  }
-  catch (e) {
+  } catch (e) {
     yield put(setTableReducerLoading(false));
     yield handleErrors(e);
     Sentry.withScope(scope => {
@@ -413,8 +411,8 @@ export function* resultConfigEditResultSaga(data) {
 
 export function* fetchTestsSaga() {
   try {
+    yield put(setLoading(true));
     yield put(setTestsLoading(true));
-
     const result = yield call(fetchTestsApi);
 
     if (result?.status === 200) {
@@ -422,8 +420,14 @@ export function* fetchTestsSaga() {
     }
 
     yield put(setTestsLoading(false));
-  } catch (e) {
+    yield put(setLoading(false));
+  } catch (error) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchTestsSaga"]);
+      Sentry.captureException(e);
+    });
     yield put(setTestsLoading(false));
+    yield put(setLoading(false));
     yield handleErrors(e);
   }
 }
@@ -480,7 +484,9 @@ export function* fetchTestMetadataSaga(action) {
     yield put(setTestData(data));
     yield put(setMutationType(data?.mutation_types[0]));
     yield put(setBamUrlToStore(data));
-    yield put(fetchUserPreferences({ testId: data.id, panelType: data.panel_type }));
+    yield put(
+      fetchUserPreferences({ testId: data.id, panelType: data.panel_type })
+    );
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchTestMetadataSaga"]);
@@ -721,14 +727,20 @@ export function* fetchUserPreferencesSaga({ payload }) {
   try {
     const { testId, panelType } = payload;
     const response = yield call(fetchUserPreferencesApi, { testId });
-    const { preferences: { filters, sorting } } = response.data;
+    const {
+      preferences: { filters, sorting }
+    } = response.data;
 
     if (filters) {
       yield put(setDefaultFilters(filters));
-    }
-    else {
+    } else {
       yield put(setDefaultFilters(DEFAULT_FILTERS[panelType]));
-      yield put(saveUserPreferencesFilters({ testId, filters: DEFAULT_FILTERS[panelType] }));
+      yield put(
+        saveUserPreferencesFilters({
+          testId,
+          filters: DEFAULT_FILTERS[panelType]
+        })
+      );
     }
 
     if (sorting) {
@@ -744,14 +756,11 @@ export function* fetchUserPreferencesSaga({ payload }) {
   }
 }
 
-
-
-export function* applyConfirmationSaga(data){
-
+export function* applyConfirmationSaga(data) {
   const newData = Object.assign({}, data);
 
   const variants = newData.payload.variants.map(variant => {
-    return{
+    return {
       variant_id: variant.id,
       primers: variant.additionConfirmationData.map(item => {
         return {
@@ -761,10 +770,9 @@ export function* applyConfirmationSaga(data){
         };
       })
     };
-
   });
 
-  const {testId} = newData.payload;
+  const { testId } = newData.payload;
 
   const dataToSend = {
     variants: variants,
@@ -781,7 +789,6 @@ export function* applyConfirmationSaga(data){
         applyConfirmationSuccess(
           // check why notes does not return from server
           newData.payload.variants
-
         )
       );
     }

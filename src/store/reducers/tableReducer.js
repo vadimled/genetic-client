@@ -66,11 +66,7 @@ const tableReducer = createReducer(initialState, {
         // if an item has already status we cannot select it to send for confirmation
         if (!item.status) {
           item.selected =
-            payload === false
-              ? // if all rows selected or on discarding
-              false
-              : // otherwise
-              true;
+            payload !== false;
         }
       }
     }

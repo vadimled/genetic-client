@@ -370,7 +370,7 @@ class VariantTable extends Component {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              {text}
+              {text || ""}
             </HighlightedCell>
           );
         };

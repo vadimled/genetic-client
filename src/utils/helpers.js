@@ -184,9 +184,18 @@ export const createResourcesLinks = variantData => {
     gnomAD: `https://gnomad.broadinstitute.org/variant/${[...chr]
       .slice(3)
       .join("")}-${position}-${ref}-${alt}`,
-    dbSNP: `https://www.ncbi.nlm.nih.gov/snp/?term=${db_snp || ""}`,
-    ClinVar: `https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvar_variation_id ||
-      0}`,
+    dbSNP:{
+      childText: db_snp,
+      link:
+        db_snp &&
+        `https://www.ncbi.nlm.nih.gov/snp/?term=${db_snp}`
+    },
+    ClinVar: {
+      childText: clinvar_variation_id,
+      link:
+        clinvar_variation_id &&
+        `https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvar_variation_id}`
+    },
     COSMIC: getLinksArray(
       cosmic,
       "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id="
@@ -1228,19 +1237,23 @@ export const setVariantClassOptionsWithReconfirm = (
   currentVariantClass
 ) => {
   if (!currentZygosityType) return;
+  const germlineData = GERMLINE_VARIANT_CLASS_OPTIONS.filter(
+    obj => obj.value !== TEXTS.unclassified
+  );
+  const somaticData = SOMATIC_VARIANT_CLASS_OPTIONS.filter(
+    obj => obj.value !== TEXTS.unclassified
+  );
 
   if (buttonOf !== currentZygosityType) {
-    return buttonOf === TEXTS.somaticUp
-      ? SOMATIC_VARIANT_CLASS_OPTIONS
-      : GERMLINE_VARIANT_CLASS_OPTIONS;
+    return buttonOf === TEXTS.somaticUp ? somaticData : germlineData;
   }
 
   let typeData;
 
   if (currentZygosityType === TEXTS.somaticUp) {
-    typeData = SOMATIC_VARIANT_CLASS_OPTIONS;
+    typeData = somaticData;
   } else if (currentZygosityType === TEXTS.germlineUp) {
-    typeData = GERMLINE_VARIANT_CLASS_OPTIONS;
+    typeData = germlineData;
   }
 
   return typeData.map(item => {

@@ -57,6 +57,17 @@
           color: $white;
         }
       }
+      .label-text {
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 100%;
+        color: $neutral_30;
+      }
+    }
+  }
+  .select-non-active.active {
+    .label-text {
+      color: $white !important;
     }
   }
 }
