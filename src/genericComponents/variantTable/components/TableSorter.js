@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { ReactComponent as DropdownArrow } from "Assets/dropdownArrow.svg";
-import { SORTING_ORDER } from "../../../utils/constants";
+import { SORTING_ORDER } from "Utils/constants";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getSortOrder, getSortParam } from "../../../store/selectors";
+import { getSortOrder, getSortParam } from "Store/selectors";
 
 class TableSorter extends Component {
 
@@ -62,27 +62,6 @@ TableSorter.propTypes = {
   field: PropTypes.string,
   title: PropTypes.string,
 };
-//
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     handleSelectedRow: (data) => dispatch(handleSelectedRow(data)),
-//     handleSelectAllRows: (data) => dispatch(handleSelectAllRows(data)),
-//     handleZygosity: (data) => dispatch(handleZygosity(data)),
-//     handleVariantClass: (data) => dispatch(handleVariantClass(data)),
-//     handleConfirmationStatus: (data) => {
-//       if (data?.status) {
-//         dispatch(handleConfirmationStatus(data));
-//       }
-//       else if (data?.status === null) {
-//         dispatch(handleUncheckConfirmationData(data));
-//       }
-//     },
-//     goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
-//     setNotes: data => dispatch(setNotes(data)),
-//     fetchTableData: data => dispatch(fetchTableData(data)),
-//     setSort: data => dispatch(setSort(data)),
-//   };
-// }
 
 function mapStateToProps(state) {
   return {
