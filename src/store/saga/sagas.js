@@ -105,7 +105,7 @@ function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
 }
 
-function* consoleErrors(e) {
+function* handleErrors(e) {
   process?.env?.NODE_ENV === "test" ? yield true : console.error("e", e);
   let errorMessage = e.toString();
   if (e?.response?.data?.message) errorMessage = e.response.data.message;
@@ -175,7 +175,7 @@ function* confirmationDataValidation(data) {
       Sentry.captureException(e);
     });
 
-    consoleErrors(e);
+    handleErrors(e);
     throw new Error(e);
   }
 }
@@ -232,7 +232,7 @@ function* resultConfigValidation(data, isOnAddOrEditResult) {
       throw new Error("Validation error");
     }
   } catch (e) {
-    consoleErrors(e);
+    handleErrors(e);
     throw new Error(e);
   }
 }
@@ -254,7 +254,7 @@ export function* fetchBAMFileSaga(data) {
       scope.setFingerprint(["fetchBAMFileSaga"]);
       Sentry.captureException(e);
     });
-    yield consoleErrors(e);
+    yield handleErrors(e);
     yield put(handleIgvAlertShow(true));
   }
 }
@@ -271,7 +271,7 @@ export function* goToChrPositionIgvSaga(data) {
       scope.setFingerprint(["goToChrPositionIgvSaga"]);
       Sentry.captureException(e);
     });
-    yield consoleErrors(e);
+    yield handleErrors(e);
     yield put(handleIgvAlertShow(true));
     yield put(setLoading(false));
   }
@@ -300,7 +300,6 @@ export function* sendForConfirmationSaga(data) {
           message: "Please try again."
         })
       );
-      yield consoleErrors(e);
     }
   }
 }
@@ -334,7 +333,7 @@ export function* handleConfirmationStatusSaga(data) {
   }
   catch (e) {
     yield put(setTableReducerLoading(false));
-    console.log("-err: ", e);
+    yield handleErrors(e);
     Sentry.withScope(scope => {
       scope.setFingerprint(["handleConfirmationStatusSaga"]);
       Sentry.captureException(e);
@@ -361,7 +360,7 @@ export function* resultConfigLoadHgvsSaga(data) {
     yield put(handleResultConfigIsHgvsLoaded(true));
   } catch (e) {
     if (e.message !== "Error: Validation error") {
-      yield consoleErrors(e);
+      yield handleErrors(e);
     }
   }
 }
@@ -384,7 +383,7 @@ export function* resultConfigAddResultSaga(data) {
     );
   } catch (e) {
     if (e.message !== "Error: Validation error") {
-      yield consoleErrors(e);
+      yield handleErrors(e);
     }
   }
 }
@@ -407,7 +406,7 @@ export function* resultConfigEditResultSaga(data) {
     );
   } catch (e) {
     if (e.message !== "Error: Validation error") {
-      yield consoleErrors(e);
+      yield handleErrors(e);
     }
   }
 }
@@ -423,8 +422,9 @@ export function* fetchTestsSaga() {
     }
 
     yield put(setTestsLoading(false));
-  } catch (error) {
+  } catch (e) {
     yield put(setTestsLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -441,6 +441,7 @@ export function* handleZygositySaga(data) {
       scope.setFingerprint(["handleZygositySaga"]);
       Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
 
@@ -468,6 +469,7 @@ export function* setNotesSaga(data) {
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -485,6 +487,7 @@ export function* fetchTestMetadataSaga(action) {
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -502,6 +505,7 @@ export function* fetchTableDataSaga(action) {
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -519,6 +523,7 @@ export function* setTumorInfoSaga(action) {
       Sentry.captureException(e);
     });
     yield put(setTumorInfoLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -537,6 +542,7 @@ export function* fetchVariantMetadataDataSaga(action) {
       scope.setFingerprint(["fetchVariantMetadataDataSaga"]);
       Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
 
@@ -554,6 +560,7 @@ export function* sendVariantClassSaga(action) {
       scope.setFingerprint(["sendVariantClassSaga"]);
       Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
 
@@ -570,6 +577,7 @@ export function* fetchEvidenceDataSaga(data) {
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -587,6 +595,7 @@ export function* addEvidenceEntrySaga(action) {
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -604,6 +613,7 @@ export function* editEvidenceEntrySaga(action) {
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -622,6 +632,7 @@ export function* deleteEvidenceEntrySaga(action) {
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -645,12 +656,13 @@ export function* fetchClassificationHistorySaga(action) {
       );
     }
     yield put(setLoading(false));
-  } catch (error) {
+  } catch (e) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchClassificationHistorySaga"]);
-      Sentry.captureException(error);
+      Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
 
@@ -667,7 +679,7 @@ export function* exportTableSaga(action) {
     }
   } catch (e) {
     yield put(setTableReducerLoading(false));
-    console.log("-err: ", e);
+    yield handleErrors(e);
   }
 }
 
@@ -679,11 +691,12 @@ export function* saveUserPreferencesFiltersSaga({ payload }) {
       preferences: { filters }
     });
   }
-  catch(err) {
+  catch(e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["saveUserPreferencesFiltersSaga"]);
       Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
 
@@ -695,11 +708,12 @@ export function* saveUserPreferencesSortingSaga({ payload }) {
       preferences: { sorting }
     });
   }
-  catch(err) {
+  catch(e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["saveUserPreferencesSortingSaga"]);
-      Sentry.captureException(err);
+      Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
 
@@ -721,11 +735,12 @@ export function* fetchUserPreferencesSaga({ payload }) {
       yield put(setSort(sorting));
     }
   }
-  catch(err) {
+  catch(e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchUserPreferencesSaga"]);
-      Sentry.captureException(err);
+      Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
 
@@ -774,17 +789,13 @@ export function* applyConfirmationSaga(data){
     yield put(setTableReducerLoading(false));
   } catch (e) {
     yield put(setTableReducerLoading(false));
-    console.log("-err: ", e);
     Sentry.withScope(scope => {
       scope.setFingerprint(["applyConfirmationSaga"]);
       Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
-
-
-
-
 
 // --------------- CONFIRMATION PAGE ---------------
 export function* fetchConfirmationMetadataSaga(action) {
@@ -800,5 +811,6 @@ export function* fetchConfirmationMetadataSaga(action) {
       scope.setFingerprint(["fetchConfirmationMetadataSaga"]);
       Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
