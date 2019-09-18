@@ -92,13 +92,6 @@ export const tableDataAddResult = data => {
   };
 };
 
-export const tableDataEditResult = data => {
-  return{
-    type: actionsTypes.TABLE_DATA_EDIT_RESULT,
-    payload: data
-  };
-};
-
 export const setTableReducerLoading = data => {
   return{
     type: actionsTypes.SET_TABLE_REDUCER_LOADING,

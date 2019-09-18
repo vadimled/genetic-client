@@ -16,7 +16,7 @@ export function loadHgvsApi(data) {
   return axios.get(`https://myvariant.info/v1/variant/chr${chromosome}:g.${position}${alleleReference}>${alleleAlternative}?fields=snpeff.ann.hgvs_c%2Csnpeff.ann.hgvs_p%2Csnpeff.ann.feature_id&dotfield=true`);
 }
 
-export function addVariantApi(data) {
+export function addResultApi(data) {
   const { testId } = data;
   const payload = {
     mutation_type: 'dna',
@@ -35,31 +35,28 @@ export function addVariantApi(data) {
   return axios_based.post(`/tests/${testId}/variants`, {
     ...payload
   });
-
-  // -> API request
-  // const mockResult = {
-  //   ...data,
-  //   id: Math.random().toString(),
-  //   chrPosition: `Chr${data.chromosome}:${data.position}`,
-  //   alleleChange: `${data.alleleReference} > ${data.alleleAlternative}`,
-  //   transcript: "NM_939778.7",
-  //   zygosity: "",
-  //   variantClassGermline: "unclassified",
-  //   variantClassSomatic: "unclassified"
-  // };
-  // return mockResult;
 }
 
-// export function editResult(data) {
-//   // -> API request
-//   const mockResult = {
-//     ...data,
-//     chrPosition: `Chr${data.chromosome}:${data.position}`,
-//     alleleChange: `${data.alleleReference} > ${data.alleleAlternative}`,
-//     transcript: "NM_939778.7"
-//   };
-//   return mockResult;
-// }
+export function editResultApi(data) {
+  const { testId, id: variantId } = data;
+  const payload = {
+    mutation_type: 'dna',
+    gene: data.gene,
+    chr: data.chromosome,
+    position: data.position,
+    ref: data.alleleReference,
+    alt: data.alleleAlternative,
+    hgvs_c: data.coding,
+    hgvs_p: data.protein,
+    transcript: data.transcript,
+    dp: data.coverage,
+    percentage_variants: data.vaf
+  };
+
+  return axios_based.put(`/tests/${testId}/variants/${variantId}`, {
+    ...payload
+  });
+}
 
 export function fetchTestMetadataApi(id) {
   return axios_based.get(`/tests/${id.payload}`);

@@ -102,7 +102,7 @@ const ResultConfig = (props) => {
   const onApplyResult = () => {
     const data = {
       gene,
-      chromosome,
+      chromosome: `chr${chromosome}`,
       position,
       alleleType,
       alleleReference,

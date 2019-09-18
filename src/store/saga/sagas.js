@@ -11,8 +11,8 @@ import {
   fetchBAMFile,
   goToChrPositionIgv,
   loadHgvsApi,
-  addVariantApi,
-  // editResult,
+  addResultApi,
+  editResultApi,
   fetchTestMetadataApi,
   fetchVariantMetadataDataApi,
   updateVariantApi,
@@ -39,7 +39,6 @@ import {
 import {
   applyConfirmation,
   tableDataAddResult,
-  // tableDataEditResult,
   setParsedDataToStore,
   setServerDataToStore,
   setTableReducerLoading,
@@ -109,7 +108,8 @@ function* onDelay(time) {
 function* consoleErrors(e) {
   process?.env?.NODE_ENV === "test" ? yield true : console.error("e", e);
   let errorMessage = e.toString();
-  if (e?.response?.data?.error) errorMessage = e?.response?.data?.error;
+  if (e?.response?.data?.message) errorMessage = e.response.data.message;
+  else if (e?.response?.data?.error) errorMessage = e.response.data.error;
   yield put(
     setAlert({
       status: ALERT_STATUSES.error,
@@ -370,7 +370,7 @@ export function* resultConfigAddResultSaga(data) {
   try {
     yield resultConfigValidation(data.payload, true);
 
-    const result = yield call(addVariantApi, data.payload);
+    const result = yield call(addResultApi, data.payload);
 
     const parsedData = parseTableDataObj(result.data);
     yield put(tableDataAddResult(parsedData));
@@ -392,12 +392,13 @@ export function* resultConfigAddResultSaga(data) {
 export function* resultConfigEditResultSaga(data) {
   try {
     yield resultConfigValidation(data.payload, true);
-    console.log("data.payload", data.payload);
 
-    // const result = yield call(editResult, data.payload);
+    const result = yield call(editResultApi, data.payload);
 
-    // yield put(tableDataEditResult(result));
-    // yield put(resultConfigSetInitialState());
+    const parsedData = parseTableDataObj(result.data);
+    yield put(updateVariantInTableData(parsedData));
+
+    yield put(resultConfigSetInitialState());
     yield put(
       setAlert({
         status: ALERT_STATUSES.success,

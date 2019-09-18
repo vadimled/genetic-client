@@ -62,7 +62,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(handleResultConfigVaf(selectedResult.vaf));
       dispatch(handleResultConfigCoverage(selectedResult.dp));
       dispatch(handleResultConfigGene(selectedResult.gene));
-      dispatch(handleResultConfigChromosome(selectedResult.chr));
+      dispatch(handleResultConfigChromosome(selectedResult.chr.replace(/\D+/g, '')));
       dispatch(handleResultConfigPosition(selectedResult.position));
       dispatch(handleResultConfigAlleleType(alleleType));
       dispatch(handleResultConfigAlleleReference(selectedResult.ref));
