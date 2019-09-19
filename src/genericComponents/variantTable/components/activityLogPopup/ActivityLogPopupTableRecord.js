@@ -11,7 +11,7 @@ const ActivityLogPopupTableRecord = ({ record: {
     field = ''
   } = {},
   user: {
-    name = 'No name'
+    name = 'System'
   } = {},
   timestamp = ''
 } }) => {
