@@ -158,14 +158,8 @@ class VariantTable extends Component {
   };
   
   handleCheckboxChange = () => {
-    console.log("-------> Checkbox Change");
     const { isAllRowSelected, handleSelectAllRows } = this.props;
     handleSelectAllRows(isAllRowSelected);
-  };
-  
-  handleCheckboxChecked = () => {
-    console.log("-------> Checkbox Checked = ",this.props.isAllRowSelected);
-    return this.props.isAllRowSelected;
   };
   
   columnsConverter = columns => {
@@ -190,7 +184,7 @@ class VariantTable extends Component {
             })}
           >
             <Checkbox
-              checked={this.handleCheckboxChecked()}
+              checked={isAllRowSelected}
               onChange={this.handleCheckboxChange}
             />
           </div>

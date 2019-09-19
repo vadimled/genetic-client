@@ -305,11 +305,13 @@ export const checkIsAllRowSelected = createSelector(
   getSelectedRows,
   (allData, selectedData) => {
     const notConfirmedData = allData?.filter(item => {
-      item ? !item.status : false;
+      if (item.status === TEXTS.UNCHECK) {
+        return item.selected;
+      }
     });
     return (
       !!selectedData?.length &&
-      notConfirmedData?.length === selectedData?.length
+      notConfirmedData?.length === allData.length
     );
   }
 );
