@@ -3,15 +3,17 @@ import ActivityLogAction from "./ActivityLogAction";
 import { ReactComponent as AvatarName } from "Assets/avatarName.svg";
 import PropTypes from 'prop-types';
 import { dateOptions, timeOptions } from "Utils/helpers";
+import { TEXTS } from "Utils/constants";
 
 const ActivityLogPopupTableRecord = ({ record: {
+  is_suggested,
   action: {
     prev_val = '',
     curr_val = '',
     field = ''
   } = {},
   user: {
-    name = 'System'
+    name = 'No name'
   } = {},
   timestamp = ''
 } }) => {
@@ -19,7 +21,7 @@ const ActivityLogPopupTableRecord = ({ record: {
     <div className="flex flex-wrap content-start">
       <div className="cell border flex items-center justify-center">
         <AvatarName />
-        <span className="user-name">{name}</span>
+        <span className="user-name">{is_suggested ? TEXTS.System : name}</span>
       </div>
       <ActivityLogAction
         prevVal={prev_val}

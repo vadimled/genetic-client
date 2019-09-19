@@ -5,15 +5,17 @@ import Tag from "GenericComponents/tag";
 import { Tooltip } from "antd";
 import { getCurrTagColor, getTitleCurr } from "Utils/helpers";
 import { dateOptions, timeOptions } from "Utils/helpers";
+import { TEXTS } from "Utils/constants";
 
-const LogRecord = ({ record: {
+const LogRecord = ({record: {
+  is_suggested,
   action: {
     prev_val: prevVal = '',
     curr_val: currVal = '',
     field = ''
   } = {},
   user: {
-    name = 'System'
+    name = 'No name'
   } = {},
   timestamp = ''
 } }) => {
@@ -22,7 +24,7 @@ const LogRecord = ({ record: {
     <div className="record flex justify-between items-center">
       <div className="record__user record__item flex items-center justify-center">
         <AvatarName />
-        <span className="user-name">{name}</span>
+        <span className="user-name">{is_suggested ? TEXTS.System : name}</span>
       </div>
       <div className="record_changed-item record__item flex items-center justify-center">
         {field === "variantClassGermline" || field === "variantClassSomatic" && (
