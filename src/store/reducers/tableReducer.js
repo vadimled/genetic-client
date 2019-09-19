@@ -65,9 +65,8 @@ const tableReducer = createReducer(initialState, {
         let item = data[key];
 
         // if an item has already status we cannot select it to send for confirmation
-        if (item.status !== TEXTS.UNCHECK) {
-          item.selected =
-            payload !== false;
+        if (item.status === TEXTS.UNCHECK) {
+          item.selected = !payload;
         }
       }
     }
