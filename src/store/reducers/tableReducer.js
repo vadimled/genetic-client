@@ -1,7 +1,7 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 import { PRIORITY } from "../../utils/constants";
-import { CONFIRMATION_VALUES, SORTING_ORDER } from "Utils/constants";
+import { CONFIRMATION_VALUES, SORTING_ORDER, TEXTS } from "Utils/constants";
 
 const initialState = {
   serverData: {},
@@ -57,6 +57,7 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_SELECT_ALL_ROWS]: (state, { payload }) => {
+    console.log(state, payload);
     let data = state?.data;
 
     for (let key in data) {
@@ -64,7 +65,7 @@ const tableReducer = createReducer(initialState, {
         let item = data[key];
 
         // if an item has already status we cannot select it to send for confirmation
-        if (!item.status) {
+        if (item.status !== TEXTS.UNCHECK) {
           item.selected =
             payload !== false;
         }

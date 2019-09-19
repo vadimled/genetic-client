@@ -55,7 +55,8 @@ export const TEXTS = {
   reconfirm: "re-confirm",
   germlineClass:"germline_class",
   somaticClass:"somatic_class",
-  noLink: "No link"
+  noLink: "No link",
+  UNCHECK: "UNCHECK"
 };
 
 export const LIMITS = {
@@ -733,4 +734,3 @@ export const DEFAULT_FILTERS = {
   }
 };
 
-export const UNCHECK = "UNCHECK";

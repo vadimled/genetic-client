@@ -16,7 +16,8 @@ import HighlightedCell from "./components/highlightedCell";
 import LabeledTag from "../labeledTag";
 import {
   GERMLINE_VARIANT_CLASS_OPTIONS,
-  SOMATIC_VARIANT_CLASS_OPTIONS, UNCHECK,
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  TEXTS,
   VARIANT_CLASS_GERMLINE,
   VARIANT_CLASS_SOMATIC
 } from "Utils/constants";
@@ -157,6 +158,7 @@ class VariantTable extends Component {
   };
 
   columnsConverter = columns => {
+    console.log(this.props.isAllRowSelected);
     return columns.map((col, index) => {
       let column = {
         ...col,
@@ -188,7 +190,7 @@ class VariantTable extends Component {
 
         column.render = (text, record) => {
 
-          if (record.status && record.status !== UNCHECK) {
+          if (record.status && record.status !== TEXTS.UNCHECK) {
             return (
               <HighlightedCell isHighlighted={record.isAdded}>
                 <ConfirmationStatus

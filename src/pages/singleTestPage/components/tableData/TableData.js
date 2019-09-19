@@ -27,7 +27,7 @@ import {
 import {
   goToChrPositionIgv
 } from "Actions/igvActions";
-import { UNCHECK } from "Utils/constants";
+import { TEXTS } from "Utils/constants";
 
 class TableData extends Component {
 
@@ -105,7 +105,7 @@ function mapDispatchToProps(dispatch) {
       if (data?.status) {
         dispatch(handleConfirmationStatus(data));
       }
-      else if (data?.status === UNCHECK) {
+      else if (data?.status === TEXTS.UNCHECK) {
         dispatch(handleUncheckConfirmationData(data));
       }
     },
