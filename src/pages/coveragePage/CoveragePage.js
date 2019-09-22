@@ -117,7 +117,7 @@ class CoveragePage extends Component {
   };
 
   handleCheckboxOnChange = () => {
-    this.props.handleSelectAllRows(this.props.isAllRowSelected)
+    this.props.handleSelectAllRows(this.props.isAllRowSelected);
   }
 
   columnsConverter = columns => {
