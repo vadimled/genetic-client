@@ -54,6 +54,7 @@ class TableData extends Component {
       testId,
       showTumorInfo,
     } = this.props;
+    console.log(filteredData);
 
     return (
       <TableLayout>

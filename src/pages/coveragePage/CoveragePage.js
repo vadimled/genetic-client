@@ -18,6 +18,7 @@ import {
   handleZygosity, saveUserPreferencesSorting, setNotes, setSort
 } from "../../store/actions/tableActions";
 import { goToChrPositionIgv } from "../../store/actions/igvActions";
+import Notes from "../../genericComponents/notes";
 
 
 class CoveragePage extends Component {
@@ -122,6 +123,11 @@ class CoveragePage extends Component {
 
   columnsConverter = columns => {
     return columns.map((col, index) => {
+
+      console.log("-col:", col)
+      console.log("-index:", index)
+
+
       let column = {
         ...col,
         onHeaderCell: column => ({
@@ -352,6 +358,17 @@ class CoveragePage extends Component {
     });
   };
 
+  data = [{
+    gene: "MTOR",
+    chr: "chr1",
+    start: "11167",
+    end: "567899",
+    minCoverage: 12,
+    maxCoverage: 235,
+    meanCoverage: 100,
+    note: "Some note"
+  }]
+
   render() {
     const columns = this.columnsConverter(this.state.columns);
     return (
@@ -361,7 +378,7 @@ class CoveragePage extends Component {
         pagination={{ pageSize: 20 }}
         bordered
         columns={columns}
-        // dataSource={data}
+        dataSource={this.data}
         scroll={{ x: "max-content", y: "true" }}
       />
     );
