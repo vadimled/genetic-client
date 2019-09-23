@@ -245,20 +245,6 @@ class CoveragePage extends Component {
     });
   };
 
-  data = [{
-    gene: "MTOR",
-    chr: "chr1",
-    start: "11167",
-    end: "567899",
-    minCoverage: 12,
-    maxCoverage: 235,
-    meanCoverage: 100,
-    note: "Some note"
-  }]
-
-
-
-
   render() {
 
     const columns = this.columnsConverter(this.state.columns);
