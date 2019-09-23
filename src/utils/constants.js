@@ -56,7 +56,8 @@ export const TEXTS = {
   germlineClass:"germline_class",
   somaticClass:"somatic_class",
   noLink: "No link",
-  UNCHECK: "UNCHECK"
+  UNCHECK: "UNCHECK",
+  System: "System"
 };
 
 export const LIMITS = {

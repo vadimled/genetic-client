@@ -155,27 +155,9 @@ const tableReducer = createReducer(initialState, {
 
   [actionsTypes.TABLE_DATA_ADD_RESULT]: (state, { payload }) => {
     let data = {
-      [payload.id]: {
-        ...payload,
-        key: payload.id, // need for variantTable
-        isAdded: true // indicate that this row has added by user
-      },
-      ...state.data
-    };
-
-    return {
-      ...state,
-      data
-    };
-  },
-
-  [actionsTypes.TABLE_DATA_EDIT_RESULT]: (state, { payload }) => {
-    let data = {
       ...state.data,
       [payload.id]: {
         ...payload,
-        key: payload.id, // need for variantTable
-        isAdded: true // indicate that this row has added by user
       }
     };
 
@@ -183,7 +165,7 @@ const tableReducer = createReducer(initialState, {
       ...state,
       data
     };
-  }
+  },
 });
 
 export default tableReducer;
