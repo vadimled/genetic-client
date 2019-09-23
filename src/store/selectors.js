@@ -315,7 +315,7 @@ export const checkIsAllRowSelected = createSelector(
     });
     return (
       !!selectedData?.length &&
-      notConfirmedData?.length === allData.length - nonUncheckMode
+      notConfirmedData?.length === (allData.length - nonUncheckMode)
     );
   }
 );
