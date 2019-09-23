@@ -52,8 +52,6 @@ const coveragePageReducer = createReducer(initialState, {
 
   [actionsTypes.HANDLE_SELECT_ALL_ROWS_COVERAGE]: (state, { payload }) => {
 
-    console.log("--payload: ", payload)
-
     let data = state?.data;
 
     const newData = Object.assign([], data);
@@ -62,10 +60,10 @@ const coveragePageReducer = createReducer(initialState, {
       if (record.status === TEXTS.UNCHECK) {
         record.selected = !payload;
       }
-      return record
-    })
+      return record;
+    });
 
-    state.data = newData
+    state.data = newData;
 
     return {
       ...state,
