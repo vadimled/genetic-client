@@ -440,3 +440,30 @@ export const getSomaticEvidence = state =>
 export const getIsTumorInfoLoading = state => state?.test?.isTumorInfoLoading;
 
 export const getCoverageTableData = state => state?.coveragePage?.data;
+
+export const getSelectedCoverageRows = createSelector(
+  getCoverageTableData,
+  data => {
+    return data.filter(row => row.selected);
+  }
+);
+
+export const checkIsAllCoverageRowsSelected = createSelector(
+  getCoverageTableData,
+  getSelectedCoverageRows,
+  (allData, selectedData) => {
+    let nonUncheckMode = 0;
+    const notConfirmedData = allData?.filter(item => {
+      if (item.status === TEXTS.UNCHECK) {
+        return item.selected;
+      }
+      else{
+        nonUncheckMode++;
+      }
+    });
+    return (
+      !!selectedData?.length &&
+      notConfirmedData?.length === (allData.length - nonUncheckMode)
+    );
+  }
+);

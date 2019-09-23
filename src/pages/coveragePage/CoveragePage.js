@@ -6,7 +6,7 @@ import { Checkbox, Table, Tooltip } from "antd";
 import HighlightedCell from "../../genericComponents/variantTable/components/highlightedCell/HighlightedCell";
 import style from "../../genericComponents/variantTable/VariantTable.module.scss";
 import {
-  checkIsAllRowSelected,
+  checkIsAllCoverageRowsSelected,
   getSelectedRows,
   getSortOrder,
   getSortParam,
@@ -17,7 +17,7 @@ import {
   handleUncheckConfirmationData,
   saveUserPreferencesSorting, setNotes, setSort
 } from "Store/actions/tableActions";
-import { goToChrPositionIgv } from "../../store/actions/igvActions";
+import { goToChrPositionIgv } from "Store/actions/igvActions";
 import Notes from "../../genericComponents/notes";
 import {
   handleSelectAllRowsCoverage,
@@ -25,7 +25,7 @@ import {
   fetchTableData
 } from "Store/actions/coveragePageActions";
 import ConfirmationStatus from "../../genericComponents/confirmationStatus";
-import { TEXTS } from "../../utils/constants";
+import { TEXTS } from "Utils/constants";
 
 
 
@@ -254,6 +254,7 @@ class CoveragePage extends Component {
 
     const {tableData} = this.props;
 
+
     console.log(tableData);
 
     return (
@@ -274,7 +275,7 @@ class CoveragePage extends Component {
 function mapStateToProps(state) {
   return {
     tableData: getCoverageTableData(state),
-    isAllRowSelected: checkIsAllRowSelected(state),
+    isAllRowSelected: checkIsAllCoverageRowsSelected(state),
     selectedRows: getSelectedRows(state),
     sortOrder: getSortOrder(state),
     sortParam: getSortParam(state),
