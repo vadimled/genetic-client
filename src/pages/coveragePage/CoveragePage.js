@@ -5,7 +5,13 @@ import cn from "classnames";
 import { Checkbox, Table, Tooltip } from "antd";
 import HighlightedCell from "../../genericComponents/variantTable/components/highlightedCell/HighlightedCell";
 import style from "../../genericComponents/variantTable/VariantTable.module.scss";
-import { checkIsAllRowSelected, getSelectedRows, getSortOrder, getSortParam, getCoverageTableData } from "Store/selectors";
+import {
+  checkIsAllRowSelected,
+  getSelectedRows,
+  getSortOrder,
+  getSortParam,
+  getCoverageTableData
+} from "Store/selectors";
 import {
   handleConfirmationStatus,
   handleUncheckConfirmationData,
@@ -13,7 +19,11 @@ import {
 } from "Store/actions/tableActions";
 import { goToChrPositionIgv } from "../../store/actions/igvActions";
 import Notes from "../../genericComponents/notes";
-import { handleSelectAllRowsCoverage, handleSelectedRowCoverage, fetchTableData } from "Store/actions/coveragePageActions";
+import {
+  handleSelectAllRowsCoverage,
+  handleSelectedRowCoverage,
+  fetchTableData
+} from "Store/actions/coveragePageActions";
 
 
 
@@ -56,6 +66,10 @@ class CoveragePage extends Component {
 
     ]
   };
+
+  componentDidMount() {
+    this.props.fetchTableData();
+  }
 
   components = {
     header: {
@@ -243,9 +257,7 @@ class CoveragePage extends Component {
   }]
 
 
-  componentDidMount() {
-    this.props.fetchTableData();
-  }
+
 
   render() {
     const columns = this.columnsConverter(this.state.columns);
