@@ -56,6 +56,7 @@ export const TEXTS = {
   germlineClass:"germline_class",
   somaticClass:"somatic_class",
   noLink: "No link",
+  UNCHECK: "UNCHECK",
   System: "System"
 };
 
@@ -734,4 +735,3 @@ export const DEFAULT_FILTERS = {
   }
 };
 
-export const UNCHECK = "UNCHECK";

@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { CONFIRMATION_VALUES } from 'Utils/constants';
+import { CONFIRMATION_VALUES, TEXTS } from 'Utils/constants';
 import style from './ConfirmationStatusPanel.module.scss';
 import rectangleImg from 'Assets/rectangle.svg';
-import { UNCHECK } from "Utils/constants";
 
 const ConfirmationStatusPanel = ({ handleStatus, selected }) => {
   return (
@@ -32,7 +31,7 @@ const ConfirmationStatusPanel = ({ handleStatus, selected }) => {
       })}
       <div
         className="status-item"
-        onClick={handleStatus.bind(null, UNCHECK)}
+        onClick={handleStatus.bind(null, TEXTS.UNCHECK)}
       >
         <div
           className="confirmation-panel-icon"
