@@ -439,7 +439,10 @@ export const getSomaticEvidence = state =>
 
 export const getIsTumorInfoLoading = state => state?.test?.isTumorInfoLoading;
 
-export const getCoverageTableData = state => state?.coveragePage?.data;
+export const getCoverageTableData = state => {
+  const data = state?.coveragePage?.data;
+  return data.sort((a, b) => a.minCoverage - b.minCoverage).slice();
+};
 
 export const getSelectedCoverageRows = createSelector(
   getCoverageTableData,
