@@ -421,7 +421,7 @@ export function* fetchTestsSaga() {
 
     yield put(setTestsLoading(false));
     yield put(setLoading(false));
-  } catch (error) {
+  } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchTestsSaga"]);
       Sentry.captureException(e);
