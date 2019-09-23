@@ -5,16 +5,16 @@ import cn from "classnames";
 import { Checkbox, Table, Tooltip } from "antd";
 import HighlightedCell from "../../genericComponents/variantTable/components/highlightedCell/HighlightedCell";
 import style from "../../genericComponents/variantTable/VariantTable.module.scss";
-import { checkIsAllRowSelected, getSelectedRows, getSortOrder, getSortParam } from "Store/selectors";
+import { checkIsAllRowSelected, getSelectedRows, getSortOrder, getSortParam, getCoverageTableData } from "Store/selectors";
 import {
   handleConfirmationStatus,
-  handleSelectAllRows,
-  handleSelectedRow, handleUncheckConfirmationData,
-  handleVariantClass,
-  handleZygosity, saveUserPreferencesSorting, setNotes, setSort
-} from "../../store/actions/tableActions";
+  handleUncheckConfirmationData,
+  saveUserPreferencesSorting, setNotes, setSort
+} from "Store/actions/tableActions";
 import { goToChrPositionIgv } from "../../store/actions/igvActions";
 import Notes from "../../genericComponents/notes";
+import { handleSelectAllRowsCoverage, handleSelectedRowCoverage, fetchTableData } from "Store/actions/coveragePageActions";
+
 
 
 class CoveragePage extends Component {
@@ -95,10 +95,6 @@ class CoveragePage extends Component {
 
   columnsConverter = columns => {
     return columns.map((col, index) => {
-
-      console.log("-col:", col);
-      console.log("-index:", index);
-
 
       let column = {
         ...col,
@@ -186,8 +182,6 @@ class CoveragePage extends Component {
 
       else if (col.dataIndex === "lowCoweredRegion") {
         column.render = (text, record) => {
-          console.log("---rec: ", record);
-          console.log("---text: ", text);
           return (
             <HighlightedCell >
               <Tooltip placement="topLeft">
@@ -200,8 +194,7 @@ class CoveragePage extends Component {
 
       else if (col.dataIndex === "mean") {
         column.render = (text, record) => {
-          console.log("---rec: ", record);
-          console.log("---text: ", text);
+
           return (
             <HighlightedCell >
               <Tooltip placement="topLeft">
@@ -249,6 +242,11 @@ class CoveragePage extends Component {
     note: "Some note"
   }]
 
+
+  componentDidMount() {
+    this.props.fetchTableData();
+  }
+
   render() {
     const columns = this.columnsConverter(this.state.columns);
     return (
@@ -268,7 +266,7 @@ class CoveragePage extends Component {
 
 function mapStateToProps(state) {
   return {
-    // filteredData: getFilteredData(state),
+    tableData: getCoverageTableData(state),
     isAllRowSelected: checkIsAllRowSelected(state),
     selectedRows: getSelectedRows(state),
     sortOrder: getSortOrder(state),
@@ -280,10 +278,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    handleSelectedRow: (data) => dispatch(handleSelectedRow(data)),
-    handleSelectAllRows: (data) => dispatch(handleSelectAllRows(data)),
-    handleZygosity: (data) => dispatch(handleZygosity(data)),
-    handleVariantClass: (data) => dispatch(handleVariantClass(data)),
+    fetchTableData: () => dispatch(fetchTableData()),
+    handleSelectedRow: (data) => dispatch(handleSelectedRowCoverage(data)),
+    handleSelectAllRows: (data) => dispatch(handleSelectAllRowsCoverage(data)),
     handleConfirmationStatus: (data) => {
       if (data?.status) {
         dispatch(handleConfirmationStatus(data));

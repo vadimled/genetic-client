@@ -1,31 +1,32 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
+import { generateCoverageTableMockData } from "Utils/coverage-data-generator";
 
 const initialState = {
-  serverData: {},
-  data: {},
+  data: [],
   uncheckConfirmationData: null,
   isLoading: false
 };
 
 const coveragePageReducer = createReducer(initialState, {
-  [actionsTypes.SET_TABLE_REDUCER_LOADING]: (state, { payload }) => {
+
+  [actionsTypes.SET_COVERAGE_TABLE_REDUCER_LOADING]: (state, { payload }) => {
     return {
       ...state,
       isLoading: payload
     };
   },
 
-  [actionsTypes.FETCH_TABLE_DATA_SUCCESS]: (state, { payload }) => {
+  [actionsTypes.FETCH_COVERAGE_TABLE_DATA]: (state) => {
     return {
       ...state,
-      serverData: payload
+      data: generateCoverageTableMockData(15)
     };
   },
 
 
-
   [actionsTypes.HANDLE_SELECTED_ROW_COVERAGE]: (state, { payload }) => {
+    console.log("--paayload: ", payload)
     const { item, value } = payload;
     let data = state?.data;
 
