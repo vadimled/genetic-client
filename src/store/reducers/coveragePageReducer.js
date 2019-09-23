@@ -26,7 +26,7 @@ const coveragePageReducer = createReducer(initialState, {
 
 
   [actionsTypes.HANDLE_SELECTED_ROW_COVERAGE]: (state, { payload }) => {
-    console.log("--paayload: ", payload)
+    console.log("--paayload: ", payload);
     const { item, value } = payload;
     let data = state?.data;
 
