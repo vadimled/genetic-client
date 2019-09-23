@@ -433,4 +433,4 @@ export const getSomaticEvidence = state =>
 
 export const getIsTumorInfoLoading = state => state?.test?.isTumorInfoLoading;
 
-export const getCoverageTableData = state => state?.coverage?.data;
+export const getCoverageTableData = state => state?.coveragePage?.data;

@@ -260,7 +260,13 @@ class CoveragePage extends Component {
 
 
   render() {
+
     const columns = this.columnsConverter(this.state.columns);
+
+    const {tableData} = this.props;
+
+    console.log(tableData);
+
     return (
       <Table
         className={style["variant-table-wrapper"]}
@@ -268,7 +274,7 @@ class CoveragePage extends Component {
         pagination={{ pageSize: 20 }}
         bordered
         columns={columns}
-        dataSource={this.data}
+        dataSource={tableData}
         scroll={{ x: "max-content", y: "true" }}
       />
     );
