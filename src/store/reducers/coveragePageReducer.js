@@ -26,28 +26,34 @@ const coveragePageReducer = createReducer(initialState, {
 
 
   [actionsTypes.HANDLE_SELECTED_ROW_COVERAGE]: (state, { payload }) => {
-    console.log("--paayload: ", payload);
+
     const { item, value } = payload;
-    let newData = state?.data;
+
+    let data = state?.data;
+
+    const newData = Object.assign([], data);
+
+    state.data = newData;
 
     newData.map(record => {
+
       if(record.id === item.id){
-        record.selected = value
+        record.selected = value;
       }
 
-      return record
-    })
-
-    // data[item.id].selected = value;
-
+      return record;
+    });
+    
     return {
-      ...state,
-      data: newData
+      ...state
     };
   },
 
   [actionsTypes.HANDLE_SELECT_ALL_ROWS_COVERAGE]: (state, { payload }) => {
-    let data = state?.data;
+
+    console.log("--payload: ", payload)
+
+    let newData = state?.data;
 
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
@@ -61,9 +67,16 @@ const coveragePageReducer = createReducer(initialState, {
       }
     }
 
+    newData.map(record => {
+      if (!record.status) {
+        item.selected =
+          payload !== false;
+      }
+    })
+
     return {
       ...state,
-      data: { ...data }
+      data: newData
     };
   }
 
