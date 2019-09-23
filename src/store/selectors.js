@@ -48,8 +48,8 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getResultConfigCoverage = state => state?.resultConfig?.coverage,
   getResultConfigCoding = state => state?.resultConfig?.coding,
   getResultConfigProtein = state => state?.resultConfig?.protein,
-  getResultConfigValidationFaildFields = state =>
-    state?.resultConfig?.validationFaildFields,
+  getResultConfigTranscript = state => state?.resultConfig?.transcript,
+  getResultConfigValidationFaildFields = state => state?.resultConfig?.validationFaildFields,
   getResultConfigid = state => state?.resultConfig?.id,
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,
@@ -305,11 +305,13 @@ export const checkIsAllRowSelected = createSelector(
   getSelectedRows,
   (allData, selectedData) => {
     const notConfirmedData = allData?.filter(item => {
-      item ? !item.status : false;
+      if (item.status === TEXTS.UNCHECK) {
+        return item.selected;
+      }
     });
     return (
       !!selectedData?.length &&
-      notConfirmedData?.length === selectedData?.length
+      notConfirmedData?.length === allData.length
     );
   }
 );

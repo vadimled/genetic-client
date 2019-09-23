@@ -9,8 +9,7 @@ import {
   ROUTES,
   EVIDENCE_CATEGORIES_OPTIONS,
   SOMATIC_VARIANT_CLASS_OPTIONS,
-  GERMLINE_VARIANT_CLASS_OPTIONS,
-  UNCHECK
+  GERMLINE_VARIANT_CLASS_OPTIONS
 } from "./constants";
 
 export const getPrevTagColor = ({ prevVal }) => {
@@ -1046,7 +1045,7 @@ const createVaf = numb => {
   if (numb) {
     return Math.round(parseFloat(numb) * 100);
   } else {
-    return "";
+    return 0;
   }
 };
 
@@ -1079,7 +1078,8 @@ const createNewTableDataItem = ({
   transcript,
   percentage_variants,
   zygosity,
-  activity_log
+  activity_log,
+  manual
 }) => {
   try {
     let newObj = {};
@@ -1087,6 +1087,10 @@ const createNewTableDataItem = ({
     newObj.id = id;
     newObj.key = id;
     newObj.gene = gene;
+    newObj.chr = chr;
+    newObj.position = position;
+    newObj.ref = ref;
+    newObj.alt = alt;
     newObj.chrPosition = `${chr}:${position}`;
     newObj.alleleChange = getAlleleChange(ref, alt);
     newObj.alleleChangeLong = getAlleleChange(ref, alt);
@@ -1094,7 +1098,9 @@ const createNewTableDataItem = ({
     newObj.zygosity = zygosity;
     newObj.protein = hgvs_p;
     newObj.proteinWholly = hgvs_p;
+    newObj.dp = dp;
     newObj.coverage = parseInt(dp, 10);
+    newObj.percentageVariants = percentage_variants;
     newObj.vaf = createVaf(percentage_variants);
     newObj.notes = notes;
     newObj.coding = hgvs_c;
@@ -1102,9 +1108,10 @@ const createNewTableDataItem = ({
     newObj.exon = exon; // temporary removed from the table
     newObj.variantClassGermline = germline_class || "unclassified";
     newObj.variantClassSomatic = somatic_class || "unclassified";
-    newObj.status = status || UNCHECK;
+    newObj.status = status || TEXTS.UNCHECK;
     newObj.activityLog = getTableSortedByDate(activity_log, "timestamp") || [];
     newObj.db_snp = db_snp;
+    newObj.isAdded = manual;
     // filters
     newObj.clinvar = clinvar_variation_id;
     newObj.cosmic = cosmic;
