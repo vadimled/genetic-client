@@ -304,14 +304,18 @@ export const checkIsAllRowSelected = createSelector(
   getTableDataAsArray,
   getSelectedRows,
   (allData, selectedData) => {
+    let nonUncheckMode = 0;
     const notConfirmedData = allData?.filter(item => {
       if (item.status === TEXTS.UNCHECK) {
         return item.selected;
       }
+      else{
+        nonUncheckMode++;
+      }
     });
     return (
       !!selectedData?.length &&
-      notConfirmedData?.length === allData.length
+      notConfirmedData?.length === (allData.length - nonUncheckMode)
     );
   }
 );
