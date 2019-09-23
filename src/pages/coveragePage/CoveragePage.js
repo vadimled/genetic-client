@@ -24,6 +24,8 @@ import {
   handleSelectedRowCoverage,
   fetchTableData
 } from "Store/actions/coveragePageActions";
+import ConfirmationStatus from "../../genericComponents/confirmationStatus";
+import { TEXTS } from "../../utils/constants";
 
 
 
@@ -118,7 +120,6 @@ class CoveragePage extends Component {
         })
       };
 
-
       if (column.dataIndex === "selection") {
         column.title = (
           <div
@@ -136,7 +137,9 @@ class CoveragePage extends Component {
 
         column.render = (text, record) => {
 
-          if (record.status && record.status !== UNCHECK) {
+          if (record.status && record.status !== TEXTS.UNCHECK) {
+
+            console.log("here");
             return (
               <HighlightedCell isHighlighted={record.isAdded}>
                 <ConfirmationStatus

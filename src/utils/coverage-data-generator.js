@@ -1,4 +1,5 @@
 import faker from "faker";
+// import { TEXTS } from "./constants";
 
 export const generateCoverageTableMockData = amount =>
   Array.from(new Array(amount), () => {
@@ -518,8 +519,7 @@ export const generateCoverageTableMockData = amount =>
       minCoverage:faker.random.number({ min: 1, max: 100 }),
       maxCoverage:faker.random.number({ min: 100, max: 3500 }),
       meanCoverage:faker.random.number({ min: 100, max: 3500 }),
-
-
+      status: faker.random.arrayElement(["UNCHECK"]),
       notes: faker.lorem.sentence(),
 
     };

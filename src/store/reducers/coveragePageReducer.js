@@ -1,6 +1,7 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 import { generateCoverageTableMockData } from "Utils/coverage-data-generator";
+// import { TEXTS } from "../../utils/constants";
 
 const initialState = {
   data: [],
@@ -55,30 +56,19 @@ const coveragePageReducer = createReducer(initialState, {
 
     let newData = state?.data;
 
-    for (let key in data) {
-      if (data.hasOwnProperty(key)) {
-        let item = data[key];
 
-        // if an item has already status we cannot select it to send for confirmation
-        if (!item.status) {
-          item.selected =
-            payload !== false;
-        }
-      }
-    }
-
-    newData.map(record => {
-      if (!record.status) {
-        item.selected =
-          payload !== false;
-      }
-    })
+    // newData.map(record => {
+    //   if (record.status === TEXTS.UNCHECK) {
+    //     item.selected = !payload;
+    //   }
+    // })
 
     return {
       ...state,
       data: newData
     };
-  }
+  },
+
 
 });
 
