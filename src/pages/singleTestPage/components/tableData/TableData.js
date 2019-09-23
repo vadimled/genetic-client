@@ -70,7 +70,7 @@ class TableData extends Component {
             isAllRowSelected={isAllRowSelected}
             selectedRows={selectedRows}
             setNotes={setNotes}
-            setSort={this.handleSort}
+            setSort={this.handleSort}Б
             sortOrder={sortOrder}
             sortParam={sortParam}
             testId={testId}

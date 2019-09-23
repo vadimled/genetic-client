@@ -513,7 +513,7 @@ export const generateCoverageTableMockData = amount =>
       chr: `chr${faker.random.number({
         min: 1,
         max: 5
-      })}`,
+      })}:${faker.random.number({min: 100, max: 142274739})}`,
       start:faker.random.number({ min: 100000, max: 350000 }),
       end:faker.random.number({ min: 100000, max: 350000 }),
       minCoverage:faker.random.number({ min: 1, max: 100 }),

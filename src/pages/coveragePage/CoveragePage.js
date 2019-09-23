@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import ResizeableTitle from "../../genericComponents/variantTable/components/resizeableTitle";
 import cn from "classnames";
@@ -26,6 +26,9 @@ import {
 } from "Store/actions/coveragePageActions";
 import ConfirmationStatus from "../../genericComponents/confirmationStatus";
 import { TEXTS } from "Utils/constants";
+import ExternalLink from "../../genericComponents/externalLink";
+import IgvAlertPopup from "../singleTestPage/components/igvAlertPopup";
+import { getIgvAlertShow } from "../../store/selectors";
 
 
 
@@ -171,6 +174,26 @@ class CoveragePage extends Component {
         };
       }
 
+      else if (col.dataIndex === "lowCoweredRegion") {
+        column.render = (text, record) => {
+          // console.log(record);
+          const { chr } = record;
+
+          console.log(chr);
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              <ExternalLink
+                data={chr}
+                externalHandler={this.props.goToChrPositionIgv.bind(
+                  null,
+                  chr
+                )}
+              />
+            </HighlightedCell>
+          );
+        };
+      }
+
       else if (col.dataIndex === "notes") {
         column.render = (text, record) => {
           return (
@@ -252,21 +275,25 @@ class CoveragePage extends Component {
 
     const columns = this.columnsConverter(this.state.columns);
 
-    const {tableData} = this.props;
+    const {tableData, isIgvAlertShow} = this.props;
 
 
     console.log(tableData);
 
     return (
-      <Table
-        className={style["variant-table-wrapper"]}
-        components={this.components}
-        pagination={{ pageSize: 20 }}
-        bordered
-        columns={columns}
-        dataSource={tableData}
-        scroll={{ x: "max-content", y: "true" }}
-      />
+      <Fragment>
+        <Table
+          className={style["variant-table-wrapper"]}
+          components={this.components}
+          pagination={{ pageSize: 20 }}
+          bordered
+          columns={columns}
+          dataSource={tableData}
+          scroll={{ x: "max-content", y: "true" }}
+        />
+        {!!isIgvAlertShow && <IgvAlertPopup />}
+      </Fragment>
+
     );
   }
 }
@@ -279,6 +306,7 @@ function mapStateToProps(state) {
     selectedRows: getSelectedRows(state),
     sortOrder: getSortOrder(state),
     sortParam: getSortParam(state),
+    isIgvAlertShow: getIgvAlertShow(state)
     // testId: getTestId(state),
     // showTumorInfo: getTumorInfoMode(state)
   };
