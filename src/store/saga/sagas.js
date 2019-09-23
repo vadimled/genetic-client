@@ -10,9 +10,9 @@ import {
 import {
   fetchBAMFile,
   goToChrPositionIgv,
-  loadHgvs,
-  addResult,
-  editResult,
+  loadHgvsApi,
+  addResultApi,
+  editResultApi,
   fetchTestMetadataApi,
   fetchVariantMetadataDataApi,
   updateVariantApi,
@@ -39,7 +39,6 @@ import {
 import {
   applyConfirmation,
   tableDataAddResult,
-  tableDataEditResult,
   setParsedDataToStore,
   setServerDataToStore,
   setTableReducerLoading,
@@ -57,6 +56,7 @@ import { setAlert } from "Actions/alertActions";
 import {
   handleResultConfigCoding,
   handleResultConfigProtein,
+  handleResultConfigTranscript,
   handleResultConfigValidationFaildFields,
   handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
@@ -105,8 +105,18 @@ function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
 }
 
-function* consoleErrors(e) {
-  process?.env?.NODE_ENV === "test" ? yield true : console.log("e", e);
+function* handleErrors(e) {
+  process?.env?.NODE_ENV === "test" ? yield true : console.error("e", e);
+  let errorMessage = e.toString();
+  if (e?.response?.data?.message) errorMessage = e.response.data.message;
+  else if (e?.response?.data?.error) errorMessage = e.response.data.error;
+  yield put(
+    setAlert({
+      status: ALERT_STATUSES.error,
+      title: 'Error',
+      message: errorMessage
+    })
+  );
 }
 
 function* confirmationDataValidation(data) {
@@ -165,12 +175,12 @@ function* confirmationDataValidation(data) {
       Sentry.captureException(e);
     });
 
-    consoleErrors(e);
+    handleErrors(e);
     throw new Error(e);
   }
 }
 
-function* resultConfigValidation(data, isOnAddResult) {
+function* resultConfigValidation(data, isOnAddOrEditResult) {
   try {
     let validationFaildFields = [];
     const {
@@ -209,7 +219,7 @@ function* resultConfigValidation(data, isOnAddResult) {
       }
     }
 
-    if (isOnAddResult) {
+    if (isOnAddOrEditResult) {
       if (!isHgvsLoaded) {
         validationFaildFields.push(VALIDATION_FAILD_FIELDS.loadHgvs);
       }
@@ -222,7 +232,7 @@ function* resultConfigValidation(data, isOnAddResult) {
       throw new Error("Validation error");
     }
   } catch (e) {
-    consoleErrors(e);
+    handleErrors(e);
     throw new Error(e);
   }
 }
@@ -244,7 +254,7 @@ export function* fetchBAMFileSaga(data) {
       scope.setFingerprint(["fetchBAMFileSaga"]);
       Sentry.captureException(e);
     });
-    yield consoleErrors(e);
+    yield handleErrors(e);
     yield put(handleIgvAlertShow(true));
   }
 }
@@ -261,7 +271,7 @@ export function* goToChrPositionIgvSaga(data) {
       scope.setFingerprint(["goToChrPositionIgvSaga"]);
       Sentry.captureException(e);
     });
-    yield consoleErrors(e);
+    yield handleErrors(e);
     yield put(handleIgvAlertShow(true));
     yield put(setLoading(false));
   }
@@ -289,7 +299,6 @@ export function* sendForConfirmationSaga(data) {
           message: "Please try again."
         })
       );
-      yield consoleErrors(e);
     }
   }
 }
@@ -322,7 +331,7 @@ export function* handleConfirmationStatusSaga(data) {
     yield put(setTableReducerLoading(false));
   } catch (e) {
     yield put(setTableReducerLoading(false));
-    console.log("-err: ", e);
+    yield handleErrors(e);
     Sentry.withScope(scope => {
       scope.setFingerprint(["handleConfirmationStatusSaga"]);
       Sentry.captureException(e);
@@ -334,14 +343,22 @@ export function* resultConfigLoadHgvsSaga(data) {
   try {
     yield resultConfigValidation(data.payload, false);
 
-    const result = yield call(loadHgvs, data.payload);
+    const result = yield call(loadHgvsApi, data.payload);
+    const resultData = result.data;
+    let coding = resultData['snpeff.ann.hgvs_c'];
+    let protein = resultData['snpeff.ann.hgvs_p'];
+    let transcript = resultData['snpeff.ann.feature_id'];
+    if (Array.isArray(coding)) coding = coding[0];
+    if (Array.isArray(protein)) protein = protein[0];
+    if (Array.isArray(transcript)) transcript = transcript[0];
 
-    yield put(handleResultConfigCoding(result.coding));
-    yield put(handleResultConfigProtein(result.protein));
+    yield put(handleResultConfigCoding(coding));
+    yield put(handleResultConfigProtein(protein));
+    yield put(handleResultConfigTranscript(transcript));
     yield put(handleResultConfigIsHgvsLoaded(true));
   } catch (e) {
     if (e.message !== "Error: Validation error") {
-      yield consoleErrors(e);
+      yield handleErrors(e);
     }
   }
 }
@@ -350,9 +367,11 @@ export function* resultConfigAddResultSaga(data) {
   try {
     yield resultConfigValidation(data.payload, true);
 
-    const result = yield call(addResult, data.payload);
+    const result = yield call(addResultApi, data.payload);
 
-    yield put(tableDataAddResult(result));
+    const parsedData = parseTableDataObj(result.data);
+    yield put(tableDataAddResult(parsedData));
+
     yield put(resultConfigSetInitialState());
     yield put(
       setAlert({
@@ -362,7 +381,7 @@ export function* resultConfigAddResultSaga(data) {
     );
   } catch (e) {
     if (e.message !== "Error: Validation error") {
-      yield consoleErrors(e);
+      yield handleErrors(e);
     }
   }
 }
@@ -371,9 +390,11 @@ export function* resultConfigEditResultSaga(data) {
   try {
     yield resultConfigValidation(data.payload, true);
 
-    const result = yield call(editResult, data.payload);
+    const result = yield call(editResultApi, data.payload);
 
-    yield put(tableDataEditResult(result));
+    const parsedData = parseTableDataObj(result.data);
+    yield put(updateVariantInTableData(parsedData));
+
     yield put(resultConfigSetInitialState());
     yield put(
       setAlert({
@@ -383,7 +404,7 @@ export function* resultConfigEditResultSaga(data) {
     );
   } catch (e) {
     if (e.message !== "Error: Validation error") {
-      yield consoleErrors(e);
+      yield handleErrors(e);
     }
   }
 }
@@ -405,7 +426,9 @@ export function* fetchTestsSaga() {
       scope.setFingerprint(["fetchTestsSaga"]);
       Sentry.captureException(e);
     });
+    yield put(setTestsLoading(false));
     yield put(setLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -422,6 +445,7 @@ export function* handleZygositySaga(data) {
       scope.setFingerprint(["handleZygositySaga"]);
       Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
 
@@ -449,6 +473,7 @@ export function* setNotesSaga(data) {
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -468,6 +493,7 @@ export function* fetchTestMetadataSaga(action) {
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -485,6 +511,7 @@ export function* fetchTableDataSaga(action) {
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -502,6 +529,7 @@ export function* setTumorInfoSaga(action) {
       Sentry.captureException(e);
     });
     yield put(setTumorInfoLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -520,6 +548,7 @@ export function* fetchVariantMetadataDataSaga(action) {
       scope.setFingerprint(["fetchVariantMetadataDataSaga"]);
       Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
 
@@ -537,6 +566,7 @@ export function* sendVariantClassSaga(action) {
       scope.setFingerprint(["sendVariantClassSaga"]);
       Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
 
@@ -553,6 +583,7 @@ export function* fetchEvidenceDataSaga(data) {
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -570,6 +601,7 @@ export function* addEvidenceEntrySaga(action) {
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -587,6 +619,7 @@ export function* editEvidenceEntrySaga(action) {
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -605,6 +638,7 @@ export function* deleteEvidenceEntrySaga(action) {
       Sentry.captureException(e);
     });
     yield put(setLoading(false));
+    yield handleErrors(e);
   }
 }
 
@@ -628,12 +662,13 @@ export function* fetchClassificationHistorySaga(action) {
       );
     }
     yield put(setLoading(false));
-  } catch (error) {
+  } catch (e) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchClassificationHistorySaga"]);
-      Sentry.captureException(error);
+      Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
 
@@ -650,7 +685,7 @@ export function* exportTableSaga(action) {
     }
   } catch (e) {
     yield put(setTableReducerLoading(false));
-    console.log("-err: ", e);
+    yield handleErrors(e);
   }
 }
 
@@ -661,11 +696,13 @@ export function* saveUserPreferencesFiltersSaga({ payload }) {
       testId,
       preferences: { filters }
     });
-  } catch (err) {
+  }
+  catch(e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["saveUserPreferencesFiltersSaga"]);
       Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
 
@@ -676,11 +713,13 @@ export function* saveUserPreferencesSortingSaga({ payload }) {
       testId,
       preferences: { sorting }
     });
-  } catch (err) {
+  }
+  catch(e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["saveUserPreferencesSortingSaga"]);
-      Sentry.captureException(err);
+      Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
 
@@ -707,11 +746,13 @@ export function* fetchUserPreferencesSaga({ payload }) {
     if (sorting) {
       yield put(setSort(sorting));
     }
-  } catch (err) {
+  }
+  catch(e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchUserPreferencesSaga"]);
-      Sentry.captureException(err);
+      Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
 
@@ -755,11 +796,11 @@ export function* applyConfirmationSaga(data) {
     yield put(setTableReducerLoading(false));
   } catch (e) {
     yield put(setTableReducerLoading(false));
-    console.log("-err: ", e);
     Sentry.withScope(scope => {
       scope.setFingerprint(["applyConfirmationSaga"]);
       Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
 
@@ -777,5 +818,6 @@ export function* fetchConfirmationMetadataSaga(action) {
       scope.setFingerprint(["fetchConfirmationMetadataSaga"]);
       Sentry.captureException(e);
     });
+    yield handleErrors(e);
   }
 }
