@@ -550,13 +550,13 @@ export const generateDNAVariantTableMockData = amount =>
       notes: faker.lorem.sentence(),
       genome_cov_over_20: faker.random.number({
         min: 0,
-        max: 0.1,
+        max: 0.2,
         precision: 0.001
       })
       ,
       exome_cov_over_20: faker.random.number({
         min: 0,
-        max: 1,
+        max: 0.2,
         precision: 0.001
       })
       ,
