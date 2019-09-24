@@ -157,8 +157,8 @@ const getAppliedFilters = createSelector(
         variantClass: item =>
           variantClass.some(filter => {
             return (
-              item.variantClassGermline === filter ||
-              item.variantClassSomatic === filter
+              (item.variantClassGermline === filter && item.zygosity !== "somatic")  ||
+              (item.variantClassSomatic === filter && !["homo", "hetero", "hemi"].includes(item.zygosity))
             );
           })
       }),
