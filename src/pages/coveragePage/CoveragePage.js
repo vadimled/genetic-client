@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import ResizeableTitle from "../../genericComponents/variantTable/components/resizeableTitle";
+import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
 import cn from "classnames";
 import { Checkbox, Table, Tooltip } from "antd";
-import HighlightedCell from "../../genericComponents/variantTable/components/highlightedCell/HighlightedCell";
-import style from "../../genericComponents/variantTable/VariantTable.module.scss";
+import HighlightedCell from "GenericComponents/variantTable/components/highlightedCell/HighlightedCell";
+import style from "GenericComponents/variantTable/VariantTable.module.scss";
 import {
   checkIsAllCoverageRowsSelected,
   getSelectedRows,
@@ -18,17 +18,17 @@ import {
   saveUserPreferencesSorting, setNotes, setSort
 } from "Store/actions/tableActions";
 import { goToChrPositionIgv } from "Store/actions/igvActions";
-import Notes from "../../genericComponents/notes";
+import Notes from "GenericComponents/notes";
 import {
   handleSelectAllRowsCoverage,
   handleSelectedRowCoverage,
   fetchTableData
 } from "Store/actions/coveragePageActions";
-import ConfirmationStatus from "../../genericComponents/confirmationStatus";
+import ConfirmationStatus from "GenericComponents/confirmationStatus";
 import { TEXTS } from "Utils/constants";
-import ExternalLink from "../../genericComponents/externalLink";
+import ExternalLink from "GenericComponents/externalLink";
 import IgvAlertPopup from "../singleTestPage/components/igvAlertPopup";
-import { getIgvAlertShow } from "../../store/selectors";
+import { getIgvAlertShow } from "Store/selectors";
 import CoverageToolBar from "./components/CoverageToolBar";
 
 
@@ -296,9 +296,6 @@ class CoveragePage extends Component {
     const columns = this.columnsConverter(this.state.columns);
 
     const {tableData, isIgvAlertShow} = this.props;
-
-
-    console.log(tableData);
 
     return (
       <Fragment>
