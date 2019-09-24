@@ -507,7 +507,8 @@ export const generateCoverageTableMockData = amount =>
         "ADGRV1",
         "ADH1A",
         "ADH1B",
-        "ADH1C"
+        "ADH1C",
+        "MTOR"
       ]),
 
       chr: `chr${faker.random.number({
@@ -516,8 +517,8 @@ export const generateCoverageTableMockData = amount =>
       })}:${faker.random.number({min: 100, max: 142274739})}`,
       start:faker.random.number({ min: 100000, max: 350000 }),
       end:faker.random.number({ min: 100000, max: 350000 }),
-      minCoverage:faker.random.number({ min: 1, max: 100 }),
-      maxCoverage:faker.random.number({ min: 100, max: 3500 }),
+      minCoverage:faker.random.number({ min: 100, max: 999 }),
+      maxCoverage:faker.random.number({ min: 1001, max: 3500 }),
       meanCoverage:faker.random.number({ min: 100, max: 3500 }),
       status: faker.random.arrayElement(["UNCHECK"]),
       notes: faker.lorem.sentence(),

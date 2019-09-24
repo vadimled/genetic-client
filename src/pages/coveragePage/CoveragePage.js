@@ -192,7 +192,7 @@ class CoveragePage extends Component {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               <ExternalLink
-                data={`${record.Chr} : ${record.Start} - ${record.End}`}
+                data={`${record.chr} : ${record.start} - ${record.end}`}
                 externalHandler={this.props.goToChrPositionIgv.bind(
                   null,
                   Chr
@@ -221,7 +221,7 @@ class CoveragePage extends Component {
           return (
             <HighlightedCell >
               <Tooltip placement="topLeft">
-                <div className="text">{record.MinCoverage}</div>
+                <div className="text">{record.minCoverage}</div>
               </Tooltip>
             </HighlightedCell>
           );
@@ -233,7 +233,7 @@ class CoveragePage extends Component {
           return (
             <HighlightedCell >
               <Tooltip placement="topLeft">
-                <div className="text">{record.MaxCoverage}</div>
+                <div className="text">{record.maxCoverage}</div>
               </Tooltip>
             </HighlightedCell>
           );
@@ -245,7 +245,7 @@ class CoveragePage extends Component {
           return (
             <HighlightedCell >
               <Tooltip placement="topLeft">
-                <div className="text">{record.Gene}</div>
+                <div className="text">{record.gene}</div>
               </Tooltip>
             </HighlightedCell>
           );
@@ -258,7 +258,7 @@ class CoveragePage extends Component {
           return (
             <HighlightedCell >
               <Tooltip placement="topLeft">
-                <div className="text">{record.MeanCoverage}</div>
+                <div className="text">{record.meanCoverage}</div>
               </Tooltip>
             </HighlightedCell>
           );
