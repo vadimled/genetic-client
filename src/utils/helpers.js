@@ -1068,8 +1068,11 @@ const isGnomAD = (data, type, indexOfVeryRare) => {
 
   if (
     type === GNOM_AD.na &&
-    ((genome_cov_over_20 < 0.1 && exome_cov_over_20 < 0.1) ||
-      (!genome_cov_over_20 && !exome_cov_over_20))
+    (
+      (genome_cov_over_20 < 0.1 && exome_cov_over_20 < 0.1) ||
+      (!genome_cov_over_20 && !exome_cov_over_20)) ||
+      (genome_cov_over_20 < 0.1 && !exome_cov_over_20) ||
+      (!genome_cov_over_20 && exome_cov_over_20 < 0.1)
   ) {
     return true;
   } else if (
