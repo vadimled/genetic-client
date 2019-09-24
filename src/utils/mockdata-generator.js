@@ -548,6 +548,31 @@ export const generateDNAVariantTableMockData = amount =>
       germline_class: faker.random.arrayElement(["unclassified", "path", "lpath", "vus", "lben", "ben"]),
       somatic_class: faker.random.arrayElement(["unclassified", "tier1", "tier2", "tier3", "tier4"]),
       notes: faker.lorem.sentence(),
+      genome_cov_over_20: faker.random.number({
+        min: 0,
+        max: 0.1,
+        precision: 0.001
+      })
+      ,
+      exome_cov_over_20: faker.random.number({
+        min: 0,
+        max: 1,
+        precision: 0.001
+      })
+      ,
+      gnom_ad_genomes_popmax_af: faker.random.number({
+        min: 0,
+        max: 1,
+        precision: 0.001
+      })
+      ,
+      gnom_ad_exomes_popmax_af: faker.random.number({
+        min: 0,
+        max: 1,
+        precision: 0.001
+      })
+      ,
+  
       status: process?.env?.NODE_ENV === 'test'
         ? faker.random.arrayElement([
           CONFIRMATION_VALUES.CONFIRMED.value,
