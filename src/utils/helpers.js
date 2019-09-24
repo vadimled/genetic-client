@@ -1050,7 +1050,7 @@ const createVaf = numb => {
 
 const getAlleleChange = (ref, alt) => `${ref} > ${alt}`;
 
-// -------------- Computing the gnomAD --------------
+// Computing the gnomAD --------------
 const getGnomADValue = val => {
   if (val > 0 && val < 1) return GNOM_AD.veryRare;
   else if (val >= 1 && val < 5) return GNOM_AD.rare;
@@ -1058,7 +1058,7 @@ const getGnomADValue = val => {
   else return GNOM_AD.na;
 };
 
-const isGnomAD = (data, type, index) => {
+const isGnomAD = (data, type, indexOfVeryRare) => {
   const {
     genome_cov_over_20,
     exome_cov_over_20,
@@ -1077,7 +1077,7 @@ const isGnomAD = (data, type, index) => {
     (genome_cov_over_20 > 0.1 && !exome_cov_over_20)
   ) {
     if (!gnom_ad_genomes_popmax_af) {
-      return index;
+      return indexOfVeryRare;
     } else if (getGnomADValue(gnom_ad_genomes_popmax_af * 100) === type) {
       return true;
     }
@@ -1086,19 +1086,25 @@ const isGnomAD = (data, type, index) => {
     (!genome_cov_over_20 && exome_cov_over_20 > 0.1)
   ) {
     if (!gnom_ad_exomes_popmax_af) {
-      return index;
+      return indexOfVeryRare;
     } else if (getGnomADValue(gnom_ad_exomes_popmax_af * 100) === type) {
       return true;
     }
   } else if (genome_cov_over_20 > 0.1 && exome_cov_over_20 > 0.1) {
-    // TODO: this case is "TODO" in the user story
+    let resValue = 0;
+    if(gnom_ad_genomes_popmax_af && gnom_ad_exomes_popmax_af){
+      resValue = ((gnom_ad_genomes_popmax_af + gnom_ad_exomes_popmax_af) / 2) * 100;
+    }
+    else if(gnom_ad_genomes_popmax_af){
+      resValue = gnom_ad_genomes_popmax_af * 100;
+    }
+    else if(gnom_ad_exomes_popmax_af){
+      resValue = gnom_ad_exomes_popmax_af * 100;
+    }
+    
     if (!gnom_ad_exomes_popmax_af && !gnom_ad_genomes_popmax_af) {
-      return index;
-    } else if (
-      getGnomADValue(
-        ((gnom_ad_genomes_popmax_af + gnom_ad_exomes_popmax_af) / 2) * 100
-      ) === type
-    ) {
+      return indexOfVeryRare;
+    } else if ( getGnomADValue(resValue) === type ) {
       return true;
     }
   }
@@ -1117,6 +1123,7 @@ function getGnomAD(startData) {
   }
   return undefined;
 }
+// -------------- Computing the gnomAD
 
 const createNewTableDataItem = ({
   alt,
