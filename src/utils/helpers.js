@@ -9,7 +9,8 @@ import {
   ROUTES,
   EVIDENCE_CATEGORIES_OPTIONS,
   SOMATIC_VARIANT_CLASS_OPTIONS,
-  GERMLINE_VARIANT_CLASS_OPTIONS
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  GNOM_AD
 } from "./constants";
 
 export const getPrevTagColor = ({ prevVal }) => {
@@ -183,11 +184,9 @@ export const createResourcesLinks = variantData => {
     gnomAD: `https://gnomad.broadinstitute.org/variant/${[...chr]
       .slice(3)
       .join("")}-${position}-${ref}-${alt}`,
-    dbSNP:{
+    dbSNP: {
       childText: db_snp,
-      link:
-        db_snp &&
-        `https://www.ncbi.nlm.nih.gov/snp/?term=${db_snp}`
+      link: db_snp && `https://www.ncbi.nlm.nih.gov/snp/?term=${db_snp}`
     },
     ClinVar: {
       childText: clinvar_variation_id,
@@ -1051,6 +1050,158 @@ const createVaf = numb => {
 
 const getAlleleChange = (ref, alt) => `${ref} > ${alt}`;
 
+// -------------- Computing the gnomAD --------------
+const getGnomADValue = val => {
+  if (val > 0 && val < 1) return GNOM_AD.veryRare;
+  else if (val >= 1 && val < 5) return GNOM_AD.rare;
+  else if (val >= 5) return GNOM_AD.common;
+  else return GNOM_AD.na;
+};
+
+const isNA = ({ genomeCovOver20, exomeCovOver20 }) => {
+  if (
+    (genomeCovOver20 < 0.1 && exomeCovOver20 < 0.1) ||
+    (!genomeCovOver20 && !exomeCovOver20)
+  ) {
+    return true;
+  }
+};
+
+const isVeryRare = ({
+  genomeCovOver20,
+  exomeCovOver20,
+  gnomADGenomesPopmaxAF,
+  gnomADExomesPopmaxAF
+}) => {
+  if (
+    (genomeCovOver20 > 0.1 && exomeCovOver20 < 0.1) ||
+    (genomeCovOver20 > 0.1 && !exomeCovOver20)
+  ) {
+    if (!gnomADGenomesPopmaxAF) {
+      return true;
+    } else if (
+      getGnomADValue(gnomADGenomesPopmaxAF * 100) === GNOM_AD.veryRare
+    ) {
+      return true;
+    }
+  } else if (
+    (genomeCovOver20 < 0.1 && exomeCovOver20 > 0.1) ||
+    (!genomeCovOver20 && exomeCovOver20 > 0.1)
+  ) {
+    if (!gnomADExomesPopmaxAF) {
+      return true;
+    } else if (
+      getGnomADValue(gnomADExomesPopmaxAF * 100) === GNOM_AD.veryRare
+    ) {
+      return true;
+    }
+  } else if (genomeCovOver20 > 0.1 && exomeCovOver20 > 0.1) {
+    // TODO: this case is "TODO" in the user story
+    if (!gnomADExomesPopmaxAF && !gnomADGenomesPopmaxAF) {
+      return true;
+    } else if (
+      getGnomADValue(
+        ((gnomADGenomesPopmaxAF + gnomADExomesPopmaxAF) / 2) * 100
+      ) === GNOM_AD.veryRare
+    ) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const isRare = ({
+  genomeCovOver20,
+  exomeCovOver20,
+  gnomADGenomesPopmaxAF,
+  gnomADExomesPopmaxAF
+}) => {
+  if (
+    (genomeCovOver20 > 0.1 && exomeCovOver20 < 0.1) ||
+    (genomeCovOver20 > 0.1 && !exomeCovOver20)
+  ) {
+    if (!gnomADGenomesPopmaxAF) {
+      return false;
+    } else if (getGnomADValue(gnomADGenomesPopmaxAF * 100) === GNOM_AD.rare) {
+      return true;
+    }
+  } else if (
+    (genomeCovOver20 < 0.1 && exomeCovOver20 > 0.1) ||
+    (!genomeCovOver20 && exomeCovOver20 > 0.1)
+  ) {
+    if (!gnomADExomesPopmaxAF) {
+      return false;
+    } else if (getGnomADValue(gnomADExomesPopmaxAF * 100) === GNOM_AD.rare) {
+      return true;
+    }
+  } else if (genomeCovOver20 > 0.1 && exomeCovOver20 > 0.1) {
+    // TODO: this case is "TODO" in the user story
+    if (!gnomADExomesPopmaxAF || !gnomADGenomesPopmaxAF) {
+      return false;
+    } else if (
+      getGnomADValue(
+        ((gnomADGenomesPopmaxAF + gnomADExomesPopmaxAF) / 2) * 100
+      ) === GNOM_AD.rare
+    ) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const isCommon = ({
+  genomeCovOver20,
+  exomeCovOver20,
+  gnomADGenomesPopmaxAF,
+  gnomADExomesPopmaxAF
+}) => {
+  if (
+    (genomeCovOver20 > 0.1 && exomeCovOver20 < 0.1) ||
+    (genomeCovOver20 > 0.1 && !exomeCovOver20)
+  ) {
+    if (!gnomADGenomesPopmaxAF) {
+      return false;
+    } else if (getGnomADValue(gnomADGenomesPopmaxAF * 100) === GNOM_AD.common) {
+      return true;
+    }
+  } else if (
+    (genomeCovOver20 < 0.1 && exomeCovOver20 > 0.1) ||
+    (!genomeCovOver20 && exomeCovOver20 > 0.1)
+  ) {
+    if (!gnomADExomesPopmaxAF) {
+      return false;
+    } else if (getGnomADValue(gnomADExomesPopmaxAF * 100) === GNOM_AD.common) {
+      return true;
+    }
+  } else if (genomeCovOver20 > 0.1 && exomeCovOver20 > 0.1) {
+    // TODO: this case is "TODO" in the user story
+    if (!gnomADExomesPopmaxAF || !gnomADGenomesPopmaxAF) {
+      return false;
+    } else if (
+      getGnomADValue(
+        ((gnomADGenomesPopmaxAF + gnomADExomesPopmaxAF) / 2) * 100
+      ) === GNOM_AD.common
+    ) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+function getGnomAD(startData) {
+  if (isNA(startData)) {
+    return GNOM_AD.na;
+  } else if (isVeryRare(startData)) {
+    return GNOM_AD.veryRare;
+  } else if (isRare(startData)) {
+    return GNOM_AD.rare;
+  } else if (isCommon(startData)) {
+    return GNOM_AD.common;
+  }
+  return undefined;
+}
+
 const createNewTableDataItem = ({
   alt,
   chr,
@@ -1062,7 +1213,10 @@ const createNewTableDataItem = ({
   exon,
   gene,
   germline_class,
-  gnomAD,
+  genome_cov_over_20,
+  exome_cov_over_20,
+  gnom_ad_genomes_popmax_af,
+  gnom_ad_exomes_popmax_af,
   hgvs_c,
   hgvs_p,
   hot_spot,
@@ -1120,7 +1274,12 @@ const createNewTableDataItem = ({
     newObj.roi = roi;
     newObj.snp = snps;
     newObj.omim = omim || false;
-    newObj.gnomAD = gnomAD || null;
+    newObj.gnomAD = getGnomAD({
+      genomeCovOver20: genome_cov_over_20,
+      exomeCovOver20: exome_cov_over_20,
+      gnomADGenomesPopmaxAF: gnom_ad_genomes_popmax_af,
+      gnomADExomesPopmaxAF: gnom_ad_exomes_popmax_af
+    });
 
     setDefaultZygosity(newObj);
     setPriority(newObj);
