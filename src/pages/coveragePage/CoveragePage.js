@@ -29,6 +29,7 @@ import { TEXTS } from "Utils/constants";
 import ExternalLink from "../../genericComponents/externalLink";
 import IgvAlertPopup from "../singleTestPage/components/igvAlertPopup";
 import { getIgvAlertShow } from "../../store/selectors";
+import CoverageToolBar from "./components/CoverageToolBar";
 
 
 
@@ -51,8 +52,20 @@ class CoveragePage extends Component {
       },
       {
         title: "Low cowered region",
-        dataIndex: "lowCoweredRegion",
+        dataIndex: "lowCoveredRegion",
         key: "3",
+        width: 340
+      },
+      {
+        title: "Min",
+        dataIndex: "minCoverage",
+        key: "4",
+        width: 200
+      },
+      {
+        title: "Max",
+        dataIndex: "maxCoverage",
+        key: "5",
         width: 200
       },
       {
@@ -142,7 +155,6 @@ class CoveragePage extends Component {
 
           if (record.status && record.status !== TEXTS.UNCHECK) {
 
-            console.log("here");
             return (
               <HighlightedCell isHighlighted={record.isAdded}>
                 <ConfirmationStatus
@@ -174,19 +186,16 @@ class CoveragePage extends Component {
         };
       }
 
-      else if (col.dataIndex === "lowCoweredRegion") {
+      else if (col.dataIndex === "lowCoveredRegion") {
         column.render = (text, record) => {
-          // console.log(record);
-          const { chr } = record;
-
-          console.log(chr);
+          const { Chr } = record;
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               <ExternalLink
-                data={chr}
+                data={`${record.Chr} : ${record.Start} - ${record.End}`}
                 externalHandler={this.props.goToChrPositionIgv.bind(
                   null,
-                  chr
+                  Chr
                 )}
               />
             </HighlightedCell>
@@ -207,25 +216,36 @@ class CoveragePage extends Component {
         };
       }
 
-      else if (col.dataIndex === "coding") {
+      else if (col.dataIndex === "minCoverage") {
         column.render = (text, record) => {
-          const { codingLong, isAdded } = record;
           return (
-            <HighlightedCell isHighlighted={isAdded}>
-              <Tooltip placement="topLeft" title={codingLong}>
-                <div className="text">{text}</div>
+            <HighlightedCell >
+              <Tooltip placement="topLeft">
+                <div className="text">{record.MinCoverage}</div>
               </Tooltip>
             </HighlightedCell>
           );
         };
       }
 
-      else if (col.dataIndex === "lowCoweredRegion") {
+      else if (col.dataIndex === "maxCoverage") {
         column.render = (text, record) => {
           return (
             <HighlightedCell >
               <Tooltip placement="topLeft">
-                <div className="text">{record.chr}: {record.minCoverage} - {record.maxCoverage}</div>
+                <div className="text">{record.MaxCoverage}</div>
+              </Tooltip>
+            </HighlightedCell>
+          );
+        };
+      }
+
+      else if (col.dataIndex === "gene") {
+        column.render = (text, record) => {
+          return (
+            <HighlightedCell >
+              <Tooltip placement="topLeft">
+                <div className="text">{record.Gene}</div>
               </Tooltip>
             </HighlightedCell>
           );
@@ -238,7 +258,7 @@ class CoveragePage extends Component {
           return (
             <HighlightedCell >
               <Tooltip placement="topLeft">
-                <div className="text">{record.meanCoverage}</div>
+                <div className="text">{record.MeanCoverage}</div>
               </Tooltip>
             </HighlightedCell>
           );
@@ -282,6 +302,7 @@ class CoveragePage extends Component {
 
     return (
       <Fragment>
+        <CoverageToolBar />
         <Table
           className={style["variant-table-wrapper"]}
           components={this.components}
