@@ -35,41 +35,57 @@ class TestsPage extends Component {
               { "sidebar-open": sidebarToggle }
             ])}
           >
+
             {tests.map(test => (
-              <Link
-                key={test.id}
-                to={`/tests/${test.id}`}
-                data-testid={`tests-${test.id}`}
-              >
-                <div className="test-wrapper">
-                  <div className="flex">
-                    <div className="text-content">
-                      <div className="title">GSID</div>
-                      <div className="content">{test.gsid}</div>
-                    </div>
-                    <div className="text-content">
-                      <div className="title">PANEL TYPE</div>
-                      <div className="content">
-                        {capitalizeFirstLetter(test.panel_type)}
+              <div key={test.id} className="flex">
+                <div className="link-to-coverage flex items-center">
+                  <Link
+                    to={`/coverage/${test.id}`}
+                    data-testid={`tests-${test.id}`}
+                  >
+                    Coverage
+                  </Link>
+                </div>
+                <Link
+                  to={`/tests/${test.id}`}
+                  data-testid={`tests-${test.id}`}
+                >
+                  <div className="test-wrapper">
+                    <div className="flex">
+                      <div className="text-content">
+                        <div className="title">GSID</div>
+                        <div className="content">{test.gsid}</div>
                       </div>
-                    </div>
-                    <div className="text-content">
-                      <div className="title">CREATED AT</div>
-                      <div className="content">
-                        {new Date(test.created_at)
-                          .toLocaleDateString("en-GB", dateOptions)
-                          .split(" ")
-                          .join("/")}{" "}
-                        {new Date(test.created_at).toLocaleTimeString(
-                          "en-GB",
-                          timeOptions
-                        )}
+                      <div className="text-content">
+                        <div className="title">PANEL TYPE</div>
+                        <div className="content">
+                          {capitalizeFirstLetter(test.panel_type)}
+                        </div>
+                      </div>
+                      <div className="text-content">
+                        <div className="title">CREATED AT</div>
+                        <div className="content">
+                          {new Date(test.created_at)
+                            .toLocaleDateString("en-GB", dateOptions)
+                            .split(" ")
+                            .join("/")}{" "}
+                          {new Date(test.created_at).toLocaleTimeString(
+                            "en-GB",
+                            timeOptions
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+
+              </div>
             ))}
+
+
+
+
+
           </div>
         )}
         ;
