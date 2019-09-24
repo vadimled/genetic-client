@@ -1189,7 +1189,7 @@ export const capitalizeFirstLetter = string => {
 };
 
 export const firstLetterLowercase = string => {
-  return string.charAt(0).toLowerCase() + string.substring(1)
+  return string.charAt(0).toLowerCase() + string.substring(1);
 };
 
 export const dateOptions = { day: "2-digit", month: "short", year: "numeric" };
