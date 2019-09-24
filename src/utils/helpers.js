@@ -1058,30 +1058,27 @@ const getGnomADValue = val => {
   else return GNOM_AD.na;
 };
 
-const isNA = ({ genome_cov_over_20, exome_cov_over_20 }) => {
+const isGnomAD = (data, type, index) => {
+  const {
+    genome_cov_over_20,
+    exome_cov_over_20,
+    gnom_ad_genomes_popmax_af,
+    gnom_ad_exomes_popmax_af
+  } = data;
+
   if (
-    (genome_cov_over_20 < 0.1 && exome_cov_over_20 < 0.1) ||
-    (!genome_cov_over_20 && !exome_cov_over_20)
+    type === GNOM_AD.na &&
+    ((genome_cov_over_20 < 0.1 && exome_cov_over_20 < 0.1) ||
+      (!genome_cov_over_20 && !exome_cov_over_20))
   ) {
     return true;
-  }
-};
-
-const isVeryRare = ({
-  genome_cov_over_20,
-  exome_cov_over_20,
-  gnom_ad_genomes_popmax_af,
-  gnom_ad_exomes_popmax_af
-}) => {
-  if (
+  } else if (
     (genome_cov_over_20 > 0.1 && exome_cov_over_20 < 0.1) ||
     (genome_cov_over_20 > 0.1 && !exome_cov_over_20)
   ) {
     if (!gnom_ad_genomes_popmax_af) {
-      return true;
-    } else if (
-      getGnomADValue(gnom_ad_genomes_popmax_af * 100) === GNOM_AD.veryRare
-    ) {
+      return index;
+    } else if (getGnomADValue(gnom_ad_genomes_popmax_af * 100) === type) {
       return true;
     }
   } else if (
@@ -1089,114 +1086,33 @@ const isVeryRare = ({
     (!genome_cov_over_20 && exome_cov_over_20 > 0.1)
   ) {
     if (!gnom_ad_exomes_popmax_af) {
-      return true;
-    } else if (
-      getGnomADValue(gnom_ad_exomes_popmax_af * 100) === GNOM_AD.veryRare
-    ) {
+      return index;
+    } else if (getGnomADValue(gnom_ad_exomes_popmax_af * 100) === type) {
       return true;
     }
   } else if (genome_cov_over_20 > 0.1 && exome_cov_over_20 > 0.1) {
     // TODO: this case is "TODO" in the user story
     if (!gnom_ad_exomes_popmax_af && !gnom_ad_genomes_popmax_af) {
-      return true;
+      return index;
     } else if (
       getGnomADValue(
         ((gnom_ad_genomes_popmax_af + gnom_ad_exomes_popmax_af) / 2) * 100
-      ) === GNOM_AD.veryRare
+      ) === type
     ) {
       return true;
     }
   }
-  return false;
-};
-
-const isRare = ({
-  genome_cov_over_20,
-  exome_cov_over_20,
-  gnom_ad_genomes_popmax_af,
-  gnom_ad_exomes_popmax_af
-}) => {
-  if (
-    (genome_cov_over_20 > 0.1 && exome_cov_over_20 < 0.1) ||
-    (genome_cov_over_20 > 0.1 && !exome_cov_over_20)
-  ) {
-    if (!gnom_ad_genomes_popmax_af) {
-      return false;
-    } else if (getGnomADValue(gnom_ad_genomes_popmax_af * 100) === GNOM_AD.rare) {
-      return true;
-    }
-  } else if (
-    (genome_cov_over_20 < 0.1 && exome_cov_over_20 > 0.1) ||
-    (!genome_cov_over_20 && exome_cov_over_20 > 0.1)
-  ) {
-    if (!gnom_ad_exomes_popmax_af) {
-      return false;
-    } else if (getGnomADValue(gnom_ad_exomes_popmax_af * 100) === GNOM_AD.rare) {
-      return true;
-    }
-  } else if (genome_cov_over_20 > 0.1 && exome_cov_over_20 > 0.1) {
-    // TODO: this case is "TODO" in the user story
-    if (!gnom_ad_exomes_popmax_af || !gnom_ad_genomes_popmax_af) {
-      return false;
-    } else if (
-      getGnomADValue(
-        ((gnom_ad_genomes_popmax_af + gnom_ad_exomes_popmax_af) / 2) * 100
-      ) === GNOM_AD.rare
-    ) {
-      return true;
-    }
-  }
-  return false;
-};
-
-const isCommon = ({
-  genome_cov_over_20,
-  exome_cov_over_20,
-  gnom_ad_genomes_popmax_af,
-  gnom_ad_exomes_popmax_af
-}) => {
-  if (
-    (genome_cov_over_20 > 0.1 && exome_cov_over_20 < 0.1) ||
-    (genome_cov_over_20 > 0.1 && !exome_cov_over_20)
-  ) {
-    if (!gnom_ad_genomes_popmax_af) {
-      return false;
-    } else if (getGnomADValue(gnom_ad_genomes_popmax_af * 100) === GNOM_AD.common) {
-      return true;
-    }
-  } else if (
-    (genome_cov_over_20 < 0.1 && exome_cov_over_20 > 0.1) ||
-    (!genome_cov_over_20 && exome_cov_over_20 > 0.1)
-  ) {
-    if (!gnom_ad_exomes_popmax_af) {
-      return false;
-    } else if (getGnomADValue(gnom_ad_exomes_popmax_af * 100) === GNOM_AD.common) {
-      return true;
-    }
-  } else if (genome_cov_over_20 > 0.1 && exome_cov_over_20 > 0.1) {
-    // TODO: this case is "TODO" in the user story
-    if (!gnom_ad_exomes_popmax_af || !gnom_ad_genomes_popmax_af) {
-      return false;
-    } else if (
-      getGnomADValue(
-        ((gnom_ad_genomes_popmax_af + gnom_ad_exomes_popmax_af) / 2) * 100
-      ) === GNOM_AD.common
-    ) {
-      return true;
-    }
-  }
-
   return false;
 };
 
 function getGnomAD(startData) {
-  if (isNA(startData)) {
+  if (isGnomAD(startData, GNOM_AD.na)) {
     return GNOM_AD.na;
-  } else if (isVeryRare(startData)) {
+  } else if (isGnomAD(startData, GNOM_AD.veryRare, true)) {
     return GNOM_AD.veryRare;
-  } else if (isRare(startData)) {
+  } else if (isGnomAD(startData, GNOM_AD.rare, false)) {
     return GNOM_AD.rare;
-  } else if (isCommon(startData)) {
+  } else if (isGnomAD(startData, GNOM_AD.common, false)) {
     return GNOM_AD.common;
   }
   return undefined;
