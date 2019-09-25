@@ -1148,9 +1148,12 @@ export const getTableSortedByDate = (data, datePropName) => {
   });
 };
 
-export const getHistoryTableData = (data, type) => {
+export const getHistoryTableData = (data, type, testsList) => {
   const newData = data.reduce((arr, val, index) => {
     if (val.zygosity_type === type) {
+      const testId = testsList?.length > 0 ?
+        testsList.find(test => test.gsid === val.gsid)?.id :
+        null;
       const newObj = Object.assign(
         {},
         { id: val.id },
@@ -1158,7 +1161,8 @@ export const getHistoryTableData = (data, type) => {
         { created_at: val.created_at },
         { gsid: val.gsid },
         { class: val.class },
-        { analystName: val.user?.name }
+        { analystName: val.user?.name },
+        {testId}
       );
       arr.push(newObj);
       return arr;

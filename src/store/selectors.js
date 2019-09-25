@@ -26,7 +26,6 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getUncheckConfirmationData = state => state?.table?.uncheckConfirmationData,
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
   getConfirmationData = state => state?.confirmation?.data,
-  getMutationType = state => state.variants.mutations,
   getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
   getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
   getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
@@ -84,7 +83,8 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getGSID = state => state.test.gsid,
   getSelectedMutationType = state => state.variants.selectedMutation,
   getMutationTypesValues = state => state.test.mutation_types,
-  getConfirmationPageTableData = state => state.confirmationPage.metaData;
+  getConfirmationPageTableData = state => state.confirmationPage.metaData,
+  getTestsList = state => state.tests.tests;
 
 export const getTableDataAsArray = createSelector(
   getTableData,

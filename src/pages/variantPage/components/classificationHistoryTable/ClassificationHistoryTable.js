@@ -76,7 +76,7 @@ class ClassificationHistoryTable extends Component {
   };
 
   columnsConverter = columns => {
-    const { typeData, testId } = this.props;
+    const { typeData } = this.props;
     return columns.map((col, index) => {
       let column = {
         ...col,
@@ -91,8 +91,8 @@ class ClassificationHistoryTable extends Component {
         };
       }
       else if (col.dataIndex === "gsid") {
-        column.render = (text) => {
-          return <Link to={`/tests/${testId}`}>{text}</Link>;
+        column.render = (text, record) => {
+          return <Link to={`/tests/${record.testId}`}>{text}</Link>;
         };
       }
       else if (col.dataIndex === "class") {

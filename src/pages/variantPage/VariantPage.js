@@ -19,7 +19,8 @@ import {
   getZygosityType,
   getVariantId,
   getVariantPageTestId,
-  getIgvAlertShow
+  getIgvAlertShow,
+  getTestsList
 } from "Store/selectors";
 import { connect } from "react-redux";
 import {
@@ -41,6 +42,7 @@ import Spinner from "GenericComponents/spinner/Spinner";
 import { goToChrPositionIgv } from "Actions/igvActions";
 import IgvAlertPopup from "Pages/singleTestPage/components/igvAlertPopup/IgvAlertPopup";
 import { fetchTestMetadata } from "Actions/testActions";
+import { fetchTests } from "Actions/testsActions";
 
 class VariantPage extends Component {
   constructor(props) {
@@ -50,24 +52,39 @@ class VariantPage extends Component {
       fetchEvidenceData,
       fetchVariantMetadataData,
       match,
-      fetchCH,
+
       setSelectedZygosityType,
       setTestInformation,
-      fetchTestMetadata
+      fetchTestMetadata,
+      fetchTests
     } = props;
     const { testId, variantId } = match.params;
     const { selectedZygosityType } = queryString.parse(window.location.search);
-
+    fetchTests();
     fetchVariantMetadataData({ testId, variantId });
     fetchEvidenceData(variantId);
     setSelectedZygosityType({ selectedZygosityType, testId, variantId });
     setTestInformation({ testId, variantId });
-    fetchCH(variantId);
     fetchTestMetadata(testId);
 
     this.state = {
-      sidebarToggle: true
+      sidebarToggle: true,
+      isTestsList: false
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.testsList.length > 0 && !state.isTestsList) {
+      const {
+        fetchClassificationHistory,
+        match: {
+          params: { variantId }
+        }
+      } = props;
+      fetchClassificationHistory({ variantId, testsList: props.testsList });
+      return { isTestsList: true };
+    }
+    return null;
   }
 
   handleClick = () => {
@@ -75,11 +92,11 @@ class VariantPage extends Component {
       sidebarToggle: !this.state.sidebarToggle
     });
   };
-  
+
   handelChrPosition = chrPosition => {
     this.props.goToChrPositionIgv(chrPosition);
   };
-  
+
   render() {
     const { sidebarToggle } = this.state;
     const {
@@ -201,19 +218,22 @@ const mapStateToProps = state => {
     isLoading: getLoadingStatus(state),
     variantId: getVariantId(state),
     isIgvAlertShow: getIgvAlertShow(state),
+    testsList: getTestsList(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     setResources: data => dispatch(setExternalResources(data)),
-    fetchCH: data => dispatch(fetchClassificationHistory(data)),
+    fetchClassificationHistory: data =>
+      dispatch(fetchClassificationHistory(data)),
     fetchVariantMetadataData: data => dispatch(fetchVariantMetadataData(data)),
     fetchEvidenceData: data => dispatch(fetchEvidenceData(data)),
     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
     setTestInformation: data => dispatch(setTestInformation(data)),
-    goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
-    fetchTestMetadata: id => dispatch(fetchTestMetadata(id))
+    goToChrPositionIgv: data => dispatch(goToChrPositionIgv(data)),
+    fetchTestMetadata: id => dispatch(fetchTestMetadata(id)),
+    fetchTests: () => dispatch(fetchTests())
   };
 }
 
