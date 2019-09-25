@@ -52,7 +52,6 @@ class VariantPage extends Component {
       fetchEvidenceData,
       fetchVariantMetadataData,
       match,
-
       setSelectedZygosityType,
       setTestInformation,
       fetchTestMetadata,
