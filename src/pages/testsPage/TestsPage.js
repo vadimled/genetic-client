@@ -35,7 +35,6 @@ class TestsPage extends Component {
               { "sidebar-open": sidebarToggle }
             ])}
           >
-
             {tests.map(test => (
               <div key={test.id} className="flex">
                 <div className="link-to-coverage flex items-center">
