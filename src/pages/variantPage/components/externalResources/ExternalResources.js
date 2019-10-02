@@ -60,25 +60,35 @@ function ExternalResources({ externalResources, selectedZygosityType }) {
       <div className="text-not-link">
         <div
           data-testid={`external-resources-title-${label}`}
-          className="external-resources-title"
+          className="text-not-link-title"
         >
           {label}:
         </div>
-        <div className="external-resources-array">
-          {value.map(resource => {
-            return (
-              <a
-                key={`external-resources-${resource.title}`}
-                data-testid={`external-resources-${resource.title}`}
-                href={resource.link}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {resource.title}
-              </a>
-            );
-          })}
-        </div>
+        {value.length === 0 ? (
+          <div
+            data-testid={`text-not-link-value-${label}`}
+            className="text-not-link-value"
+          >
+            <span>{TEXTS.noLink}</span>
+          </div>
+        ) : (
+          <div className="external-resources-array">
+            {value.map(resource => {
+              const { childText, link } = resource;
+              return (
+                <a
+                  key={`external-resources-${childText}`}
+                  data-testid={`external-resources-${childText}`}
+                  href={link}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {childText}
+                </a>
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   };
