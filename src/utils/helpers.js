@@ -1273,6 +1273,10 @@ export const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
+export const firstLetterLowercase = string => {
+  return string.charAt(0).toLowerCase() + string.substring(1);
+};
+
 export const dateOptions = { day: "2-digit", month: "short", year: "numeric" };
 export const timeOptions = { timeStyle: "short" };
 export const actionModeText = mode =>
@@ -1346,3 +1350,21 @@ export const setVariantClassOptionsWithReconfirm = (
     } else return item;
   });
 };
+
+
+// export const convertCoverageJsonToArray = (data) => {
+//
+//   const newData = []
+//
+//   data.map(item => {
+//     let newItem = {}
+//     for(let key in item){
+//
+//       newItem[firstLetterLowercase(key)] = item[key]
+//       newData.push(newItem)
+//     }
+//   })
+//
+//   console.log("--new data: ", newData)
+//
+// }
