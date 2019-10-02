@@ -9,7 +9,8 @@ import {
   ROUTES,
   EVIDENCE_CATEGORIES_OPTIONS,
   SOMATIC_VARIANT_CLASS_OPTIONS,
-  GERMLINE_VARIANT_CLASS_OPTIONS
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  GNOM_AD
 } from "./constants";
 
 export const getPrevTagColor = ({ prevVal }) => {
@@ -183,11 +184,9 @@ export const createResourcesLinks = variantData => {
     gnomAD: `https://gnomad.broadinstitute.org/variant/${[...chr]
       .slice(3)
       .join("")}-${position}-${ref}-${alt}`,
-    dbSNP:{
+    dbSNP: {
       childText: db_snp,
-      link:
-        db_snp &&
-        `https://www.ncbi.nlm.nih.gov/snp/?term=${db_snp}`
+      link: db_snp && `https://www.ncbi.nlm.nih.gov/snp/?term=${db_snp}`
     },
     ClinVar: {
       childText: clinvar_variation_id,
@@ -1051,6 +1050,84 @@ const createVaf = numb => {
 
 const getAlleleChange = (ref, alt) => `${ref} > ${alt}`;
 
+// Computing the gnomAD --------------
+const getGnomADValue = val => {
+  if (val > 0 && val <= 1) return GNOM_AD.veryRare;
+  else if (val > 1 && val <= 5) return GNOM_AD.rare;
+  else if (val > 5) return GNOM_AD.common;
+  else return GNOM_AD.na;
+};
+
+const isGnomAD = (data, type, indexOfVeryRare) => {
+  const {
+    genome_cov_over_20,
+    exome_cov_over_20,
+    gnom_ad_genomes_popmax_af,
+    gnom_ad_exomes_popmax_af
+  } = data;
+
+  if (
+    type === GNOM_AD.na &&
+    (
+      (genome_cov_over_20 <= 0.1 && exome_cov_over_20 <= 0.1) ||
+      (!genome_cov_over_20 && !exome_cov_over_20)) ||
+      (genome_cov_over_20 <= 0.1 && !exome_cov_over_20) ||
+      (!genome_cov_over_20 && exome_cov_over_20 <= 0.1)
+  ) {
+    return true;
+  } else if (
+    (genome_cov_over_20 > 0.1 && exome_cov_over_20 <= 0.1) ||
+    (genome_cov_over_20 > 0.1 && !exome_cov_over_20)
+  ) {
+    if (!gnom_ad_genomes_popmax_af) {
+      return indexOfVeryRare;
+    } else if (getGnomADValue(gnom_ad_genomes_popmax_af * 100) === type) {
+      return true;
+    }
+  } else if (
+    (genome_cov_over_20 <= 0.1 && exome_cov_over_20 > 0.1) ||
+    (!genome_cov_over_20 && exome_cov_over_20 > 0.1)
+  ) {
+    if (!gnom_ad_exomes_popmax_af) {
+      return indexOfVeryRare;
+    } else if (getGnomADValue(gnom_ad_exomes_popmax_af * 100) === type) {
+      return true;
+    }
+  } else if (genome_cov_over_20 > 0.1 && exome_cov_over_20 > 0.1) {
+    let resValue = 0;
+    if(gnom_ad_genomes_popmax_af && gnom_ad_exomes_popmax_af){
+      resValue = ((gnom_ad_genomes_popmax_af + gnom_ad_exomes_popmax_af) / 2) * 100;
+    }
+    else if(gnom_ad_genomes_popmax_af){
+      resValue = gnom_ad_genomes_popmax_af * 100;
+    }
+    else if(gnom_ad_exomes_popmax_af){
+      resValue = gnom_ad_exomes_popmax_af * 100;
+    }
+    
+    if (!gnom_ad_exomes_popmax_af && !gnom_ad_genomes_popmax_af) {
+      return indexOfVeryRare;
+    } else if ( getGnomADValue(resValue) === type ) {
+      return true;
+    }
+  }
+  return false;
+};
+
+function getGnomAD(startData) {
+  if (isGnomAD(startData, GNOM_AD.na)) {
+    return GNOM_AD.na;
+  } else if (isGnomAD(startData, GNOM_AD.veryRare, true)) {
+    return GNOM_AD.veryRare;
+  } else if (isGnomAD(startData, GNOM_AD.rare, false)) {
+    return GNOM_AD.rare;
+  } else if (isGnomAD(startData, GNOM_AD.common, false)) {
+    return GNOM_AD.common;
+  }
+  return undefined;
+}
+// -------------- Computing the gnomAD
+
 const createNewTableDataItem = ({
   alt,
   chr,
@@ -1062,7 +1139,10 @@ const createNewTableDataItem = ({
   exon,
   gene,
   germline_class,
-  gnomAD,
+  genome_cov_over_20,
+  exome_cov_over_20,
+  gnom_ad_genomes_popmax_af,
+  gnom_ad_exomes_popmax_af,
   hgvs_c,
   hgvs_p,
   hot_spot,
@@ -1120,7 +1200,12 @@ const createNewTableDataItem = ({
     newObj.roi = roi;
     newObj.snp = snps;
     newObj.omim = omim || false;
-    newObj.gnomAD = gnomAD || null;
+    newObj.gnomAD = getGnomAD({
+      genome_cov_over_20,
+      exome_cov_over_20,
+      gnom_ad_genomes_popmax_af,
+      gnom_ad_exomes_popmax_af
+    });
 
     setDefaultZygosity(newObj);
     setPriority(newObj);
@@ -1186,6 +1271,10 @@ export const layout = (pathname, name) => {
 
 export const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+export const firstLetterLowercase = string => {
+  return string.charAt(0).toLowerCase() + string.substring(1);
 };
 
 export const dateOptions = { day: "2-digit", month: "short", year: "numeric" };
@@ -1261,3 +1350,21 @@ export const setVariantClassOptionsWithReconfirm = (
     } else return item;
   });
 };
+
+
+// export const convertCoverageJsonToArray = (data) => {
+//
+//   const newData = []
+//
+//   data.map(item => {
+//     let newItem = {}
+//     for(let key in item){
+//
+//       newItem[firstLetterLowercase(key)] = item[key]
+//       newData.push(newItem)
+//     }
+//   })
+//
+//   console.log("--new data: ", newData)
+//
+// }
