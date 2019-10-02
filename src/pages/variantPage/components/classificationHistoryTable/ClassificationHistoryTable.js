@@ -91,9 +91,11 @@ class ClassificationHistoryTable extends Component {
         };
       }
       else if (col.dataIndex === "gsid") {
-        column.render = (text) => {
-          return <Link to={`/tests/${testId}`}>{text}</Link>;
-        };
+        column.render = (text) => (
+          <div className="label-custom-style">
+            <Link to={`/tests/${testId}`}>{text}</Link>
+          </div>
+        );
       }
       else if (col.dataIndex === "class") {
         column.render = text => {
