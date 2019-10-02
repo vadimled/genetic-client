@@ -8,6 +8,7 @@ import EvidenceConfig from "variantComponents/evidenceConfig";
 import VariantPage from "variantPage/";
 import TestsPage from "Pages/testsPage";
 import ConfirmationPage from "Pages/confirmationPage";
+import CoveragePage from "./pages/coveragePage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/tests/:testId" exact component={SingleTestPage} />
         <Route path="/tests/:testId/variants/:variantId/" component={VariantPage} />
         <Route path="/confirmations/:confirmationId" component={ConfirmationPage} />
+        <Route path="/coverage/" component={CoveragePage} />
       </Switch>
       <ResultConfig />
       <EvidenceConfig />

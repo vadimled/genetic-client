@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import ActiveLogDetails from "./activiryLogDetails/ActivityLogDetails";
-import ActivityLogPopup from "./activityLogPopup/ActivityLogPopup";
+import ActiveLogDetails from "../activiryLogDetails/ActivityLogDetails";
+import ActivityLogPopup from "../activityLogPopup/ActivityLogPopup";
 import { ReactComponent as ActivityLogIcon } from "Assets/activityLogIcon.svg";
 import PropTypes from "prop-types";
 import cn from "classnames";
