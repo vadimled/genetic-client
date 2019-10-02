@@ -16,7 +16,7 @@ import {
 } from "Utils/constants";
 import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
-import ActivityLog from "./components/ActivityLog";
+import ActivityLog from "./components/activityLog/ActivityLog";
 import ResizeableTitle from "./components/resizeableTitle";
 import TableSorter from "./components/TableSorter";
 import HighlightedCell from "./components/highlightedCell";
