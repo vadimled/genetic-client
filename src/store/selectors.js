@@ -1,10 +1,4 @@
-import {
-  EVIDENCE_CATEGORIES_OPTIONS,
-  FILTERS,
-  GNOM_AD,
-  SORTING_ORDER,
-  TEXTS
-} from "Utils/constants";
+import { EVIDENCE_CATEGORIES_OPTIONS, FILTERS, GNOM_AD, SORTING_ORDER, TEXTS } from "Utils/constants";
 import { createSelector } from "reselect";
 // import isEmpty from "lodash.isempty";
 
@@ -188,17 +182,17 @@ const getAppliedFilters = createSelector(
           })
       }),
       ...(gnomFilter.length && {
-        gnom: item => {
+        gnom: ({ gnomAD }) => {
           return gnomFilter.some(value => {
             switch (value) {
               case GNOM_AD.na:
-                return item.gnomAD === undefined;
+                return gnomAD === GNOM_AD.na;
               case GNOM_AD.veryRare:
-                return item.gnomAD >= 0 && item.gnomAD < 1;
+                return gnomAD === GNOM_AD.veryRare;
               case GNOM_AD.rare:
-                return item.gnomAD >= 1 && item.gnomAD < 5;
+                return gnomAD === GNOM_AD.rare;
               case GNOM_AD.common:
-                return item.gnomAD >= 5;
+                return gnomAD === GNOM_AD.common;
             }
           });
         }

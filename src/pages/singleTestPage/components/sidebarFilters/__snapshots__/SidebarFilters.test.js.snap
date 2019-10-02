@@ -1586,7 +1586,7 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                   >
                     <input
                       class="ant-checkbox-input"
-                      data-testid="filter-checkbox-gnomAD-very rare(0-1%)"
+                      data-testid="filter-checkbox-gnomAD-very rare (0-1%)"
                       type="checkbox"
                       value=""
                     />
@@ -1604,7 +1604,7 @@ exports[`SideBarFilters component test create snapshot 1`] = `
                         <div
                           class="label-text"
                         >
-                          very rare(0-1%)
+                          very rare (0-1%)
                         </div>
                       </div>
                     </div>
