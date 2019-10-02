@@ -1,10 +1,4 @@
-import {
-  EVIDENCE_CATEGORIES_OPTIONS,
-  FILTERS,
-  GNOM_AD,
-  SORTING_ORDER,
-  TEXTS
-} from "Utils/constants";
+import { EVIDENCE_CATEGORIES_OPTIONS, FILTERS, GNOM_AD, SORTING_ORDER, TEXTS } from "Utils/constants";
 import { createSelector } from "reselect";
 // import isEmpty from "lodash.isempty";
 
@@ -157,8 +151,8 @@ const getAppliedFilters = createSelector(
         variantClass: item =>
           variantClass.some(filter => {
             return (
-              item.variantClassGermline === filter ||
-              item.variantClassSomatic === filter
+              (item.variantClassGermline === filter && item.zygosity !== "somatic")  ||
+              (item.variantClassSomatic === filter && !["homo", "hetero", "hemi"].includes(item.zygosity))
             );
           })
       }),
@@ -188,17 +182,17 @@ const getAppliedFilters = createSelector(
           })
       }),
       ...(gnomFilter.length && {
-        gnom: item => {
+        gnom: ({ gnomAD }) => {
           return gnomFilter.some(value => {
             switch (value) {
               case GNOM_AD.na:
-                return item.gnomAD === undefined;
+                return gnomAD === GNOM_AD.na;
               case GNOM_AD.veryRare:
-                return item.gnomAD >= 0 && item.gnomAD < 1;
+                return gnomAD === GNOM_AD.veryRare;
               case GNOM_AD.rare:
-                return item.gnomAD >= 1 && item.gnomAD < 5;
+                return gnomAD === GNOM_AD.rare;
               case GNOM_AD.common:
-                return item.gnomAD >= 5;
+                return gnomAD === GNOM_AD.common;
             }
           });
         }
@@ -438,3 +432,35 @@ export const getSomaticEvidence = state =>
   );
 
 export const getIsTumorInfoLoading = state => state?.test?.isTumorInfoLoading;
+
+export const getCoverageTableData = state => {
+  const data = state?.coveragePage?.data;
+  return data.sort((a, b) => a.minCoverage - b.minCoverage).slice();
+};
+
+export const getSelectedCoverageRows = createSelector(
+  getCoverageTableData,
+  data => {
+    return data.filter(row => row.selected);
+  }
+);
+
+export const checkIsAllCoverageRowsSelected = createSelector(
+  getCoverageTableData,
+  getSelectedCoverageRows,
+  (allData, selectedData) => {
+    let nonUncheckMode = 0;
+    const notConfirmedData = allData?.filter(item => {
+      if (item.status === TEXTS.UNCHECK) {
+        return item.selected;
+      }
+      else{
+        nonUncheckMode++;
+      }
+    });
+    return (
+      !!selectedData?.length &&
+      notConfirmedData?.length === (allData.length - nonUncheckMode)
+    );
+  }
+);

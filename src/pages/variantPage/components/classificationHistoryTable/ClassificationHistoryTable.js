@@ -13,7 +13,6 @@ import defaultImage from "Assets/smallEmptyState.svg";
 import TableDateAndUser from "variantComponents/evidenceContainer/components/tableDateAndUser";
 import { Link } from "react-router-dom";
 
-
 class ClassificationHistoryTable extends Component {
   state = {
     columns: [
@@ -86,23 +85,20 @@ class ClassificationHistoryTable extends Component {
         })
       };
       if (col.dataIndex === "created_at") {
-        column.render = (date) => {
+        column.render = date => {
           return <TableDateAndUser date={date} />;
         };
-      }
-      else if (col.dataIndex === "gsid") {
-        column.render = (text, record) => {
-          return <Link to={`/tests/${record.testId}`}>{text}</Link>;
-        };
-      }
-      else if (col.dataIndex === "class") {
+      } else if (col.dataIndex === "gsid") {
+        column.render = (text, record) => (
+          <div className="label-custom-style">
+            <Link to={`/tests/${record.testId}`}>{text}</Link>
+          </div>
+        );
+      } else if (col.dataIndex === "class") {
         column.render = text => {
           return (
             <div className="label-custom-style">
-              <LabeledTag
-                value={text}
-                typeData={typeData}
-              />
+              <LabeledTag value={text} typeData={typeData} />
             </div>
           );
         };

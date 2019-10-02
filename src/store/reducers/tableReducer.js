@@ -45,6 +45,7 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
+
     const { item, value } = payload;
     let data = state?.data;
 
@@ -57,6 +58,8 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_SELECT_ALL_ROWS]: (state, { payload }) => {
+
+    console.log(payload);
     let data = state?.data;
 
     for (let key in data) {

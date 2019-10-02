@@ -1,7 +1,7 @@
 import faker from "faker";
-import { CONFIRMATION_VALUES } from 'Utils/constants';
+// import { TEXTS } from "./constants";
 
-export const generateDNAVariantTableMockData = amount =>
+export const generateCoverageTableMockData = amount =>
   Array.from(new Array(amount), () => {
     let id = faker.random.alphaNumeric(25);
     return {
@@ -507,79 +507,21 @@ export const generateDNAVariantTableMockData = amount =>
         "ADGRV1",
         "ADH1A",
         "ADH1B",
-        "ADH1C"
+        "ADH1C",
+        "MTOR"
       ]),
-      
+
       chr: `chr${faker.random.number({
         min: 1,
         max: 5
-      })}`,
-      position:faker.random.number({ min: 100000, max: 350000 }),
-      transcript: `NM_${faker.helpers.replaceSymbolWithNumber("######.#")}`,
-      exon: faker.random.number({ min: 1, max: 9 }),
-      alt: faker.random.arrayElement([
-        "C.sdsff","T.DFGvb", "GADER.css11", "AdfR45"
-      ]),
-      ref: faker.random.arrayElement([
-        "C.sdsff","T.DFGvb", "GADER.css11", "AdfR45"
-      ]),
-      hgvs_c: faker.random.arrayElement(["gCc/gTc", "aGc/tCg", "cAc/gTa"]),
-      hgvs_p: `p.${faker.random.alphaNumeric(25)}`,
-  
-      percentage_variants: faker.finance.amount(0, 1, 4),
-      dp: faker.finance.amount(100, 500, 4),
-      
-      hotSpot: faker.random.arrayElement([faker.random.boolean(), undefined]),
-      db_snp: faker.random.arrayElement([faker.random.boolean(), undefined]),
-      roi: faker.random.arrayElement([faker.random.boolean(), undefined]),
-      clinvar_variation_id: faker.random.arrayElement(["", undefined]),
-      cosmic: faker.random.arrayElement(["", undefined]),
-      omim: faker.random.arrayElement(["", undefined]),
-      gnomAD: faker.random.arrayElement([
-        undefined,
-        faker.random.number(1),
-        faker.random.number({ min: 1, max: 5 }),
-        faker.random.number({ min: 5, max: 100 })
-      ]),
-      zygosity: faker.random.arrayElement([
-        "notDefined",
-        "notReal", "insignificant", "unknown", "somatic", "homo", "hemi", "hetero"]),
-      effect: faker.random.arrayElement(["high", "modifier", "moderate", "low"]),
-      germline_class: faker.random.arrayElement(["unclassified", "path", "lpath", "vus", "lben", "ben"]),
-      somatic_class: faker.random.arrayElement(["unclassified", "tier1", "tier2", "tier3", "tier4"]),
+      })}:${faker.random.number({min: 100, max: 142274739})}`,
+      start:faker.random.number({ min: 100000, max: 350000 }),
+      end:faker.random.number({ min: 100000, max: 350000 }),
+      minCoverage:faker.random.number({ min: 100, max: 999 }),
+      maxCoverage:faker.random.number({ min: 1001, max: 3500 }),
+      meanCoverage:faker.random.number({ min: 100, max: 3500 }),
+      status: faker.random.arrayElement(["UNCHECK"]),
       notes: faker.lorem.sentence(),
-      genome_cov_over_20: faker.random.number({
-        min: 0,
-        max: 0.2,
-        precision: 0.001
-      })
-      ,
-      exome_cov_over_20: faker.random.number({
-        min: 0,
-        max: 0.2,
-        precision: 0.001
-      })
-      ,
-      gnom_ad_genomes_popmax_af: faker.random.number({
-        min: 0,
-        max: 1,
-        precision: 0.001
-      })
-      ,
-      gnom_ad_exomes_popmax_af: faker.random.number({
-        min: 0,
-        max: 1,
-        precision: 0.001
-      })
-      ,
-  
-      status: process?.env?.NODE_ENV === 'test'
-        ? faker.random.arrayElement([
-          CONFIRMATION_VALUES.CONFIRMED.value,
-          CONFIRMATION_VALUES.NOT_CONFIRMED.value,
-          CONFIRMATION_VALUES.PENDING.value,
-          null
-        ])
-        : null,
+
     };
   });
