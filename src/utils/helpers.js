@@ -125,7 +125,6 @@ export const getTitleCurr = ({ prevVal, currVal, field }) => {
 const getLinksArray = (data, link) => {
   return Array.isArray(data)
     ? data.map(code => {
-      console.log("code: ", code);
       return {
         childText: code,
         link: `${link}${[...code].slice(4).join("")}`

@@ -38,6 +38,7 @@ function ExternalResources({ externalResources, selectedZygosityType }) {
     } else {
       link = data;
     }
+    console.log(label);
     return (
       <div className="text-not-link">
         <div
@@ -50,7 +51,12 @@ function ExternalResources({ externalResources, selectedZygosityType }) {
           data-testid={`text-not-link-value-${label}`}
           className="text-not-link-value"
         >
-          {renderLink(childText, link) || <span>{link || TEXTS.noLink}</span>}
+          {renderLink(childText, link) || (
+            <span>
+              {link ||
+                (label === "Damaging score" ? TEXTS.noData : TEXTS.noLink)}
+            </span>
+          )}
         </div>
       </div>
     );
