@@ -18,6 +18,7 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getSearchQuery = state => state?.filters?.[FILTERS.searchText],
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
   getUncheckConfirmationData = state => state?.table?.uncheckConfirmationData,
+  getCurrentPage = state => state?.table?.currentPage,
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
   getConfirmationData = state => state?.confirmation?.data,
   getMutationType = state => state.variants.mutations,
