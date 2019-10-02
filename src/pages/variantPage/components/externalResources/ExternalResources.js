@@ -1,12 +1,11 @@
 import React, { memo } from "react";
 import style from "./ExternalResources.module.scss";
 import {
-  TEXTS,
   EXTERNAL_RESOURCES_GERMLINE,
-  EXTERNAL_RESOURCES_SOMATIC
+  EXTERNAL_RESOURCES_SOMATIC,
+  TEXTS
 } from "Utils/constants";
 import PropTypes from "prop-types";
-import { Tooltip } from "antd";
 import urlRegex from "url-regex";
 
 function ExternalResources({ externalResources, selectedZygosityType }) {
@@ -16,8 +15,7 @@ function ExternalResources({ externalResources, selectedZygosityType }) {
       : EXTERNAL_RESOURCES_SOMATIC;
 
   const renderLink = (label, value) => {
-    if (!value || !label)
-      return null;
+    if (!value || !label) return null;
     if (value && !label) {
       return value;
     }
@@ -48,14 +46,12 @@ function ExternalResources({ externalResources, selectedZygosityType }) {
         >
           {label}:
         </div>
-        <Tooltip placement="topLeft" title={link}>
-          <div
-            data-testid={`text-not-link-value-${label}`}
-            className="text-not-link-value"
-          >
-            {renderLink(childText, link) || <span>{link || TEXTS.noLink}</span>}
-          </div>
-        </Tooltip>
+        <div
+          data-testid={`text-not-link-value-${label}`}
+          className="text-not-link-value"
+        >
+          {renderLink(childText, link) || <span>{link || TEXTS.noLink}</span>}
+        </div>
       </div>
     );
   };
