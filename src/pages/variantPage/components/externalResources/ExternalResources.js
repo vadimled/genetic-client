@@ -38,7 +38,6 @@ function ExternalResources({ externalResources, selectedZygosityType }) {
     } else {
       link = data;
     }
-    console.log(label);
     return (
       <div className="text-not-link">
         <div
