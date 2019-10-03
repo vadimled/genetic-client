@@ -1,14 +1,20 @@
 .final-report-page-wrapper :global {
   .main-content {
     border: 1px solid violet;
-    //width: 1470px;
-    padding: 100px;
+    padding: 40px;
+
+    .actionable-table {
+      border: 1px dashed blue;
+      padding: 40px;
+    }
+
+    .variant-table {
+      border: 1px dashed green;
+    }
+    flex: 5 1;
   }
   .sidebar {
     border: 2px solid red;
-    //width: 320px;
     padding: 100px;
   }
-
-  border: 2px solid blue;
 }
