@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import style from "./FinalReportPage.module.scss";
 import { Table, Divider, Tag } from 'antd';
+import FinalReportActionableTable from "Pages/finalReportPage/finalReportActionableTable";
 
 const columns = [
   {
@@ -84,7 +85,9 @@ class FinalReportPage extends Component {
     return (
       <div className={`${style["final-report-page-wrapper"]} flex justify-between`}>
         <div className="main-content">
-          <div className="final-report-actionable">Table 1</div>
+          <div className="final-report-actionable">
+            <FinalReportActionableTable />
+          </div>
           <div className="final-report-variants">
             <Table columns={columns} dataSource={data} />
           </div>
