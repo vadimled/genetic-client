@@ -32,3 +32,4 @@ export default combineReducers({
   coveragePage: coveragePageReducer,
   finalReport: finalReportReducer
 });
+
