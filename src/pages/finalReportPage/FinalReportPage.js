@@ -84,8 +84,8 @@ class FinalReportPage extends Component {
     return (
       <div className={`${style["final-report-page-wrapper"]} flex justify-between`}>
         <div className="main-content">
-          <div className="actionable-table">Table 1</div>
-          <div className="variant-table">
+          <div className="final-report-actionable">Table 1</div>
+          <div className="final-report-variants">
             <Table columns={columns} dataSource={data} />
           </div>
         </div>
