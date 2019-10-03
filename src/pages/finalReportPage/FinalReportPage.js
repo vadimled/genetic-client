@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import style from "./FinalReportPage.module.scss"
+import style from "./FinalReportPage.module.scss";
 
 class FinalReportPage extends Component {
 
