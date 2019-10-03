@@ -126,7 +126,7 @@ const getLinksArray = (data, link) => {
   return Array.isArray(data)
     ? data.map(code => {
       return {
-        title: code,
+        childText: code,
         link: `${link}${[...code].slice(4).join("")}`
       };
     })
