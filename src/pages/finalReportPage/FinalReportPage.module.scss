@@ -1,0 +1,12 @@
+.final-report-page-wrapper :global {
+  .main-content {
+    border: 1px solid violet;
+    width: 1470px;
+  }
+  .sidebar {
+    border: 2px solid red;
+    width: 320px;
+  }
+
+  border: 2px solid blue;
+}
