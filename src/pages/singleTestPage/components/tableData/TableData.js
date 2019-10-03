@@ -12,6 +12,7 @@ import {
   getSortParam,
   getTestId,
   getTumorInfoMode,
+  getCurrentPage
 } from "Store/selectors";
 import {
   handleSelectedRow,
@@ -23,6 +24,7 @@ import {
   setNotes,
   setSort,
   saveUserPreferencesSorting,
+  setTableCurrentPage
 } from "Actions/tableActions";
 import {
   goToChrPositionIgv
@@ -36,7 +38,12 @@ class TableData extends Component {
     setSort(data);
     saveUserPreferencesSorting({ testId, sorting: data });
   };
-
+  
+  
+  handleChangeTablePage = pagination => {
+    this.props.setTableCurrentPage(pagination?.current);
+  };
+  
   render() {
     const {
       filteredData,
@@ -53,6 +60,7 @@ class TableData extends Component {
       sortParam,
       testId,
       showTumorInfo,
+      currentPage
     } = this.props;
 
     return (
@@ -74,6 +82,8 @@ class TableData extends Component {
             sortParam={sortParam}
             testId={testId}
             tumorInfoPanel={showTumorInfo}
+            handleChangeTablePage={this.handleChangeTablePage}
+            currentPage={currentPage}
           />
         }
 
@@ -91,7 +101,8 @@ function mapStateToProps(state) {
     sortOrder: getSortOrder(state),
     sortParam: getSortParam(state),
     testId: getTestId(state),
-    showTumorInfo: getTumorInfoMode(state)
+    showTumorInfo: getTumorInfoMode(state),
+    currentPage: getCurrentPage(state),
   };
 }
 
@@ -113,6 +124,7 @@ function mapDispatchToProps(dispatch) {
     setNotes: data => dispatch(setNotes(data)),
     setSort: data => dispatch(setSort(data)),
     saveUserPreferencesSorting: data => dispatch(saveUserPreferencesSorting(data)),
+    setTableCurrentPage: data => dispatch(setTableCurrentPage(data)),
   };
 }
 
