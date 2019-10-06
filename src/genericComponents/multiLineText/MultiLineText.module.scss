@@ -1,0 +1,22 @@
+@import "Css/Colors.scss";
+
+.multiLine-text-wrapper :global {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+
+  .multiLine-text {
+    width: 70%;
+    max-width: 110px;
+    font-weight: normal;
+    font-size: 16px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $title_color;
+    margin-left: 4px;
+  }
+}

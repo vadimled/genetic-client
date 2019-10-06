@@ -11,8 +11,7 @@ import {
   SOMATIC_VARIANT_CLASS_OPTIONS,
   TEXTS
 } from "Utils/constants";
-
-// import MultiLineText from "Pages/singleTestPage/components/FinalReportActionableTable/components/multiLineText";
+import MultiLineText from "GenericComponents/multiLineText";
 
 class FinalReportActionableTable extends Component {
   state = {
@@ -123,7 +122,7 @@ class FinalReportActionableTable extends Component {
         };
       } else if (col.dataIndex === "variant") {
         column.render = (text, record) => {
-          const { proteinWholly, isAdded, status, mutation } = record;
+          const { protein, coding, isAdded, status, mutation } = record;
           
           return status && mutation === TEXTS.CNV ? (
             <HighlightedCell isHighlighted={isAdded}>
@@ -131,9 +130,9 @@ class FinalReportActionableTable extends Component {
             </HighlightedCell>
           ) : (
             <HighlightedCell isHighlighted={isAdded}>
-              <Tooltip placement="topLeft" title={proteinWholly}>
-                <div className="text">{``}</div>
-              </Tooltip>
+              <MultiLineText
+                source={{protein, coding}}
+                className="multiLine-text"/>
             </HighlightedCell>
           );
         };
