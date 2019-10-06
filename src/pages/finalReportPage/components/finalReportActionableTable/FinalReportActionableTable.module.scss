@@ -1,6 +1,9 @@
 @import "Css/Colors.scss";
 
 .final-report-actionable-table :global {
+  .ant-table-content {
+    height: auto;
+  }
   .ant-table-fixed {
     table-layout: fixed !important;
   }

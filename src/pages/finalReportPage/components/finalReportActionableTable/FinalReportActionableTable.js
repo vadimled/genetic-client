@@ -6,7 +6,7 @@ import ResizeableTitle from "GenericComponents/variantTable/components/resizeabl
 import HighlightedCell from "GenericComponents/variantTable/components/highlightedCell/HighlightedCell";
 import TableLayout from "Pages/singleTestPage/components/tableLayout";
 import LabeledTag from "GenericComponents/labeledTag/LabeledTag";
-import { GERMLINE_VARIANT_CLASS_OPTIONS } from "Utils/constants";
+import { GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS, TEXTS } from "Utils/constants";
 
 // import MultiLineText from "Pages/singleTestPage/components/FinalReportActionableTable/components/multiLineText";
 
@@ -45,8 +45,7 @@ class FinalReportActionableTable extends Component {
         width: 180
       },
       {
-        title: "Approved drug\n" +
-          "(other indication",
+        title: "Approved drug\n" + "(other indication",
         dataIndex: "approved_drug_other_indication",
         key: "8",
         width: 180
@@ -64,17 +63,17 @@ class FinalReportActionableTable extends Component {
       }
     ]
   };
-  
+
   components = {
     header: {
       cell: ResizeableTitle
     }
   };
-  
+
   handleRemoveRow = () => {
     this.props.remove;
   };
-  
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -86,19 +85,40 @@ class FinalReportActionableTable extends Component {
       };
       if (col.dataIndex === "classification") {
         column.render = (text, record) => {
-          console.log(text, record);
+          const {
+            variantClassGermline,
+            variantClassSomatic,
+            zygosity
+          } = record;
+          let value, typeData;
+          if (zygosity === TEXTS.somatic) {
+            value = variantClassSomatic;
+            typeData = SOMATIC_VARIANT_CLASS_OPTIONS;
+          } else {
+            value = variantClassGermline;
+            typeData = GERMLINE_VARIANT_CLASS_OPTIONS;
+          }
+
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               <div className="label-custom-style">
-                <LabeledTag
-                  typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
-                  value={text}
-                />
+                <LabeledTag typeData={typeData} value={value} />
               </div>
             </HighlightedCell>
           );
         };
         column.className = "no-padding";
+      } else if (col.dataIndex === "vaf") {
+        column.render = (text, record) => {
+          const { proteinWholly, isAdded } = record;
+          return (
+            <HighlightedCell isHighlighted={isAdded}>
+              <Tooltip placement="topLeft" title={proteinWholly}>
+                <div className="text">{`${text}%`}</div>
+              </Tooltip>
+            </HighlightedCell>
+          );
+        };
       } else {
         column.render = value => {
           return (
@@ -111,11 +131,11 @@ class FinalReportActionableTable extends Component {
         };
         column.className = "no-padding";
       }
-      
+
       return column;
     });
   };
-  
+
   handleResize = index => (e, { size }) => {
     this.setState(({ columns }) => {
       const nextColumns = [...columns];
@@ -126,11 +146,11 @@ class FinalReportActionableTable extends Component {
       return { columns: nextColumns };
     });
   };
-  
+
   render() {
-    const { selectedData } = this.props;
+    const { dataSource } = this.props;
     const columns = this.columnsConverter(this.state.columns);
-    
+    // console.log(dataSource);
     return (
       <TableLayout>
         <Table
@@ -138,7 +158,8 @@ class FinalReportActionableTable extends Component {
           components={this.components}
           bordered
           columns={columns}
-          dataSource={selectedData}
+          dataSource={dataSource}
+          pagination={false}
           scroll={{ x: "max-content", y: "true" }}
         />
       </TableLayout>
