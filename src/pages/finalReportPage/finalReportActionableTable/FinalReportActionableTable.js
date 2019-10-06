@@ -5,6 +5,9 @@ import style from "./FinalReportActionableTable.module.scss";
 import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
 import HighlightedCell from "GenericComponents/variantTable/components/highlightedCell/HighlightedCell";
 import TableLayout from "Pages/singleTestPage/components/tableLayout";
+import LabeledTag from "genericComponents/labeledTag/LabeledTag";
+import { GERMLINE_VARIANT_CLASS_OPTIONS } from "Utils/constants";
+
 // import MultiLineText from "Pages/singleTestPage/components/FinalReportActionableTable/components/multiLineText";
 
 class FinalReportActionableTable extends Component {
@@ -87,11 +90,17 @@ class FinalReportActionableTable extends Component {
           onResize: this.handleResize(index)
         })
       };
-      if (col.dataIndex === "gene") {
-        column.render = value => {
+      if (col.dataIndex === "classification") {
+        column.render = (text, record) => {
+          console.log(text, record);
           return (
-            <HighlightedCell isHighlighted={false}>
-              {value}
+            <HighlightedCell isHighlighted={record.isAdded}>
+              <div className="label-custom-style">
+                <LabeledTag
+                  typeData={GERMLINE_VARIANT_CLASS_OPTIONS}
+                  value={text}
+                />
+              </div>
             </HighlightedCell>
           );
         };
