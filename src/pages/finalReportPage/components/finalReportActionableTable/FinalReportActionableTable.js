@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Table, Tooltip } from "antd";
-import style from "./FinalReportActionableTable.module.scss";
-import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
-import HighlightedCell from "GenericComponents/variantTable/components/highlightedCell/HighlightedCell";
-import TableLayout from "Pages/singleTestPage/components/tableLayout";
+import style from "pages/finalReportPage/components/finalReportActionableTable/FinalReportActionableTable.module.scss";
+import ResizeableTitle from "genericComponents/variantTable/components/resizeableTitle";
+import HighlightedCell from "genericComponents/variantTable/components/highlightedCell/HighlightedCell";
+import TableLayout from "pages/singleTestPage/components/tableLayout";
 import LabeledTag from "genericComponents/labeledTag/LabeledTag";
-import { GERMLINE_VARIANT_CLASS_OPTIONS } from "Utils/constants";
+import { GERMLINE_VARIANT_CLASS_OPTIONS } from "utils/constants";
 
 // import MultiLineText from "Pages/singleTestPage/components/FinalReportActionableTable/components/multiLineText";
 

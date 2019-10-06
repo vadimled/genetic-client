@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import style from "./FinalReportPage.module.scss";
-import FinalReportActionableTable from "Pages/finalReportPage/finalReportActionableTable";
-import FinalReportVariantsTable from "Pages/finalReportPage/finalReportVariantsTable";
+import FinalReportActionableTable from "pages/finalReportPage/components/finalReportActionableTable";
+import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
 import { getSelectedData } from "selectors";
 import { removeSelectedTableRow } from "Actions/finalReportAction";
 import { Link } from "react-router-dom";
