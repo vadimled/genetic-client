@@ -300,10 +300,10 @@ class FinalReportVariantsTable extends Component {
   };
 
   componentDidMount() {
-    const scroll = document.getElementsByClassName("ant-table-scroll")
+    const scroll = document.getElementsByClassName("ant-table-scroll");
 
-    scroll[0].classList.remove("ant-table-scroll")
-    console.log(scroll)
+    scroll[0].classList.remove("ant-table-scroll");
+    console.log(scroll);
   }
 
 
