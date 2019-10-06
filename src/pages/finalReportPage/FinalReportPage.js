@@ -2,8 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import style from "./FinalReportPage.module.scss";
 import FinalReportActionableTable from "Pages/finalReportPage/finalReportActionableTable";
+import FinalReportVariantsTable from "Pages/finalReportPage/finalReportVariantsTable";
 import { getSelectedData } from "selectors";
 import { removeSelectedTableRow } from "Actions/finalReportAction";
+import { Link } from "react-router-dom";
+
+
 
 class FinalReportPage extends Component {
   handleRemoveSelectedTableRow = val => {
@@ -14,21 +18,28 @@ class FinalReportPage extends Component {
   render() {
     const { selectedData } = this.props;
     return (
-      <div
-        className={`${style["final-report-page-wrapper"]} flex justify-between`}
-      >
+      <div className={`${style["final-report-page-wrapper"]} flex justify-between`}>
+
         <div className="main-content">
+          <div className='flex justify-start'>
+            <Link to="/">
+            Back
+            </Link>
+          </div>
           <div className="final-report-actionable">
             <FinalReportActionableTable
               dataSource={selectedData}
               remove={this.handleRemoveSelectedTableRow}
             />
           </div>
+  
           <div className="final-report-variants">
-            {"Table columns={columns} dataSource={data}"}
+            <FinalReportVariantsTable />
           </div>
         </div>
-        <div className="sidebar">Sidebar</div>
+        <div className="sidebar">
+          Sidebar
+        </div>
       </div>
     );
   }

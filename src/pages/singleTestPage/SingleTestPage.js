@@ -72,8 +72,9 @@ class SingleTestPage extends Component {
       alertMessage,
       setAlert,
       showTumorInfo,
-      isLoading
+      isLoading,
     } = this.props;
+
 
     return (
       <div className={style["main-page"]}>

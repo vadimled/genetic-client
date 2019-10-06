@@ -23,7 +23,7 @@ function App() {
         <Route path="/tests/:testId/variants/:variantId/" component={VariantPage} />
         <Route path="/confirmations/:confirmationId" component={ConfirmationPage} />
         <Route path="/coverage/" component={CoveragePage} />
-        <Route path="/final-report/" component={FinalReportPage} />
+        <Route path="/final-report/:testId" exact component={FinalReportPage} />
       </Switch>
       <ResultConfig />
       <EvidenceConfig />

@@ -45,6 +45,16 @@ class TestsPage extends Component {
                     Coverage
                   </Link>
                 </div>
+
+                <div className="link-to-coverage flex items-center">
+                  <Link
+                    to={`/final-report/${test.id}`}
+                    // data-testid={`tests-${test.id}`}
+                  >
+                    Final Report
+                  </Link>
+                </div>
+
                 <Link
                   to={`/tests/${test.id}`}
                   data-testid={`tests-${test.id}`}

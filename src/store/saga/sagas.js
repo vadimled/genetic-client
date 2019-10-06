@@ -500,8 +500,10 @@ export function* fetchTestMetadataSaga(action) {
 export function* fetchTableDataSaga(action) {
   try {
     const result = yield call(fetchTableDataApi, action);
+    console.log(result);
     yield put(setServerDataToStore(result?.data));
     const newData = parseTableData(result?.data);
+
 
     yield put(setParsedDataToStore(newData));
     yield put(setLoading(false));
