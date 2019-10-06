@@ -3,7 +3,7 @@ import actionsTypes from "../actionsTypes";
 
 const initialState = {
   data: null,
-  // selectedVariants: null
+  selectedVariants: []
 };
 
 const finalReportReducer = createReducer(initialState, {
@@ -24,14 +24,20 @@ const finalReportReducer = createReducer(initialState, {
 
     let data = state?.data;
 
+    let selectedVariants = state?.selectedVariants
+
     data[item.id].selected = value;
+
+    console.log(data[item.id]);
+
+    selectedVariants.push(data[item.id])
 
     // selectedVariants.push(data[item.id])
 
     return {
       ...state,
       data: { ...data },
-      // selectedVariants
+      selectedVariants
     };
   },
 

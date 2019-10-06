@@ -15,6 +15,7 @@ import {
 } from "Utils/constants";
 import { fetchTestMetadata } from "Store/actions/testActions";
 import { handleSelectAllRows, handleSelectedRow } from "Store/actions/finalReportAction";
+import { getSelectedVariants } from "../../../../store/selectors";
 
 
 
@@ -312,9 +313,10 @@ class FinalReportVariantsTable extends Component {
 
   render() {
 
-    const {filteredData} = this.props;
+    const {filteredData, selectedVariants} = this.props;
 
-    // console.log(allSelectedVariants);
+
+    console.log(selectedVariants);
 
     const columns = this.columnsConverter(this.state.columns);
 
@@ -340,7 +342,7 @@ function mapStateToProps(state) {
   return {
     filteredData: getFilteredData(state),
     mutationTypesValues: getMutationTypesValues(state),
-    // allSelectedVariants: getAllSelectedVariants(state)
+    selectedVariants: getSelectedVariants(state)
 
     // sortParam: getSortParam(state),
     // testId: getTestId(state),

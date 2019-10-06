@@ -471,11 +471,8 @@ export const checkIsAllCoverageRowsSelected = createSelector(
   }
 );
 
-// export const getAllSelectedVariants = state => {
-//
-//   console.log(state);
-//
-//   const variants = state?.finalReport?.data
-//
-//   return variants.filter(record => record.selected)
-// }
+export const getSelectedVariants = state =>  state?.finalReport?.selectedVariants
+
+
+
+
