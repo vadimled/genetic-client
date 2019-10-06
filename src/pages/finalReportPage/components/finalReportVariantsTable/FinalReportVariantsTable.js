@@ -7,12 +7,12 @@ import { fetchTableData } from "../../../../store/actions/tableActions";
 import { withRouter } from "react-router-dom";
 import cn from "classnames";
 import HighlightedCell from "../../../../genericComponents/variantTable/components/highlightedCell/HighlightedCell";
-import LabeledTag from "../../../../genericComponents/labeledTag/LabeledTag";
+import LabeledTag from "GenericComponents/labeledTag/LabeledTag";
 import {
   GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS, TEXTS,
   VARIANT_CLASS_GERMLINE,
   VARIANT_CLASS_SOMATIC
-} from "../../../../utils/constants";
+} from "Utils/constants";
 
 
 
