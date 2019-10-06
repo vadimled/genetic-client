@@ -17,20 +17,20 @@ class FinalReportActionableTable extends Component {
         width: 128
       },
       {
-        title: "Chr",
-        dataIndex: "chr",
+        title: "Variant",
+        dataIndex: "variant",
         key: "2",
         width: 80
       },
       {
-        title: "Range",
-        dataIndex: "range",
+        title: "Classification",
+        dataIndex: "classification",
         key: "4",
         width: 180
       },
       {
-        title: "Status",
-        dataIndex: "status",
+        title: "VAF",
+        dataIndex: "vaf",
         key: "5",
         width: 140
       },
@@ -41,20 +41,27 @@ class FinalReportActionableTable extends Component {
         width: 140
       },
       {
-        title: "Amplicons",
-        dataIndex: "num_amplicons",
+        title: "Approved drug\n" +
+          "(same indication)",
+        dataIndex: "approved_drug_same_indication",
         key: "7",
         width: 100
       },
       {
-        title: "Panelizer",
-        dataIndex: "copiesPanelizer",
+        title: "Approved drug\n" +
+          "(other indication",
+        dataIndex: "approved_drug_other_indication",
         key: "8",
         width: 110
       },
       {
-        title: "CNVCov",
-        dataIndex: "copiesCNVCov",
+        title: "Clinical trials",
+        dataIndex: "clinical_trials",
+        key: "9",
+        width: 80
+      },
+      {
+        dataIndex: "remove",
         key: "9",
         width: 80
       }
@@ -67,6 +74,10 @@ class FinalReportActionableTable extends Component {
     }
   };
   
+  handleRemoveRow = () => {
+    this.props.remove;
+  };
+  
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -76,7 +87,7 @@ class FinalReportActionableTable extends Component {
           onResize: this.handleResize(index)
         })
       };
-      if (col.dataIndex === "range") {
+      if (col.dataIndex === "gene") {
         column.render = value => {
           return (
             <HighlightedCell isHighlighted={false}>
@@ -114,7 +125,7 @@ class FinalReportActionableTable extends Component {
   };
   
   render() {
-    const { data } = this.props;
+    const { selectedData } = this.props;
     const columns = this.columnsConverter(this.state.columns);
     
     return (
@@ -124,8 +135,7 @@ class FinalReportActionableTable extends Component {
           components={this.components}
           bordered
           columns={columns}
-          dataSource={data}
-          pagination={{ pageSize: 20 }}
+          dataSource={selectedData}
           scroll={{ x: "max-content", y: "true" }}
         />
       </TableLayout>
@@ -134,11 +144,11 @@ class FinalReportActionableTable extends Component {
 }
 
 FinalReportActionableTable.propTypes = {
-  data: PropTypes.array
+  selectedData: PropTypes.array
 };
 
 FinalReportActionableTable.defaultProps = {
-  data: []
+  selectedData: []
 };
 
 export default FinalReportActionableTable;

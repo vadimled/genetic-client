@@ -2,16 +2,22 @@ import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 
 const initialState = {
-  data: null
+  data: [],
+  selectedData: []
 };
 
 const finalReportReducer = createReducer(initialState, {
-  [actionsTypes.FETCH_DATA]: (state, {payload}) => {
-
+  [actionsTypes.ADD_ROW]: (state, {payload}) => {
     return {
       ...state,
-      isLoggedIn: true,
-      ...payload
+      selectedData: state.selectedData.push(payload)
+    };
+  },
+  
+  [actionsTypes.REMOVE_SELECTED_TABLE_ROW]: (state, {payload}) => {
+    console.log(payload);
+    return {
+      ...state
     };
   }
 

@@ -1,8 +1,8 @@
 import actionsTypes from "../actionsTypes";
 
-export const fetchData = data => {
+export const removeSelectedTableRow = data => {
   return {
-    type: actionsTypes.FETCH_DATA,
+    type: actionsTypes.REMOVE_SELECTED_TABLE_ROW,
     payload: data
   };
 };
