@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Table, Tooltip } from "antd";
-import style from "pages/finalReportPage/components/finalReportActionableTable/FinalReportActionableTable.module.scss";
-import ResizeableTitle from "genericComponents/variantTable/components/resizeableTitle";
-import HighlightedCell from "genericComponents/variantTable/components/highlightedCell/HighlightedCell";
-import TableLayout from "pages/singleTestPage/components/tableLayout";
-import LabeledTag from "genericComponents/labeledTag/LabeledTag";
-import { GERMLINE_VARIANT_CLASS_OPTIONS } from "utils/constants";
+import style from "./FinalReportActionableTable.module.scss";
+import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
+import HighlightedCell from "GenericComponents/variantTable/components/highlightedCell/HighlightedCell";
+import TableLayout from "Pages/singleTestPage/components/tableLayout";
+import LabeledTag from "GenericComponents/labeledTag/LabeledTag";
+import { GERMLINE_VARIANT_CLASS_OPTIONS } from "Utils/constants";
 
 // import MultiLineText from "Pages/singleTestPage/components/FinalReportActionableTable/components/multiLineText";
 
@@ -17,55 +17,49 @@ class FinalReportActionableTable extends Component {
         title: "Gene",
         dataIndex: "gene",
         key: "1",
-        width: 128
+        width: 120
       },
       {
         title: "Variant",
         dataIndex: "variant",
         key: "2",
-        width: 80
+        width: 120
       },
       {
         title: "Classification",
         dataIndex: "classification",
         key: "4",
-        width: 180
+        width: 100
       },
       {
         title: "VAF",
         dataIndex: "vaf",
         key: "5",
-        width: 140
+        width: 80
       },
       {
-        title: "Confidence",
-        dataIndex: "confidence",
-        key: "6",
-        width: 140
-      },
-      {
-        title: "Approved drug\n" +
-          "(same indication)",
+        title: `Approved drug\n
+        (same indication)`,
         dataIndex: "approved_drug_same_indication",
         key: "7",
-        width: 100
+        width: 180
       },
       {
         title: "Approved drug\n" +
           "(other indication",
         dataIndex: "approved_drug_other_indication",
         key: "8",
-        width: 110
+        width: 180
       },
       {
         title: "Clinical trials",
         dataIndex: "clinical_trials",
         key: "9",
-        width: 80
+        width: 120
       },
       {
         dataIndex: "remove",
-        key: "9",
+        key: "10",
         width: 80
       }
     ]

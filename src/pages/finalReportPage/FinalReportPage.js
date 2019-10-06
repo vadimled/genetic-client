@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import style from "./FinalReportPage.module.scss";
-import FinalReportActionableTable from "pages/finalReportPage/components/finalReportActionableTable";
-import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
-import { getSelectedData } from "selectors";
+import FinalReportActionableTable from "Pages/finalReportPage/components/finalReportActionableTable";
+import { getSelectedData } from "Store/selectors";
 import { removeSelectedTableRow } from "Actions/finalReportAction";
 import { Link } from "react-router-dom";
 
@@ -34,12 +33,12 @@ class FinalReportPage extends Component {
           </div>
   
           <div className="final-report-variants">
-            <FinalReportVariantsTable />
+            {/* <FinalReportVariantsTable />*/}
           </div>
         </div>
-        <div className="sidebar">
+        {/* <div className="sidebar">
           Sidebar
-        </div>
+        </div>*/}
       </div>
     );
   }

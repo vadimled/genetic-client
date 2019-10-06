@@ -1,1 +1,1 @@
-export {default} from "pages/finalReportPage/components/finalReportActionableTable/FinalReportActionableTable";
+export {default} from "./FinalReportActionableTable";
