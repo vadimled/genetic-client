@@ -127,6 +127,14 @@ class FinalReportVariantsTable extends Component {
   }
 
 
+
+  componentDidMount() {
+    const scroll = document.getElementsByClassName("ant-table-scroll");
+
+    scroll[0].classList.remove("ant-table-scroll");
+    console.log(scroll);
+  }
+
   components = {
     header: {
       cell: ResizeableTitle
@@ -298,14 +306,6 @@ class FinalReportVariantsTable extends Component {
       return column;
     });
   };
-
-  componentDidMount() {
-    const scroll = document.getElementsByClassName("ant-table-scroll");
-
-    scroll[0].classList.remove("ant-table-scroll");
-    console.log(scroll);
-  }
-
 
   render() {
 
