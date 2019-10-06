@@ -284,13 +284,6 @@ class FinalReportVariantsTable extends Component {
     });
   };
 
-  componentDidMount() {
-    // const { fetchTableData, match } = this.props;
-    // fetchTableData({
-    //   testId: match?.params?.testId,
-    //   mutation: "dna"
-    // });
-  }
 
   render() {
 
