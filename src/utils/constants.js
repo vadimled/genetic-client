@@ -57,7 +57,8 @@ export const TEXTS = {
   somaticClass:"somatic_class",
   noLink: "No link",
   UNCHECK: "UNCHECK",
-  System: "System"
+  System: "System",
+  CNV: "cnv"
 };
 
 export const LIMITS = {

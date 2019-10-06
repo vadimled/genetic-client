@@ -6,7 +6,11 @@ import ResizeableTitle from "GenericComponents/variantTable/components/resizeabl
 import HighlightedCell from "GenericComponents/variantTable/components/highlightedCell/HighlightedCell";
 import TableLayout from "Pages/singleTestPage/components/tableLayout";
 import LabeledTag from "GenericComponents/labeledTag/LabeledTag";
-import { GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS, TEXTS } from "Utils/constants";
+import {
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  TEXTS
+} from "Utils/constants";
 
 // import MultiLineText from "Pages/singleTestPage/components/FinalReportActionableTable/components/multiLineText";
 
@@ -110,11 +114,25 @@ class FinalReportActionableTable extends Component {
         column.className = "no-padding";
       } else if (col.dataIndex === "vaf") {
         column.render = (text, record) => {
-          const { proteinWholly, isAdded } = record;
+          const { isAdded } = record;
           return (
             <HighlightedCell isHighlighted={isAdded}>
+              <div className="text">{text ? `${text}%` : ``}</div>
+            </HighlightedCell>
+          );
+        };
+      } else if (col.dataIndex === "variant") {
+        column.render = (text, record) => {
+          const { proteinWholly, isAdded, status, mutation } = record;
+          
+          return status && mutation === TEXTS.CNV ? (
+            <HighlightedCell isHighlighted={isAdded}>
+              <div className="text">{status}</div>
+            </HighlightedCell>
+          ) : (
+            <HighlightedCell isHighlighted={isAdded}>
               <Tooltip placement="topLeft" title={proteinWholly}>
-                <div className="text">{`${text}%`}</div>
+                <div className="text">{``}</div>
               </Tooltip>
             </HighlightedCell>
           );
