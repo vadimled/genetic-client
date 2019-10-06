@@ -20,7 +20,9 @@ class FinalReportPage extends Component {
             Back
             </Link>
           </div>
-          <div className="final-report-actionable">Table 1</div>
+          <div className="final-report-actionable">
+            1 table
+          </div>
           <div className="final-report-variants">
             <FinalReportVariantsTable />
           </div>
