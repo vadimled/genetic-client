@@ -315,7 +315,6 @@ class FinalReportVariantsTable extends Component {
 
     const {filteredData, selectedVariants} = this.props;
 
-
     console.log(selectedVariants);
 
     const columns = this.columnsConverter(this.state.columns);

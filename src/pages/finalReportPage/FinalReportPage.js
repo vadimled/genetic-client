@@ -3,13 +3,16 @@ import { connect } from "react-redux";
 import style from "./FinalReportPage.module.scss";
 import FinalReportVariantsTable from "./components/finalReportVariantsTable";
 import { Link } from "react-router-dom";
+import { getSelectedVariants } from "Store/selectors";
 
 
 
 class FinalReportPage extends Component {
 
   render() {
-    // const {} = this.props;
+    const {selectedVariants} = this.props;
+
+    console.log(selectedVariants);
 
     return (
       <div className={`${style["final-report-page-wrapper"]} flex justify-between`}>
@@ -21,7 +24,11 @@ class FinalReportPage extends Component {
             </Link>
           </div>
           <div className="final-report-actionable">
-            1 table
+            <ul>
+              {
+                selectedVariants.map(variant => <li key={variant.id}>{variant.gene}</li>)
+              }
+            </ul>
           </div>
           <div className="final-report-variants">
             <FinalReportVariantsTable />
@@ -35,10 +42,12 @@ class FinalReportPage extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
 
-// function mapStateToProps(state) {
-//   return {};
-// }
+    selectedVariants: getSelectedVariants(state)
 
+  };
+}
 
-export default connect(null, {})(FinalReportPage);
+export default connect(mapStateToProps, {})(FinalReportPage);
