@@ -24,14 +24,14 @@ const finalReportReducer = createReducer(initialState, {
 
     let data = Object.assign(state?.data);
 
-    let selectedVariants = Object.assign(state?.selectedVariants)
+    let selectedVariants = Object.assign(state?.selectedVariants);
 
     data[item.id].selected = value;
 
-    selectedVariants.push(data[item.id])
+    selectedVariants.push(data[item.id]);
 
-    state.data = data
-    state.selectedVariants = selectedVariants
+    state.data = data;
+    state.selectedVariants = selectedVariants;
 
     // selectedVariants.push(data[item.id])
 
