@@ -73,10 +73,8 @@ class SingleTestPage extends Component {
       setAlert,
       showTumorInfo,
       isLoading,
-      getMutationTypesValues
     } = this.props;
 
-    console.log(getMutationTypesValues);
 
     return (
       <div className={style["main-page"]}>

@@ -285,7 +285,6 @@ class FinalReportVariantsTable extends Component {
   };
 
   componentDidMount() {
-    console.log("--here ");
     // const { fetchTableData, match } = this.props;
     // fetchTableData({
     //   testId: match?.params?.testId,
@@ -299,11 +298,6 @@ class FinalReportVariantsTable extends Component {
 
     const columns = this.columnsConverter(this.state.columns);
 
-
-    console.log("--filteredData: ", filteredData);
-    // console.log("--props: ", this.props);
-
-    // console.log("--gere ");
     if(!filteredData){
       return <div>no data</div>;
     }

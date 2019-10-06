@@ -370,7 +370,6 @@ class ConfirmationTable extends Component {
 
   render() {
     const { data } = this.props;
-    console.log(data);
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
 
