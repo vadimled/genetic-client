@@ -9,11 +9,12 @@ import cn from "classnames";
 import HighlightedCell from "GenericComponents/variantTable/components/highlightedCell/HighlightedCell";
 import LabeledTag from "GenericComponents/labeledTag/LabeledTag";
 import {
-  GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS, TEXTS,
+  GERMLINE_VARIANT_CLASS_OPTIONS, SOMATIC_VARIANT_CLASS_OPTIONS,
   VARIANT_CLASS_GERMLINE,
   VARIANT_CLASS_SOMATIC
 } from "Utils/constants";
-import { fetchTestMetadata } from "../../../../store/actions/testActions";
+import { fetchTestMetadata } from "Store/actions/testActions";
+import { handleSelectAllRows, handleSelectedRow } from "Store/actions/finalReportAction";
 
 
 
@@ -152,6 +153,11 @@ class FinalReportVariantsTable extends Component {
     });
   };
 
+  handleCheckboxChange = () => {
+    const { isAllRowSelected, handleSelectAllRows } = this.props;
+    handleSelectAllRows(isAllRowSelected);
+  };
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -179,17 +185,14 @@ class FinalReportVariantsTable extends Component {
 
         column.render = (text, record) => {
 
-          if (record.status && record.status !== TEXTS.UNCHECK) {
-            return (
-              <HighlightedCell isHighlighted={record.isAdded}>
-                {record.status}
-              </HighlightedCell>
-            );
-          }
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
               <Checkbox
                 checked={record.selected}
+                onChange={this.props.handleSelectedRow.bind(null, {
+                  item: record,
+                  value: !record.selected
+                })}
 
                 data-testid="selection-checkbox"
                 data-testitemid={record.id}
@@ -309,9 +312,9 @@ class FinalReportVariantsTable extends Component {
 
   render() {
 
-    const {filteredData, mutationTypesValues} = this.props;
+    const {filteredData} = this.props;
 
-    console.log(mutationTypesValues);
+    // console.log(allSelectedVariants);
 
     const columns = this.columnsConverter(this.state.columns);
 
@@ -336,9 +339,9 @@ class FinalReportVariantsTable extends Component {
 function mapStateToProps(state) {
   return {
     filteredData: getFilteredData(state),
-    mutationTypesValues: getMutationTypesValues(state)
-    // selectedRows: getSelectedRows(state),
-    // sortOrder: getSortOrder(state),
+    mutationTypesValues: getMutationTypesValues(state),
+    // allSelectedVariants: getAllSelectedVariants(state)
+
     // sortParam: getSortParam(state),
     // testId: getTestId(state),
     // showTumorInfo: getTumorInfoMode(state)
@@ -349,6 +352,8 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchTableData: data => dispatch(fetchTableData(data)),
     fetchTestMetadata: testId => dispatch(fetchTestMetadata(testId)),
+    handleSelectedRow: (data) => dispatch(handleSelectedRow(data)),
+    handleSelectAllRows: (data) => dispatch(handleSelectAllRows(data)),
   };
 }
 

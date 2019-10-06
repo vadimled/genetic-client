@@ -144,6 +144,7 @@ const FETCH_COVERAGE_TABLE_DATA = "FETCH_COVERAGE_TABLE_DATA";
 
 // Final report page
 const FETCH_DATA = "FETCH_DATA";
+const SET_VARIANTS_DATA_TO_STORE = "SET_VARIANTS_DATA_TO_STORE";
 
 export default {
   SET_LOADING,
@@ -292,5 +293,6 @@ export default {
   FETCH_COVERAGE_TABLE_DATA,
 
   // Final report
-  FETCH_DATA
+  FETCH_DATA,
+  SET_VARIANTS_DATA_TO_STORE
 };
