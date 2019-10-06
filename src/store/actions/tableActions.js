@@ -58,6 +58,7 @@ export const handleUncheckConfirmationData = data => {
 };
 
 export const fetchTableData = data => {
+  console.log("-----data: ", data)
   return{
     type: actionsTypes.FETCH_TABLE_DATA,
     payload: data
