@@ -70,7 +70,7 @@ deploy_dev:
     DISTRIBUTION_ID: "E3RZZZSN5R94AD"
     REACT_APP_API_URL: "https://api.analyst.dev.aidgenomics.com"
     REACT_APP_AXIOS_MOCK_ENABLED: "false"
-# REACT_APP_MVP_CONFIG: "true"
+    # REACT_APP_MVP_CONFIG: "true"
     S3_BUCKET: "analyst-website-dev"
   before_script:
     - apk add --no-cache curl jq python py-pip git
