@@ -15,7 +15,7 @@ import {
 } from "Utils/constants";
 import { fetchTestMetadata } from "Store/actions/testActions";
 import { handleSelectAllRows, handleSelectedRow } from "Store/actions/finalReportAction";
-import { getSelectedVariants } from "../../../../store/selectors";
+import { getSelectedVariants } from "Store/selectors";
 
 
 
