@@ -2,7 +2,10 @@ import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 
 const initialState = {
-  data: [],
+  dna_variants: [],
+  cna_variants: [],
+  dna_variants_ids: [],
+  cna_variants_ids: [],
   selectedVariants: [
     {
       alleleChange: "T > G",
