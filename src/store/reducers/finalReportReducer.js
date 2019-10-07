@@ -4,7 +4,7 @@ import actionsTypes from "../actionsTypes";
 const initialState = {
   dna_variants: [],
   cna_variants: [],
-
+  selectedVariants: [],
   actionableVariants: [
     {
       id: "5d511f574651a20020a0ab50",
