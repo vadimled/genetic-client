@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Checkbox, Table, Tooltip } from "antd";
 import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
-import { getFilteredData, getMutationTypesValues } from "Store/selectors";
+import { getMutationTypesValues } from "Store/selectors";
 import { fetchTableData } from "Store/actions/tableActions";
 import { withRouter } from "react-router-dom";
 import cn from "classnames";
@@ -76,8 +76,6 @@ class FinalReportVariantsTable extends Component {
           key: "9",
           width: 80,
           className: "sorter numeric"
-          // sorter: (a, b) => a.vaf - b.vaf,
-          // sortOrder: sortedInfo.columnKey === 'vaf' && sortedInfo.order,
         },
         {
           title: "Zygosity",
@@ -303,11 +301,11 @@ class FinalReportVariantsTable extends Component {
 
   render() {
 
-    const {filteredData} = this.props;
+    const {filteredDnaVariants} = this.props;
 
     const columns = this.columnsConverter(this.state.columns);
 
-    if(!filteredData){
+    if(!filteredDnaVariants){
       return <div>no data</div>;
     }
 
@@ -317,7 +315,7 @@ class FinalReportVariantsTable extends Component {
         pagination={{ pageSize: 5 }}
         bordered
         columns={columns}
-        dataSource={filteredData}
+        dataSource={filteredDnaVariants}
         scroll={{ x: "max-content", y: "240px" }}
       />
     );
@@ -327,7 +325,6 @@ class FinalReportVariantsTable extends Component {
 
 function mapStateToProps(state) {
   return {
-    filteredData: getFilteredData(state),
     mutationTypesValues: getMutationTypesValues(state),
   };
 }

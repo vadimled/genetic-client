@@ -2,7 +2,7 @@ import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 
 const initialState = {
-  dna_variants: [],
+  dna_variants: null,
   cna_variants: [],
   selectedVariants: [],
   actionableVariants: [
@@ -609,6 +609,7 @@ const initialState = {
 };
 
 const finalReportReducer = createReducer(initialState, {
+
   [actionsTypes.ADD_ROW]: (state, { payload }) => {
     return {
       ...state,
@@ -624,6 +625,8 @@ const finalReportReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
+
+    console.log("--payload: ", payload)
 
     const { item, value } = payload;
 
@@ -649,7 +652,7 @@ const finalReportReducer = createReducer(initialState, {
 
   [actionsTypes.HANDLE_SELECT_ALL_ROWS]: (state, { payload }) => {
 
-    let data = state?.data;
+    let data = state?.dna_variants;
 
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
@@ -664,7 +667,7 @@ const finalReportReducer = createReducer(initialState, {
 
     return {
       ...state,
-      data: { ...data }
+      dna_variants: { ...data }
     };
   },
 
