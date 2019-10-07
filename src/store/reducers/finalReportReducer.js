@@ -99,8 +99,472 @@ const initialState = {
       test_id: "4kfub3vfut4bvy5r3j7yzinzy",
       weighted_avg: 6421.221668522
     },
-    
-    
+    {
+      mutation: "cnv",
+      chr: "chr12",
+      confidence: "High",
+      copiesCNVCov: 5,
+      copiesPanelizer: 5,
+      end: 18740479,
+      gene: "ACSS3",
+      gsid: "da4syy0yv0enn7z7s9h991hfs",
+      id: "bptwpd79an",
+      key: 1,
+      num_amplicons: 4,
+      range: {start: 257691, end: 18740479},
+      start: 257691,
+      status: "Deletion",
+      test_id: "4kfub3vfut4bvy5r3j7yzinzy",
+      weighted_avg: 6421.221668522
+    },
+
+
+    {
+      mutation: "dna",
+      alleleChange: "T > G",
+      alleleChangeLong: "T > G",
+      alt: "G",
+      chr: "chr1",
+      chrPosition: "chr1:11854476",
+      clinvar: 3521,
+      coding: "c.1286A>C",
+      codingLong: "c.1286A>C",
+      cosmic: (2)[("COSM3735923", "COSM3735924")],
+      coverage: 605,
+      db_snp: "rs1801131",
+      dp: 605.666666667,
+      effect: "MODERATE",
+      exon: undefined,
+      gene: "MTHFR",
+      gnomAD: null,
+      hotSpot: undefined,
+      id: "5d94675214ac3f0017818469",
+      isAdded: undefined,
+      key: "5d94675214ac3f0017818469",
+      notes: undefined,
+      omim: false,
+      percentageVariants: 0.482976187597,
+      position: 11854476,
+      priority: 8,
+      protein: "p.Glu429Ala",
+      proteinWholly: "p.Glu429Ala",
+      ref: "T",
+      roi: true,
+      snp: true,
+      status: "UNCHECK",
+      transcript: "NM_005957.4",
+      vaf: 48,
+      variantClassGermline: "path",
+      variantClassSomatic: "vus",
+      zygosity: "homo"
+    },{
+      mutation: "cnv",
+      chr: "chr12",
+      confidence: "High",
+      copiesCNVCov: 5,
+      copiesPanelizer: 5,
+      end: 18740479,
+      gene: "ACSS3",
+      gsid: "da4syy0yv0enn7z7s9h991hfs",
+      id: "bptwpd79an",
+      key: 1,
+      num_amplicons: 4,
+      range: {start: 257691, end: 18740479},
+      start: 257691,
+      status: "Deletion",
+      test_id: "4kfub3vfut4bvy5r3j7yzinzy",
+      weighted_avg: 6421.221668522
+    },
+
+
+    {
+      mutation: "dna",
+      alleleChange: "T > G",
+      alleleChangeLong: "T > G",
+      alt: "G",
+      chr: "chr1",
+      chrPosition: "chr1:11854476",
+      clinvar: 3521,
+      coding: "c.1286A>C",
+      codingLong: "c.1286A>C",
+      cosmic: (2)[("COSM3735923", "COSM3735924")],
+      coverage: 605,
+      db_snp: "rs1801131",
+      dp: 605.666666667,
+      effect: "MODERATE",
+      exon: undefined,
+      gene: "MTHFR",
+      gnomAD: null,
+      hotSpot: undefined,
+      id: "5d94675214ac3f0017818469",
+      isAdded: undefined,
+      key: "5d94675214ac3f0017818469",
+      notes: undefined,
+      omim: false,
+      percentageVariants: 0.482976187597,
+      position: 11854476,
+      priority: 8,
+      protein: "p.Glu429Ala",
+      proteinWholly: "p.Glu429Ala",
+      ref: "T",
+      roi: true,
+      snp: true,
+      status: "UNCHECK",
+      transcript: "NM_005957.4",
+      vaf: 48,
+      variantClassGermline: "path",
+      variantClassSomatic: "vus",
+      zygosity: "homo"
+    },{
+      mutation: "cnv",
+      chr: "chr12",
+      confidence: "High",
+      copiesCNVCov: 5,
+      copiesPanelizer: 5,
+      end: 18740479,
+      gene: "ACSS3",
+      gsid: "da4syy0yv0enn7z7s9h991hfs",
+      id: "bptwpd79an",
+      key: 1,
+      num_amplicons: 4,
+      range: {start: 257691, end: 18740479},
+      start: 257691,
+      status: "Deletion",
+      test_id: "4kfub3vfut4bvy5r3j7yzinzy",
+      weighted_avg: 6421.221668522
+    },
+
+
+    {
+      mutation: "dna",
+      alleleChange: "T > G",
+      alleleChangeLong: "T > G",
+      alt: "G",
+      chr: "chr1",
+      chrPosition: "chr1:11854476",
+      clinvar: 3521,
+      coding: "c.1286A>C",
+      codingLong: "c.1286A>C",
+      cosmic: (2)[("COSM3735923", "COSM3735924")],
+      coverage: 605,
+      db_snp: "rs1801131",
+      dp: 605.666666667,
+      effect: "MODERATE",
+      exon: undefined,
+      gene: "MTHFR",
+      gnomAD: null,
+      hotSpot: undefined,
+      id: "5d94675214ac3f0017818469",
+      isAdded: undefined,
+      key: "5d94675214ac3f0017818469",
+      notes: undefined,
+      omim: false,
+      percentageVariants: 0.482976187597,
+      position: 11854476,
+      priority: 8,
+      protein: "p.Glu429Ala",
+      proteinWholly: "p.Glu429Ala",
+      ref: "T",
+      roi: true,
+      snp: true,
+      status: "UNCHECK",
+      transcript: "NM_005957.4",
+      vaf: 48,
+      variantClassGermline: "path",
+      variantClassSomatic: "vus",
+      zygosity: "homo"
+    },{
+      mutation: "cnv",
+      chr: "chr12",
+      confidence: "High",
+      copiesCNVCov: 5,
+      copiesPanelizer: 5,
+      end: 18740479,
+      gene: "ACSS3",
+      gsid: "da4syy0yv0enn7z7s9h991hfs",
+      id: "bptwpd79an",
+      key: 1,
+      num_amplicons: 4,
+      range: {start: 257691, end: 18740479},
+      start: 257691,
+      status: "Deletion",
+      test_id: "4kfub3vfut4bvy5r3j7yzinzy",
+      weighted_avg: 6421.221668522
+    },
+
+
+    {
+      mutation: "dna",
+      alleleChange: "T > G",
+      alleleChangeLong: "T > G",
+      alt: "G",
+      chr: "chr1",
+      chrPosition: "chr1:11854476",
+      clinvar: 3521,
+      coding: "c.1286A>C",
+      codingLong: "c.1286A>C",
+      cosmic: (2)[("COSM3735923", "COSM3735924")],
+      coverage: 605,
+      db_snp: "rs1801131",
+      dp: 605.666666667,
+      effect: "MODERATE",
+      exon: undefined,
+      gene: "MTHFR",
+      gnomAD: null,
+      hotSpot: undefined,
+      id: "5d94675214ac3f0017818469",
+      isAdded: undefined,
+      key: "5d94675214ac3f0017818469",
+      notes: undefined,
+      omim: false,
+      percentageVariants: 0.482976187597,
+      position: 11854476,
+      priority: 8,
+      protein: "p.Glu429Ala",
+      proteinWholly: "p.Glu429Ala",
+      ref: "T",
+      roi: true,
+      snp: true,
+      status: "UNCHECK",
+      transcript: "NM_005957.4",
+      vaf: 48,
+      variantClassGermline: "path",
+      variantClassSomatic: "vus",
+      zygosity: "homo"
+    },{
+      mutation: "cnv",
+      chr: "chr12",
+      confidence: "High",
+      copiesCNVCov: 5,
+      copiesPanelizer: 5,
+      end: 18740479,
+      gene: "ACSS3",
+      gsid: "da4syy0yv0enn7z7s9h991hfs",
+      id: "bptwpd79an",
+      key: 1,
+      num_amplicons: 4,
+      range: {start: 257691, end: 18740479},
+      start: 257691,
+      status: "Deletion",
+      test_id: "4kfub3vfut4bvy5r3j7yzinzy",
+      weighted_avg: 6421.221668522
+    },
+
+
+    {
+      mutation: "dna",
+      alleleChange: "T > G",
+      alleleChangeLong: "T > G",
+      alt: "G",
+      chr: "chr1",
+      chrPosition: "chr1:11854476",
+      clinvar: 3521,
+      coding: "c.1286A>C",
+      codingLong: "c.1286A>C",
+      cosmic: (2)[("COSM3735923", "COSM3735924")],
+      coverage: 605,
+      db_snp: "rs1801131",
+      dp: 605.666666667,
+      effect: "MODERATE",
+      exon: undefined,
+      gene: "MTHFR",
+      gnomAD: null,
+      hotSpot: undefined,
+      id: "5d94675214ac3f0017818469",
+      isAdded: undefined,
+      key: "5d94675214ac3f0017818469",
+      notes: undefined,
+      omim: false,
+      percentageVariants: 0.482976187597,
+      position: 11854476,
+      priority: 8,
+      protein: "p.Glu429Ala",
+      proteinWholly: "p.Glu429Ala",
+      ref: "T",
+      roi: true,
+      snp: true,
+      status: "UNCHECK",
+      transcript: "NM_005957.4",
+      vaf: 48,
+      variantClassGermline: "path",
+      variantClassSomatic: "vus",
+      zygosity: "homo"
+    },{
+      mutation: "cnv",
+      chr: "chr12",
+      confidence: "High",
+      copiesCNVCov: 5,
+      copiesPanelizer: 5,
+      end: 18740479,
+      gene: "ACSS3",
+      gsid: "da4syy0yv0enn7z7s9h991hfs",
+      id: "bptwpd79an",
+      key: 1,
+      num_amplicons: 4,
+      range: {start: 257691, end: 18740479},
+      start: 257691,
+      status: "Deletion",
+      test_id: "4kfub3vfut4bvy5r3j7yzinzy",
+      weighted_avg: 6421.221668522
+    },
+
+
+    {
+      mutation: "dna",
+      alleleChange: "T > G",
+      alleleChangeLong: "T > G",
+      alt: "G",
+      chr: "chr1",
+      chrPosition: "chr1:11854476",
+      clinvar: 3521,
+      coding: "c.1286A>C",
+      codingLong: "c.1286A>C",
+      cosmic: (2)[("COSM3735923", "COSM3735924")],
+      coverage: 605,
+      db_snp: "rs1801131",
+      dp: 605.666666667,
+      effect: "MODERATE",
+      exon: undefined,
+      gene: "MTHFR",
+      gnomAD: null,
+      hotSpot: undefined,
+      id: "5d94675214ac3f0017818469",
+      isAdded: undefined,
+      key: "5d94675214ac3f0017818469",
+      notes: undefined,
+      omim: false,
+      percentageVariants: 0.482976187597,
+      position: 11854476,
+      priority: 8,
+      protein: "p.Glu429Ala",
+      proteinWholly: "p.Glu429Ala",
+      ref: "T",
+      roi: true,
+      snp: true,
+      status: "UNCHECK",
+      transcript: "NM_005957.4",
+      vaf: 48,
+      variantClassGermline: "path",
+      variantClassSomatic: "vus",
+      zygosity: "homo"
+    },{
+      mutation: "cnv",
+      chr: "chr12",
+      confidence: "High",
+      copiesCNVCov: 5,
+      copiesPanelizer: 5,
+      end: 18740479,
+      gene: "ACSS3",
+      gsid: "da4syy0yv0enn7z7s9h991hfs",
+      id: "bptwpd79an",
+      key: 1,
+      num_amplicons: 4,
+      range: {start: 257691, end: 18740479},
+      start: 257691,
+      status: "Deletion",
+      test_id: "4kfub3vfut4bvy5r3j7yzinzy",
+      weighted_avg: 6421.221668522
+    },
+
+
+    {
+      mutation: "dna",
+      alleleChange: "T > G",
+      alleleChangeLong: "T > G",
+      alt: "G",
+      chr: "chr1",
+      chrPosition: "chr1:11854476",
+      clinvar: 3521,
+      coding: "c.1286A>C",
+      codingLong: "c.1286A>C",
+      cosmic: (2)[("COSM3735923", "COSM3735924")],
+      coverage: 605,
+      db_snp: "rs1801131",
+      dp: 605.666666667,
+      effect: "MODERATE",
+      exon: undefined,
+      gene: "MTHFR",
+      gnomAD: null,
+      hotSpot: undefined,
+      id: "5d94675214ac3f0017818469",
+      isAdded: undefined,
+      key: "5d94675214ac3f0017818469",
+      notes: undefined,
+      omim: false,
+      percentageVariants: 0.482976187597,
+      position: 11854476,
+      priority: 8,
+      protein: "p.Glu429Ala",
+      proteinWholly: "p.Glu429Ala",
+      ref: "T",
+      roi: true,
+      snp: true,
+      status: "UNCHECK",
+      transcript: "NM_005957.4",
+      vaf: 48,
+      variantClassGermline: "path",
+      variantClassSomatic: "vus",
+      zygosity: "homo"
+    },{
+      mutation: "cnv",
+      chr: "chr12",
+      confidence: "High",
+      copiesCNVCov: 5,
+      copiesPanelizer: 5,
+      end: 18740479,
+      gene: "ACSS3",
+      gsid: "da4syy0yv0enn7z7s9h991hfs",
+      id: "bptwpd79an",
+      key: 1,
+      num_amplicons: 4,
+      range: {start: 257691, end: 18740479},
+      start: 257691,
+      status: "Deletion",
+      test_id: "4kfub3vfut4bvy5r3j7yzinzy",
+      weighted_avg: 6421.221668522
+    },
+
+
+    {
+      mutation: "dna",
+      alleleChange: "T > G",
+      alleleChangeLong: "T > G",
+      alt: "G",
+      chr: "chr1",
+      chrPosition: "chr1:11854476",
+      clinvar: 3521,
+      coding: "c.1286A>C",
+      codingLong: "c.1286A>C",
+      cosmic: (2)[("COSM3735923", "COSM3735924")],
+      coverage: 605,
+      db_snp: "rs1801131",
+      dp: 605.666666667,
+      effect: "MODERATE",
+      exon: undefined,
+      gene: "MTHFR",
+      gnomAD: null,
+      hotSpot: undefined,
+      id: "5d94675214ac3f0017818469",
+      isAdded: undefined,
+      key: "5d94675214ac3f0017818469",
+      notes: undefined,
+      omim: false,
+      percentageVariants: 0.482976187597,
+      position: 11854476,
+      priority: 8,
+      protein: "p.Glu429Ala",
+      proteinWholly: "p.Glu429Ala",
+      ref: "T",
+      roi: true,
+      snp: true,
+      status: "UNCHECK",
+      transcript: "NM_005957.4",
+      vaf: 48,
+      variantClassGermline: "path",
+      variantClassSomatic: "vus",
+      zygosity: "homo"
+    },
+
     {
       mutation: "dna",
       alleleChange: "T > G",
@@ -196,7 +660,60 @@ const finalReportReducer = createReducer(initialState, {
     return {
       ...state
     };
-  }
+  },
+
+  [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
+
+    const { item, value } = payload;
+
+    // const selectedVariants = []
+
+    let data = Object.assign(state?.data);
+
+    // let selectedVariants = Object.assign(state?.selectedVariants);
+
+    data[item.id].selected = value;
+
+    // selectedVariants.push(data[item.id]);
+
+    state.data = data;
+    // state.selectedVariants = selectedVariants;
+
+    // selectedVariants.push(data[item.id])
+
+    return {
+      ...state
+    };
+  },
+
+  [actionsTypes.HANDLE_SELECT_ALL_ROWS]: (state, { payload }) => {
+
+    let data = state?.data;
+
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        let item = data[key];
+
+        // if an item has already status we cannot select it to send for confirmation
+
+        item.selected = !payload;
+
+      }
+    }
+
+    return {
+      ...state,
+      data: { ...data }
+    };
+  },
+
+  [actionsTypes.SET_VARIANTS_DATA_TO_STORE]: (state, { payload }) => {
+    return {
+      ...state,
+      dna_variants: payload
+    };
+  },
+
 });
 
 export default finalReportReducer;

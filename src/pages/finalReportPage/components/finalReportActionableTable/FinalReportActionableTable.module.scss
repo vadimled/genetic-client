@@ -1,16 +1,13 @@
 @import "Css/Colors.scss";
 
 .final-report-actionable-table :global {
-  .ant-table-content {
-    height: auto;
-  }
   .ant-table-fixed {
     table-layout: fixed !important;
   }
 
   .ant-table-empty {
     .ant-table-body {
-      overflow: hidden !important;
+      overflow-y: hidden !important;
     }
   }
 

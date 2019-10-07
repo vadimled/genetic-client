@@ -100,6 +100,7 @@ import {
   setDefaultFilters,
   saveUserPreferencesFilters
 } from "Actions/filtersActions";
+import { setVariantsDataToStore } from "Actions/finalReportAction";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -505,6 +506,7 @@ export function* fetchTableDataSaga(action) {
 
 
     yield put(setParsedDataToStore(newData));
+    yield put(setVariantsDataToStore(newData));
     yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {

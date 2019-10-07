@@ -188,7 +188,6 @@ class FinalReportActionableTable extends Component {
   render() {
     const { dataSource } = this.props;
     const columns = this.columnsConverter(this.state.columns);
-    // console.log(dataSource);
     return (
       <TableLayout>
         <Table
@@ -198,7 +197,7 @@ class FinalReportActionableTable extends Component {
           columns={columns}
           dataSource={dataSource}
           pagination={false}
-          scroll={{ x: "max-content", y: "true" }}
+          scroll={{ x: "max-content", y: "false" }}
         />
       </TableLayout>
     );

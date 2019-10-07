@@ -466,3 +466,21 @@ export const checkIsAllCoverageRowsSelected = createSelector(
     );
   }
 );
+
+
+export const getFilteredDnaVariants = state => state.finalReport?.dna_variants;
+
+export const getDnaVariantsAsArray = createSelector(
+  getFilteredDnaVariants,
+  data => {
+    let arrayData = [];
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        arrayData.push(data[key]);
+      }
+    }
+    return arrayData;
+  }
+);
+
+

@@ -1,5 +1,12 @@
 @import "Css/Colors.scss";
 
+$sideBarWidth: 197px;
+$toolBarAndHeader: 96px;
+$heightTableBody: 230px;
+$heightTableContent: 150px;
+$heightTableBodyWithTumorPanel: 278px;
+$heightTableContentWithTumorPanel: 198px;
+
 .variant-table-wrapper :global {
   .activity-icon-wrapper {
     cursor: pointer;
@@ -157,5 +164,34 @@
   .hidden-classification {
     //border: 2px dashed mediumvioletred;
     opacity: 0.3;
+  }
+  .ant-table-content {
+    transition: all 0.4s ease;
+    max-height: calc(100vh - #{$heightTableContent});
+
+    .ant-table-scroll {
+      height: calc(100vh - #{$heightTableContent});
+      overflow-x: auto !important;
+
+      .ant-table-body {
+        height: calc(100vh - #{$heightTableBody}) !important;
+        transition: all 0.4s ease;
+      }
+      table {
+        transition: 0.4s ease;
+        transform: translate(0px, 0px);
+        width: max-content;
+      }
+    }
+    .ant-table-fixed-left {
+      height: calc(100vh - 171px);
+      transition: all 0.4s ease;
+    }
+
+    .ant-table-body-inner {
+      height: calc(100vh - #{$heightTableBody}) !important;
+    }
+    .ant-table-fixed {
+    }
   }
 }

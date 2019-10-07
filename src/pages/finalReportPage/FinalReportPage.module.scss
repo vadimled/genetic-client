@@ -1,25 +1,26 @@
 .final-report-page-wrapper :global {
   .main-content {
-    //border: 1px solid violet;
-    padding: 36px;
-    //max-width: 1470px;
-    .actionable-table {
-      //border: 1px dashed blue;
+    border: 2px solid violet;
+    overflow-y: scroll;
+    padding: 0 36px;
+    max-width: 1470px;
+    height: 93vh;
+    .final-report-actionable {
+      border: 2px dashed blue;
       padding: 10px;
     }
 
     .final-report-variants {
       border: 3px dashed green;
+      margin-top: 20px;
     }
     .final-report-actionable {
       width: 100%;
-      height: 100%;
     }
     flex: 5 1;
   }
   .sidebar {
-    //border: 2px solid red;
-    //padding: 100px;
+    border: 2px solid red;
     min-width: 320px;
   }
 }

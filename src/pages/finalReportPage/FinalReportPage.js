@@ -2,29 +2,28 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import style from "./FinalReportPage.module.scss";
 import FinalReportActionableTable from "Pages/finalReportPage/components/finalReportActionableTable";
-import { getSelectedVariants } from "Store/selectors";
+import { getSelectedVariants, getDnaVariantsAsArray } from "Store/selectors";
 import { removeSelectedTableRow } from "Actions/finalReportAction";
 import { Link } from "react-router-dom";
 import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
-
-
+import { Button } from "antd";
 
 class FinalReportPage extends Component {
   handleRemoveSelectedTableRow = val => {
     console.log(val);
     this.props.removeSelectedTableRow(val);
   };
-  
-  render() {
-    const { selectedData } = this.props;
-    return (
-      <div className={`${style["final-report-page-wrapper"]} flex justify-between`}>
 
+  render() {
+    const { selectedData, filteredDnaVariants } = this.props;
+
+    return (
+      <div
+        className={`${style["final-report-page-wrapper"]} flex justify-between`}
+      >
         <div className="main-content">
-          <div className='flex justify-start'>
-            <Link to="/">
-            Back
-            </Link>
+          <div className="flex justify-start">
+            <Link to="/">Back</Link>
           </div>
           <div className="final-report-actionable">
             <FinalReportActionableTable
@@ -32,14 +31,14 @@ class FinalReportPage extends Component {
               remove={this.handleRemoveSelectedTableRow}
             />
           </div>
-  
           <div className="final-report-variants">
-            <FinalReportVariantsTable />
+            <div className="flex justify-end">
+              <Button>MOVE TO ACTIONABILITIES</Button>
+            </div>
+            <FinalReportVariantsTable filteredDnaVariants={filteredDnaVariants} />
           </div>
         </div>
-        {/* <div className="sidebar">
-          Sidebar
-        </div>*/}
+        <div className="sidebar">Sidebar</div>
       </div>
     );
   }
@@ -47,7 +46,8 @@ class FinalReportPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    selectedData: getSelectedVariants(state)
+    selectedData: getSelectedVariants(state),
+    filteredDnaVariants: getDnaVariantsAsArray(state)
   };
 };
 
