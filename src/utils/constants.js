@@ -58,7 +58,8 @@ export const TEXTS = {
   noLink: "No link",
   noData: "No data",
   UNCHECK: "UNCHECK",
-  System: "System"
+  System: "System",
+  CNV: "cnv"
 };
 
 export const LIMITS = {

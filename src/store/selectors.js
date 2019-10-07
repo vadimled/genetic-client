@@ -78,6 +78,7 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getGSID = state => state.test.gsid,
   getSelectedMutationType = state => state.variants.selectedMutation,
   getMutationTypesValues = state => state.test.mutation_types,
+  getSelectedVariants = state => state.finalReport.selectedVariants,
   getConfirmationPageTableData = state => state.confirmationPage.metaData,
   getTestsList = state => state.tests.tests;
 
@@ -466,8 +467,20 @@ export const checkIsAllCoverageRowsSelected = createSelector(
   }
 );
 
-export const getSelectedVariants = state =>  state?.finalReport?.selectedVariants;
 
+export const getFilteredDnaVariants = state => state.finalReport?.dna_variants;
 
+export const getDnaVariantsAsArray = createSelector(
+  getFilteredDnaVariants,
+  data => {
+    let arrayData = [];
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        arrayData.push(data[key]);
+      }
+    }
+    return arrayData;
+  }
+);
 
 

@@ -1,53 +1,64 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import style from "./FinalReportPage.module.scss";
-import FinalReportVariantsTable from "./components/finalReportVariantsTable";
-import { Link } from "react-router-dom";
+import FinalReportActionableTable from "Pages/finalReportPage/components/finalReportActionableTable";
 import { getSelectedVariants } from "Store/selectors";
-
-
+import { removeSelectedTableRow } from "Actions/finalReportAction";
+import { Link } from "react-router-dom";
+import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
+import { getDnaVariantsAsArray } from "../../store/selectors";
+import { Button } from "antd";
 
 class FinalReportPage extends Component {
+  handleRemoveSelectedTableRow = val => {
+    console.log(val);
+    this.props.removeSelectedTableRow(val);
+  };
 
   render() {
-    const {selectedVariants} = this.props;
-
-    console.log(selectedVariants);
+    const { selectedData, filteredDnaVariants } = this.props;
 
     return (
-      <div className={`${style["final-report-page-wrapper"]} flex justify-between`}>
-
+      <div
+        className={`${style["final-report-page-wrapper"]} flex justify-between`}
+      >
         <div className="main-content">
-          <div className='flex justify-start'>
-            <Link to="/">
-            Back
-            </Link>
+          <div className="flex justify-start">
+            <Link to="/">Back</Link>
           </div>
           <div className="final-report-actionable">
-            <ul>
-              {
-                selectedVariants.map(variant => <li key={variant.id}>{variant.gene}</li>)
-              }
-            </ul>
+            <FinalReportActionableTable
+              dataSource={selectedData}
+              remove={this.handleRemoveSelectedTableRow}
+            />
           </div>
           <div className="final-report-variants">
-            <FinalReportVariantsTable />
+            <div className="flex justify-end">
+              <Button>MOVE TO ACTIONABILITIES</Button>
+            </div>
+            <FinalReportVariantsTable filteredDnaVariants={filteredDnaVariants} />
           </div>
         </div>
-        <div className="sidebar">
-          Sidebar
-        </div>
+        <div className="sidebar">Sidebar</div>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
+    selectedData: getSelectedVariants(state),
+    filteredDnaVariants: getDnaVariantsAsArray(state)
+  };
+};
 
-    selectedVariants: getSelectedVariants(state)
-
+function mapDispatchToProps(dispatch) {
+  return {
+    removeSelectedTableRow: data => dispatch(removeSelectedTableRow(data))
   };
 }
 
-export default connect(mapStateToProps, {})(FinalReportPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FinalReportPage);

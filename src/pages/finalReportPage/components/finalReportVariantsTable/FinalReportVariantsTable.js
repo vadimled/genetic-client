@@ -128,15 +128,6 @@ class FinalReportVariantsTable extends Component {
     return null;
   }
 
-
-
-  // componentDidMount() {
-  //   const scroll = document.getElementsByClassName("ant-table-scroll");
-  //
-  //   scroll[0].classList.remove("ant-table-scroll");
-  //   console.log(scroll);
-  // }
-
   components = {
     header: {
       cell: ResizeableTitle
@@ -313,9 +304,7 @@ class FinalReportVariantsTable extends Component {
 
   render() {
 
-    const {filteredData, selectedVariants} = this.props;
-
-    console.log(selectedVariants);
+    const {filteredData} = this.props;
 
     const columns = this.columnsConverter(this.state.columns);
 
