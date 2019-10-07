@@ -39,7 +39,7 @@ const ActionAddEditEvidence = ({
   };
 
   const isSubmitEnabled = () => {
-    return evidenceCategory && sourceValue && levelValue;
+    return evidenceCategory && sourceValue && levelValue && descriptionValue;
   };
 
   return (

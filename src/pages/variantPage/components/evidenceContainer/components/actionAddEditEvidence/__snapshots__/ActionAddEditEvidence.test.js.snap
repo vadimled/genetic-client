@@ -185,6 +185,7 @@ exports[`<ActionAddEditEvidence /> snapshot 1`] = `
       />
       <button
         class="ant-btn ant-btn-primary"
+        disabled=""
         type="submit"
       >
         <span>

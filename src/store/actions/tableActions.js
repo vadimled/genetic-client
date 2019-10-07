@@ -141,3 +141,10 @@ export const applyConfirmationSuccess = data => {
     payload: data
   };
 };
+
+export const setTableCurrentPage = data => {
+  return {
+    type: actionsTypes.SET_TABLE_CURRENT_PAGE,
+    payload: data
+  };
+};

@@ -88,7 +88,8 @@ export function fetchTestsApi() {
 }
 
 export function fetchClassificationHistoryApi(action) {
-  return axios_based.get(`/variants/${action.payload}/classification`);
+  const { variantId } = action.payload;
+  return axios_based.get(`/variants/${variantId}/classification`);
 }
 
 export function addEvidenceEntryApi(action) {
