@@ -15,7 +15,6 @@ import {
 } from "Utils/constants";
 import { fetchTestMetadata } from "Store/actions/testActions";
 import { handleSelectAllRows, handleSelectedRow } from "Store/actions/finalReportAction";
-import { getSelectedVariants } from "Store/selectors";
 
 
 
@@ -330,11 +329,6 @@ function mapStateToProps(state) {
   return {
     filteredData: getFilteredData(state),
     mutationTypesValues: getMutationTypesValues(state),
-    selectedVariants: getSelectedVariants(state)
-
-    // sortParam: getSortParam(state),
-    // testId: getTestId(state),
-    // showTumorInfo: getTumorInfoMode(state)
   };
 }
 

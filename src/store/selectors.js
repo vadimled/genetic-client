@@ -78,7 +78,7 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getGSID = state => state.test.gsid,
   getSelectedMutationType = state => state.variants.selectedMutation,
   getMutationTypesValues = state => state.test.mutation_types,
-  getSelectedVariants = state => state.finalReport.selectedVariants,
+  getActionableVariants = state => state.finalReport.actionableVariants,
   getConfirmationPageTableData = state => state.confirmationPage.metaData,
   getTestsList = state => state.tests.tests;
 

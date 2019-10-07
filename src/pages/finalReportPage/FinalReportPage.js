@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import style from "./FinalReportPage.module.scss";
 import FinalReportActionableTable from "Pages/finalReportPage/components/finalReportActionableTable";
-import { getSelectedVariants, getDnaVariantsAsArray } from "Store/selectors";
+import { getDnaVariantsAsArray, getActionableVariants } from "Store/selectors";
 import { removeSelectedTableRow } from "Actions/finalReportAction";
 import { Link } from "react-router-dom";
 import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
 import { Button } from "antd";
+
 
 class FinalReportPage extends Component {
   handleRemoveSelectedTableRow = val => {
@@ -46,7 +47,7 @@ class FinalReportPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    selectedData: getSelectedVariants(state),
+    selectedData: getActionableVariants(state),
     filteredDnaVariants: getDnaVariantsAsArray(state)
   };
 };

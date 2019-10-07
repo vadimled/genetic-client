@@ -5,7 +5,7 @@ const initialState = {
   dna_variants: [],
   cna_variants: [],
 
-  selectedVariants: [
+  actionableVariants: [
     {
       id: "5d511f574651a20020a0ab50",
       variant_id: "1d5bcc6608589e00124bfd76",
