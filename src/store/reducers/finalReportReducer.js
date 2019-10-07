@@ -26,45 +26,26 @@ const initialState = {
       is_clinical_trials_approved: false
     },
     {
-      alleleChange: "T > G",
-      alleleChangeLong: "T > G",
-      alt: "G",
-      chr: "chr1",
-      chrPosition: "chr1:11854476",
-      clinvar: 3521,
-      coding: "c.1286A>C",
-      codingLong: "c.1286A>C",
-      cosmic: (2)[("COSM3735923", "COSM3735924")],
-      coverage: 605,
-      db_snp: "rs1801131",
-      dp: 605.666666667,
-      effect: "MODERATE",
-      exon: undefined,
-      gene: "MTHFR",
-      gnomAD: null,
-      hotSpot: undefined,
-      id: "5d94675214ac3f0017828469",
-      isAdded: undefined,
-      key: "5d94675214ac3f0017828469",
-      notes: undefined,
-      omim: false,
-      percentageVariants: 0.482976187597,
-      position: 11854476,
-      priority: 8,
-      protein: "p.Glu429Ala",
-      proteinWholly: "p.Glu429Ala",
-      ref: "T",
-      roi: true,
-      snp: true,
-      status: "UNCHECK",
-      transcript: "NM_005957.4",
-      vaf: 48,
-      variantClassGermline: "unclassified",
-      variantClassSomatic: "tier4",
+      id: "5d511f574651a20020a0ab50",
+      variant_id: "1d5bcc6608589e00124bfd76",
+      mutation_type: "dna",
+      gene: "RFHTM",
+      vaf: 86,
+      protein: "p.fRu429Ala",
+      coding: "c.1305C>T" ,
+      germline_class: "lpath",
+      somatic_class: "tier4",
+      is_marked: false,
+      clinical_trials: true,
+      approved_drug_same_indication: "Gedatolisib",
+      approved_drug_other_indication: "Palbociclib\n" + "Gedatolisib",
+      is_expanded_interpretation_approved: false,
+      is_therapies_approved: false,
+      is_clinical_trials_approved: false,
       zygosity: "somatic"
     },
     {
-      mutation: "cnv",
+      mutation_type: "cnv",
       chr: "chr9",
       confidence: "Medium",
       copiesCNVCov: 10,
@@ -82,7 +63,7 @@ const initialState = {
       weighted_avg: 1740.772085605
     },
     {
-      mutation: "cnv",
+      mutation_type: "cnv",
       chr: "chr12",
       confidence: "High",
       copiesCNVCov: 5,
@@ -100,7 +81,7 @@ const initialState = {
       weighted_avg: 6421.221668522
     },
     {
-      mutation: "cnv",
+      mutation_type: "cnv",
       chr: "chr12",
       confidence: "High",
       copiesCNVCov: 5,
@@ -120,7 +101,45 @@ const initialState = {
 
 
     {
-      mutation: "dna",
+      id: "5d511f574651a20020a0ab50",
+      variant_id: "1d5bcc6608589e00124bfd76",
+      mutation_type: "dna",
+      gene: "MACSS3THFR",
+      vaf: 41,
+      protein: "p.Glu429Ala",
+      coding: "c.1305C>T" ,
+      germline_class: "path",
+      somatic_class: "tier2",
+      is_marked: false,
+      clinical_trials: true,
+      approved_drug_same_indication: "Gedatolisib",
+      approved_drug_other_indication: "Palbociclib\n" + "Gedatolisib",
+      is_expanded_interpretation_approved: false,
+      is_therapies_approved: false,
+      is_clinical_trials_approved: false,
+      zygosity: "homo",
+    },{
+      mutation_type: "cnv",
+      chr: "chr12",
+      confidence: "High",
+      copiesCNVCov: 5,
+      copiesPanelizer: 5,
+      end: 18740479,
+      gene: "ACSS3",
+      gsid: "da4syy0yv0enn7z7s9h991hfs",
+      id: "bptwpd79an",
+      key: 1,
+      num_amplicons: 4,
+      range: {start: 257691, end: 18740479},
+      start: 257691,
+      status: "Deletion",
+      test_id: "4kfub3vfut4bvy5r3j7yzinzy",
+      weighted_avg: 6421.221668522
+    },
+
+
+    {
+      mutation_type: "dna",
       alleleChange: "T > G",
       alleleChangeLong: "T > G",
       alt: "G",
@@ -158,7 +177,7 @@ const initialState = {
       variantClassSomatic: "vus",
       zygosity: "homo"
     },{
-      mutation: "cnv",
+      mutation_type: "cnv",
       chr: "chr12",
       confidence: "High",
       copiesCNVCov: 5,
@@ -178,7 +197,7 @@ const initialState = {
 
 
     {
-      mutation: "dna",
+      mutation_type: "dna",
       alleleChange: "T > G",
       alleleChangeLong: "T > G",
       alt: "G",
@@ -216,7 +235,7 @@ const initialState = {
       variantClassSomatic: "vus",
       zygosity: "homo"
     },{
-      mutation: "cnv",
+      mutation_type: "cnv",
       chr: "chr12",
       confidence: "High",
       copiesCNVCov: 5,
@@ -236,7 +255,7 @@ const initialState = {
 
 
     {
-      mutation: "dna",
+      mutation_type: "dna",
       alleleChange: "T > G",
       alleleChangeLong: "T > G",
       alt: "G",
@@ -274,7 +293,7 @@ const initialState = {
       variantClassSomatic: "vus",
       zygosity: "homo"
     },{
-      mutation: "cnv",
+      mutation_type: "cnv",
       chr: "chr12",
       confidence: "High",
       copiesCNVCov: 5,
@@ -294,7 +313,7 @@ const initialState = {
 
 
     {
-      mutation: "dna",
+      mutation_type: "dna",
       alleleChange: "T > G",
       alleleChangeLong: "T > G",
       alt: "G",
@@ -332,7 +351,7 @@ const initialState = {
       variantClassSomatic: "vus",
       zygosity: "homo"
     },{
-      mutation: "cnv",
+      mutation_type: "cnv",
       chr: "chr12",
       confidence: "High",
       copiesCNVCov: 5,
@@ -352,7 +371,7 @@ const initialState = {
 
 
     {
-      mutation: "dna",
+      mutation_type: "dna",
       alleleChange: "T > G",
       alleleChangeLong: "T > G",
       alt: "G",
@@ -390,7 +409,7 @@ const initialState = {
       variantClassSomatic: "vus",
       zygosity: "homo"
     },{
-      mutation: "cnv",
+      mutation_type: "cnv",
       chr: "chr12",
       confidence: "High",
       copiesCNVCov: 5,
@@ -410,7 +429,7 @@ const initialState = {
 
 
     {
-      mutation: "dna",
+      mutation_type: "dna",
       alleleChange: "T > G",
       alleleChangeLong: "T > G",
       alt: "G",
@@ -448,7 +467,7 @@ const initialState = {
       variantClassSomatic: "vus",
       zygosity: "homo"
     },{
-      mutation: "cnv",
+      mutation_type: "cnv",
       chr: "chr12",
       confidence: "High",
       copiesCNVCov: 5,
@@ -468,65 +487,7 @@ const initialState = {
 
 
     {
-      mutation: "dna",
-      alleleChange: "T > G",
-      alleleChangeLong: "T > G",
-      alt: "G",
-      chr: "chr1",
-      chrPosition: "chr1:11854476",
-      clinvar: 3521,
-      coding: "c.1286A>C",
-      codingLong: "c.1286A>C",
-      cosmic: (2)[("COSM3735923", "COSM3735924")],
-      coverage: 605,
-      db_snp: "rs1801131",
-      dp: 605.666666667,
-      effect: "MODERATE",
-      exon: undefined,
-      gene: "MTHFR",
-      gnomAD: null,
-      hotSpot: undefined,
-      id: "5d94675214ac3f0017818469",
-      isAdded: undefined,
-      key: "5d94675214ac3f0017818469",
-      notes: undefined,
-      omim: false,
-      percentageVariants: 0.482976187597,
-      position: 11854476,
-      priority: 8,
-      protein: "p.Glu429Ala",
-      proteinWholly: "p.Glu429Ala",
-      ref: "T",
-      roi: true,
-      snp: true,
-      status: "UNCHECK",
-      transcript: "NM_005957.4",
-      vaf: 48,
-      variantClassGermline: "path",
-      variantClassSomatic: "vus",
-      zygosity: "homo"
-    },{
-      mutation: "cnv",
-      chr: "chr12",
-      confidence: "High",
-      copiesCNVCov: 5,
-      copiesPanelizer: 5,
-      end: 18740479,
-      gene: "ACSS3",
-      gsid: "da4syy0yv0enn7z7s9h991hfs",
-      id: "bptwpd79an",
-      key: 1,
-      num_amplicons: 4,
-      range: {start: 257691, end: 18740479},
-      start: 257691,
-      status: "Deletion",
-      test_id: "4kfub3vfut4bvy5r3j7yzinzy",
-      weighted_avg: 6421.221668522
-    },
-
-
-    {
-      mutation: "dna",
+      mutation_type: "dna",
       alleleChange: "T > G",
       alleleChangeLong: "T > G",
       alt: "G",
@@ -566,7 +527,7 @@ const initialState = {
     },
 
     {
-      mutation: "dna",
+      mutation_type: "dna",
       alleleChange: "T > G",
       alleleChangeLong: "T > G",
       alt: "G",
@@ -605,7 +566,7 @@ const initialState = {
       zygosity: "homo"
     },
     {
-      mutation: "dna",
+      mutation_type: "dna",
       alleleChange: "T > G",
       alleleChangeLong: "T > G",
       alt: "G",
@@ -644,7 +605,7 @@ const initialState = {
       zygosity: "hetero"
     }
   ],
-  mutation: null
+  mutation_type: null
 };
 
 const finalReportReducer = createReducer(initialState, {
