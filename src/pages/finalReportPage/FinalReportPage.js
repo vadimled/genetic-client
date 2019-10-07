@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import style from "./FinalReportPage.module.scss";
 import FinalReportActionableTable from "Pages/finalReportPage/components/finalReportActionableTable";
-import { getSelectedData } from "Store/selectors";
+import { getSelectedVariants } from "Store/selectors";
 import { removeSelectedTableRow } from "Actions/finalReportAction";
 import { Link } from "react-router-dom";
 import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
@@ -47,7 +47,7 @@ class FinalReportPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    selectedData: getSelectedData(state)
+    selectedData: getSelectedVariants(state)
   };
 };
 

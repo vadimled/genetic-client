@@ -3,7 +3,7 @@ import actionsTypes from "../actionsTypes";
 
 const initialState = {
   data: [],
-  selectedData: [
+  selectedVariants: [
     {
       alleleChange: "T > G",
       alleleChangeLong: "T > G",
