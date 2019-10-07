@@ -17,5 +17,9 @@
     border: 2px solid red;
     //padding: 100px;
     min-width: 320px;
+    height: calc(100vh - 100px);
+  }
+  .ant-table-content {
+    max-height: calc(46vh - 150px);
   }
 }

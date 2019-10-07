@@ -130,12 +130,12 @@ class FinalReportVariantsTable extends Component {
 
 
 
-  componentDidMount() {
-    const scroll = document.getElementsByClassName("ant-table-scroll");
-
-    scroll[0].classList.remove("ant-table-scroll");
-    console.log(scroll);
-  }
+  // componentDidMount() {
+  //   const scroll = document.getElementsByClassName("ant-table-scroll");
+  //
+  //   scroll[0].classList.remove("ant-table-scroll");
+  //   console.log(scroll);
+  // }
 
   components = {
     header: {
@@ -330,7 +330,7 @@ class FinalReportVariantsTable extends Component {
         bordered
         columns={columns}
         dataSource={filteredData}
-        scroll={{ x: "max-content", y: "true" }}
+        scroll={{ x: "max-content", y: "240px" }}
       />
     );
   }
