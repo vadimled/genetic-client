@@ -190,7 +190,7 @@ export default {
     mode: "multiple",
     items: [
       { id: "na", value: "na", label: "NA" },
-      { id: "veryRare", value: "veryRare", label: "very rare(0-1%)" },
+      { id: "veryRare", value: "veryRare", label: "very rare (0-1%)" },
       { id: "rare", value: "rare", label: "rare (1-5%)" },
       { id: "common", value: "common", label: "common (>5%)" }
     ]
