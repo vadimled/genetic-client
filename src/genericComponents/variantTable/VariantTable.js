@@ -134,7 +134,7 @@ class VariantTable extends Component {
   handelChrPosition = (e, data) => {
     console.log({ e: e.target, data });
   };
-
+  
   handleZygosity = data => {
     const { handleZygosity, testId } = this.props;
     const { item, value } = data;
@@ -396,7 +396,7 @@ class VariantTable extends Component {
   };
 
   render() {
-    const { data, tumorInfoPanel } = this.props;
+    const { data, tumorInfoPanel, handleChangeTablePage, currentPage } = this.props;
 
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
@@ -407,11 +407,12 @@ class VariantTable extends Component {
           "tumor-panel-opened": tumorInfoPanel
         })}
         components={this.components}
-        pagination={{ pageSize: 20 }}
+        pagination={{ pageSize: 20, current: currentPage || 1}}
         bordered
         columns={columns}
         dataSource={data}
         scroll={{ x: "max-content", y: "true" }}
+        onChange={handleChangeTablePage}
       />
     );
   }

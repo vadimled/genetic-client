@@ -9,7 +9,8 @@ const initialState = {
   uncheckConfirmationData: null,
   sortParam: "priority",
   sortOrder: SORTING_ORDER.default,
-  isLoading: false
+  isLoading: false,
+  currentPage: 1
 };
 
 const tableReducer = createReducer(initialState, {
@@ -166,6 +167,13 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       data
+    };
+  },
+  
+  [actionsTypes.SET_TABLE_CURRENT_PAGE]: (state, { payload }) => {
+    return {
+      ...state,
+      currentPage: payload
     };
   },
 });

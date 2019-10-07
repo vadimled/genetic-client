@@ -648,16 +648,17 @@ export function* fetchClassificationHistorySaga(action) {
     yield put(setLoading(true));
     const result = yield call(fetchClassificationHistoryApi, action);
     if (result?.status === 200) {
+      const {testsList} = action.payload;
       yield put(setClassificationHistoryToStore(result.data));
       yield put(
         setHistoryTableData({
-          data: getHistoryTableData(result.data, TEXTS.somatic),
+          data: getHistoryTableData(result.data, TEXTS.somatic, testsList),
           type: TEXTS.somatic
         })
       );
       yield put(
         setHistoryTableData({
-          data: getHistoryTableData(result.data, TEXTS.germline),
+          data: getHistoryTableData(result.data, TEXTS.germline, testsList),
           type: TEXTS.germline
         })
       );

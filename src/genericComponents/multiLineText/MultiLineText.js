@@ -18,8 +18,8 @@ const MultiLineText = ({ source, className }) => {
   );
 };
 MultiLineText.propTypes = {
-  source: PropTypes.object
+  source: PropTypes.object,
+  className: PropTypes.string
 };
 
 export default MultiLineText;
-

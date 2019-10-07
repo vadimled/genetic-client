@@ -1,10 +1,4 @@
-import {
-  EVIDENCE_CATEGORIES_OPTIONS,
-  FILTERS,
-  GNOM_AD,
-  SORTING_ORDER,
-  TEXTS
-} from "Utils/constants";
+import { EVIDENCE_CATEGORIES_OPTIONS, FILTERS, GNOM_AD, SORTING_ORDER, TEXTS } from "Utils/constants";
 import { createSelector } from "reselect";
 // import isEmpty from "lodash.isempty";
 
@@ -24,9 +18,9 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getSearchQuery = state => state?.filters?.[FILTERS.searchText],
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
   getUncheckConfirmationData = state => state?.table?.uncheckConfirmationData,
+  getCurrentPage = state => state?.table?.currentPage,
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
   getConfirmationData = state => state?.confirmation?.data,
-  getMutationType = state => state.variants.mutations,
   getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
   getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
   getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
@@ -84,10 +78,9 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getGSID = state => state.test.gsid,
   getSelectedMutationType = state => state.variants.selectedMutation,
   getMutationTypesValues = state => state.test.mutation_types,
+  getSelectedData = state => state.finalReport.selectedData,
   getConfirmationPageTableData = state => state.confirmationPage.metaData,
-  
-  getSelectedData = state => state.finalReport.selectedData
-;
+  getTestsList = state => state.tests.tests;
 
 export const getTableDataAsArray = createSelector(
   getTableData,
@@ -160,8 +153,8 @@ const getAppliedFilters = createSelector(
         variantClass: item =>
           variantClass.some(filter => {
             return (
-              item.variantClassGermline === filter ||
-              item.variantClassSomatic === filter
+              (item.variantClassGermline === filter && item.zygosity !== "somatic")  ||
+              (item.variantClassSomatic === filter && !["homo", "hetero", "hemi"].includes(item.zygosity))
             );
           })
       }),
@@ -191,17 +184,17 @@ const getAppliedFilters = createSelector(
           })
       }),
       ...(gnomFilter.length && {
-        gnom: item => {
+        gnom: ({ gnomAD }) => {
           return gnomFilter.some(value => {
             switch (value) {
               case GNOM_AD.na:
-                return item.gnomAD === undefined;
+                return gnomAD === GNOM_AD.na;
               case GNOM_AD.veryRare:
-                return item.gnomAD >= 0 && item.gnomAD < 1;
+                return gnomAD === GNOM_AD.veryRare;
               case GNOM_AD.rare:
-                return item.gnomAD >= 1 && item.gnomAD < 5;
+                return gnomAD === GNOM_AD.rare;
               case GNOM_AD.common:
-                return item.gnomAD >= 5;
+                return gnomAD === GNOM_AD.common;
             }
           });
         }

@@ -56,6 +56,7 @@ export const TEXTS = {
   germlineClass:"germline_class",
   somaticClass:"somatic_class",
   noLink: "No link",
+  noData: "No data",
   UNCHECK: "UNCHECK",
   System: "System",
   CNV: "cnv"
