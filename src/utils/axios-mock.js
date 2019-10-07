@@ -236,7 +236,7 @@ if (mock) {
         position: 19823208,
         hgvs_c: "AT > A",
         hgvs_p: "c.1305C>T",
-        transcript: "c.1305C>T",
+        transcript: "c.1305C>T"
       },
       {
         variant_id: "3d5bcc6608589e00124bfd76",
@@ -251,8 +251,48 @@ if (mock) {
         position: 164529120,
         hgvs_c: "AT > A",
         hgvs_p: "c.1305C>T",
-        transcript: "c.1305C>T",
+        transcript: "c.1305C>T"
       }
     ]
   });
+  
+  // final_report
+  mock.onGet(/\/tests\/.+\/final_report$/)
+    .reply(200, {
+      id: "5d511f574651a20020a0ab50",
+      panel_type: "risk",
+      tumor_info: {
+        type: "pheochromocytoma",
+        location: "gallbladder",
+        cancer_cell_percentage: 60
+      },
+      patient: {
+        gender: "mail",
+        age: 51
+      }
+    });
+  mock.onGet(/\/tests\/.+\/final_report\/actionablealterations/).reply(
+    200,
+    [
+      {
+        id: "5d511f574651a20020a0ab50",
+        variant_id: "1d5bcc6608589e00124bfd76",
+        mutation_type: "dna",
+        gene: "MTHFR",
+        vaf: 48,
+        protein: "p.Glu429Ala",
+        coding: "c.1305C>T" ,
+        zygosity: "homo",
+        germline_class: "lpath",
+        somatic_class: "tier2",
+        is_marked: false,
+        clinical_trials: true,
+        approved_drug_same_indication: "Gedatolisib",
+        approved_drug_other_indication: "Palbociclib\n" + "Gedatolisib",
+        is_expanded_interpretation_approved: false,
+        is_therapies_approved: false,
+        is_clinical_trials_approved: false
+      }
+    ]
+  );
 }

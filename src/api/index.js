@@ -170,4 +170,11 @@ export function sendVariantToConfirmation(data) {
   });
 }
 
+export function fetchFinalReportApi(data) {
+  return axios_based.get(`/tests/${data.payload}/final_report/actionablealterations`);
+}
+
+export function fetchFinalReportMetadataApi(data) {
+  return axios_based.get(`/tests/${data.payload}/final_report`);
+}
 

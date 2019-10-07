@@ -91,16 +91,16 @@ class FinalReportActionableTable extends Component {
       if (col.dataIndex === "classification") {
         column.render = (text, record) => {
           const {
-            variantClassGermline,
-            variantClassSomatic,
+            germline_class,
+            somatic_class,
             zygosity
           } = record;
           let value, typeData;
           if (zygosity === TEXTS.somatic) {
-            value = variantClassSomatic;
+            value = somatic_class;
             typeData = SOMATIC_VARIANT_CLASS_OPTIONS;
           } else {
-            value = variantClassGermline;
+            value = germline_class;
             typeData = GERMLINE_VARIANT_CLASS_OPTIONS;
           }
 
@@ -124,9 +124,9 @@ class FinalReportActionableTable extends Component {
         };
       } else if (col.dataIndex === "variant") {
         column.render = (text, record) => {
-          const { protein, coding, isAdded, status, mutation } = record;
+          const { protein, coding, isAdded, status, mutation_type } = record;
 
-          return status && mutation === TEXTS.CNV ? (
+          return status && mutation_type === TEXTS.CNV ? (
             <HighlightedCell isHighlighted={isAdded}>
               <div className="text">{status}</div>
             </HighlightedCell>
