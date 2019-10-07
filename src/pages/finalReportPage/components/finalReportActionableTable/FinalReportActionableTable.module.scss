@@ -37,4 +37,21 @@
   .label-custom-style {
     padding-left: 12px;
   }
+
+  .ok-icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      width: 18px;
+      height: 11px;
+
+      path {
+        stroke: #222222;
+      }
+    }
+  }
 }

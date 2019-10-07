@@ -12,6 +12,7 @@ import {
   TEXTS
 } from "Utils/constants";
 import MultiLineText from "GenericComponents/multiLineText";
+import { ReactComponent as OkIcon } from "Assets/ok.svg";
 
 class FinalReportActionableTable extends Component {
   state = {
@@ -123,7 +124,7 @@ class FinalReportActionableTable extends Component {
       } else if (col.dataIndex === "variant") {
         column.render = (text, record) => {
           const { protein, coding, isAdded, status, mutation } = record;
-          
+
           return status && mutation === TEXTS.CNV ? (
             <HighlightedCell isHighlighted={isAdded}>
               <div className="text">{status}</div>
@@ -131,8 +132,20 @@ class FinalReportActionableTable extends Component {
           ) : (
             <HighlightedCell isHighlighted={isAdded}>
               <MultiLineText
-                source={{protein, coding}}
-                className="multiLine-text"/>
+                source={{ protein, coding }}
+                className="multiLine-text"
+              />
+            </HighlightedCell>
+          );
+        };
+      } else if (col.dataIndex === "clinical_trials") {
+        column.render = (text, record) => {
+          const { isAdded } = record;
+          return (
+            <HighlightedCell isHighlighted={isAdded}>
+              <div className="ok-icon">
+                <OkIcon />
+              </div>
             </HighlightedCell>
           );
         };
