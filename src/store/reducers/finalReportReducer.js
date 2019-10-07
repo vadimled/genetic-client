@@ -626,7 +626,6 @@ const finalReportReducer = createReducer(initialState, {
 
   [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
 
-    console.log("--payload: ", payload)
 
     const { item, value } = payload;
 
