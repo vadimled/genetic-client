@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Checkbox, Table, Tooltip } from "antd";
 import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
-import { getMutationTypesValues } from "Store/selectors";
+import { getMutationTypesValues, checkIsAllDnaRowsSelected } from "Store/selectors";
 import { fetchTableData } from "Store/actions/tableActions";
 import { withRouter } from "react-router-dom";
 import cn from "classnames";
@@ -15,7 +15,6 @@ import {
 } from "Utils/constants";
 import { fetchTestMetadata } from "Store/actions/testActions";
 import { handleSelectAllRows, handleSelectedRow } from "Store/actions/finalReportAction";
-import { checkIsAllDnaRowsSelected } from "../../../../store/selectors";
 
 
 
@@ -302,9 +301,7 @@ class FinalReportVariantsTable extends Component {
 
   render() {
 
-    const {filteredDnaVariants, isAllRowSelected} = this.props;
-
-    console.log("isAllRowSelected: ", isAllRowSelected);
+    const {filteredDnaVariants} = this.props;
 
     const columns = this.columnsConverter(this.state.columns);
 

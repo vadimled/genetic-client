@@ -427,25 +427,11 @@ const finalReportReducer = createReducer(initialState, {
 
   [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
 
-
     const { item, value } = payload;
-
-    // const selectedVariants = []
-
-    console.log("--state: ", state);
 
     let data = Object.assign(state?.dna_variants);
 
-    // let selectedVariants = Object.assign(state?.selectedVariants);
-
     data[item.id].selected = value;
-
-    // selectedVariants.push(data[item.id]);
-
-    // state.dna_variants = data;
-    // state.selectedVariants = selectedVariants;
-
-    // selectedVariants.push(data[item.id])
 
     return {
       ...state,
@@ -455,15 +441,11 @@ const finalReportReducer = createReducer(initialState, {
 
   [actionsTypes.HANDLE_SELECT_ALL_ROWS]: (state, { payload }) => {
 
-    console.log(payload);
-
     let data = state?.dna_variants;
 
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
         let item = data[key];
-
-        // if an item has already status we cannot select it to send for confirmation
 
         item.selected = !payload;
 

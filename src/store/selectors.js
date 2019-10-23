@@ -468,6 +468,8 @@ export const checkIsAllCoverageRowsSelected = createSelector(
 );
 
 
+// Final report
+
 export const getFilteredDnaVariants = state => state.finalReport?.dna_variants;
 
 export const getDnaVariantsAsArray = createSelector(
