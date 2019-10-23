@@ -301,6 +301,8 @@ class FinalReportVariantsTable extends Component {
 
   render() {
 
+    console.log("render...");
+
     const {filteredDnaVariants} = this.props;
 
     const columns = this.columnsConverter(this.state.columns);

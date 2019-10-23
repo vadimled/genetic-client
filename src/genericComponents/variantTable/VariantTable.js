@@ -401,6 +401,8 @@ class VariantTable extends Component {
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
 
+    console.log("render...");
+
     return (
       <Table
         className={cn(style["variant-table-wrapper"], {

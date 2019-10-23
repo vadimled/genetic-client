@@ -631,7 +631,9 @@ const finalReportReducer = createReducer(initialState, {
 
     // const selectedVariants = []
 
-    let data = Object.assign(state?.data);
+    console.log("--state: ", state)
+
+    let data = Object.assign(state?.dna_variants);
 
     // let selectedVariants = Object.assign(state?.selectedVariants);
 
@@ -639,13 +641,14 @@ const finalReportReducer = createReducer(initialState, {
 
     // selectedVariants.push(data[item.id]);
 
-    state.data = data;
+    // state.dna_variants = data;
     // state.selectedVariants = selectedVariants;
 
     // selectedVariants.push(data[item.id])
 
     return {
-      ...state
+      ...state,
+      dna_variants: {...data}
     };
   },
 
