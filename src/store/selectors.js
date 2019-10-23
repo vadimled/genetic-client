@@ -512,4 +512,6 @@ export const checkIsAllDnaRowsSelected = createSelector(
   }
 );
 
+export const getSelectedVariants = state => state?.finalReport?.selectedVariants;
+
 

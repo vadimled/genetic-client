@@ -28,3 +28,16 @@ export function setVariantsDataToStore(data) {
     payload: data
   };
 }
+
+export function moveToActionableTable(data) {
+
+  console.log("--data: ", data);
+
+  return {
+    type: actionsTypes.MOVE_TO_ACTIONABLE_TABLE,
+    payload: data
+  };
+}
+
+
+

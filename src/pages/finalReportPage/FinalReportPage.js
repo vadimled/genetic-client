@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
 import { Button } from "antd";
 import { fetchTestMetadata } from "Store/actions/testActions";
-import { handleSelectAllRows, handleSelectedRow } from "Store/actions/finalReportAction";
+import { handleSelectAllRows, handleSelectedRow, moveToActionableTable } from "Store/actions/finalReportAction";
 import { fetchTableData } from "Store/actions/tableActions";
-import { getMutationTypesValues, checkIsAllDnaRowsSelected } from "Store/selectors";
+import { getMutationTypesValues, checkIsAllDnaRowsSelected, getSelectedVariants } from "Store/selectors";
 
 
 class FinalReportPage extends Component {
@@ -24,8 +24,6 @@ class FinalReportPage extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-
-    console.log("--props: ", props);
 
     if (props.mutationTypesValues.length > 0 && !state.isMutationType) {
       const { fetchTableData, match, mutationTypesValues } = props;
@@ -42,6 +40,15 @@ class FinalReportPage extends Component {
     console.log(val);
     this.props.removeSelectedTableRow(val);
   };
+
+  moveToActionabilities = () =>{
+    const {selectedVariants, moveToActionableTable} = this.props;
+
+    console.log("--selectedVariants: ", selectedVariants)
+
+    moveToActionableTable(selectedVariants)
+
+  }
 
   render() {
     const {
@@ -69,7 +76,7 @@ class FinalReportPage extends Component {
           </div>
           <div className="final-report-variants">
             <div className="flex justify-end">
-              <Button>MOVE TO ACTIONABILITIES</Button>
+              <Button onClick={this.moveToActionabilities}>MOVE TO ACTIONABILITIES</Button>
             </div>
             <FinalReportVariantsTable
               filteredDnaVariants={filteredDnaVariants}
@@ -91,7 +98,8 @@ const mapStateToProps = state => {
     selectedData: getActionableVariants(state),
     filteredDnaVariants: getDnaVariantsAsArray(state),
     mutationTypesValues: getMutationTypesValues(state),
-    isAllRowSelected: checkIsAllDnaRowsSelected(state)
+    isAllRowSelected: checkIsAllDnaRowsSelected(state),
+    selectedVariants: getSelectedVariants(state),
   };
 };
 
@@ -102,6 +110,7 @@ function mapDispatchToProps(dispatch) {
     fetchTestMetadata: testId => dispatch(fetchTestMetadata(testId)),
     handleSelectedRow: (data) => dispatch(handleSelectedRow(data)),
     handleSelectAllRows: (data) => dispatch(handleSelectAllRows(data)),
+    moveToActionableTable: (data) => dispatch(moveToActionableTable(data)),
   };
 }
 
