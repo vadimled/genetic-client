@@ -7,6 +7,12 @@ export const removeSelectedTableRow = data => {
   };
 };
 
+export const fetchFinalReport = data => {
+  return {
+    type: actionsTypes.FETCH_FINAL_REPORT_DATA,
+    payload: data
+  };
+};
 
 export const handleSelectedRow = data => {
   return {
@@ -22,9 +28,9 @@ export const handleSelectAllRows = data => {
   };
 };
 
-export function setVariantsDataToStore(data) {
+export function setFinalReportDataToStore(data) {
   return {
-    type: actionsTypes.SET_VARIANTS_DATA_TO_STORE,
+    type: actionsTypes.SET_FINAL_REPORT_DATA_TO_STORE,
     payload: data
   };
 }

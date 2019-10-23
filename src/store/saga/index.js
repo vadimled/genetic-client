@@ -70,4 +70,6 @@ export function* watchSaga() {
 
   yield takeEvery(types.FETCH_CONFIRMATION_PAGE_METADATA, fetchConfirmationMetadataSaga);
   yield takeEvery(types.APPLY_CONFIRMATION, applyConfirmationSaga);
+  
+  yield takeEvery(types.FETCH_FINAL_REPORT_DATA, fetchFinalReportSaga);
 }

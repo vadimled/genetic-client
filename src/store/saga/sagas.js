@@ -28,7 +28,8 @@ import {
   fetchUserPreferencesApi,
   fetchClassificationHistoryApi,
   fetchConfirmationMetadataApi,
-  sendVariantToConfirmation
+  sendVariantToConfirmation,
+  fetchFinalReportApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -100,7 +101,7 @@ import {
   setDefaultFilters,
   saveUserPreferencesFilters
 } from "Actions/filtersActions";
-import { setVariantsDataToStore } from "Actions/finalReportAction";
+import { setFinalReportDataToStore } from "Actions/finalReportAction";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -815,6 +816,23 @@ export function* fetchConfirmationMetadataSaga(action) {
     const { data } = yield call(fetchConfirmationMetadataApi, action);
     const newData = getConfirmationPageMetadata(data);
     yield put(setConfirmationPageMetadataToStore(newData));
+    yield put(setLoading(false));
+  } catch (e) {
+    yield put(setLoading(false));
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchConfirmationMetadataSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+}
+
+// --------------- FINAL REPORT PAGE ---------------
+export function* fetchFinalReportSaga(action) {
+  try {
+    yield put(setLoading(true));
+    const { data } = yield call(fetchFinalReportApi, action);
+    yield put(setFinalReportDataToStore(data));
     yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));

@@ -2,16 +2,20 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import style from "./FinalReportPage.module.scss";
 import FinalReportActionableTable from "Pages/finalReportPage/components/finalReportActionableTable";
-import { getDnaVariantsAsArray, getActionableVariants } from "Store/selectors";
-import { removeSelectedTableRow } from "Actions/finalReportAction";
+import { getActionableVariants, getDnaVariantsAsArray } from "Store/selectors";
+import { removeSelectedTableRow, fetchFinalReport } from "Actions/finalReportAction";
 import { Link } from "react-router-dom";
 import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
 import { Button } from "antd";
 
-
 class FinalReportPage extends Component {
+  constructor(props) {
+    super(props);
+    const { fetchFinalReport, match: {params: {testId}} } = this.props;
+    fetchFinalReport(testId);
+  }
+  
   handleRemoveSelectedTableRow = val => {
-    console.log(val);
     this.props.removeSelectedTableRow(val);
   };
 
@@ -54,7 +58,8 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    removeSelectedTableRow: data => dispatch(removeSelectedTableRow(data))
+    removeSelectedTableRow: data => dispatch(removeSelectedTableRow(data)),
+    fetchFinalReport: data => dispatch(fetchFinalReport(data))
   };
 }
 

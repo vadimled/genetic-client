@@ -171,7 +171,7 @@ export function sendVariantToConfirmation(data) {
 }
 
 export function fetchFinalReportApi(data) {
-  return axios_based.get(`/tests/${data.payload}/final_report/actionablealterations`);
+  return axios_based.get(`/tests/${data.payload}/actionablealterations`);
 }
 
 export function fetchFinalReportMetadataApi(data) {
