@@ -483,4 +483,31 @@ export const getDnaVariantsAsArray = createSelector(
   }
 );
 
+export const getSelectedDnaRows = createSelector(
+  getFilteredData,
+  data => {
+    return data.filter(row => row.selected);
+  }
+);
+
+export const checkIsAllDnaRowsSelected = createSelector(
+  getDnaVariantsAsArray,
+  getSelectedDnaRows,
+  (allData, selectedData) => {
+    let nonUncheckMode = 0;
+    const notConfirmedData = allData?.filter(item => {
+      if (item.status === TEXTS.UNCHECK) {
+        return item.selected;
+      }
+      else{
+        nonUncheckMode++;
+      }
+    });
+    return (
+      !!selectedData?.length &&
+      notConfirmedData?.length === (allData.length - nonUncheckMode)
+    );
+  }
+);
+
 

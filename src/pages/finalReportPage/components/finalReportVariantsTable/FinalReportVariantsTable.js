@@ -15,6 +15,7 @@ import {
 } from "Utils/constants";
 import { fetchTestMetadata } from "Store/actions/testActions";
 import { handleSelectAllRows, handleSelectedRow } from "Store/actions/finalReportAction";
+import { checkIsAllDnaRowsSelected } from "../../../../store/selectors";
 
 
 
@@ -301,9 +302,9 @@ class FinalReportVariantsTable extends Component {
 
   render() {
 
-    console.log("render...");
+    const {filteredDnaVariants, isAllRowSelected} = this.props;
 
-    const {filteredDnaVariants} = this.props;
+    console.log("isAllRowSelected: ", isAllRowSelected);
 
     const columns = this.columnsConverter(this.state.columns);
 
@@ -328,6 +329,7 @@ class FinalReportVariantsTable extends Component {
 function mapStateToProps(state) {
   return {
     mutationTypesValues: getMutationTypesValues(state),
+    isAllRowSelected: checkIsAllDnaRowsSelected(state)
   };
 }
 
