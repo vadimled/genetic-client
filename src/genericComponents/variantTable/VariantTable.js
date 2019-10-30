@@ -14,6 +14,10 @@ import {
   VARIANT_CLASS_SOMATIC,
   ZYGOSITY_OPTIONS
 } from "Utils/constants";
+import {
+  convertVaf,
+  convertCoverage
+} from "Utils/helpers";
 import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
 import ActivityLog from "./components/activityLog/ActivityLog";
@@ -134,7 +138,7 @@ class VariantTable extends Component {
   handelChrPosition = (e, data) => {
     console.log({ e: e.target, data });
   };
-  
+
   handleZygosity = data => {
     const { handleZygosity, testId } = this.props;
     const { item, value } = data;
@@ -156,12 +160,12 @@ class VariantTable extends Component {
       notes
     });
   };
-  
+
   handleCheckboxChange = () => {
     const { isAllRowSelected, handleSelectAllRows } = this.props;
     handleSelectAllRows(isAllRowSelected);
   };
-  
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -367,6 +371,22 @@ class VariantTable extends Component {
               <Tooltip placement="topLeft" title={proteinWholly}>
                 <div className="text">{text}</div>
               </Tooltip>
+            </HighlightedCell>
+          );
+        };
+      } else if (col.dataIndex === "vaf"){
+        column.render = (text, record) => {
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              {convertVaf(text)}
+            </HighlightedCell>
+          );
+        };
+      } else if (col.dataIndex === "coverage"){
+        column.render = (text, record) => {
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              {convertCoverage(text)}
             </HighlightedCell>
           );
         };

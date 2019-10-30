@@ -49,6 +49,10 @@ import {
   getResultConfigid,
   getTestId,
 } from "Store/selectors";
+import {
+  convertVaf,
+  convertCoverage
+} from "Utils/helpers";
 
 const ResultConfig = (props) => {
   const {
@@ -241,11 +245,11 @@ const ResultConfig = (props) => {
           {!isOnEdit && <div className="vaf-covarage-row">
             <div className="vaf">
               <div className="label">VAF:</div>
-              <div className="vaf-covarage-result" data-testid="vaf">{vaf}</div>
+              <div className="vaf-covarage-result" data-testid="vaf">{convertVaf(vaf)}</div>
             </div>
             <div className="covarage">
               <div className="label">Coverage:</div>
-              <div className="vaf-covarage-result" data-testid="coverage">{coverage}</div>
+              <div className="vaf-covarage-result" data-testid="coverage">{convertCoverage(coverage)}</div>
             </div>
           </div>}
           <div className="allele-divider"/>
