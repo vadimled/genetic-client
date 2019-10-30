@@ -134,7 +134,7 @@ class VariantTable extends Component {
   handelChrPosition = (e, data) => {
     console.log({ e: e.target, data });
   };
-  
+
   handleZygosity = data => {
     const { handleZygosity, testId } = this.props;
     const { item, value } = data;
@@ -156,12 +156,12 @@ class VariantTable extends Component {
       notes
     });
   };
-  
+
   handleCheckboxChange = () => {
     const { isAllRowSelected, handleSelectAllRows } = this.props;
     handleSelectAllRows(isAllRowSelected);
   };
-  
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -194,7 +194,7 @@ class VariantTable extends Component {
 
           if (record.status && record.status !== TEXTS.UNCHECK) {
             return (
-              <HighlightedCell isHighlighted={record.isAdded}>
+              <HighlightedCell isHighlighted={record.isAdded} classes="no-padding">
                 <ConfirmationStatus
                   status={record.status}
                   handleStatus={status =>
@@ -209,7 +209,7 @@ class VariantTable extends Component {
             );
           }
           return (
-            <HighlightedCell isHighlighted={record.isAdded}>
+            <HighlightedCell isHighlighted={record.isAdded} classes="no-padding">
               <Checkbox
                 checked={record.selected}
                 onChange={this.props.handleSelectedRow.bind(null, {

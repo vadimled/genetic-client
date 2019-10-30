@@ -279,13 +279,17 @@ export function* goToChrPositionIgvSaga(data) {
 
 export function* sendForConfirmationSaga(data) {
   try {
-    // -> API request
-
     yield confirmationDataValidation(data.payload.variants);
 
     yield put(applyConfirmation(data.payload));
     yield put(setConfirmationData(null));
     yield put(handleOnConfirmation(false)); // hide confirmation popup
+    yield put(
+      setAlert({
+        status: ALERT_STATUSES.success,
+        title: "Form has been sent successfully",
+      })
+    );
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["sendForConfirmationSaga"]);
@@ -758,41 +762,39 @@ export function* fetchUserPreferencesSaga({ payload }) {
 }
 
 export function* applyConfirmationSaga(data) {
-  const newData = Object.assign({}, data);
-
-  const variants = newData.payload.variants.map(variant => {
-    return {
-      variant_id: variant.id,
-      primers: variant.additionConfirmationData.map(item => {
-        return {
-          primer: item.primer,
-          fragment_size: item.fragmentSize,
-          instructions: item.notes
-        };
-      })
-    };
-  });
-
-  const { testId } = newData.payload;
-
-  const dataToSend = {
-    variants: variants,
-    testId: testId
-  };
-
   try {
+    const newData = Object.assign({}, data);
+
+    const variants = newData.payload.variants.map(variant => {
+      return {
+        variant_id: variant.id,
+        primers: variant.additionConfirmationData.map(item => {
+          return {
+            primer: item.primer,
+            fragment_size: item.fragmentSize,
+            instructions: item.notes
+          };
+        })
+      };
+    });
+
+    const { testId } = newData.payload;
+
+    const dataToSend = {
+      variants: variants,
+      testId: testId
+    };
+
     yield put(setTableReducerLoading(true));
 
-    const result = yield call(sendVariantToConfirmation, dataToSend);
+    yield call(sendVariantToConfirmation, dataToSend);
 
-    if (result?.status === 200) {
-      yield put(
-        applyConfirmationSuccess(
-          // check why notes does not return from server
-          newData.payload.variants
-        )
-      );
-    }
+    yield put(
+      applyConfirmationSuccess(
+        // check why notes does not return from server
+        newData.payload.variants
+      )
+    );
 
     yield put(setTableReducerLoading(false));
   } catch (e) {
