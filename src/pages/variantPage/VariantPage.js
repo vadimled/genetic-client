@@ -224,8 +224,7 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     setResources: data => dispatch(setExternalResources(data)),
-    fetchClassificationHistory: data =>
-      dispatch(fetchClassificationHistory(data)),
+    fetchClassificationHistory: data => dispatch(fetchClassificationHistory(data)),
     fetchVariantMetadataData: data => dispatch(fetchVariantMetadataData(data)),
     fetchEvidenceData: data => dispatch(fetchEvidenceData(data)),
     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),

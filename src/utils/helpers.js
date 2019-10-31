@@ -1104,7 +1104,7 @@ const isGnomAD = (data, type, indexOfVeryRare) => {
     else if(gnom_ad_exomes_popmax_af){
       resValue = gnom_ad_exomes_popmax_af * 100;
     }
-    
+
     if (!gnom_ad_exomes_popmax_af && !gnom_ad_genomes_popmax_af) {
       return indexOfVeryRare;
     } else if ( getGnomADValue(resValue) === type ) {
@@ -1287,10 +1287,11 @@ export const actionModeText = mode =>
   mode === TEXTS.add ? TEXTS.addEvidence : TEXTS.editEvidence;
 
 export const getCurrentEvidenceTabKey = currEvidenceConfig => {
+  const evidenceCategoryOptions = EVIDENCE_CATEGORIES_OPTIONS[currEvidenceConfig.data.zygosity_type];
   const index =
-    Object.keys(EVIDENCE_CATEGORIES_OPTIONS).findIndex(
+    Object.keys(evidenceCategoryOptions).findIndex(
       item =>
-        EVIDENCE_CATEGORIES_OPTIONS[item].value ===
+        evidenceCategoryOptions[item].value ===
         currEvidenceConfig.data.category
     ) + 1;
   return index.toString();
