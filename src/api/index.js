@@ -178,3 +178,10 @@ export function fetchFinalReportMetadataApi(data) {
   return axios_based.get(`/tests/${data.payload}/final_report`);
 }
 
+export function moveToActionableTableApi(data) {
+
+  const {testId, mutation, variants_ids} = data.payload;
+
+  return axios_based.post(`/tests/${testId}/actionablealterations?mutation=${mutation}`, {variants_ids});
+}
+
