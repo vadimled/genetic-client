@@ -66,8 +66,11 @@ class FinalReportPage extends Component {
       isAllRowSelected,
       handleSelectAllRows,
       mutationTypesValues,
-      handleSelectedRow
+      handleSelectedRow,
+      selectedVariants
     } = this.props;
+
+    console.log("--selectedVariants: ", selectedVariants);
 
     return (
       <div
@@ -110,6 +113,7 @@ const mapStateToProps = state => {
     isAllRowSelected: checkIsAllDnaRowsSelected(state),
     selectedVariants: getSelectedVariants(state),
     testId: getTestId(state),
+
   };
 };
 
