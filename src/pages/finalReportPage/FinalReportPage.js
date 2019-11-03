@@ -45,17 +45,17 @@ class FinalReportPage extends Component {
   moveToActionabilities = () =>{
     const {selectedVariants, moveToActionableTable, mutationTypesValues, testId} = this.props;
 
-    console.log("--selectedVariants: ", selectedVariants)
-    console.log("--props: ", this.props)
+    console.log("--selectedVariants: ", selectedVariants);
+    console.log("--props: ", this.props);
 
     const data = {
       mutation: mutationTypesValues[0],
       testId,
       variants_ids: selectedVariants
-    }
+    };
 
 
-    moveToActionableTable(data)
+    moveToActionableTable(data);
 
   }
 

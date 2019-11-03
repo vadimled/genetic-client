@@ -433,9 +433,9 @@ const finalReportReducer = createReducer(initialState, {
 
     let selectedVariants = [...state?.selectedVariants];
 
-    selectedVariants.push(item.id)
+    selectedVariants.push(item.id);
 
-    console.log("--selectedVariants: ", selectedVariants)
+    console.log("--selectedVariants: ", selectedVariants);
 
     data[item.id].selected = value;
 
