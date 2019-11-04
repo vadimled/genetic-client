@@ -29,7 +29,8 @@ import {
   fetchClassificationHistoryApi,
   fetchConfirmationMetadataApi,
   sendVariantToConfirmation,
-  fetchFinalReportApi
+  fetchFinalReportApi,
+  // deleteFinalReportVariantApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -101,7 +102,7 @@ import {
   setDefaultFilters,
   saveUserPreferencesFilters
 } from "Actions/filtersActions";
-import { setFinalReportDataToStore } from "Actions/finalReportAction";
+import { setFinalReportDataToStore, removeSelectedTableRowFromStore } from "Actions/finalReportAction";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -507,7 +508,7 @@ export function* fetchTableDataSaga(action) {
 
 
     yield put(setParsedDataToStore(newData));
-    yield put(setVariantsDataToStore(newData));
+    // yield put(setFinalReportDataToStore(newData));
     yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
@@ -834,26 +835,8 @@ export function* fetchFinalReportSaga(action) {
     const { data } = yield call(fetchFinalReportApi, action);
     console.log(data);
     let temp = [
-      // {
-      //       //   "id": "string",
-      //       //   "test_id": "string",
-      //       //   "variant_id": "string",
-      //       //   "cnv_variant_id": "string",
-      //       //   "is_marked": true,
-      //       //   "is_expanded_interpretation_approved": true,
-      //       //   "is_therapies_approved": true,
-      //       //   "is_clinical_trials_approved": true,
-      //       //   "gene": "string",
-      //       //   "hgvs_c": "string",
-      //       //   "hgvs_p": "string",
-      //       //   "percentage_variants": 0,
-      //       //   "zygosity": "homo",
-      //       //   "germline_class": "path",
-      //       //   "somatic_class": "tier1",
-      //       //   "mutation_type": "dna",
-      //       //   "status": "string"
-      //       // },
       {
+        key: 1,
         id: "5d511f574651a20020a0ab50",
         variant_id: "1d5bcc6608589e00124bfd76",
         mutation_type: "dna",
@@ -873,8 +856,9 @@ export function* fetchFinalReportSaga(action) {
         is_clinical_trials_approved: false
       },
       {
-        id: "5d511f574651a20020a0ab50",
-        variant_id: "1d5bcc6608589e00124bfd76",
+        key: 2,
+        id: "5d511f574651a20020a0ab51",
+        variant_id: "1d5bcc6608589e00124bfd75",
         mutation_type: "dna",
         gene: "RFHTM",
         percentage_variants: 86,
@@ -898,6 +882,26 @@ export function* fetchFinalReportSaga(action) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchConfirmationMetadataSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+}
+
+export function* deleteFinalReportVariantSaga(action){
+  try {
+    yield put(setLoading(true));
+    /* const { data } = yield call(deleteFinalReportVariantApi, action);*/
+    // if(data.status === 200){
+    const { variant_id } = action.payload;
+    yield put(removeSelectedTableRowFromStore(variant_id));
+    // }
+    yield put(setLoading(false));
+  }
+  catch (e) {
+    yield put(setLoading(false));
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["deleteFinalReportVariantSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);

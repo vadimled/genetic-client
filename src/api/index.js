@@ -2,8 +2,10 @@ import axios from "axios";
 import axios_based from "./axios-base";
 import "Utils/axios-mock";
 
-export function fetchBAMFile({BAMFileUrl, BAMIndexFileUrl}) {
-  return axios.get(`http://localhost:60151/load?file=${BAMFileUrl}&index=${BAMIndexFileUrl}`);
+export function fetchBAMFile({ BAMFileUrl, BAMIndexFileUrl }) {
+  return axios.get(
+    `http://localhost:60151/load?file=${BAMFileUrl}&index=${BAMIndexFileUrl}`
+  );
 }
 
 export function goToChrPositionIgv(chrPosition) {
@@ -13,13 +15,15 @@ export function goToChrPositionIgv(chrPosition) {
 export function loadHgvsApi(data) {
   const { chromosome, position, alleleReference, alleleAlternative } = data;
   // eslint-disable-next-line
-  return axios.get(`https://myvariant.info/v1/variant/chr${chromosome}:g.${position}${alleleReference}>${alleleAlternative}?fields=snpeff.ann.hgvs_c%2Csnpeff.ann.hgvs_p%2Csnpeff.ann.feature_id&dotfield=true`);
+  return axios.get(
+    `https://myvariant.info/v1/variant/chr${chromosome}:g.${position}${alleleReference}>${alleleAlternative}?fields=snpeff.ann.hgvs_c%2Csnpeff.ann.hgvs_p%2Csnpeff.ann.feature_id&dotfield=true`
+  );
 }
 
 export function addResultApi(data) {
   const { testId } = data;
   const payload = {
-    mutation_type: 'dna',
+    mutation_type: "dna",
     gene: data.gene,
     chr: data.chromosome,
     position: data.position,
@@ -40,7 +44,7 @@ export function addResultApi(data) {
 export function editResultApi(data) {
   const { testId, id: variantId } = data;
   const payload = {
-    mutation_type: 'dna',
+    mutation_type: "dna",
     gene: data.gene,
     chr: data.chromosome,
     position: data.position,
@@ -65,7 +69,7 @@ export function fetchTestMetadataApi(id) {
 export function setTumorInfoApi(data) {
   const { testId, name, value } = data.payload;
   return axios_based.patch(`/tests/${testId}`, {
-    tumor_info:{
+    tumor_info: {
       [name]: value
     }
   });
@@ -121,9 +125,7 @@ export function deleteEvidenceEntryApi(action) {
   const {
     ids: { variantId, evidenceId }
   } = action.payload;
-  return axios_based.delete(
-    `/variants/${variantId}/evidences/${evidenceId}`
-  );
+  return axios_based.delete(`/variants/${variantId}/evidences/${evidenceId}`);
 }
 
 export function fetchEvidenceDataApi(action) {
@@ -140,14 +142,16 @@ export function fetchTableDataApi(action) {
 }
 
 export function exportTableApi(testId) {
-  return axios_based.post(`/tests/${testId}/export`, {gsId: testId}, {responseType: 'blob'}).then((response) => {
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', `${testId}.tsv`);
-    document.body.appendChild(link);
-    link.click();
-  });
+  return axios_based
+    .post(`/tests/${testId}/export`, { gsId: testId }, { responseType: "blob" })
+    .then(response => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${testId}.tsv`);
+      document.body.appendChild(link);
+      link.click();
+    });
 }
 
 export function updateUserPreferencesApi({ testId, preferences }) {
@@ -178,3 +182,9 @@ export function fetchFinalReportMetadataApi(data) {
   return axios_based.get(`/tests/${data.payload}/final_report`);
 }
 
+export function deleteFinalReportVariantApi(data) {
+  const { testId, variant_id } = data.payload;
+  return axios_based.delete(
+    `/tests/${testId}/actionablealterations/${variant_id}`
+  );
+}

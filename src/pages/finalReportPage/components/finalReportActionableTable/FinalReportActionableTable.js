@@ -75,8 +75,9 @@ class FinalReportActionableTable extends Component {
     }
   };
 
-  handleRemoveRow = () => {
-    this.props.remove;
+  handleRemoveRow = variant_id => {
+    const { testId, remove } = this.props;
+    remove({ testId, variant_id });
   };
 
   columnsConverter = columns => {
@@ -90,11 +91,7 @@ class FinalReportActionableTable extends Component {
       };
       if (col.dataIndex === "classification") {
         column.render = (text, record) => {
-          const {
-            germline_class,
-            somatic_class,
-            zygosity
-          } = record;
+          const { germline_class, somatic_class, zygosity } = record;
           let value, typeData;
           if (zygosity === TEXTS.somatic) {
             value = somatic_class;
@@ -150,10 +147,12 @@ class FinalReportActionableTable extends Component {
         };
       } else if (col.dataIndex === "remove") {
         column.render = (text, record) => {
-          const { isAdded } = record;
+          const { isAdded, variant_id } = record;
           return (
             <HighlightedCell isHighlighted={isAdded}>
-              <div className="delete-icon">{<DeliteIcon onClick={this.handleRemoveRow} />}</div>
+              <div className="delete-icon" onClick={(e) => this.handleRemoveRow(variant_id, e)} >
+                {<DeliteIcon />}
+              </div>
             </HighlightedCell>
           );
         };

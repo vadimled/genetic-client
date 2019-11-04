@@ -34,3 +34,10 @@ export function setFinalReportDataToStore(data) {
     payload: data
   };
 }
+
+export function removeSelectedTableRowFromStore(data) {
+  return {
+    type: actionsTypes.REMOVE_SELECTED_TABLE_ROW_FROM_STORE,
+    payload: data
+  };
+}

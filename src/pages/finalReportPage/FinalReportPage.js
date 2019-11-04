@@ -3,7 +3,10 @@ import { connect } from "react-redux";
 import style from "./FinalReportPage.module.scss";
 import FinalReportActionableTable from "Pages/finalReportPage/components/finalReportActionableTable";
 import { getActionableVariants, getDnaVariantsAsArray } from "Store/selectors";
-import { removeSelectedTableRow, fetchFinalReport } from "Actions/finalReportAction";
+import {
+  removeSelectedTableRow,
+  fetchFinalReport
+} from "Actions/finalReportAction";
 import { Link } from "react-router-dom";
 import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
 import { Button } from "antd";
@@ -11,16 +14,27 @@ import { Button } from "antd";
 class FinalReportPage extends Component {
   constructor(props) {
     super(props);
-    const { fetchFinalReport, match: {params: {testId}} } = this.props;
+    const {
+      fetchFinalReport,
+      match: {
+        params: { testId }
+      }
+    } = this.props;
     fetchFinalReport(testId);
   }
-  
+
   handleRemoveSelectedTableRow = val => {
     this.props.removeSelectedTableRow(val);
   };
 
   render() {
-    const { selectedData, filteredDnaVariants } = this.props;
+    const {
+      selectedData,
+      filteredDnaVariants,
+      match: {
+        params: { testId }
+      }
+    } = this.props;
 
     return (
       <div
@@ -33,6 +47,7 @@ class FinalReportPage extends Component {
           <div className="final-report-actionable">
             <FinalReportActionableTable
               dataSource={selectedData}
+              testId={testId}
               remove={this.handleRemoveSelectedTableRow}
             />
           </div>
@@ -40,7 +55,9 @@ class FinalReportPage extends Component {
             <div className="flex justify-end">
               <Button>MOVE TO ACTIONABILITIES</Button>
             </div>
-            <FinalReportVariantsTable filteredDnaVariants={filteredDnaVariants} />
+            <FinalReportVariantsTable
+              filteredDnaVariants={filteredDnaVariants}
+            />
           </div>
         </div>
         <div className="sidebar">Sidebar</div>

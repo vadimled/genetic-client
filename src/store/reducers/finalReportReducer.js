@@ -10,7 +10,6 @@ const initialState = {
 };
 
 const finalReportReducer = createReducer(initialState, {
-
   [actionsTypes.ADD_ROW]: (state, { payload }) => {
     return {
       ...state,
@@ -18,16 +17,17 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.REMOVE_SELECTED_TABLE_ROW]: (state, { payload }) => {
-    console.log(payload);
+  [actionsTypes.REMOVE_SELECTED_TABLE_ROW_FROM_STORE]: (state, { payload }) => {
+    const newActionableVariants = state.actionableVariants.filter(
+      obj => obj.variant_id !== payload
+    );
     return {
-      ...state
+      ...state,
+      actionableVariants: newActionableVariants
     };
   },
 
   [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
-
-
     const { item, value } = payload;
 
     // const selectedVariants = []
@@ -51,7 +51,6 @@ const finalReportReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_SELECT_ALL_ROWS]: (state, { payload }) => {
-
     let data = state?.dna_variants;
 
     for (let key in data) {
@@ -61,7 +60,6 @@ const finalReportReducer = createReducer(initialState, {
         // if an item has already status we cannot select it to send for confirmation
 
         item.selected = !payload;
-
       }
     }
 
@@ -83,8 +81,7 @@ const finalReportReducer = createReducer(initialState, {
       ...state,
       dna_variants: payload
     };
-  },
-
+  }
 });
 
 export default finalReportReducer;

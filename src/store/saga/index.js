@@ -28,7 +28,8 @@ import {
   fetchUserPreferencesSaga,
   fetchConfirmationMetadataSaga,
   applyConfirmationSaga,
-  fetchFinalReportSaga
+  fetchFinalReportSaga,
+  deleteFinalReportVariantSaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -73,4 +74,5 @@ export function* watchSaga() {
   yield takeEvery(types.APPLY_CONFIRMATION, applyConfirmationSaga);
   
   yield takeEvery(types.FETCH_FINAL_REPORT_DATA, fetchFinalReportSaga);
+  yield takeEvery(types.REMOVE_SELECTED_TABLE_ROW, deleteFinalReportVariantSaga);
 }
