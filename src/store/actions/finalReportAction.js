@@ -39,5 +39,25 @@ export function moveToActionableTable(data) {
   };
 }
 
+export function fetchFinalReportVariants(data) {
+
+  console.log("--data: ", data);
+
+  return {
+    type: actionsTypes.FETCH_FINAL_REPORT_VARIANTS,
+    payload: data
+  };
+}
+
+export function setFinalReportVariantsToStore(data) {
+
+  console.log("--data: ", data);
+
+  return {
+    type: actionsTypes.SET_FINAL_REPORT_VARIANTS_TO_STORE,
+    payload: data
+  };
+}
+
 
 

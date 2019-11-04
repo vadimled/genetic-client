@@ -470,7 +470,7 @@ export const checkIsAllCoverageRowsSelected = createSelector(
 
 // Final report
 
-export const getFilteredDnaVariants = state => state.finalReport?.dna_variants;
+export const getFilteredDnaVariants = state => state.finalReport?.data;
 
 export const getDnaVariantsAsArray = createSelector(
   getFilteredDnaVariants,
@@ -512,6 +512,13 @@ export const checkIsAllDnaRowsSelected = createSelector(
   }
 );
 
-export const getSelectedVariants = state => state?.finalReport?.actionableVariants.filter(variant => variant.selected);
 
+export const getSelectedVariants = createSelector(
+  getDnaVariantsAsArray,
+  data => {
+    const filteredData = data.filter(variant => variant.selected);
 
+    return filteredData;
+
+  }
+);

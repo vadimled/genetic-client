@@ -3,6 +3,8 @@ import actionsTypes from "../actionsTypes";
 // import remove from "lodash.remove";
 
 const initialState = {
+  serverData: null,
+  data: null,
   dna_variants: null,
   cna_variants: [],
   selectedVariants: [],
@@ -189,6 +191,20 @@ const initialState = {
 
 const finalReportReducer = createReducer(initialState, {
 
+  [actionsTypes.FETCH_TABLE_DATA_SUCCESS]: (state, { payload }) => {
+    return {
+      ...state,
+      serverData: payload
+    };
+  },
+
+  [actionsTypes.SET_PARSED_DATA_TO_STORE]: (state, { payload }) => {
+    return {
+      ...state,
+      data: payload
+    };
+  },
+
   [actionsTypes.ADD_ROW]: (state, { payload }) => {
     return {
       ...state,
@@ -207,37 +223,19 @@ const finalReportReducer = createReducer(initialState, {
 
     const { item, value } = payload;
 
-    let data = Object.assign(state?.dna_variants);
+    let newData = state?.data;
 
-    // let selectedVariants = [...state?.selectedVariants];
-
-
-
-    data[item.id].selected = value;
-
-    // if(data[item.id].selected){
-    //   selectedVariants.push(item.id);
-    // }else {
-    //   // remove(selectedVariants, (variant) => !variant.selected)
-    //   // console.log("--sel: ", selectedVariants)
-    //   selectedVariants.filter(variant => !variant.selected)
-    // }
-
-
-
-
-    // console.log("--selectedVariants: ", selectedVariants);
+    newData[item.id].selected = value;
 
     return {
       ...state,
-      dna_variants: {...data},
-      // selectedVariants: [...selectedVariants]
+      data: {...newData},
     };
   },
 
   [actionsTypes.HANDLE_SELECT_ALL_ROWS]: (state, { payload }) => {
 
-    let data = state?.dna_variants;
+    let data = state?.data;
 
     for (let key in data) {
       if (data.hasOwnProperty(key)) {

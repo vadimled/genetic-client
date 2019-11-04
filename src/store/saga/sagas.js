@@ -100,8 +100,8 @@ import {
   setDefaultFilters,
   saveUserPreferencesFilters
 } from "Actions/filtersActions";
-import { setVariantsDataToStore } from "Actions/finalReportAction";
-import { moveToActionableTableApi } from "../../api";
+// import { setVariantsDataToStore } from "Actions/finalReportAction";
+import { fetchFinalReportVariantsApi, moveToActionableTableApi } from "../../api";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -506,7 +506,7 @@ export function* fetchTableDataSaga(action) {
     const newData = parseTableData(result?.data);
 
     yield put(setParsedDataToStore(newData));
-    yield put(setVariantsDataToStore(newData));
+    // yield put(setVariantsDataToStore(newData));
     yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
@@ -824,6 +824,26 @@ export function* fetchConfirmationMetadataSaga(action) {
 }
 
 // --------------- FINAL REPORT PAGE ---------------
+
+export function* fetchFinalReportVariantsSaga(action) {
+  try {
+    const result = yield call(fetchFinalReportVariantsApi, action);
+    yield put(setServerDataToStore(result?.data));
+    const newData = parseTableData(result?.data);
+
+    yield put(setParsedDataToStore(newData));
+
+    yield put(setLoading(false));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchFinalReportVariantsSaga"]);
+      Sentry.captureException(e);
+    });
+    yield put(setLoading(false));
+    yield handleErrors(e);
+  }
+}
+
 export function* moveToActionableTableSaga(action) {
   try {
     yield put(setLoading(true));

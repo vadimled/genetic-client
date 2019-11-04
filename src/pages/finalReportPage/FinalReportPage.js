@@ -10,8 +10,9 @@ import { Button } from "antd";
 import { fetchTestMetadata } from "Store/actions/testActions";
 import { handleSelectAllRows, handleSelectedRow, moveToActionableTable } from "Store/actions/finalReportAction";
 import { fetchTableData } from "Store/actions/tableActions";
-import { getMutationTypesValues, checkIsAllDnaRowsSelected, getSelectedVariants } from "Store/selectors";
-import { getTestId } from "../../store/selectors";
+import { getMutationTypesValues, checkIsAllDnaRowsSelected } from "Store/selectors";
+import { getSelectedVariants, getTestId } from "../../store/selectors";
+import { fetchFinalReportVariants } from "../../store/actions/finalReportAction";
 
 
 class FinalReportPage extends Component {
@@ -27,8 +28,8 @@ class FinalReportPage extends Component {
   static getDerivedStateFromProps(props, state) {
 
     if (props.mutationTypesValues.length > 0 && !state.isMutationType) {
-      const { fetchTableData, match, mutationTypesValues } = props;
-      fetchTableData({
+      const { fetchFinalReportVariants, match, mutationTypesValues } = props;
+      fetchFinalReportVariants({
         testId: match?.params?.testId,
         mutation: mutationTypesValues[0]
       });
@@ -71,6 +72,7 @@ class FinalReportPage extends Component {
     } = this.props;
 
     console.log("--selectedVariants: ", selectedVariants);
+    console.log("--filteredDnaVariants: ", filteredDnaVariants);
 
     return (
       <div
@@ -125,6 +127,7 @@ function mapDispatchToProps(dispatch) {
     handleSelectedRow: (data) => dispatch(handleSelectedRow(data)),
     handleSelectAllRows: (data) => dispatch(handleSelectAllRows(data)),
     moveToActionableTable: (data) => dispatch(moveToActionableTable(data)),
+    fetchFinalReportVariants: (data) => dispatch(fetchFinalReportVariants(data)),
   };
 }
 

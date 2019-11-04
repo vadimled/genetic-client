@@ -27,7 +27,7 @@ import {
   saveUserPreferencesSortingSaga,
   fetchUserPreferencesSaga,
   fetchConfirmationMetadataSaga,
-  applyConfirmationSaga, moveToActionableTableSaga
+  applyConfirmationSaga, moveToActionableTableSaga, fetchFinalReportVariantsSaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -71,4 +71,5 @@ export function* watchSaga() {
   yield takeEvery(types.FETCH_CONFIRMATION_PAGE_METADATA, fetchConfirmationMetadataSaga);
   yield takeEvery(types.APPLY_CONFIRMATION, applyConfirmationSaga);
   yield takeEvery(types.MOVE_TO_ACTIONABLE_TABLE, moveToActionableTableSaga);
+  yield takeEvery(types.FETCH_FINAL_REPORT_VARIANTS, fetchFinalReportVariantsSaga);
 }
