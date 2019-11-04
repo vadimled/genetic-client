@@ -51,7 +51,7 @@ const ActionAddEditEvidence = ({
             testId={`evidence-type-select`}
             name={`evidenceTypeSelect`}
             value={evidenceCategory}
-            options={EVIDENCE_CATEGORIES_OPTIONS}
+            options={EVIDENCE_CATEGORIES_OPTIONS[classification]}
             onChange={onChange}
             disabled={mode === "edit"}
           />
