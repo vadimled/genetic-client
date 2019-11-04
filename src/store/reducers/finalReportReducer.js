@@ -19,7 +19,7 @@ const finalReportReducer = createReducer(initialState, {
 
   [actionsTypes.REMOVE_SELECTED_TABLE_ROW_FROM_STORE]: (state, { payload }) => {
     const newActionableVariants = state.actionableVariants.filter(
-      obj => obj.variant_id !== payload
+      obj => obj.id !== payload
     );
     return {
       ...state,

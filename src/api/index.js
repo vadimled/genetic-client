@@ -183,8 +183,8 @@ export function fetchFinalReportMetadataApi(data) {
 }
 
 export function deleteFinalReportVariantApi(data) {
-  const { testId, variant_id } = data.payload;
+  const { testId, id } = data.payload;
   return axios_based.delete(
-    `/tests/${testId}/actionablealterations/${variant_id}`
+    `/tests/${testId}/actionablealterations/${id}`
   );
 }

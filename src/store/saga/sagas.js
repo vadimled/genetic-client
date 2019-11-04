@@ -893,8 +893,8 @@ export function* deleteFinalReportVariantSaga(action){
     yield put(setLoading(true));
     /* const { data } = yield call(deleteFinalReportVariantApi, action);*/
     // if(data.status === 200){
-    const { variant_id } = action.payload;
-    yield put(removeSelectedTableRowFromStore(variant_id));
+    const { id } = action.payload;
+    yield put(removeSelectedTableRowFromStore(id));
     // }
     yield put(setLoading(false));
   }

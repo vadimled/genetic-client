@@ -75,9 +75,9 @@ class FinalReportActionableTable extends Component {
     }
   };
 
-  handleRemoveRow = variant_id => {
+  handleRemoveRow = id => {
     const { testId, remove } = this.props;
-    remove({ testId, variant_id });
+    remove({ testId, id });
   };
 
   columnsConverter = columns => {
@@ -147,10 +147,10 @@ class FinalReportActionableTable extends Component {
         };
       } else if (col.dataIndex === "remove") {
         column.render = (text, record) => {
-          const { isAdded, variant_id } = record;
+          const { isAdded, id } = record;
           return (
             <HighlightedCell isHighlighted={isAdded}>
-              <div className="delete-icon" onClick={(e) => this.handleRemoveRow(variant_id, e)} >
+              <div className="delete-icon" onClick={(e) => this.handleRemoveRow(id, e)} >
                 {<DeliteIcon />}
               </div>
             </HighlightedCell>
