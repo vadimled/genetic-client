@@ -11,7 +11,7 @@ import { fetchTestMetadata } from "Store/actions/testActions";
 import { handleSelectAllRows, handleSelectedRow, moveToActionableTable } from "Store/actions/finalReportAction";
 import { fetchTableData } from "Store/actions/tableActions";
 import { getMutationTypesValues, checkIsAllDnaRowsSelected } from "Store/selectors";
-import { getSelectedVariants, getTestId } from "../../store/selectors";
+import { getSelectedVariants, getSelectedVariantsIds, getTestId } from "../../store/selectors";
 import { fetchFinalReportVariants } from "../../store/actions/finalReportAction";
 
 
@@ -44,15 +44,15 @@ class FinalReportPage extends Component {
   };
 
   moveToActionabilities = () =>{
-    const {selectedVariants, moveToActionableTable, mutationTypesValues, testId} = this.props;
+    const {selectedVariantsIds, moveToActionableTable, mutationTypesValues, testId} = this.props;
 
-    console.log("--selectedVariants: ", selectedVariants);
+    console.log("--selectedVariantsIds: ", selectedVariantsIds);
     console.log("--props: ", this.props);
 
     const data = {
       mutation: mutationTypesValues[0],
       testId,
-      variants_ids: selectedVariants
+      variants_ids: selectedVariantsIds
     };
 
 
@@ -62,13 +62,14 @@ class FinalReportPage extends Component {
 
   render() {
     const {
-      selectedData,
+      // selectedData,
       filteredDnaVariants,
       isAllRowSelected,
       handleSelectAllRows,
       mutationTypesValues,
       handleSelectedRow,
-      selectedVariants
+      selectedVariants,
+      selectedData
     } = this.props;
 
     console.log("--selectedVariants: ", selectedVariants);
@@ -115,6 +116,7 @@ const mapStateToProps = state => {
     isAllRowSelected: checkIsAllDnaRowsSelected(state),
     selectedVariants: getSelectedVariants(state),
     testId: getTestId(state),
+    selectedVariantsIds: getSelectedVariantsIds(state),
 
   };
 };

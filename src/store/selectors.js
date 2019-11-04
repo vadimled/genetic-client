@@ -522,3 +522,5 @@ export const getSelectedVariants = createSelector(
 
   }
 );
+
+export const getSelectedVariantsIds = state => state.finalReport?.selectedVariantsIds;

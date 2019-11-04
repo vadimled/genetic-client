@@ -102,6 +102,7 @@ import {
 } from "Actions/filtersActions";
 // import { setVariantsDataToStore } from "Actions/finalReportAction";
 import { fetchFinalReportVariantsApi, moveToActionableTableApi } from "../../api";
+import { setActionableTableDataToStore } from "../actions/finalReportAction";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);

@@ -50,14 +50,18 @@ export function fetchFinalReportVariants(data) {
 }
 
 export function setFinalReportVariantsToStore(data) {
-
-  console.log("--data: ", data);
-
   return {
     type: actionsTypes.SET_FINAL_REPORT_VARIANTS_TO_STORE,
     payload: data
   };
 }
 
+
+export function setActionableTableDataToStore(data) {
+  return {
+    type: actionsTypes.SET_ACTIONABLE_DATA_TO_STORE,
+    payload: data
+  };
+}
 
 
