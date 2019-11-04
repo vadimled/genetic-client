@@ -65,13 +65,9 @@
 
       &:hover {
         border-radius: 4px;
-        background-color: $remove-btn;
-        svg {
-          g {
-            opacity: 1;
-            path {
-              fill: $white;
-            }
+        g {
+          path {
+            fill: $input-border-color;
           }
         }
       }

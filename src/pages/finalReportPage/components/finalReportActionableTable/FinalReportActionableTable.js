@@ -38,7 +38,7 @@ class FinalReportActionableTable extends Component {
       },
       {
         title: "VAF",
-        dataIndex: "vaf",
+        dataIndex: "percentage_variants",
         key: "5",
         width: 80
       },
@@ -113,7 +113,7 @@ class FinalReportActionableTable extends Component {
           );
         };
         column.className = "no-padding";
-      } else if (col.dataIndex === "vaf") {
+      } else if (col.dataIndex === "percentage_variants") {
         column.render = (text, record) => {
           const { isAdded } = record;
           return (
@@ -124,7 +124,7 @@ class FinalReportActionableTable extends Component {
         };
       } else if (col.dataIndex === "variant") {
         column.render = (text, record) => {
-          const { protein, coding, isAdded, status, mutation_type } = record;
+          const { hgvs_p, hgvs_c, isAdded, status, mutation_type } = record;
 
           return status && mutation_type === TEXTS.CNV ? (
             <HighlightedCell isHighlighted={isAdded}>
@@ -133,7 +133,7 @@ class FinalReportActionableTable extends Component {
           ) : (
             <HighlightedCell isHighlighted={isAdded}>
               <MultiLineText
-                source={{ protein, coding }}
+                source={{ hgvs_p, hgvs_c }}
                 className="multiLine-text"
               />
             </HighlightedCell>

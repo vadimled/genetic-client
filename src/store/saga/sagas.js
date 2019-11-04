@@ -832,7 +832,67 @@ export function* fetchFinalReportSaga(action) {
   try {
     yield put(setLoading(true));
     const { data } = yield call(fetchFinalReportApi, action);
-    yield put(setFinalReportDataToStore(data));
+    console.log(data);
+    let temp = [
+      // {
+      //       //   "id": "string",
+      //       //   "test_id": "string",
+      //       //   "variant_id": "string",
+      //       //   "cnv_variant_id": "string",
+      //       //   "is_marked": true,
+      //       //   "is_expanded_interpretation_approved": true,
+      //       //   "is_therapies_approved": true,
+      //       //   "is_clinical_trials_approved": true,
+      //       //   "gene": "string",
+      //       //   "hgvs_c": "string",
+      //       //   "hgvs_p": "string",
+      //       //   "percentage_variants": 0,
+      //       //   "zygosity": "homo",
+      //       //   "germline_class": "path",
+      //       //   "somatic_class": "tier1",
+      //       //   "mutation_type": "dna",
+      //       //   "status": "string"
+      //       // },
+      {
+        id: "5d511f574651a20020a0ab50",
+        variant_id: "1d5bcc6608589e00124bfd76",
+        mutation_type: "dna",
+        gene: "MTHFR",
+        percentage_variants: 48,
+        hgvs_p: "p.Glu429Ala",
+        hgvs_c: "c.1305C>T" ,
+        zygosity: "homo",
+        germline_class: "lpath",
+        somatic_class: "tier2",
+        is_marked: false,
+        clinical_trials: true,
+        approved_drug_same_indication: "Gedatolisib",
+        approved_drug_other_indication: "Palbociclib\n" + "Gedatolisib",
+        is_expanded_interpretation_approved: false,
+        is_therapies_approved: false,
+        is_clinical_trials_approved: false
+      },
+      {
+        id: "5d511f574651a20020a0ab50",
+        variant_id: "1d5bcc6608589e00124bfd76",
+        mutation_type: "dna",
+        gene: "RFHTM",
+        percentage_variants: 86,
+        hgvs_p: "p.fRu429Ala",
+        hgvs_c: "c.1305C>T" ,
+        germline_class: "lpath",
+        somatic_class: "tier4",
+        is_marked: false,
+        clinical_trials: true,
+        approved_drug_same_indication: "Gedatolisib",
+        approved_drug_other_indication: "Palbociclib\n" + "Gedatolisib",
+        is_expanded_interpretation_approved: false,
+        is_therapies_approved: false,
+        is_clinical_trials_approved: false,
+        zygosity: "somatic"
+      }
+    ];
+    yield put(setFinalReportDataToStore(temp));
     yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));
