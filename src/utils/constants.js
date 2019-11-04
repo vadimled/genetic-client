@@ -416,14 +416,14 @@ export const VALIDATION_FAILD_FIELDS = {
 export const EC_VALUES = {
   publications: "publications",
   frequency: "frequency",
-  silicoPredictor: "silicoPredictor",
-  variantDB: "variantDB",
+  silicoPredictor: "silico_predictor",
+  variantDB: "variant_db",
   drug: "drug",
-  clinicalTrials: "clinicalTrials",
-  indelNonsense: "indelNonsense",
-  mechanismDisease: "mechanismDisease",
+  clinicalTrials: "clinical_trials",
+  indelNonsense: "indel_nonsense",
+  mechanismDisease: "mechanism_disease",
   segregation: "segregation",
-  proteinStructure: "proteinStructure",
+  proteinStructure: "protein_structure",
   other: "other"
 };
 
