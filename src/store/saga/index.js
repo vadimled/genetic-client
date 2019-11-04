@@ -27,7 +27,8 @@ import {
   saveUserPreferencesSortingSaga,
   fetchUserPreferencesSaga,
   fetchConfirmationMetadataSaga,
-  applyConfirmationSaga
+  applyConfirmationSaga,
+  fetchFinalReportSaga
 } from "./sagas";
 
 export function* watchSaga() {
