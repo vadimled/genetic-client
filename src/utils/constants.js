@@ -427,19 +427,32 @@ export const EC_VALUES = {
   other: "other"
 };
 
-export const EVIDENCE_CATEGORIES_OPTIONS = [
-  { value: EC_VALUES.publications, label: "Publications" },
-  { value: EC_VALUES.frequency, label: "Frequency" },
-  { value: EC_VALUES.silicoPredictor, label: "In Silico predictor" },
-  { value: EC_VALUES.variantDB, label: "Variant DB’s" },
-  { value: EC_VALUES.drug, label: "Drug" },
-  { value: EC_VALUES.clinicalTrials, label: "Clinical Trials" },
-  { value: EC_VALUES.indelNonsense, label: "Indel/Nonsense" },
-  { value: EC_VALUES.mechanismDisease, label: "Mechanism of disease" },
-  { value: EC_VALUES.segregation, label: "Segregation" },
-  { value: EC_VALUES.proteinStructure, label: "Protein structure" },
-  { value: EC_VALUES.other, label: "Other" }
-];
+export const EVIDENCE_CATEGORIES_OPTIONS = {
+  [TEXTS.germline]: [
+    { value: EC_VALUES.publications, label: "Publications" },
+    { value: EC_VALUES.frequency, label: "Frequency" },
+    { value: EC_VALUES.silicoPredictor, label: "In Silico predictor" },
+    { value: EC_VALUES.variantDB, label: "Variant DB’s" },
+    { value: EC_VALUES.indelNonsense, label: "Indel/Nonsense" },
+    { value: EC_VALUES.mechanismDisease, label: "Mechanism of disease" },
+    { value: EC_VALUES.segregation, label: "Segregation" },
+    { value: EC_VALUES.proteinStructure, label: "Protein structure" },
+    { value: EC_VALUES.other, label: "Other" }
+  ],
+  [TEXTS.somatic]: [
+    { value: EC_VALUES.publications, label: "Publications" },
+    { value: EC_VALUES.frequency, label: "Frequency" },
+    { value: EC_VALUES.silicoPredictor, label: "In Silico predictor" },
+    { value: EC_VALUES.variantDB, label: "Variant DB’s" },
+    { value: EC_VALUES.drug, label: "Drug" },
+    { value: EC_VALUES.clinicalTrials, label: "Clinical Trials" },
+    { value: EC_VALUES.indelNonsense, label: "Indel/Nonsense" },
+    { value: EC_VALUES.mechanismDisease, label: "Mechanism of disease" },
+    { value: EC_VALUES.segregation, label: "Segregation" },
+    { value: EC_VALUES.proteinStructure, label: "Protein structure" },
+    { value: EC_VALUES.other, label: "Other" }
+  ]
+};
 
 export const EVIDENCE_LEVEL_OPTIONS = [
   {
