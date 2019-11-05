@@ -8,7 +8,7 @@ import {
   getClinicalVariants,
   getNavigationStatus
 } from "Store/selectors";
-import { removeSelectedTableRow } from "Actions/finalReportAction";
+// import { removeSelectedTableRow } from "Actions/finalReportAction";
 import { Link } from "react-router-dom";
 import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
 import { Button } from "antd";
