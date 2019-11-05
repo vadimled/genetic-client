@@ -78,7 +78,6 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getGSID = state => state.test.gsid,
   getSelectedMutationType = state => state.variants.selectedMutation,
   getMutationTypesValues = state => state.test.mutation_types,
-  getActionableVariants = state => state.finalReport.actionableVariants,
   getConfirmationPageTableData = state => state.confirmationPage.metaData,
   getTestsList = state => state.tests.tests;
 
@@ -385,8 +384,9 @@ export const getSomaticEvidence = state =>
     }
   ),
   getTabPaneHeaders = createSelector(
+    getZygosityType,
     getCurrentEvidenceData,
-    allData => {
+    (type, allData) => {
       if (allData) {
         const sortedArray = Object.keys(allData)
             .map(key => allData[key].category)
@@ -408,8 +408,8 @@ export const getSomaticEvidence = state =>
           }
         }
 
-        Object.keys(EVIDENCE_CATEGORIES_OPTIONS).map(item => {
-          const { label, value } = EVIDENCE_CATEGORIES_OPTIONS[item],
+        Object.keys(EVIDENCE_CATEGORIES_OPTIONS[type]).map(item => {
+          const { label, value } = EVIDENCE_CATEGORIES_OPTIONS[type][item],
             val = Object.keys(newObj).find(a => a === value);
 
           formattedArray.push(getObj(label, value, val ? newObj[val] : 0));
@@ -484,6 +484,13 @@ export const getDnaVariantsAsArray = createSelector(
     return arrayData;
   }
 );
+
+// Finale Report
+export const
+  getActionableVariants = state => state.finalReport.actionableVariants,
+  getClinicalVariants = state => state.finalReport.clinicalVariants,
+  getNavigationStatus = state => state.finalReport.navigationStatus;
+
 
 export const getSelectedDnaRows = createSelector(
   getFilteredData,

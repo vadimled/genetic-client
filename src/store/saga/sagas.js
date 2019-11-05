@@ -28,7 +28,10 @@ import {
   fetchUserPreferencesApi,
   fetchClassificationHistoryApi,
   fetchConfirmationMetadataApi,
-  sendVariantToConfirmation
+  sendVariantToConfirmation,
+  fetchFinalReportActionableDataApi,
+  // fetchFinalReportClinicalDataApi,
+  // deleteFinalReportVariantApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -103,6 +106,11 @@ import {
 // import { setVariantsDataToStore } from "Actions/finalReportAction";
 import { fetchFinalReportVariantsApi, moveToActionableTableApi } from "../../api";
 import { setActionableTableDataToStore } from "../actions/finalReportAction";
+import {
+  setFinalReportActionableDataToStore,
+  removeActionableSelectedRowFromStore,
+  removeClinicalSelectedRowFromStore,
+  setFinalReportClinicalDataToStore } from "Actions/finalReportAction";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -507,7 +515,6 @@ export function* fetchTableDataSaga(action) {
     const newData = parseTableData(result?.data);
 
     yield put(setParsedDataToStore(newData));
-    // yield put(setVariantsDataToStore(newData));
     yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
@@ -858,6 +865,147 @@ export function* moveToActionableTableSaga(action) {
     console.log("--err: ", e);
     Sentry.withScope(scope => {
       scope.setFingerprint(["moveToActionableTableSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+}
+
+export function* fetchFinalReportActionableDataSaga(action) {
+  try {
+    yield put(setLoading(true));
+    const { data } = yield call(fetchFinalReportActionableDataApi, action);
+    console.log(data);
+    let temp = [
+      {
+        key: 1,
+        id: "5d511f574651a20020a0ab50",
+        variant_id: "1d5bcc6608589e00124bfd76",
+        mutation_type: "dna",
+        gene: "MTHFR",
+        percentage_variants: 48,
+        hgvs_p: "p.Glu429Ala",
+        hgvs_c: "c.1305C>T" ,
+        zygosity: "homo",
+        germline_class: "lpath",
+        somatic_class: "tier2",
+        is_marked: false,
+        clinical_trials: true,
+        approved_drug_same_indication: "Gedatolisib",
+        approved_drug_other_indication: "Palbociclib\n" + "Gedatolisib",
+        is_expanded_interpretation_approved: false,
+        is_therapies_approved: false,
+        is_clinical_trials_approved: false
+      },
+      {
+        key: 2,
+        id: "5d511f574651a20020a0ab51",
+        variant_id: "1d5bcc6608589e00124bfd75",
+        mutation_type: "dna",
+        gene: "RFHTM",
+        percentage_variants: 86,
+        hgvs_p: "p.fRu429Ala",
+        hgvs_c: "c.1305C>T" ,
+        germline_class: "lpath",
+        somatic_class: "tier4",
+        is_marked: false,
+        clinical_trials: true,
+        approved_drug_same_indication: "Gedatolisib",
+        approved_drug_other_indication: "Palbociclib\n" + "Gedatolisib",
+        is_expanded_interpretation_approved: false,
+        is_therapies_approved: false,
+        is_clinical_trials_approved: false,
+        zygosity: "somatic"
+      }
+    ];
+    yield put(setFinalReportActionableDataToStore(temp));
+    yield put(setLoading(false));
+  } catch (e) {
+    yield put(setLoading(false));
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchFinalReportActionableDataSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+}
+
+let tempClinical = [
+  {
+    key: 1,
+    id: "5d511f574651a20020a0ab52",
+    variant_id: "1d5bcc6608589e00124bfd96",
+    mutation_type: "dna",
+    gene: "YHGFD",
+    hgvs_p: "p.TRu29Ala",
+    hgvs_c: "c.Fv05C>T" ,
+    zygosity: "homo",
+    status: ""
+  },
+  {
+    key: 2,
+    id: "5d511f574651a20020a0ab53",
+    variant_id: "1d5bcc6608589e00124bf105",
+    mutation_type: "dna",
+    gene: "CFHTM",
+    hgvs_p: "p.fRu429Ala",
+    hgvs_c: "c.1305C>T" ,
+    zygosity: "somatic",
+    status: ""
+  }
+];
+
+export function* fetchFinalReportClinicalDataSaga() {
+  try {
+    yield put(setLoading(true));
+    /*  const { data } = yield call(fetchFinalReportClinicalDataApi, action);*/
+    console.log("fetchFinalReportClinicalDataSaga");
+    yield put(setFinalReportClinicalDataToStore(tempClinical));
+    yield put(setLoading(false));
+  } catch (e) {
+    yield put(setLoading(false));
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchFinalReportClinicalDataSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+}
+
+export function* deleteFinalReportActionableRowSaga(action){
+  try {
+    yield put(setLoading(true));
+    /* const { data } = yield call(deleteFinalReportActionableRowApi, action);*/
+    // if(data.status === 200){
+    const { id } = action.payload;
+    yield put(removeActionableSelectedRowFromStore(id));
+    // }
+    yield put(setLoading(false));
+  }
+  catch (e) {
+    yield put(setLoading(false));
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["deleteFinalReportActionableRowSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+}
+
+export function* deleteFinalReportClinicalRowSaga(action){
+  try {
+    yield put(setLoading(true));
+    /* const { data } = yield call(deleteFinalReportClinicalRowApi, action);*/
+    // if(data.status === 200){
+    const { id } = action.payload;
+    yield put(removeClinicalSelectedRowFromStore(id));
+    // }
+    yield put(setLoading(false));
+  }
+  catch (e) {
+    yield put(setLoading(false));
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["deleteFinalReportClinicalRowSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);

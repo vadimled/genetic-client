@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Table, Tooltip } from "antd";
-import style from "./FinalReportActionableTable.module.scss";
+import style from "./FinalReportClinicalTable.module.scss";
 import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
 import HighlightedCell from "GenericComponents/variantTable/components/highlightedCell/HighlightedCell";
 import TableLayout from "Pages/singleTestPage/components/tableLayout";
@@ -12,10 +12,9 @@ import {
   TEXTS
 } from "Utils/constants";
 import MultiLineText from "GenericComponents/multiLineText";
-import { ReactComponent as OkIcon } from "Assets/ok.svg";
 import { ReactComponent as DeliteIcon } from "Assets/delete.svg";
 
-class FinalReportActionableTable extends Component {
+class FinalReportClinicalTable extends Component {
   state = {
     columns: [
       {
@@ -28,37 +27,6 @@ class FinalReportActionableTable extends Component {
         title: "Variant",
         dataIndex: "variant",
         key: "2",
-        width: 120
-      },
-      {
-        title: "Classification",
-        dataIndex: "classification",
-        key: "4",
-        width: 100
-      },
-      {
-        title: "VAF",
-        dataIndex: "percentage_variants",
-        key: "5",
-        width: 80
-      },
-      {
-        title: `Approved drug\n
-        (same indication)`,
-        dataIndex: "approved_drug_same_indication",
-        key: "7",
-        width: 180
-      },
-      {
-        title: "Approved drug\n" + "(other indication",
-        dataIndex: "approved_drug_other_indication",
-        key: "8",
-        width: 180
-      },
-      {
-        title: "Clinical trials",
-        dataIndex: "clinical_trials",
-        key: "9",
         width: 120
       },
       {
@@ -110,15 +78,6 @@ class FinalReportActionableTable extends Component {
           );
         };
         column.className = "no-padding";
-      } else if (col.dataIndex === "percentage_variants") {
-        column.render = (text, record) => {
-          const { isAdded } = record;
-          return (
-            <HighlightedCell isHighlighted={isAdded}>
-              <div className="text">{text ? `${text}%` : ``}</div>
-            </HighlightedCell>
-          );
-        };
       } else if (col.dataIndex === "variant") {
         column.render = (text, record) => {
           const { hgvs_p, hgvs_c, isAdded, status, mutation_type } = record;
@@ -136,21 +95,15 @@ class FinalReportActionableTable extends Component {
             </HighlightedCell>
           );
         };
-      } else if (col.dataIndex === "clinical_trials") {
-        column.render = (text, record) => {
-          const { isAdded } = record;
-          return (
-            <HighlightedCell isHighlighted={isAdded}>
-              <div className="ok-icon">{text && <OkIcon />}</div>
-            </HighlightedCell>
-          );
-        };
       } else if (col.dataIndex === "remove") {
         column.render = (text, record) => {
           const { isAdded, id } = record;
           return (
             <HighlightedCell isHighlighted={isAdded}>
-              <div className="delete-icon" onClick={(e) => this.handleRemoveRow(id, e)} >
+              <div
+                className="delete-icon"
+                onClick={e => this.handleRemoveRow(id, e)}
+              >
                 {<DeliteIcon />}
               </div>
             </HighlightedCell>
@@ -190,7 +143,7 @@ class FinalReportActionableTable extends Component {
     return (
       <TableLayout>
         <Table
-          className={style["final-report-actionable-table"]}
+          className={style["final-report-clinical-table"]}
           components={this.components}
           bordered
           columns={columns}
@@ -203,12 +156,12 @@ class FinalReportActionableTable extends Component {
   }
 }
 
-FinalReportActionableTable.propTypes = {
+FinalReportClinicalTable.propTypes = {
   selectedData: PropTypes.array
 };
 
-FinalReportActionableTable.defaultProps = {
+FinalReportClinicalTable.defaultProps = {
   selectedData: []
 };
 
-export default FinalReportActionableTable;
+export default FinalReportClinicalTable;

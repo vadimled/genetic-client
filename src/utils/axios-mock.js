@@ -271,7 +271,7 @@ if (mock) {
         age: 51
       }
     });
-  mock.onGet(/\/tests\/.+\/final_report\/actionablealterations/).reply(
+  mock.onGet(/\/tests\/.+\/actionablealterations/).reply(
     200,
     [
       {
