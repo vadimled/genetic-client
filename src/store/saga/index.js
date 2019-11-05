@@ -28,8 +28,8 @@ import {
   fetchUserPreferencesSaga,
   fetchConfirmationMetadataSaga,
   applyConfirmationSaga,
-  fetchFinalReportSaga,
-  deleteFinalReportVariantSaga
+  fetchFinalReportActionableDataSaga,
+  deleteFinalReportActionableRowSaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -73,6 +73,6 @@ export function* watchSaga() {
   yield takeEvery(types.FETCH_CONFIRMATION_PAGE_METADATA, fetchConfirmationMetadataSaga);
   yield takeEvery(types.APPLY_CONFIRMATION, applyConfirmationSaga);
   
-  yield takeEvery(types.FETCH_FINAL_REPORT_DATA, fetchFinalReportSaga);
-  yield takeEvery(types.REMOVE_SELECTED_TABLE_ROW, deleteFinalReportVariantSaga);
+  yield takeEvery(types.FETCH_FINAL_REPORT_ACTIONABLE_DATA, fetchFinalReportActionableDataSaga);
+  yield takeEvery(types.REMOVE_ACTIONABLE_SELECTED_ROW_FROM_STORE, deleteFinalReportActionableRowSaga);
 }

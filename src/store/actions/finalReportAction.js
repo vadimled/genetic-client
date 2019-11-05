@@ -1,15 +1,15 @@
 import actionsTypes from "../actionsTypes";
 
-export const removeSelectedTableRow = data => {
+export const removeActionableSelectedRowFromStore = data => {
   return {
-    type: actionsTypes.REMOVE_SELECTED_TABLE_ROW,
+    type: actionsTypes.REMOVE_ACTIONABLE_SELECTED_ROW_FROM_STORE,
     payload: data
   };
 };
 
 export const fetchFinalReport = data => {
   return {
-    type: actionsTypes.FETCH_FINAL_REPORT_DATA,
+    type: actionsTypes.FETCH_FINAL_REPORT_ACTIONABLE_DATA,
     payload: data
   };
 };
@@ -35,12 +35,12 @@ export function setFinalReportDataToStore(data) {
   };
 }
 
-export function removeSelectedTableRowFromStore(data) {
-  return {
-    type: actionsTypes.REMOVE_SELECTED_TABLE_ROW_FROM_STORE,
-    payload: data
-  };
-}
+// export function removeActionableSelectedRowFromStore(data) {
+//   return {
+//     type: actionsTypes.REMOVE_ACTIONABLE_SELECTED_ROW_FROM_STORE,
+//     payload: data
+//   };
+// }
 
 export function setFinalReportNavigationStatus(data) {
   return {

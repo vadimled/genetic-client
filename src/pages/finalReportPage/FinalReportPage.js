@@ -9,7 +9,7 @@ import {
   getNavigationStatus
 } from "Store/selectors";
 import {
-  removeSelectedTableRow,
+  removeActionableSelectedRowFromStore,
   fetchFinalReport,
   setFinalReportNavigationStatus
 } from "Actions/finalReportAction";
@@ -31,8 +31,8 @@ class FinalReportPage extends Component {
     fetchFinalReport(testId);
   }
 
-  handleRemoveSelectedTableRow = val => {
-    this.props.removeSelectedTableRow(val);
+  handleRemoveActionableRow = val => {
+    this.props.removeActionableRow(val);
   };
 
   handlerSidebarActions = e => {
@@ -55,7 +55,7 @@ class FinalReportPage extends Component {
           <FinalReportActionableTable
             dataSource={selectedActionableData}
             testId={testId}
-            remove={this.handleRemoveSelectedTableRow}
+            remove={this.handleRemoveActionableRow}
           />
         );
       case NAV_STATUS.clinical:
@@ -63,7 +63,7 @@ class FinalReportPage extends Component {
           <FinalReportClinicalTable
             dataSource={selectedClinicalData}
             testId={testId}
-            remove={this.handleRemoveSelectedTableRow}
+            remove={this.handleRemoveActionableRow}
           />
         );
     }
@@ -128,7 +128,7 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    removeSelectedTableRow: data => dispatch(removeSelectedTableRow(data)),
+    removeActionableRow: data => dispatch(removeActionableSelectedRowFromStore(data)),
     fetchFinalReport: data => dispatch(fetchFinalReport(data)),
     setNavStatus: status => dispatch(setFinalReportNavigationStatus(status))
   };

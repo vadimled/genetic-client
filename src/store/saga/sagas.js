@@ -29,7 +29,7 @@ import {
   fetchClassificationHistoryApi,
   fetchConfirmationMetadataApi,
   sendVariantToConfirmation,
-  fetchFinalReportApi,
+  fetchFinalReportActionableDataApi,
   // deleteFinalReportVariantApi
 } from "Api/index";
 import {
@@ -102,7 +102,7 @@ import {
   setDefaultFilters,
   saveUserPreferencesFilters
 } from "Actions/filtersActions";
-import { setFinalReportDataToStore, removeSelectedTableRowFromStore } from "Actions/finalReportAction";
+import { setFinalReportDataToStore, removeActionableSelectedRowFromStore } from "Actions/finalReportAction";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -829,10 +829,10 @@ export function* fetchConfirmationMetadataSaga(action) {
 }
 
 // --------------- FINAL REPORT PAGE ---------------
-export function* fetchFinalReportSaga(action) {
+export function* fetchFinalReportActionableDataSaga(action) {
   try {
     yield put(setLoading(true));
-    const { data } = yield call(fetchFinalReportApi, action);
+    const { data } = yield call(fetchFinalReportActionableDataApi, action);
     console.log(data);
     let temp = [
       {
@@ -888,20 +888,20 @@ export function* fetchFinalReportSaga(action) {
   }
 }
 
-export function* deleteFinalReportVariantSaga(action){
+export function* deleteFinalReportActionableRowSaga(action){
   try {
     yield put(setLoading(true));
-    /* const { data } = yield call(deleteFinalReportVariantApi, action);*/
+    /* const { data } = yield call(deleteFinalReportActionableRowApi, action);*/
     // if(data.status === 200){
     const { id } = action.payload;
-    yield put(removeSelectedTableRowFromStore(id));
+    yield put(removeActionableSelectedRowFromStore(id));
     // }
     yield put(setLoading(false));
   }
   catch (e) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {
-      scope.setFingerprint(["deleteFinalReportVariantSaga"]);
+      scope.setFingerprint(["deleteFinalReportActionableRowSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);

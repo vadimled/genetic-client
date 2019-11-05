@@ -174,7 +174,7 @@ export function sendVariantToConfirmation(data) {
   });
 }
 
-export function fetchFinalReportApi(data) {
+export function fetchFinalReportActionableDataApi(data) {
   return axios_based.get(`/tests/${data.payload}/actionablealterations`);
 }
 
@@ -182,7 +182,7 @@ export function fetchFinalReportMetadataApi(data) {
   return axios_based.get(`/tests/${data.payload}/final_report`);
 }
 
-export function deleteFinalReportVariantApi(data) {
+export function deleteFinalReportActionableRow(data) {
   const { testId, id } = data.payload;
   return axios_based.delete(
     `/tests/${testId}/actionablealterations/${id}`
