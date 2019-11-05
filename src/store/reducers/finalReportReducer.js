@@ -1,6 +1,6 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
-import { NAV_STATUS } from "../../utils/constants";
+import { NAV_STATUS } from "Utils/constants";
 
 
 const initialState = {
