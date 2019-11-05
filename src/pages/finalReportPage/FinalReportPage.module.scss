@@ -3,7 +3,7 @@
     border: 2px solid violet;
     overflow-y: scroll;
     padding: 0 36px;
-    max-width: 1470px;
+    //max-width: 1470px;
     height: 93vh;
     .final-report-actionable {
       padding: 10px;
@@ -16,10 +16,21 @@
     .final-report-actionable {
       width: 100%;
     }
-    flex: 5 1;
+    flex: 4 1;
   }
   .sidebar {
+    display: flex;
+    flex-direction: column;
     border: 2px solid red;
     min-width: 320px;
+    width: 320px;
+
+    .sidebar-content-wrapper {
+      width: 70%;
+
+      button {
+        margin: 26px 0 0 12px;
+      }
+    }
   }
 }

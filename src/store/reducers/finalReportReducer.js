@@ -1,12 +1,15 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
+import { NAV_STATUS } from "../../utils/constants";
+
 
 const initialState = {
   dna_variants: null,
   cna_variants: [],
   selectedVariants: [],
   actionableVariants: [],
-  mutation_type: null
+  mutation_type: null,
+  navigationMode: NAV_STATUS.alterations
 };
 
 const finalReportReducer = createReducer(initialState, {
@@ -80,6 +83,13 @@ const finalReportReducer = createReducer(initialState, {
     return {
       ...state,
       dna_variants: payload
+    };
+  },
+
+  [actionsTypes.SET_NAVIGATION_STATUS]: (state, { payload }) => {
+    return {
+      ...state,
+      navigationMode: payload
     };
   }
 });

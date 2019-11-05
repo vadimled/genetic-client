@@ -750,3 +750,8 @@ export const DEFAULT_FILTERS = {
   }
 };
 
+export const NAV_STATUS = {
+  alterations :" Actionable alterations",
+  clinical: "Uncertain clinical significance"
+};
+

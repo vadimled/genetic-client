@@ -41,3 +41,10 @@ export function removeSelectedTableRowFromStore(data) {
     payload: data
   };
 }
+
+export function setFinalReportNavigationStatus(data) {
+  return {
+    type: actionsTypes.SET_NAVIGATION_STATUS,
+    payload: data
+  };
+}

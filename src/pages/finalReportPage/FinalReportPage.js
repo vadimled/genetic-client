@@ -5,11 +5,13 @@ import FinalReportActionableTable from "Pages/finalReportPage/components/finalRe
 import { getActionableVariants, getDnaVariantsAsArray } from "Store/selectors";
 import {
   removeSelectedTableRow,
-  fetchFinalReport
+  fetchFinalReport,
+  setFinalReportNavigationStatus
 } from "Actions/finalReportAction";
 import { Link } from "react-router-dom";
 import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
 import { Button } from "antd";
+import { NAV_STATUS } from "../../utils/constants";
 
 class FinalReportPage extends Component {
   constructor(props) {
@@ -25,6 +27,10 @@ class FinalReportPage extends Component {
 
   handleRemoveSelectedTableRow = val => {
     this.props.removeSelectedTableRow(val);
+  };
+
+  handlerSidebarActions = e => {
+    this.props.setNavStatus(e.target.name);
   };
 
   render() {
@@ -60,7 +66,24 @@ class FinalReportPage extends Component {
             />
           </div>
         </div>
-        <div className="sidebar">Sidebar</div>
+        <div className="sidebar">
+          <div className="sidebar-content-wrapper">
+            <Button
+              name={NAV_STATUS.alterations}
+              type="primary"
+              onClick={this.handlerSidebarActions}
+            >
+              Actionable alterations
+            </Button>
+            <Button
+              name={NAV_STATUS.clinical}
+              type="primary"
+              onClick={this.handlerSidebarActions}
+            >
+              Uncertain clinical significance
+            </Button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -76,7 +99,8 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     removeSelectedTableRow: data => dispatch(removeSelectedTableRow(data)),
-    fetchFinalReport: data => dispatch(fetchFinalReport(data))
+    fetchFinalReport: data => dispatch(fetchFinalReport(data)),
+    setNavStatus: status => dispatch(setFinalReportNavigationStatus(status))
   };
 }
 
