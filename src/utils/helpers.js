@@ -1040,7 +1040,7 @@ export const getEvidenceData = data => {
   return newData;
 };
 
-const createVaf = numb => {
+export const createVaf = numb => {
   if (numb) {
     return Math.round(parseFloat(numb) * 100);
   } else {

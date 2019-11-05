@@ -14,6 +14,7 @@ import {
 import MultiLineText from "GenericComponents/multiLineText";
 import { ReactComponent as OkIcon } from "Assets/ok.svg";
 import { ReactComponent as DeliteIcon } from "Assets/delete.svg";
+import { createVaf } from "Utils/helpers";
 
 class FinalReportActionableTable extends Component {
   state = {
@@ -115,7 +116,7 @@ class FinalReportActionableTable extends Component {
           const { isAdded } = record;
           return (
             <HighlightedCell isHighlighted={isAdded}>
-              <div className="text">{text ? `${text}%` : ``}</div>
+              <div className="text">{text ? `${createVaf(text)}%` : ``}</div>
             </HighlightedCell>
           );
         };
