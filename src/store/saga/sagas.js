@@ -30,6 +30,7 @@ import {
   fetchConfirmationMetadataApi,
   sendVariantToConfirmation,
   fetchFinalReportActionableDataApi,
+  // fetchFinalReportClinicalDataApi,
   // deleteFinalReportVariantApi
 } from "Api/index";
 import {
@@ -102,7 +103,11 @@ import {
   setDefaultFilters,
   saveUserPreferencesFilters
 } from "Actions/filtersActions";
-import { setFinalReportDataToStore, removeActionableSelectedRowFromStore } from "Actions/finalReportAction";
+import {
+  setFinalReportActionableDataToStore,
+  removeActionableSelectedRowFromStore,
+  removeClinicalSelectedRowFromStore,
+  setFinalReportClinicalDataToStore } from "Actions/finalReportAction";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -508,7 +513,7 @@ export function* fetchTableDataSaga(action) {
 
 
     yield put(setParsedDataToStore(newData));
-    // yield put(setFinalReportDataToStore(newData));
+    // yield put(setFinalReportActionableDataToStore(newData));
     yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
@@ -876,12 +881,53 @@ export function* fetchFinalReportActionableDataSaga(action) {
         zygosity: "somatic"
       }
     ];
-    yield put(setFinalReportDataToStore(temp));
+    yield put(setFinalReportActionableDataToStore(temp));
     yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchConfirmationMetadataSaga"]);
+      scope.setFingerprint(["fetchFinalReportActionableDataSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+}
+let tempClinical = [
+  {
+    key: 1,
+    id: "5d511f574651a20020a0ab52",
+    variant_id: "1d5bcc6608589e00124bfd96",
+    mutation_type: "dna",
+    gene: "YHGFD",
+    hgvs_p: "p.TRu29Ala",
+    hgvs_c: "c.Fv05C>T" ,
+    zygosity: "homo",
+    status: ""
+  },
+  {
+    key: 2,
+    id: "5d511f574651a20020a0ab53",
+    variant_id: "1d5bcc6608589e00124bf105",
+    mutation_type: "dna",
+    gene: "CFHTM",
+    hgvs_p: "p.fRu429Ala",
+    hgvs_c: "c.1305C>T" ,
+    zygosity: "somatic",
+    status: ""
+  }
+];
+
+export function* fetchFinalReportClinicalDataSaga() {
+  try {
+    yield put(setLoading(true));
+    /*  const { data } = yield call(fetchFinalReportClinicalDataApi, action);*/
+    console.log("fetchFinalReportClinicalDataSaga");
+    yield put(setFinalReportClinicalDataToStore(tempClinical));
+    yield put(setLoading(false));
+  } catch (e) {
+    yield put(setLoading(false));
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchFinalReportClinicalDataSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);
@@ -902,6 +948,26 @@ export function* deleteFinalReportActionableRowSaga(action){
     yield put(setLoading(false));
     Sentry.withScope(scope => {
       scope.setFingerprint(["deleteFinalReportActionableRowSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+}
+
+export function* deleteFinalReportClinicalRowSaga(action){
+  try {
+    yield put(setLoading(true));
+    /* const { data } = yield call(deleteFinalReportClinicalRowApi, action);*/
+    // if(data.status === 200){
+    const { id } = action.payload;
+    yield put(removeClinicalSelectedRowFromStore(id));
+    // }
+    yield put(setLoading(false));
+  }
+  catch (e) {
+    yield put(setLoading(false));
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["deleteFinalReportClinicalRowSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);

@@ -10,7 +10,9 @@ import {
 } from "Store/selectors";
 import {
   removeActionableSelectedRowFromStore,
-  fetchFinalReport,
+  removeClinicalSelectedRowFromStore,
+  fetchFinalReportActionableData,
+  fetchFinalReportClinicalData,
   setFinalReportNavigationStatus
 } from "Actions/finalReportAction";
 import { Link } from "react-router-dom";
@@ -23,16 +25,22 @@ class FinalReportPage extends Component {
   constructor(props) {
     super(props);
     const {
-      fetchFinalReport,
+      fetchFinalReportActionable,
+      fetchFinalReportClinical,
       match: {
         params: { testId }
       }
     } = this.props;
-    fetchFinalReport(testId);
+    fetchFinalReportActionable(testId);
+    fetchFinalReportClinical(testId);
   }
 
   handleRemoveActionableRow = val => {
     this.props.removeActionableRow(val);
+  };
+
+  handleRemoveClinicalRow = val => {
+    this.props.removeClinicalRow(val);
   };
 
   handlerSidebarActions = e => {
@@ -63,7 +71,7 @@ class FinalReportPage extends Component {
           <FinalReportClinicalTable
             dataSource={selectedClinicalData}
             testId={testId}
-            remove={this.handleRemoveActionableRow}
+            remove={this.handleRemoveClinicalRow}
           />
         );
     }
@@ -129,7 +137,9 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return {
     removeActionableRow: data => dispatch(removeActionableSelectedRowFromStore(data)),
-    fetchFinalReport: data => dispatch(fetchFinalReport(data)),
+    removeClinicalRow: data => dispatch(removeClinicalSelectedRowFromStore(data)),
+    fetchFinalReportActionable: data => dispatch(fetchFinalReportActionableData(data)),
+    fetchFinalReportClinical: data => dispatch(fetchFinalReportClinicalData(data)),
     setNavStatus: status => dispatch(setFinalReportNavigationStatus(status))
   };
 }

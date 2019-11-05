@@ -29,7 +29,9 @@ import {
   fetchConfirmationMetadataSaga,
   applyConfirmationSaga,
   fetchFinalReportActionableDataSaga,
-  deleteFinalReportActionableRowSaga
+  deleteFinalReportActionableRowSaga,
+  deleteFinalReportClinicalRowSaga,
+  fetchFinalReportClinicalDataSaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -73,6 +75,12 @@ export function* watchSaga() {
   yield takeEvery(types.FETCH_CONFIRMATION_PAGE_METADATA, fetchConfirmationMetadataSaga);
   yield takeEvery(types.APPLY_CONFIRMATION, applyConfirmationSaga);
   
+  // yield all([
+  //   takeEvery(types.FETCH_FINAL_REPORT_ACTIONABLE_DATA, fetchFinalReportActionableDataSaga),
+  //   takeEvery(types.FETCH_FINAL_REPORT_CLINICAL_DATA, fetchFinalReportClinicalDataSaga)
+  // ]);
   yield takeEvery(types.FETCH_FINAL_REPORT_ACTIONABLE_DATA, fetchFinalReportActionableDataSaga);
+  yield takeEvery(types.FETCH_FINAL_REPORT_CLINICAL_DATA, fetchFinalReportClinicalDataSaga);
   yield takeEvery(types.REMOVE_ACTIONABLE_SELECTED_ROW_FROM_STORE, deleteFinalReportActionableRowSaga);
+  yield takeEvery(types.REMOVE_CLINICAL_SELECTED_ROW_FROM_STORE, deleteFinalReportClinicalRowSaga);
 }

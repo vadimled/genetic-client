@@ -16,7 +16,10 @@ export function loadHgvsApi(data) {
   const { chromosome, position, alleleReference, alleleAlternative } = data;
   // eslint-disable-next-line
   return axios.get(
-    `https://myvariant.info/v1/variant/chr${chromosome}:g.${position}${alleleReference}>${alleleAlternative}?fields=snpeff.ann.hgvs_c%2Csnpeff.ann.hgvs_p%2Csnpeff.ann.feature_id&dotfield=true`
+    `https://myvariant.info/v1/variant/chr${chromosome}:g.${
+      position
+    }${alleleReference}>${alleleAlternative
+    }?fields=snpeff.ann.hgvs_c%2Csnpeff.ann.hgvs_p%2Csnpeff.ann.feature_id&dotfield=true`
   );
 }
 
@@ -176,6 +179,10 @@ export function sendVariantToConfirmation(data) {
 
 export function fetchFinalReportActionableDataApi(data) {
   return axios_based.get(`/tests/${data.payload}/actionablealterations`);
+}
+
+export function fetchFinalReportClinicalDataApi(data) {
+  return axios_based.get(`/tests/${data.payload}/clinical`);
 }
 
 export function fetchFinalReportMetadataApi(data) {

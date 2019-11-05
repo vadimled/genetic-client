@@ -23,11 +23,21 @@ const finalReportReducer = createReducer(initialState, {
 
   [actionsTypes.REMOVE_ACTIONABLE_SELECTED_ROW_FROM_STORE]: (state, { payload }) => {
     const newActionableVariants = state.actionableVariants.filter(
-      obj => obj.id !== payload
+      obj => obj?.id !== payload?.id
     );
     return {
       ...state,
       actionableVariants: newActionableVariants
+    };
+  },
+
+  [actionsTypes.REMOVE_CLINICAL_SELECTED_ROW_FROM_STORE]: (state, { payload }) => {
+    const newClinicalVariants = state.clinicalVariants.filter(
+      obj => obj?.id !== payload?.id
+    );
+    return {
+      ...state,
+      clinicalVariants: newClinicalVariants
     };
   },
 
@@ -73,10 +83,17 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_FINAL_REPORT_DATA_TO_STORE]: (state, { payload }) => {
+  [actionsTypes.SET_FINAL_REPORT_ACTIONABLE_DATA_TO_STORE]: (state, { payload }) => {
     return {
       ...state,
       actionableVariants: payload
+    };
+  },
+
+  [actionsTypes.SET_FINAL_REPORT_CLINICAL_DATA_TO_STORE]: (state, { payload }) => {
+    return {
+      ...state,
+      clinicalVariants: payload
     };
   },
 
