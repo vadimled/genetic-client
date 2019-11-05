@@ -78,7 +78,6 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getGSID = state => state.test.gsid,
   getSelectedMutationType = state => state.variants.selectedMutation,
   getMutationTypesValues = state => state.test.mutation_types,
-  getActionableVariants = state => state.finalReport.actionableVariants,
   getConfirmationPageTableData = state => state.confirmationPage.metaData,
   getTestsList = state => state.tests.tests;
 
@@ -484,4 +483,9 @@ export const getDnaVariantsAsArray = createSelector(
   }
 );
 
+// Finale Report
+export const
+  getActionableVariants = state => state.finalReport.actionableVariants,
+  getClinicalVariants = state => state.finalReport.clinicalVariants,
+  getNavigationStatus = state => state.finalReport.navigationStatus;
 

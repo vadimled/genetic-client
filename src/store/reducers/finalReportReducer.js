@@ -8,8 +8,9 @@ const initialState = {
   cna_variants: [],
   selectedVariants: [],
   actionableVariants: [],
+  clinicalVariants: [],
   mutation_type: null,
-  navigationMode: NAV_STATUS.alterations
+  navigationStatus: NAV_STATUS.alterations
 };
 
 const finalReportReducer = createReducer(initialState, {
@@ -89,7 +90,7 @@ const finalReportReducer = createReducer(initialState, {
   [actionsTypes.SET_NAVIGATION_STATUS]: (state, { payload }) => {
     return {
       ...state,
-      navigationMode: payload
+      navigationStatus: payload
     };
   }
 });

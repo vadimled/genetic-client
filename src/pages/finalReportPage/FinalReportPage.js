@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import style from "./FinalReportPage.module.scss";
 import FinalReportActionableTable from "Pages/finalReportPage/components/finalReportActionableTable";
-import { getActionableVariants, getDnaVariantsAsArray } from "Store/selectors";
+import {
+  getActionableVariants,
+  getClinicalVariants,
+  getDnaVariantsAsArray,
+  getNavigationStatus
+} from "Store/selectors";
 import {
   removeSelectedTableRow,
   fetchFinalReport,
@@ -11,7 +16,8 @@ import {
 import { Link } from "react-router-dom";
 import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
 import { Button } from "antd";
-import { NAV_STATUS } from "../../utils/constants";
+import { NAV_STATUS } from "Utils/constants";
+import FinalReportClinicalTable from "./components/finalReportClinicalTable";
 
 class FinalReportPage extends Component {
   constructor(props) {
@@ -33,14 +39,38 @@ class FinalReportPage extends Component {
     this.props.setNavStatus(e.target.name);
   };
 
-  render() {
+  renderUpperTable = () => {
     const {
-      selectedData,
-      filteredDnaVariants,
+      selectedActionableData,
+      selectedClinicalData,
+      navigationStatus,
       match: {
         params: { testId }
       }
     } = this.props;
+
+    switch (navigationStatus) {
+      case NAV_STATUS.alterations:
+        return (
+          <FinalReportActionableTable
+            dataSource={selectedActionableData}
+            testId={testId}
+            remove={this.handleRemoveSelectedTableRow}
+          />
+        );
+      case NAV_STATUS.clinical:
+        return (
+          <FinalReportClinicalTable
+            dataSource={selectedClinicalData}
+            testId={testId}
+            remove={this.handleRemoveSelectedTableRow}
+          />
+        );
+    }
+  };
+
+  render() {
+    const { filteredDnaVariants } = this.props;
 
     return (
       <div
@@ -50,13 +80,11 @@ class FinalReportPage extends Component {
           <div className="flex justify-start">
             <Link to="/">Back</Link>
           </div>
-          <div className="final-report-actionable">
-            <FinalReportActionableTable
-              dataSource={selectedData}
-              testId={testId}
-              remove={this.handleRemoveSelectedTableRow}
-            />
+
+          <div className="final-report-upper-table">
+            {this.renderUpperTable()}
           </div>
+
           <div className="final-report-variants">
             <div className="flex justify-end">
               <Button>MOVE TO ACTIONABILITIES</Button>
@@ -91,8 +119,10 @@ class FinalReportPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    selectedData: getActionableVariants(state),
-    filteredDnaVariants: getDnaVariantsAsArray(state)
+    selectedActionableData: getActionableVariants(state),
+    selectedClinicalData: getClinicalVariants(state),
+    filteredDnaVariants: getDnaVariantsAsArray(state),
+    navigationStatus: getNavigationStatus(state)
   };
 };
 
