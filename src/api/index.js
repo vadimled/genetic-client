@@ -195,3 +195,4 @@ export function deleteFinalReportActionableRow(data) {
     `/tests/${testId}/actionablealterations/${id}`
   );
 }
+
