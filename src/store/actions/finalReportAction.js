@@ -51,8 +51,6 @@ export function setVariantsDataToStore(data) {
 
 export function moveToActionableTable(data) {
 
-  console.log("--data: ", data);
-
   return {
     type: actionsTypes.MOVE_TO_ACTIONABLE_TABLE,
     payload: data
@@ -60,8 +58,6 @@ export function moveToActionableTable(data) {
 }
 
 export function fetchFinalReportVariants(data) {
-
-  console.log("--data: ", data);
 
   return {
     type: actionsTypes.FETCH_FINAL_REPORT_VARIANTS,
@@ -85,7 +81,6 @@ export function setActionableTableDataToStore(data) {
 }
 
 export function setFinalReportClinicalDataToStore(data) {
-  console.log(data);
   return {
     type: actionsTypes.SET_FINAL_REPORT_CLINICAL_DATA_TO_STORE,
     payload: data

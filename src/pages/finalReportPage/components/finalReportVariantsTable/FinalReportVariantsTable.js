@@ -281,11 +281,11 @@ class FinalReportVariantsTable extends Component {
 
   render() {
 
-    const {filteredDnaVariants} = this.props;
+    const {selectedVariants} = this.props;
 
     const columns = this.columnsConverter(this.state.columns);
 
-    if(!filteredDnaVariants){
+    if(!selectedVariants){
       return <div>no data</div>;
     }
 
@@ -295,7 +295,7 @@ class FinalReportVariantsTable extends Component {
         pagination={{ pageSize: 5 }}
         bordered
         columns={columns}
-        dataSource={filteredDnaVariants}
+        dataSource={selectedVariants}
         scroll={{ x: "max-content", y: "240px" }}
       />
     );

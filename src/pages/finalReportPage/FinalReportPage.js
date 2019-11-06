@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import style from "./FinalReportPage.module.scss";
 import FinalReportActionableTable from "Pages/finalReportPage/components/finalReportActionableTable";
 import {
-  getDnaVariantsAsArray,
+  // getDnaVariantsAsArray,
   getActionableVariants,
   getClinicalVariants,
   getNavigationStatus
@@ -41,6 +41,7 @@ class FinalReportPage extends Component {
       fetchFinalReportActionable,
       fetchFinalReportClinical,
       fetchTestMetadata,
+      mutationTypesValues,
       match: {
         params: { testId }
       }
@@ -50,6 +51,10 @@ class FinalReportPage extends Component {
     fetchTestMetadata(props?.match?.params?.testId);
     fetchFinalReportActionable(testId);
     fetchFinalReportClinical(testId);
+    fetchFinalReportVariants({
+      testId,
+      mutation: mutationTypesValues[0]
+    });
     this.state = {
       isMutationType: false,
     };
@@ -86,10 +91,6 @@ class FinalReportPage extends Component {
 
   moveToActionabilities = () =>{
     const {selectedVariantsIds, moveToActionableTable, mutationTypesValues, testId} = this.props;
-
-    console.log("--selectedVariantsIds: ", selectedVariantsIds);
-    console.log("--props: ", this.props);
-
     const data = {
       mutation: mutationTypesValues[0],
       testId,
@@ -134,17 +135,18 @@ class FinalReportPage extends Component {
   render() {
     const {
       // selectedData,
-      filteredDnaVariants,
+      // filteredDnaVariants,
       isAllRowSelected,
       handleSelectAllRows,
       mutationTypesValues,
       handleSelectedRow,
       selectedVariants,
-      // selectedData
+      // selectedVariants
     } = this.props;
 
     console.log("--selectedVariants: ", selectedVariants);
-    console.log("--filteredDnaVariants: ", filteredDnaVariants);
+    // console.log("--filteredDnaVariants: ", filteredDnaVariants);
+
 
     return (
       <div
@@ -163,7 +165,7 @@ class FinalReportPage extends Component {
               <Button onClick={this.moveToActionabilities}>MOVE TO ACTIONABILITIES</Button>
             </div>
             <FinalReportVariantsTable
-              filteredDnaVariants={filteredDnaVariants}
+              selectedVariants={selectedVariants}
               isAllRowSelected={isAllRowSelected}
               handleSelectAllRows={handleSelectAllRows}
               mutationTypesValues={mutationTypesValues}
@@ -197,7 +199,7 @@ class FinalReportPage extends Component {
 const mapStateToProps = state => {
   return {
     selectedData: getActionableVariants(state),
-    filteredDnaVariants: getDnaVariantsAsArray(state),
+    // filteredDnaVariants: getDnaVariantsAsArray(state),
     mutationTypesValues: getMutationTypesValues(state),
     isAllRowSelected: checkIsAllDnaRowsSelected(state),
     selectedVariants: getSelectedVariants(state),

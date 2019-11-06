@@ -485,7 +485,6 @@ export const getDnaVariantsAsArray = createSelector(
   }
 );
 
-// Finale Report
 export const
   getActionableVariants = state => state.finalReport.actionableVariants,
   getClinicalVariants = state => state.finalReport.clinicalVariants,
@@ -521,13 +520,51 @@ export const checkIsAllDnaRowsSelected = createSelector(
 
 
 export const getSelectedVariants = createSelector(
+  // getFilteredDnaVariants,
   getDnaVariantsAsArray,
-  data => {
-    const filteredData = data.filter(variant => variant.selected);
+  getActionableVariants,
+  (variants, selectedVariants) => {
 
-    return filteredData;
+
+    console.log(variants);
+
+
+
+
+    if(variants.length > 0){
+
+      const selectedVariantsIds = selectedVariants.map(variant => variant.variant_id)
+
+
+
+      return variants.filter(variant => !selectedVariantsIds.includes(variant.id));
+
+    }
+
+    // console.log("data: ", data);
+
+    // if(variants){
+    //   selectedVariants.map(variant => {
+    //     if(variants[variant.variant_id]){
+    //       delete variants[variant.variant_id]
+    //     }
+    //   })
+    // }
+
+
+    // if(variants){
+    //   selectedVariants?.map(variant => {
+    //     if(variant.id !== variants[variant.id]){
+    //       data.push(variant)
+    //     }
+    //   })
+    // }
+
+    // return data;
+
 
   }
 );
 
 export const getSelectedVariantsIds = state => state.finalReport?.selectedVariantsIds;
+

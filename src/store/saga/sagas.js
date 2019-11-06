@@ -856,8 +856,6 @@ export function* moveToActionableTableSaga(action) {
   try {
     yield put(setLoading(true));
     const { data } = yield call(moveToActionableTableApi, action);
-    console.log("--saga data: ", data);
-
     yield put(setActionableTableDataToStore(data));
     yield put(setLoading(false));
   } catch (e) {
@@ -875,7 +873,6 @@ export function* fetchFinalReportActionableDataSaga(action) {
   try {
     yield put(setLoading(true));
     const { data } = yield call(fetchFinalReportActionableDataApi, action);
-    console.log(data);
     // let temp = [
     //   {
     //     key: 1,
@@ -959,7 +956,6 @@ export function* fetchFinalReportClinicalDataSaga() {
   try {
     yield put(setLoading(true));
     /*  const { data } = yield call(fetchFinalReportClinicalDataApi, action);*/
-    console.log("fetchFinalReportClinicalDataSaga");
     yield put(setFinalReportClinicalDataToStore(tempClinical));
     yield put(setLoading(false));
   } catch (e) {
