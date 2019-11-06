@@ -1370,6 +1370,5 @@ export const setVariantClassOptionsWithReconfirm = (
 //     }
 //   })
 //
-//   console.log("--new data: ", newData)
 //
 // }

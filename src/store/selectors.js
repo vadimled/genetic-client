@@ -520,48 +520,17 @@ export const checkIsAllDnaRowsSelected = createSelector(
 
 
 export const getSelectedVariants = createSelector(
-  // getFilteredDnaVariants,
   getDnaVariantsAsArray,
   getActionableVariants,
   (variants, selectedVariants) => {
 
-
-    console.log(variants);
-
-
-
-
     if(variants.length > 0){
 
-      const selectedVariantsIds = selectedVariants.map(variant => variant.variant_id)
-
-
+      const selectedVariantsIds = selectedVariants.map(variant => variant.variant_id);
 
       return variants.filter(variant => !selectedVariantsIds.includes(variant.id));
 
     }
-
-    // console.log("data: ", data);
-
-    // if(variants){
-    //   selectedVariants.map(variant => {
-    //     if(variants[variant.variant_id]){
-    //       delete variants[variant.variant_id]
-    //     }
-    //   })
-    // }
-
-
-    // if(variants){
-    //   selectedVariants?.map(variant => {
-    //     if(variant.id !== variants[variant.id]){
-    //       data.push(variant)
-    //     }
-    //   })
-    // }
-
-    // return data;
-
 
   }
 );

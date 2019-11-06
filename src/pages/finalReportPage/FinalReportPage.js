@@ -3,12 +3,10 @@ import { connect } from "react-redux";
 import style from "./FinalReportPage.module.scss";
 import FinalReportActionableTable from "Pages/finalReportPage/components/finalReportActionableTable";
 import {
-  // getDnaVariantsAsArray,
   getActionableVariants,
   getClinicalVariants,
   getNavigationStatus
 } from "Store/selectors";
-// import { removeSelectedTableRow } from "Actions/finalReportAction";
 import { Link } from "react-router-dom";
 import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
 import { Button } from "antd";
@@ -21,13 +19,12 @@ import {
   fetchFinalReportClinicalData,
   fetchFinalReportVariants,
   removeActionableSelectedRowFromStore,
-  removeClinicalSelectedRowFromStore, setFinalReportNavigationStatus } from "Store/actions/finalReportAction";
+  removeClinicalSelectedRowFromStore,
+  setFinalReportNavigationStatus
+} from "Store/actions/finalReportAction";
 import { fetchTableData } from "Store/actions/tableActions";
 import { getMutationTypesValues, checkIsAllDnaRowsSelected } from "Store/selectors";
 import { getSelectedVariants, getSelectedVariantsIds, getTestId } from "../../store/selectors";
-import {
-
-} from "../../store/actions/finalReportAction";
 import { NAV_STATUS } from "Utils/constants";
 import FinalReportClinicalTable from "./components/finalReportClinicalTable";
 
@@ -134,19 +131,12 @@ class FinalReportPage extends Component {
 
   render() {
     const {
-      // selectedData,
-      // filteredDnaVariants,
       isAllRowSelected,
       handleSelectAllRows,
       mutationTypesValues,
       handleSelectedRow,
       selectedVariants,
-      // selectedVariants
     } = this.props;
-
-    console.log("--selectedVariants: ", selectedVariants);
-    // console.log("--filteredDnaVariants: ", filteredDnaVariants);
-
 
     return (
       <div
