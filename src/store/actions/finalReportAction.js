@@ -50,7 +50,6 @@ export function setFinalReportActionableDataToStore(data) {
 }
 
 export function setFinalReportClinicalDataToStore(data) {
-  console.log(data);
   return {
     type: actionsTypes.SET_FINAL_REPORT_CLINICAL_DATA_TO_STORE,
     payload: data
@@ -61,5 +60,12 @@ export function setFinalReportNavigationStatus(data) {
   return {
     type: actionsTypes.SET_NAVIGATION_STATUS,
     payload: data
+  };
+}
+
+export function setSelectedUpperTableRowObject(obj) {
+  return {
+    type: actionsTypes.SET_SELECTED_UPPER_TABLE_ROW_OBJECT,
+    payload: obj
   };
 }

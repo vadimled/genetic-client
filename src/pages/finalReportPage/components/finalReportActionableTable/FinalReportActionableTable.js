@@ -151,7 +151,10 @@ class FinalReportActionableTable extends Component {
           const { isAdded, id } = record;
           return (
             <HighlightedCell isHighlighted={isAdded}>
-              <div className="delete-icon" onClick={(e) => this.handleRemoveRow(id, e)} >
+              <div
+                className="delete-icon"
+                onClick={e => this.handleRemoveRow(id, e)}
+              >
                 {<DeliteIcon />}
               </div>
             </HighlightedCell>
@@ -172,6 +175,10 @@ class FinalReportActionableTable extends Component {
 
       return column;
     });
+  };
+
+  handleRowClick = obj => {
+    this.props.handleSelectRow(obj);
   };
 
   handleResize = index => (e, { size }) => {
@@ -195,6 +202,11 @@ class FinalReportActionableTable extends Component {
           components={this.components}
           bordered
           columns={columns}
+          onRow={(record) => {
+            return {
+              onClick: e => this.handleRowClick(record, e)
+            };
+          }}
           dataSource={dataSource}
           pagination={false}
           scroll={{ x: "max-content", y: "false" }}

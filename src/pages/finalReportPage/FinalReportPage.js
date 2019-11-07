@@ -6,14 +6,16 @@ import {
   getActionableVariants,
   getClinicalVariants,
   getDnaVariantsAsArray,
-  getNavigationStatus
+  getNavigationStatus,
+  getSelectedUpperTableRowObject
 } from "Store/selectors";
 import {
   removeActionableSelectedRowFromStore,
   removeClinicalSelectedRowFromStore,
   fetchFinalReportActionableData,
   fetchFinalReportClinicalData,
-  setFinalReportNavigationStatus
+  setFinalReportNavigationStatus,
+  setSelectedUpperTableRowObject
 } from "Actions/finalReportAction";
 import { Link } from "react-router-dom";
 import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
@@ -47,6 +49,10 @@ class FinalReportPage extends Component {
     this.props.setNavStatus(e.target.name);
   };
 
+  handleSelectRow = obj => {
+    this.props.setSelectedUpperTableRowObject(obj);
+  };
+
   renderUpperTable = () => {
     const {
       selectedActionableData,
@@ -62,6 +68,7 @@ class FinalReportPage extends Component {
         return (
           <FinalReportActionableTable
             dataSource={selectedActionableData}
+            handleSelectRow={this.handleSelectRow}
             testId={testId}
             remove={this.handleRemoveActionableRow}
           />
@@ -78,7 +85,7 @@ class FinalReportPage extends Component {
   };
 
   render() {
-    const { filteredDnaVariants } = this.props;
+    const { filteredDnaVariants, selectedUpperTableRowObject } = this.props;
 
     return (
       <div
@@ -93,14 +100,16 @@ class FinalReportPage extends Component {
             {this.renderUpperTable()}
           </div>
 
-          <div className="final-report-variants">
-            <div className="flex justify-end">
-              <Button>MOVE TO ACTIONABILITIES</Button>
+          {!selectedUpperTableRowObject && (
+            <div className="final-report-variants">
+              <div className="flex justify-end">
+                <Button>MOVE TO ACTIONABILITIES</Button>
+              </div>
+              <FinalReportVariantsTable
+                filteredDnaVariants={filteredDnaVariants}
+              />
             </div>
-            <FinalReportVariantsTable
-              filteredDnaVariants={filteredDnaVariants}
-            />
-          </div>
+          )}
         </div>
         <div className="sidebar">
           <div className="sidebar-content-wrapper">
@@ -130,16 +139,23 @@ const mapStateToProps = state => {
     selectedActionableData: getActionableVariants(state),
     selectedClinicalData: getClinicalVariants(state),
     filteredDnaVariants: getDnaVariantsAsArray(state),
+    selectedUpperTableRowObject: getSelectedUpperTableRowObject(state),
     navigationStatus: getNavigationStatus(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    removeActionableRow: data => dispatch(removeActionableSelectedRowFromStore(data)),
-    removeClinicalRow: data => dispatch(removeClinicalSelectedRowFromStore(data)),
-    fetchFinalReportActionable: data => dispatch(fetchFinalReportActionableData(data)),
-    fetchFinalReportClinical: data => dispatch(fetchFinalReportClinicalData(data)),
+    removeActionableRow: data =>
+      dispatch(removeActionableSelectedRowFromStore(data)),
+    removeClinicalRow: data =>
+      dispatch(removeClinicalSelectedRowFromStore(data)),
+    setSelectedUpperTableRowObject: data =>
+      dispatch(setSelectedUpperTableRowObject(data)),
+    fetchFinalReportActionable: data =>
+      dispatch(fetchFinalReportActionableData(data)),
+    fetchFinalReportClinical: data =>
+      dispatch(fetchFinalReportClinicalData(data)),
     setNavStatus: status => dispatch(setFinalReportNavigationStatus(status))
   };
 }

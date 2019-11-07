@@ -10,7 +10,8 @@ const initialState = {
   actionableVariants: [],
   clinicalVariants: [],
   mutation_type: null,
-  navigationStatus: NAV_STATUS.alterations
+  navigationStatus: NAV_STATUS.alterations,
+  selectedUpperTableRowObject: null
 };
 
 const finalReportReducer = createReducer(initialState, {
@@ -108,6 +109,13 @@ const finalReportReducer = createReducer(initialState, {
     return {
       ...state,
       navigationStatus: payload
+    };
+  },
+
+  [actionsTypes.SET_SELECTED_UPPER_TABLE_ROW_OBJECT]: (state, { payload }) => {
+    return {
+      ...state,
+      selectedUpperTableRowObject: payload
     };
   }
 });

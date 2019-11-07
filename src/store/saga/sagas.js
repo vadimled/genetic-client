@@ -921,7 +921,6 @@ export function* fetchFinalReportClinicalDataSaga() {
   try {
     yield put(setLoading(true));
     /*  const { data } = yield call(fetchFinalReportClinicalDataApi, action);*/
-    console.log("fetchFinalReportClinicalDataSaga");
     yield put(setFinalReportClinicalDataToStore(tempClinical));
     yield put(setLoading(false));
   } catch (e) {
