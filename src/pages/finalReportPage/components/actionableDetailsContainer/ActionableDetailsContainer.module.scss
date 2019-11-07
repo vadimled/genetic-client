@@ -1,0 +1,47 @@
+@import "Css/Colors.scss";
+
+.actionable-details-container-wrapper :global {
+  width: 100%;
+  overflow: hidden !important;
+
+  .add-actionable-details-container-button-text {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    color: $white;
+  }
+  .actionable-details-container-title {
+    text-align: left;
+    font-weight: bold;
+    font-size: 22px;
+    color: $title_color;
+  }
+  .ant-tabs {
+    text-align: left;
+    .ant-tabs-ink-bar-animated {
+      height: 5px !important;
+    }
+
+    .ant-tabs-tab {
+      padding: 27px 0 15px 0 !important;
+      margin: 0 40px 0 0 !important;
+    }
+    .ant-tabs-extra-content {
+      transition: 0.4s ease 0s;
+    }
+    .ant-tabs-extra-content {
+      margin: 10px 0 0 20px;
+    }
+  }
+  .ant-tabs .ant-tabs-top-content,
+  .ant-tabs .ant-tabs-bottom-content {
+    height: 300px;
+  }
+  .empty-state {
+    height: 177px;
+  }
+}
