@@ -13,7 +13,8 @@ const initialState = {
     location: "",
     cancer_cell_percentage: -1
   },
-  isTumorInfoLoading: false
+  isTumorInfoLoading: false,
+  phenotype: null
 };
 
 const testReducer = createReducer(initialState, {

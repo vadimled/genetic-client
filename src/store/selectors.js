@@ -76,8 +76,9 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
     parseInt(state.test.tumor_info?.cancer_cell_percentage, 10),
   getTestId = state => state.test.id,
   getGSID = state => state.test.gsid,
-  getSelectedMutationType = state => state.variants.selectedMutation,
   getMutationTypesValues = state => state.test.mutation_types,
+  getTestPhenotype = state => state?.test?.phenotype,
+  getSelectedMutationType = state => state.variants.selectedMutation,
   getConfirmationPageTableData = state => state.confirmationPage.metaData,
   getTestsList = state => state.tests.tests;
 
