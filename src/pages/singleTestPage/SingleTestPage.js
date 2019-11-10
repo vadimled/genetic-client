@@ -107,7 +107,7 @@ class SingleTestPage extends Component {
             <div
               className={cn(["toolbar-collapse", { shadow: showTumorInfo }])}
             >
-              <Toolbar sidebarToggle={sidebarToggle} />
+              <Toolbar sidebarToggle={sidebarToggle} showFilter showSort showLoadBam showExportButton showAddResult />
             </div>
             <TableData />
           </div>

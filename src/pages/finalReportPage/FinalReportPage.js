@@ -27,6 +27,7 @@ import { getMutationTypesValues, checkIsAllDnaRowsSelected } from "Store/selecto
 import { getSelectedVariants, getSelectedVariantsIds, getTestId } from "../../store/selectors";
 import { NAV_STATUS } from "Utils/constants";
 import FinalReportClinicalTable from "./components/finalReportClinicalTable";
+import FinalReportToolBar from "./components/finalReportToolBar";
 
 
 class FinalReportPage extends Component {
@@ -152,7 +153,13 @@ class FinalReportPage extends Component {
 
           <div className="final-report-variants">
             <div className="flex justify-end">
-              <Button onClick={this.moveToActionabilities}>MOVE TO ACTIONABILITIES</Button>
+              <FinalReportToolBar />
+              <Button
+                className="moveToActionabilitiesBtn"
+                onClick={this.moveToActionabilities}
+              >
+                MOVE TO ACTIONABILITIES
+              </Button>
             </div>
             <FinalReportVariantsTable
               selectedVariants={selectedVariants}
