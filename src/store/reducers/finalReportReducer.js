@@ -1,7 +1,6 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
-import { NAV_STATUS } from "Utils/constants";
-
+import { NAV_STATUS, TEXTAREA_NAME } from "Utils/constants";
 
 const initialState = {
   serverData: null,
@@ -21,7 +20,6 @@ const initialState = {
 };
 
 const finalReportReducer = createReducer(initialState, {
-
   [actionsTypes.FETCH_TABLE_DATA_SUCCESS]: (state, { payload }) => {
     return {
       ...state,
@@ -43,7 +41,10 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.REMOVE_ACTIONABLE_SELECTED_ROW_FROM_STORE]: (state, { payload }) => {
+  [actionsTypes.REMOVE_ACTIONABLE_SELECTED_ROW_FROM_STORE]: (
+    state,
+    { payload }
+  ) => {
     const newActionableVariants = state.actionableVariants.filter(
       obj => obj?.id !== payload?.id
     );
@@ -53,7 +54,10 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.REMOVE_CLINICAL_SELECTED_ROW_FROM_STORE]: (state, { payload }) => {
+  [actionsTypes.REMOVE_CLINICAL_SELECTED_ROW_FROM_STORE]: (
+    state,
+    { payload }
+  ) => {
     const newClinicalVariants = state.clinicalVariants.filter(
       obj => obj?.id !== payload?.id
     );
@@ -64,7 +68,6 @@ const finalReportReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
-
     const { item, value } = payload;
 
     let newData = state?.data;
@@ -74,17 +77,14 @@ const finalReportReducer = createReducer(initialState, {
 
     selectedVariants.push(item.id);
 
-
-
     return {
       ...state,
-      data: {...newData},
+      data: { ...newData },
       selectedVariantsIds: [...selectedVariants]
     };
   },
 
   [actionsTypes.HANDLE_SELECT_ALL_ROWS]: (state, { payload }) => {
-
     let data = state?.data;
 
     for (let key in data) {
@@ -92,7 +92,6 @@ const finalReportReducer = createReducer(initialState, {
         let item = data[key];
 
         item.selected = !payload;
-
       }
     }
 
@@ -110,21 +109,25 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_FINAL_REPORT_ACTIONABLE_DATA_TO_STORE]: (state, { payload }) => {
+  [actionsTypes.SET_FINAL_REPORT_ACTIONABLE_DATA_TO_STORE]: (
+    state,
+    { payload }
+  ) => {
     return {
       ...state,
       actionableVariants: payload
     };
   },
 
-  [actionsTypes.SET_FINAL_REPORT_CLINICAL_DATA_TO_STORE]: (state, { payload }) => {
+  [actionsTypes.SET_FINAL_REPORT_CLINICAL_DATA_TO_STORE]: (
+    state,
+    { payload }
+  ) => {
     return {
       ...state,
       clinicalVariants: payload
     };
   },
-
-
 
   [actionsTypes.SET_ACTIONABLE_DATA_TO_STORE]: (state, { payload }) => {
     return {
@@ -147,11 +150,33 @@ const finalReportReducer = createReducer(initialState, {
       selectedUpperTableRowObject: payload
     };
   },
-  
+
   [actionsTypes.SET_CURRENT_ACTIONABLE_TAB]: (state, { payload }) => {
     return {
       ...state,
       currentActionableTab: payload.toString() || "1"
+    };
+  },
+
+  [actionsTypes.SET_EXPANDED_TAB_TEXTAREA]: (state, { payload }) => {
+    const { name, value } = payload;
+    let textArea;
+    switch (name) {
+      case TEXTAREA_NAME.geneDescription:
+        textArea = {
+          geneDescription: value
+        };
+        break;
+      case TEXTAREA_NAME.variantDescription:
+        textArea = {
+          variantDescription: value
+        };
+        break;
+    }
+
+    return {
+      ...state,
+      ...textArea
     };
   }
 });

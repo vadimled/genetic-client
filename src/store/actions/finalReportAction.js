@@ -107,9 +107,17 @@ export function setCurrentActionableTab(data) {
     payload: data
   };
 }
+
 export function setFinalReportActionableDataToStore(data) {
   return {
     type: actionsTypes.SET_FINAL_REPORT_ACTIONABLE_DATA_TO_STORE,
+    payload: data
+  };
+}
+
+export function setExpandedInterpretationTextArea(data) {
+  return {
+    type: actionsTypes.SET_EXPANDED_TAB_TEXTAREA,
     payload: data
   };
 }

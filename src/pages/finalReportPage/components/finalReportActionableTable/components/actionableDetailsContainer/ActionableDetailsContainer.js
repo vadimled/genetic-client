@@ -6,20 +6,20 @@ import { connect } from "react-redux";
 import SimpleButton from "GenericComponents/simpleButton";
 import {
   ACTIONABLE_CATEGORIES_OPTIONS,
-  TEXTS,
-  ACTIONABLE_TABS_VALUES
+  ACTIONABLE_TABS_VALUES,
+  TEXTS
 } from "Utils/constants";
 import {
   getCurrentActionableTab,
   getGeneDescription,
   getVariantDescription
 } from "Store/selectors";
-import { setCurrentActionableTab } from "Actions/finalReportAction";
-import ActionableDetailsTabPaneHeader from "Pages/finalReportPage/components/finalReportActionableTable/components/actionableDetailsTabPaneHeader";
-import ExpandedInterpretation from "Pages/finalReportPage/components/finalReportActionableTable/components/actionableDetailsContainer/components/expandedInterpretation";
-// import ActionableDetailsTabPaneHeader from "variantComponents/actionable-details-containerContainer/components/tabPaneHeader";
-// import ActionableTable from "variantComponents/actionable-details-containerContainer/components/actionable-details-containerTable";
-// import ActionDeleteActionable from "variantComponents/actionable-details-containerContainer/components/actionDeleteActionable";
+import {
+  setCurrentActionableTab,
+  setExpandedInterpretationTextArea
+} from "Actions/finalReportAction";
+import ActionableDetailsTabPaneHeader from "../actionableDetailsTabPaneHeader";
+import ExpandedInterpretation from "./components/expandedInterpretation";
 
 const { TabPane } = Tabs;
 
@@ -74,7 +74,11 @@ class ActionableDetailsContainer extends Component {
   };
 
   handleExpandedInterpretation = e => {
-    console.log(e);
+    const { name, value } = e.target;
+    this.props.setExpandedInterpretationTextArea({
+      name: name,
+      value: value
+    });
   };
 
   renderContent = value => {
@@ -145,15 +149,15 @@ const mapStateToProps = state => {
   return {
     currentActionableTab: getCurrentActionableTab(state),
     geneDescription: getGeneDescription(state),
-    variantDescription: getVariantDescription(state),
+    variantDescription: getVariantDescription(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     // onAction: status => dispatch(setActionableActionMode(status)),
-    // deleteEntry: data => dispatch(deleteActionableEntry(data)),
-    // cleanData: () => dispatch(cleanActionableActionData()),
+    setExpandedInterpretationTextArea: data =>
+      dispatch(setExpandedInterpretationTextArea(data)),
     setCurrentActionableTab: key => dispatch(setCurrentActionableTab(key))
   };
 }

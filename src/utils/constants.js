@@ -1014,3 +1014,8 @@ export const ACTIONABLE_CATEGORIES_OPTIONS = [
   { value: ACTIONABLE_TABS_VALUES.clinicalTrials, label: "Therapies" },
   { value: ACTIONABLE_TABS_VALUES.therapies, label: "Clinical trials" },
 ];
+
+export const TEXTAREA_NAME = {
+  geneDescription: "geneDescriptionTextarea",
+  variantDescription: "variantDescriptionTextarea"
+};

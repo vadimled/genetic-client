@@ -2,7 +2,7 @@ import React from "react";
 import { Input } from "antd";
 import PropTypes from "prop-types";
 import style  from "./ExpandedInterpretation.module.scss";
-import { TEXTS } from "Utils/constants";
+import { TEXTS, TEXTAREA_NAME } from "Utils/constants";
 
 const { TextArea } = Input;
 const ExpandedInterpretation = ({ geneDescription, variantDescription, onChange }) => {
@@ -15,7 +15,7 @@ const ExpandedInterpretation = ({ geneDescription, variantDescription, onChange 
           id={"gene-description-textarea"}
           autosize
           value={geneDescription}
-          name={"geneDescriptionTextarea"}
+          name={TEXTAREA_NAME.geneDescription}
           onChange={onChange}
           placeholder={"Type here"}
         />
@@ -27,7 +27,7 @@ const ExpandedInterpretation = ({ geneDescription, variantDescription, onChange 
           id={"variant-description-textarea"}
           autosize
           value={variantDescription}
-          name={"variantDescriptionTextarea"}
+          name={TEXTAREA_NAME.variantDescription}
           onChange={onChange}
           placeholder={"Type here"}
         />
