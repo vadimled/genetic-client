@@ -22,6 +22,8 @@ import FinalReportVariantsTable from "Pages/finalReportPage/components/finalRepo
 import { Button } from "antd";
 import { NAV_STATUS } from "Utils/constants";
 import FinalReportClinicalTable from "./components/finalReportClinicalTable";
+import ActionableDetailsContainer
+  from "Pages/finalReportPage/components/finalReportActionableTable/components/actionableDetailsContainer";
 
 class FinalReportPage extends Component {
   constructor(props) {
@@ -100,7 +102,7 @@ class FinalReportPage extends Component {
             {this.renderUpperTable()}
           </div>
 
-          {!selectedUpperTableRowObject && (
+          {!selectedUpperTableRowObject ? (
             <div className="final-report-variants">
               <div className="flex justify-end">
                 <Button>MOVE TO ACTIONABILITIES</Button>
@@ -108,7 +110,10 @@ class FinalReportPage extends Component {
               <FinalReportVariantsTable
                 filteredDnaVariants={filteredDnaVariants}
               />
-            </div>
+            </div>) : (
+            <ActionableDetailsContainer
+            
+            />
           )}
         </div>
         <div className="sidebar">

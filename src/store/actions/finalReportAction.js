@@ -69,3 +69,10 @@ export function setSelectedUpperTableRowObject(obj) {
     payload: obj
   };
 }
+
+export function setCurrentActionableTab(data) {
+  return {
+    type: actionsTypes.SET_CURRENT_ACTIONABLE_TAB,
+    payload: data
+  };
+}

@@ -2,22 +2,17 @@ import React, { Component } from "react";
 import style from "./ActionableDetailsContainer.module.scss";
 import PropTypes from "prop-types";
 import { Tabs } from "antd";
-// import TabPaneHeader from "variantComponents/actionable-details-containerContainer/components/tabPaneHeader";
+// import ActionableDetailsTabPaneHeader from "variantComponents/actionable-details-containerContainer/components/tabPaneHeader";
 // import ActionableTable from "variantComponents/actionable-details-containerContainer/components/actionable-details-containerTable";
 // import ActionDeleteActionable from "variantComponents/actionable-details-containerContainer/components/actionDeleteActionable";
-import // getActionableConfigId,
-// getSubmitData,
-// getTabPaneHeaders,
-// getCurrentActionableTab
-"Store/selectors";
+
 import { connect } from "react-redux";
 import SimpleButton from "GenericComponents/simpleButton";
-import // cleanActionableActionData,
-// deleteActionableEntry,
-// setActionableActionMode,
-// setCurrentActionableTab
-"Actions/actionable-details-containerConfigActions";
 import { TEXTS } from "Utils/constants";
+import { getCurrentActionableTab } from "Store/selectors";
+import { setCurrentActionableTab } from "Actions/finalReportAction";
+import ActionableDetailsTabPaneHeader
+  from "Pages/finalReportPage/components/finalReportActionableTable/components/actionableDetailsTabPaneHeader";
 
 const { TabPane } = Tabs;
 
@@ -70,18 +65,21 @@ class ActionableDetailsContainer extends Component {
   onTabClicked = key => {
     this.props.setCurrentActionableTab(key);
   };
+  
+  renderContent = () => {
+  
+  };
 
   render() {
     const { tabPaneHeaders, currentActionableTab } = this.props;
     return (
       <div className={style["actionable-details-container-wrapper"]}>
-        <div className="actionable-details-container-title">Actionable:</div>
         <Tabs
           tabBarExtraContent={
             <SimpleButton
               className={"add-actionable-details-container-button-text"}
               onClick={this.handleAddActionable}
-              text={"+ Add Actionable"}
+              text={"Select variants"}
             />
           }
           size={"large"}
@@ -93,7 +91,7 @@ class ActionableDetailsContainer extends Component {
               return (
                 <TabPane
                   tab={
-                    <TabPaneHeader
+                    <ActionableDetailsTabPaneHeader
                       amount={header.length}
                       title={header.title}
                     />
@@ -101,21 +99,19 @@ class ActionableDetailsContainer extends Component {
                   key={index + 1}
                 >
                   {
-                    <ActionableTable
-                      category={header.value}
-                      handleEditEntry={this.handleEditEntry}
-                      handleDeleteEntry={this.handleDeleteEntry}
-                    />
+                    this.renderContent()
                   }
                 </TabPane>
               );
             })}
         </Tabs>
         {this.state.showPopupDelete && (
-          <ActionDeleteActionable
-            onClickYes={this.handleDeleteYes}
-            onClickNo={this.handleDeleteNo}
+          <SimpleButton
+            className={"add-actionable-details-container-button-text"}
+            onClick={this.handleAddActionable}
+            text={"Done"}
           />
+
         )}
       </div>
     );
@@ -131,21 +127,21 @@ ActionableDetailsContainer.defaultProps = {
   data: {}
 };
 
-const mapStateToProps = (/* state */) => {
+const mapStateToProps = ( state ) => {
   return {
+    currentActionableTab: getCurrentActionableTab(state),
     // tabPaneHeaders: getTabPaneHeaders(state),
-    // currentActionableTab: getCurrentActionableTab(state),
     // deleteData: getSubmitData(state),
     // id: getActionableConfigId(state)
   };
 };
 
-function mapDispatchToProps(/* dispatch*/) {
+function mapDispatchToProps( dispatch) {
   return {
     // onAction: status => dispatch(setActionableActionMode(status)),
     // deleteEntry: data => dispatch(deleteActionableEntry(data)),
     // cleanData: () => dispatch(cleanActionableActionData()),
-    // setCurrentActionableTab: key => dispatch(setCurrentActionableTab(key))
+    setCurrentActionableTab: key => dispatch(setCurrentActionableTab(key))
   };
 }
 
