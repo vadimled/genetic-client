@@ -241,7 +241,7 @@ export const getDataArray = data => {
       arrayData.push(data[key]);
     }
   }
-  return arrayData;
+  return getTableSortedByDate(arrayData, "created_at");
 };
 
 export const zygosityTypeByName = name => {
