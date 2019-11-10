@@ -37,7 +37,7 @@ import {
 } from "../../store/selectors";
 import { NAV_STATUS } from "Utils/constants";
 import FinalReportClinicalTable from "./components/finalReportClinicalTable";
-// import ActionableDetailsContainer from "Pages/finalReportPage/components/finalReportActionableTable/components/actionableDetailsContainer";
+import ActionableDetailsContainer from "Pages/finalReportPage/components/finalReportActionableTable/components/actionableDetailsContainer";
 import FinalReportToolBar from "./components/finalReportToolBar";
 
 class FinalReportPage extends Component {
@@ -167,7 +167,7 @@ class FinalReportPage extends Component {
             {this.renderUpperTable()}
           </div>
 
-          {!selectedUpperTableRowObject && (
+          {!selectedUpperTableRowObject ? (
             <div className="final-report-variants">
               <div className="flex justify-end">
                 <FinalReportToolBar />
@@ -187,9 +187,9 @@ class FinalReportPage extends Component {
                 handleSelectedRow={handleSelectedRow}
               />
             </div>
-          ) /* : (
+          )  : (
             <ActionableDetailsContainer />
-          )*/}
+          )}
         </div>
         <div className="sidebar">
           <div className="sidebar-content-wrapper">
