@@ -189,6 +189,28 @@ export function fetchFinalReportMetadataApi(data) {
   return axios_based.get(`/tests/${data.payload}/final_report`);
 }
 
+export function fetchFinalReportVariantsApi (action) {
+  const { testId, mutation } = action.payload;
+  // return axios_based.get(`/tests/${testId}/variants?filter={"zygosity":["homo","hetero","hemi","somatic"],"germline_class":["path","lpath","vus","lben"],"somatic_class":["tier1","tier2","tier3"]}`, {
+  //   params: {
+  //     mutation
+  //   }
+  // });
+
+  return axios_based.get(`/tests/${testId}/variants`, {
+    params: {
+      mutation
+    }
+  });
+}
+
+export function moveToActionableTableApi(data) {
+
+  const {testId, mutation, variants_ids} = data.payload;
+
+  return axios_based.post(`/tests/${testId}/actionablealterations?mutation=${mutation}`, {variants_ids});
+}
+
 export function deleteFinalReportActionableRow(data) {
   const { testId, id } = data.payload;
   return axios_based.delete(

@@ -79,7 +79,12 @@ class Toolbar extends Component {
       selectedRows,
       selectedIsAddedRows,
       openConfirmationPopup,
-      testType
+      testType,
+      showFilter,
+      showSort,
+      showLoadBam,
+      showExportButton,
+      showAddResult
     } = this.props;
 
     return (
@@ -124,21 +129,49 @@ class Toolbar extends Component {
             {!selectedRows?.length && (
               <Fragment>
                 <div className="toolbar-divider-line" />
-                <Filter
-                  setDefaultFilters={this.onSetDefaultFilters}
-                  testType={testType}
-                />
-                <div className="toolbar-divider-line" />
-                <Sort setSort={this.handleSort} />
-                <div className="toolbar-divider-line" />
-                <IgvLoadBAM />
-                <div className="toolbar-divider-line" />
-                <ExportButton exportTable={this.handleExportTable} />
-                <div className="toolbar-divider-line" />
+                {
+                  showFilter &&
+                  <Filter
+                    setDefaultFilters={this.onSetDefaultFilters}
+                    testType={testType}
+                  />
+                }
+
+
+                {
+                  showSort &&
+                  <Fragment>
+                    <div className="toolbar-divider-line" />
+                    <Sort setSort={this.handleSort} />
+                  </Fragment>
+
+                }
+
+
+                {
+                  showLoadBam &&
+                  <Fragment>
+                    <div className="toolbar-divider-line" />
+                    <IgvLoadBAM />
+                  </Fragment>
+
+                }
+
+
+                {
+                  showExportButton &&
+                  <Fragment>
+                    <div className="toolbar-divider-line" />
+                    <ExportButton exportTable={this.handleExportTable} />
+                  </Fragment>
+
+                }
+
+
               </Fragment>
             )}
 
-            {!this.isMVP &&
+            {!this.isMVP && showAddResult &&
               (!selectedRows?.length || selectedRows?.length === 1) &&
               !selectedIsAddedRows?.length && (
               <Fragment>

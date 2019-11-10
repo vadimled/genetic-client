@@ -42,9 +42,40 @@ export const handleSelectAllRows = data => {
   };
 };
 
-export function setFinalReportActionableDataToStore(data) {
+export function setVariantsDataToStore(data) {
   return {
-    type: actionsTypes.SET_FINAL_REPORT_ACTIONABLE_DATA_TO_STORE,
+    type: actionsTypes.SET_VARIANTS_DATA_TO_STORE,
+    payload: data
+  };
+}
+
+export function moveToActionableTable(data) {
+
+  return {
+    type: actionsTypes.MOVE_TO_ACTIONABLE_TABLE,
+    payload: data
+  };
+}
+
+export function fetchFinalReportVariants(data) {
+
+  return {
+    type: actionsTypes.FETCH_FINAL_REPORT_VARIANTS,
+    payload: data
+  };
+}
+
+export function setFinalReportVariantsToStore(data) {
+  return {
+    type: actionsTypes.SET_FINAL_REPORT_VARIANTS_TO_STORE,
+    payload: data
+  };
+}
+
+
+export function setActionableTableDataToStore(data) {
+  return {
+    type: actionsTypes.SET_ACTIONABLE_DATA_TO_STORE,
     payload: data
   };
 }
@@ -73,6 +104,12 @@ export function setSelectedUpperTableRowObject(obj) {
 export function setCurrentActionableTab(data) {
   return {
     type: actionsTypes.SET_CURRENT_ACTIONABLE_TAB,
+    payload: data
+  };
+}
+export function setFinalReportActionableDataToStore(data) {
+  return {
+    type: actionsTypes.SET_FINAL_REPORT_ACTIONABLE_DATA_TO_STORE,
     payload: data
   };
 }

@@ -76,7 +76,8 @@ class FinalReportActionableTable extends Component {
     }
   };
 
-  handleRemoveRow = id => {
+  handleRemoveRow = (id, e) => {
+    e.stopPropagation();
     const { testId, remove } = this.props;
     remove({ testId, id });
   };
