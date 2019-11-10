@@ -5,36 +5,71 @@ import FinalReportActionableTable from "Pages/finalReportPage/components/finalRe
 import {
   getActionableVariants,
   getClinicalVariants,
-  getDnaVariantsAsArray,
   getNavigationStatus
 } from "Store/selectors";
-import {
-  removeActionableSelectedRowFromStore,
-  removeClinicalSelectedRowFromStore,
-  fetchFinalReportActionableData,
-  fetchFinalReportClinicalData,
-  setFinalReportNavigationStatus
-} from "Actions/finalReportAction";
 import { Link } from "react-router-dom";
 import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
 import { Button } from "antd";
+import { fetchTestMetadata } from "Store/actions/testActions";
+import {
+  handleSelectAllRows,
+  handleSelectedRow,
+  moveToActionableTable,
+  fetchFinalReportActionableData,
+  fetchFinalReportClinicalData,
+  fetchFinalReportVariants,
+  removeActionableSelectedRowFromStore,
+  removeClinicalSelectedRowFromStore,
+  setFinalReportNavigationStatus
+} from "Store/actions/finalReportAction";
+import { fetchTableData } from "Store/actions/tableActions";
+import { getMutationTypesValues, checkIsAllDnaRowsSelected } from "Store/selectors";
+import { getSelectedVariants, getSelectedVariantsIds, getTestId } from "../../store/selectors";
 import { NAV_STATUS } from "Utils/constants";
 import FinalReportClinicalTable from "./components/finalReportClinicalTable";
+import FinalReportToolBar from "./components/finalReportToolBar";
+
 
 class FinalReportPage extends Component {
+
   constructor(props) {
     super(props);
+
     const {
       fetchFinalReportActionable,
       fetchFinalReportClinical,
+      fetchTestMetadata,
+      mutationTypesValues,
       match: {
         params: { testId }
       }
     } = this.props;
+
+
+    fetchTestMetadata(props?.match?.params?.testId);
     fetchFinalReportActionable(testId);
     fetchFinalReportClinical(testId);
+    fetchFinalReportVariants({
+      testId,
+      mutation: mutationTypesValues[0]
+    });
+    this.state = {
+      isMutationType: false,
+    };
   }
 
+  static getDerivedStateFromProps(props, state) {
+
+    if (props.mutationTypesValues.length > 0 && !state.isMutationType) {
+      const { fetchFinalReportVariants, match, mutationTypesValues } = props;
+      fetchFinalReportVariants({
+        testId: match?.params?.testId,
+        mutation: mutationTypesValues[0]
+      });
+      return { isMutationType: true };
+    }
+    return null;
+  }
   handleRemoveActionableRow = val => {
     this.props.removeActionableRow(val);
   };
@@ -46,6 +81,24 @@ class FinalReportPage extends Component {
   handlerSidebarActions = e => {
     this.props.setNavStatus(e.target.name);
   };
+
+  handleRemoveSelectedTableRow = val => {
+    console.log(val);
+    this.props.removeSelectedTableRow(val);
+  };
+
+  moveToActionabilities = () =>{
+    const {selectedVariantsIds, moveToActionableTable, mutationTypesValues, testId} = this.props;
+    const data = {
+      mutation: mutationTypesValues[0],
+      testId,
+      variants_ids: selectedVariantsIds
+    };
+
+
+    moveToActionableTable(data);
+
+  }
 
   renderUpperTable = () => {
     const {
@@ -78,7 +131,13 @@ class FinalReportPage extends Component {
   };
 
   render() {
-    const { filteredDnaVariants } = this.props;
+    const {
+      isAllRowSelected,
+      handleSelectAllRows,
+      mutationTypesValues,
+      handleSelectedRow,
+      selectedVariants,
+    } = this.props;
 
     return (
       <div
@@ -88,17 +147,26 @@ class FinalReportPage extends Component {
           <div className="flex justify-start">
             <Link to="/">Back</Link>
           </div>
-
           <div className="final-report-upper-table">
             {this.renderUpperTable()}
           </div>
 
           <div className="final-report-variants">
             <div className="flex justify-end">
-              <Button>MOVE TO ACTIONABILITIES</Button>
+              <FinalReportToolBar />
+              <Button
+                className="moveToActionabilitiesBtn"
+                onClick={this.moveToActionabilities}
+              >
+                MOVE TO ACTIONABILITIES
+              </Button>
             </div>
             <FinalReportVariantsTable
-              filteredDnaVariants={filteredDnaVariants}
+              selectedVariants={selectedVariants}
+              isAllRowSelected={isAllRowSelected}
+              handleSelectAllRows={handleSelectAllRows}
+              mutationTypesValues={mutationTypesValues}
+              handleSelectedRow={handleSelectedRow}
             />
           </div>
         </div>
@@ -127,15 +195,29 @@ class FinalReportPage extends Component {
 
 const mapStateToProps = state => {
   return {
+    selectedData: getActionableVariants(state),
+    // filteredDnaVariants: getDnaVariantsAsArray(state),
+    mutationTypesValues: getMutationTypesValues(state),
+    isAllRowSelected: checkIsAllDnaRowsSelected(state),
+    selectedVariants: getSelectedVariants(state),
+    testId: getTestId(state),
+    selectedVariantsIds: getSelectedVariantsIds(state),
     selectedActionableData: getActionableVariants(state),
     selectedClinicalData: getClinicalVariants(state),
-    filteredDnaVariants: getDnaVariantsAsArray(state),
     navigationStatus: getNavigationStatus(state)
+
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
+    removeSelectedTableRow: data => dispatch(removeSelectedTableRow(data)),
+    fetchTableData: data => dispatch(fetchTableData(data)),
+    fetchTestMetadata: testId => dispatch(fetchTestMetadata(testId)),
+    handleSelectedRow: (data) => dispatch(handleSelectedRow(data)),
+    handleSelectAllRows: (data) => dispatch(handleSelectAllRows(data)),
+    moveToActionableTable: (data) => dispatch(moveToActionableTable(data)),
+    fetchFinalReportVariants: (data) => dispatch(fetchFinalReportVariants(data)),
     removeActionableRow: data => dispatch(removeActionableSelectedRowFromStore(data)),
     removeClinicalRow: data => dispatch(removeClinicalSelectedRowFromStore(data)),
     fetchFinalReportActionable: data => dispatch(fetchFinalReportActionableData(data)),

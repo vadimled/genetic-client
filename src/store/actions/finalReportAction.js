@@ -42,15 +42,45 @@ export const handleSelectAllRows = data => {
   };
 };
 
-export function setFinalReportActionableDataToStore(data) {
+export function setVariantsDataToStore(data) {
   return {
-    type: actionsTypes.SET_FINAL_REPORT_ACTIONABLE_DATA_TO_STORE,
+    type: actionsTypes.SET_VARIANTS_DATA_TO_STORE,
+    payload: data
+  };
+}
+
+export function moveToActionableTable(data) {
+
+  return {
+    type: actionsTypes.MOVE_TO_ACTIONABLE_TABLE,
+    payload: data
+  };
+}
+
+export function fetchFinalReportVariants(data) {
+
+  return {
+    type: actionsTypes.FETCH_FINAL_REPORT_VARIANTS,
+    payload: data
+  };
+}
+
+export function setFinalReportVariantsToStore(data) {
+  return {
+    type: actionsTypes.SET_FINAL_REPORT_VARIANTS_TO_STORE,
+    payload: data
+  };
+}
+
+
+export function setActionableTableDataToStore(data) {
+  return {
+    type: actionsTypes.SET_ACTIONABLE_DATA_TO_STORE,
     payload: data
   };
 }
 
 export function setFinalReportClinicalDataToStore(data) {
-  console.log(data);
   return {
     type: actionsTypes.SET_FINAL_REPORT_CLINICAL_DATA_TO_STORE,
     payload: data
@@ -60,6 +90,13 @@ export function setFinalReportClinicalDataToStore(data) {
 export function setFinalReportNavigationStatus(data) {
   return {
     type: actionsTypes.SET_NAVIGATION_STATUS,
+    payload: data
+  };
+}
+
+export function setFinalReportActionableDataToStore(data) {
+  return {
+    type: actionsTypes.SET_FINAL_REPORT_ACTIONABLE_DATA_TO_STORE,
     payload: data
   };
 }

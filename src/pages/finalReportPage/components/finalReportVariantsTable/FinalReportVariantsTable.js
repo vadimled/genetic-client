@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Checkbox, Table, Tooltip } from "antd";
 import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
-import { getMutationTypesValues } from "Store/selectors";
-import { fetchTableData } from "Store/actions/tableActions";
 import { withRouter } from "react-router-dom";
 import cn from "classnames";
 import HighlightedCell from "GenericComponents/variantTable/components/highlightedCell/HighlightedCell";
@@ -13,8 +10,6 @@ import {
   VARIANT_CLASS_GERMLINE,
   VARIANT_CLASS_SOMATIC
 } from "Utils/constants";
-import { fetchTestMetadata } from "Store/actions/testActions";
-import { handleSelectAllRows, handleSelectedRow } from "Store/actions/finalReportAction";
 
 
 
@@ -22,10 +17,8 @@ class FinalReportVariantsTable extends Component {
 
   constructor(props) {
     super(props);
-    props.fetchTestMetadata(props?.match?.params?.testId);
 
     this.state = {
-      isMutationType: false,
       columns: [
         {
           key: "1",
@@ -110,19 +103,6 @@ class FinalReportVariantsTable extends Component {
         }
       ]
     };
-
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    if (props.mutationTypesValues.length > 0 && !state.isMutationType) {
-      const { fetchTableData, match, mutationTypesValues } = props;
-      fetchTableData({
-        testId: match?.params?.testId,
-        mutation: mutationTypesValues[0]
-      });
-      return { isMutationType: true };
-    }
-    return null;
   }
 
   components = {
@@ -301,11 +281,11 @@ class FinalReportVariantsTable extends Component {
 
   render() {
 
-    const {filteredDnaVariants} = this.props;
+    const {selectedVariants} = this.props;
 
     const columns = this.columnsConverter(this.state.columns);
 
-    if(!filteredDnaVariants){
+    if(!selectedVariants){
       return <div>no data</div>;
     }
 
@@ -315,28 +295,11 @@ class FinalReportVariantsTable extends Component {
         pagination={{ pageSize: 5 }}
         bordered
         columns={columns}
-        dataSource={filteredDnaVariants}
+        dataSource={selectedVariants}
         scroll={{ x: "max-content", y: "240px" }}
       />
     );
   }
 }
 
-
-function mapStateToProps(state) {
-  return {
-    mutationTypesValues: getMutationTypesValues(state),
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchTableData: data => dispatch(fetchTableData(data)),
-    fetchTestMetadata: testId => dispatch(fetchTestMetadata(testId)),
-    handleSelectedRow: (data) => dispatch(handleSelectedRow(data)),
-    handleSelectAllRows: (data) => dispatch(handleSelectAllRows(data)),
-  };
-}
-
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FinalReportVariantsTable));
+export default withRouter(FinalReportVariantsTable);

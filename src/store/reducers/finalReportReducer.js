@@ -4,16 +4,34 @@ import { NAV_STATUS } from "Utils/constants";
 
 
 const initialState = {
+  serverData: null,
+  data: null,
   dna_variants: null,
   cna_variants: [],
-  selectedVariants: [],
+  selectedVariantsIds: [],
   actionableVariants: [],
-  clinicalVariants: [],
   mutation_type: null,
+  selectedVariants: [],
+  clinicalVariants: [],
   navigationStatus: NAV_STATUS.alterations
 };
 
 const finalReportReducer = createReducer(initialState, {
+
+  [actionsTypes.FETCH_TABLE_DATA_SUCCESS]: (state, { payload }) => {
+    return {
+      ...state,
+      serverData: payload
+    };
+  },
+
+  [actionsTypes.SET_PARSED_DATA_TO_STORE]: (state, { payload }) => {
+    return {
+      ...state,
+      data: payload
+    };
+  },
+
   [actionsTypes.ADD_ROW]: (state, { payload }) => {
     return {
       ...state,
@@ -42,44 +60,49 @@ const finalReportReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
+
     const { item, value } = payload;
 
-    // const selectedVariants = []
+    let newData = state?.data;
+    let selectedVariants = state?.selectedVariantsIds;
 
-    let data = Object.assign(state?.data);
+    newData[item.id].selected = value;
 
-    // let selectedVariants = Object.assign(state?.selectedVariants);
+    selectedVariants.push(item.id);
 
-    data[item.id].selected = value;
 
-    // selectedVariants.push(data[item.id]);
-
-    state.data = data;
-    // state.selectedVariants = selectedVariants;
-
-    // selectedVariants.push(data[item.id])
 
     return {
-      ...state
+      ...state,
+      data: {...newData},
+      selectedVariantsIds: [...selectedVariants]
     };
   },
 
   [actionsTypes.HANDLE_SELECT_ALL_ROWS]: (state, { payload }) => {
-    let data = state?.dna_variants;
+
+    let data = state?.data;
 
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
         let item = data[key];
 
-        // if an item has already status we cannot select it to send for confirmation
-
         item.selected = !payload;
+
       }
     }
 
     return {
       ...state,
       dna_variants: { ...data }
+    };
+  },
+
+  [actionsTypes.SET_VARIANTS_DATA_TO_STORE]: (state, { payload }) => {
+    return {
+      ...state,
+      dna_variants: payload,
+      actionableVariants: payload
     };
   },
 
@@ -97,10 +120,13 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_VARIANTS_DATA_TO_STORE]: (state, { payload }) => {
+
+
+  [actionsTypes.SET_ACTIONABLE_DATA_TO_STORE]: (state, { payload }) => {
     return {
       ...state,
-      dna_variants: payload
+      // dna_variants: payload,
+      actionableVariants: payload
     };
   },
 

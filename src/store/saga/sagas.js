@@ -103,6 +103,9 @@ import {
   setDefaultFilters,
   saveUserPreferencesFilters
 } from "Actions/filtersActions";
+// import { setVariantsDataToStore } from "Actions/finalReportAction";
+import { fetchFinalReportVariantsApi, moveToActionableTableApi } from "../../api";
+import { setActionableTableDataToStore } from "../actions/finalReportAction";
 import {
   setFinalReportActionableDataToStore,
   removeActionableSelectedRowFromStore,
@@ -121,7 +124,7 @@ function* handleErrors(e) {
   yield put(
     setAlert({
       status: ALERT_STATUSES.error,
-      title: 'Error',
+      title: "Error",
       message: errorMessage
     })
   );
@@ -353,9 +356,9 @@ export function* resultConfigLoadHgvsSaga(data) {
 
     const result = yield call(loadHgvsApi, data.payload);
     const resultData = result.data;
-    let coding = resultData['snpeff.ann.hgvs_c'];
-    let protein = resultData['snpeff.ann.hgvs_p'];
-    let transcript = resultData['snpeff.ann.feature_id'];
+    let coding = resultData["snpeff.ann.hgvs_c"];
+    let protein = resultData["snpeff.ann.hgvs_p"];
+    let transcript = resultData["snpeff.ann.feature_id"];
     if (Array.isArray(coding)) coding = coding[0];
     if (Array.isArray(protein)) protein = protein[0];
     if (Array.isArray(transcript)) transcript = transcript[0];
@@ -511,9 +514,7 @@ export function* fetchTableDataSaga(action) {
     yield put(setServerDataToStore(result?.data));
     const newData = parseTableData(result?.data);
 
-
     yield put(setParsedDataToStore(newData));
-    // yield put(setFinalReportActionableDataToStore(newData));
     yield put(setLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
@@ -657,7 +658,7 @@ export function* fetchClassificationHistorySaga(action) {
     yield put(setLoading(true));
     const result = yield call(fetchClassificationHistoryApi, action);
     if (result?.status === 200) {
-      const {testsList} = action.payload;
+      const { testsList } = action.payload;
       yield put(setClassificationHistoryToStore(result.data));
       yield put(
         setHistoryTableData({
@@ -707,8 +708,7 @@ export function* saveUserPreferencesFiltersSaga({ payload }) {
       testId,
       preferences: { filters }
     });
-  }
-  catch(e) {
+  } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["saveUserPreferencesFiltersSaga"]);
       Sentry.captureException(e);
@@ -724,8 +724,7 @@ export function* saveUserPreferencesSortingSaga({ payload }) {
       testId,
       preferences: { sorting }
     });
-  }
-  catch(e) {
+  } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["saveUserPreferencesSortingSaga"]);
       Sentry.captureException(e);
@@ -757,8 +756,7 @@ export function* fetchUserPreferencesSaga({ payload }) {
     if (sorting) {
       yield put(setSort(sorting));
     }
-  }
-  catch(e) {
+  } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchUserPreferencesSaga"]);
       Sentry.captureException(e);
@@ -834,54 +832,48 @@ export function* fetchConfirmationMetadataSaga(action) {
 }
 
 // --------------- FINAL REPORT PAGE ---------------
+
+export function* fetchFinalReportVariantsSaga(action) {
+  try {
+    const result = yield call(fetchFinalReportVariantsApi, action);
+    yield put(setServerDataToStore(result?.data));
+    const newData = parseTableData(result?.data);
+
+    yield put(setParsedDataToStore(newData));
+
+    yield put(setLoading(false));
+  } catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchFinalReportVariantsSaga"]);
+      Sentry.captureException(e);
+    });
+    yield put(setLoading(false));
+    yield handleErrors(e);
+  }
+}
+
+export function* moveToActionableTableSaga(action) {
+  try {
+    yield put(setLoading(true));
+    const { data } = yield call(moveToActionableTableApi, action);
+    yield put(setActionableTableDataToStore(data));
+    yield put(setLoading(false));
+  } catch (e) {
+    yield put(setLoading(false));
+    console.log("--err: ", e);
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["moveToActionableTableSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+}
+
 export function* fetchFinalReportActionableDataSaga(action) {
   try {
     yield put(setLoading(true));
     const { data } = yield call(fetchFinalReportActionableDataApi, action);
-    console.log(data);
-    let temp = [
-      {
-        key: 1,
-        id: "5d511f574651a20020a0ab50",
-        variant_id: "1d5bcc6608589e00124bfd76",
-        mutation_type: "dna",
-        gene: "MTHFR",
-        percentage_variants: 0.482165,
-        hgvs_p: "p.Glu429Ala",
-        hgvs_c: "c.1305C>T" ,
-        zygosity: "homo",
-        germline_class: "lpath",
-        somatic_class: "tier2",
-        is_marked: false,
-        clinical_trials: true,
-        approved_drug_same_indication: "Gedatolisib",
-        approved_drug_other_indication: "Palbociclib\n" + "Gedatolisib",
-        is_expanded_interpretation_approved: false,
-        is_therapies_approved: false,
-        is_clinical_trials_approved: false
-      },
-      {
-        key: 2,
-        id: "5d511f574651a20020a0ab51",
-        variant_id: "1d5bcc6608589e00124bfd75",
-        mutation_type: "dna",
-        gene: "RFHTM",
-        percentage_variants: 0.865665788,
-        hgvs_p: "p.fRu429Ala",
-        hgvs_c: "c.1305C>T" ,
-        germline_class: "lpath",
-        somatic_class: "tier4",
-        is_marked: false,
-        clinical_trials: true,
-        approved_drug_same_indication: "Gedatolisib",
-        approved_drug_other_indication: "Palbociclib\n" + "Gedatolisib",
-        is_expanded_interpretation_approved: false,
-        is_therapies_approved: false,
-        is_clinical_trials_approved: false,
-        zygosity: "somatic"
-      }
-    ];
-    yield put(setFinalReportActionableDataToStore(temp));
+    yield put(setFinalReportActionableDataToStore(data));
     yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));
@@ -892,6 +884,7 @@ export function* fetchFinalReportActionableDataSaga(action) {
     yield handleErrors(e);
   }
 }
+
 let tempClinical = [
   {
     key: 1,
@@ -921,7 +914,6 @@ export function* fetchFinalReportClinicalDataSaga() {
   try {
     yield put(setLoading(true));
     /*  const { data } = yield call(fetchFinalReportClinicalDataApi, action);*/
-    console.log("fetchFinalReportClinicalDataSaga");
     yield put(setFinalReportClinicalDataToStore(tempClinical));
     yield put(setLoading(false));
   } catch (e) {

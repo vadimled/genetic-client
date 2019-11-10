@@ -468,7 +468,9 @@ export const checkIsAllCoverageRowsSelected = createSelector(
 );
 
 
-export const getFilteredDnaVariants = state => state.finalReport?.dna_variants;
+// Final report
+
+export const getFilteredDnaVariants = state => state.finalReport?.data;
 
 export const getDnaVariantsAsArray = createSelector(
   getFilteredDnaVariants,
@@ -483,9 +485,55 @@ export const getDnaVariantsAsArray = createSelector(
   }
 );
 
-// Finale Report
 export const
   getActionableVariants = state => state.finalReport.actionableVariants,
   getClinicalVariants = state => state.finalReport.clinicalVariants,
   getNavigationStatus = state => state.finalReport.navigationStatus;
+
+
+export const getSelectedDnaRows = createSelector(
+  getFilteredData,
+  data => {
+    return data.filter(row => row.selected);
+  }
+);
+
+export const checkIsAllDnaRowsSelected = createSelector(
+  getDnaVariantsAsArray,
+  getSelectedDnaRows,
+  (allData, selectedData) => {
+    let nonUncheckMode = 0;
+    const notConfirmedData = allData?.filter(item => {
+      if (item.status === TEXTS.UNCHECK) {
+        return item.selected;
+      }
+      else{
+        nonUncheckMode++;
+      }
+    });
+    return (
+      !!selectedData?.length &&
+      notConfirmedData?.length === (allData.length - nonUncheckMode)
+    );
+  }
+);
+
+
+export const getSelectedVariants = createSelector(
+  getDnaVariantsAsArray,
+  getActionableVariants,
+  (variants, selectedVariants) => {
+
+    if(variants.length > 0){
+
+      const selectedVariantsIds = selectedVariants.map(variant => variant.variant_id);
+
+      return variants.filter(variant => !selectedVariantsIds.includes(variant.id));
+
+    }
+
+  }
+);
+
+export const getSelectedVariantsIds = state => state.finalReport?.selectedVariantsIds;
 
