@@ -487,7 +487,9 @@ export const getDnaVariantsAsArray = createSelector(
 
 export const
   getActionableVariants = state => state.finalReport.actionableVariants,
-  getCurrentActionableTab = state => state.finalReport.actionableVariants,
+  getCurrentActionableTab = state => state.finalReport.currentActionableTab,
+  getGeneDescription = state => state.finalReport.geneDescription,
+  getVariantDescription = state => state.finalReport.variantDescription,
   getClinicalVariants = state => state.finalReport.clinicalVariants,
   getSelectedUpperTableRowObject = state => state.finalReport.selectedUpperTableRowObject,
   getNavigationStatus = state => state.finalReport.navigationStatus;

@@ -59,7 +59,9 @@ export const TEXTS = {
   noData: "No data",
   UNCHECK: "UNCHECK",
   System: "System",
-  CNV: "cnv"
+  CNV: "cnv",
+  geneDescription: "Gene Description",
+  variantDescription: "Variant Description"
 };
 
 export const LIMITS = {

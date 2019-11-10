@@ -16,6 +16,8 @@ const initialState = {
   selectedUpperTableRowObject: null,
   currentActionableTab: "1",
   selectedVariantsIds: [],
+  variantDescription: "",
+  geneDescription: ""
 };
 
 const finalReportReducer = createReducer(initialState, {
@@ -149,7 +151,7 @@ const finalReportReducer = createReducer(initialState, {
   [actionsTypes.SET_CURRENT_ACTIONABLE_TAB]: (state, { payload }) => {
     return {
       ...state,
-      currentActionableTab: payload || "1"
+      currentActionableTab: payload.toString() || "1"
     };
   }
 });
