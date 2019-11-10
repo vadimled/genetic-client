@@ -211,7 +211,7 @@ export function moveToActionableTableApi(data) {
   return axios_based.post(`/tests/${testId}/actionablealterations?mutation=${mutation}`, {variants_ids});
 }
 
-export function deleteFinalReportActionableRow(data) {
+export function deleteFinalReportActionableRowApi(data) {
   const { testId, id } = data.payload;
   return axios_based.delete(
     `/tests/${testId}/actionablealterations/${id}`

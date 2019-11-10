@@ -153,7 +153,7 @@ class FinalReportPage extends Component {
       selectedVariants,
       selectedUpperTableRowObject
     } = this.props;
-    console.log(selectedUpperTableRowObject);
+    // console.log(selectedUpperTableRowObject);
     return (
       <div
         className={`${style["final-report-page-wrapper"]} flex justify-between`}

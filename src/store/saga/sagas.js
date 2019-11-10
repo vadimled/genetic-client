@@ -30,8 +30,8 @@ import {
   fetchConfirmationMetadataApi,
   sendVariantToConfirmation,
   fetchFinalReportActionableDataApi,
+  deleteFinalReportActionableRowApi
   // fetchFinalReportClinicalDataApi,
-  // deleteFinalReportVariantApi
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -929,11 +929,11 @@ export function* fetchFinalReportClinicalDataSaga() {
 export function* deleteFinalReportActionableRowSaga(action){
   try {
     yield put(setLoading(true));
-    /* const { data } = yield call(deleteFinalReportActionableRowApi, action);*/
-    // if(data.status === 200){
-    const { id } = action.payload;
-    yield put(removeActionableSelectedRowFromStore(id));
-    // }
+    const { data } = yield call(deleteFinalReportActionableRowApi, action);
+    if(data.status === 200){
+      const { id } = action.payload;
+      yield put(removeActionableSelectedRowFromStore(id));
+    }
     yield put(setLoading(false));
   }
   catch (e) {
