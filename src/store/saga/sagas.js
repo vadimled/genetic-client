@@ -105,7 +105,11 @@ import {
 } from "Actions/filtersActions";
 // import { setVariantsDataToStore } from "Actions/finalReportAction";
 import { fetchFinalReportVariantsApi, moveToActionableTableApi } from "../../api";
-import { setActionableTableDataToStore } from "../actions/finalReportAction";
+import {
+  setActionableTableDataToStore,
+  setExpandedInterpretationTextArea,
+  setExpandedTextAreaContentSaved
+} from "../actions/finalReportAction";
 import {
   setFinalReportActionableDataToStore,
   removeActionableSelectedRowFromStore,
@@ -964,4 +968,25 @@ export function* deleteFinalReportClinicalRowSaga(action){
     });
     yield handleErrors(e);
   }
+}
+export function* saveExpandedTextAreaContentSaga(action){
+  try {
+    yield put(setExpandedInterpretationTextArea(action.payload));
+    yield delay(1500);
+    yield put(setLoading(true));
+  
+    console.log("-----Call API----");
+    /* const { data } = yield call(saveExpandedTextAreaContentApi, action);*/
+    yield put(setExpandedTextAreaContentSaved(action.payload?.name));
+    yield put(setLoading(false));
+  }
+  catch (e) {
+    yield put(setLoading(false));
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["saveExpandedTextAreaContentSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+  
 }

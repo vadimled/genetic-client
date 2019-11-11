@@ -33,7 +33,8 @@ import {
   fetchFinalReportActionableDataSaga,
   deleteFinalReportActionableRowSaga,
   deleteFinalReportClinicalRowSaga,
-  fetchFinalReportClinicalDataSaga
+  fetchFinalReportClinicalDataSaga,
+  saveExpandedTextAreaContentSaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -87,4 +88,6 @@ export function* watchSaga() {
   yield takeEvery(types.FETCH_FINAL_REPORT_CLINICAL_DATA, fetchFinalReportClinicalDataSaga);
   yield takeEvery(types.REMOVE_ACTIONABLE_SELECTED_ROW_FROM_STORE, deleteFinalReportActionableRowSaga);
   yield takeEvery(types.REMOVE_CLINICAL_SELECTED_ROW_FROM_STORE, deleteFinalReportClinicalRowSaga);
+  
+  yield takeLatest(types.SAVE_EXPANDED_TAB_TEXTAREA_CONTENT, saveExpandedTextAreaContentSaga);
 }

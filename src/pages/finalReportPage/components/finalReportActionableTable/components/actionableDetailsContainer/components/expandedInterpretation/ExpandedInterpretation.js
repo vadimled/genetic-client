@@ -1,15 +1,25 @@
 import React from "react";
 import { Input } from "antd";
 import PropTypes from "prop-types";
-import style  from "./ExpandedInterpretation.module.scss";
-import { TEXTS, TEXTAREA_NAME } from "Utils/constants";
+import style from "./ExpandedInterpretation.module.scss";
+import cn from "classnames";
+import { TEXTAREA_NAME, TEXTS } from "Utils/constants";
+import { ReactComponent as OkIcon } from "Assets/ok.svg";
 
 const { TextArea } = Input;
-const ExpandedInterpretation = ({ geneDescription, variantDescription, onChange }) => {
+const ExpandedInterpretation = ({
+  geneDescription,
+  variantDescription,
+  geneDescriptionSaved,
+  variantDescriptionSaved,
+  onChange
+}) => {
   return (
     <div className={style["expanded-interpretation-wrapper"]}>
       <div className="textarea-wrapper">
-        <label htmlFor={"gene-description-textarea"}>{TEXTS.geneDescription}</label>
+        <label htmlFor={"gene-description-textarea"}>
+          {TEXTS.geneDescription}
+        </label>
         <TextArea
           key={1}
           id={"gene-description-textarea"}
@@ -19,9 +29,16 @@ const ExpandedInterpretation = ({ geneDescription, variantDescription, onChange 
           onChange={onChange}
           placeholder={"Type here"}
         />
+        <div className="icon-saved">
+          <div className={cn("ok-icon", { active: geneDescriptionSaved })}>
+            <OkIcon />
+          </div>
+        </div>
       </div>
       <div className="textarea-wrapper">
-        <label htmlFor={"variant-description-textarea"}>{TEXTS.variantDescription}</label>
+        <label htmlFor={"variant-description-textarea"}>
+          {TEXTS.variantDescription}
+        </label>
         <TextArea
           key={2}
           id={"variant-description-textarea"}
@@ -31,6 +48,11 @@ const ExpandedInterpretation = ({ geneDescription, variantDescription, onChange 
           onChange={onChange}
           placeholder={"Type here"}
         />
+        <div className="icon-saved">
+          <div className={cn("ok-icon", { active: variantDescriptionSaved })}>
+            <OkIcon />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -39,7 +61,7 @@ const ExpandedInterpretation = ({ geneDescription, variantDescription, onChange 
 ExpandedInterpretation.propTypes = {
   geneDescription: PropTypes.string,
   variantDescription: PropTypes.string,
-  onChange:PropTypes.func
+  onChange: PropTypes.func
 };
 
 export default ExpandedInterpretation;

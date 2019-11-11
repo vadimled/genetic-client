@@ -121,3 +121,17 @@ export function setExpandedInterpretationTextArea(data) {
     payload: data
   };
 }
+
+export function saveExpandedTextAreaContent(data) {
+  return {
+    type: actionsTypes.SAVE_EXPANDED_TAB_TEXTAREA_CONTENT,
+    payload: data
+  };
+}
+
+export function setExpandedTextAreaContentSaved(data) {
+  return {
+    type: actionsTypes.SET_EXPANDED_TAB_TEXTAREA_CONTENT_SAVED,
+    payload: data
+  };
+}

@@ -12,11 +12,14 @@ import {
 import {
   getCurrentActionableTab,
   getGeneDescription,
-  getVariantDescription
+  getVariantDescription,
+  getGeneDescriptionSaved,
+  getVariantDescriptionSaved
 } from "Store/selectors";
 import {
   setCurrentActionableTab,
-  setExpandedInterpretationTextArea
+  saveExpandedTextAreaContent
+  // setExpandedInterpretationTextArea
 } from "Actions/finalReportAction";
 import ActionableDetailsTabPaneHeader from "../actionableDetailsTabPaneHeader";
 import ExpandedInterpretation from "./components/expandedInterpretation";
@@ -82,13 +85,20 @@ class ActionableDetailsContainer extends Component {
   };
 
   renderContent = value => {
-    const { geneDescription, variantDescription } = this.props;
+    const {
+      geneDescription,
+      variantDescription,
+      geneDescriptionSaved,
+      variantDescriptionSaved
+    } = this.props;
     switch (value) {
       case ACTIONABLE_TABS_VALUES.expanded:
         return (
           <ExpandedInterpretation
             geneDescription={geneDescription}
             variantDescription={variantDescription}
+            geneDescriptionSaved={geneDescriptionSaved}
+            variantDescriptionSaved={variantDescriptionSaved}
             onChange={this.handleExpandedInterpretation}
           />
         );
@@ -149,7 +159,9 @@ const mapStateToProps = state => {
   return {
     currentActionableTab: getCurrentActionableTab(state),
     geneDescription: getGeneDescription(state),
-    variantDescription: getVariantDescription(state)
+    variantDescription: getVariantDescription(state),
+    geneDescriptionSaved: getGeneDescriptionSaved(state),
+    variantDescriptionSaved: getVariantDescriptionSaved(state)
   };
 };
 
@@ -157,7 +169,7 @@ function mapDispatchToProps(dispatch) {
   return {
     // onAction: status => dispatch(setActionableActionMode(status)),
     setExpandedInterpretationTextArea: data =>
-      dispatch(setExpandedInterpretationTextArea(data)),
+      dispatch(saveExpandedTextAreaContent(data)),
     setCurrentActionableTab: key => dispatch(setCurrentActionableTab(key))
   };
 }

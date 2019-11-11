@@ -490,6 +490,8 @@ export const
   getCurrentActionableTab = state => state.finalReport.currentActionableTab,
   getGeneDescription = state => state.finalReport.geneDescription,
   getVariantDescription = state => state.finalReport.variantDescription,
+  getGeneDescriptionSaved= state => state.finalReport.geneDescriptionSaved,
+  getVariantDescriptionSaved = state => state.finalReport.variantDescriptionSaved,
   getClinicalVariants = state => state.finalReport.clinicalVariants,
   getSelectedUpperTableRowObject = state => state.finalReport.selectedUpperTableRowObject,
   getNavigationStatus = state => state.finalReport.navigationStatus;

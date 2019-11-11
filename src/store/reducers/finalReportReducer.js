@@ -16,7 +16,9 @@ const initialState = {
   currentActionableTab: "1",
   selectedVariantsIds: [],
   variantDescription: "",
-  geneDescription: ""
+  geneDescription: "",
+  variantDescriptionSaved: false,
+  geneDescriptionSaved:false
 };
 
 const finalReportReducer = createReducer(initialState, {
@@ -158,18 +160,41 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
+  [actionsTypes.SET_EXPANDED_TAB_TEXTAREA_CONTENT_SAVED]: (state, { payload }) => {
+    let contentSaved;
+    switch (payload) {
+      case TEXTAREA_NAME.geneDescription:
+        contentSaved = {
+          geneDescriptionSaved: true
+        };
+        break;
+      case TEXTAREA_NAME.variantDescription:
+        contentSaved = {
+          variantDescriptionSaved: true
+        };
+        break;
+    }
+    
+    return {
+      ...state,
+      ...contentSaved
+    };
+  },
+
   [actionsTypes.SET_EXPANDED_TAB_TEXTAREA]: (state, { payload }) => {
     const { name, value } = payload;
     let textArea;
     switch (name) {
       case TEXTAREA_NAME.geneDescription:
         textArea = {
-          geneDescription: value
+          geneDescription: value,
+          geneDescriptionSaved: false
         };
         break;
       case TEXTAREA_NAME.variantDescription:
         textArea = {
-          variantDescription: value
+          variantDescription: value,
+          variantDescriptionSaved: false
         };
         break;
     }
