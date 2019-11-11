@@ -494,7 +494,8 @@ export const
   getVariantDescriptionSaved = state => state.finalReport.variantDescriptionSaved,
   getClinicalVariants = state => state.finalReport.clinicalVariants,
   getSelectedUpperTableRowObject = state => state.finalReport.selectedUpperTableRowObject,
-  getNavigationStatus = state => state.finalReport.navigationStatus;
+  getNavigationStatus = state => state.finalReport.navigationStatus,
+  getSelectVariants = state => state.finalReport.selectVariants;
 
 
 export const getSelectedDnaRows = createSelector(

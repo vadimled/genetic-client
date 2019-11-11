@@ -18,7 +18,8 @@ const initialState = {
   variantDescription: "",
   geneDescription: "",
   variantDescriptionSaved: false,
-  geneDescriptionSaved:false
+  geneDescriptionSaved:false,
+  selectVariants: true
 };
 
 const finalReportReducer = createReducer(initialState, {
@@ -149,7 +150,8 @@ const finalReportReducer = createReducer(initialState, {
   [actionsTypes.SET_SELECTED_UPPER_TABLE_ROW_OBJECT]: (state, { payload }) => {
     return {
       ...state,
-      selectedUpperTableRowObject: payload
+      selectedUpperTableRowObject: payload,
+      selectVariants: true
     };
   },
 
@@ -203,7 +205,16 @@ const finalReportReducer = createReducer(initialState, {
       ...state,
       ...textArea
     };
-  }
+  },
+  
+  [actionsTypes.SET_SELECT_VARIANTS]: state => {
+    return {
+      ...state,
+      selectVariants: !state.selectVariants,
+      selectedUpperTableRowObject: null
+    };
+  },
+  
 });
 
 export default finalReportReducer;

@@ -116,9 +116,9 @@ class ActionableDetailsContainer extends Component {
         <Tabs
           tabBarExtraContent={
             <SimpleButton
-              className={"add-actionable-details-container-button-text"}
-              onClick={this.handleAddActionable}
-              text={"Select variants"}
+              className={"actionable-details-done"}
+              // onClick={this.handleAddActionable}
+              text={"done"}
             />
           }
           size={"large"}

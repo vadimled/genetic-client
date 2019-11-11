@@ -135,3 +135,9 @@ export function setExpandedTextAreaContentSaved(data) {
     payload: data
   };
 }
+
+export function setSelectVariants() {
+  return {
+    type: actionsTypes.SET_SELECT_VARIANTS
+  };
+}
