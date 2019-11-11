@@ -1,3 +1,5 @@
+@import "Css/Colors.scss";
+
 .final-report-page-wrapper :global {
   .main-content {
     border: 2px solid violet;
@@ -7,6 +9,16 @@
     height: 93vh;
     .final-report-upper-table {
       padding: 10px;
+    }
+    .add-actionable-details-container-button-text {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      text-align: center;
+      color: $white;
     }
 
     .final-report-variants {
