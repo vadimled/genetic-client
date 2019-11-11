@@ -972,7 +972,7 @@ export function* deleteFinalReportClinicalRowSaga(action){
 export function* saveExpandedTextAreaContentSaga(action){
   try {
     yield put(setExpandedInterpretationTextArea(action.payload));
-    yield delay(1500);
+    yield delay(2000);
     yield put(setLoading(true));
   
     console.log("-----Call API----");
