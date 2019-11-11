@@ -114,13 +114,13 @@ class ActionableDetailsContainer extends Component {
     return (
       <div className={style["actionable-details-container-wrapper"]}>
         <Tabs
-          tabBarExtraContent={
-            <SimpleButton
-              className={"actionable-details-done"}
-              // onClick={this.handleAddActionable}
-              text={"done"}
-            />
-          }
+          // tabBarExtraContent={
+          //   <SimpleButton
+          //     className={"actionable-details-done"}
+          //     // onClick={this.handleAddActionable}
+          //     text={"done"}
+          //   />
+          // }
           size={"large"}
           activeKey={currentActionableTab}
           onChange={this.onTabClicked}
@@ -137,13 +137,13 @@ class ActionableDetailsContainer extends Component {
             );
           })}
         </Tabs>
-        {this.state.showPopupDelete && (
+        {
           <SimpleButton
-            className={"add-actionable-details-container-button-text"}
-            onClick={this.handleAddActionable}
+            className={"actionable-details-done"}
+            // onClick={this.handleAddActionable}
             text={"Done"}
           />
-        )}
+        }
       </div>
     );
   }

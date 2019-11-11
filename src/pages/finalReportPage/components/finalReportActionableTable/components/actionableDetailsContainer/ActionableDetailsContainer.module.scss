@@ -3,7 +3,14 @@
 .actionable-details-container-wrapper :global {
   width: 100%;
   overflow: hidden !important;
-
+  .actionable-details-done {
+    display: flex;
+    justify-content: center;
+    font-style: normal;
+    font-size: 18px;
+    text-align: center;
+    color: $neutral_30;
+  }
   .add-actionable-details-container-button-text {
     display: flex;
     width: 100%;
@@ -14,6 +21,10 @@
     text-align: center;
     color: $white;
   }
+  .ant-btn {
+    background-color: white !important;
+  }
+
   .actionable-details-container-title {
     text-align: left;
     font-weight: bold;
