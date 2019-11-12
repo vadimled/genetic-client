@@ -198,7 +198,7 @@ class VariantTable extends Component {
 
           if (record.status && record.status !== TEXTS.UNCHECK) {
             return (
-              <HighlightedCell isHighlighted={record.isAdded}>
+              <HighlightedCell isHighlighted={record.isAdded} classes="no-padding">
                 <ConfirmationStatus
                   status={record.status}
                   handleStatus={status =>
@@ -213,7 +213,7 @@ class VariantTable extends Component {
             );
           }
           return (
-            <HighlightedCell isHighlighted={record.isAdded}>
+            <HighlightedCell isHighlighted={record.isAdded} classes="no-padding">
               <Checkbox
                 checked={record.selected}
                 onChange={this.props.handleSelectedRow.bind(null, {
