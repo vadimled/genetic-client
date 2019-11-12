@@ -23,7 +23,7 @@ import {
   deleteEvidenceEntryApi,
   fetchTableDataApi,
   exportTableApi,
-  setTumorInfoApi,
+  patchTestApi,
   updateUserPreferencesApi,
   fetchUserPreferencesApi,
   fetchClassificationHistoryApi,
@@ -521,11 +521,20 @@ export function* fetchTableDataSaga(action) {
 
 export function* setTumorInfoSaga(action) {
   try {
+    const { payload: { testId, name, value }} = action;
+
     yield put(setTumorInfoLoading(true));
-    const { status, data } = yield call(setTumorInfoApi, action);
-    if (status === 200) {
-      yield put(setTestData(data));
-    }
+
+    const { data } = yield call(patchTestApi, {
+      testId,
+      data: {
+        tumor_info: {
+          [name]: value
+        }
+      }
+    });
+
+    yield put(setTestData(data));
     yield put(setTumorInfoLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
@@ -533,6 +542,33 @@ export function* setTumorInfoSaga(action) {
       Sentry.captureException(e);
     });
     yield put(setTumorInfoLoading(false));
+    yield handleErrors(e);
+  }
+}
+
+export function* saveTestPhenotypeSaga(action) {
+  try {
+    const { payload: { testId, phenotype }} = action;
+
+    yield put(setLoading(true));
+    console.log(action);
+    const { data } = yield call(patchTestApi, {
+      testId,
+      data: {
+        phenotype
+      }
+    });
+
+    yield put(setTestData(data));
+
+    yield put(setLoading(false));
+  }
+  catch(err) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["saveTestPhenotypeSaga"]);
+      Sentry.captureException(e);
+    });
+    yield put(setLoading(false));
     yield handleErrors(e);
   }
 }

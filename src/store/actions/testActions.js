@@ -42,6 +42,11 @@ export const setTumorInfoLoading = data => {
   };
 };
 
-
+export const saveTestPhenotype = data => {
+  return {
+    type: actionsTypes.SAVE_TEST_PHENOTYPE,
+    payload: data
+  };
+};
 
 
