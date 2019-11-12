@@ -7,7 +7,7 @@ import {
   getClinicalVariants,
   getDnaVariantsAsArray,
   getNavigationStatus,
-  getSelectedUpperTableRowObject,
+  getSelectedUpperTableRowId,
   getSelectVariants
 } from "Store/selectors";
 import { Link } from "react-router-dom";
@@ -24,7 +24,7 @@ import {
   fetchFinalReportActionableData,
   fetchFinalReportClinicalData,
   setFinalReportNavigationStatus,
-  setSelectedUpperTableRowObject,
+  setSelectedUpperTableRowId,
   setSelectVariants
 } from "Actions/finalReportAction";
 import { fetchTableData } from "Store/actions/tableActions";
@@ -41,7 +41,7 @@ import { NAV_STATUS } from "Utils/constants";
 import FinalReportClinicalTable from "./components/finalReportClinicalTable";
 import ActionableDetailsContainer from "Pages/finalReportPage/components/finalReportActionableTable/components/actionableDetailsContainer";
 import FinalReportToolBar from "./components/finalReportToolBar";
-import SimpleButton from "../../genericComponents/simpleButton";
+import SimpleButton from "GenericComponents/simpleButton";
 
 class FinalReportPage extends Component {
   constructor(props) {
@@ -91,8 +91,8 @@ class FinalReportPage extends Component {
     this.props.setNavStatus(e.target.name);
   };
 
-  handleSelectRow = obj => {
-    this.props.setSelectedUpperTableRowObject(obj);
+  handleSelectRow = id => {
+    this.props.setSelectedUpperTableRowId(id);
   };
 
   handleSelectVariants = () => {
@@ -153,10 +153,10 @@ class FinalReportPage extends Component {
       mutationTypesValues,
       handleSelectedRow,
       selectedVariants,
-      selectedUpperTableRowObject,
+      selectedUpperTableRowId,
       isSelectVariants
     } = this.props;
-    // console.log(selectedUpperTableRowObject);
+    // console.log(selectedUpperTableRowId);
     return (
       <div
         className={`${style["final-report-page-wrapper"]} flex justify-between`}
@@ -179,7 +179,7 @@ class FinalReportPage extends Component {
               />
             </div>
           )}
-          {!selectedUpperTableRowObject && !isSelectVariants && (
+          {!selectedUpperTableRowId && !isSelectVariants && (
             <div className="final-report-variants">
               <div className="flex justify-end">
                 <FinalReportToolBar />
@@ -200,7 +200,7 @@ class FinalReportPage extends Component {
               />
             </div>
           )}
-          {selectedUpperTableRowObject &&
+          {selectedUpperTableRowId &&
             <ActionableDetailsContainer />
           }
         </div>
@@ -238,7 +238,7 @@ const mapStateToProps = state => {
     selectedActionableData: getActionableVariants(state),
     selectedClinicalData: getClinicalVariants(state),
     filteredDnaVariants: getDnaVariantsAsArray(state),
-    selectedUpperTableRowObject: getSelectedUpperTableRowObject(state),
+    selectedUpperTableRowId: getSelectedUpperTableRowId(state),
     navigationStatus: getNavigationStatus(state),
     isSelectVariants: getSelectVariants(state)
   };
@@ -246,8 +246,8 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setSelectedUpperTableRowObject: data =>
-      dispatch(setSelectedUpperTableRowObject(data)),
+    setSelectedUpperTableRowId: id =>
+      dispatch(setSelectedUpperTableRowId(id)),
     // removeSelectedTableRow: data => dispatch(removeSelectedTableRow(data)),
     fetchTableData: data => dispatch(fetchTableData(data)),
     fetchTestMetadata: testId => dispatch(fetchTestMetadata(testId)),

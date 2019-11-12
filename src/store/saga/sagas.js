@@ -1,108 +1,81 @@
-import { call, put, delay } from "redux-saga/effects";
+import { call, delay, put } from "redux-saga/effects";
 import * as Sentry from "@sentry/browser";
+import { ALERT_STATUSES, ALLELE_TYPES, DEFAULT_FILTERS, TEXTS, VALIDATION_FAILD_FIELDS } from "Utils/constants";
 import {
-  ALERT_STATUSES,
-  ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS,
-  TEXTS,
-  DEFAULT_FILTERS
-} from "Utils/constants";
-import {
-  fetchBAMFile,
-  goToChrPositionIgv,
-  loadHgvsApi,
-  addResultApi,
-  editResultApi,
-  fetchTestMetadataApi,
-  fetchVariantMetadataDataApi,
-  updateVariantApi,
-  fetchTestsApi,
   addEvidenceEntryApi,
-  editEvidenceEntryApi,
-  fetchEvidenceDataApi,
+  addResultApi,
   deleteEvidenceEntryApi,
-  fetchTableDataApi,
+  deleteFinalReportActionableRowApi,
+  editEvidenceEntryApi,
+  editResultApi,
   exportTableApi,
-  setTumorInfoApi,
-  updateUserPreferencesApi,
-  fetchUserPreferencesApi,
+  fetchBAMFile,
   fetchClassificationHistoryApi,
   fetchConfirmationMetadataApi,
-  sendVariantToConfirmation,
+  fetchEvidenceDataApi,
   fetchFinalReportActionableDataApi,
-  deleteFinalReportActionableRowApi
-  // fetchFinalReportClinicalDataApi,
+  fetchTableDataApi,
+  fetchTestMetadataApi,
+  fetchTestsApi,
+  fetchUserPreferencesApi,
+  fetchVariantMetadataDataApi,
+  goToChrPositionIgv,
+  loadHgvsApi,
+  sendVariantToConfirmation,
+  setTumorInfoApi,
+  updateUserPreferencesApi,
+  updateVariantApi
 } from "Api/index";
-import {
-  handleIgvAlertShow,
-  setFetchBAMFileStatus,
-  setIgvLastQuery,
-  setBamUrlToStore
-} from "Actions/igvActions";
+import { handleIgvAlertShow, setBamUrlToStore, setFetchBAMFileStatus, setIgvLastQuery } from "Actions/igvActions";
 import {
   applyConfirmation,
-  tableDataAddResult,
+  applyConfirmationSuccess,
+  fetchUserPreferences,
+  setConfirmationStatusToStore,
   setParsedDataToStore,
   setServerDataToStore,
-  setTableReducerLoading,
-  setConfirmationStatusToStore,
-  updateVariantInTableData,
   setSort,
-  fetchUserPreferences,
-  applyConfirmationSuccess
+  setTableReducerLoading,
+  tableDataAddResult,
+  updateVariantInTableData
 } from "Actions/tableActions";
-import {
-  handleOnConfirmation,
-  setConfirmationData
-} from "Actions/confirmationActions";
+import { handleOnConfirmation, setConfirmationData } from "Actions/confirmationActions";
 import { setAlert } from "Actions/alertActions";
 import {
   handleResultConfigCoding,
+  handleResultConfigIsHgvsLoaded,
   handleResultConfigProtein,
   handleResultConfigTranscript,
   handleResultConfigValidationFaildFields,
-  handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
-import {
-  setTestData,
-  setLoading,
-  setTumorInfoLoading
-} from "Actions/testActions";
-import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
+import { setLoading, setTestData, setTumorInfoLoading } from "Actions/testActions";
+import { setTestsLoading, setTestsToStore } from "Actions/testsActions";
 import { setMutationType } from "Actions/variantsActions";
 import {
-  setVariantMetadataData,
-  setNewEvidenceEntry,
+  deleteEvidenceFromStore,
+  setClassificationHistoryToStore,
   setEditedEvidenceEntry,
   setEvidenceData,
-  deleteEvidenceFromStore,
-  setHistoryTableData
+  setExternalResources,
+  setHistoryTableData,
+  setNewEvidenceEntry,
+  setServerVariantMetadataToStore,
+  setVariantMetadataData
 } from "Actions/variantPageActions";
 import {
-  // setPriority,
+  createResourcesLinks,
+  getConfirmationPageMetadata,
+  getCurrentEvidenceTabKey,
   getEvidenceData,
+  getHistoryTableData,
   parseTableData,
   parseTableDataObj,
-  createResourcesLinks,
-  getHistoryTableData,
-  getCurrentEvidenceTabKey,
-  getConfirmationPageMetadata
+  addDetailsObjectData
 } from "Utils/helpers";
-import {
-  setClassificationHistoryToStore,
-  setServerVariantMetadataToStore,
-  setExternalResources
-} from "Actions/variantPageActions";
-import {
-  cleanEvidenceActionData,
-  setCurrentEvidenceTab
-} from "Actions/evidenceConfigActions";
+import { cleanEvidenceActionData, setCurrentEvidenceTab } from "Actions/evidenceConfigActions";
 import { setConfirmationPageMetadataToStore } from "Actions/confirmationPageActions";
-import {
-  setDefaultFilters,
-  saveUserPreferencesFilters
-} from "Actions/filtersActions";
+import { saveUserPreferencesFilters, setDefaultFilters } from "Actions/filtersActions";
 // import { setVariantsDataToStore } from "Actions/finalReportAction";
 import { fetchFinalReportVariantsApi, moveToActionableTableApi } from "../../api";
 import {
@@ -111,10 +84,10 @@ import {
   setExpandedTextAreaContentSaved
 } from "../actions/finalReportAction";
 import {
-  setFinalReportActionableDataToStore,
   removeActionableSelectedRowFromStore,
   removeClinicalSelectedRowFromStore,
-  setFinalReportClinicalDataToStore } from "Actions/finalReportAction";
+  setFinalReportClinicalDataToStore
+} from "Actions/finalReportAction";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -859,12 +832,13 @@ export function* fetchFinalReportVariantsSaga(action) {
 export function* moveToActionableTableSaga(action) {
   try {
     yield put(setLoading(true));
-    const { data } = yield call(moveToActionableTableApi, action);
-    yield put(setActionableTableDataToStore(data));
+    const
+      { data } = yield call(moveToActionableTableApi, action),
+      newData = addDetailsObjectData(data);
+    yield put(setActionableTableDataToStore(newData));
     yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));
-    console.log("--err: ", e);
     Sentry.withScope(scope => {
       scope.setFingerprint(["moveToActionableTableSaga"]);
       Sentry.captureException(e);
@@ -876,8 +850,10 @@ export function* moveToActionableTableSaga(action) {
 export function* fetchFinalReportActionableDataSaga(action) {
   try {
     yield put(setLoading(true));
-    const { data } = yield call(fetchFinalReportActionableDataApi, action);
-    yield put(setFinalReportActionableDataToStore(data));
+    const
+      { data } = yield call(fetchFinalReportActionableDataApi, action),
+      newData = addDetailsObjectData(data);
+    yield put(setActionableTableDataToStore(newData));
     yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));

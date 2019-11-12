@@ -12,14 +12,15 @@ const initialState = {
   clinicalVariants: [],
   mutation_type: null,
   navigationStatus: NAV_STATUS.alterations,
-  selectedUpperTableRowObject: null,
+  selectedUpperTableRowId: null,
   currentActionableTab: "1",
   selectedVariantsIds: [],
+  selectVariants: true,
+  //
   variantDescription: "",
   geneDescription: "",
   variantDescriptionSaved: false,
-  geneDescriptionSaved:false,
-  selectVariants: true
+  geneDescriptionSaved:false
 };
 
 const finalReportReducer = createReducer(initialState, {
@@ -112,16 +113,6 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_FINAL_REPORT_ACTIONABLE_DATA_TO_STORE]: (
-    state,
-    { payload }
-  ) => {
-    return {
-      ...state,
-      actionableVariants: payload
-    };
-  },
-
   [actionsTypes.SET_FINAL_REPORT_CLINICAL_DATA_TO_STORE]: (
     state,
     { payload }
@@ -147,10 +138,10 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_SELECTED_UPPER_TABLE_ROW_OBJECT]: (state, { payload }) => {
+  [actionsTypes.SET_SELECTED_UPPER_TABLE_ROW_ID]: (state, { payload }) => {
     return {
       ...state,
-      selectedUpperTableRowObject: payload,
+      selectedUpperTableRowId: payload,
       selectVariants: true
     };
   },
@@ -163,47 +154,71 @@ const finalReportReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_EXPANDED_TAB_TEXTAREA_CONTENT_SAVED]: (state, { payload }) => {
-    let contentSaved;
+    const newActionableVariants =
+      state.actionableVariants
+        .find(obj => obj.id === state.selectedUpperTableRowId);
+  
+    const newEI =  {...newActionableVariants.expanded_interpretation};
+  
     switch (payload) {
       case TEXTAREA_NAME.geneDescription:
-        contentSaved = {
-          geneDescriptionSaved: true
-        };
+        newEI.geneDescriptionSaved = true;
         break;
       case TEXTAREA_NAME.variantDescription:
-        contentSaved = {
-          variantDescriptionSaved: true
-        };
+        newEI.variantDescriptionSaved = true;
         break;
     }
-    
+  
+    const newObj = Object.assign( {},
+      newActionableVariants,
+      {expanded_interpretation:newEI} );
+  
+    const ind = state.actionableVariants
+      .findIndex(obj => obj.id === state.selectedUpperTableRowId);
+  
+    state.actionableVariants[ind] = newObj;
+    let a ={actionableVariants: [...state.actionableVariants]};
+  
     return {
       ...state,
-      ...contentSaved
+      ...a
     };
+  
+  
   },
 
   [actionsTypes.SET_EXPANDED_TAB_TEXTAREA]: (state, { payload }) => {
     const { name, value } = payload;
-    let textArea;
+    const newActionableVariants =
+      state.actionableVariants
+        .find(obj => obj.id === state.selectedUpperTableRowId);
+
+    const newEI =  {...newActionableVariants.expanded_interpretation};
+    
     switch (name) {
       case TEXTAREA_NAME.geneDescription:
-        textArea = {
-          geneDescription: value,
-          geneDescriptionSaved: false
-        };
+        newEI.geneDescription = value;
+        newEI.geneDescriptionSaved = false;
         break;
       case TEXTAREA_NAME.variantDescription:
-        textArea = {
-          variantDescription: value,
-          variantDescriptionSaved: false
-        };
+        newEI.variantDescription = value;
+        newEI.variantDescriptionSaved = false;
         break;
     }
-
+  
+    const newObj = Object.assign( {},
+      newActionableVariants,
+      {expanded_interpretation:newEI} );
+  
+    const ind = state.actionableVariants
+      .findIndex(obj => obj.id === state.selectedUpperTableRowId);
+  
+    state.actionableVariants[ind] = newObj;
+    let a ={actionableVariants: [...state.actionableVariants]};
+ 
     return {
       ...state,
-      ...textArea
+      ...a
     };
   },
   
@@ -211,7 +226,7 @@ const finalReportReducer = createReducer(initialState, {
     return {
       ...state,
       selectVariants: !state.selectVariants,
-      selectedUpperTableRowObject: null
+      selectedUpperTableRowId: null
     };
   },
   

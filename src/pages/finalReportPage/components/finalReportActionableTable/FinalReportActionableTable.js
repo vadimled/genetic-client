@@ -179,7 +179,7 @@ class FinalReportActionableTable extends Component {
   };
 
   handleRowClick = obj => {
-    this.props.handleSelectRow(obj);
+    this.props.handleSelectRow(obj.id);
   };
 
   handleResize = index => (e, { size }) => {

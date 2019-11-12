@@ -488,15 +488,41 @@ export const getDnaVariantsAsArray = createSelector(
 export const
   getActionableVariants = state => state.finalReport.actionableVariants,
   getCurrentActionableTab = state => state.finalReport.currentActionableTab,
-  getGeneDescription = state => state.finalReport.geneDescription,
-  getVariantDescription = state => state.finalReport.variantDescription,
-  getGeneDescriptionSaved= state => state.finalReport.geneDescriptionSaved,
-  getVariantDescriptionSaved = state => state.finalReport.variantDescriptionSaved,
   getClinicalVariants = state => state.finalReport.clinicalVariants,
-  getSelectedUpperTableRowObject = state => state.finalReport.selectedUpperTableRowObject,
   getNavigationStatus = state => state.finalReport.navigationStatus,
-  getSelectVariants = state => state.finalReport.selectVariants;
+  getSelectVariants = state => state.finalReport.selectVariants,
+  getSelectedUpperTableRowId = state => state.finalReport.selectedUpperTableRowId;
 
+
+const getExpandedInterpretation = createSelector(
+  getSelectedUpperTableRowId,
+  getActionableVariants,
+  (id, data) => {
+    return data
+      .find(obj => obj.id === id)
+      .expanded_interpretation;
+  }
+);
+
+export const getGeneDescription = createSelector(
+  getExpandedInterpretation,
+  obj => obj.geneDescription
+);
+
+export const getVariantDescription = createSelector(
+  getExpandedInterpretation,
+  obj => obj.variantDescription
+);
+
+export const getGeneDescriptionSaved = createSelector(
+  getExpandedInterpretation,
+  obj => obj.geneDescriptionSaved
+);
+
+export const getVariantDescriptionSaved = createSelector(
+  getExpandedInterpretation,
+  obj => obj.variantDescriptionSaved
+);
 
 export const getSelectedDnaRows = createSelector(
   getFilteredData,

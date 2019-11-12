@@ -1357,18 +1357,16 @@ export const setVariantClassOptionsWithReconfirm = (
 };
 
 
-// export const convertCoverageJsonToArray = (data) => {
-//
-//   const newData = []
-//
-//   data.map(item => {
-//     let newItem = {}
-//     for(let key in item){
-//
-//       newItem[firstLetterLowercase(key)] = item[key]
-//       newData.push(newItem)
-//     }
-//   })
-//
-//
-// }
+export const addDetailsObjectData = (data) => {
+  const obj = {
+    expanded_interpretation: {
+      variantDescription: "", // TODO will get from server
+      geneDescription: "", // TODO will get from server
+      variantDescriptionSaved: false,
+      geneDescriptionSaved: false
+    }
+  };
+  return data.map(variant => {
+    return {...variant, ...obj};
+  });
+};

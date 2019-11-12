@@ -65,14 +65,6 @@ export function fetchFinalReportVariants(data) {
   };
 }
 
-export function setFinalReportVariantsToStore(data) {
-  return {
-    type: actionsTypes.SET_FINAL_REPORT_VARIANTS_TO_STORE,
-    payload: data
-  };
-}
-
-
 export function setActionableTableDataToStore(data) {
   return {
     type: actionsTypes.SET_ACTIONABLE_DATA_TO_STORE,
@@ -94,23 +86,16 @@ export function setFinalReportNavigationStatus(data) {
   };
 }
 
-export function setSelectedUpperTableRowObject(obj) {
+export function setSelectedUpperTableRowId(id) {
   return {
-    type: actionsTypes.SET_SELECTED_UPPER_TABLE_ROW_OBJECT,
-    payload: obj
+    type: actionsTypes.SET_SELECTED_UPPER_TABLE_ROW_ID,
+    payload: id
   };
 }
 
 export function setCurrentActionableTab(data) {
   return {
     type: actionsTypes.SET_CURRENT_ACTIONABLE_TAB,
-    payload: data
-  };
-}
-
-export function setFinalReportActionableDataToStore(data) {
-  return {
-    type: actionsTypes.SET_FINAL_REPORT_ACTIONABLE_DATA_TO_STORE,
     payload: data
   };
 }
