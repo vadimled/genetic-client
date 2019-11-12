@@ -1,13 +1,21 @@
 import React, { Component, Fragment } from "react";
-import style from "./VariantPage.module.scss";
+import { connect } from "react-redux";
+import queryString from "query-string";
 import cn from "classnames";
+
+import style from "./VariantPage.module.scss";
+import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
+import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
+
 import SideBarLayout from "Pages/singleTestPage/components/sideBarLayout";
+import IgvAlertPopup from "Pages/singleTestPage/components/igvAlertPopup/IgvAlertPopup";
+
 import VariantPageHeader from "variantComponents/variantPageHeader";
 import ExternalResources from "variantComponents/externalResources";
 import ClassificationHistoryTable from "variantComponents/classificationHistoryTable";
 import EvidenceContainer from "variantComponents/evidenceContainer";
-import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
-import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
+import Spinner from "GenericComponents/spinner/Spinner";
+
 import {
   getExternalResources,
   getGermlineEvidence,
@@ -22,7 +30,6 @@ import {
   getIgvAlertShow,
   getTestsList
 } from "Store/selectors";
-import { connect } from "react-redux";
 import {
   fetchEvidenceData,
   fetchVariantMetadataData,
@@ -31,18 +38,15 @@ import {
   setTestInformation,
   fetchClassificationHistory
 } from "Actions/variantPageActions";
-
+import { goToChrPositionIgv } from "Actions/igvActions";
+import { fetchTestMetadata } from "Actions/testActions";
+import { fetchTests } from "Actions/testsActions";
 import {
   GERMLINE_VARIANT_CLASS_OPTIONS,
   SOMATIC_VARIANT_CLASS_OPTIONS,
   TEXTS
 } from "Utils/constants";
-import queryString from "query-string";
-import Spinner from "GenericComponents/spinner/Spinner";
-import { goToChrPositionIgv } from "Actions/igvActions";
-import IgvAlertPopup from "Pages/singleTestPage/components/igvAlertPopup/IgvAlertPopup";
-import { fetchTestMetadata } from "Actions/testActions";
-import { fetchTests } from "Actions/testsActions";
+
 
 class VariantPage extends Component {
   constructor(props) {

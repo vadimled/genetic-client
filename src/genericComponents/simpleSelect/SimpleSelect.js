@@ -62,7 +62,10 @@ const SimpleSelect = ({
             }
           })
         }
-        value={value === TEXTS.unclassified ? TEXTS.unclassifiedUp : value}
+        value={value
+          ? value === TEXTS.unclassified ? TEXTS.unclassifiedUp : value
+          : undefined
+        }
         name={name}
         allowClear={!!value && isClearAvailable}
         clearIcon={
@@ -117,7 +120,8 @@ SimpleSelect.propTypes = {
   onFocus: PropTypes.func,
   reconfirmMode: PropTypes.bool,
   reconfirmStatus: PropTypes.bool,
-  currentVariantClass: PropTypes.string
+  currentVariantClass: PropTypes.string,
+  placeholder: PropTypes.string,
 };
 
 SimpleSelect.defaultProps = {

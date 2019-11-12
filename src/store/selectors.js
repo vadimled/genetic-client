@@ -339,6 +339,20 @@ export const getSomaticEvidence = state =>
     state.variantPage.evidenceConfig.evidenceLevelSelect,
   getEvidenceDescription = state =>
     state.variantPage.evidenceConfig.evidenceDescriptionTextarea,
+  getEvidenceReferenceInput = state =>
+    state.variantPage.evidenceConfig.evidenceReferenceInput,
+  getEvidenceDrugNameInput = state =>
+    state.variantPage.evidenceConfig.evidenceDrugNameInput,
+  getEvidenceIndicationInput = state =>
+    state.variantPage.evidenceConfig.evidenceIndicationInput,
+  getEvidenceTrialIdInput = state =>
+    state.variantPage.evidenceConfig.evidenceTrialIdInput,
+  getEvidenceIsPhenotypeAndIndicationMatchSelect = state =>
+    state.variantPage.evidenceConfig.evidenceIsPhenotypeAndIndicationMatchSelect,
+  getEvidenceLocationSelect = state =>
+    state.variantPage.evidenceConfig.evidenceLocationSelect,
+  getEvidencePhenotypeInput = state =>
+    state.variantPage.evidenceConfig.evidencePhenotypeInput,
   getCurrentEvidenceTab = state =>
     state.variantPage.evidenceConfig.currentEvidenceTab,
   getSubmitData = createSelector(
@@ -350,6 +364,13 @@ export const getSomaticEvidence = state =>
     getVariantId,
     getEvidenceConfigId,
     getZygosityType,
+    getEvidenceReferenceInput,
+    getEvidenceDrugNameInput,
+    getEvidenceIndicationInput,
+    getEvidenceTrialIdInput,
+    getEvidenceIsPhenotypeAndIndicationMatchSelect,
+    getEvidenceLocationSelect,
+    getEvidencePhenotypeInput,
     (
       category,
       source,
@@ -358,17 +379,34 @@ export const getSomaticEvidence = state =>
       testId,
       variantId,
       evidenceId,
-      zygosity_type
+      zygosity_type,
+      reference,
+      drug_name,
+      indication,
+      trial_id,
+      is_phenotype_and_indication_match,
+      location,
+      phenotype
     ) => {
-      const sendData = {
+      let data = {
         category,
         source,
         level,
         zygosity_type
       };
+      if (reference) { data.reference = reference; }
+      if (description) { data.description = description; }
+      if (drug_name) { data.drug_name = drug_name; }
+      if (indication) { data.indication = indication; }
+      if (trial_id) { data.trial_id = trial_id; }
+      if (is_phenotype_and_indication_match) {
+        data.is_phenotype_and_indication_match = JSON.parse(is_phenotype_and_indication_match); // trasform string like 'false' into false or 'true' into true
+      }
+      if (location) { data.location = location; }
+      if (phenotype) { data.phenotype = phenotype; }
       return {
         ids: { testId, variantId, evidenceId },
-        data: description ? { ...sendData, description } : sendData
+        data
       };
     }
   ),
