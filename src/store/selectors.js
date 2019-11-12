@@ -506,22 +506,22 @@ const getExpandedInterpretation = createSelector(
 
 export const getGeneDescription = createSelector(
   getExpandedInterpretation,
-  obj => obj.geneDescription
+  obj => obj?.geneDescription
 );
 
 export const getVariantDescription = createSelector(
   getExpandedInterpretation,
-  obj => obj.variantDescription
+  obj => obj?.variantDescription
 );
 
 export const getGeneDescriptionSaved = createSelector(
   getExpandedInterpretation,
-  obj => obj.geneDescriptionSaved
+  obj => obj?.geneDescriptionSaved
 );
 
 export const getVariantDescriptionSaved = createSelector(
   getExpandedInterpretation,
-  obj => obj.variantDescriptionSaved
+  obj => obj?.variantDescriptionSaved
 );
 
 export const getSelectedDnaRows = createSelector(

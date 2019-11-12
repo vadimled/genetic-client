@@ -70,8 +70,7 @@ import {
   getEvidenceData,
   getHistoryTableData,
   parseTableData,
-  parseTableDataObj,
-  addDetailsObjectData
+  parseTableDataObj
 } from "Utils/helpers";
 import { cleanEvidenceActionData, setCurrentEvidenceTab } from "Actions/evidenceConfigActions";
 import { setConfirmationPageMetadataToStore } from "Actions/confirmationPageActions";
@@ -832,10 +831,8 @@ export function* fetchFinalReportVariantsSaga(action) {
 export function* moveToActionableTableSaga(action) {
   try {
     yield put(setLoading(true));
-    const
-      { data } = yield call(moveToActionableTableApi, action),
-      newData = addDetailsObjectData(data);
-    yield put(setActionableTableDataToStore(newData));
+    const { data } = yield call(moveToActionableTableApi, action);
+    yield put(setActionableTableDataToStore(data));
     yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));
@@ -850,10 +847,8 @@ export function* moveToActionableTableSaga(action) {
 export function* fetchFinalReportActionableDataSaga(action) {
   try {
     yield put(setLoading(true));
-    const
-      { data } = yield call(fetchFinalReportActionableDataApi, action),
-      newData = addDetailsObjectData(data);
-    yield put(setActionableTableDataToStore(newData));
+    const { data } = yield call(fetchFinalReportActionableDataApi, action);
+    yield put(setActionableTableDataToStore(data));
     yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));

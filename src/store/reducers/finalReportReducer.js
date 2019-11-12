@@ -16,11 +16,6 @@ const initialState = {
   currentActionableTab: "1",
   selectedVariantsIds: [],
   selectVariants: true,
-  //
-  variantDescription: "",
-  geneDescription: "",
-  variantDescriptionSaved: false,
-  geneDescriptionSaved:false
 };
 
 const finalReportReducer = createReducer(initialState, {
@@ -54,7 +49,8 @@ const finalReportReducer = createReducer(initialState, {
     );
     return {
       ...state,
-      actionableVariants: newActionableVariants
+      actionableVariants: newActionableVariants,
+      selectedVariantsIds: []
     };
   },
 
@@ -124,10 +120,20 @@ const finalReportReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_ACTIONABLE_DATA_TO_STORE]: (state, { payload }) => {
+    const newVariants = payload.map(obj => {
+      const cOb = state.actionableVariants.find( currObj => currObj.id === obj.id);
+      if(cOb?.expanded_interpretation){
+        return { ...obj, expanded_interpretation: cOb.expanded_interpretation };
+      }
+      else{
+        return obj;
+      }
+    });
+  
     return {
       ...state,
-      // dna_variants: payload,
-      actionableVariants: payload
+      actionableVariants: newVariants,
+      selectedVariantsIds: []
     };
   },
 
