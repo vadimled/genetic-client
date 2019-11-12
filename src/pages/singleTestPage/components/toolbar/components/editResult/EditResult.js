@@ -60,7 +60,7 @@ function mapDispatchToProps(dispatch) {
       if (!selectedResult.alt) alleleType = ALLELE_TYPES.deletion.value;
 
       dispatch(handleResultConfigVaf(selectedResult.vaf));
-      dispatch(handleResultConfigCoverage(selectedResult.dp));
+      dispatch(handleResultConfigCoverage(selectedResult.coverage));
       dispatch(handleResultConfigGene(selectedResult.gene));
       dispatch(handleResultConfigChromosome(selectedResult.chr.replace(/\D+/g, '')));
       dispatch(handleResultConfigPosition(selectedResult.position));
