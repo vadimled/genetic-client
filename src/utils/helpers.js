@@ -1355,18 +1355,3 @@ export const setVariantClassOptionsWithReconfirm = (
     } else return item;
   });
 };
-
-
-export const addDetailsObjectData = (data) => {
-  const obj = {
-    expanded_interpretation: {
-      variantDescription: "", // TODO will get from server
-      geneDescription: "", // TODO will get from server
-      variantDescriptionSaved: false,
-      geneDescriptionSaved: false
-    }
-  };
-  return data.map(variant => {
-    return {...variant, ...obj};
-  });
-};
