@@ -160,71 +160,69 @@ const finalReportReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_EXPANDED_TAB_TEXTAREA_CONTENT_SAVED]: (state, { payload }) => {
-    const newActionableVariants =
+    const getActionableVariant =
       state.actionableVariants
         .find(obj => obj.id === state.selectedUpperTableRowId);
   
-    const newEI =  {...newActionableVariants.expanded_interpretation};
+    const cloneExpandedInterpretation =  {...getActionableVariant.expanded_interpretation};
   
     switch (payload) {
       case TEXTAREA_NAME.geneDescription:
-        newEI.geneDescriptionSaved = true;
+        cloneExpandedInterpretation.geneDescriptionSaved = true;
         break;
       case TEXTAREA_NAME.variantDescription:
-        newEI.variantDescriptionSaved = true;
+        cloneExpandedInterpretation.variantDescriptionSaved = true;
         break;
     }
   
-    const newObj = Object.assign( {},
-      newActionableVariants,
-      {expanded_interpretation:newEI} );
+    const newActionableVariant = Object.assign( {},
+      getActionableVariant,
+      {expanded_interpretation:cloneExpandedInterpretation} );
   
     const ind = state.actionableVariants
       .findIndex(obj => obj.id === state.selectedUpperTableRowId);
   
-    state.actionableVariants[ind] = newObj;
-    let a ={actionableVariants: [...state.actionableVariants]};
+    state.actionableVariants[ind] = newActionableVariant;
+    let newActionableVariants ={actionableVariants: [...state.actionableVariants]};
   
     return {
       ...state,
-      ...a
+      ...newActionableVariants
     };
-  
-  
   },
 
   [actionsTypes.SET_EXPANDED_TAB_TEXTAREA]: (state, { payload }) => {
     const { name, value } = payload;
-    const newActionableVariants =
+    const getActionableVariant =
       state.actionableVariants
         .find(obj => obj.id === state.selectedUpperTableRowId);
 
-    const newEI =  {...newActionableVariants.expanded_interpretation};
+    const cloneExpandedInterpretation =  {...getActionableVariant.expanded_interpretation};
     
     switch (name) {
       case TEXTAREA_NAME.geneDescription:
-        newEI.geneDescription = value;
-        newEI.geneDescriptionSaved = false;
+        cloneExpandedInterpretation.geneDescription = value;
+        cloneExpandedInterpretation.geneDescriptionSaved = false;
         break;
       case TEXTAREA_NAME.variantDescription:
-        newEI.variantDescription = value;
-        newEI.variantDescriptionSaved = false;
+        cloneExpandedInterpretation.variantDescription = value;
+        cloneExpandedInterpretation.variantDescriptionSaved = false;
         break;
     }
   
-    const newObj = Object.assign( {},
-      newActionableVariants,
-      {expanded_interpretation:newEI} );
+    const newActionableVariant = Object.assign( {},
+      getActionableVariant,
+      {expanded_interpretation:cloneExpandedInterpretation} );
   
     const ind = state.actionableVariants
       .findIndex(obj => obj.id === state.selectedUpperTableRowId);
   
-    state.actionableVariants[ind] = newObj;
-    let a ={actionableVariants: [...state.actionableVariants]};
+    state.actionableVariants[ind] = newActionableVariant;
+    let newActionableVariants ={actionableVariants: [...state.actionableVariants]};
  
     return {
       ...state,
-      ...a
+      ...newActionableVariants
     };
   },
   
