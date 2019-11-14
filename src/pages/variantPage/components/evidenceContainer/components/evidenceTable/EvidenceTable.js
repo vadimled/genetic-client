@@ -104,6 +104,9 @@ class EvidenceTable extends Component {
       } else if (col.dataIndex === "reference") {
         column.render = (text, obj) => {
           const arrayOfReferences = text?.split(',');
+          if (!arrayOfReferences){
+            return null;
+          }
 
           if (obj?.source?.trim()?.toLowerCase() === 'pumbed') {
             return arrayOfReferences.map((reference, index) => {
