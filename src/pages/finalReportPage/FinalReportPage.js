@@ -171,7 +171,7 @@ class FinalReportPage extends Component {
           </div>
 
           {isSelectVariants && (
-            <div className="flex justify-end">
+            <div className="select-variants-wrapper">
               <SimpleButton
                 className={"add-actionable-details-container-button-text"}
                 onClick={this.handleSelectVariants}

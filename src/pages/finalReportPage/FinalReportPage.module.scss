@@ -7,6 +7,12 @@
     //max-width: 1470px;
     height: 93vh;
 
+    .select-variants-wrapper {
+      display: flex;
+      width: 94vw;
+      justify-content: flex-end;
+    }
+
     .add-actionable-details-container-button-text {
       display: flex;
       width: 100%;
