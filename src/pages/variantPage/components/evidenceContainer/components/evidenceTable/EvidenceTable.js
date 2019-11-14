@@ -107,7 +107,6 @@ class EvidenceTable extends Component {
           if (!arrayOfReferences){
             return null;
           }
-
           if (obj?.source?.trim()?.toLowerCase() === 'pumbed') {
             return arrayOfReferences.map((reference, index) => {
               reference = reference.trim();
