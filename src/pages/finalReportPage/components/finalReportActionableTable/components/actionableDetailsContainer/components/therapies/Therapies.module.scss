@@ -2,18 +2,53 @@
 
 .therapies-wrapper :global {
   display: flex;
-  width: 100%;
-  height: auto;
+  width: 95vw;
+  height: 100%;
+  margin-bottom: 20px;
+  min-height: 400px;
   overflow-y: scroll;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: left;
   align-items: center;
 
-  .textarea-wrapper {
+  .source-description-wrapper {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: left;
+    align-items: baseline;
     position: relative;
-    min-width: 300px;
-    min-height: 300px;
-    width: 600px;
+    margin-bottom: 10px;
+    min-width: 700px;
+
+    label {
+      width: 17vw;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: $title_color;
+    }
+
+    textarea {
+      resize: none !important;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 21px;
+      color: $title_color;
+      margin-top: 6px;
+
+      &.ant-input {
+        width: 77vw;
+        font-size: 14px;
+        line-height: 18px;
+        max-height: 225px !important;
+        overflow-y: scroll !important;
+        padding-right: 26px;
+        padding-bottom: 26px;
+      }
+    }
 
     .icon-saved {
       position: absolute;
@@ -40,23 +75,6 @@
         &.active {
           display: flex;
         }
-      }
-    }
-
-    textarea {
-      resize: none !important;
-      font-weight: normal;
-      font-size: 16px;
-      line-height: 21px;
-      color: $title_color;
-      margin-top: 6px;
-
-      &.ant-input {
-        height: 225px !important;
-        max-height: 225px !important;
-        overflow-y: scroll !important;
-        padding-right: 26px;
-        padding-bottom: 26px;
       }
     }
   }

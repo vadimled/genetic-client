@@ -2,65 +2,45 @@ import React from "react";
 import { Input } from "antd";
 import PropTypes from "prop-types";
 import style from "./Therapies.module.scss";
-import cn from "classnames";
-import { TEXTAREA_NAME, TEXTS } from "Utils/constants";
-import { ReactComponent as OkIcon } from "Assets/ok.svg";
 
 const { TextArea } = Input;
 const Therapies = ({
-  geneDescription,
-  variantDescription,
-  geneDescriptionSaved,
-  variantDescriptionSaved,
+  data,
+  // variantDescriptionSaved,
   onChange
 }) => {
-  return (
-    <div className={style["therapies-wrapper"]}>
-      <div className="textarea-wrapper">
-        <label htmlFor={"gene-description-textarea"}>
-          {TEXTS.geneDescription}
+  const renderDescription = ({ source_description, drug_name }, index) => {
+    return (
+      <div className="source-description-wrapper" key={index}>
+        <label htmlFor={"source-description-textarea"}>
+          {drug_name}
         </label>
         <TextArea
-          key={1}
-          id={"gene-description-textarea"}
+          id={"source-description-textarea"}
           autosize
-          value={geneDescription}
-          name={TEXTAREA_NAME.geneDescription}
+          value={source_description}
+          // name={TEXTAREA_NAME.geneDescription}
           onChange={onChange}
           placeholder={"Type here"}
         />
-        <div className="icon-saved">
+        {/* <div className="icon-saved">
           <div className={cn("ok-icon", { active: geneDescriptionSaved })}>
             <OkIcon />
           </div>
-        </div>
+        </div>*/}
       </div>
-      <div className="textarea-wrapper">
-        <label htmlFor={"variant-description-textarea"}>
-          {TEXTS.variantDescription}
-        </label>
-        <TextArea
-          key={2}
-          id={"variant-description-textarea"}
-          autosize
-          value={variantDescription}
-          name={TEXTAREA_NAME.variantDescription}
-          onChange={onChange}
-          placeholder={"Type here"}
-        />
-        <div className="icon-saved">
-          <div className={cn("ok-icon", { active: variantDescriptionSaved })}>
-            <OkIcon />
-          </div>
-        </div>
-      </div>
+    );
+  };
+  
+  return (
+    <div className={style["therapies-wrapper"]}>
+      {console.log(data) || data && data.map( (obj, index) => renderDescription(obj, index) )}
     </div>
   );
 };
 
 Therapies.propTypes = {
-  geneDescription: PropTypes.string,
-  variantDescription: PropTypes.string,
+  data: PropTypes.array,
   onChange: PropTypes.func
 };
 

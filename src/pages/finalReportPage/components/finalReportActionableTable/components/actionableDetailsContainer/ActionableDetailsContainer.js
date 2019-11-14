@@ -21,11 +21,50 @@ import {
 } from "Actions/finalReportAction";
 import ActionableDetailsTabPaneHeader from "../actionableDetailsTabPaneHeader";
 import ExpandedInterpretation from "./components/expandedInterpretation";
+import Therapies from "./components/therapies";
 
 const { TabPane } = Tabs;
 
+// TODO: remove when the server will be updated
+const therapiesMockData = [
+  {
+    drug_name: "Palbociclib (IBRANCE)",
+    source_description:
+      "Palbociclib is a CDK4/6 kinase inhibitor approved by the" +
+      " FDA for the treatment of adult patients with hormone receptor (HR)-positive, " +
+      "human epidermal growth factor receptor 2 (HER2)-negative advanced or metastatic " +
+      "breast cancer in combination with:- an aromatase inhibitor as initial " +
+      "endocrine-based therapy in postmenopausal women or in men; or- " +
+      "Fulvestrant in patients with disease progression following endocrine therapy." +
+      "Palbociclib is currently examined in a Phase I trial in combination with the " +
+      "PI3K/mTOR Inhibitor Gedatolisib for Patients with advanced Squamous Cell Lung cancer (NCT03065062)."
+  },
+  {
+    drug_name: "Gedatolisib (PF-05212384)",
+    source_description:
+      "Gedatolisib is PI3K and mTOR kinase inhibitor " +
+      "currently examined in multiple clinical trials for select solid " +
+      "tumors including a phase I trial in combination with the CDK4/6 Inhibitor, " +
+      "Palbociclib, for Patients with advanced Squamous Cell Lung cancer (NCT03065062). 3065062)."
+  },
+  {
+    drug_name: "MK-2206",
+    source_description:
+      "MK-2206 is a selective pan-AKT inhibitor currently examined " +
+      "in multiple clinical trials for various solid tumors, including a phase " +
+      "II trial for patientswith Advanced Non-Small Cell Lung Cancer (NCT01306045)."
+  },
+  {
+    drug_name: "Gedatolisib (PF-05212384)",
+    source_description:
+      "Gedatolisib is PI3K and mTOR kinase inhibitor " +
+      "currently examined in multiple clinical trials for select solid " +
+      "tumors including a phase I trial in combination with the CDK4/6 Inhibitor, " +
+      "Palbociclib, for Patients with advanced Squamous Cell Lung cancer (NCT03065062). 3065062)."
+  }
+];
+
 class ActionableDetailsContainer extends Component {
-  
   onTabClicked = key => {
     this.props.setCurrentActionableTab(key);
   };
@@ -36,6 +75,15 @@ class ActionableDetailsContainer extends Component {
       name: name,
       value: value
     });
+  };
+
+  handleTherapies = e => {
+    console.log(e.target);
+    // const { name, value } = e.target;
+    // this.props.setExpandedInterpretationTextArea({
+    //   name: name,
+    //   value: value
+    // });
   };
 
   renderContent = value => {
@@ -49,6 +97,7 @@ class ActionableDetailsContainer extends Component {
       case ACTIONABLE_TABS_VALUES.expanded:
         return (
           <ExpandedInterpretation
+            key={"expanded-interpretation"}
             geneDescription={geneDescription}
             variantDescription={variantDescription}
             geneDescriptionSaved={geneDescriptionSaved}
@@ -57,8 +106,15 @@ class ActionableDetailsContainer extends Component {
           />
         );
       case ACTIONABLE_TABS_VALUES.therapies:
-        return null;
+        return (
+          <Therapies
+            key={"therapies"}
+            onChange={this.handleTherapies}
+            data={therapiesMockData}
+          />
+        );
       case ACTIONABLE_TABS_VALUES.clinicalTrials:
+        console.log(value);
         return null;
     }
   };
@@ -84,13 +140,13 @@ class ActionableDetailsContainer extends Component {
             );
           })}
         </Tabs>
-        {
+        <div className="actionable-details-done-wrapper">
           <SimpleButton
             className={"actionable-details-done"}
             // onClick={this.handleAddActionable}
             text={"Done"}
           />
-        }
+        </div>
       </div>
     );
   }

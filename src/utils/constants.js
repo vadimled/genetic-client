@@ -1011,8 +1011,8 @@ export const ACTIONABLE_TABS_VALUES = {
 
 export const ACTIONABLE_CATEGORIES_OPTIONS = [
   { value: ACTIONABLE_TABS_VALUES.expanded, label: "Expanded interpretation" },
-  { value: ACTIONABLE_TABS_VALUES.clinicalTrials, label: "Therapies" },
-  { value: ACTIONABLE_TABS_VALUES.therapies, label: "Clinical trials" },
+  { value: ACTIONABLE_TABS_VALUES.therapies, label: "Therapies" },
+  { value: ACTIONABLE_TABS_VALUES.clinicalTrials, label: "Clinical trials" },
 ];
 
 export const TEXTAREA_NAME = {
