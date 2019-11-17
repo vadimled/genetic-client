@@ -53,8 +53,8 @@
     .icon-saved {
       position: absolute;
       z-index: 9999;
-      right: 14px;
-      bottom: 52px;
+      right: 4px;
+      bottom: 5px;
 
       .ok-icon {
         width: 100%;
@@ -64,8 +64,8 @@
         align-items: center;
 
         svg {
-          width: 28px;
-          height: 22px;
+          width: 22px;
+          height: 15px;
 
           path {
             stroke: $panel-filled;

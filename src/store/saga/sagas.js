@@ -78,14 +78,14 @@ import { saveUserPreferencesFilters, setDefaultFilters } from "Actions/filtersAc
 // import { setVariantsDataToStore } from "Actions/finalReportAction";
 import { fetchFinalReportVariantsApi, moveToActionableTableApi } from "../../api";
 import {
-  setActionableTableDataToStore,
-  setExpandedInterpretationTextArea,
-  setExpandedTextAreaContentSaved
-} from "../actions/finalReportAction";
-import {
   removeActionableSelectedRowFromStore,
   removeClinicalSelectedRowFromStore,
-  setFinalReportClinicalDataToStore
+  setFinalReportClinicalDataToStore,
+  setActionableTableDataToStore,
+  setExpandedInterpretationTextArea,
+  setExpandedTextAreaContentSaved,
+  setToStoreTherapiesTextArea,
+  setTherapiesTextAreaSaved
 } from "Actions/finalReportAction";
 
 function* onDelay(time) {
@@ -860,7 +860,7 @@ export function* fetchFinalReportActionableDataSaga(action) {
   }
 }
 
-let tempClinical = [
+const tempClinical = [
   {
     key: 1,
     id: "5d511f574651a20020a0ab52",
@@ -924,7 +924,9 @@ export function* deleteFinalReportActionableRowSaga(action){
 export function* deleteFinalReportClinicalRowSaga(action){
   try {
     yield put(setLoading(true));
+    
     /* const { data } = yield call(deleteFinalReportClinicalRowApi, action);*/
+    
     // if(data.status === 200){
     const { id } = action.payload;
     yield put(removeClinicalSelectedRowFromStore(id));
@@ -948,6 +950,7 @@ export function* saveExpandedTextAreaContentSaga(action){
   
     console.log("-----Call API----");
     /* const { data } = yield call(saveExpandedTextAreaContentApi, action);*/
+    
     yield put(setExpandedTextAreaContentSaved(action.payload?.name));
     yield put(setLoading(false));
   }
@@ -955,6 +958,29 @@ export function* saveExpandedTextAreaContentSaga(action){
     yield put(setLoading(false));
     Sentry.withScope(scope => {
       scope.setFingerprint(["saveExpandedTextAreaContentSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+  
+}
+export function* setTherapiesTextAreaSaga(action){
+  
+  try {
+    yield put(setToStoreTherapiesTextArea(action.payload));
+    yield delay(2000);
+    yield put(setLoading(true));
+  
+    console.log("-----Call API----");
+    /* const { data } = yield call(saveTherapiesTextAreaApi, action);*/
+    
+    yield put(setTherapiesTextAreaSaved(action.payload?.id));
+    yield put(setLoading(false));
+  }
+  catch (e) {
+    yield put(setLoading(false));
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["setTherapiesTextAreaSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);

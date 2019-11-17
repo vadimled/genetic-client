@@ -13,56 +13,19 @@ import {
   getGeneDescription,
   getVariantDescription,
   getGeneDescriptionSaved,
-  getVariantDescriptionSaved
+  getVariantDescriptionSaved,
+  getTherapies
 } from "Store/selectors";
 import {
   setCurrentActionableTab,
-  saveExpandedTextAreaContent
+  saveExpandedTextAreaContent,
+  setTherapiesTextArea
 } from "Actions/finalReportAction";
 import ActionableDetailsTabPaneHeader from "../actionableDetailsTabPaneHeader";
 import ExpandedInterpretation from "./components/expandedInterpretation";
 import Therapies from "./components/therapies";
 
 const { TabPane } = Tabs;
-
-// TODO: remove when the server will be updated
-const therapiesMockData = [
-  {
-    drug_name: "Palbociclib (IBRANCE)",
-    source_description:
-      "Palbociclib is a CDK4/6 kinase inhibitor approved by the" +
-      " FDA for the treatment of adult patients with hormone receptor (HR)-positive, " +
-      "human epidermal growth factor receptor 2 (HER2)-negative advanced or metastatic " +
-      "breast cancer in combination with:- an aromatase inhibitor as initial " +
-      "endocrine-based therapy in postmenopausal women or in men; or- " +
-      "Fulvestrant in patients with disease progression following endocrine therapy." +
-      "Palbociclib is currently examined in a Phase I trial in combination with the " +
-      "PI3K/mTOR Inhibitor Gedatolisib for Patients with advanced Squamous Cell Lung cancer (NCT03065062)."
-  },
-  {
-    drug_name: "Gedatolisib (PF-05212384)",
-    source_description:
-      "Gedatolisib is PI3K and mTOR kinase inhibitor " +
-      "currently examined in multiple clinical trials for select solid " +
-      "tumors including a phase I trial in combination with the CDK4/6 Inhibitor, " +
-      "Palbociclib, for Patients with advanced Squamous Cell Lung cancer (NCT03065062). 3065062)."
-  },
-  {
-    drug_name: "MK-2206",
-    source_description:
-      "MK-2206 is a selective pan-AKT inhibitor currently examined " +
-      "in multiple clinical trials for various solid tumors, including a phase " +
-      "II trial for patientswith Advanced Non-Small Cell Lung Cancer (NCT01306045)."
-  },
-  {
-    drug_name: "Gedatolisib (PF-05212384)",
-    source_description:
-      "Gedatolisib is PI3K and mTOR kinase inhibitor " +
-      "currently examined in multiple clinical trials for select solid " +
-      "tumors including a phase I trial in combination with the CDK4/6 Inhibitor, " +
-      "Palbociclib, for Patients with advanced Squamous Cell Lung cancer (NCT03065062). 3065062)."
-  }
-];
 
 class ActionableDetailsContainer extends Component {
   onTabClicked = key => {
@@ -78,12 +41,11 @@ class ActionableDetailsContainer extends Component {
   };
 
   handleTherapies = e => {
-    console.log(e.target);
-    // const { name, value } = e.target;
-    // this.props.setExpandedInterpretationTextArea({
-    //   name: name,
-    //   value: value
-    // });
+    const { id, value } = e.target;
+    this.props.setTherapiesTextArea({
+      id,
+      value
+    });
   };
 
   renderContent = value => {
@@ -91,7 +53,8 @@ class ActionableDetailsContainer extends Component {
       geneDescription,
       variantDescription,
       geneDescriptionSaved,
-      variantDescriptionSaved
+      variantDescriptionSaved,
+      therapies
     } = this.props;
     switch (value) {
       case ACTIONABLE_TABS_VALUES.expanded:
@@ -110,11 +73,10 @@ class ActionableDetailsContainer extends Component {
           <Therapies
             key={"therapies"}
             onChange={this.handleTherapies}
-            data={therapiesMockData}
+            data={therapies}
           />
         );
       case ACTIONABLE_TABS_VALUES.clinicalTrials:
-        console.log(value);
         return null;
     }
   };
@@ -164,7 +126,8 @@ const mapStateToProps = state => {
     geneDescription: getGeneDescription(state),
     variantDescription: getVariantDescription(state),
     geneDescriptionSaved: getGeneDescriptionSaved(state),
-    variantDescriptionSaved: getVariantDescriptionSaved(state)
+    variantDescriptionSaved: getVariantDescriptionSaved(state),
+    therapies: getTherapies(state),
   };
 };
 
@@ -172,7 +135,8 @@ function mapDispatchToProps(dispatch) {
   return {
     setExpandedInterpretationTextArea: data =>
       dispatch(saveExpandedTextAreaContent(data)),
-    setCurrentActionableTab: key => dispatch(setCurrentActionableTab(key))
+    setCurrentActionableTab: key => dispatch(setCurrentActionableTab(key)),
+    setTherapiesTextArea: data => dispatch(setTherapiesTextArea(data))
   };
 }
 

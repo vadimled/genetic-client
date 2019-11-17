@@ -531,6 +531,17 @@ export const getSelectedDnaRows = createSelector(
   }
 );
 
+export const getTherapies =  createSelector(
+  getSelectedUpperTableRowId,
+  getActionableVariants,
+  (id, data) => {
+    return data
+      .find(obj => obj.id === id)
+      .therapies;
+  }
+);
+
+
 export const checkIsAllDnaRowsSelected = createSelector(
   getDnaVariantsAsArray,
   getSelectedDnaRows,

@@ -39,7 +39,7 @@ import {
 } from "../../store/selectors";
 import { NAV_STATUS } from "Utils/constants";
 import FinalReportClinicalTable from "./components/finalReportClinicalTable";
-import ActionableDetailsContainer from "Pages/finalReportPage/components/finalReportActionableTable/components/actionableDetailsContainer";
+import ActionableDetailsContainer from "./components/finalReportActionableTable/components/actionableDetailsContainer";
 import FinalReportToolBar from "./components/finalReportToolBar";
 import SimpleButton from "GenericComponents/simpleButton";
 

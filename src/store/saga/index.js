@@ -34,7 +34,8 @@ import {
   deleteFinalReportActionableRowSaga,
   deleteFinalReportClinicalRowSaga,
   fetchFinalReportClinicalDataSaga,
-  saveExpandedTextAreaContentSaga
+  saveExpandedTextAreaContentSaga,
+  setTherapiesTextAreaSaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -90,4 +91,5 @@ export function* watchSaga() {
   yield takeEvery(types.REMOVE_CLINICAL_SELECTED_ROW_FROM_STORE, deleteFinalReportClinicalRowSaga);
   
   yield takeLatest(types.SAVE_EXPANDED_TAB_TEXTAREA_CONTENT, saveExpandedTextAreaContentSaga);
+  yield takeLatest(types.SET_THERAPIES_TAB_TEXTAREA_CONTENT, setTherapiesTextAreaSaga);
 }

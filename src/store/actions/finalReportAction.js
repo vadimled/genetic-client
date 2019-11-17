@@ -126,3 +126,24 @@ export function setSelectVariants() {
     type: actionsTypes.SET_SELECT_VARIANTS
   };
 }
+
+
+export function setToStoreTherapiesTextArea(data) {
+  return {
+    type: actionsTypes.SET_THERAPIES_TAB_TEXTAREA_TO_STORE,
+    payload: data
+  };
+}
+export function setTherapiesTextArea(data) {
+  return {
+    type: actionsTypes.SET_THERAPIES_TAB_TEXTAREA_CONTENT,
+    payload: data
+  };
+}
+
+export function setTherapiesTextAreaSaved(data) {
+  return {
+    type: actionsTypes.SET_THERAPIES_TAB_TEXTAREA_CONTENT_SAVED,
+    payload: data
+  };
+}
