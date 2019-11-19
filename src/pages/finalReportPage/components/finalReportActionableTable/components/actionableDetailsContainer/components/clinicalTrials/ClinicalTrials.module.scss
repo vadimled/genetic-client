@@ -1,0 +1,81 @@
+@import "Css/Colors.scss";
+
+.clinical-trials-wrapper :global {
+  display: flex;
+  width: 95vw;
+  height: 100%;
+  margin-bottom: 20px;
+  min-height: 400px;
+  overflow-y: scroll;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+
+  .source-description-wrapper {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: left;
+    align-items: baseline;
+    position: relative;
+    margin-bottom: 10px;
+    min-width: 700px;
+
+    label {
+      width: 17vw;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: $title_color;
+    }
+
+    textarea {
+      resize: none !important;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 21px;
+      color: $title_color;
+      margin-top: 6px;
+
+      &.ant-input {
+        width: 77vw;
+        font-size: 14px;
+        line-height: 18px;
+        max-height: 225px !important;
+        overflow-y: scroll !important;
+        padding-right: 26px;
+        padding-bottom: 26px;
+      }
+    }
+
+    .icon-saved {
+      position: absolute;
+      z-index: 9999;
+      right: 4px;
+      bottom: 5px;
+
+      .ok-icon {
+        width: 100%;
+        height: 100%;
+        display: none;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+          width: 22px;
+          height: 15px;
+
+          path {
+            stroke: $panel-filled;
+          }
+        }
+
+        &.active {
+          display: flex;
+        }
+      }
+    }
+  }
+}
