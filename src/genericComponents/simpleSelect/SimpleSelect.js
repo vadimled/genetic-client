@@ -81,9 +81,9 @@ const SimpleSelect = ({
         data-testid={testId}
         {...props}
       >
-        {options?.map(option => {
-          return (
-            <Option
+        {options?.reduce((rez, option) => {
+          if (option) {
+            rez.push(<Option
               key={option.value}
               value={option.value}
               onClick={reconfirmMode ? handleReconfirm : null}
@@ -96,9 +96,10 @@ const SimpleSelect = ({
               {option.reconfirm && (
                 <div className="reconfirm">{`(${option.reconfirm})`}</div>
               )}
-            </Option>
-          );
-        })}
+            </Option>);
+          }
+          return rez;
+        }, [])}
       </Select>
     </Fragment>
   );
