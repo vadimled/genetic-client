@@ -1,29 +1,33 @@
 import React, { Component } from "react";
-import style from "./ActionableDetailsContainer.module.scss";
 // import PropTypes from "prop-types";
-import { Tabs } from "antd";
 import { connect } from "react-redux";
+import { Tabs } from "antd";
+
 import SimpleButton from "GenericComponents/simpleButton";
-import {
-  ACTIONABLE_CATEGORIES_OPTIONS,
-  ACTIONABLE_TABS_VALUES
-} from "Utils/constants";
+import ActionableDetailsTabPaneHeader from "../actionableDetailsTabPaneHeader";
+import ExpandedInterpretation from "./components/expandedInterpretation";
+import Therapies from "./components/therapies";
+import ClinicalTrial from './components/clinicalTrials';
+
+import style from "./ActionableDetailsContainer.module.scss";
+
 import {
   getCurrentActionableTab,
   getGeneDescription,
   getVariantDescription,
   getGeneDescriptionSaved,
   getVariantDescriptionSaved,
-  getTherapies
+  getActionableAlterationsDrugs
 } from "Store/selectors";
 import {
   setCurrentActionableTab,
   saveExpandedTextAreaContent,
-  setTherapiesTextArea
+  setActionableAlterationTherapiesDescription
 } from "Actions/finalReportAction";
-import ActionableDetailsTabPaneHeader from "../actionableDetailsTabPaneHeader";
-import ExpandedInterpretation from "./components/expandedInterpretation";
-import Therapies from "./components/therapies";
+import {
+  ACTIONABLE_CATEGORIES_OPTIONS,
+  ACTIONABLE_TABS_VALUES
+} from "Utils/constants";
 
 const { TabPane } = Tabs;
 
@@ -40,12 +44,17 @@ class ActionableDetailsContainer extends Component {
     });
   };
 
-  handleTherapies = e => {
+  setActionableAlterationTherapiesDescription = e => {
     const { id, value } = e.target;
-    this.props.setTherapiesTextArea({
+    this.props.setActionableAlterationTherapiesDescription({
       id,
       value
     });
+  };
+
+  handleClinicalTrials = e => {
+    console.log("e", e);
+
   };
 
   renderContent = value => {
@@ -56,6 +65,7 @@ class ActionableDetailsContainer extends Component {
       variantDescriptionSaved,
       therapies
     } = this.props;
+
     switch (value) {
       case ACTIONABLE_TABS_VALUES.expanded:
         return (
@@ -72,12 +82,18 @@ class ActionableDetailsContainer extends Component {
         return (
           <Therapies
             key={"therapies"}
-            onChange={this.handleTherapies}
+            onChange={this.setActionableAlterationTherapiesDescription}
             data={therapies}
           />
         );
       case ACTIONABLE_TABS_VALUES.clinicalTrials:
-        return null;
+        return (
+          <ClinicalTrial
+            key={"clinical-trials"}
+            data={[]}
+            onChange={this.handleClinicalTrials}
+          />
+        );
     }
   };
 
@@ -127,16 +143,15 @@ const mapStateToProps = state => {
     variantDescription: getVariantDescription(state),
     geneDescriptionSaved: getGeneDescriptionSaved(state),
     variantDescriptionSaved: getVariantDescriptionSaved(state),
-    therapies: getTherapies(state),
+    therapies: getActionableAlterationsDrugs(state),
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    setExpandedInterpretationTextArea: data =>
-      dispatch(saveExpandedTextAreaContent(data)),
+    setExpandedInterpretationTextArea: data => dispatch(saveExpandedTextAreaContent(data)),
     setCurrentActionableTab: key => dispatch(setCurrentActionableTab(key)),
-    setTherapiesTextArea: data => dispatch(setTherapiesTextArea(data))
+    setActionableAlterationTherapiesDescription: data => dispatch(setActionableAlterationTherapiesDescription(data))
   };
 }
 

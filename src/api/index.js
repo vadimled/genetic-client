@@ -177,7 +177,7 @@ export function sendVariantToConfirmation(data) {
   });
 }
 
-export function fetchFinalReportActionableDataApi(data) {
+export function fetchActionableAlterationsApi(data) {
   return axios_based.get(`/tests/${data.payload}/actionablealterations`);
 }
 
@@ -204,7 +204,7 @@ export function fetchFinalReportVariantsApi (action) {
   });
 }
 
-export function moveToActionableTableApi(data) {
+export function postAtionableAlterationsApi(data) {
 
   const {testId, mutation, variants_ids} = data.payload;
 

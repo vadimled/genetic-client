@@ -3,7 +3,7 @@
   "rules": {
     "max-len": [
       1,
-      120,
+      160,
       2,
       {
         "ignoreComments": true

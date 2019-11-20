@@ -13,7 +13,7 @@ import {
   fetchClassificationHistoryApi,
   fetchConfirmationMetadataApi,
   fetchEvidenceDataApi,
-  fetchFinalReportActionableDataApi,
+  fetchActionableAlterationsApi,
   fetchTableDataApi,
   fetchTestMetadataApi,
   fetchTestsApi,
@@ -76,16 +76,16 @@ import { cleanEvidenceActionData, setCurrentEvidenceTab } from "Actions/evidence
 import { setConfirmationPageMetadataToStore } from "Actions/confirmationPageActions";
 import { saveUserPreferencesFilters, setDefaultFilters } from "Actions/filtersActions";
 // import { setVariantsDataToStore } from "Actions/finalReportAction";
-import { fetchFinalReportVariantsApi, moveToActionableTableApi } from "../../api";
+import { fetchFinalReportVariantsApi, postAtionableAlterationsApi } from "../../api";
 import {
-  removeActionableSelectedRowFromStore,
+  deleteActionableAlterationFromStore,
   removeClinicalSelectedRowFromStore,
   setFinalReportClinicalDataToStore,
-  setActionableTableDataToStore,
+  setActionableAlterations,
   setExpandedInterpretationTextArea,
   setExpandedTextAreaContentSaved,
   setToStoreTherapiesTextArea,
-  setTherapiesTextAreaSaved
+  setActionableAlterationTherapiesDescriptionSaved
 } from "Actions/finalReportAction";
 
 function* onDelay(time) {
@@ -828,32 +828,32 @@ export function* fetchFinalReportVariantsSaga(action) {
   }
 }
 
-export function* moveToActionableTableSaga(action) {
+export function* postAtionableAlterationsSaga(action) {
   try {
     yield put(setLoading(true));
-    const { data } = yield call(moveToActionableTableApi, action);
-    yield put(setActionableTableDataToStore(data));
+    const { data } = yield call(postAtionableAlterationsApi, action);
+    yield put(setActionableAlterations(data));
     yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {
-      scope.setFingerprint(["moveToActionableTableSaga"]);
+      scope.setFingerprint(["postAtionableAlterationsSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);
   }
 }
 
-export function* fetchFinalReportActionableDataSaga(action) {
+export function* fetchActionableAlterationsSaga(action) {
   try {
     yield put(setLoading(true));
-    const { data } = yield call(fetchFinalReportActionableDataApi, action);
-    yield put(setActionableTableDataToStore(data));
+    const { data } = yield call(fetchActionableAlterationsApi, action);
+    yield put(setActionableAlterations(data));
     yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchFinalReportActionableDataSaga"]);
+      scope.setFingerprint(["fetchActionableAlterationsSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);
@@ -901,20 +901,20 @@ export function* fetchFinalReportClinicalDataSaga() {
   }
 }
 
-export function* deleteFinalReportActionableRowSaga(action){
+export function* deleteActionableAlterationSaga(action){
   try {
     yield put(setLoading(true));
-    const { data } = yield call(deleteFinalReportActionableRowApi, action);
-    if(data.status === 200){
-      const { id } = action.payload;
-      yield put(removeActionableSelectedRowFromStore(id));
-    }
+    yield call(deleteFinalReportActionableRowApi, action);
+
+    const { id } = action.payload;
+    yield put(deleteActionableAlterationFromStore(id));
+
     yield put(setLoading(false));
   }
   catch (e) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {
-      scope.setFingerprint(["deleteFinalReportActionableRowSaga"]);
+      scope.setFingerprint(["deleteActionableAlterationSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);
@@ -924,9 +924,9 @@ export function* deleteFinalReportActionableRowSaga(action){
 export function* deleteFinalReportClinicalRowSaga(action){
   try {
     yield put(setLoading(true));
-    
+
     /* const { data } = yield call(deleteFinalReportClinicalRowApi, action);*/
-    
+
     // if(data.status === 200){
     const { id } = action.payload;
     yield put(removeClinicalSelectedRowFromStore(id));
@@ -947,10 +947,10 @@ export function* saveExpandedTextAreaContentSaga(action){
     yield put(setExpandedInterpretationTextArea(action.payload));
     yield delay(2000);
     yield put(setLoading(true));
-  
+
     console.log("-----Call API----");
     /* const { data } = yield call(saveExpandedTextAreaContentApi, action);*/
-    
+
     yield put(setExpandedTextAreaContentSaved(action.payload?.name));
     yield put(setLoading(false));
   }
@@ -962,28 +962,28 @@ export function* saveExpandedTextAreaContentSaga(action){
     });
     yield handleErrors(e);
   }
-  
+
 }
-export function* setTherapiesTextAreaSaga(action){
-  
+export function* setActionableAlterationTherapiesDescriptionSaga(action){
+
   try {
     yield put(setToStoreTherapiesTextArea(action.payload));
     yield delay(2000);
     yield put(setLoading(true));
-  
+
     console.log("-----Call API----");
     /* const { data } = yield call(saveTherapiesTextAreaApi, action);*/
-    
-    yield put(setTherapiesTextAreaSaved(action.payload?.id));
+
+    yield put(setActionableAlterationTherapiesDescriptionSaved(action.payload?.id));
     yield put(setLoading(false));
   }
   catch (e) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {
-      scope.setFingerprint(["setTherapiesTextAreaSaga"]);
+      scope.setFingerprint(["setActionableAlterationTherapiesDescriptionSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);
   }
-  
+
 }

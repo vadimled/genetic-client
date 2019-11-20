@@ -54,14 +54,14 @@ const initialState = {
   dna_variants: null,
   cna_variants: [],
   selectedVariants: [],
-  actionableVariants: [],
+  actionableAlterations: [],
   clinicalVariants: [],
   mutation_type: null,
   navigationStatus: NAV_STATUS.alterations,
-  selectedUpperTableRowId: null,
+  selectedActionableAlterationId: null,
   currentActionableTab: "1",
   selectedVariantsIds: [],
-  selectVariants: true,
+  isSelectVariants: false,
 };
 
 const finalReportReducer = createReducer(initialState, {
@@ -86,24 +86,19 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.REMOVE_ACTIONABLE_SELECTED_ROW_FROM_STORE]: (
-    state,
-    { payload }
-  ) => {
-    const newActionableVariants = state.actionableVariants.filter(
-      obj => obj?.id !== payload?.id
+  [actionsTypes.DELETE_ACTIONABLE_ALTERATION_FROM_STORE]: (state, { payload }) => {
+    console.log("payload", payload);
+    const newActionableAlterations = state.actionableAlterations.filter(
+      obj => obj?.id !== payload
     );
     return {
       ...state,
-      actionableVariants: newActionableVariants,
-      selectedVariantsIds: []
+      actionableAlterations: newActionableAlterations,
+      selectedVariantsIds: [] // ? зачем
     };
   },
 
-  [actionsTypes.REMOVE_CLINICAL_SELECTED_ROW_FROM_STORE]: (
-    state,
-    { payload }
-  ) => {
+  [actionsTypes.REMOVE_CLINICAL_SELECTED_ROW_FROM_STORE]: (state, { payload }) => {
     const newClinicalVariants = state.clinicalVariants.filter(
       obj => obj?.id !== payload?.id
     );
@@ -151,7 +146,7 @@ const finalReportReducer = createReducer(initialState, {
     return {
       ...state,
       dna_variants: payload,
-      actionableVariants: payload
+      actionableAlterations: payload
     };
   },
 
@@ -165,23 +160,21 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_ACTIONABLE_DATA_TO_STORE]: (state, { payload }) => {
-    const newVariants = payload.map(obj => {
-      const cOb = state.actionableVariants.find( currObj => currObj.id === obj.id);
-      if(cOb?.expanded_interpretation){
-        return { ...obj, expanded_interpretation: cOb.expanded_interpretation };
-      }
-      else{
-        return obj;
-      }
-    });
-    // -- temp ---
-    // TODO: therapies: [{evidence}] must be received from server
-    newVariants.map(obj => obj.therapies = therapies);
-    // -- temp ---
+  [actionsTypes.SET_ACTIONABLE_ALTERATIONS]: (state, { payload }) => {
+    // const actionableAlterations = payload.map(obj => {
+    //   const cOb = state.actionableAlterations.find(currObj => currObj.id === obj.id);
+
+    //   if (cOb?.expanded_interpretation){
+    //     return { ...obj, expanded_interpretation: cOb.expanded_interpretation };
+    //   }
+    //   else{
+    //     return obj;
+    //   }
+    // });
+
     return {
       ...state,
-      actionableVariants: newVariants,
+      actionableAlterations: payload,
       selectedVariantsIds: []
     };
   },
@@ -193,10 +186,10 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_SELECTED_UPPER_TABLE_ROW_ID]: (state, { payload }) => {
+  [actionsTypes.SET_SELECTED_ACTIONABLE_ALTERATION_ID]: (state, { payload }) => {
     return {
       ...state,
-      selectedUpperTableRowId: payload,
+      selectedActionableAlterationId: payload,
       selectVariants: true
     };
   },
@@ -210,11 +203,11 @@ const finalReportReducer = createReducer(initialState, {
 
   [actionsTypes.SET_EXPANDED_TAB_TEXTAREA_CONTENT_SAVED]: (state, { payload }) => {
     const getActionableVariant =
-      state.actionableVariants
-        .find(obj => obj.id === state.selectedUpperTableRowId);
-  
+      state.actionableAlterations
+        .find(obj => obj.id === state.selectedActionableAlterationId);
+
     const cloneExpandedInterpretation =  {...getActionableVariant.expanded_interpretation};
-  
+
     switch (payload) {
       case TEXTAREA_NAME.geneDescription:
         cloneExpandedInterpretation.geneDescriptionSaved = true;
@@ -223,31 +216,31 @@ const finalReportReducer = createReducer(initialState, {
         cloneExpandedInterpretation.variantDescriptionSaved = true;
         break;
     }
-  
+
     const newActionableVariant = Object.assign( {},
       getActionableVariant,
       {expanded_interpretation:cloneExpandedInterpretation} );
-  
-    const ind = state.actionableVariants
-      .findIndex(obj => obj.id === state.selectedUpperTableRowId);
-  
-    state.actionableVariants[ind] = newActionableVariant;
-    let newActionableVariants ={actionableVariants: [...state.actionableVariants]};
-  
+
+    const ind = state.actionableAlterations
+      .findIndex(obj => obj.id === state.selectedActionableAlterationId);
+
+    state.actionableAlterations[ind] = newActionableVariant;
+    let newActionableAlterations ={ actionableAlterations: [...state.actionableAlterations] };
+
     return {
       ...state,
-      ...newActionableVariants
+      ...newActionableAlterations
     };
   },
 
   [actionsTypes.SET_EXPANDED_TAB_TEXTAREA]: (state, { payload }) => {
     const { name, value } = payload;
     const getActionableVariant =
-      state.actionableVariants
-        .find(obj => obj.id === state.selectedUpperTableRowId);
+      state.actionableAlterations
+        .find(obj => obj.id === state.selectedActionableAlterationId);
 
     const cloneExpandedInterpretation =  {...getActionableVariant.expanded_interpretation};
-    
+
     switch (name) {
       case TEXTAREA_NAME.geneDescription:
         cloneExpandedInterpretation.geneDescription = value;
@@ -258,34 +251,34 @@ const finalReportReducer = createReducer(initialState, {
         cloneExpandedInterpretation.variantDescriptionSaved = false;
         break;
     }
-  
+
     const newActionableVariant = Object.assign( {},
       getActionableVariant,
       {expanded_interpretation:cloneExpandedInterpretation} );
-  
-    const ind = state.actionableVariants
-      .findIndex(obj => obj.id === state.selectedUpperTableRowId);
-  
-    state.actionableVariants[ind] = newActionableVariant;
-    let newActionableVariants ={actionableVariants: [...state.actionableVariants]};
- 
+
+    const ind = state.actionableAlterations
+      .findIndex(obj => obj.id === state.selectedActionableAlterationId);
+
+    state.actionableAlterations[ind] = newActionableVariant;
+    let newActionableAlterations ={ actionableAlterations: [...state.actionableAlterations] };
+
     return {
       ...state,
-      ...newActionableVariants
+      ...newActionableAlterations
     };
   },
- 
+
   [actionsTypes.SET_THERAPIES_TAB_TEXTAREA_TO_STORE]: (state, { payload }) => {
     const { id, value } = payload;
     const getActionableVariant =
-      state.actionableVariants
-        .find(obj => obj.id === state.selectedUpperTableRowId);
-  
+      state.actionableAlterations
+        .find(obj => obj.id === state.selectedActionableAlterationId);
+
     // -- temp ---
     // TODO: therapies: [{evidence}] must be received from server
     getActionableVariant.therapies = therapies;
     // -- temp ---
-    
+
     let cloneTherapies = [...getActionableVariant.therapies]
       .map(therapy => {
         if(therapy.id === id){
@@ -294,29 +287,29 @@ const finalReportReducer = createReducer(initialState, {
         }
         return therapy;
       });
-  
-  
+
+
     const newActionableVariant = Object.assign( {},
       getActionableVariant,
       {therapies:cloneTherapies} );
-  
-    const ind = state.actionableVariants
-      .findIndex(obj => obj.id === state.selectedUpperTableRowId);
-  
-    state.actionableVariants[ind] = newActionableVariant;
-    let newActionableVariants ={actionableVariants: [...state.actionableVariants]};
-  
+
+    const ind = state.actionableAlterations
+      .findIndex(obj => obj.id === state.selectedActionableAlterationId);
+
+    state.actionableAlterations[ind] = newActionableVariant;
+    let newActionableAlterations ={ actionableAlterations: [...state.actionableAlterations] };
+
     return {
       ...state,
-      ...newActionableVariants
+      ...newActionableAlterations
     };
   },
-  
-  [actionsTypes.SET_THERAPIES_TAB_TEXTAREA_CONTENT_SAVED]: (state, { payload }) => {
+
+  [actionsTypes.SET_ACTIONABLE_ALTERATION_THERAPIES_DESCRIPTION_SAVED]: (state, { payload }) => {
     const getActionableVariant =
-      state.actionableVariants
-        .find(obj => obj.id === state.selectedUpperTableRowId);
-    
+      state.actionableAlterations
+        .find(obj => obj.id === state.selectedActionableAlterationId);
+
     let cloneTherapies = [...getActionableVariant.therapies]
       .map(therapy => {
         if(therapy.id === payload){
@@ -324,33 +317,31 @@ const finalReportReducer = createReducer(initialState, {
         }
         return therapy;
       });
-  
+
     const newActionableVariant = Object.assign( {},
       getActionableVariant,
       {therapies:cloneTherapies} );
-  
-    const ind = state.actionableVariants
-      .findIndex(obj => obj.id === state.selectedUpperTableRowId);
-  
-    state.actionableVariants[ind] = newActionableVariant;
-    let newActionableVariants ={actionableVariants: [...state.actionableVariants]};
-  
+
+    const ind = state.actionableAlterations
+      .findIndex(obj => obj.id === state.selectedActionableAlterationId);
+
+    state.actionableAlterations[ind] = newActionableVariant;
+    let newActionableAlterations ={ actionableAlterations: [...state.actionableAlterations] };
+
     return {
       ...state,
-      ...newActionableVariants
+      ...newActionableAlterations
     };
   },
-  
-  
-  
-  [actionsTypes.SET_SELECT_VARIANTS]: state => {
+
+  [actionsTypes.SET_IS_SELECT_VARIANTS]: state => {
     return {
       ...state,
-      selectVariants: !state.selectVariants,
-      selectedUpperTableRowId: null
+      isSelectVariants: !state.isSelectVariants,
+      selectedActionableAlterationId: null
     };
   },
-  
+
 });
 
 export default finalReportReducer;

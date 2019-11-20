@@ -28,14 +28,14 @@ import {
   fetchUserPreferencesSaga,
   fetchConfirmationMetadataSaga,
   applyConfirmationSaga,
-  moveToActionableTableSaga,
+  postAtionableAlterationsSaga,
   fetchFinalReportVariantsSaga,
-  fetchFinalReportActionableDataSaga,
-  deleteFinalReportActionableRowSaga,
+  fetchActionableAlterationsSaga,
+  deleteActionableAlterationSaga,
   deleteFinalReportClinicalRowSaga,
   fetchFinalReportClinicalDataSaga,
   saveExpandedTextAreaContentSaga,
-  setTherapiesTextAreaSaga
+  setActionableAlterationTherapiesDescriptionSaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -78,18 +78,17 @@ export function* watchSaga() {
 
   yield takeEvery(types.FETCH_CONFIRMATION_PAGE_METADATA, fetchConfirmationMetadataSaga);
   yield takeEvery(types.APPLY_CONFIRMATION, applyConfirmationSaga);
-  yield takeEvery(types.MOVE_TO_ACTIONABLE_TABLE, moveToActionableTableSaga);
+  yield takeEvery(types.POST_ACTIONABLE_ALTERATIONS, postAtionableAlterationsSaga);
   yield takeEvery(types.FETCH_FINAL_REPORT_VARIANTS, fetchFinalReportVariantsSaga);
 
   // yield all([
-  //   takeEvery(types.FETCH_FINAL_REPORT_ACTIONABLE_DATA, fetchFinalReportActionableDataSaga),
   //   takeEvery(types.FETCH_FINAL_REPORT_CLINICAL_DATA, fetchFinalReportClinicalDataSaga)
   // ]);
-  yield takeEvery(types.FETCH_FINAL_REPORT_ACTIONABLE_DATA, fetchFinalReportActionableDataSaga);
+  yield takeEvery(types.FETCH_ACTIONABLE_ALTERATIONS, fetchActionableAlterationsSaga);
   yield takeEvery(types.FETCH_FINAL_REPORT_CLINICAL_DATA, fetchFinalReportClinicalDataSaga);
-  yield takeEvery(types.REMOVE_ACTIONABLE_SELECTED_ROW_FROM_STORE, deleteFinalReportActionableRowSaga);
+  yield takeEvery(types.DELETE_ACTIONABLE_ALTERATION, deleteActionableAlterationSaga);
   yield takeEvery(types.REMOVE_CLINICAL_SELECTED_ROW_FROM_STORE, deleteFinalReportClinicalRowSaga);
-  
+
   yield takeLatest(types.SAVE_EXPANDED_TAB_TEXTAREA_CONTENT, saveExpandedTextAreaContentSaga);
-  yield takeLatest(types.SET_THERAPIES_TAB_TEXTAREA_CONTENT, setTherapiesTextAreaSaga);
+  yield takeLatest(types.SET_ACTIONABLE_ALTERATION_THERAPIES_DESCRIPTION, setActionableAlterationTherapiesDescriptionSaga);
 }

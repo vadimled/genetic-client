@@ -1005,7 +1005,7 @@ export const NAV_STATUS = {
 
 export const ACTIONABLE_TABS_VALUES = {
   expanded: "expanded_interpretation",
-  therapies:"therapies",
+  therapies: "therapies",
   clinicalTrials: "clinical_trials"
 };
 

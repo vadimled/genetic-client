@@ -1,8 +1,16 @@
 import actionsTypes from "../actionsTypes";
 
-export const removeActionableSelectedRowFromStore = data => {
+export const deleteActionableAlteration = data => {
   return {
-    type: actionsTypes.REMOVE_ACTIONABLE_SELECTED_ROW_FROM_STORE,
+    type: actionsTypes.DELETE_ACTIONABLE_ALTERATION,
+    payload: data
+  };
+};
+
+
+export const deleteActionableAlterationFromStore = data => {
+  return {
+    type: actionsTypes.DELETE_ACTIONABLE_ALTERATION_FROM_STORE,
     payload: data
   };
 };
@@ -14,9 +22,9 @@ export function removeClinicalSelectedRowFromStore(data) {
   };
 }
 
-export const fetchFinalReportActionableData = data => {
+export const fetchActionableAlterations = data => {
   return {
-    type: actionsTypes.FETCH_FINAL_REPORT_ACTIONABLE_DATA,
+    type: actionsTypes.FETCH_ACTIONABLE_ALTERATIONS,
     payload: data
   };
 };
@@ -49,10 +57,10 @@ export function setVariantsDataToStore(data) {
   };
 }
 
-export function moveToActionableTable(data) {
+export function postAtionableAlterations(data) {
 
   return {
-    type: actionsTypes.MOVE_TO_ACTIONABLE_TABLE,
+    type: actionsTypes.POST_ACTIONABLE_ALTERATIONS,
     payload: data
   };
 }
@@ -65,9 +73,9 @@ export function fetchFinalReportVariants(data) {
   };
 }
 
-export function setActionableTableDataToStore(data) {
+export function setActionableAlterations(data) {
   return {
-    type: actionsTypes.SET_ACTIONABLE_DATA_TO_STORE,
+    type: actionsTypes.SET_ACTIONABLE_ALTERATIONS,
     payload: data
   };
 }
@@ -86,9 +94,9 @@ export function setFinalReportNavigationStatus(data) {
   };
 }
 
-export function setSelectedUpperTableRowId(id) {
+export function setSelectedActionableAlterationId(id) {
   return {
-    type: actionsTypes.SET_SELECTED_UPPER_TABLE_ROW_ID,
+    type: actionsTypes.SET_SELECTED_ACTIONABLE_ALTERATION_ID,
     payload: id
   };
 }
@@ -121,12 +129,11 @@ export function setExpandedTextAreaContentSaved(data) {
   };
 }
 
-export function setSelectVariants() {
+export function setIsSelectVariants() {
   return {
-    type: actionsTypes.SET_SELECT_VARIANTS
+    type: actionsTypes.SET_IS_SELECT_VARIANTS
   };
 }
-
 
 export function setToStoreTherapiesTextArea(data) {
   return {
@@ -134,16 +141,16 @@ export function setToStoreTherapiesTextArea(data) {
     payload: data
   };
 }
-export function setTherapiesTextArea(data) {
+export function setActionableAlterationTherapiesDescription(data) {
   return {
-    type: actionsTypes.SET_THERAPIES_TAB_TEXTAREA_CONTENT,
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_THERAPIES_DESCRIPTION,
     payload: data
   };
 }
 
-export function setTherapiesTextAreaSaved(data) {
+export function setActionableAlterationTherapiesDescriptionSaved(data) {
   return {
-    type: actionsTypes.SET_THERAPIES_TAB_TEXTAREA_CONTENT_SAVED,
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_THERAPIES_DESCRIPTION_SAVED,
     payload: data
   };
 }

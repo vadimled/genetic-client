@@ -486,17 +486,17 @@ export const getDnaVariantsAsArray = createSelector(
 );
 
 export const
-  getActionableVariants = state => state.finalReport.actionableVariants,
+  getActionableAlterations = state => state.finalReport.actionableAlterations,
   getCurrentActionableTab = state => state.finalReport.currentActionableTab,
   getClinicalVariants = state => state.finalReport.clinicalVariants,
   getNavigationStatus = state => state.finalReport.navigationStatus,
-  getSelectVariants = state => state.finalReport.selectVariants,
-  getSelectedUpperTableRowId = state => state.finalReport.selectedUpperTableRowId;
+  getIsSelectVariants = state => state.finalReport.isSelectVariants,
+  getSelectedActionableAlterationId = state => state.finalReport.selectedActionableAlterationId;
 
 
 const getExpandedInterpretation = createSelector(
-  getSelectedUpperTableRowId,
-  getActionableVariants,
+  getSelectedActionableAlterationId,
+  getActionableAlterations,
   (id, data) => {
     return data
       .find(obj => obj.id === id)
@@ -531,9 +531,9 @@ export const getSelectedDnaRows = createSelector(
   }
 );
 
-export const getTherapies =  createSelector(
-  getSelectedUpperTableRowId,
-  getActionableVariants,
+export const getActionableAlterationsDrugs = createSelector(
+  getSelectedActionableAlterationId,
+  getActionableAlterations,
   (id, data) => {
     return data
       .find(obj => obj.id === id)
@@ -565,7 +565,7 @@ export const checkIsAllDnaRowsSelected = createSelector(
 
 export const getSelectedVariants = createSelector(
   getDnaVariantsAsArray,
-  getActionableVariants,
+  getActionableAlterations,
   (variants, selectedVariants) => {
 
     if(variants.length > 0){

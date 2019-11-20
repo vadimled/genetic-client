@@ -1,13 +1,15 @@
 import React from "react";
-import { Input } from "antd";
 import PropTypes from "prop-types";
-import style from "./ClinicalTrials.module.scss";
 import cn from "classnames";
+import { Input } from "antd";
 import { ReactComponent as OkIcon } from "Assets/ok.svg";
 
+import style from "./ClinicalTrials.module.scss";
+
 const { TextArea } = Input;
+
 const ClinicalTrials = ({ data, onChange }) => {
-  const renderDescription = (
+  const renderClinicalTrial = (
     { source_description, drug_name, source_description_saved },
     index
   ) => {
@@ -32,14 +34,17 @@ const ClinicalTrials = ({ data, onChange }) => {
 
   return (
     <div className={style["clinical-trials-wrapper"]}>
-      {data && data.map((obj, index) => renderDescription(obj, index))}
+      {data && data.map((obj, index) => renderClinicalTrial(obj, index))}
     </div>
   );
 };
 
 ClinicalTrials.propTypes = {
   data: PropTypes.array,
-  onChange: PropTypes.func
+  onChange: PropTypes.func.isRequired
+};
+ClinicalTrials.defaultProps = {
+  data: []
 };
 
 export default ClinicalTrials;
