@@ -35,7 +35,7 @@ import {
   deleteFinalReportClinicalRowSaga,
   fetchFinalReportClinicalDataSaga,
   saveExpandedTextAreaContentSaga,
-  setActionableAlterationTherapiesDescriptionSaga
+  setActionableAlterationDrugsDescriptionSaga
 } from "./sagas";
 
 export function* watchSaga() {
@@ -85,10 +85,11 @@ export function* watchSaga() {
   //   takeEvery(types.FETCH_FINAL_REPORT_CLINICAL_DATA, fetchFinalReportClinicalDataSaga)
   // ]);
   yield takeEvery(types.FETCH_ACTIONABLE_ALTERATIONS, fetchActionableAlterationsSaga);
-  yield takeEvery(types.FETCH_FINAL_REPORT_CLINICAL_DATA, fetchFinalReportClinicalDataSaga);
   yield takeEvery(types.DELETE_ACTIONABLE_ALTERATION, deleteActionableAlterationSaga);
+
+  yield takeEvery(types.FETCH_FINAL_REPORT_CLINICAL_DATA, fetchFinalReportClinicalDataSaga);
   yield takeEvery(types.REMOVE_CLINICAL_SELECTED_ROW_FROM_STORE, deleteFinalReportClinicalRowSaga);
 
   yield takeLatest(types.SAVE_EXPANDED_TAB_TEXTAREA_CONTENT, saveExpandedTextAreaContentSaga);
-  yield takeLatest(types.SET_ACTIONABLE_ALTERATION_THERAPIES_DESCRIPTION, setActionableAlterationTherapiesDescriptionSaga);
+  yield takeLatest(types.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION, setActionableAlterationDrugsDescriptionSaga);
 }

@@ -22,7 +22,7 @@ import {
 import {
   setCurrentActionableTab,
   saveExpandedTextAreaContent,
-  setActionableAlterationTherapiesDescription
+  setActionableAlterationDrugsDescription
 } from "Actions/finalReportAction";
 import {
   ACTIONABLE_CATEGORIES_OPTIONS,
@@ -44,9 +44,9 @@ class ActionableDetailsContainer extends Component {
     });
   };
 
-  setActionableAlterationTherapiesDescription = e => {
+  setActionableAlterationDrugsDescription = e => {
     const { id, value } = e.target;
-    this.props.setActionableAlterationTherapiesDescription({
+    this.props.setActionableAlterationDrugsDescription({
       id,
       value
     });
@@ -63,7 +63,7 @@ class ActionableDetailsContainer extends Component {
       variantDescription,
       geneDescriptionSaved,
       variantDescriptionSaved,
-      therapies
+      grugs
     } = this.props;
 
     switch (value) {
@@ -82,8 +82,8 @@ class ActionableDetailsContainer extends Component {
         return (
           <Therapies
             key={"therapies"}
-            onChange={this.setActionableAlterationTherapiesDescription}
-            data={therapies}
+            onChange={this.setActionableAlterationDrugsDescription}
+            data={grugs}
           />
         );
       case ACTIONABLE_TABS_VALUES.clinicalTrials:
@@ -143,7 +143,7 @@ const mapStateToProps = state => {
     variantDescription: getVariantDescription(state),
     geneDescriptionSaved: getGeneDescriptionSaved(state),
     variantDescriptionSaved: getVariantDescriptionSaved(state),
-    therapies: getActionableAlterationsDrugs(state),
+    grugs: getActionableAlterationsDrugs(state),
   };
 };
 
@@ -151,7 +151,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setExpandedInterpretationTextArea: data => dispatch(saveExpandedTextAreaContent(data)),
     setCurrentActionableTab: key => dispatch(setCurrentActionableTab(key)),
-    setActionableAlterationTherapiesDescription: data => dispatch(setActionableAlterationTherapiesDescription(data))
+    setActionableAlterationDrugsDescription: data => dispatch(setActionableAlterationDrugsDescription(data))
   };
 }
 

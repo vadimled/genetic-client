@@ -87,7 +87,6 @@ const finalReportReducer = createReducer(initialState, {
   },
 
   [actionsTypes.DELETE_ACTIONABLE_ALTERATION_FROM_STORE]: (state, { payload }) => {
-    console.log("payload", payload);
     const newActionableAlterations = state.actionableAlterations.filter(
       obj => obj?.id !== payload
     );
@@ -305,7 +304,7 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_ACTIONABLE_ALTERATION_THERAPIES_DESCRIPTION_SAVED]: (state, { payload }) => {
+  [actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION_SAVED]: (state, { payload }) => {
     const getActionableVariant =
       state.actionableAlterations
         .find(obj => obj.id === state.selectedActionableAlterationId);

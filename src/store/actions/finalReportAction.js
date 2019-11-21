@@ -141,16 +141,16 @@ export function setToStoreTherapiesTextArea(data) {
     payload: data
   };
 }
-export function setActionableAlterationTherapiesDescription(data) {
+export function setActionableAlterationDrugsDescription(data) {
   return {
-    type: actionsTypes.SET_ACTIONABLE_ALTERATION_THERAPIES_DESCRIPTION,
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION,
     payload: data
   };
 }
 
-export function setActionableAlterationTherapiesDescriptionSaved(data) {
+export function setActionableAlterationDrugsDescriptionSaved(data) {
   return {
-    type: actionsTypes.SET_ACTIONABLE_ALTERATION_THERAPIES_DESCRIPTION_SAVED,
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION_SAVED,
     payload: data
   };
 }

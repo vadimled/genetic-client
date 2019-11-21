@@ -85,7 +85,7 @@ import {
   setExpandedInterpretationTextArea,
   setExpandedTextAreaContentSaved,
   setToStoreTherapiesTextArea,
-  setActionableAlterationTherapiesDescriptionSaved
+  setActionableAlterationDrugsDescriptionSaved
 } from "Actions/finalReportAction";
 
 function* onDelay(time) {
@@ -964,7 +964,7 @@ export function* saveExpandedTextAreaContentSaga(action){
   }
 
 }
-export function* setActionableAlterationTherapiesDescriptionSaga(action){
+export function* setActionableAlterationDrugsDescriptionSaga(action){
 
   try {
     yield put(setToStoreTherapiesTextArea(action.payload));
@@ -974,13 +974,13 @@ export function* setActionableAlterationTherapiesDescriptionSaga(action){
     console.log("-----Call API----");
     /* const { data } = yield call(saveTherapiesTextAreaApi, action);*/
 
-    yield put(setActionableAlterationTherapiesDescriptionSaved(action.payload?.id));
+    yield put(setActionableAlterationDrugsDescriptionSaved(action.payload?.id));
     yield put(setLoading(false));
   }
   catch (e) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {
-      scope.setFingerprint(["setActionableAlterationTherapiesDescriptionSaga"]);
+      scope.setFingerprint(["setActionableAlterationDrugsDescriptionSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);

@@ -537,7 +537,7 @@ export const getActionableAlterationsDrugs = createSelector(
   (id, data) => {
     return data
       .find(obj => obj.id === id)
-      .therapies;
+      .drugs;
   }
 );
 
