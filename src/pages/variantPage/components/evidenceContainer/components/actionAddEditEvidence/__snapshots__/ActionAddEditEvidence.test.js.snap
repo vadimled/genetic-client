@@ -32,6 +32,13 @@ exports[`<ActionAddEditEvidence /> snapshot 1`] = `
               class="ant-select-selection__rendered"
             >
               <div
+                class="ant-select-selection__placeholder"
+                style="display: none; user-select: none;"
+                unselectable="on"
+              >
+                Select type
+              </div>
+              <div
                 class="ant-select-selection-selected-value"
                 style="display: block; opacity: 1;"
                 title=""
@@ -84,7 +91,7 @@ exports[`<ActionAddEditEvidence /> snapshot 1`] = `
           Source
         </label>
         <input
-          class="ant-input form-item-source"
+          class="ant-input form-item-input-text"
           id="evidence-source"
           name="evidenceSourceInput"
           placeholder="Paste source"
@@ -119,6 +126,13 @@ exports[`<ActionAddEditEvidence /> snapshot 1`] = `
             <div
               class="ant-select-selection__rendered"
             >
+              <div
+                class="ant-select-selection__placeholder"
+                style="display: none; user-select: none;"
+                unselectable="on"
+              >
+                Select LEVEL
+              </div>
               <div
                 class="ant-select-selection-selected-value"
                 style="display: block; opacity: 1;"
@@ -163,6 +177,23 @@ exports[`<ActionAddEditEvidence /> snapshot 1`] = `
             </span>
           </div>
         </div>
+      </div>
+      <div
+        class="form-item"
+      >
+        <label
+          for="evidence-source"
+        >
+          Reference
+        </label>
+        <input
+          class="ant-input form-item-input-text"
+          id="evidence-reference"
+          name="evidenceReferenceInput"
+          placeholder="Paste references separated by the coma"
+          type="text"
+          value=""
+        />
       </div>
       <div
         class="form-item"

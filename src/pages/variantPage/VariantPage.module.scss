@@ -35,6 +35,7 @@
     transition: 0.4s ease;
     transform: translate(-155px, 0px);
     margin-right: 20px;
+    overflow-y: auto;
 
     &.links-wrapper-open {
       transition: 0.4s ease;
@@ -48,10 +49,10 @@
     }
 
     .main-data {
-      display: flex;
+      // display: flex;
       height: calc(100vh - 170px);
       justify-content: space-between;
-      flex-direction: column;
+      // flex-direction: column;
 
       .history {
         display: flex;

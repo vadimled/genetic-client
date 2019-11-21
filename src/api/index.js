@@ -78,6 +78,11 @@ export function setTumorInfoApi(data) {
   });
 }
 
+export function patchTestApi(params) {
+  const { testId, data } = params;
+  return axios_based.patch(`/tests/${testId}`, data);
+}
+
 export function fetchVariantMetadataDataApi(data) {
   const { testId, variantId } = data.payload;
   return axios_based.get(`/tests/${testId}/variants/${variantId}/`);

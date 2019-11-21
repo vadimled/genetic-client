@@ -23,6 +23,7 @@ import {
   handleConfirmationStatusSaga,
   exportTableSaga,
   setTumorInfoSaga,
+  saveTestPhenotypeSaga,
   saveUserPreferencesFiltersSaga,
   saveUserPreferencesSortingSaga,
   fetchUserPreferencesSaga,
@@ -71,6 +72,7 @@ export function* watchSaga() {
   ]);
   yield takeEvery(types.EXPORT_TABLE, exportTableSaga);
   yield takeEvery(types.SET_TUMOR_INFO, setTumorInfoSaga);
+  yield takeEvery(types.SAVE_TEST_PHENOTYPE, saveTestPhenotypeSaga);
 
   yield takeEvery(types.SAVE_USER_PREFERENCES_FILTERS, saveUserPreferencesFiltersSaga);
   yield takeEvery(types.SAVE_USER_PREFERENCES_SORTING, saveUserPreferencesSortingSaga);

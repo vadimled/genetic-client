@@ -22,7 +22,8 @@ import {
   goToChrPositionIgv,
   loadHgvsApi,
   sendVariantToConfirmation,
-  setTumorInfoApi,
+  // setTumorInfoApi,
+  patchTestApi,
   updateUserPreferencesApi,
   updateVariantApi
 } from "Api/index";
@@ -266,13 +267,17 @@ export function* goToChrPositionIgvSaga(data) {
 
 export function* sendForConfirmationSaga(data) {
   try {
-    // -> API request
-
     yield confirmationDataValidation(data.payload.variants);
 
     yield put(applyConfirmation(data.payload));
     yield put(setConfirmationData(null));
     yield put(handleOnConfirmation(false)); // hide confirmation popup
+    yield put(
+      setAlert({
+        status: ALERT_STATUSES.success,
+        title: "Form has been sent successfully",
+      })
+    );
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["sendForConfirmationSaga"]);
@@ -504,11 +509,20 @@ export function* fetchTableDataSaga(action) {
 
 export function* setTumorInfoSaga(action) {
   try {
+    const { payload: { testId, name, value }} = action;
+
     yield put(setTumorInfoLoading(true));
-    const { status, data } = yield call(setTumorInfoApi, action);
-    if (status === 200) {
-      yield put(setTestData(data));
-    }
+
+    const { data } = yield call(patchTestApi, {
+      testId,
+      data: {
+        tumor_info: {
+          [name]: value
+        }
+      }
+    });
+
+    yield put(setTestData(data));
     yield put(setTumorInfoLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
@@ -516,6 +530,33 @@ export function* setTumorInfoSaga(action) {
       Sentry.captureException(e);
     });
     yield put(setTumorInfoLoading(false));
+    yield handleErrors(e);
+  }
+}
+
+export function* saveTestPhenotypeSaga(action) {
+  try {
+    const { payload: { testId, phenotype }} = action;
+
+    yield put(setLoading(true));
+    console.log(action);
+    const { data } = yield call(patchTestApi, {
+      testId,
+      data: {
+        phenotype
+      }
+    });
+
+    yield put(setTestData(data));
+
+    yield put(setLoading(false));
+  }
+  catch(err) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["saveTestPhenotypeSaga"]);
+      Sentry.captureException(e);
+    });
+    yield put(setLoading(false));
     yield handleErrors(e);
   }
 }
@@ -742,41 +783,39 @@ export function* fetchUserPreferencesSaga({ payload }) {
 }
 
 export function* applyConfirmationSaga(data) {
-  const newData = Object.assign({}, data);
-
-  const variants = newData.payload.variants.map(variant => {
-    return {
-      variant_id: variant.id,
-      primers: variant.additionConfirmationData.map(item => {
-        return {
-          primer: item.primer,
-          fragment_size: item.fragmentSize,
-          instructions: item.notes
-        };
-      })
-    };
-  });
-
-  const { testId } = newData.payload;
-
-  const dataToSend = {
-    variants: variants,
-    testId: testId
-  };
-
   try {
+    const newData = Object.assign({}, data);
+
+    const variants = newData.payload.variants.map(variant => {
+      return {
+        variant_id: variant.id,
+        primers: variant.additionConfirmationData.map(item => {
+          return {
+            primer: item.primer,
+            fragment_size: item.fragmentSize,
+            instructions: item.notes
+          };
+        })
+      };
+    });
+
+    const { testId } = newData.payload;
+
+    const dataToSend = {
+      variants: variants,
+      testId: testId
+    };
+
     yield put(setTableReducerLoading(true));
 
-    const result = yield call(sendVariantToConfirmation, dataToSend);
+    yield call(sendVariantToConfirmation, dataToSend);
 
-    if (result?.status === 200) {
-      yield put(
-        applyConfirmationSuccess(
-          // check why notes does not return from server
-          newData.payload.variants
-        )
-      );
-    }
+    yield put(
+      applyConfirmationSuccess(
+        // check why notes does not return from server
+        newData.payload.variants
+      )
+    );
 
     yield put(setTableReducerLoading(false));
   } catch (e) {

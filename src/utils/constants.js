@@ -635,6 +635,228 @@ export const EVIDENCE_LEVEL_OPTIONS = [
   { value: "none", label: "None", type: TEXTS.somatic }
 ];
 
+export const EVIDENCE_TABLE_COLUMNS = {
+  [EC_VALUES.publications]: [
+    { key: "1", title: "Date", dataIndex: "created_at", width: 140 },
+    { key: "2", title: "Source and Description", dataIndex: "source_description", width: 200 },
+    { key: "3", title: "Level", dataIndex: "level", width: 100 },
+    { key: "4", title: "Reference", dataIndex: "reference", width: 100 },
+    { key: "5", title: "Actions", dataIndex: "actions", width: 100 }
+  ],
+  [EC_VALUES.frequency]: [
+    { key: "1", title: "Date", dataIndex: "created_at", width: 140 },
+    { key: "2", title: "Source and Description", dataIndex: "source_description", width: 800 },
+    { key: "3", title: "Level", dataIndex: "level", width: 100 },
+    { key: "4", title: "Actions", dataIndex: "actions", width: 100 }
+  ],
+  [EC_VALUES.silicoPredictor]: [
+    { key: "1", title: "Date", dataIndex: "created_at", width: 140 },
+    { key: "2", title: "Source and Description", dataIndex: "source_description", width: 800 },
+    { key: "3", title: "Level", dataIndex: "level", width: 100 },
+    { key: "4", title: "Actions", dataIndex: "actions", width: 100 }
+  ],
+  [EC_VALUES.variantDB]: [
+    { key: "1", title: "Date", dataIndex: "created_at", width: 140 },
+    { key: "2", title: "Source and Description", dataIndex: "source_description", width: 800 },
+    { key: "3", title: "Level", dataIndex: "level", width: 100 },
+    { key: "4", title: "Actions", dataIndex: "actions", width: 100 }
+  ],
+  [EC_VALUES.drug]: [
+    { key: "1", title: "Date", dataIndex: "created_at", width: 140 },
+    { key: "2", title: "Drug name", dataIndex: "drug_name", width: 100 },
+    { key: "3", title: "Source and Description", dataIndex: "source_description", width: 200 },
+    { key: "4", title: "Indication", dataIndex: "indication", width: 100 },
+    { key: "5", title: "Match", dataIndex: "is_phenotype_and_indication_match", width: 100 },
+    { key: "6", title: "Level", dataIndex: "level", width: 100 },
+    { key: "7", title: "Phenotype", dataIndex: "phenotype", width: 100 },
+    { key: "8", title: "Actions", dataIndex: "actions", width: 100 }
+  ],
+  [EC_VALUES.clinicalTrials]: [
+    { key: "1", title: "Date", dataIndex: "created_at", width: 140 },
+    { key: "2", title: "Drug name", dataIndex: "drug_name", width: 100 },
+    { key: "3", title: "Source and Description", dataIndex: "source_description", width: 200 },
+    { key: "4", title: "Indication", dataIndex: "indication", width: 100 },
+    { key: "5", title: "Trial id", dataIndex: "trial_id", width: 100 },
+    { key: "6", title: "Location", dataIndex: "location", width: 100 },
+    { key: "7", title: "Level", dataIndex: "level", width: 100 },
+    { key: "8", title: "Phenotype", dataIndex: "phenotype", width: 100 },
+    { key: "9", title: "Actions", dataIndex: "actions", width: 100 }
+  ],
+  [EC_VALUES.indelNonsense]: [
+    { key: "1", title: "Date", dataIndex: "created_at", width: 140 },
+    { key: "2", title: "Source and Description", dataIndex: "source_description", width: 800 },
+    { key: "3", title: "Level", dataIndex: "level", width: 100 },
+    { key: "4", title: "Actions", dataIndex: "actions", width: 100 }
+  ],
+  [EC_VALUES.mechanismDisease]: [
+    { key: "1", title: "Date", dataIndex: "created_at", width: 140 },
+    { key: "2", title: "Source and Description", dataIndex: "source_description", width: 800 },
+    { key: "3", title: "Level", dataIndex: "level", width: 100 },
+    { key: "4", title: "Actions", dataIndex: "actions", width: 100 }
+  ],
+  [EC_VALUES.segregation]: [
+    { key: "1", title: "Date", dataIndex: "created_at", width: 140 },
+    { key: "2", title: "Source and Description", dataIndex: "source_description", width: 800 },
+    { key: "3", title: "Level", dataIndex: "level", width: 100 },
+    { key: "4", title: "Actions", dataIndex: "actions", width: 100 }
+  ],
+  [EC_VALUES.proteinStructure]: [
+    { key: "1", title: "Date", dataIndex: "created_at", width: 140 },
+    { key: "2", title: "Source and Description", dataIndex: "source_description", width: 800 },
+    { key: "3", title: "Level", dataIndex: "level", width: 100 },
+    { key: "4", title: "Actions", dataIndex: "actions", width: 100 }
+  ],
+  [EC_VALUES.other]: [
+    { key: "1", title: "Date", dataIndex: "created_at", width: 140 },
+    { key: "2", title: "Source and Description", dataIndex: "source_description", width: 800 },
+    { key: "3", title: "Level", dataIndex: "level", width: 100 },
+    { key: "4", title: "Actions", dataIndex: "actions", width: 100 }
+  ],
+};
+
+export const LEVEL_COLOR = {
+  PVS1: "#CD0025",
+  PS1: "#D42B1F",
+  PS2: "#DF3125",
+  PS3: "#EB3629",
+  PS4: "#F44336",
+  PM1: "#FD502A",
+  PM2: "#FF613E",
+  PM3: "#FF763B",
+  PM4: "#FC8F52",
+  PM5: "#FC9F5C",
+  PM6: "#FEB16A",
+  PP1: "#FFBE5C",
+  PP2: "#FFCA62",
+  PP3: "#FFD772",
+  PP4: "#FCE673",
+  PP5: "#FEF17D",
+  BP1: "#D4F575",
+  BP2: "#A3EF58",
+  BP3: "#7BEB54",
+  BP4: "#4BE748",
+  BP5: "#59DE6E",
+  BP6: "#4ACD7F",
+  BP7: "#3EBF79",
+  BS1: "#78E8DA",
+  BS2: "#63DBEC",
+  BS3: "#49B7E6",
+  BS4: "#5389DA",
+  BA1: "#8D7DED",
+  A1: "#D70513",
+  A2: "#D70513",
+  B: "#F11E2C",
+  C1: "#FF835C",
+  C2: "#FF835C",
+  D: "#FED955",
+  None: "#424D55"
+};
+
+export const MATCH_ICONS = {
+  'true': 'Match',
+  'false': "Don't match"
+};
+
+export const EXTERNAL_RESOURCES_GERMLINE = [
+  "UCSC",
+  "ClinVar",
+  "ICGC",
+  "OncoKB",
+  "PMKB",
+  "Uniport",
+  "Varsome",
+  "dbSNP",
+  "gnomAD",
+  "Pubmed",
+  "Google Scholar",
+  "Damaging score"
+];
+
+export const EXTERNAL_RESOURCES_SOMATIC = [
+  "UCSC",
+  "ClinVar",
+  "ICGC",
+  "OncoKB",
+  "PMKB",
+  "Uniport",
+  "Varsome",
+  "dbSNP",
+  "gnomAD",
+  "COSMIC",
+  "Pubmed",
+  "Google Scholar",
+  "Damaging score"
+];
+
+export const ROUTES = {
+  isVariantPageRegex :"\\/tests\\/.+\\/variants\\/.+",
+  isSingleTestPageRegex :"\\/tests\\/?\\w+$",
+  isRootRegex: "^/$"
+};
+
+export const PANEL_TYPES = {
+  solid: 'solid',
+  hema: 'hema',
+  risk: 'risk'
+};
+
+export const DEFAULT_FILTERS = {
+  [PANEL_TYPES.solid]: {
+    [FILTERS.variantClassGermline]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+    [FILTERS.variantClassSomatic]: ['unclassified', 'tier1', 'tier2', 'tier3'],
+    [FILTERS.gnomAD]: ['na', 'veryRare'],
+    [FILTERS.vaf]: [1, 100],
+    [FILTERS.snp]: [],
+    [FILTERS.roi]: [],
+    [FILTERS.cancerDBs]: [],
+    [FILTERS.zygosity]: [],
+    [FILTERS.effect]: [],
+  },
+  [PANEL_TYPES.hema]: {
+    [FILTERS.variantClassGermline]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+    [FILTERS.variantClassSomatic]: ['unclassified', 'tier1', 'tier2', 'tier3'],
+    [FILTERS.gnomAD]: ['na', 'veryRare'],
+    [FILTERS.vaf]: [1, 100],
+    [FILTERS.snp]: [],
+    [FILTERS.roi]: [],
+    [FILTERS.cancerDBs]: [],
+    [FILTERS.zygosity]: [],
+    [FILTERS.effect]: [],
+  },
+  [PANEL_TYPES.risk]: {
+    [FILTERS.variantClassGermline]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
+    [FILTERS.variantClassSomatic]: ['unclassified', 'tier1', 'tier2', 'tier3'],
+    [FILTERS.vaf]: [30, 100],
+    [FILTERS.snp]: [],
+    [FILTERS.roi]: [],
+    [FILTERS.cancerDBs]: [],
+    [FILTERS.zygosity]: [],
+    [FILTERS.effect]: [],
+  }
+};
+
+export const NAV_STATUS = {
+  alterations :" Actionable alterations",
+  clinical: "Uncertain clinical significance"
+};
+
+export const ACTIONABLE_TABS_VALUES = {
+  expanded: "expanded_interpretation",
+  therapies: "therapies",
+  clinicalTrials: "clinical_trials"
+};
+
+export const ACTIONABLE_CATEGORIES_OPTIONS = [
+  { value: ACTIONABLE_TABS_VALUES.expanded, label: "Expanded interpretation" },
+  { value: ACTIONABLE_TABS_VALUES.therapies, label: "Therapies" },
+  { value: ACTIONABLE_TABS_VALUES.clinicalTrials, label: "Clinical trials" },
+];
+
+export const TEXTAREA_NAME = {
+  geneDescription: "geneDescriptionTextarea",
+  variantDescription: "variantDescriptionTextarea"
+};
+
 export const COUNTRIES = [
   { label: 'Afghanistan', value: 'AF' },
   { label: 'Åland Islands', value: 'AX' },
@@ -880,142 +1102,3 @@ export const COUNTRIES = [
   { label: 'Zambia', value: 'ZM' },
   { label: 'Zimbabwe', value: 'ZW' }
 ];
-
-export const LEVEL_COLOR = {
-  PVS1: "#CD0025",
-  PS1: "#D42B1F",
-  PS2: "#DF3125",
-  PS3: "#EB3629",
-  PS4: "#F44336",
-  PM1: "#FD502A",
-  PM2: "#FF613E",
-  PM3: "#FF763B",
-  PM4: "#FC8F52",
-  PM5: "#FC9F5C",
-  PM6: "#FEB16A",
-  PP1: "#FFBE5C",
-  PP2: "#FFCA62",
-  PP3: "#FFD772",
-  PP4: "#FCE673",
-  PP5: "#FEF17D",
-  BP1: "#D4F575",
-  BP2: "#A3EF58",
-  BP3: "#7BEB54",
-  BP4: "#4BE748",
-  BP5: "#59DE6E",
-  BP6: "#4ACD7F",
-  BP7: "#3EBF79",
-  BS1: "#78E8DA",
-  BS2: "#63DBEC",
-  BS3: "#49B7E6",
-  BS4: "#5389DA",
-  BA1: "#8D7DED",
-  A1: "#D70513",
-  A2: "#D70513",
-  B: "#F11E2C",
-  C1: "#FF835C",
-  C2: "#FF835C",
-  D: "#FED955",
-  None: "#424D55"
-};
-
-
-export const EXTERNAL_RESOURCES_GERMLINE = [
-  "UCSC",
-  "ClinVar",
-  "ICGC",
-  "OncoKB",
-  "PMKB",
-  "Uniport",
-  "Varsome",
-  "dbSNP",
-  "gnomAD",
-  "Pubmed",
-  "Google Scholar",
-  "Damaging score"
-];
-
-export const EXTERNAL_RESOURCES_SOMATIC = [
-  "UCSC",
-  "ClinVar",
-  "ICGC",
-  "OncoKB",
-  "PMKB",
-  "Uniport",
-  "Varsome",
-  "dbSNP",
-  "gnomAD",
-  "COSMIC",
-  "Pubmed",
-  "Google Scholar",
-  "Damaging score"
-];
-
-export const ROUTES = {
-  isVariantPageRegex :"\\/tests\\/.+\\/variants\\/.+",
-  isSingleTestPageRegex :"\\/tests\\/?\\w+$",
-  isRootRegex: "^/$"
-};
-
-export const PANEL_TYPES = {
-  solid: 'solid',
-  hema: 'hema',
-  risk: 'risk'
-};
-
-export const DEFAULT_FILTERS = {
-  [PANEL_TYPES.solid]: {
-    [FILTERS.variantClassGermline]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
-    [FILTERS.variantClassSomatic]: ['unclassified', 'tier1', 'tier2', 'tier3'],
-    [FILTERS.gnomAD]: ['na', 'veryRare'],
-    [FILTERS.vaf]: [1, 100],
-    [FILTERS.snp]: [],
-    [FILTERS.roi]: [],
-    [FILTERS.cancerDBs]: [],
-    [FILTERS.zygosity]: [],
-    [FILTERS.effect]: [],
-  },
-  [PANEL_TYPES.hema]: {
-    [FILTERS.variantClassGermline]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
-    [FILTERS.variantClassSomatic]: ['unclassified', 'tier1', 'tier2', 'tier3'],
-    [FILTERS.gnomAD]: ['na', 'veryRare'],
-    [FILTERS.vaf]: [1, 100],
-    [FILTERS.snp]: [],
-    [FILTERS.roi]: [],
-    [FILTERS.cancerDBs]: [],
-    [FILTERS.zygosity]: [],
-    [FILTERS.effect]: [],
-  },
-  [PANEL_TYPES.risk]: {
-    [FILTERS.variantClassGermline]: ['unclassified', 'path', 'lpath', 'vus', 'lben'],
-    [FILTERS.variantClassSomatic]: ['unclassified', 'tier1', 'tier2', 'tier3'],
-    [FILTERS.vaf]: [30, 100],
-    [FILTERS.snp]: [],
-    [FILTERS.roi]: [],
-    [FILTERS.cancerDBs]: [],
-    [FILTERS.zygosity]: [],
-    [FILTERS.effect]: [],
-  }
-};
-
-export const NAV_STATUS = {
-  alterations :" Actionable alterations",
-  clinical: "Uncertain clinical significance"
-};
-
-export const ACTIONABLE_TABS_VALUES = {
-  expanded: "expanded_interpretation",
-  therapies: "therapies",
-  clinicalTrials: "clinical_trials"
-};
-
-export const ACTIONABLE_CATEGORIES_OPTIONS = [
-  { value: ACTIONABLE_TABS_VALUES.expanded, label: "Expanded interpretation" },
-  { value: ACTIONABLE_TABS_VALUES.therapies, label: "Therapies" },
-  { value: ACTIONABLE_TABS_VALUES.clinicalTrials, label: "Clinical trials" },
-];
-
-export const TEXTAREA_NAME = {
-  geneDescription: "geneDescriptionTextarea",
-  variantDescription: "variantDescriptionTextarea"
-};

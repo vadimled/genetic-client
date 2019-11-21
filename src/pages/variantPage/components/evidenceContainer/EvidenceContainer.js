@@ -1,18 +1,21 @@
 import React, { Component } from "react";
-import style from "./EvidenceContainer.module.scss";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Tabs } from "antd";
+
+import style from "./EvidenceContainer.module.scss";
+
 import TabPaneHeader from "variantComponents/evidenceContainer/components/tabPaneHeader";
 import EvidenceTable from "variantComponents/evidenceContainer/components/evidenceTable";
 import ActionDeleteEvidence from "variantComponents/evidenceContainer/components/actionDeleteEvidence";
+import SimpleButton from "GenericComponents/simpleButton";
+
 import {
   getEvidenceConfigId,
   getSubmitData,
   getTabPaneHeaders,
   getCurrentEvidenceTab
 } from "Store/selectors";
-import { connect } from "react-redux";
-import SimpleButton from "GenericComponents/simpleButton";
 import {
   cleanEvidenceActionData,
   deleteEvidenceEntry,
@@ -68,11 +71,11 @@ class EvidenceContainer extends Component {
     this.setState({ showPopupDelete: !this.state.showPopupDelete });
     this.props.cleanData();
   };
-  
+
   onTabClicked = key => {
     this.props.setCurrentEvidenceTab(key);
   };
-  
+
   render() {
     const { tabPaneHeaders, currentEvidenceTab } = this.props;
     return (

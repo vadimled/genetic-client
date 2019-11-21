@@ -1040,13 +1040,15 @@ export const getEvidenceData = data => {
   return newData;
 };
 
-export const createVaf = numb => {
+export const convertVaf = numb => {
   if (numb) {
     return Math.round(parseFloat(numb) * 100);
   } else {
     return 0;
   }
 };
+
+export const convertCoverage = numb => parseInt(numb, 10);
 
 const getAlleleChange = (ref, alt) => `${ref} > ${alt}`;
 
@@ -1178,10 +1180,8 @@ const createNewTableDataItem = ({
     newObj.zygosity = zygosity;
     newObj.protein = hgvs_p;
     newObj.proteinWholly = hgvs_p;
-    newObj.dp = dp;
-    newObj.coverage = parseInt(dp, 10);
-    newObj.percentageVariants = percentage_variants;
-    newObj.vaf = createVaf(percentage_variants);
+    newObj.coverage = dp;
+    newObj.vaf = percentage_variants;
     newObj.notes = notes;
     newObj.coding = hgvs_c;
     newObj.codingLong = hgvs_c;
