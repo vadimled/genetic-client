@@ -101,9 +101,9 @@ export function setSelectedActionableAlterationId(id) {
   };
 }
 
-export function setCurrentActionableTab(data) {
+export function setCurrentActionableAlterationTab(data) {
   return {
-    type: actionsTypes.SET_CURRENT_ACTIONABLE_TAB,
+    type: actionsTypes.SET_CURRENT_ACTIONABLE_ALTERATION_TAB,
     payload: data
   };
 }
@@ -122,16 +122,23 @@ export function setActionableAlterationExpandedInterpretation(data) {
   };
 }
 
-export function setExpandedTextAreaContentSaved(data) {
-  return {
-    type: actionsTypes.SET_EXPANDED_TAB_TEXTAREA_CONTENT_SAVED,
-    payload: data
-  };
-}
+// export function setExpandedTextAreaContentSaved(data) {
+//   return {
+//     type: actionsTypes.SET_EXPANDED_TAB_TEXTAREA_CONTENT_SAVED,
+//     payload: data
+//   };
+// }
 
 export function setIsSelectVariants() {
   return {
     type: actionsTypes.SET_IS_SELECT_VARIANTS
+  };
+}
+
+export function setActionableAlterationDrugsDescription(data) {
+  return {
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION,
+    payload: data
   };
 }
 
@@ -141,16 +148,24 @@ export function setActionableAlterationDrugsDescriptionToStore(data) {
     payload: data
   };
 }
-export function setActionableAlterationDrugsDescription(data) {
+
+export function setActionableAlterationClinicalTrial(data) {
   return {
-    type: actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION,
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_CLINICAL_TRIAL,
     payload: data
   };
 }
 
-export function setActionableAlterationDrugsDescriptionSaved(data) {
+export function setActionableAlterationClinicalTrialToStore(data) {
   return {
-    type: actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION_SAVED,
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_CLINICAL_TRIAL_TO_STORE,
     payload: data
   };
 }
+
+// export function setActionableAlterationDrugsDescriptionSaved(data) {
+//   return {
+//     type: actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION_SAVED,
+//     payload: data
+//   };
+// }

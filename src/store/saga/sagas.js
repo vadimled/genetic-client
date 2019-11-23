@@ -32,9 +32,15 @@ import {
   postAtionableAlterationsApi,
   deleteAtionableAlterationsApi,
   patchActionableAlterationsApi,
-  patchActionableAlterationsDrugsApi
+  patchActionableAlterationsDrugsApi,
+  patchActionableAlterationsClinicalTrialsApi,
 } from "Api/index";
-import { handleIgvAlertShow, setBamUrlToStore, setFetchBAMFileStatus, setIgvLastQuery } from "Actions/igvActions";
+import {
+  handleIgvAlertShow,
+  setBamUrlToStore,
+  setFetchBAMFileStatus,
+  setIgvLastQuery
+} from "Actions/igvActions";
 import {
   applyConfirmation,
   applyConfirmationSuccess,
@@ -47,8 +53,13 @@ import {
   tableDataAddResult,
   updateVariantInTableData
 } from "Actions/tableActions";
-import { handleOnConfirmation, setConfirmationData } from "Actions/confirmationActions";
-import { setAlert } from "Actions/alertActions";
+import {
+  handleOnConfirmation,
+  setConfirmationData
+} from "Actions/confirmationActions";
+import {
+  setAlert
+} from "Actions/alertActions";
 import {
   handleResultConfigCoding,
   handleResultConfigIsHgvsLoaded,
@@ -57,9 +68,18 @@ import {
   handleResultConfigValidationFaildFields,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
-import { setLoading, setTestData, setTumorInfoLoading } from "Actions/testActions";
-import { setTestsLoading, setTestsToStore } from "Actions/testsActions";
-import { setMutationType } from "Actions/variantsActions";
+import {
+  setLoading,
+  setTestData,
+  setTumorInfoLoading
+} from "Actions/testActions";
+import {
+  setTestsLoading,
+  setTestsToStore
+} from "Actions/testsActions";
+import {
+  setMutationType
+} from "Actions/variantsActions";
 import {
   deleteEvidenceFromStore,
   setClassificationHistoryToStore,
@@ -80,10 +100,20 @@ import {
   parseTableData,
   parseTableDataObj
 } from "Utils/helpers";
-import { cleanEvidenceActionData, setCurrentEvidenceTab } from "Actions/evidenceConfigActions";
-import { setConfirmationPageMetadataToStore } from "Actions/confirmationPageActions";
-import { saveUserPreferencesFilters, setDefaultFilters } from "Actions/filtersActions";
-// import { setVariantsDataToStore } from "Actions/finalReportAction";
+import {
+  cleanEvidenceActionData,
+  setCurrentEvidenceTab
+} from "Actions/evidenceConfigActions";
+import {
+  setConfirmationPageMetadataToStore
+} from "Actions/confirmationPageActions";
+import {
+  saveUserPreferencesFilters,
+  setDefaultFilters
+} from "Actions/filtersActions";
+// import {
+//   setVariantsDataToStore
+// } from "Actions/finalReportAction";
 import {
   deleteActionableAlterationFromStore,
   removeClinicalSelectedRowFromStore,
@@ -92,7 +122,8 @@ import {
   setActionableAlterationExpandedInterpretationToStore,
   // setExpandedTextAreaContentSaved,
   setActionableAlterationDrugsDescriptionToStore,
-  // setActionableAlterationDrugsDescriptionSaved
+  // setActionableAlterationDrugsDescriptionSaved,
+  setActionableAlterationClinicalTrialToStore,
 } from "Actions/finalReportAction";
 
 function* onDelay(time) {
@@ -989,7 +1020,7 @@ export function* deleteFinalReportClinicalRowSaga(action){
 }
 export function* setActionableAlterationExpandedInterpretationSaga(action){
   try {
-    const { testId, actionableAlterationId, name, value } = action.payload;
+    const { testId, actionableAlterationId, field, value } = action.payload;
     yield put(setActionableAlterationExpandedInterpretationToStore(action.payload));
 
     yield call(patchActionableAlterationsApi, {
@@ -997,7 +1028,7 @@ export function* setActionableAlterationExpandedInterpretationSaga(action){
       actionableAlterationId,
       body: {
         expanded_interpretation: {
-          [name]: value
+          [field]: value
         }
       }
     });
@@ -1036,5 +1067,27 @@ export function* setActionableAlterationDrugsDescriptionSaga(action){
     });
     yield handleErrors(e);
   }
+}
 
+export function* setActionableAlterationClinicalTrialSaga(action){
+  try {
+    const { testId, actionableAlterationId, actionablealterationClinicalTrialId, field, value } = action.payload;
+    yield put(setActionableAlterationClinicalTrialToStore(action.payload));
+
+    yield call(patchActionableAlterationsClinicalTrialsApi, {
+      testId,
+      actionableAlterationId,
+      actionablealterationClinicalTrialId,
+      body: {
+        [field]: value
+      }
+    });
+  }
+  catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["setActionableAlterationClinicalTrialSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
 }

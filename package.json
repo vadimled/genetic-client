@@ -83,6 +83,7 @@
     "fix:js": "yarn lint:js --fix",
     "fix": "yarn fix:js && yarn fix:other",
     "prettier": "prettier \"**/*.{json,md,scss,yaml,yml}\"",
+    "prettier:write": "prettier --write \"**/*.{json,md,scss,yaml,yml}\"",
     "lint:other": "yarn prettier --list-different",
     "lint:js": "eslint \"src/**/*.{js,jsx}\"",
     "lint": "yarn lint:other && yarn lint:js"

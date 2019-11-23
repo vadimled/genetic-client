@@ -36,7 +36,8 @@ import {
   deleteFinalReportClinicalRowSaga,
   fetchFinalReportClinicalDataSaga,
   setActionableAlterationExpandedInterpretationSaga,
-  setActionableAlterationDrugsDescriptionSaga
+  setActionableAlterationDrugsDescriptionSaga,
+  setActionableAlterationClinicalTrialSaga,
 } from "./sagas";
 
 export function* watchSaga() {
@@ -94,4 +95,5 @@ export function* watchSaga() {
 
   yield takeLatest(types.SET_ACTIONABLE_ALTERATION_EXPANDED_INTERPRETATION, setActionableAlterationExpandedInterpretationSaga);
   yield takeLatest(types.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION, setActionableAlterationDrugsDescriptionSaga);
+  yield takeLatest(types.SET_ACTIONABLE_ALTERATION_CLINICAL_TRIAL, setActionableAlterationClinicalTrialSaga);
 }

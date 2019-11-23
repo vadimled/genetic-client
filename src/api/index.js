@@ -209,6 +209,10 @@ export function patchActionableAlterationsDrugsApi(params) {
   return axios_based.patch(`/tests/${testId}/actionablealterations/${actionableAlterationId}/drugs/${actionablealterationDrugId}`, body);
 }
 
+export function patchActionableAlterationsClinicalTrialsApi(params) {
+  const { testId, actionableAlterationId, actionablealterationClinicalTrialId, body } = params;
+  return axios_based.patch(`/tests/${testId}/actionablealterations/${actionableAlterationId}/clinical_trials/${actionablealterationClinicalTrialId}`, body);
+}
 
 
 

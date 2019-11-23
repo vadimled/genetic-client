@@ -14,17 +14,19 @@ import style from "./ActionableDetailsContainer.module.scss";
 import {
   getTestId,
   getSelectedActionableAlterationId,
-  getCurrentActionableTab,
+  getCurrentActionableAlterationTab,
   getActionableAlterationGeneDescription,
   getActionableAlterationVariantDescription,
   getActionableAlterationGeneDescriptionSaved,
   getActionableAlterationVariantDescriptionSaved,
-  getActionableAlterationsDrugs
+  getActionableAlterationsDrugs,
+  getActionableAlterationsClinicalTrials
 } from "Store/selectors";
 import {
-  setCurrentActionableTab,
+  setCurrentActionableAlterationTab,
   setActionableAlterationExpandedInterpretation,
-  setActionableAlterationDrugsDescription
+  setActionableAlterationDrugsDescription,
+  setActionableAlterationClinicalTrial,
 } from "Actions/finalReportAction";
 import {
   ACTIONABLE_CATEGORIES_OPTIONS,
@@ -35,7 +37,7 @@ const { TabPane } = Tabs;
 
 class ActionableDetailsContainer extends Component {
   onTabClicked = key => {
-    this.props.setCurrentActionableTab(key);
+    this.props.setCurrentActionableAlterationTab(key);
   };
 
   handleActionableAlterationExpandedInterpretation = e => {
@@ -44,7 +46,7 @@ class ActionableDetailsContainer extends Component {
     this.props.setActionableAlterationExpandedInterpretation({
       testId: testId,
       actionableAlterationId: selectedActionableAlterationId,
-      name,
+      field: name,
       value
     });
   };
@@ -60,9 +62,17 @@ class ActionableDetailsContainer extends Component {
     });
   };
 
-  handleClinicalTrials = e => {
-    console.log("e", e);
+  handleClinicalTrials = (field, e) => {
+    const { testId, selectedActionableAlterationId } = this.props;
+    const { id, value } = e.target;
 
+    this.props.setActionableAlterationClinicalTrial({
+      testId: testId,
+      actionableAlterationId: selectedActionableAlterationId,
+      actionablealterationClinicalTrialId: id,
+      field,
+      value
+    });
   };
 
   renderContent = value => {
@@ -71,7 +81,8 @@ class ActionableDetailsContainer extends Component {
       actionableAlterationVariantDescription,
       actionableAlterationGeneDescriptionSaved,
       actionableAlterationVariantDescriptionSaved,
-      grugs
+      grugs,
+      clinicalTrials
     } = this.props;
 
     switch (value) {
@@ -98,7 +109,7 @@ class ActionableDetailsContainer extends Component {
         return (
           <ClinicalTrial
             key={"clinical-trials"}
-            data={[]}
+            data={clinicalTrials}
             onChange={this.handleClinicalTrials}
           />
         );
@@ -106,12 +117,12 @@ class ActionableDetailsContainer extends Component {
   };
 
   render() {
-    const { currentActionableTab } = this.props;
+    const { currentActionableAlterationTab } = this.props;
     return (
       <div className={style["actionable-details-container-wrapper"]}>
         <Tabs
           size={"large"}
-          activeKey={currentActionableTab}
+          activeKey={currentActionableAlterationTab}
           onChange={this.onTabClicked}
         >
           {ACTIONABLE_CATEGORIES_OPTIONS.map((header, index) => {
@@ -148,20 +159,22 @@ const mapStateToProps = state => {
   return {
     testId: getTestId(state),
     selectedActionableAlterationId: getSelectedActionableAlterationId(state),
-    currentActionableTab: getCurrentActionableTab(state),
+    currentActionableAlterationTab: getCurrentActionableAlterationTab(state),
     actionableAlterationGeneDescription: getActionableAlterationGeneDescription(state),
     actionableAlterationVariantDescription: getActionableAlterationVariantDescription(state),
     actionableAlterationGeneDescriptionSaved: getActionableAlterationGeneDescriptionSaved(state),
     actionableAlterationVariantDescriptionSaved: getActionableAlterationVariantDescriptionSaved(state),
     grugs: getActionableAlterationsDrugs(state),
+    clinicalTrials: getActionableAlterationsClinicalTrials(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     setActionableAlterationExpandedInterpretation: data => dispatch(setActionableAlterationExpandedInterpretation(data)),
-    setCurrentActionableTab: key => dispatch(setCurrentActionableTab(key)),
-    setActionableAlterationDrugsDescription: data => dispatch(setActionableAlterationDrugsDescription(data))
+    setCurrentActionableAlterationTab: key => dispatch(setCurrentActionableAlterationTab(key)),
+    setActionableAlterationDrugsDescription: data => dispatch(setActionableAlterationDrugsDescription(data)),
+    setActionableAlterationClinicalTrial: data => dispatch(setActionableAlterationClinicalTrial(data)),
   };
 }
 

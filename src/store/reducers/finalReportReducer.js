@@ -1,21 +1,28 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
-import { NAV_STATUS, ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME } from "Utils/constants";
+import { NAV_STATUS } from "Utils/constants";
+
+const initialSelectedActionableAlterationState = {
+  selectedActionableAlterationId: null,
+  currentActionableAlterationTab: "1",
+};
+
+const initSelectedVariantsState = {
+  selectedVariantsIds: [],
+  isSelectVariants: false,
+};
 
 const initialState = {
   serverData: null,
   data: null,
   dna_variants: null,
   cna_variants: [],
-  selectedVariants: [],
   actionableAlterations: [],
   clinicalVariants: [],
   mutation_type: null,
   navigationStatus: NAV_STATUS.alterations,
-  selectedActionableAlterationId: null,
-  currentActionableTab: "1",
-  selectedVariantsIds: [],
-  isSelectVariants: false,
+  ...initSelectedVariantsState,
+  ...initialSelectedActionableAlterationState,
 };
 
 const finalReportReducer = createReducer(initialState, {
@@ -47,7 +54,8 @@ const finalReportReducer = createReducer(initialState, {
     return {
       ...state,
       actionableAlterations: newActionableAlterations,
-      selectedVariantsIds: [] // ? зачем
+      ...initSelectedVariantsState,
+      ...initialSelectedActionableAlterationState,
     };
   },
 
@@ -65,16 +73,22 @@ const finalReportReducer = createReducer(initialState, {
     const { item, value } = payload;
 
     let newData = state?.data;
-    let selectedVariants = state?.selectedVariantsIds;
+    let selectedVariantsIds = state?.selectedVariantsIds;
 
     newData[item.id].selected = value;
 
-    selectedVariants.push(item.id);
+    const selectedVariantIndex = selectedVariantsIds.indexOf(item.id);
+    if (selectedVariantIndex === -1) {
+      selectedVariantsIds.push(item.id);
+    }
+    else {
+      selectedVariantsIds.splice(selectedVariantIndex, 1);
+    }
 
     return {
       ...state,
       data: { ...newData },
-      selectedVariantsIds: [...selectedVariants]
+      selectedVariantsIds: [...selectedVariantsIds]
     };
   },
 
@@ -114,17 +128,6 @@ const finalReportReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_ACTIONABLE_ALTERATIONS]: (state, { payload }) => {
-    // const actionableAlterations = payload.map(obj => {
-    //   const cOb = state.actionableAlterations.find(currObj => currObj.id === obj.id);
-
-    //   if (cOb?.expanded_interpretation){
-    //     return { ...obj, expanded_interpretation: cOb.expanded_interpretation };
-    //   }
-    //   else{
-    //     return obj;
-    //   }
-    // });
-
     return {
       ...state,
       actionableAlterations: payload,
@@ -147,54 +150,54 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_CURRENT_ACTIONABLE_TAB]: (state, { payload }) => {
+  [actionsTypes.SET_CURRENT_ACTIONABLE_ALTERATION_TAB]: (state, { payload }) => {
     return {
       ...state,
-      currentActionableTab: payload.toString() || "1"
+      currentActionableAlterationTab: payload.toString() || "1"
     };
   },
 
-  [actionsTypes.SET_EXPANDED_TAB_TEXTAREA_CONTENT_SAVED]: (state, { payload }) => {
-    const selectedActionableAlteration =
-      state.actionableAlterations
-        .find(obj => obj.id === state.selectedActionableAlterationId);
+  // [actionsTypes.SET_EXPANDED_TAB_TEXTAREA_CONTENT_SAVED]: (state, { payload }) => {
+  //   const selectedActionableAlteration =
+  //     state.actionableAlterations
+  //       .find(obj => obj.id === state.selectedActionableAlterationId);
 
-    const cloneExpandedInterpretation =  {...selectedActionableAlteration.expanded_interpretation};
+  //   const cloneExpandedInterpretation =  {...selectedActionableAlteration.expanded_interpretation};
 
-    switch (payload) {
-      case ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME.geneDescription:
-        cloneExpandedInterpretation.actionableAlterationGeneDescriptionSaved = true;
-        break;
-      case ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME.variantDescription:
-        cloneExpandedInterpretation.actionableAlterationVariantDescriptionSaved = true;
-        break;
-    }
+  //   switch (payload) {
+  //     case ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME.geneDescription:
+  //       cloneExpandedInterpretation.actionableAlterationGeneDescriptionSaved = true;
+  //       break;
+  //     case ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME.variantDescription:
+  //       cloneExpandedInterpretation.actionableAlterationVariantDescriptionSaved = true;
+  //       break;
+  //   }
 
-    const newActionableVariant = Object.assign( {},
-      selectedActionableAlteration,
-      {expanded_interpretation:cloneExpandedInterpretation} );
+  //   const newActionableVariant = Object.assign( {},
+  //     selectedActionableAlteration,
+  //     {expanded_interpretation:cloneExpandedInterpretation} );
 
-    const ind = state.actionableAlterations
-      .findIndex(obj => obj.id === state.selectedActionableAlterationId);
+  //   const ind = state.actionableAlterations
+  //     .findIndex(obj => obj.id === state.selectedActionableAlterationId);
 
-    state.actionableAlterations[ind] = newActionableVariant;
-    let newActionableAlterations ={ actionableAlterations: [...state.actionableAlterations] };
+  //   state.actionableAlterations[ind] = newActionableVariant;
+  //   let newActionableAlterations ={ actionableAlterations: [...state.actionableAlterations] };
 
-    return {
-      ...state,
-      ...newActionableAlterations
-    };
-  },
+  //   return {
+  //     ...state,
+  //     ...newActionableAlterations
+  //   };
+  // },
 
   [actionsTypes.SET_ACTIONABLE_ALTERATION_EXPANDED_INTERPRETATION_TO_STORE]: (state, { payload }) => {
-    const { name, value } = payload;
+    const { field, value } = payload;
     const selectedActionableAlteration =
       state.actionableAlterations
         .find(obj => obj.id === state.selectedActionableAlterationId);
 
     const expandedInterpretation = { ...selectedActionableAlteration.expanded_interpretation };
 
-    expandedInterpretation[name] = value;
+    expandedInterpretation[field] = value;
     expandedInterpretation.actionableAlterationVariantDescriptionSaved = false;
 
 
@@ -244,6 +247,36 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
+  [actionsTypes.SET_ACTIONABLE_ALTERATION_CLINICAL_TRIAL_TO_STORE]: (state, { payload }) => {
+    const { actionablealterationClinicalTrialId, value } = payload;
+    const selectedActionableAlteration = state.actionableAlterations
+      .find(obj => obj.id === state.selectedActionableAlterationId);
+
+    let newClinicalTrials = selectedActionableAlteration.clinical_trials
+      .map(item => {
+        if (item.id === actionablealterationClinicalTrialId){
+          item.description = value;
+          // item.source_description_saved = false;
+        }
+        return item;
+      });
+
+    const newActionableAlteration = Object.assign({},
+      selectedActionableAlteration,
+      { clinical_trials: newClinicalTrials }
+    );
+
+    const ind = state.actionableAlterations
+      .findIndex(obj => obj.id === state.selectedActionableAlterationId);
+
+    state.actionableAlterations[ind] = newActionableAlteration;
+
+    return {
+      ...state,
+      actionableAlterations: [...state.actionableAlterations]
+    };
+  },
+
   // [actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION_SAVED]: (state, { payload }) => {
   //   const selectedActionableAlteration =
   //     state.actionableAlterations
@@ -276,8 +309,9 @@ const finalReportReducer = createReducer(initialState, {
   [actionsTypes.SET_IS_SELECT_VARIANTS]: state => {
     return {
       ...state,
+      ...initSelectedVariantsState,
+      ...initialSelectedActionableAlterationState,
       isSelectVariants: !state.isSelectVariants,
-      selectedActionableAlterationId: null
     };
   },
 

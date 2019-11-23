@@ -526,7 +526,7 @@ export const getDnaVariantsAsArray = createSelector(
 
 export const
   getActionableAlterations = state => state.finalReport.actionableAlterations,
-  getCurrentActionableTab = state => state.finalReport.currentActionableTab,
+  getCurrentActionableAlterationTab = state => state.finalReport.currentActionableAlterationTab,
   getClinicalVariants = state => state.finalReport.clinicalVariants,
   getNavigationStatus = state => state.finalReport.navigationStatus,
   getIsSelectVariants = state => state.finalReport.isSelectVariants,
@@ -580,6 +580,16 @@ export const getActionableAlterationsDrugs = createSelector(
   }
 );
 
+export const getActionableAlterationsClinicalTrials = createSelector(
+  getSelectedActionableAlterationId,
+  getActionableAlterations,
+  (id, data) => {
+    return data
+      .find(obj => obj.id === id)
+      .clinical_trials;
+  }
+);
+
 
 export const checkIsAllDnaRowsSelected = createSelector(
   getDnaVariantsAsArray,
@@ -606,15 +616,11 @@ export const getSelectedVariants = createSelector(
   getDnaVariantsAsArray,
   getActionableAlterations,
   (variants, selectedVariants) => {
-
-    if(variants.length > 0){
-
+    if (variants.length > 0) {
       const selectedVariantsIds = selectedVariants.map(variant => variant.variant_id);
 
       return variants.filter(variant => !selectedVariantsIds.includes(variant.id));
-
     }
-
   }
 );
 

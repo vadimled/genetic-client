@@ -29,12 +29,12 @@
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    width: 100vw;
+    width: 100%;
+    min-width: 100%;
     height: 100%;
     z-index: 0;
     transition: 0.4s ease;
     transform: translate(-155px, 0px);
-    margin-right: 20px;
     overflow-y: auto;
 
     &.links-wrapper-open {
@@ -56,19 +56,19 @@
 
       .history {
         display: flex;
-        width: calc(100vw - 58px);
+        width: calc(100% - 40px);
         padding: 15px 15px 15px 40px;
         max-height: 455px;
         box-sizing: border-box;
 
         &.links-wrapper-open {
-          width: calc(100vw - 218px);
+          width: calc(100% - 218px);
           transition: 0.4s ease-in;
         }
       }
       .evidence {
         display: flex;
-        width: calc(100vw - 40px);
+        width: calc(100% - 40px);
         padding: 15px 15px 15px 40px;
         max-height: 455px;
         overflow: hidden;
@@ -76,7 +76,7 @@
         transition: 0.3s ease-in;
 
         &.links-wrapper-open {
-          width: calc(100vw - 203px);
+          width: calc(100% - 203px);
           transition: 0.4s ease-in;
         }
       }
