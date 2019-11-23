@@ -852,9 +852,9 @@ export const ACTIONABLE_CATEGORIES_OPTIONS = [
   { value: ACTIONABLE_TABS_VALUES.clinicalTrials, label: "Clinical trials" },
 ];
 
-export const TEXTAREA_NAME = {
-  geneDescription: "geneDescriptionTextarea",
-  variantDescription: "variantDescriptionTextarea"
+export const ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME = {
+  geneDescription: "gene_description",
+  variantDescription: "variant_description"
 };
 
 export const COUNTRIES = [

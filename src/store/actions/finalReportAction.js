@@ -108,16 +108,16 @@ export function setCurrentActionableTab(data) {
   };
 }
 
-export function setExpandedInterpretationTextArea(data) {
+export function setActionableAlterationExpandedInterpretationToStore(data) {
   return {
-    type: actionsTypes.SET_EXPANDED_TAB_TEXTAREA,
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_EXPANDED_INTERPRETATION_TO_STORE,
     payload: data
   };
 }
 
-export function saveExpandedTextAreaContent(data) {
+export function setActionableAlterationExpandedInterpretation(data) {
   return {
-    type: actionsTypes.SAVE_EXPANDED_TAB_TEXTAREA_CONTENT,
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_EXPANDED_INTERPRETATION,
     payload: data
   };
 }
@@ -135,9 +135,9 @@ export function setIsSelectVariants() {
   };
 }
 
-export function setToStoreTherapiesTextArea(data) {
+export function setActionableAlterationDrugsDescriptionToStore(data) {
   return {
-    type: actionsTypes.SET_THERAPIES_TAB_TEXTAREA_TO_STORE,
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION_TO_STORE,
     payload: data
   };
 }

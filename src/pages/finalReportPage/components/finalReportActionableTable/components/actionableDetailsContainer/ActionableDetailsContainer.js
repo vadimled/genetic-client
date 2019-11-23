@@ -12,16 +12,18 @@ import ClinicalTrial from './components/clinicalTrials';
 import style from "./ActionableDetailsContainer.module.scss";
 
 import {
+  getTestId,
+  getSelectedActionableAlterationId,
   getCurrentActionableTab,
-  getGeneDescription,
-  getVariantDescription,
-  getGeneDescriptionSaved,
-  getVariantDescriptionSaved,
+  getActionableAlterationGeneDescription,
+  getActionableAlterationVariantDescription,
+  getActionableAlterationGeneDescriptionSaved,
+  getActionableAlterationVariantDescriptionSaved,
   getActionableAlterationsDrugs
 } from "Store/selectors";
 import {
   setCurrentActionableTab,
-  saveExpandedTextAreaContent,
+  setActionableAlterationExpandedInterpretation,
   setActionableAlterationDrugsDescription
 } from "Actions/finalReportAction";
 import {
@@ -36,18 +38,24 @@ class ActionableDetailsContainer extends Component {
     this.props.setCurrentActionableTab(key);
   };
 
-  handleExpandedInterpretation = e => {
+  handleActionableAlterationExpandedInterpretation = e => {
+    const { testId, selectedActionableAlterationId } = this.props;
     const { name, value } = e.target;
-    this.props.setExpandedInterpretationTextArea({
-      name: name,
-      value: value
+    this.props.setActionableAlterationExpandedInterpretation({
+      testId: testId,
+      actionableAlterationId: selectedActionableAlterationId,
+      name,
+      value
     });
   };
 
   setActionableAlterationDrugsDescription = e => {
+    const { testId, selectedActionableAlterationId } = this.props;
     const { id, value } = e.target;
     this.props.setActionableAlterationDrugsDescription({
-      id,
+      testId: testId,
+      actionableAlterationId: selectedActionableAlterationId,
+      actionablealterationDrugId: id,
       value
     });
   };
@@ -59,10 +67,10 @@ class ActionableDetailsContainer extends Component {
 
   renderContent = value => {
     const {
-      geneDescription,
-      variantDescription,
-      geneDescriptionSaved,
-      variantDescriptionSaved,
+      actionableAlterationGeneDescription,
+      actionableAlterationVariantDescription,
+      actionableAlterationGeneDescriptionSaved,
+      actionableAlterationVariantDescriptionSaved,
       grugs
     } = this.props;
 
@@ -71,11 +79,11 @@ class ActionableDetailsContainer extends Component {
         return (
           <ExpandedInterpretation
             key={"expanded-interpretation"}
-            geneDescription={geneDescription}
-            variantDescription={variantDescription}
-            geneDescriptionSaved={geneDescriptionSaved}
-            variantDescriptionSaved={variantDescriptionSaved}
-            onChange={this.handleExpandedInterpretation}
+            geneDescription={actionableAlterationGeneDescription}
+            variantDescription={actionableAlterationVariantDescription}
+            geneDescriptionSaved={actionableAlterationGeneDescriptionSaved}
+            variantDescriptionSaved={actionableAlterationVariantDescriptionSaved}
+            onChange={this.handleActionableAlterationExpandedInterpretation}
           />
         );
       case ACTIONABLE_TABS_VALUES.therapies:
@@ -138,18 +146,20 @@ class ActionableDetailsContainer extends Component {
 
 const mapStateToProps = state => {
   return {
+    testId: getTestId(state),
+    selectedActionableAlterationId: getSelectedActionableAlterationId(state),
     currentActionableTab: getCurrentActionableTab(state),
-    geneDescription: getGeneDescription(state),
-    variantDescription: getVariantDescription(state),
-    geneDescriptionSaved: getGeneDescriptionSaved(state),
-    variantDescriptionSaved: getVariantDescriptionSaved(state),
+    actionableAlterationGeneDescription: getActionableAlterationGeneDescription(state),
+    actionableAlterationVariantDescription: getActionableAlterationVariantDescription(state),
+    actionableAlterationGeneDescriptionSaved: getActionableAlterationGeneDescriptionSaved(state),
+    actionableAlterationVariantDescriptionSaved: getActionableAlterationVariantDescriptionSaved(state),
     grugs: getActionableAlterationsDrugs(state),
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    setExpandedInterpretationTextArea: data => dispatch(saveExpandedTextAreaContent(data)),
+    setActionableAlterationExpandedInterpretation: data => dispatch(setActionableAlterationExpandedInterpretation(data)),
     setCurrentActionableTab: key => dispatch(setCurrentActionableTab(key)),
     setActionableAlterationDrugsDescription: data => dispatch(setActionableAlterationDrugsDescription(data))
   };

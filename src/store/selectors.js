@@ -533,7 +533,7 @@ export const
   getSelectedActionableAlterationId = state => state.finalReport.selectedActionableAlterationId;
 
 
-const getExpandedInterpretation = createSelector(
+const getActionableAlterationExpandedInterpretation = createSelector(
   getSelectedActionableAlterationId,
   getActionableAlterations,
   (id, data) => {
@@ -543,24 +543,24 @@ const getExpandedInterpretation = createSelector(
   }
 );
 
-export const getGeneDescription = createSelector(
-  getExpandedInterpretation,
-  obj => obj?.geneDescription
+export const getActionableAlterationGeneDescription = createSelector(
+  getActionableAlterationExpandedInterpretation,
+  obj => obj?.gene_description
 );
 
-export const getVariantDescription = createSelector(
-  getExpandedInterpretation,
-  obj => obj?.variantDescription
+export const getActionableAlterationVariantDescription = createSelector(
+  getActionableAlterationExpandedInterpretation,
+  obj => obj?.variant_description
 );
-
-export const getGeneDescriptionSaved = createSelector(
-  getExpandedInterpretation,
-  obj => obj?.geneDescriptionSaved
+// TODO
+export const getActionableAlterationGeneDescriptionSaved = createSelector(
+  getActionableAlterationExpandedInterpretation,
+  obj => obj?.actionableAlterationGeneDescriptionSaved
 );
-
-export const getVariantDescriptionSaved = createSelector(
-  getExpandedInterpretation,
-  obj => obj?.variantDescriptionSaved
+// TODO
+export const getActionableAlterationVariantDescriptionSaved = createSelector(
+  getActionableAlterationExpandedInterpretation,
+  obj => obj?.actionableAlterationVariantDescriptionSaved
 );
 
 export const getSelectedDnaRows = createSelector(

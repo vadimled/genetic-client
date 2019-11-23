@@ -1,52 +1,6 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
-import { NAV_STATUS, TEXTAREA_NAME } from "Utils/constants";
-
-const therapies = [
-  {
-    id: "source-description-textarea-0",
-    drug_name: "Palbociclib (IBRANCE)",
-    source_description:
-      "Palbociclib is a CDK4/6 kinase inhibitor approved by the" +
-      " FDA for the treatment of adult patients with hormone receptor (HR)-positive, " +
-      "human epidermal growth factor receptor 2 (HER2)-negative advanced or metastatic " +
-      "breast cancer in combination with:- an aromatase inhibitor as initial " +
-      "endocrine-based therapy in postmenopausal women or in men; or- " +
-      "Fulvestrant in patients with disease progression following endocrine therapy." +
-      "Palbociclib is currently examined in a Phase I trial in combination with the " +
-      "PI3K/mTOR Inhibitor Gedatolisib for Patients with advanced Squamous Cell Lung cancer (NCT03065062).",
-    source_description_saved: false
-  },
-  {
-    id: "source-description-textarea-1",
-    drug_name: "Gedatolisib (PF-05212384)",
-    source_description:
-      "Gedatolisib is PI3K and mTOR kinase inhibitor " +
-      "currently examined in multiple clinical trials for select solid " +
-      "tumors including a phase I trial in combination with the CDK4/6 Inhibitor, " +
-      "Palbociclib, for Patients with advanced Squamous Cell Lung cancer (NCT03065062). 3065062).",
-    source_description_saved: false
-  },
-  {
-    id: "source-description-textarea-2",
-    drug_name: "MK-2206",
-    source_description:
-      "MK-2206 is a selective pan-AKT inhibitor currently examined " +
-      "in multiple clinical trials for various solid tumors, including a phase " +
-      "II trial for patientswith Advanced Non-Small Cell Lung Cancer (NCT01306045).",
-    source_description_saved: false
-  },
-  {
-    id: "source-description-textarea-3",
-    drug_name: "Gedatolisib (PF-05212384)",
-    source_description:
-      "Gedatolisib is PI3K and mTOR kinase inhibitor " +
-      "currently examined in multiple clinical trials for select solid " +
-      "tumors including a phase I trial in combination with the CDK4/6 Inhibitor, " +
-      "Palbociclib, for Patients with advanced Squamous Cell Lung cancer (NCT03065062). 3065062).",
-    source_description_saved: false
-  }
-];
+import { NAV_STATUS, ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME } from "Utils/constants";
 
 const initialState = {
   serverData: null,
@@ -201,23 +155,23 @@ const finalReportReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_EXPANDED_TAB_TEXTAREA_CONTENT_SAVED]: (state, { payload }) => {
-    const getActionableVariant =
+    const selectedActionableAlteration =
       state.actionableAlterations
         .find(obj => obj.id === state.selectedActionableAlterationId);
 
-    const cloneExpandedInterpretation =  {...getActionableVariant.expanded_interpretation};
+    const cloneExpandedInterpretation =  {...selectedActionableAlteration.expanded_interpretation};
 
     switch (payload) {
-      case TEXTAREA_NAME.geneDescription:
-        cloneExpandedInterpretation.geneDescriptionSaved = true;
+      case ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME.geneDescription:
+        cloneExpandedInterpretation.actionableAlterationGeneDescriptionSaved = true;
         break;
-      case TEXTAREA_NAME.variantDescription:
-        cloneExpandedInterpretation.variantDescriptionSaved = true;
+      case ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME.variantDescription:
+        cloneExpandedInterpretation.actionableAlterationVariantDescriptionSaved = true;
         break;
     }
 
     const newActionableVariant = Object.assign( {},
-      getActionableVariant,
+      selectedActionableAlteration,
       {expanded_interpretation:cloneExpandedInterpretation} );
 
     const ind = state.actionableAlterations
@@ -232,106 +186,92 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_EXPANDED_TAB_TEXTAREA]: (state, { payload }) => {
+  [actionsTypes.SET_ACTIONABLE_ALTERATION_EXPANDED_INTERPRETATION_TO_STORE]: (state, { payload }) => {
     const { name, value } = payload;
-    const getActionableVariant =
+    const selectedActionableAlteration =
       state.actionableAlterations
         .find(obj => obj.id === state.selectedActionableAlterationId);
 
-    const cloneExpandedInterpretation =  {...getActionableVariant.expanded_interpretation};
+    const expandedInterpretation = { ...selectedActionableAlteration.expanded_interpretation };
 
-    switch (name) {
-      case TEXTAREA_NAME.geneDescription:
-        cloneExpandedInterpretation.geneDescription = value;
-        cloneExpandedInterpretation.geneDescriptionSaved = false;
-        break;
-      case TEXTAREA_NAME.variantDescription:
-        cloneExpandedInterpretation.variantDescription = value;
-        cloneExpandedInterpretation.variantDescriptionSaved = false;
-        break;
-    }
+    expandedInterpretation[name] = value;
+    expandedInterpretation.actionableAlterationVariantDescriptionSaved = false;
 
-    const newActionableVariant = Object.assign( {},
-      getActionableVariant,
-      {expanded_interpretation:cloneExpandedInterpretation} );
+
+    const newActionableVariant = Object.assign({},
+      selectedActionableAlteration,
+      { expanded_interpretation: expandedInterpretation }
+    );
 
     const ind = state.actionableAlterations
       .findIndex(obj => obj.id === state.selectedActionableAlterationId);
 
     state.actionableAlterations[ind] = newActionableVariant;
-    let newActionableAlterations ={ actionableAlterations: [...state.actionableAlterations] };
 
     return {
       ...state,
-      ...newActionableAlterations
+      actionableAlterations: [...state.actionableAlterations]
     };
   },
 
-  [actionsTypes.SET_THERAPIES_TAB_TEXTAREA_TO_STORE]: (state, { payload }) => {
-    const { id, value } = payload;
-    const getActionableVariant =
-      state.actionableAlterations
-        .find(obj => obj.id === state.selectedActionableAlterationId);
+  [actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION_TO_STORE]: (state, { payload }) => {
+    const { actionablealterationDrugId, value } = payload;
+    const selectedActionableAlteration = state.actionableAlterations
+      .find(obj => obj.id === state.selectedActionableAlterationId);
 
-    // -- temp ---
-    // TODO: therapies: [{evidence}] must be received from server
-    getActionableVariant.therapies = therapies;
-    // -- temp ---
-
-    let cloneTherapies = [...getActionableVariant.therapies]
-      .map(therapy => {
-        if(therapy.id === id){
-          therapy.source_description = value;
-          therapy.source_description_saved = false;
+    let clonedDrugs = selectedActionableAlteration.drugs
+      .map(drug => {
+        if (drug.id === actionablealterationDrugId){
+          drug.description = value;
+          // drug.source_description_saved = false;
         }
-        return therapy;
+        return drug;
       });
 
-
-    const newActionableVariant = Object.assign( {},
-      getActionableVariant,
-      {therapies:cloneTherapies} );
-
-    const ind = state.actionableAlterations
-      .findIndex(obj => obj.id === state.selectedActionableAlterationId);
-
-    state.actionableAlterations[ind] = newActionableVariant;
-    let newActionableAlterations ={ actionableAlterations: [...state.actionableAlterations] };
-
-    return {
-      ...state,
-      ...newActionableAlterations
-    };
-  },
-
-  [actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION_SAVED]: (state, { payload }) => {
-    const getActionableVariant =
-      state.actionableAlterations
-        .find(obj => obj.id === state.selectedActionableAlterationId);
-
-    let cloneTherapies = [...getActionableVariant.therapies]
-      .map(therapy => {
-        if(therapy.id === payload){
-          therapy.source_description_saved = true;
-        }
-        return therapy;
-      });
-
-    const newActionableVariant = Object.assign( {},
-      getActionableVariant,
-      {therapies:cloneTherapies} );
+    const newActionableAlteration = Object.assign({},
+      selectedActionableAlteration,
+      { drugs: clonedDrugs }
+    );
 
     const ind = state.actionableAlterations
       .findIndex(obj => obj.id === state.selectedActionableAlterationId);
 
-    state.actionableAlterations[ind] = newActionableVariant;
-    let newActionableAlterations ={ actionableAlterations: [...state.actionableAlterations] };
+    state.actionableAlterations[ind] = newActionableAlteration;
 
     return {
       ...state,
-      ...newActionableAlterations
+      actionableAlterations: [...state.actionableAlterations]
     };
   },
+
+  // [actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION_SAVED]: (state, { payload }) => {
+  //   const selectedActionableAlteration =
+  //     state.actionableAlterations
+  //       .find(obj => obj.id === state.selectedActionableAlterationId);
+
+  //   let cloneTherapies = [...selectedActionableAlteration.therapies]
+  //     .map(therapy => {
+  //       if(therapy.id === payload){
+  //         therapy.source_description_saved = true;
+  //       }
+  //       return therapy;
+  //     });
+
+  //   const newActionableVariant = Object.assign( {},
+  //     selectedActionableAlteration,
+  //     {therapies:cloneTherapies} );
+
+  //   const ind = state.actionableAlterations
+  //     .findIndex(obj => obj.id === state.selectedActionableAlterationId);
+
+  //   state.actionableAlterations[ind] = newActionableVariant;
+  //   let newActionableAlterations ={ actionableAlterations: [...state.actionableAlterations] };
+
+  //   return {
+  //     ...state,
+  //     ...newActionableAlterations
+  //   };
+  // },
 
   [actionsTypes.SET_IS_SELECT_VARIANTS]: state => {
     return {

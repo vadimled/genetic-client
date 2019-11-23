@@ -211,6 +211,7 @@ class FinalReportActionableTable extends Component {
           dataSource={dataSource}
           pagination={false}
           scroll={{ x: "max-content", y: "false" }}
+          rowKey="id"
         />
       </TableLayout>
     );

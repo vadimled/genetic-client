@@ -5,7 +5,6 @@ import {
   addEvidenceEntryApi,
   addResultApi,
   deleteEvidenceEntryApi,
-  deleteFinalReportActionableRowApi,
   editEvidenceEntryApi,
   editResultApi,
   exportTableApi,
@@ -13,7 +12,7 @@ import {
   fetchClassificationHistoryApi,
   fetchConfirmationMetadataApi,
   fetchEvidenceDataApi,
-  fetchActionableAlterationsApi,
+
   fetchTableDataApi,
   fetchTestMetadataApi,
   fetchTestsApi,
@@ -25,7 +24,15 @@ import {
   // setTumorInfoApi,
   patchTestApi,
   updateUserPreferencesApi,
-  updateVariantApi
+  updateVariantApi,
+
+  fetchFinalReportVariantsApi,
+
+  fetchActionableAlterationsApi,
+  postAtionableAlterationsApi,
+  deleteAtionableAlterationsApi,
+  patchActionableAlterationsApi,
+  patchActionableAlterationsDrugsApi
 } from "Api/index";
 import { handleIgvAlertShow, setBamUrlToStore, setFetchBAMFileStatus, setIgvLastQuery } from "Actions/igvActions";
 import {
@@ -77,16 +84,15 @@ import { cleanEvidenceActionData, setCurrentEvidenceTab } from "Actions/evidence
 import { setConfirmationPageMetadataToStore } from "Actions/confirmationPageActions";
 import { saveUserPreferencesFilters, setDefaultFilters } from "Actions/filtersActions";
 // import { setVariantsDataToStore } from "Actions/finalReportAction";
-import { fetchFinalReportVariantsApi, postAtionableAlterationsApi } from "../../api";
 import {
   deleteActionableAlterationFromStore,
   removeClinicalSelectedRowFromStore,
   setFinalReportClinicalDataToStore,
   setActionableAlterations,
-  setExpandedInterpretationTextArea,
-  setExpandedTextAreaContentSaved,
-  setToStoreTherapiesTextArea,
-  setActionableAlterationDrugsDescriptionSaved
+  setActionableAlterationExpandedInterpretationToStore,
+  // setExpandedTextAreaContentSaved,
+  setActionableAlterationDrugsDescriptionToStore,
+  // setActionableAlterationDrugsDescriptionSaved
 } from "Actions/finalReportAction";
 
 function* onDelay(time) {
@@ -943,7 +949,7 @@ export function* fetchFinalReportClinicalDataSaga() {
 export function* deleteActionableAlterationSaga(action){
   try {
     yield put(setLoading(true));
-    yield call(deleteFinalReportActionableRowApi, action);
+    yield call(deleteAtionableAlterationsApi, action);
 
     const { id } = action.payload;
     yield put(deleteActionableAlterationFromStore(id));
@@ -981,22 +987,26 @@ export function* deleteFinalReportClinicalRowSaga(action){
     yield handleErrors(e);
   }
 }
-export function* saveExpandedTextAreaContentSaga(action){
+export function* setActionableAlterationExpandedInterpretationSaga(action){
   try {
-    yield put(setExpandedInterpretationTextArea(action.payload));
-    yield delay(2000);
-    yield put(setLoading(true));
+    const { testId, actionableAlterationId, name, value } = action.payload;
+    yield put(setActionableAlterationExpandedInterpretationToStore(action.payload));
 
-    console.log("-----Call API----");
-    /* const { data } = yield call(saveExpandedTextAreaContentApi, action);*/
+    yield call(patchActionableAlterationsApi, {
+      testId,
+      actionableAlterationId,
+      body: {
+        expanded_interpretation: {
+          [name]: value
+        }
+      }
+    });
 
-    yield put(setExpandedTextAreaContentSaved(action.payload?.name));
-    yield put(setLoading(false));
+    // yield put(setExpandedTextAreaContentSaved(action.payload?.name));
   }
   catch (e) {
-    yield put(setLoading(false));
     Sentry.withScope(scope => {
-      scope.setFingerprint(["saveExpandedTextAreaContentSaga"]);
+      scope.setFingerprint(["setActionableAlterationExpandedInterpretationSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);
@@ -1004,20 +1014,22 @@ export function* saveExpandedTextAreaContentSaga(action){
 
 }
 export function* setActionableAlterationDrugsDescriptionSaga(action){
-
   try {
-    yield put(setToStoreTherapiesTextArea(action.payload));
-    yield delay(2000);
-    yield put(setLoading(true));
+    const { testId, actionableAlterationId, actionablealterationDrugId, value } = action.payload;
+    yield put(setActionableAlterationDrugsDescriptionToStore(action.payload));
 
-    console.log("-----Call API----");
-    /* const { data } = yield call(saveTherapiesTextAreaApi, action);*/
+    yield call(patchActionableAlterationsDrugsApi, {
+      testId,
+      actionableAlterationId,
+      actionablealterationDrugId,
+      body: {
+        description: value
+      }
+    });
 
-    yield put(setActionableAlterationDrugsDescriptionSaved(action.payload?.id));
-    yield put(setLoading(false));
+    // yield put(setActionableAlterationDrugsDescriptionSaved(action.payload?.id));
   }
   catch (e) {
-    yield put(setLoading(false));
     Sentry.withScope(scope => {
       scope.setFingerprint(["setActionableAlterationDrugsDescriptionSaga"]);
       Sentry.captureException(e);

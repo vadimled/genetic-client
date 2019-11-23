@@ -2,16 +2,16 @@ import React from "react";
 import { Input } from "antd";
 import PropTypes from "prop-types";
 import style from "./ExpandedInterpretation.module.scss";
-import cn from "classnames";
-import { TEXTAREA_NAME, TEXTS } from "Utils/constants";
-import { ReactComponent as OkIcon } from "Assets/ok.svg";
+// import cn from "classnames";
+import { ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME, TEXTS } from "Utils/constants";
+// import { ReactComponent as OkIcon } from "Assets/ok.svg";
 
 const { TextArea } = Input;
 const ExpandedInterpretation = ({
   geneDescription,
   variantDescription,
-  geneDescriptionSaved,
-  variantDescriptionSaved,
+  // geneDescriptionSaved,
+  // variantDescriptionSaved,
   onChange
 }) => {
   return (
@@ -25,15 +25,18 @@ const ExpandedInterpretation = ({
           id={"gene-description-textarea"}
           autosize
           value={geneDescription}
-          name={TEXTAREA_NAME.geneDescription}
+          name={ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME.geneDescription}
           onChange={onChange}
           placeholder={"Type here"}
         />
-        <div className="icon-saved">
-          <div className={cn("ok-icon", { active: geneDescriptionSaved })}>
-            <OkIcon />
-          </div>
-        </div>
+        {
+        // <div className="icon-saved">
+        //   <div className={cn("ok-icon", { active: geneDescriptionSaved })}>
+        //     <OkIcon />
+        //   </div>
+        // </div>
+        }
+
       </div>
       <div className="textarea-wrapper">
         <label htmlFor={"variant-description-textarea"}>
@@ -44,15 +47,17 @@ const ExpandedInterpretation = ({
           id={"variant-description-textarea"}
           autosize
           value={variantDescription}
-          name={TEXTAREA_NAME.variantDescription}
+          name={ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME.variantDescription}
           onChange={onChange}
           placeholder={"Type here"}
         />
-        <div className="icon-saved">
-          <div className={cn("ok-icon", { active: variantDescriptionSaved })}>
-            <OkIcon />
-          </div>
-        </div>
+        {
+        // <div className="icon-saved">
+        //   <div className={cn("ok-icon", { active: variantDescriptionSaved })}>
+        //     <OkIcon />
+        //   </div>
+        // </div>
+        }
       </div>
     </div>
   );
