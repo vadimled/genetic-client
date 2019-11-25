@@ -835,9 +835,10 @@ export const DEFAULT_FILTERS = {
   }
 };
 
-export const NAV_STATUS = {
-  alterations :" Actionable alterations",
-  clinical: "Uncertain clinical significance"
+export const FINAL_REPORT_NAVIGATION_VALUES = {
+  actionableAlterations: 'actionableAlterations',
+  uncertainClinicalSignificance: 'uncertainClinicalSignificance',
+  genomeWideFindings: 'genomeWideFindings',
 };
 
 export const ACTIONABLE_TABS_VALUES = {

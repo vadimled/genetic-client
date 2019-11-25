@@ -525,12 +525,14 @@ export const getDnaVariantsAsArray = createSelector(
 );
 
 export const
+  getFinalReportDnaVariants = state => state.finalReport.dnaVariants,
   getActionableAlterations = state => state.finalReport.actionableAlterations,
   getCurrentActionableAlterationTab = state => state.finalReport.currentActionableAlterationTab,
   getClinicalVariants = state => state.finalReport.clinicalVariants,
-  getNavigationStatus = state => state.finalReport.navigationStatus,
-  getIsSelectVariants = state => state.finalReport.isSelectVariants,
-  getSelectedActionableAlterationId = state => state.finalReport.selectedActionableAlterationId;
+  getFinalReportNavigationValue = state => state.finalReport.finalReportNavigationValue,
+  getIsSelectVariantsForActionableAlterations = state => state.finalReport.isSelectVariantsForActionableAlterations,
+  getSelectedActionableAlterationId = state => state.finalReport.selectedActionableAlterationId,
+  getSelectedVariantsIdsForActionableAlterations = state => state.finalReport?.selectedVariantsIdsForActionableAlterations;
 
 
 const getActionableAlterationExpandedInterpretation = createSelector(
@@ -590,10 +592,39 @@ export const getActionableAlterationsClinicalTrials = createSelector(
   }
 );
 
+export const getFinalReportDnaVariantsAsArray = createSelector(
+  getFinalReportDnaVariants,
+  getSelectedVariantsIdsForActionableAlterations,
+  (data, selectedVariantsIdsForActionableAlterations) => {
+    let arrayData = [];
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        let item = { ...data[key] };
+        if (selectedVariantsIdsForActionableAlterations.includes(item.id)) {
+          item.selected = true;
+        }
+        arrayData.push(item);
+      }
+    }
+    return arrayData;
+  }
+);
 
-export const checkIsAllDnaRowsSelected = createSelector(
-  getDnaVariantsAsArray,
-  getSelectedDnaRows,
+export const getSelectedVariantsForActionableAlterations = createSelector(
+  getFinalReportDnaVariantsAsArray,
+  getActionableAlterations,
+  (variants, actionableAlterations) => {
+    if (variants.length > 0) {
+      const variantsIdsFromActionableAlterations = actionableAlterations.map(variant => variant.variant_id);
+
+      return variants.filter(variant => !variantsIdsFromActionableAlterations.includes(variant.id));
+    }
+  }
+);
+
+export const getIsAllDnaVariantsForActionableAlterationsSelected = createSelector(
+  getFinalReportDnaVariantsAsArray,
+  getSelectedVariantsForActionableAlterations,
   (allData, selectedData) => {
     let nonUncheckMode = 0;
     const notConfirmedData = allData?.filter(item => {
@@ -610,19 +641,4 @@ export const checkIsAllDnaRowsSelected = createSelector(
     );
   }
 );
-
-
-export const getSelectedVariants = createSelector(
-  getDnaVariantsAsArray,
-  getActionableAlterations,
-  (variants, selectedVariants) => {
-    if (variants.length > 0) {
-      const selectedVariantsIds = selectedVariants.map(variant => variant.variant_id);
-
-      return variants.filter(variant => !selectedVariantsIds.includes(variant.id));
-    }
-  }
-);
-
-export const getSelectedVariantsIds = state => state.finalReport?.selectedVariantsIds;
 

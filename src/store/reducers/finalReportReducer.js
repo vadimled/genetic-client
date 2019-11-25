@@ -1,6 +1,6 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
-import { NAV_STATUS } from "Utils/constants";
+import { FINAL_REPORT_NAVIGATION_VALUES } from "Utils/constants";
 
 const initialSelectedActionableAlterationState = {
   selectedActionableAlterationId: null,
@@ -8,35 +8,35 @@ const initialSelectedActionableAlterationState = {
 };
 
 const initSelectedVariantsState = {
-  selectedVariantsIds: [],
-  isSelectVariants: false,
+  selectedVariantsIdsForActionableAlterations: [],
+  isSelectVariantsForActionableAlterations: false,
 };
 
 const initialState = {
-  serverData: null,
-  data: null,
-  dna_variants: null,
-  cna_variants: [],
+  // serverData: null,
+  // data: null,
+  dnaVariants: null,
+  // cnvVariants: [],
   actionableAlterations: [],
   clinicalVariants: [],
   mutation_type: null,
-  navigationStatus: NAV_STATUS.alterations,
+  finalReportNavigationValue: FINAL_REPORT_NAVIGATION_VALUES.actionableAlterations,
   ...initSelectedVariantsState,
   ...initialSelectedActionableAlterationState,
 };
 
 const finalReportReducer = createReducer(initialState, {
-  [actionsTypes.FETCH_TABLE_DATA_SUCCESS]: (state, { payload }) => {
-    return {
-      ...state,
-      serverData: payload
-    };
-  },
+  // [actionsTypes.FETCH_TABLE_DATA_SUCCESS]: (state, { payload }) => {
+  //   return {
+  //     ...state,
+  //     serverData: payload
+  //   };
+  // },
 
-  [actionsTypes.SET_PARSED_DATA_TO_STORE]: (state, { payload }) => {
+  [actionsTypes.SET_FINAL_REPORT_DNA_VARIANTS_TO_STORE]: (state, { payload }) => {
     return {
       ...state,
-      data: payload
+      dnaVariants: payload
     };
   },
 
@@ -69,51 +69,45 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
-    const { item, value } = payload;
+  [actionsTypes.HANDLE_FINAL_REPORT_SELECTED_VARIANTS_IDS_FOR_ACTIONABLE_ALTERATIONS]: (state, { payload }) => {
+    const { item } = payload;
 
-    let newData = state?.data;
-    let selectedVariantsIds = state?.selectedVariantsIds;
+    let selectedVariantsIdsForActionableAlterations = state?.selectedVariantsIdsForActionableAlterations;
 
-    newData[item.id].selected = value;
-
-    const selectedVariantIndex = selectedVariantsIds.indexOf(item.id);
+    const selectedVariantIndex = selectedVariantsIdsForActionableAlterations.indexOf(item.id);
     if (selectedVariantIndex === -1) {
-      selectedVariantsIds.push(item.id);
+      selectedVariantsIdsForActionableAlterations.push(item.id);
     }
     else {
-      selectedVariantsIds.splice(selectedVariantIndex, 1);
+      selectedVariantsIdsForActionableAlterations.splice(selectedVariantIndex, 1);
     }
 
     return {
       ...state,
-      data: { ...newData },
-      selectedVariantsIds: [...selectedVariantsIds]
+      selectedVariantsIdsForActionableAlterations: [...selectedVariantsIdsForActionableAlterations]
     };
   },
 
-  [actionsTypes.HANDLE_SELECT_ALL_ROWS]: (state, { payload }) => {
-    let data = state?.data;
+  [actionsTypes.HANDLE_FINAL_REPORT_SELECT_ALL_VARIANTS_FOR_ACTIONABLE_ALTERATIONS]: (state, { payload }) => {
+    const dnaVariants = state?.dnaVariants;
+    let selectedVariantsIdsForActionableAlterationsSet = new Set();
 
-    for (let key in data) {
-      if (data.hasOwnProperty(key)) {
-        let item = data[key];
+    if (!payload) {
+      for (let key in dnaVariants) {
+        if (dnaVariants.hasOwnProperty(key)) {
+          let item = dnaVariants[key];
 
-        item.selected = !payload;
+          selectedVariantsIdsForActionableAlterationsSet.add(item.id);
+        }
       }
     }
+    else {
+      selectedVariantsIdsForActionableAlterationsSet = new Set();
+    }
 
     return {
       ...state,
-      dna_variants: { ...data }
-    };
-  },
-
-  [actionsTypes.SET_VARIANTS_DATA_TO_STORE]: (state, { payload }) => {
-    return {
-      ...state,
-      dna_variants: payload,
-      actionableAlterations: payload
+      selectedVariantsIdsForActionableAlterations: [...selectedVariantsIdsForActionableAlterationsSet]
     };
   },
 
@@ -131,14 +125,14 @@ const finalReportReducer = createReducer(initialState, {
     return {
       ...state,
       actionableAlterations: payload,
-      selectedVariantsIds: []
+      selectedVariantsIdsForActionableAlterations: []
     };
   },
 
-  [actionsTypes.SET_NAVIGATION_STATUS]: (state, { payload }) => {
+  [actionsTypes.SET_FINAL_REPORT_NAVIGATION_VALUE]: (state, { payload }) => {
     return {
       ...state,
-      navigationStatus: payload
+      finalReportNavigationValue: payload
     };
   },
 
@@ -306,12 +300,12 @@ const finalReportReducer = createReducer(initialState, {
   //   };
   // },
 
-  [actionsTypes.SET_IS_SELECT_VARIANTS]: state => {
+  [actionsTypes.SET_IS_SELECT_VARIANTS_FOR_ACTIONABLE_ALTERATIONS]: state => {
     return {
       ...state,
       ...initSelectedVariantsState,
       ...initialSelectedActionableAlterationState,
-      isSelectVariants: !state.isSelectVariants,
+      isSelectVariantsForActionableAlterations: !state.isSelectVariantsForActionableAlterations,
     };
   },
 

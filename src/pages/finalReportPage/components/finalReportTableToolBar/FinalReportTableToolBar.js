@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import Search from "GenericComponents/search";
-import style from "./FinalReportToolBar.module.scss";
+import style from "./FinalReportTableToolBar.module.scss";
 import { MUTATION } from "Utils/constants";
 import NumberVariants from "Pages/singleTestPage/components/numberVariants";
 
@@ -25,8 +25,7 @@ import { setDefaultFilters, saveUserPreferencesFilters } from "Store/actions/fil
 import { getTestId, getTestType } from "Store/selectors";
 import { setSort, saveUserPreferencesSorting, exportTable } from "Store/actions/tableActions";
 
-class FinalReportToolBar extends Component {
-
+class FinalReportTableToolBar extends Component {
 
   handleOnChange = e => {
     this.props.setMutationType(e.target.value);
@@ -44,7 +43,6 @@ class FinalReportToolBar extends Component {
       }
     });
   };
-
 
   render() {
     const {
@@ -82,7 +80,6 @@ class FinalReportToolBar extends Component {
           <div
             className={cn(["right-wrapper", { "sidebar-open": sidebarToggle }])}
           >
-
             {!selectedRows?.length && (
               <NumberVariants filtered={filtered} total={total} />
             )}
@@ -93,7 +90,7 @@ class FinalReportToolBar extends Component {
   }
 }
 
-FinalReportToolBar.propTypes = {
+FinalReportTableToolBar.propTypes = {
   filtered: PropTypes.number,
   total: PropTypes.number,
   selectedMutation: PropTypes.string,
@@ -131,4 +128,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(FinalReportToolBar);
+)(FinalReportTableToolBar);

@@ -124,6 +124,7 @@ import {
   setActionableAlterationDrugsDescriptionToStore,
   // setActionableAlterationDrugsDescriptionSaved,
   setActionableAlterationClinicalTrialToStore,
+  setFinalReportDnaVariantsToStore,
 } from "Actions/finalReportAction";
 
 function* onDelay(time) {
@@ -888,18 +889,14 @@ export function* fetchConfirmationMetadataSaga(action) {
 export function* fetchFinalReportVariantsSaga(action) {
   try {
     const result = yield call(fetchFinalReportVariantsApi, action);
-    yield put(setServerDataToStore(result?.data));
     const newData = parseTableData(result?.data);
 
-    yield put(setParsedDataToStore(newData));
-
-    yield put(setLoading(false));
+    yield put(setFinalReportDnaVariantsToStore(newData));
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchFinalReportVariantsSaga"]);
       Sentry.captureException(e);
     });
-    yield put(setLoading(false));
     yield handleErrors(e);
   }
 }
