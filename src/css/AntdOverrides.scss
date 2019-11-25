@@ -716,6 +716,11 @@ th {
 .ant-table {
   font-size: 16px !important;
 
+  // .ant-table-thead > tr > th,
+  // .ant-table-tbody > tr > td {
+  //   padding: 0 !important;
+  // }
+
   .ant-table-thead {
     tr {
       background-color: $table-header-bg;
@@ -723,6 +728,10 @@ th {
 
     .ant-table-column-title {
       // white-space: nowrap;
+    }
+
+    .ant-table-column-title {
+      // padding: 15px;
     }
 
     .ant-table-selection-column {
@@ -1223,7 +1232,7 @@ th {
     overflow: hidden !important;
 
     .ant-table-thead > tr > th {
-      padding: 10px 16px;
+      // padding: 10px 16px;
     }
 
     .ant-table-content {

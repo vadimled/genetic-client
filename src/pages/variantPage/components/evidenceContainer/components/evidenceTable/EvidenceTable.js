@@ -1,52 +1,33 @@
 import React, { Component, Fragment } from "react";
-import { Table } from "antd";
-import style from "./EvidenceTable.module.scss";
-import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
-import HighlightedCell from "GenericComponents/variantTable/components/highlightedCell/HighlightedCell";
 import PropTypes from "prop-types";
-// import cn from "classnames";
-// import { TEXTS } from "Utils/constants";
-import EmptyState from "GenericComponents/emptyState/EmptyState";
-import defaultImage from "Assets/smallEmptyState.svg";
-import { getCurrentEvidenceData } from "Store/selectors";
 import { connect } from "react-redux";
-import { createEvidenceTableData } from "Utils/helpers";
+import { Table } from "antd";
+
+import style from "./EvidenceTable.module.scss";
+import defaultImage from "Assets/smallEmptyState.svg";
+
+import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
+import EmptyState from "GenericComponents/emptyState/EmptyState";
 import TableDateAndUser from "variantComponents/evidenceContainer/components/tableDateAndUser";
 import TableSourceDescription from "variantComponents/evidenceContainer/components/tableSourceDescription";
 import TableLevel from "variantComponents/evidenceContainer/components/tableLevel";
+import TableMatch from "variantComponents/evidenceContainer/components/tableMatch";
 import TableActions from "variantComponents/evidenceContainer/components/tableActions";
+
+import {
+  EVIDENCE_TABLE_COLUMNS,
+  COUNTRIES,
+} from "Utils/constants";
+import { createEvidenceTableData } from "Utils/helpers";
+import { getCurrentEvidenceData } from "Store/selectors";
+
 
 class EvidenceTable extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      columns: [
-        {
-          key: "1",
-          title: "Date",
-          dataIndex: "created_at",
-          width: 140
-        },
-        {
-          title: "Source and Description",
-          dataIndex: "source_description",
-          key: "2",
-          width: 800
-        },
-        {
-          title: "Level",
-          dataIndex: "level",
-          key: "3",
-          width: 100
-        },
-        {
-          title: "Actions",
-          dataIndex: "actions",
-          key: "4",
-          width: 100
-        }
-      ]
+      columns: EVIDENCE_TABLE_COLUMNS[props.category] || []
     };
   }
 
@@ -97,6 +78,57 @@ class EvidenceTable extends Component {
             className="evidence-level-text"
           />;
         };
+      } else if (col.dataIndex === "location") {
+        column.render = (text) => {
+          const country = COUNTRIES.find(cntr => cntr.value === text);
+          return <div className="evidence-table-text">
+            {country?.label || ''}
+          </div>;
+        };
+      } else if (col.dataIndex === "trial_id") {
+        column.render = (text, obj) => {
+          if (obj?.source?.trim() === 'clinicaltrials.gov') {
+            text = text.trim();
+            return (
+              <div className="evidence-table-text">
+                <a href={`https://clinicaltrials.gov/ct2/show/${text}`}>
+                  {`https://clinicaltrials.gov/ct2/show/${text}`}
+                </a>
+              </div>
+            );
+          }
+          return <div className="evidence-table-text">
+            {text}
+          </div>;
+        };
+      } else if (col.dataIndex === "reference") {
+        column.render = (text, obj) => {
+          const arrayOfReferences = text?.split(',');
+          if (!arrayOfReferences){
+            return null;
+          }
+          if (obj?.source?.trim()?.toLowerCase() === 'pumbed') {
+            return arrayOfReferences.map((reference, index) => {
+              reference = reference.trim();
+              return (
+                <div className="evidence-table-text" key={index}>
+                  <a href={`https://www.ncbi.nlm.nih.gov/pubmed/${reference}`}>
+                    {`https://www.ncbi.nlm.nih.gov/pubmed/${reference}`}
+                  </a>
+                </div>
+              );
+            });
+          }
+          return arrayOfReferences.map((reference, index) => <div className="evidence-table-text" key={index}>
+            {reference}
+          </div>);
+        };
+      } else if (col.dataIndex === "is_phenotype_and_indication_match") {
+        column.render = (text) => {
+          return (
+            <TableMatch match={text}/>
+          );
+        };
       } else if (col.dataIndex === "actions") {
         column.render = (text, obj) => {
           return (
@@ -107,11 +139,11 @@ class EvidenceTable extends Component {
           );
         };
       } else {
-        column.render = (text, record) => {
+        column.render = (text) => {
           return (
-            <HighlightedCell isHighlighted={record.isAdded}>
+            <div className="evidence-table-text">
               {text}
-            </HighlightedCell>
+            </div>
           );
         };
       }

@@ -62,7 +62,10 @@ const SimpleSelect = ({
             }
           })
         }
-        value={value === TEXTS.unclassified ? TEXTS.unclassifiedUp : value}
+        value={value
+          ? value === TEXTS.unclassified ? TEXTS.unclassifiedUp : value
+          : undefined
+        }
         name={name}
         allowClear={!!value && isClearAvailable}
         clearIcon={
@@ -78,9 +81,9 @@ const SimpleSelect = ({
         data-testid={testId}
         {...props}
       >
-        {options?.map(option => {
-          return (
-            <Option
+        {options?.reduce((rez, option) => {
+          if (option) {
+            rez.push(<Option
               key={option.value}
               value={option.value}
               onClick={reconfirmMode ? handleReconfirm : null}
@@ -93,9 +96,10 @@ const SimpleSelect = ({
               {option.reconfirm && (
                 <div className="reconfirm">{`(${option.reconfirm})`}</div>
               )}
-            </Option>
-          );
-        })}
+            </Option>);
+          }
+          return rez;
+        }, [])}
       </Select>
     </Fragment>
   );
@@ -117,7 +121,8 @@ SimpleSelect.propTypes = {
   onFocus: PropTypes.func,
   reconfirmMode: PropTypes.bool,
   reconfirmStatus: PropTypes.bool,
-  currentVariantClass: PropTypes.string
+  currentVariantClass: PropTypes.string,
+  placeholder: PropTypes.string,
 };
 
 SimpleSelect.defaultProps = {

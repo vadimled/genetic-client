@@ -2,24 +2,30 @@ import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 import { NAV_STATUS } from "Utils/constants";
 
+const initialSelectedActionableAlterationState = {
+  selectedActionableAlterationId: null,
+  currentActionableAlterationTab: "1",
+};
+
+const initSelectedVariantsState = {
+  selectedVariantsIds: [],
+  isSelectVariants: false,
+};
 
 const initialState = {
   serverData: null,
   data: null,
   dna_variants: null,
   cna_variants: [],
-  selectedVariants: [],
-  actionableVariants: [],
+  actionableAlterations: [],
   clinicalVariants: [],
   mutation_type: null,
   navigationStatus: NAV_STATUS.alterations,
-  selectedUpperTableRowObject: null,
-  currentActionableTab: "1",
-  selectedVariantsIds: [],
+  ...initSelectedVariantsState,
+  ...initialSelectedActionableAlterationState,
 };
 
 const finalReportReducer = createReducer(initialState, {
-
   [actionsTypes.FETCH_TABLE_DATA_SUCCESS]: (state, { payload }) => {
     return {
       ...state,
@@ -41,13 +47,15 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.REMOVE_ACTIONABLE_SELECTED_ROW_FROM_STORE]: (state, { payload }) => {
-    const newActionableVariants = state.actionableVariants.filter(
-      obj => obj?.id !== payload?.id
+  [actionsTypes.DELETE_ACTIONABLE_ALTERATION_FROM_STORE]: (state, { payload }) => {
+    const newActionableAlterations = state.actionableAlterations.filter(
+      obj => obj?.id !== payload
     );
     return {
       ...state,
-      actionableVariants: newActionableVariants
+      actionableAlterations: newActionableAlterations,
+      ...initSelectedVariantsState,
+      ...initialSelectedActionableAlterationState,
     };
   },
 
@@ -62,27 +70,29 @@ const finalReportReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
-
     const { item, value } = payload;
 
     let newData = state?.data;
-    let selectedVariants = state?.selectedVariantsIds;
+    let selectedVariantsIds = state?.selectedVariantsIds;
 
     newData[item.id].selected = value;
 
-    selectedVariants.push(item.id);
-
-
+    const selectedVariantIndex = selectedVariantsIds.indexOf(item.id);
+    if (selectedVariantIndex === -1) {
+      selectedVariantsIds.push(item.id);
+    }
+    else {
+      selectedVariantsIds.splice(selectedVariantIndex, 1);
+    }
 
     return {
       ...state,
-      data: {...newData},
-      selectedVariantsIds: [...selectedVariants]
+      data: { ...newData },
+      selectedVariantsIds: [...selectedVariantsIds]
     };
   },
 
   [actionsTypes.HANDLE_SELECT_ALL_ROWS]: (state, { payload }) => {
-
     let data = state?.data;
 
     for (let key in data) {
@@ -90,7 +100,6 @@ const finalReportReducer = createReducer(initialState, {
         let item = data[key];
 
         item.selected = !payload;
-
       }
     }
 
@@ -104,31 +113,25 @@ const finalReportReducer = createReducer(initialState, {
     return {
       ...state,
       dna_variants: payload,
-      actionableVariants: payload
+      actionableAlterations: payload
     };
   },
 
-  [actionsTypes.SET_FINAL_REPORT_ACTIONABLE_DATA_TO_STORE]: (state, { payload }) => {
-    return {
-      ...state,
-      actionableVariants: payload
-    };
-  },
-
-  [actionsTypes.SET_FINAL_REPORT_CLINICAL_DATA_TO_STORE]: (state, { payload }) => {
+  [actionsTypes.SET_FINAL_REPORT_CLINICAL_DATA_TO_STORE]: (
+    state,
+    { payload }
+  ) => {
     return {
       ...state,
       clinicalVariants: payload
     };
   },
 
-
-
-  [actionsTypes.SET_ACTIONABLE_DATA_TO_STORE]: (state, { payload }) => {
+  [actionsTypes.SET_ACTIONABLE_ALTERATIONS]: (state, { payload }) => {
     return {
       ...state,
-      // dna_variants: payload,
-      actionableVariants: payload
+      actionableAlterations: payload,
+      selectedVariantsIds: []
     };
   },
 
@@ -139,19 +142,179 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.SET_SELECTED_UPPER_TABLE_ROW_OBJECT]: (state, { payload }) => {
+  [actionsTypes.SET_SELECTED_ACTIONABLE_ALTERATION_ID]: (state, { payload }) => {
     return {
       ...state,
-      selectedUpperTableRowObject: payload
+      selectedActionableAlterationId: payload,
+      selectVariants: true
     };
   },
-  
-  [actionsTypes.SET_CURRENT_ACTIONABLE_TAB]: (state, { payload }) => {
+
+  [actionsTypes.SET_CURRENT_ACTIONABLE_ALTERATION_TAB]: (state, { payload }) => {
     return {
       ...state,
-      currentActionableTab: payload || "1"
+      currentActionableAlterationTab: payload.toString() || "1"
     };
-  }
+  },
+
+  // [actionsTypes.SET_EXPANDED_TAB_TEXTAREA_CONTENT_SAVED]: (state, { payload }) => {
+  //   const selectedActionableAlteration =
+  //     state.actionableAlterations
+  //       .find(obj => obj.id === state.selectedActionableAlterationId);
+
+  //   const cloneExpandedInterpretation =  {...selectedActionableAlteration.expanded_interpretation};
+
+  //   switch (payload) {
+  //     case ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME.geneDescription:
+  //       cloneExpandedInterpretation.actionableAlterationGeneDescriptionSaved = true;
+  //       break;
+  //     case ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME.variantDescription:
+  //       cloneExpandedInterpretation.actionableAlterationVariantDescriptionSaved = true;
+  //       break;
+  //   }
+
+  //   const newActionableVariant = Object.assign( {},
+  //     selectedActionableAlteration,
+  //     {expanded_interpretation:cloneExpandedInterpretation} );
+
+  //   const ind = state.actionableAlterations
+  //     .findIndex(obj => obj.id === state.selectedActionableAlterationId);
+
+  //   state.actionableAlterations[ind] = newActionableVariant;
+  //   let newActionableAlterations ={ actionableAlterations: [...state.actionableAlterations] };
+
+  //   return {
+  //     ...state,
+  //     ...newActionableAlterations
+  //   };
+  // },
+
+  [actionsTypes.SET_ACTIONABLE_ALTERATION_EXPANDED_INTERPRETATION_TO_STORE]: (state, { payload }) => {
+    const { field, value } = payload;
+    const selectedActionableAlteration =
+      state.actionableAlterations
+        .find(obj => obj.id === state.selectedActionableAlterationId);
+
+    const expandedInterpretation = { ...selectedActionableAlteration.expanded_interpretation };
+
+    expandedInterpretation[field] = value;
+    expandedInterpretation.actionableAlterationVariantDescriptionSaved = false;
+
+
+    const newActionableVariant = Object.assign({},
+      selectedActionableAlteration,
+      { expanded_interpretation: expandedInterpretation }
+    );
+
+    const ind = state.actionableAlterations
+      .findIndex(obj => obj.id === state.selectedActionableAlterationId);
+
+    state.actionableAlterations[ind] = newActionableVariant;
+
+    return {
+      ...state,
+      actionableAlterations: [...state.actionableAlterations]
+    };
+  },
+
+  [actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION_TO_STORE]: (state, { payload }) => {
+    const { actionablealterationDrugId, value } = payload;
+    const selectedActionableAlteration = state.actionableAlterations
+      .find(obj => obj.id === state.selectedActionableAlterationId);
+
+    let clonedDrugs = selectedActionableAlteration.drugs
+      .map(drug => {
+        if (drug.id === actionablealterationDrugId){
+          drug.description = value;
+          // drug.source_description_saved = false;
+        }
+        return drug;
+      });
+
+    const newActionableAlteration = Object.assign({},
+      selectedActionableAlteration,
+      { drugs: clonedDrugs }
+    );
+
+    const ind = state.actionableAlterations
+      .findIndex(obj => obj.id === state.selectedActionableAlterationId);
+
+    state.actionableAlterations[ind] = newActionableAlteration;
+
+    return {
+      ...state,
+      actionableAlterations: [...state.actionableAlterations]
+    };
+  },
+
+  [actionsTypes.SET_ACTIONABLE_ALTERATION_CLINICAL_TRIAL_TO_STORE]: (state, { payload }) => {
+    const { actionablealterationClinicalTrialId, value } = payload;
+    const selectedActionableAlteration = state.actionableAlterations
+      .find(obj => obj.id === state.selectedActionableAlterationId);
+
+    let newClinicalTrials = selectedActionableAlteration.clinical_trials
+      .map(item => {
+        if (item.id === actionablealterationClinicalTrialId){
+          item.description = value;
+          // item.source_description_saved = false;
+        }
+        return item;
+      });
+
+    const newActionableAlteration = Object.assign({},
+      selectedActionableAlteration,
+      { clinical_trials: newClinicalTrials }
+    );
+
+    const ind = state.actionableAlterations
+      .findIndex(obj => obj.id === state.selectedActionableAlterationId);
+
+    state.actionableAlterations[ind] = newActionableAlteration;
+
+    return {
+      ...state,
+      actionableAlterations: [...state.actionableAlterations]
+    };
+  },
+
+  // [actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION_SAVED]: (state, { payload }) => {
+  //   const selectedActionableAlteration =
+  //     state.actionableAlterations
+  //       .find(obj => obj.id === state.selectedActionableAlterationId);
+
+  //   let cloneTherapies = [...selectedActionableAlteration.therapies]
+  //     .map(therapy => {
+  //       if(therapy.id === payload){
+  //         therapy.source_description_saved = true;
+  //       }
+  //       return therapy;
+  //     });
+
+  //   const newActionableVariant = Object.assign( {},
+  //     selectedActionableAlteration,
+  //     {therapies:cloneTherapies} );
+
+  //   const ind = state.actionableAlterations
+  //     .findIndex(obj => obj.id === state.selectedActionableAlterationId);
+
+  //   state.actionableAlterations[ind] = newActionableVariant;
+  //   let newActionableAlterations ={ actionableAlterations: [...state.actionableAlterations] };
+
+  //   return {
+  //     ...state,
+  //     ...newActionableAlterations
+  //   };
+  // },
+
+  [actionsTypes.SET_IS_SELECT_VARIANTS]: state => {
+    return {
+      ...state,
+      ...initSelectedVariantsState,
+      ...initialSelectedActionableAlterationState,
+      isSelectVariants: !state.isSelectVariants,
+    };
+  },
+
 });
 
 export default finalReportReducer;

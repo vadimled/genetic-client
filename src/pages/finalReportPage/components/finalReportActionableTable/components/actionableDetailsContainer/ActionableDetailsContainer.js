@@ -1,147 +1,180 @@
 import React, { Component } from "react";
-import style from "./ActionableDetailsContainer.module.scss";
-import PropTypes from "prop-types";
-import { Tabs } from "antd";
-// import ActionableDetailsTabPaneHeader from "variantComponents/actionable-details-containerContainer/components/tabPaneHeader";
-// import ActionableTable from "variantComponents/actionable-details-containerContainer/components/actionable-details-containerTable";
-// import ActionDeleteActionable from "variantComponents/actionable-details-containerContainer/components/actionDeleteActionable";
-
+// import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Tabs } from "antd";
+
 import SimpleButton from "GenericComponents/simpleButton";
-import { TEXTS } from "Utils/constants";
-import { getCurrentActionableTab } from "Store/selectors";
-import { setCurrentActionableTab } from "Actions/finalReportAction";
-import ActionableDetailsTabPaneHeader
-  from "Pages/finalReportPage/components/finalReportActionableTable/components/actionableDetailsTabPaneHeader";
+import ActionableDetailsTabPaneHeader from "../actionableDetailsTabPaneHeader";
+import ExpandedInterpretation from "./components/expandedInterpretation";
+import Therapies from "./components/therapies";
+import ClinicalTrial from './components/clinicalTrials';
+
+import style from "./ActionableDetailsContainer.module.scss";
+
+import {
+  getTestId,
+  getSelectedActionableAlterationId,
+  getCurrentActionableAlterationTab,
+  getActionableAlterationGeneDescription,
+  getActionableAlterationVariantDescription,
+  getActionableAlterationGeneDescriptionSaved,
+  getActionableAlterationVariantDescriptionSaved,
+  getActionableAlterationsDrugs,
+  getActionableAlterationsClinicalTrials
+} from "Store/selectors";
+import {
+  setCurrentActionableAlterationTab,
+  setActionableAlterationExpandedInterpretation,
+  setActionableAlterationDrugsDescription,
+  setActionableAlterationClinicalTrial,
+} from "Actions/finalReportAction";
+import {
+  ACTIONABLE_CATEGORIES_OPTIONS,
+  ACTIONABLE_TABS_VALUES
+} from "Utils/constants";
 
 const { TabPane } = Tabs;
 
 class ActionableDetailsContainer extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showPopupDelete: false
-    };
-  }
-
-  handleAddActionable = () => {
-    this.props.onAction({
-      actionSlideBarStatus: true,
-      mode: TEXTS.add
-    });
-  };
-
-  handleEditEntry = (e, id) => {
-    const { data } = this.props;
-    this.props.onAction({
-      actionSlideBarStatus: true,
-      id,
-      mode: TEXTS.edit,
-      data: data[id]
-    });
-  };
-
-  handleDeleteEntry = (e, id) => {
-    this.setState({ showPopupDelete: !this.state.showPopupDelete });
-    this.props.onAction({
-      actionSlideBarStatus: false,
-      id,
-      mode: TEXTS.delete
-    });
-  };
-
-  handleDeleteYes = () => {
-    const { deleteEntry, deleteData } = this.props;
-    deleteEntry(deleteData);
-    this.setState({ showPopupDelete: !this.state.showPopupDelete });
-  };
-
-  handleDeleteNo = () => {
-    this.setState({ showPopupDelete: !this.state.showPopupDelete });
-    this.props.cleanData();
-  };
-
   onTabClicked = key => {
-    this.props.setCurrentActionableTab(key);
+    this.props.setCurrentActionableAlterationTab(key);
   };
-  
-  renderContent = () => {
-  
+
+  handleActionableAlterationExpandedInterpretation = e => {
+    const { testId, selectedActionableAlterationId } = this.props;
+    const { name, value } = e.target;
+    this.props.setActionableAlterationExpandedInterpretation({
+      testId: testId,
+      actionableAlterationId: selectedActionableAlterationId,
+      field: name,
+      value
+    });
+  };
+
+  setActionableAlterationDrugsDescription = e => {
+    const { testId, selectedActionableAlterationId } = this.props;
+    const { id, value } = e.target;
+    this.props.setActionableAlterationDrugsDescription({
+      testId: testId,
+      actionableAlterationId: selectedActionableAlterationId,
+      actionablealterationDrugId: id,
+      value
+    });
+  };
+
+  handleClinicalTrials = (field, e) => {
+    const { testId, selectedActionableAlterationId } = this.props;
+    const { id, value } = e.target;
+
+    this.props.setActionableAlterationClinicalTrial({
+      testId: testId,
+      actionableAlterationId: selectedActionableAlterationId,
+      actionablealterationClinicalTrialId: id,
+      field,
+      value
+    });
+  };
+
+  renderContent = value => {
+    const {
+      actionableAlterationGeneDescription,
+      actionableAlterationVariantDescription,
+      actionableAlterationGeneDescriptionSaved,
+      actionableAlterationVariantDescriptionSaved,
+      grugs,
+      clinicalTrials
+    } = this.props;
+
+    switch (value) {
+      case ACTIONABLE_TABS_VALUES.expanded:
+        return (
+          <ExpandedInterpretation
+            key={"expanded-interpretation"}
+            geneDescription={actionableAlterationGeneDescription}
+            variantDescription={actionableAlterationVariantDescription}
+            geneDescriptionSaved={actionableAlterationGeneDescriptionSaved}
+            variantDescriptionSaved={actionableAlterationVariantDescriptionSaved}
+            onChange={this.handleActionableAlterationExpandedInterpretation}
+          />
+        );
+      case ACTIONABLE_TABS_VALUES.therapies:
+        return (
+          <Therapies
+            key={"therapies"}
+            onChange={this.setActionableAlterationDrugsDescription}
+            data={grugs}
+          />
+        );
+      case ACTIONABLE_TABS_VALUES.clinicalTrials:
+        return (
+          <ClinicalTrial
+            key={"clinical-trials"}
+            data={clinicalTrials}
+            onChange={this.handleClinicalTrials}
+          />
+        );
+    }
   };
 
   render() {
-    const { tabPaneHeaders, currentActionableTab } = this.props;
+    const { currentActionableAlterationTab } = this.props;
     return (
       <div className={style["actionable-details-container-wrapper"]}>
         <Tabs
-          tabBarExtraContent={
-            <SimpleButton
-              className={"add-actionable-details-container-button-text"}
-              onClick={this.handleAddActionable}
-              text={"Select variants"}
-            />
-          }
           size={"large"}
-          activeKey={currentActionableTab}
+          activeKey={currentActionableAlterationTab}
           onChange={this.onTabClicked}
         >
-          {!!tabPaneHeaders &&
-            tabPaneHeaders.map((header, index) => {
-              return (
-                <TabPane
-                  tab={
-                    <ActionableDetailsTabPaneHeader
-                      amount={header.length}
-                      title={header.title}
-                    />
-                  }
-                  key={index + 1}
-                >
-                  {
-                    this.renderContent()
-                  }
-                </TabPane>
-              );
-            })}
+          {ACTIONABLE_CATEGORIES_OPTIONS.map((header, index) => {
+            const { label, value } = header;
+            return (
+              <TabPane
+                tab={<ActionableDetailsTabPaneHeader title={label} />}
+                key={index + 1}
+              >
+                {this.renderContent(value)}
+              </TabPane>
+            );
+          })}
         </Tabs>
-        {this.state.showPopupDelete && (
+        <div className="actionable-details-done-wrapper">
           <SimpleButton
-            className={"add-actionable-details-container-button-text"}
-            onClick={this.handleAddActionable}
+            className={"actionable-details-done"}
+            // onClick={this.handleAddActionable}
             text={"Done"}
           />
-
-        )}
+        </div>
       </div>
     );
   }
 }
 
-ActionableDetailsContainer.propTypes = {
-  data: PropTypes.object,
-  typeData: PropTypes.array.isRequired
-};
+// ActionableDetailsContainer.propTypes = {
+// };
+//
+// ActionableDetailsContainer.defaultProps = {
+// };
 
-ActionableDetailsContainer.defaultProps = {
-  data: {}
-};
-
-const mapStateToProps = ( state ) => {
+const mapStateToProps = state => {
   return {
-    currentActionableTab: getCurrentActionableTab(state),
-    // tabPaneHeaders: getTabPaneHeaders(state),
-    // deleteData: getSubmitData(state),
-    // id: getActionableConfigId(state)
+    testId: getTestId(state),
+    selectedActionableAlterationId: getSelectedActionableAlterationId(state),
+    currentActionableAlterationTab: getCurrentActionableAlterationTab(state),
+    actionableAlterationGeneDescription: getActionableAlterationGeneDescription(state),
+    actionableAlterationVariantDescription: getActionableAlterationVariantDescription(state),
+    actionableAlterationGeneDescriptionSaved: getActionableAlterationGeneDescriptionSaved(state),
+    actionableAlterationVariantDescriptionSaved: getActionableAlterationVariantDescriptionSaved(state),
+    grugs: getActionableAlterationsDrugs(state),
+    clinicalTrials: getActionableAlterationsClinicalTrials(state)
   };
 };
 
-function mapDispatchToProps( dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
-    // onAction: status => dispatch(setActionableActionMode(status)),
-    // deleteEntry: data => dispatch(deleteActionableEntry(data)),
-    // cleanData: () => dispatch(cleanActionableActionData()),
-    setCurrentActionableTab: key => dispatch(setCurrentActionableTab(key))
+    setActionableAlterationExpandedInterpretation: data => dispatch(setActionableAlterationExpandedInterpretation(data)),
+    setCurrentActionableAlterationTab: key => dispatch(setCurrentActionableAlterationTab(key)),
+    setActionableAlterationDrugsDescription: data => dispatch(setActionableAlterationDrugsDescription(data)),
+    setActionableAlterationClinicalTrial: data => dispatch(setActionableAlterationClinicalTrial(data)),
   };
 }
 

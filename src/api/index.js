@@ -78,6 +78,11 @@ export function setTumorInfoApi(data) {
   });
 }
 
+export function patchTestApi(params) {
+  const { testId, data } = params;
+  return axios_based.patch(`/tests/${testId}`, data);
+}
+
 export function fetchVariantMetadataDataApi(data) {
   const { testId, variantId } = data.payload;
   return axios_based.get(`/tests/${testId}/variants/${variantId}/`);
@@ -177,9 +182,40 @@ export function sendVariantToConfirmation(data) {
   });
 }
 
-export function fetchFinalReportActionableDataApi(data) {
+// Actionable Alterations
+export function fetchActionableAlterationsApi(data) {
   return axios_based.get(`/tests/${data.payload}/actionablealterations`);
 }
+
+export function postAtionableAlterationsApi(data) {
+  const {testId, mutation, variants_ids} = data.payload;
+  return axios_based.post(`/tests/${testId}/actionablealterations?mutation=${mutation}`, {variants_ids});
+}
+
+export function deleteAtionableAlterationsApi(data) {
+  const { testId, id } = data.payload;
+  return axios_based.delete(
+    `/tests/${testId}/actionablealterations/${id}`
+  );
+}
+
+export function patchActionableAlterationsApi(params) {
+  const { testId, actionableAlterationId, body } = params;
+  return axios_based.patch(`/tests/${testId}/actionablealterations/${actionableAlterationId}`, body);
+}
+
+export function patchActionableAlterationsDrugsApi(params) {
+  const { testId, actionableAlterationId, actionablealterationDrugId, body } = params;
+  return axios_based.patch(`/tests/${testId}/actionablealterations/${actionableAlterationId}/drugs/${actionablealterationDrugId}`, body);
+}
+
+export function patchActionableAlterationsClinicalTrialsApi(params) {
+  const { testId, actionableAlterationId, actionablealterationClinicalTrialId, body } = params;
+  return axios_based.patch(`/tests/${testId}/actionablealterations/${actionableAlterationId}/clinical_trials/${actionablealterationClinicalTrialId}`, body);
+}
+
+
+
 
 export function fetchFinalReportClinicalDataApi(data) {
   return axios_based.get(`/tests/${data.payload}/clinical`);
@@ -204,17 +240,4 @@ export function fetchFinalReportVariantsApi (action) {
   });
 }
 
-export function moveToActionableTableApi(data) {
-
-  const {testId, mutation, variants_ids} = data.payload;
-
-  return axios_based.post(`/tests/${testId}/actionablealterations?mutation=${mutation}`, {variants_ids});
-}
-
-export function deleteFinalReportActionableRowApi(data) {
-  const { testId, id } = data.payload;
-  return axios_based.delete(
-    `/tests/${testId}/actionablealterations/${id}`
-  );
-}
 

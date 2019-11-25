@@ -10,7 +10,14 @@ const initialState = {
   evidenceTypeSelect: null,
   evidenceSourceInput: null,
   evidenceLevelSelect: null,
-  evidenceDescriptionTextarea: null
+  evidenceDescriptionTextarea: null,
+  evidenceReferenceInput: null,
+  evidenceDrugNameInput: null,
+  evidenceIndicationInput: null,
+  evidenceTrialIdInput: null,
+  evidenceIsPhenotypeAndIndicationMatchSelect: null,
+  evidenceLocationSelect: null,
+  evidencePhenotypeInput: null,
 };
 
 const evidenceConfigReducer = createReducer(initialState, {
@@ -35,7 +42,19 @@ const evidenceConfigReducer = createReducer(initialState, {
         { evidenceTypeSelect: data.category },
         { evidenceSourceInput: data.source },
         { evidenceLevelSelect: data.level },
-        { evidenceDescriptionTextarea: data.description }
+        { evidenceDescriptionTextarea: data.description },
+        { evidenceReferenceInput: data.reference || null },
+        { evidenceDrugNameInput: data.drug_name || null },
+        { evidenceIndicationInput: data.indication || null },
+        { evidenceTrialIdInput: data.trial_id || null },
+        { evidenceIsPhenotypeAndIndicationMatchSelect:
+          // transform boolean values true or false into string 'true' or 'false'
+          data.is_phenotype_and_indication_match !== undefined && data.is_phenotype_and_indication_match !== null
+            ? data.is_phenotype_and_indication_match.toString()
+            : null
+        },
+        { evidenceLocationSelect: data.location || null },
+        { evidencePhenotypeInput: data.phenotype || null },
       );
     } else {
       status = Object.assign({}, payload);
@@ -45,7 +64,7 @@ const evidenceConfigReducer = createReducer(initialState, {
       ...status
     };
   },
-  
+
   [actionsTypes.SET_EVIDENCE_ACTION_DATA]: (state, { payload }) => {
     return {
       ...state,
@@ -55,17 +74,11 @@ const evidenceConfigReducer = createReducer(initialState, {
 
   [actionsTypes.CLEAN_EVIDENCE_ACTION_DATA]: state => {
     return {
-      ...state,
-      actionSlideBarStatus: false,
-      mode: null,
-      id: null,
-      evidenceTypeSelect: null,
-      evidenceSourceInput: null,
-      evidenceLevelSelect: null,
-      evidenceDescriptionTextarea: null
+      ...initialState,
+      currentEvidenceTab: state.currentEvidenceTab
     };
   },
-  
+
   [actionsTypes.SET_CURRENT_EVIDENCE_TAB]: (state, { payload }) => {
     return {
       ...state,

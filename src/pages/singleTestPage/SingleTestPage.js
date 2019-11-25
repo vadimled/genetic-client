@@ -11,6 +11,7 @@ import TableData from "./components/tableData";
 import IgvAlertPopup from "./components/igvAlertPopup";
 import SendForConfirmationPopup from "./components/sendForConfirmationPopup";
 import UncheckConfirmationPopup from "./components/uncheckConfirmationPopup";
+import SetTestPhenotype from './components/setTestPhenotypePopup';
 import Alert from "GenericComponents/alert";
 import TumorToolbar from "Pages/singleTestPage/components/tumorToolbar";
 import {
@@ -24,7 +25,8 @@ import {
   getLoadingStatus,
   getMutationTypesValues,
   getTestId,
-  getSelectedMutationType
+  getSelectedMutationType,
+  getTestPhenotype
 } from "Store/selectors";
 import { setAlert } from "Actions/alertActions";
 import { fetchTestMetadata } from "Actions/testActions";
@@ -73,6 +75,8 @@ class SingleTestPage extends Component {
       setAlert,
       showTumorInfo,
       isLoading,
+      testPhenotype,
+      testId,
     } = this.props;
 
 
@@ -123,6 +127,9 @@ class SingleTestPage extends Component {
             onClose={setAlert.bind(null, null)}
           />
         )}
+        {!testPhenotype && testId &&
+          <SetTestPhenotype testId={testId} />
+        }
       </div>
     );
   }
@@ -140,7 +147,8 @@ const mapStateToProps = state => {
     isLoading: getLoadingStatus(state),
     getMutationTypesValues: getMutationTypesValues(state),
     mutation: getSelectedMutationType(state),
-    testId: getTestId(state)
+    testId: getTestId(state),
+    testPhenotype: getTestPhenotype(state),
   };
 };
 

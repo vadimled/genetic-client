@@ -1,116 +1,130 @@
-import { call, put, delay } from "redux-saga/effects";
+import { call, delay, put } from "redux-saga/effects";
 import * as Sentry from "@sentry/browser";
+import { ALERT_STATUSES, ALLELE_TYPES, DEFAULT_FILTERS, TEXTS, VALIDATION_FAILD_FIELDS } from "Utils/constants";
 import {
-  ALERT_STATUSES,
-  ALLELE_TYPES,
-  VALIDATION_FAILD_FIELDS,
-  TEXTS,
-  DEFAULT_FILTERS
-} from "Utils/constants";
-import {
-  fetchBAMFile,
-  goToChrPositionIgv,
-  loadHgvsApi,
-  addResultApi,
-  editResultApi,
-  fetchTestMetadataApi,
-  fetchVariantMetadataDataApi,
-  updateVariantApi,
-  fetchTestsApi,
   addEvidenceEntryApi,
-  editEvidenceEntryApi,
-  fetchEvidenceDataApi,
+  addResultApi,
   deleteEvidenceEntryApi,
-  fetchTableDataApi,
+  editEvidenceEntryApi,
+  editResultApi,
   exportTableApi,
-  setTumorInfoApi,
-  updateUserPreferencesApi,
-  fetchUserPreferencesApi,
+  fetchBAMFile,
   fetchClassificationHistoryApi,
   fetchConfirmationMetadataApi,
+  fetchEvidenceDataApi,
+
+  fetchTableDataApi,
+  fetchTestMetadataApi,
+  fetchTestsApi,
+  fetchUserPreferencesApi,
+  fetchVariantMetadataDataApi,
+  goToChrPositionIgv,
+  loadHgvsApi,
   sendVariantToConfirmation,
-  fetchFinalReportActionableDataApi,
-  deleteFinalReportActionableRowApi
-  // fetchFinalReportClinicalDataApi,
+  // setTumorInfoApi,
+  patchTestApi,
+  updateUserPreferencesApi,
+  updateVariantApi,
+
+  fetchFinalReportVariantsApi,
+
+  fetchActionableAlterationsApi,
+  postAtionableAlterationsApi,
+  deleteAtionableAlterationsApi,
+  patchActionableAlterationsApi,
+  patchActionableAlterationsDrugsApi,
+  patchActionableAlterationsClinicalTrialsApi,
 } from "Api/index";
 import {
   handleIgvAlertShow,
+  setBamUrlToStore,
   setFetchBAMFileStatus,
-  setIgvLastQuery,
-  setBamUrlToStore
+  setIgvLastQuery
 } from "Actions/igvActions";
 import {
   applyConfirmation,
-  tableDataAddResult,
+  applyConfirmationSuccess,
+  fetchUserPreferences,
+  setConfirmationStatusToStore,
   setParsedDataToStore,
   setServerDataToStore,
-  setTableReducerLoading,
-  setConfirmationStatusToStore,
-  updateVariantInTableData,
   setSort,
-  fetchUserPreferences,
-  applyConfirmationSuccess
+  setTableReducerLoading,
+  tableDataAddResult,
+  updateVariantInTableData
 } from "Actions/tableActions";
 import {
   handleOnConfirmation,
   setConfirmationData
 } from "Actions/confirmationActions";
-import { setAlert } from "Actions/alertActions";
+import {
+  setAlert
+} from "Actions/alertActions";
 import {
   handleResultConfigCoding,
+  handleResultConfigIsHgvsLoaded,
   handleResultConfigProtein,
   handleResultConfigTranscript,
   handleResultConfigValidationFaildFields,
-  handleResultConfigIsHgvsLoaded,
   resultConfigSetInitialState
 } from "Actions/resultConfigActions";
 import {
-  setTestData,
   setLoading,
+  setTestData,
   setTumorInfoLoading
 } from "Actions/testActions";
-import { setTestsToStore, setTestsLoading } from "Actions/testsActions";
-import { setMutationType } from "Actions/variantsActions";
 import {
-  setVariantMetadataData,
-  setNewEvidenceEntry,
+  setTestsLoading,
+  setTestsToStore
+} from "Actions/testsActions";
+import {
+  setMutationType
+} from "Actions/variantsActions";
+import {
+  deleteEvidenceFromStore,
+  setClassificationHistoryToStore,
   setEditedEvidenceEntry,
   setEvidenceData,
-  deleteEvidenceFromStore,
-  setHistoryTableData
-} from "Actions/variantPageActions";
-import {
-  // setPriority,
-  getEvidenceData,
-  parseTableData,
-  parseTableDataObj,
-  createResourcesLinks,
-  getHistoryTableData,
-  getCurrentEvidenceTabKey,
-  getConfirmationPageMetadata
-} from "Utils/helpers";
-import {
-  setClassificationHistoryToStore,
+  setExternalResources,
+  setHistoryTableData,
+  setNewEvidenceEntry,
   setServerVariantMetadataToStore,
-  setExternalResources
+  setVariantMetadataData
 } from "Actions/variantPageActions";
+import {
+  createResourcesLinks,
+  getConfirmationPageMetadata,
+  getCurrentEvidenceTabKey,
+  getEvidenceData,
+  getHistoryTableData,
+  parseTableData,
+  parseTableDataObj
+} from "Utils/helpers";
 import {
   cleanEvidenceActionData,
   setCurrentEvidenceTab
 } from "Actions/evidenceConfigActions";
-import { setConfirmationPageMetadataToStore } from "Actions/confirmationPageActions";
 import {
-  setDefaultFilters,
-  saveUserPreferencesFilters
+  setConfirmationPageMetadataToStore
+} from "Actions/confirmationPageActions";
+import {
+  saveUserPreferencesFilters,
+  setDefaultFilters
 } from "Actions/filtersActions";
-// import { setVariantsDataToStore } from "Actions/finalReportAction";
-import { fetchFinalReportVariantsApi, moveToActionableTableApi } from "../../api";
-import { setActionableTableDataToStore } from "../actions/finalReportAction";
+// import {
+//   setVariantsDataToStore
+// } from "Actions/finalReportAction";
 import {
-  setFinalReportActionableDataToStore,
-  removeActionableSelectedRowFromStore,
+  deleteActionableAlterationFromStore,
   removeClinicalSelectedRowFromStore,
-  setFinalReportClinicalDataToStore } from "Actions/finalReportAction";
+  setFinalReportClinicalDataToStore,
+  setActionableAlterations,
+  setActionableAlterationExpandedInterpretationToStore,
+  // setExpandedTextAreaContentSaved,
+  setActionableAlterationDrugsDescriptionToStore,
+  // setActionableAlterationDrugsDescriptionSaved,
+  setActionableAlterationClinicalTrialToStore,
+} from "Actions/finalReportAction";
 
 function* onDelay(time) {
   process?.env?.NODE_ENV === "test" ? yield true : yield delay(time);
@@ -290,13 +304,17 @@ export function* goToChrPositionIgvSaga(data) {
 
 export function* sendForConfirmationSaga(data) {
   try {
-    // -> API request
-
     yield confirmationDataValidation(data.payload.variants);
 
     yield put(applyConfirmation(data.payload));
     yield put(setConfirmationData(null));
     yield put(handleOnConfirmation(false)); // hide confirmation popup
+    yield put(
+      setAlert({
+        status: ALERT_STATUSES.success,
+        title: "Form has been sent successfully",
+      })
+    );
   } catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["sendForConfirmationSaga"]);
@@ -528,11 +546,20 @@ export function* fetchTableDataSaga(action) {
 
 export function* setTumorInfoSaga(action) {
   try {
+    const { payload: { testId, name, value }} = action;
+
     yield put(setTumorInfoLoading(true));
-    const { status, data } = yield call(setTumorInfoApi, action);
-    if (status === 200) {
-      yield put(setTestData(data));
-    }
+
+    const { data } = yield call(patchTestApi, {
+      testId,
+      data: {
+        tumor_info: {
+          [name]: value
+        }
+      }
+    });
+
+    yield put(setTestData(data));
     yield put(setTumorInfoLoading(false));
   } catch (e) {
     Sentry.withScope(scope => {
@@ -540,6 +567,33 @@ export function* setTumorInfoSaga(action) {
       Sentry.captureException(e);
     });
     yield put(setTumorInfoLoading(false));
+    yield handleErrors(e);
+  }
+}
+
+export function* saveTestPhenotypeSaga(action) {
+  try {
+    const { payload: { testId, phenotype }} = action;
+
+    yield put(setLoading(true));
+    console.log(action);
+    const { data } = yield call(patchTestApi, {
+      testId,
+      data: {
+        phenotype
+      }
+    });
+
+    yield put(setTestData(data));
+
+    yield put(setLoading(false));
+  }
+  catch(err) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["saveTestPhenotypeSaga"]);
+      Sentry.captureException(e);
+    });
+    yield put(setLoading(false));
     yield handleErrors(e);
   }
 }
@@ -766,41 +820,39 @@ export function* fetchUserPreferencesSaga({ payload }) {
 }
 
 export function* applyConfirmationSaga(data) {
-  const newData = Object.assign({}, data);
-
-  const variants = newData.payload.variants.map(variant => {
-    return {
-      variant_id: variant.id,
-      primers: variant.additionConfirmationData.map(item => {
-        return {
-          primer: item.primer,
-          fragment_size: item.fragmentSize,
-          instructions: item.notes
-        };
-      })
-    };
-  });
-
-  const { testId } = newData.payload;
-
-  const dataToSend = {
-    variants: variants,
-    testId: testId
-  };
-
   try {
+    const newData = Object.assign({}, data);
+
+    const variants = newData.payload.variants.map(variant => {
+      return {
+        variant_id: variant.id,
+        primers: variant.additionConfirmationData.map(item => {
+          return {
+            primer: item.primer,
+            fragment_size: item.fragmentSize,
+            instructions: item.notes
+          };
+        })
+      };
+    });
+
+    const { testId } = newData.payload;
+
+    const dataToSend = {
+      variants: variants,
+      testId: testId
+    };
+
     yield put(setTableReducerLoading(true));
 
-    const result = yield call(sendVariantToConfirmation, dataToSend);
+    yield call(sendVariantToConfirmation, dataToSend);
 
-    if (result?.status === 200) {
-      yield put(
-        applyConfirmationSuccess(
-          // check why notes does not return from server
-          newData.payload.variants
-        )
-      );
-    }
+    yield put(
+      applyConfirmationSuccess(
+        // check why notes does not return from server
+        newData.payload.variants
+      )
+    );
 
     yield put(setTableReducerLoading(false));
   } catch (e) {
@@ -852,40 +904,39 @@ export function* fetchFinalReportVariantsSaga(action) {
   }
 }
 
-export function* moveToActionableTableSaga(action) {
+export function* postAtionableAlterationsSaga(action) {
   try {
     yield put(setLoading(true));
-    const { data } = yield call(moveToActionableTableApi, action);
-    yield put(setActionableTableDataToStore(data));
+    const { data } = yield call(postAtionableAlterationsApi, action);
+    yield put(setActionableAlterations(data));
     yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));
-    console.log("--err: ", e);
     Sentry.withScope(scope => {
-      scope.setFingerprint(["moveToActionableTableSaga"]);
+      scope.setFingerprint(["postAtionableAlterationsSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);
   }
 }
 
-export function* fetchFinalReportActionableDataSaga(action) {
+export function* fetchActionableAlterationsSaga(action) {
   try {
     yield put(setLoading(true));
-    const { data } = yield call(fetchFinalReportActionableDataApi, action);
-    yield put(setFinalReportActionableDataToStore(data));
+    const { data } = yield call(fetchActionableAlterationsApi, action);
+    yield put(setActionableAlterations(data));
     yield put(setLoading(false));
   } catch (e) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchFinalReportActionableDataSaga"]);
+      scope.setFingerprint(["fetchActionableAlterationsSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);
   }
 }
 
-let tempClinical = [
+const tempClinical = [
   {
     key: 1,
     id: "5d511f574651a20020a0ab52",
@@ -926,20 +977,20 @@ export function* fetchFinalReportClinicalDataSaga() {
   }
 }
 
-export function* deleteFinalReportActionableRowSaga(action){
+export function* deleteActionableAlterationSaga(action){
   try {
     yield put(setLoading(true));
-    const { data } = yield call(deleteFinalReportActionableRowApi, action);
-    if(data.status === 200){
-      const { id } = action.payload;
-      yield put(removeActionableSelectedRowFromStore(id));
-    }
+    yield call(deleteAtionableAlterationsApi, action);
+
+    const { id } = action.payload;
+    yield put(deleteActionableAlterationFromStore(id));
+
     yield put(setLoading(false));
   }
   catch (e) {
     yield put(setLoading(false));
     Sentry.withScope(scope => {
-      scope.setFingerprint(["deleteFinalReportActionableRowSaga"]);
+      scope.setFingerprint(["deleteActionableAlterationSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);
@@ -949,7 +1000,9 @@ export function* deleteFinalReportActionableRowSaga(action){
 export function* deleteFinalReportClinicalRowSaga(action){
   try {
     yield put(setLoading(true));
+
     /* const { data } = yield call(deleteFinalReportClinicalRowApi, action);*/
+
     // if(data.status === 200){
     const { id } = action.payload;
     yield put(removeClinicalSelectedRowFromStore(id));
@@ -960,6 +1013,79 @@ export function* deleteFinalReportClinicalRowSaga(action){
     yield put(setLoading(false));
     Sentry.withScope(scope => {
       scope.setFingerprint(["deleteFinalReportClinicalRowSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+}
+export function* setActionableAlterationExpandedInterpretationSaga(action){
+  try {
+    const { testId, actionableAlterationId, field, value } = action.payload;
+    yield put(setActionableAlterationExpandedInterpretationToStore(action.payload));
+
+    yield call(patchActionableAlterationsApi, {
+      testId,
+      actionableAlterationId,
+      body: {
+        expanded_interpretation: {
+          [field]: value
+        }
+      }
+    });
+
+    // yield put(setExpandedTextAreaContentSaved(action.payload?.name));
+  }
+  catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["setActionableAlterationExpandedInterpretationSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+
+}
+export function* setActionableAlterationDrugsDescriptionSaga(action){
+  try {
+    const { testId, actionableAlterationId, actionablealterationDrugId, value } = action.payload;
+    yield put(setActionableAlterationDrugsDescriptionToStore(action.payload));
+
+    yield call(patchActionableAlterationsDrugsApi, {
+      testId,
+      actionableAlterationId,
+      actionablealterationDrugId,
+      body: {
+        description: value
+      }
+    });
+
+    // yield put(setActionableAlterationDrugsDescriptionSaved(action.payload?.id));
+  }
+  catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["setActionableAlterationDrugsDescriptionSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+}
+
+export function* setActionableAlterationClinicalTrialSaga(action){
+  try {
+    const { testId, actionableAlterationId, actionablealterationClinicalTrialId, field, value } = action.payload;
+    yield put(setActionableAlterationClinicalTrialToStore(action.payload));
+
+    yield call(patchActionableAlterationsClinicalTrialsApi, {
+      testId,
+      actionableAlterationId,
+      actionablealterationClinicalTrialId,
+      body: {
+        [field]: value
+      }
+    });
+  }
+  catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["setActionableAlterationClinicalTrialSaga"]);
       Sentry.captureException(e);
     });
     yield handleErrors(e);

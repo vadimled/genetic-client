@@ -1,50 +1,57 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import style from "./FinalReportPage.module.scss";
-import FinalReportActionableTable from "Pages/finalReportPage/components/finalReportActionableTable";
-import {
-  getActionableVariants,
-  getClinicalVariants,
-  getDnaVariantsAsArray,
-  getNavigationStatus,
-  getSelectedUpperTableRowObject
-} from "Store/selectors";
 import { Link } from "react-router-dom";
-import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
 import { Button } from "antd";
-import { fetchTestMetadata } from "Store/actions/testActions";
+
+import style from "./FinalReportPage.module.scss";
+
+import FinalReportActionableTable from "Pages/finalReportPage/components/finalReportActionableTable";
+import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
+import FinalReportClinicalTable from "./components/finalReportClinicalTable";
+import ActionableDetailsContainer from "./components/finalReportActionableTable/components/actionableDetailsContainer";
+import FinalReportToolBar from "./components/finalReportToolBar";
+import SimpleButton from "GenericComponents/simpleButton";
+
 import {
   handleSelectAllRows,
   handleSelectedRow,
-  moveToActionableTable,
+  postAtionableAlterations,
   fetchFinalReportVariants,
-  removeActionableSelectedRowFromStore,
+  deleteActionableAlteration,
   removeClinicalSelectedRowFromStore,
-  fetchFinalReportActionableData,
+  fetchActionableAlterations,
   fetchFinalReportClinicalData,
   setFinalReportNavigationStatus,
-  setSelectedUpperTableRowObject
+  setSelectedActionableAlterationId,
+  setIsSelectVariants
 } from "Actions/finalReportAction";
-import { fetchTableData } from "Store/actions/tableActions";
+import {
+  fetchTestMetadata
+} from "Store/actions/testActions";
+import {
+  fetchTableData
+} from "Store/actions/tableActions";
 import {
   getMutationTypesValues,
-  checkIsAllDnaRowsSelected
-} from "Store/selectors";
-import {
+  checkIsAllDnaRowsSelected,
+  getActionableAlterations,
+  getClinicalVariants,
+  getDnaVariantsAsArray,
+  getNavigationStatus,
+  getSelectedActionableAlterationId,
+  getIsSelectVariants,
   getSelectedVariants,
   getSelectedVariantsIds,
   getTestId
-} from "../../store/selectors";
+} from "Store/selectors";
+
 import { NAV_STATUS } from "Utils/constants";
-import FinalReportClinicalTable from "./components/finalReportClinicalTable";
-import ActionableDetailsContainer from "Pages/finalReportPage/components/finalReportActionableTable/components/actionableDetailsContainer";
-import FinalReportToolBar from "./components/finalReportToolBar";
 
 class FinalReportPage extends Component {
   constructor(props) {
     super(props);
     const {
-      fetchFinalReportActionable,
+      fetchActionableAlterations,
       fetchFinalReportClinical,
       fetchTestMetadata,
       mutationTypesValues,
@@ -54,7 +61,7 @@ class FinalReportPage extends Component {
     } = this.props;
 
     fetchTestMetadata(testId);
-    fetchFinalReportActionable(testId);
+    fetchActionableAlterations(testId);
     fetchFinalReportClinical(testId);
     fetchFinalReportVariants({
       testId,
@@ -76,8 +83,9 @@ class FinalReportPage extends Component {
     }
     return null;
   }
-  handleRemoveActionableRow = val => {
-    this.props.removeActionableRow(val);
+
+  handleDeleteActionableAlteration = val => {
+    this.props.deleteActionableAlteration(val);
   };
 
   handleRemoveClinicalRow = val => {
@@ -88,19 +96,18 @@ class FinalReportPage extends Component {
     this.props.setNavStatus(e.target.name);
   };
 
-  handleSelectRow = obj => {
-    this.props.setSelectedUpperTableRowObject(obj);
+  handleSelectRow = id => {
+    this.props.setSelectedActionableAlterationId(id);
   };
 
-  // handleRemoveSelectedTableRow = val => {
-  //   console.log(val);
-  //   this.props.removeSelectedTableRow(val);
-  // };
-  //
-  moveToActionabilities = () => {
+  handleIsSelectVariants = () => {
+    this.props.setIsSelectVariants();
+  };
+
+  saveNewActionableAlterations = () => {
     const {
       selectedVariantsIds,
-      moveToActionableTable,
+      postAtionableAlterations,
       mutationTypesValues,
       testId
     } = this.props;
@@ -110,12 +117,12 @@ class FinalReportPage extends Component {
       variants_ids: selectedVariantsIds
     };
 
-    moveToActionableTable(data);
+    postAtionableAlterations(data);
   };
 
   renderUpperTable = () => {
     const {
-      selectedActionableData,
+      actionableAlterations,
       selectedClinicalData,
       navigationStatus,
       match: {
@@ -127,10 +134,10 @@ class FinalReportPage extends Component {
       case NAV_STATUS.alterations:
         return (
           <FinalReportActionableTable
-            dataSource={selectedActionableData}
+            dataSource={actionableAlterations}
             handleSelectRow={this.handleSelectRow}
             testId={testId}
-            remove={this.handleRemoveActionableRow}
+            remove={this.handleDeleteActionableAlteration}
           />
         );
       case NAV_STATUS.clinical:
@@ -151,9 +158,10 @@ class FinalReportPage extends Component {
       mutationTypesValues,
       handleSelectedRow,
       selectedVariants,
-      selectedUpperTableRowObject
+      selectedActionableAlterationId,
+      isSelectVariants
     } = this.props;
-    // console.log(selectedUpperTableRowObject);
+
     return (
       <div
         className={`${style["final-report-page-wrapper"]} flex justify-between`}
@@ -167,13 +175,22 @@ class FinalReportPage extends Component {
             {this.renderUpperTable()}
           </div>
 
-          {!selectedUpperTableRowObject ? (
+          {!isSelectVariants && (
+            <div className="select-variants-wrapper">
+              <SimpleButton
+                className={"add-actionable-details-container-button-text"}
+                onClick={this.handleIsSelectVariants}
+                text={"Select variants"}
+              />
+            </div>
+          )}
+          {!selectedActionableAlterationId && isSelectVariants && (
             <div className="final-report-variants">
               <div className="flex justify-end">
                 <FinalReportToolBar />
                 <Button
                   className="moveToActionabilitiesBtn"
-                  onClick={this.moveToActionabilities}
+                  onClick={this.saveNewActionableAlterations}
                 >
                   MOVE TO ACTIONABILITIES
                 </Button>
@@ -187,9 +204,10 @@ class FinalReportPage extends Component {
                 handleSelectedRow={handleSelectedRow}
               />
             </div>
-          )  : (
-            <ActionableDetailsContainer />
           )}
+          {selectedActionableAlterationId &&
+            <ActionableDetailsContainer />
+          }
         </div>
         <div className="sidebar">
           <div className="sidebar-content-wrapper">
@@ -216,40 +234,36 @@ class FinalReportPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    selectedData: getActionableVariants(state),
     mutationTypesValues: getMutationTypesValues(state),
     isAllRowSelected: checkIsAllDnaRowsSelected(state),
     selectedVariants: getSelectedVariants(state),
     testId: getTestId(state),
     selectedVariantsIds: getSelectedVariantsIds(state),
-    selectedActionableData: getActionableVariants(state),
+    actionableAlterations: getActionableAlterations(state), // duplicate !!!
     selectedClinicalData: getClinicalVariants(state),
     filteredDnaVariants: getDnaVariantsAsArray(state),
-    selectedUpperTableRowObject: getSelectedUpperTableRowObject(state),
-    navigationStatus: getNavigationStatus(state)
+    selectedActionableAlterationId: getSelectedActionableAlterationId(state),
+    navigationStatus: getNavigationStatus(state),
+    isSelectVariants: getIsSelectVariants(state)
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    setSelectedUpperTableRowObject: data =>
-      dispatch(setSelectedUpperTableRowObject(data)),
+    setSelectedActionableAlterationId: id => dispatch(setSelectedActionableAlterationId(id)),
     // removeSelectedTableRow: data => dispatch(removeSelectedTableRow(data)),
     fetchTableData: data => dispatch(fetchTableData(data)),
     fetchTestMetadata: testId => dispatch(fetchTestMetadata(testId)),
     handleSelectedRow: data => dispatch(handleSelectedRow(data)),
     handleSelectAllRows: data => dispatch(handleSelectAllRows(data)),
-    moveToActionableTable: data => dispatch(moveToActionableTable(data)),
+    postAtionableAlterations: data => dispatch(postAtionableAlterations(data)),
     fetchFinalReportVariants: data => dispatch(fetchFinalReportVariants(data)),
-    removeActionableRow: data =>
-      dispatch(removeActionableSelectedRowFromStore(data)),
-    removeClinicalRow: data =>
-      dispatch(removeClinicalSelectedRowFromStore(data)),
-    fetchFinalReportActionable: data =>
-      dispatch(fetchFinalReportActionableData(data)),
-    fetchFinalReportClinical: data =>
-      dispatch(fetchFinalReportClinicalData(data)),
-    setNavStatus: status => dispatch(setFinalReportNavigationStatus(status))
+    deleteActionableAlteration: data => dispatch(deleteActionableAlteration(data)),
+    removeClinicalRow: data => dispatch(removeClinicalSelectedRowFromStore(data)),
+    fetchActionableAlterations: data => dispatch(fetchActionableAlterations(data)),
+    fetchFinalReportClinical: data => dispatch(fetchFinalReportClinicalData(data)),
+    setNavStatus: status => dispatch(setFinalReportNavigationStatus(status)),
+    setIsSelectVariants: () => dispatch(setIsSelectVariants())
   };
 }
 

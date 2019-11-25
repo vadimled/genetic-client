@@ -1,8 +1,27 @@
-@import "../../../../../../css/Colors";
+@import "Css/Colors.scss";
 
 .actionable-details-container-wrapper :global {
   width: 100%;
+  height: 60vh;
   overflow: hidden !important;
+
+  .actionable-details-done-wrapper {
+    display: flex;
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
+    justify-content: left;
+    text-align: center;
+
+    .actionable-details-done {
+      display: flex;
+      justify-content: center;
+      font-style: normal;
+      font-size: 18px;
+      text-align: center;
+      color: $neutral_30;
+    }
+  }
 
   .add-actionable-details-container-button-text {
     display: flex;
@@ -14,6 +33,10 @@
     text-align: center;
     color: $white;
   }
+  .ant-btn {
+    background-color: white !important;
+  }
+
   .actionable-details-container-title {
     text-align: left;
     font-weight: bold;
@@ -21,7 +44,10 @@
     color: $title_color;
   }
   .ant-tabs {
+    height: inherit;
     text-align: left;
+    overflow: scroll !important;
+
     .ant-tabs-ink-bar-animated {
       height: 5px !important;
     }

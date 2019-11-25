@@ -1,8 +1,16 @@
 import actionsTypes from "../actionsTypes";
 
-export const removeActionableSelectedRowFromStore = data => {
+export const deleteActionableAlteration = data => {
   return {
-    type: actionsTypes.REMOVE_ACTIONABLE_SELECTED_ROW_FROM_STORE,
+    type: actionsTypes.DELETE_ACTIONABLE_ALTERATION,
+    payload: data
+  };
+};
+
+
+export const deleteActionableAlterationFromStore = data => {
+  return {
+    type: actionsTypes.DELETE_ACTIONABLE_ALTERATION_FROM_STORE,
     payload: data
   };
 };
@@ -14,9 +22,9 @@ export function removeClinicalSelectedRowFromStore(data) {
   };
 }
 
-export const fetchFinalReportActionableData = data => {
+export const fetchActionableAlterations = data => {
   return {
-    type: actionsTypes.FETCH_FINAL_REPORT_ACTIONABLE_DATA,
+    type: actionsTypes.FETCH_ACTIONABLE_ALTERATIONS,
     payload: data
   };
 };
@@ -49,10 +57,10 @@ export function setVariantsDataToStore(data) {
   };
 }
 
-export function moveToActionableTable(data) {
+export function postAtionableAlterations(data) {
 
   return {
-    type: actionsTypes.MOVE_TO_ACTIONABLE_TABLE,
+    type: actionsTypes.POST_ACTIONABLE_ALTERATIONS,
     payload: data
   };
 }
@@ -65,17 +73,9 @@ export function fetchFinalReportVariants(data) {
   };
 }
 
-export function setFinalReportVariantsToStore(data) {
+export function setActionableAlterations(data) {
   return {
-    type: actionsTypes.SET_FINAL_REPORT_VARIANTS_TO_STORE,
-    payload: data
-  };
-}
-
-
-export function setActionableTableDataToStore(data) {
-  return {
-    type: actionsTypes.SET_ACTIONABLE_DATA_TO_STORE,
+    type: actionsTypes.SET_ACTIONABLE_ALTERATIONS,
     payload: data
   };
 }
@@ -94,22 +94,78 @@ export function setFinalReportNavigationStatus(data) {
   };
 }
 
-export function setSelectedUpperTableRowObject(obj) {
+export function setSelectedActionableAlterationId(id) {
   return {
-    type: actionsTypes.SET_SELECTED_UPPER_TABLE_ROW_OBJECT,
-    payload: obj
+    type: actionsTypes.SET_SELECTED_ACTIONABLE_ALTERATION_ID,
+    payload: id
   };
 }
 
-export function setCurrentActionableTab(data) {
+export function setCurrentActionableAlterationTab(data) {
   return {
-    type: actionsTypes.SET_CURRENT_ACTIONABLE_TAB,
+    type: actionsTypes.SET_CURRENT_ACTIONABLE_ALTERATION_TAB,
     payload: data
   };
 }
-export function setFinalReportActionableDataToStore(data) {
+
+export function setActionableAlterationExpandedInterpretationToStore(data) {
   return {
-    type: actionsTypes.SET_FINAL_REPORT_ACTIONABLE_DATA_TO_STORE,
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_EXPANDED_INTERPRETATION_TO_STORE,
     payload: data
   };
 }
+
+export function setActionableAlterationExpandedInterpretation(data) {
+  return {
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_EXPANDED_INTERPRETATION,
+    payload: data
+  };
+}
+
+// export function setExpandedTextAreaContentSaved(data) {
+//   return {
+//     type: actionsTypes.SET_EXPANDED_TAB_TEXTAREA_CONTENT_SAVED,
+//     payload: data
+//   };
+// }
+
+export function setIsSelectVariants() {
+  return {
+    type: actionsTypes.SET_IS_SELECT_VARIANTS
+  };
+}
+
+export function setActionableAlterationDrugsDescription(data) {
+  return {
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION,
+    payload: data
+  };
+}
+
+export function setActionableAlterationDrugsDescriptionToStore(data) {
+  return {
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION_TO_STORE,
+    payload: data
+  };
+}
+
+export function setActionableAlterationClinicalTrial(data) {
+  return {
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_CLINICAL_TRIAL,
+    payload: data
+  };
+}
+
+export function setActionableAlterationClinicalTrialToStore(data) {
+  return {
+    type: actionsTypes.SET_ACTIONABLE_ALTERATION_CLINICAL_TRIAL_TO_STORE,
+    payload: data
+  };
+}
+
+// export function setActionableAlterationDrugsDescriptionSaved(data) {
+//   return {
+//     type: actionsTypes.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION_SAVED,
+//     payload: data
+//   };
+// }

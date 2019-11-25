@@ -23,17 +23,21 @@ import {
   handleConfirmationStatusSaga,
   exportTableSaga,
   setTumorInfoSaga,
+  saveTestPhenotypeSaga,
   saveUserPreferencesFiltersSaga,
   saveUserPreferencesSortingSaga,
   fetchUserPreferencesSaga,
   fetchConfirmationMetadataSaga,
   applyConfirmationSaga,
-  moveToActionableTableSaga,
+  postAtionableAlterationsSaga,
   fetchFinalReportVariantsSaga,
-  fetchFinalReportActionableDataSaga,
-  deleteFinalReportActionableRowSaga,
+  fetchActionableAlterationsSaga,
+  deleteActionableAlterationSaga,
   deleteFinalReportClinicalRowSaga,
-  fetchFinalReportClinicalDataSaga
+  fetchFinalReportClinicalDataSaga,
+  setActionableAlterationExpandedInterpretationSaga,
+  setActionableAlterationDrugsDescriptionSaga,
+  setActionableAlterationClinicalTrialSaga,
 } from "./sagas";
 
 export function* watchSaga() {
@@ -69,6 +73,7 @@ export function* watchSaga() {
   ]);
   yield takeEvery(types.EXPORT_TABLE, exportTableSaga);
   yield takeEvery(types.SET_TUMOR_INFO, setTumorInfoSaga);
+  yield takeEvery(types.SAVE_TEST_PHENOTYPE, saveTestPhenotypeSaga);
 
   yield takeEvery(types.SAVE_USER_PREFERENCES_FILTERS, saveUserPreferencesFiltersSaga);
   yield takeEvery(types.SAVE_USER_PREFERENCES_SORTING, saveUserPreferencesSortingSaga);
@@ -76,15 +81,19 @@ export function* watchSaga() {
 
   yield takeEvery(types.FETCH_CONFIRMATION_PAGE_METADATA, fetchConfirmationMetadataSaga);
   yield takeEvery(types.APPLY_CONFIRMATION, applyConfirmationSaga);
-  yield takeEvery(types.MOVE_TO_ACTIONABLE_TABLE, moveToActionableTableSaga);
+  yield takeEvery(types.POST_ACTIONABLE_ALTERATIONS, postAtionableAlterationsSaga);
   yield takeEvery(types.FETCH_FINAL_REPORT_VARIANTS, fetchFinalReportVariantsSaga);
 
   // yield all([
-  //   takeEvery(types.FETCH_FINAL_REPORT_ACTIONABLE_DATA, fetchFinalReportActionableDataSaga),
   //   takeEvery(types.FETCH_FINAL_REPORT_CLINICAL_DATA, fetchFinalReportClinicalDataSaga)
   // ]);
-  yield takeEvery(types.FETCH_FINAL_REPORT_ACTIONABLE_DATA, fetchFinalReportActionableDataSaga);
+  yield takeEvery(types.FETCH_ACTIONABLE_ALTERATIONS, fetchActionableAlterationsSaga);
+  yield takeEvery(types.DELETE_ACTIONABLE_ALTERATION, deleteActionableAlterationSaga);
+
   yield takeEvery(types.FETCH_FINAL_REPORT_CLINICAL_DATA, fetchFinalReportClinicalDataSaga);
-  yield takeEvery(types.REMOVE_ACTIONABLE_SELECTED_ROW_FROM_STORE, deleteFinalReportActionableRowSaga);
   yield takeEvery(types.REMOVE_CLINICAL_SELECTED_ROW_FROM_STORE, deleteFinalReportClinicalRowSaga);
+
+  yield takeLatest(types.SET_ACTIONABLE_ALTERATION_EXPANDED_INTERPRETATION, setActionableAlterationExpandedInterpretationSaga);
+  yield takeLatest(types.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION, setActionableAlterationDrugsDescriptionSaga);
+  yield takeLatest(types.SET_ACTIONABLE_ALTERATION_CLINICAL_TRIAL, setActionableAlterationClinicalTrialSaga);
 }

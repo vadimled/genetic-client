@@ -76,8 +76,9 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
     parseInt(state.test.tumor_info?.cancer_cell_percentage, 10),
   getTestId = state => state.test.id,
   getGSID = state => state.test.gsid,
-  getSelectedMutationType = state => state.variants.selectedMutation,
   getMutationTypesValues = state => state.test.mutation_types,
+  getTestPhenotype = state => state?.test?.phenotype,
+  getSelectedMutationType = state => state.variants.selectedMutation,
   getConfirmationPageTableData = state => state.confirmationPage.metaData,
   getTestsList = state => state.tests.tests;
 
@@ -339,6 +340,20 @@ export const getSomaticEvidence = state =>
     state.variantPage.evidenceConfig.evidenceLevelSelect,
   getEvidenceDescription = state =>
     state.variantPage.evidenceConfig.evidenceDescriptionTextarea,
+  getEvidenceReferenceInput = state =>
+    state.variantPage.evidenceConfig.evidenceReferenceInput,
+  getEvidenceDrugNameInput = state =>
+    state.variantPage.evidenceConfig.evidenceDrugNameInput,
+  getEvidenceIndicationInput = state =>
+    state.variantPage.evidenceConfig.evidenceIndicationInput,
+  getEvidenceTrialIdInput = state =>
+    state.variantPage.evidenceConfig.evidenceTrialIdInput,
+  getEvidenceIsPhenotypeAndIndicationMatchSelect = state =>
+    state.variantPage.evidenceConfig.evidenceIsPhenotypeAndIndicationMatchSelect,
+  getEvidenceLocationSelect = state =>
+    state.variantPage.evidenceConfig.evidenceLocationSelect,
+  getEvidencePhenotypeInput = state =>
+    state.variantPage.evidenceConfig.evidencePhenotypeInput,
   getCurrentEvidenceTab = state =>
     state.variantPage.evidenceConfig.currentEvidenceTab,
   getSubmitData = createSelector(
@@ -350,6 +365,13 @@ export const getSomaticEvidence = state =>
     getVariantId,
     getEvidenceConfigId,
     getZygosityType,
+    getEvidenceReferenceInput,
+    getEvidenceDrugNameInput,
+    getEvidenceIndicationInput,
+    getEvidenceTrialIdInput,
+    getEvidenceIsPhenotypeAndIndicationMatchSelect,
+    getEvidenceLocationSelect,
+    getEvidencePhenotypeInput,
     (
       category,
       source,
@@ -358,17 +380,34 @@ export const getSomaticEvidence = state =>
       testId,
       variantId,
       evidenceId,
-      zygosity_type
+      zygosity_type,
+      reference,
+      drug_name,
+      indication,
+      trial_id,
+      is_phenotype_and_indication_match,
+      location,
+      phenotype
     ) => {
-      const sendData = {
+      let data = {
         category,
         source,
         level,
         zygosity_type
       };
+      if (reference) { data.reference = reference; }
+      if (description) { data.description = description; }
+      if (drug_name) { data.drug_name = drug_name; }
+      if (indication) { data.indication = indication; }
+      if (trial_id) { data.trial_id = trial_id; }
+      if (is_phenotype_and_indication_match) {
+        data.is_phenotype_and_indication_match = JSON.parse(is_phenotype_and_indication_match); // trasform string like 'false' into false or 'true' into true
+      }
+      if (location) { data.location = location; }
+      if (phenotype) { data.phenotype = phenotype; }
       return {
         ids: { testId, variantId, evidenceId },
-        data: description ? { ...sendData, description } : sendData
+        data
       };
     }
   ),
@@ -486,12 +525,43 @@ export const getDnaVariantsAsArray = createSelector(
 );
 
 export const
-  getActionableVariants = state => state.finalReport.actionableVariants,
-  getCurrentActionableTab = state => state.finalReport.actionableVariants,
+  getActionableAlterations = state => state.finalReport.actionableAlterations,
+  getCurrentActionableAlterationTab = state => state.finalReport.currentActionableAlterationTab,
   getClinicalVariants = state => state.finalReport.clinicalVariants,
-  getSelectedUpperTableRowObject = state => state.finalReport.selectedUpperTableRowObject,
-  getNavigationStatus = state => state.finalReport.navigationStatus;
+  getNavigationStatus = state => state.finalReport.navigationStatus,
+  getIsSelectVariants = state => state.finalReport.isSelectVariants,
+  getSelectedActionableAlterationId = state => state.finalReport.selectedActionableAlterationId;
 
+
+const getActionableAlterationExpandedInterpretation = createSelector(
+  getSelectedActionableAlterationId,
+  getActionableAlterations,
+  (id, data) => {
+    return data
+      .find(obj => obj.id === id)
+      .expanded_interpretation;
+  }
+);
+
+export const getActionableAlterationGeneDescription = createSelector(
+  getActionableAlterationExpandedInterpretation,
+  obj => obj?.gene_description
+);
+
+export const getActionableAlterationVariantDescription = createSelector(
+  getActionableAlterationExpandedInterpretation,
+  obj => obj?.variant_description
+);
+// TODO
+export const getActionableAlterationGeneDescriptionSaved = createSelector(
+  getActionableAlterationExpandedInterpretation,
+  obj => obj?.actionableAlterationGeneDescriptionSaved
+);
+// TODO
+export const getActionableAlterationVariantDescriptionSaved = createSelector(
+  getActionableAlterationExpandedInterpretation,
+  obj => obj?.actionableAlterationVariantDescriptionSaved
+);
 
 export const getSelectedDnaRows = createSelector(
   getFilteredData,
@@ -499,6 +569,27 @@ export const getSelectedDnaRows = createSelector(
     return data.filter(row => row.selected);
   }
 );
+
+export const getActionableAlterationsDrugs = createSelector(
+  getSelectedActionableAlterationId,
+  getActionableAlterations,
+  (id, data) => {
+    return data
+      .find(obj => obj.id === id)
+      .drugs;
+  }
+);
+
+export const getActionableAlterationsClinicalTrials = createSelector(
+  getSelectedActionableAlterationId,
+  getActionableAlterations,
+  (id, data) => {
+    return data
+      .find(obj => obj.id === id)
+      .clinical_trials;
+  }
+);
+
 
 export const checkIsAllDnaRowsSelected = createSelector(
   getDnaVariantsAsArray,
@@ -523,17 +614,13 @@ export const checkIsAllDnaRowsSelected = createSelector(
 
 export const getSelectedVariants = createSelector(
   getDnaVariantsAsArray,
-  getActionableVariants,
+  getActionableAlterations,
   (variants, selectedVariants) => {
-
-    if(variants.length > 0){
-
+    if (variants.length > 0) {
       const selectedVariantsIds = selectedVariants.map(variant => variant.variant_id);
 
       return variants.filter(variant => !selectedVariantsIds.includes(variant.id));
-
     }
-
   }
 );
 
