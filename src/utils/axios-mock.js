@@ -252,6 +252,448 @@ if (mock) {
         hgvs_c: "AT > A",
         hgvs_p: "c.1305C>T",
         transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "2d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 2,
+            fragment_size: 250,
+            instructions:
+              "The techniques you’ll learn in the tutorial are fundamental " +
+              "to building any React app, and mastering it will give you " +
+              "a deep understanding of React."
+          }
+        ],
+        gene: "KTAR",
+        chr: "ch2",
+        position: 19823208,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "3d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 5,
+            fragment_size: 200
+          }
+        ],
+        gene: "GFaFR",
+        chr: "ch3",
+        position: 164529120,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "2d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 2,
+            fragment_size: 250,
+            instructions:
+              "The techniques you’ll learn in the tutorial are fundamental " +
+              "to building any React app, and mastering it will give you " +
+              "a deep understanding of React."
+          }
+        ],
+        gene: "KTAR",
+        chr: "ch2",
+        position: 19823208,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "3d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 5,
+            fragment_size: 200
+          }
+        ],
+        gene: "GFaFR",
+        chr: "ch3",
+        position: 164529120,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "2d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 2,
+            fragment_size: 250,
+            instructions:
+              "The techniques you’ll learn in the tutorial are fundamental " +
+              "to building any React app, and mastering it will give you " +
+              "a deep understanding of React."
+          }
+        ],
+        gene: "KTAR",
+        chr: "ch2",
+        position: 19823208,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "3d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 5,
+            fragment_size: 200
+          }
+        ],
+        gene: "GFaFR",
+        chr: "ch3",
+        position: 164529120,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "2d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 2,
+            fragment_size: 250,
+            instructions:
+              "The techniques you’ll learn in the tutorial are fundamental " +
+              "to building any React app, and mastering it will give you " +
+              "a deep understanding of React."
+          }
+        ],
+        gene: "KTAR",
+        chr: "ch2",
+        position: 19823208,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "3d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 5,
+            fragment_size: 200
+          }
+        ],
+        gene: "GFaFR",
+        chr: "ch3",
+        position: 164529120,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "2d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 2,
+            fragment_size: 250,
+            instructions:
+              "The techniques you’ll learn in the tutorial are fundamental " +
+              "to building any React app, and mastering it will give you " +
+              "a deep understanding of React."
+          }
+        ],
+        gene: "KTAR",
+        chr: "ch2",
+        position: 19823208,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "3d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 5,
+            fragment_size: 200
+          }
+        ],
+        gene: "GFaFR",
+        chr: "ch3",
+        position: 164529120,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "2d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 2,
+            fragment_size: 250,
+            instructions:
+              "The techniques you’ll learn in the tutorial are fundamental " +
+              "to building any React app, and mastering it will give you " +
+              "a deep understanding of React."
+          }
+        ],
+        gene: "KTAR",
+        chr: "ch2",
+        position: 19823208,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "3d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 5,
+            fragment_size: 200
+          }
+        ],
+        gene: "GFaFR",
+        chr: "ch3",
+        position: 164529120,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "2d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 2,
+            fragment_size: 250,
+            instructions:
+              "The techniques you’ll learn in the tutorial are fundamental " +
+              "to building any React app, and mastering it will give you " +
+              "a deep understanding of React."
+          }
+        ],
+        gene: "KTAR",
+        chr: "ch2",
+        position: 19823208,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "3d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 5,
+            fragment_size: 200
+          }
+        ],
+        gene: "GFaFR",
+        chr: "ch3",
+        position: 164529120,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "2d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 2,
+            fragment_size: 250,
+            instructions:
+              "The techniques you’ll learn in the tutorial are fundamental " +
+              "to building any React app, and mastering it will give you " +
+              "a deep understanding of React."
+          }
+        ],
+        gene: "KTAR",
+        chr: "ch2",
+        position: 19823208,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "3d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 5,
+            fragment_size: 200
+          }
+        ],
+        gene: "GFaFR",
+        chr: "ch3",
+        position: 164529120,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "2d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 2,
+            fragment_size: 250,
+            instructions:
+              "The techniques you’ll learn in the tutorial are fundamental " +
+              "to building any React app, and mastering it will give you " +
+              "a deep understanding of React."
+          }
+        ],
+        gene: "KTAR",
+        chr: "ch2",
+        position: 19823208,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "3d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 5,
+            fragment_size: 200
+          }
+        ],
+        gene: "GFaFR",
+        chr: "ch3",
+        position: 164529120,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "2d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 2,
+            fragment_size: 250,
+            instructions:
+              "The techniques you’ll learn in the tutorial are fundamental " +
+              "to building any React app, and mastering it will give you " +
+              "a deep understanding of React."
+          }
+        ],
+        gene: "KTAR",
+        chr: "ch2",
+        position: 19823208,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "3d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 5,
+            fragment_size: 200
+          }
+        ],
+        gene: "GFaFR",
+        chr: "ch3",
+        position: 164529120,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "2d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 2,
+            fragment_size: 250,
+            instructions:
+              "The techniques you’ll learn in the tutorial are fundamental " +
+              "to building any React app, and mastering it will give you " +
+              "a deep understanding of React."
+          }
+        ],
+        gene: "KTAR",
+        chr: "ch2",
+        position: 19823208,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "3d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 5,
+            fragment_size: 200
+          }
+        ],
+        gene: "GFaFR",
+        chr: "ch3",
+        position: 164529120,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "2d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 2,
+            fragment_size: 250,
+            instructions:
+              "The techniques you’ll learn in the tutorial are fundamental " +
+              "to building any React app, and mastering it will give you " +
+              "a deep understanding of React."
+          }
+        ],
+        gene: "KTAR",
+        chr: "ch2",
+        position: 19823208,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "3d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 5,
+            fragment_size: 200
+          }
+        ],
+        gene: "GFaFR",
+        chr: "ch3",
+        position: 164529120,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "2d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 2,
+            fragment_size: 250,
+            instructions:
+              "The techniques you’ll learn in the tutorial are fundamental " +
+              "to building any React app, and mastering it will give you " +
+              "a deep understanding of React."
+          }
+        ],
+        gene: "KTAR",
+        chr: "ch2",
+        position: 19823208,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
+      },
+      {
+        variant_id: "3d5bcc6608589e00124bfd76",
+        primers: [
+          {
+            primer: 5,
+            fragment_size: 800
+          }
+        ],
+        gene: "GFaFR",
+        chr: "ch3",
+        position: 164529120,
+        hgvs_c: "AT > A",
+        hgvs_p: "c.1305C>T",
+        transcript: "c.1305C>T",
       }
     ]
   });
