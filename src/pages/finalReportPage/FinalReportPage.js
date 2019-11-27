@@ -6,7 +6,8 @@ import { Button } from "antd";
 import style from "./FinalReportPage.module.scss";
 
 import FinalReportActionableAlterations from './components/finalReportActionableAlterations';
-import FinalReportClinicalTable from "./components/finalReportClinicalTable";
+import FinalReportClinicalTable from './components/finalReportClinicalTable';
+import FinalReportGenomeWideFindings from './components/finalReportGenomeWideFindings';
 
 import {
   fetchFinalReportVariants,
@@ -26,7 +27,7 @@ import {
   getTestId
 } from "Store/selectors";
 
-import { FINAL_REPORT_NAVIGATION_VALUES } from "Utils/constants";
+import { FINAL_REPORT_NAVIGATION_VALUES, FINAL_REPORT_NAVIGATION_LABELS } from "Utils/constants";
 
 class FinalReportPage extends Component {
   constructor(props) {
@@ -73,7 +74,7 @@ class FinalReportPage extends Component {
     this.props.setFinalReportNavigationValue(e.target.name);
   };
 
-  renderUpperTable = () => {
+  renderSection = () => {
     const {
       selectedClinicalData,
       finalReportNavigationValue,
@@ -97,21 +98,36 @@ class FinalReportPage extends Component {
             remove={this.handleRemoveClinicalRow}
           />
         );
+      case FINAL_REPORT_NAVIGATION_VALUES.genomeWideFindings:
+        return (
+          <FinalReportGenomeWideFindings />
+        );
     }
   };
 
   render() {
+    const { finalReportNavigationValue } = this.props;
+
     return (
       <div
-        className={`${style["final-report-page-wrapper"]} flex justify-between`}
+        className={`${style["final-report-page-wrapper"]}`}
       >
-        <div className="main-content">
-          <div className="flex justify-start">
-            <Link to="/">Back</Link>
+        <div className="final-report-main-content">
+          <div className="final-report-header">
+            <Link
+              to="/"
+              className="final-report-back-link"
+            >
+              &lt; Back
+            </Link>
+            <h1 className="final-report-main-title">Final report</h1>
           </div>
 
-          <div className="final-report-upper-table">
-            {this.renderUpperTable()}
+          <div className="final-report-section">
+            <div className="final-report-section-title">
+              {FINAL_REPORT_NAVIGATION_LABELS[finalReportNavigationValue]}
+            </div>
+            {this.renderSection()}
           </div>
 
         </div>

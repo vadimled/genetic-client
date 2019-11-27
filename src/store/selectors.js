@@ -2,7 +2,8 @@ import { EVIDENCE_CATEGORIES_OPTIONS, FILTERS, GNOM_AD, SORTING_ORDER, TEXTS } f
 import { createSelector } from "reselect";
 // import isEmpty from "lodash.isempty";
 
-export const getFilterType = state => state?.filters?.[FILTERS.type],
+export const
+  getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterZygosity = state => state?.filters?.[FILTERS.zygosity],
   getFilterEffect = state => state?.filters?.[FILTERS.effect],
   getFilterVariantClass = state =>
@@ -15,18 +16,22 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getFilterVaf = state => state?.filters?.[FILTERS.vaf],
   getFilterCancerDBs = state => state?.filters?.[FILTERS.cancerDBs],
   getFilterGnomId = state => state?.filters?.[FILTERS.gnomAD],
+
   getSearchQuery = state => state?.filters?.[FILTERS.searchText],
   getTableData = state => state?.table?.data, // use getTableDataAsArray instead this
   getUncheckConfirmationData = state => state?.table?.uncheckConfirmationData,
   getCurrentPage = state => state?.table?.currentPage,
   getOnConfirmation = state => state?.confirmation?.isOnConfirmation,
   getConfirmationData = state => state?.confirmation?.data,
+
   getIgvFetchBAMFileStatus = state => state?.igv?.fetchBAMFileStatus,
   getIgvAlertShow = state => state?.igv?.isIgvAlertShow,
   getIgvAlertShowAgaing = state => state?.igv?.isIgvAlertShowAgaing,
   getIgvLastQuery = state => state?.igv?.igvLastQuery,
+
   getBAMFileUrl = state => state?.igv?.BAMFileUrl,
   getBAMIndexFileUrl = state => state?.igv?.BAMIndexFileUrl,
+
   getResultConfigIsOpen = state => state?.resultConfig?.isOpen,
   getResultConfigIsHgvsLoaded = state => state?.resultConfig?.isHgvsLoaded,
   getResultConfigIsOnEdit = state => state?.resultConfig?.isOnEdit,
@@ -45,9 +50,11 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getResultConfigTranscript = state => state?.resultConfig?.transcript,
   getResultConfigValidationFaildFields = state => state?.resultConfig?.validationFaildFields,
   getResultConfigid = state => state?.resultConfig?.id,
+
   getAlertStatus = state => state?.alert?.status,
   getAlertTitle = state => state?.alert?.title,
   getAlertMessage = state => state?.alert?.message,
+
   getVariantPage = state => state.variantPage.pageData,
   getZygosityType = state => state.variantPage.pageData.selectedZygosityType,
   getCurrentZygosityType = state =>
@@ -66,21 +73,30 @@ export const getFilterType = state => state?.filters?.[FILTERS.type],
   getVariantId = state => state.variantPage.pageData.variantId,
   getVariantPageTestId = state => state.variantPage.pageData.testId,
   getVariantPageServerData = state => state.variantPage.pageData.serverData,
+
   getSortParam = state => state?.table?.sortParam,
   getSortOrder = state => state?.table?.sortOrder,
+
   getTumorInfoMode = state => state.test.showTumorInfo,
   getLoadingStatus = state => state.test.isLoading,
   getTumorInfoType = state => state.test.tumor_info?.type,
   getTumorInfoLocation = state => state.test.tumor_info?.location,
-  getTumorInfoPercent = state =>
-    parseInt(state.test.tumor_info?.cancer_cell_percentage, 10),
+  getTumorInfoPercent = state => parseInt(state.test.tumor_info?.cancer_cell_percentage, 10),
   getTestId = state => state.test.id,
   getGSID = state => state.test.gsid,
   getMutationTypesValues = state => state.test.mutation_types,
   getTestPhenotype = state => state?.test?.phenotype,
+  getTestTmbMutationPerMillion = state => state?.test?.tmb?.mutations_per_million,
+  getTestTmbResult= state => state?.test?.tmb?.result,
+  getTestMsiNumberOfSomaticSites = state => state?.test?.msi?.number_of_somatic_sites,
+  getTestMsiPercentage = state => state?.test?.msi?.percentage,
+  getTestMsiTotalNumberOfSites = state => state?.test?.msi?.total_number_of_sites,
+
+  getTestsList = state => state.tests.tests,
+
   getSelectedMutationType = state => state.variants.selectedMutation,
-  getConfirmationPageTableData = state => state.confirmationPage.metaData,
-  getTestsList = state => state.tests.tests;
+
+  getConfirmationPageTableData = state => state.confirmationPage.metaData;
 
 export const getTableDataAsArray = createSelector(
   getTableData,

@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-// import { Button } from "antd";
-
 
 import FinalReportActionableTable from "Pages/finalReportPage/components/finalReportActionableTable";
 import ActionableDetailsContainer from "Pages/finalReportPage/components/finalReportActionableTable/components/actionableDetailsContainer";
@@ -39,7 +37,6 @@ const FinalReportActionableAlterations = ({
   selectedVariantsForActionableAlterations,
   selectedVariantsIdsForActionableAlterations,
   mutationTypesValues,
-
 
   setSelectedActionableAlterationId,
   deleteActionableAlteration,
@@ -91,7 +88,7 @@ const FinalReportActionableAlterations = ({
           <div className="flex justify-end">
             <FinalReportTableToolBar />
             <SimpleButton
-              className="moveToActionabilitiesBtn"
+              className="move-to-actionabilities-btn"
               onClick={saveNewActionableAlterations}
               text={"MOVE TO ACTIONABILITIES"}
             />

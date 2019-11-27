@@ -1,8 +1,10 @@
 @import "Css/Colors.scss";
 
 .simple-button-wrapper :global {
-  width: 150px;
-  height: 33px;
+  button {
+    width: 150px;
+    height: 33px;
+  }
 
   .ant-btn {
     width: 100%;

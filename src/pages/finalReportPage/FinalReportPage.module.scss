@@ -1,39 +1,15 @@
 @import "Css/Colors.scss";
 
 .final-report-page-wrapper :global {
-  .main-content {
-    overflow-y: scroll;
-    padding: 0 36px;
-    //max-width: 1470px;
-    height: 93vh;
+  display: flex;
+  height: calc(100vh - 48px);
+  overflow: auto;
 
-    .select-variants-wrapper {
-      display: flex;
-      // width: 94vw;
-      justify-content: flex-end;
-    }
-
-    .add-actionable-details-container-button-text {
-      display: flex;
-      width: 100%;
-      justify-content: center;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 18px;
-      text-align: center;
-      color: $white;
-    }
-
-    .final-report-variants {
-      border: 3px dashed green;
-      margin-top: 20px;
-    }
-    .final-report-upper-table {
-      width: 100%;
-      padding: 10px;
-    }
-    flex: 4 1;
+  .final-report-main-content {
+    padding: 25px 40px;
+    width: calc(100% - 320px);
   }
+
   .sidebar {
     display: flex;
     flex-direction: column;
@@ -49,9 +25,39 @@
       }
     }
   }
-  .moveToActionabilitiesBtn {
-    background-color: #1890ff;
-    color: #fff;
-    margin-bottom: 20px;
+
+  .final-report-header {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 24px;
+  }
+
+  .final-report-back-link {
+    margin-right: 26px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .final-report-main-title {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    color: $title_color;
+    margin-bottom: 0;
+  }
+
+  .final-report-section {
+    padding: 33px;
+    box-shadow: 0px 0px 15px $neutral_30;
+    border-radius: 4px;
+  }
+
+  .final-report-section-title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: $brand_primary_color;
+    margin-bottom: 32px;
   }
 }

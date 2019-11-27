@@ -841,6 +841,12 @@ export const FINAL_REPORT_NAVIGATION_VALUES = {
   genomeWideFindings: 'genomeWideFindings',
 };
 
+export const FINAL_REPORT_NAVIGATION_LABELS = {
+  actionableAlterations: 'Actionable alterations',
+  uncertainClinicalSignificance: 'Uncertain clinical significance',
+  genomeWideFindings: 'Genome-wide findings',
+};
+
 export const ACTIONABLE_TABS_VALUES = {
   expanded: "expanded_interpretation",
   therapies: "therapies",
@@ -1103,3 +1109,8 @@ export const COUNTRIES = [
   { label: 'Zambia', value: 'ZM' },
   { label: 'Zimbabwe', value: 'ZW' }
 ];
+
+export const TEST_MSI_PERCENTAGE_VALUES = {
+  HIGH: 'HIGH',
+  NORMAL: 'NORMAL'
+};

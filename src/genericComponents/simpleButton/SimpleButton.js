@@ -8,8 +8,10 @@ const SimpleButton = ({ onClick, disabled, text, className }) => {
     <div className={style["simple-button-wrapper"]}>
       <Button
         disabled={disabled}
-        onClick={onClick}>
-        <div className={className}>{text}</div>
+        onClick={onClick}
+        className={className}
+      >
+        <div>{text}</div>
       </Button>
     </div>
   );
