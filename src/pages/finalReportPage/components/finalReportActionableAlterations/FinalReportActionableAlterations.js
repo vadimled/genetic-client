@@ -33,7 +33,7 @@ const FinalReportActionableAlterations = ({
   actionableAlterations,
   isSelectVariantsForActionableAlterations,
   selectedActionableAlterationId,
-  getIsAllDnaVariantsForActionableAlterationsSelected,
+  isAllDnaVariantsForActionableAlterationsSelected,
   selectedVariantsForActionableAlterations,
   selectedVariantsIdsForActionableAlterations,
   mutationTypesValues,
@@ -69,9 +69,9 @@ const FinalReportActionableAlterations = ({
   return (
     <div className={style["final-report-actionable-alterations"]}>
       <FinalReportActionableTable
+        testId={testId}
         dataSource={actionableAlterations}
         handleSelectRow={handleSelectActionableAlterationId}
-        testId={testId}
         remove={handleDeleteActionableAlteration}
       />
       {!isSelectVariantsForActionableAlterations && (
@@ -96,7 +96,7 @@ const FinalReportActionableAlterations = ({
 
           <FinalReportVariantsTable
             selectedVariants={selectedVariantsForActionableAlterations}
-            isAllRowSelected={getIsAllDnaVariantsForActionableAlterationsSelected}
+            isAllRowSelected={isAllDnaVariantsForActionableAlterationsSelected}
             mutationTypesValues={mutationTypesValues}
             handleSelectedRow={handleFinalReportSelectedVariantsIdsForActionableAlterations}
             handleSelectAllRows={handleFinalReportSelectAllVariantsForActionableAlterations}
@@ -119,7 +119,7 @@ FinalReportActionableAlterations.defaultProps = {
 const mapStateToProps = state => {
   return {
     mutationTypesValues: getMutationTypesValues(state),
-    getIsAllDnaVariantsForActionableAlterationsSelected: getIsAllDnaVariantsForActionableAlterationsSelected(state),
+    isAllDnaVariantsForActionableAlterationsSelected: getIsAllDnaVariantsForActionableAlterationsSelected(state),
     selectedVariantsForActionableAlterations: getSelectedVariantsForActionableAlterations(state),
     selectedVariantsIdsForActionableAlterations: getSelectedVariantsIdsForActionableAlterations(state),
     actionableAlterations: getActionableAlterations(state),

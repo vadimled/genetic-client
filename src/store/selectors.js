@@ -541,15 +541,20 @@ export const getDnaVariantsAsArray = createSelector(
 );
 
 export const
-  getFinalReportDnaVariants = state => state.finalReport.dnaVariants,
-  getActionableAlterations = state => state.finalReport.actionableAlterations,
-  getCurrentActionableAlterationTab = state => state.finalReport.currentActionableAlterationTab,
-  getClinicalVariants = state => state.finalReport.clinicalVariants,
   getFinalReportNavigationValue = state => state.finalReport.finalReportNavigationValue,
-  getIsSelectVariantsForActionableAlterations = state => state.finalReport.isSelectVariantsForActionableAlterations,
-  getSelectedActionableAlterationId = state => state.finalReport.selectedActionableAlterationId,
-  getSelectedVariantsIdsForActionableAlterations = state => state.finalReport?.selectedVariantsIdsForActionableAlterations;
+  getFinalReportDnaVariants = state => state.finalReport.dnaVariants,
 
+  getActionableAlterations = state => state.finalReport.actionableAlterations,
+  getIsSelectVariantsForActionableAlterations = state => state.finalReport.isSelectVariantsForActionableAlterations,
+  getSelectedVariantsIdsForActionableAlterations = state => state.finalReport?.selectedVariantsIdsForActionableAlterations,
+  getSelectedActionableAlterationId = state => state.finalReport.selectedActionableAlterationId,
+  getCurrentActionableAlterationTab = state => state.finalReport.currentActionableAlterationTab,
+
+  getUncertainClinicalSignificance = state => state.finalReport.uncertainClinicalSignificance,
+  getIsSelectVariantsForUncertainClinicalSignificance = state => state.finalReport?.isSelectVariantsForUncertainClinicalSignificance,
+  getSelectedVariantsIdsForUncertainClinicalSignificance = state => state.finalReport?.selectedVariantsIdsForUncertainClinicalSignificance,
+  getSelectedUncertainClinicalSignificanceId = state => state.finalReport.selectedUncertainClinicalSignificanceId,
+  getCurrentUncertainClinicalSignificanceTab = state => state.finalReport.currentUncertainClinicalSignificanceTab;
 
 const getActionableAlterationExpandedInterpretation = createSelector(
   getSelectedActionableAlterationId,
@@ -608,7 +613,7 @@ export const getActionableAlterationsClinicalTrials = createSelector(
   }
 );
 
-export const getFinalReportDnaVariantsAsArray = createSelector(
+export const getFinalReportActionableAlterationsDnaVariantsAsArray = createSelector(
   getFinalReportDnaVariants,
   getSelectedVariantsIdsForActionableAlterations,
   (data, selectedVariantsIdsForActionableAlterations) => {
@@ -627,7 +632,7 @@ export const getFinalReportDnaVariantsAsArray = createSelector(
 );
 
 export const getSelectedVariantsForActionableAlterations = createSelector(
-  getFinalReportDnaVariantsAsArray,
+  getFinalReportActionableAlterationsDnaVariantsAsArray,
   getActionableAlterations,
   (variants, actionableAlterations) => {
     if (variants.length > 0) {
@@ -639,8 +644,58 @@ export const getSelectedVariantsForActionableAlterations = createSelector(
 );
 
 export const getIsAllDnaVariantsForActionableAlterationsSelected = createSelector(
-  getFinalReportDnaVariantsAsArray,
+  getFinalReportActionableAlterationsDnaVariantsAsArray,
   getSelectedVariantsForActionableAlterations,
+  (allData, selectedData) => {
+    let nonUncheckMode = 0;
+    const notConfirmedData = allData?.filter(item => {
+      if (item.status === TEXTS.UNCHECK) {
+        return item.selected;
+      }
+      else{
+        nonUncheckMode++;
+      }
+    });
+    return (
+      !!selectedData?.length &&
+      notConfirmedData?.length === (allData.length - nonUncheckMode)
+    );
+  }
+);
+
+export const getFinalReportUncertainClinicalSignificanceDnaVariantsAsArray = createSelector(
+  getFinalReportDnaVariants,
+  getSelectedVariantsIdsForUncertainClinicalSignificance,
+  (data, selectedVariantsIdsForUncertainClinicalSignificance) => {
+    let arrayData = [];
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        let item = { ...data[key] };
+        if (selectedVariantsIdsForUncertainClinicalSignificance.includes(item.id)) {
+          item.selected = true;
+        }
+        arrayData.push(item);
+      }
+    }
+    return arrayData;
+  }
+);
+
+export const getSelectedVariantsForUncertainClinicalSignificance = createSelector(
+  getFinalReportUncertainClinicalSignificanceDnaVariantsAsArray,
+  getUncertainClinicalSignificance,
+  (variants, uncertainClinicalSignificance) => {
+    if (variants.length > 0) {
+      const variantsIdsFromUncertainClinicalSignificance = uncertainClinicalSignificance.map(variant => variant.variant_id);
+
+      return variants.filter(variant => !variantsIdsFromUncertainClinicalSignificance.includes(variant.id));
+    }
+  }
+);
+
+export const getIsAllDnaVariantsForUncertainClinicalSignificance = createSelector(
+  getFinalReportUncertainClinicalSignificanceDnaVariantsAsArray,
+  getSelectedVariantsForUncertainClinicalSignificance,
   (allData, selectedData) => {
     let nonUncheckMode = 0;
     const notConfirmedData = allData?.filter(item => {

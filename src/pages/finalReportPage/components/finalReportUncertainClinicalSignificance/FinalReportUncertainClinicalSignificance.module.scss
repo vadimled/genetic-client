@@ -1,0 +1,25 @@
+@import "Css/Colors.scss";
+
+.final-report-uncertain-clinical-significance :global {
+  .select-variants-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .add-actionable-details-container-button-text {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    color: $white;
+  }
+
+  .move-to-actionabilities-btn {
+    background-color: #1890ff;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+}

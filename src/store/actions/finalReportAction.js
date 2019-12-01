@@ -128,28 +128,63 @@ export function setActionableAlterationClinicalTrialToStore(data) {
 
 
 
-// Clinical
-export function removeClinicalSelectedRowFromStore(data) {
+// Uncertain Clinical Significance
+export const fetchUncertainClinicalSignificance = data => {
   return {
-    type: actionsTypes.REMOVE_CLINICAL_SELECTED_ROW_FROM_STORE,
-    payload: data
-  };
-}
-
-export const fetchFinalReportClinicalData = data => {
-  return {
-    type: actionsTypes.FETCH_FINAL_REPORT_CLINICAL_DATA,
+    type: actionsTypes.FETCH_UNCERTAIN_CLINICAL_SIGNIFICANCE,
     payload: data
   };
 };
 
-export function setFinalReportClinicalDataToStore(data) {
+export function setFinalReportUncertainClinicalSignificanceToStore(data) {
   return {
-    type: actionsTypes.SET_FINAL_REPORT_CLINICAL_DATA_TO_STORE,
+    type: actionsTypes.SET_FINAL_REPORT_UNCERTAIN_CLINICAL_SIGNIFICANCE_TO_STORE,
     payload: data
   };
 }
-// -- Clinical
+
+export function setIsSelectVariantsForUncertainClinicalSignificance(data) {
+  return {
+    type: actionsTypes.SET_IS_SELECT_VARIANTS_FOR_UNCERTAIN_CLINICAL_SIGNIFICANCE,
+    payload: data
+  };
+}
+
+export function handleFinalReportSelectedVariantsIdsForUncertainClinicalSignificance(data) {
+  return {
+    type: actionsTypes.HANDLE_FINAL_REPORT_SELECTED_VARIANTS_IDS_FOR_UNCERTAIN_CLINICAL_SIGNIFICANCE,
+    payload: data
+  };
+}
+
+export function handleFinalReportSelectAllVariantsForUncertainClinicalSignificance(data) {
+  return {
+    type: actionsTypes.HANDLE_FINAL_REPORT_SELECT_ALL_VARIANTS_FOR_UNCERTAIN_CLINICAL_SIGNIFICANCE,
+    payload: data
+  };
+}
+
+export function postUncertainClinicalSignificance(data) {
+  return {
+    type: actionsTypes.POST_UNCERTAIN_CLINICAL_SIGNIFICANCE,
+    payload: data
+  };
+}
+
+export function deleteUncertainClinicalSignificance(data) {
+  return {
+    type: actionsTypes.DELETE_UNCERTAIN_CLINICAL_SIGNIFICANCE,
+    payload: data
+  };
+}
+
+export function deleteUncertainClinicalSignificanceFromStore(data) {
+  return {
+    type: actionsTypes.DELETE_UNCERTAIN_CLINICAL_SIGNIFICANCE_FROM_STORE,
+    payload: data
+  };
+}
+// -- Uncertain Clinical Significance
 
 
 export function fetchFinalReportVariants(data) {

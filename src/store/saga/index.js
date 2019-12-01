@@ -33,8 +33,9 @@ import {
   fetchFinalReportVariantsSaga,
   fetchActionableAlterationsSaga,
   deleteActionableAlterationSaga,
-  deleteFinalReportClinicalRowSaga,
-  fetchFinalReportClinicalDataSaga,
+  fetchUncertainClinicalSignificanceSaga,
+  postUncertainClinicalSignificanceSaga,
+  deleteUncertainClinicalSignificanceSaga,
   setActionableAlterationExpandedInterpretationSaga,
   setActionableAlterationDrugsDescriptionSaga,
   setActionableAlterationClinicalTrialSaga,
@@ -81,17 +82,16 @@ export function* watchSaga() {
 
   yield takeEvery(types.FETCH_CONFIRMATION_PAGE_METADATA, fetchConfirmationMetadataSaga);
   yield takeEvery(types.APPLY_CONFIRMATION, applyConfirmationSaga);
-  yield takeEvery(types.POST_ACTIONABLE_ALTERATIONS, postAtionableAlterationsSaga);
+
   yield takeEvery(types.FETCH_FINAL_REPORT_VARIANTS, fetchFinalReportVariantsSaga);
 
-  // yield all([
-  //   takeEvery(types.FETCH_FINAL_REPORT_CLINICAL_DATA, fetchFinalReportClinicalDataSaga)
-  // ]);
   yield takeEvery(types.FETCH_ACTIONABLE_ALTERATIONS, fetchActionableAlterationsSaga);
+  yield takeEvery(types.POST_ACTIONABLE_ALTERATIONS, postAtionableAlterationsSaga);
   yield takeEvery(types.DELETE_ACTIONABLE_ALTERATION, deleteActionableAlterationSaga);
 
-  yield takeEvery(types.FETCH_FINAL_REPORT_CLINICAL_DATA, fetchFinalReportClinicalDataSaga);
-  yield takeEvery(types.REMOVE_CLINICAL_SELECTED_ROW_FROM_STORE, deleteFinalReportClinicalRowSaga);
+  yield takeEvery(types.FETCH_UNCERTAIN_CLINICAL_SIGNIFICANCE, fetchUncertainClinicalSignificanceSaga);
+  yield takeEvery(types.POST_UNCERTAIN_CLINICAL_SIGNIFICANCE, postUncertainClinicalSignificanceSaga);
+  yield takeEvery(types.DELETE_UNCERTAIN_CLINICAL_SIGNIFICANCE, deleteUncertainClinicalSignificanceSaga);
 
   yield takeLatest(types.SET_ACTIONABLE_ALTERATION_EXPANDED_INTERPRETATION, setActionableAlterationExpandedInterpretationSaga);
   yield takeLatest(types.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION, setActionableAlterationDrugsDescriptionSaga);

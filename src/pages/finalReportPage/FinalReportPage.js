@@ -6,22 +6,20 @@ import { Button } from "antd";
 import style from "./FinalReportPage.module.scss";
 
 import FinalReportActionableAlterations from './components/finalReportActionableAlterations';
-import FinalReportClinicalTable from './components/finalReportClinicalTable';
+import FinalReportUncertainClinicalSignificance from './components/finalReportUncertainClinicalSignificance';
 import FinalReportGenomeWideFindings from './components/finalReportGenomeWideFindings';
 
 import {
   fetchFinalReportVariants,
   fetchActionableAlterations,
-  fetchFinalReportClinicalData,
+  fetchUncertainClinicalSignificance,
   setFinalReportNavigationValue,
-  removeClinicalSelectedRowFromStore,
 } from "Actions/finalReportAction";
 import {
   fetchTestMetadata
 } from "Store/actions/testActions";
 import {
   getMutationTypesValues,
-  getClinicalVariants,
   getDnaVariantsAsArray,
   getFinalReportNavigationValue,
   getTestId
@@ -34,7 +32,7 @@ class FinalReportPage extends Component {
     super(props);
     const {
       fetchActionableAlterations,
-      fetchFinalReportClinical,
+      fetchUncertainClinicalSignificance,
       fetchTestMetadata,
       mutationTypesValues,
       match: {
@@ -44,7 +42,7 @@ class FinalReportPage extends Component {
 
     fetchTestMetadata(testId);
     fetchActionableAlterations(testId);
-    fetchFinalReportClinical(testId);
+    fetchUncertainClinicalSignificance(testId);
     fetchFinalReportVariants({
       testId,
       mutation: mutationTypesValues[0]
@@ -76,7 +74,7 @@ class FinalReportPage extends Component {
 
   renderSection = () => {
     const {
-      selectedClinicalData,
+      // selectedClinicalData,
       finalReportNavigationValue,
       match: {
         params: { testId }
@@ -92,10 +90,8 @@ class FinalReportPage extends Component {
         );
       case FINAL_REPORT_NAVIGATION_VALUES.uncertainClinicalSignificance:
         return (
-          <FinalReportClinicalTable
-            dataSource={selectedClinicalData}
+          <FinalReportUncertainClinicalSignificance
             testId={testId}
-            remove={this.handleRemoveClinicalRow}
           />
         );
       case FINAL_REPORT_NAVIGATION_VALUES.genomeWideFindings:
@@ -165,7 +161,6 @@ const mapStateToProps = state => {
   return {
     mutationTypesValues: getMutationTypesValues(state),
     testId: getTestId(state),
-    selectedClinicalData: getClinicalVariants(state),
     filteredDnaVariants: getDnaVariantsAsArray(state),
     finalReportNavigationValue: getFinalReportNavigationValue(state),
   };
@@ -176,8 +171,7 @@ function mapDispatchToProps(dispatch) {
     fetchTestMetadata: testId => dispatch(fetchTestMetadata(testId)),
     fetchFinalReportVariants: data => dispatch(fetchFinalReportVariants(data)),
 
-    fetchFinalReportClinical: data => dispatch(fetchFinalReportClinicalData(data)),
-    removeClinicalRow: data => dispatch(removeClinicalSelectedRowFromStore(data)),
+    fetchUncertainClinicalSignificance: data => dispatch(fetchUncertainClinicalSignificance(data)),
 
     fetchActionableAlterations: data => dispatch(fetchActionableAlterations(data)),
 

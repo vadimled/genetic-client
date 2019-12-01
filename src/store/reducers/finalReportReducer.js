@@ -7,22 +7,31 @@ const initialSelectedActionableAlterationState = {
   currentActionableAlterationTab: "1",
 };
 
-const initSelectedVariantsState = {
+const initSelectedVariantsForActionableAlterationsState = {
   selectedVariantsIdsForActionableAlterations: [],
   isSelectVariantsForActionableAlterations: false,
 };
 
+const initialSelectedUncertainClinicalSignificance = {
+  selectedUncertainClinicalSignificanceId: null,
+  currentUncertainClinicalSignificanceTab: "1",
+};
+
+const initSelectedVariantsForUncertainClinicalSignificanceState = {
+  selectedVariantsIdsForUncertainClinicalSignificance: [],
+  isSelectVariantsForUncertainClinicalSignificance: false,
+};
+
 const initialState = {
-  // serverData: null,
-  // data: null,
   dnaVariants: null,
   // cnvVariants: [],
   actionableAlterations: [],
-  clinicalVariants: [],
+  uncertainClinicalSignificance: [],
   mutation_type: null,
   finalReportNavigationValue: FINAL_REPORT_NAVIGATION_VALUES.actionableAlterations,
-  ...initSelectedVariantsState,
+  ...initSelectedVariantsForActionableAlterationsState,
   ...initialSelectedActionableAlterationState,
+  ...initSelectedVariantsForUncertainClinicalSignificanceState
 };
 
 const finalReportReducer = createReducer(initialState, {
@@ -40,13 +49,6 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.ADD_ROW]: (state, { payload }) => {
-    return {
-      ...state,
-      selectedData: state.selectedData.push(payload)
-    };
-  },
-
   [actionsTypes.DELETE_ACTIONABLE_ALTERATION_FROM_STORE]: (state, { payload }) => {
     const newActionableAlterations = state.actionableAlterations.filter(
       obj => obj?.id !== payload
@@ -54,18 +56,8 @@ const finalReportReducer = createReducer(initialState, {
     return {
       ...state,
       actionableAlterations: newActionableAlterations,
-      ...initSelectedVariantsState,
+      ...initSelectedVariantsForActionableAlterationsState,
       ...initialSelectedActionableAlterationState,
-    };
-  },
-
-  [actionsTypes.REMOVE_CLINICAL_SELECTED_ROW_FROM_STORE]: (state, { payload }) => {
-    const newClinicalVariants = state.clinicalVariants.filter(
-      obj => obj?.id !== payload?.id
-    );
-    return {
-      ...state,
-      clinicalVariants: newClinicalVariants
     };
   },
 
@@ -108,16 +100,6 @@ const finalReportReducer = createReducer(initialState, {
     return {
       ...state,
       selectedVariantsIdsForActionableAlterations: [...selectedVariantsIdsForActionableAlterationsSet]
-    };
-  },
-
-  [actionsTypes.SET_FINAL_REPORT_CLINICAL_DATA_TO_STORE]: (
-    state,
-    { payload }
-  ) => {
-    return {
-      ...state,
-      clinicalVariants: payload
     };
   },
 
@@ -303,9 +285,80 @@ const finalReportReducer = createReducer(initialState, {
   [actionsTypes.SET_IS_SELECT_VARIANTS_FOR_ACTIONABLE_ALTERATIONS]: state => {
     return {
       ...state,
-      ...initSelectedVariantsState,
+      ...initSelectedVariantsForActionableAlterationsState,
       ...initialSelectedActionableAlterationState,
       isSelectVariantsForActionableAlterations: !state.isSelectVariantsForActionableAlterations,
+    };
+  },
+
+  [actionsTypes.SET_FINAL_REPORT_UNCERTAIN_CLINICAL_SIGNIFICANCE_TO_STORE]: (state, { payload }) => {
+    return {
+      ...state,
+      uncertainClinicalSignificance: payload,
+      selectedVariantsIdsForUncertainClinicalSignificance: [],
+    };
+  },
+
+  [actionsTypes.SET_IS_SELECT_VARIANTS_FOR_UNCERTAIN_CLINICAL_SIGNIFICANCE]: state => {
+    return {
+      ...state,
+      ...initialSelectedUncertainClinicalSignificance,
+      ...initSelectedVariantsForUncertainClinicalSignificanceState,
+      isSelectVariantsForUncertainClinicalSignificance: !state.isSelectVariantsForUncertainClinicalSignificance,
+    };
+  },
+
+  [actionsTypes.HANDLE_FINAL_REPORT_SELECTED_VARIANTS_IDS_FOR_UNCERTAIN_CLINICAL_SIGNIFICANCE]: (state, { payload }) => {
+    const { item } = payload;
+
+    let selectedVariantsIdsForUncertainClinicalSignificance = state?.selectedVariantsIdsForUncertainClinicalSignificance;
+
+    const selectedVariantIndex = selectedVariantsIdsForUncertainClinicalSignificance.indexOf(item.id);
+    if (selectedVariantIndex === -1) {
+      selectedVariantsIdsForUncertainClinicalSignificance.push(item.id);
+    }
+    else {
+      selectedVariantsIdsForUncertainClinicalSignificance.splice(selectedVariantIndex, 1);
+    }
+
+    return {
+      ...state,
+      selectedVariantsIdsForUncertainClinicalSignificance: [...selectedVariantsIdsForUncertainClinicalSignificance]
+    };
+  },
+
+  [actionsTypes.HANDLE_FINAL_REPORT_SELECT_ALL_VARIANTS_FOR_UNCERTAIN_CLINICAL_SIGNIFICANCE]: (state, { payload }) => {
+    const dnaVariants = state?.dnaVariants;
+    let selectedVariantsIdsForUncertainClinicalSIgnificanceSet = new Set();
+
+    if (!payload) {
+      for (let key in dnaVariants) {
+        if (dnaVariants.hasOwnProperty(key)) {
+          let item = dnaVariants[key];
+
+          selectedVariantsIdsForUncertainClinicalSIgnificanceSet.add(item.id);
+        }
+      }
+    }
+    else {
+      selectedVariantsIdsForUncertainClinicalSIgnificanceSet = new Set();
+    }
+
+    return {
+      ...state,
+      selectedVariantsIdsForUncertainClinicalSignificance: [...selectedVariantsIdsForUncertainClinicalSIgnificanceSet]
+    };
+  },
+
+  [actionsTypes.DELETE_UNCERTAIN_CLINICAL_SIGNIFICANCE_FROM_STORE]: (state, { payload }) => {
+    const newUncertainClinicalSignificance = state.uncertainClinicalSignificance.filter(
+      obj => obj?.id !== payload
+    );
+    return {
+      ...state,
+      uncertainClinicalSignificance: newUncertainClinicalSignificance,
+      ...initialSelectedUncertainClinicalSignificance,
+      ...initSelectedVariantsForUncertainClinicalSignificanceState,
     };
   },
 

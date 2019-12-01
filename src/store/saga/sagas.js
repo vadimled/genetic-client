@@ -34,6 +34,10 @@ import {
   patchActionableAlterationsApi,
   patchActionableAlterationsDrugsApi,
   patchActionableAlterationsClinicalTrialsApi,
+
+  fetchUncertainClinicalSignificanceApi,
+  postUncertainClinicalSignificanceApi,
+  deleteUncertainClinicalSignificanceApi,
 } from "Api/index";
 import {
   handleIgvAlertShow,
@@ -116,8 +120,8 @@ import {
 // } from "Actions/finalReportAction";
 import {
   deleteActionableAlterationFromStore,
-  removeClinicalSelectedRowFromStore,
-  setFinalReportClinicalDataToStore,
+  deleteUncertainClinicalSignificanceFromStore,
+  setFinalReportUncertainClinicalSignificanceToStore,
   setActionableAlterations,
   setActionableAlterationExpandedInterpretationToStore,
   // setExpandedTextAreaContentSaved,
@@ -888,11 +892,15 @@ export function* fetchConfirmationMetadataSaga(action) {
 
 export function* fetchFinalReportVariantsSaga(action) {
   try {
-    const result = yield call(fetchFinalReportVariantsApi, action);
-    const newData = parseTableData(result?.data);
+    const { testId, mutation } = action.payload;
+    const { data } = yield call(fetchFinalReportVariantsApi, {
+      testId, mutation
+    });
+    const newData = parseTableData(data);
 
     yield put(setFinalReportDnaVariantsToStore(newData));
-  } catch (e) {
+  }
+  catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchFinalReportVariantsSaga"]);
       Sentry.captureException(e);
@@ -903,12 +911,11 @@ export function* fetchFinalReportVariantsSaga(action) {
 
 export function* postAtionableAlterationsSaga(action) {
   try {
-    yield put(setLoading(true));
-    const { data } = yield call(postAtionableAlterationsApi, action);
+    const { testId, mutation, variants_ids } = action.payload;
+    const { data } = yield call(postAtionableAlterationsApi, { testId, mutation, variants_ids });
     yield put(setActionableAlterations(data));
-    yield put(setLoading(false));
-  } catch (e) {
-    yield put(setLoading(false));
+  }
+  catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["postAtionableAlterationsSaga"]);
       Sentry.captureException(e);
@@ -919,12 +926,11 @@ export function* postAtionableAlterationsSaga(action) {
 
 export function* fetchActionableAlterationsSaga(action) {
   try {
-    yield put(setLoading(true));
-    const { data } = yield call(fetchActionableAlterationsApi, action);
+    const testId = action.payload;
+    const { data } = yield call(fetchActionableAlterationsApi, { testId });
     yield put(setActionableAlterations(data));
-    yield put(setLoading(false));
-  } catch (e) {
-    yield put(setLoading(false));
+  }
+  catch (e) {
     Sentry.withScope(scope => {
       scope.setFingerprint(["fetchActionableAlterationsSaga"]);
       Sentry.captureException(e);
@@ -933,59 +939,14 @@ export function* fetchActionableAlterationsSaga(action) {
   }
 }
 
-const tempClinical = [
-  {
-    key: 1,
-    id: "5d511f574651a20020a0ab52",
-    variant_id: "1d5bcc6608589e00124bfd96",
-    mutation_type: "dna",
-    gene: "YHGFD",
-    hgvs_p: "p.TRu29Ala",
-    hgvs_c: "c.Fv05C>T" ,
-    zygosity: "homo",
-    status: ""
-  },
-  {
-    key: 2,
-    id: "5d511f574651a20020a0ab53",
-    variant_id: "1d5bcc6608589e00124bf105",
-    mutation_type: "dna",
-    gene: "CFHTM",
-    hgvs_p: "p.fRu429Ala",
-    hgvs_c: "c.1305C>T" ,
-    zygosity: "somatic",
-    status: ""
-  }
-];
-
-export function* fetchFinalReportClinicalDataSaga() {
-  try {
-    yield put(setLoading(true));
-    /*  const { data } = yield call(fetchFinalReportClinicalDataApi, action);*/
-    yield put(setFinalReportClinicalDataToStore(tempClinical));
-    yield put(setLoading(false));
-  } catch (e) {
-    yield put(setLoading(false));
-    Sentry.withScope(scope => {
-      scope.setFingerprint(["fetchFinalReportClinicalDataSaga"]);
-      Sentry.captureException(e);
-    });
-    yield handleErrors(e);
-  }
-}
-
 export function* deleteActionableAlterationSaga(action){
   try {
-    yield put(setLoading(true));
     yield call(deleteAtionableAlterationsApi, action);
 
     const { id } = action.payload;
     yield put(deleteActionableAlterationFromStore(id));
-
-    yield put(setLoading(false));
   }
   catch (e) {
-    yield put(setLoading(false));
     Sentry.withScope(scope => {
       scope.setFingerprint(["deleteActionableAlterationSaga"]);
       Sentry.captureException(e);
@@ -994,27 +955,6 @@ export function* deleteActionableAlterationSaga(action){
   }
 }
 
-export function* deleteFinalReportClinicalRowSaga(action){
-  try {
-    yield put(setLoading(true));
-
-    /* const { data } = yield call(deleteFinalReportClinicalRowApi, action);*/
-
-    // if(data.status === 200){
-    const { id } = action.payload;
-    yield put(removeClinicalSelectedRowFromStore(id));
-    // }
-    yield put(setLoading(false));
-  }
-  catch (e) {
-    yield put(setLoading(false));
-    Sentry.withScope(scope => {
-      scope.setFingerprint(["deleteFinalReportClinicalRowSaga"]);
-      Sentry.captureException(e);
-    });
-    yield handleErrors(e);
-  }
-}
 export function* setActionableAlterationExpandedInterpretationSaga(action){
   try {
     const { testId, actionableAlterationId, field, value } = action.payload;
@@ -1041,6 +981,7 @@ export function* setActionableAlterationExpandedInterpretationSaga(action){
   }
 
 }
+
 export function* setActionableAlterationDrugsDescriptionSaga(action){
   try {
     const { testId, actionableAlterationId, actionablealterationDrugId, value } = action.payload;
@@ -1088,3 +1029,50 @@ export function* setActionableAlterationClinicalTrialSaga(action){
     yield handleErrors(e);
   }
 }
+
+export function* fetchUncertainClinicalSignificanceSaga(action) {
+  try {
+    const testId = action.payload;
+    const { data } = yield call(fetchUncertainClinicalSignificanceApi, { testId });
+    yield put(setFinalReportUncertainClinicalSignificanceToStore(data));
+  }
+  catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["fetchUncertainClinicalSignificanceSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+}
+
+export function* postUncertainClinicalSignificanceSaga(action) {
+  try {
+    const { testId, mutation, variants_ids } = action.payload;
+    const { data } = yield call(postUncertainClinicalSignificanceApi, { testId, mutation, variants_ids });
+    yield put(setFinalReportUncertainClinicalSignificanceToStore(data));
+  }
+  catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["postUncertainClinicalSignificanceSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+}
+
+export function* deleteUncertainClinicalSignificanceSaga(action){
+  try {
+    yield call(deleteUncertainClinicalSignificanceApi, action);
+
+    const { id } = action.payload;
+    yield put(deleteUncertainClinicalSignificanceFromStore(id));
+  }
+  catch (e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["deleteUncertainClinicalSignificanceSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+}
+
