@@ -4,22 +4,49 @@
   .select-variants-wrapper {
     display: flex;
     justify-content: flex-end;
+    margin-top: 32px;
   }
 
-  .add-actionable-details-container-button-text {
+  .select-variants-btn {
     display: flex;
     width: 100%;
     justify-content: center;
-    font-style: normal;
+    height: 32px;
+    width: 141px;
+
     font-weight: 600;
-    font-size: 18px;
+    font-size: 12px !important;
     text-align: center;
+    text-transform: uppercase;
     color: $white;
+
+    &:hover {
+      color: $white;
+    }
   }
 
-  .move-to-actionabilities-btn {
-    background-color: #1890ff;
-    color: #fff;
-    margin-bottom: 20px;
+  .final-report-teble-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+  }
+
+  .apply-table-btn {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 32px;
+    width: 315px;
+
+    font-weight: 600;
+    font-size: 12px !important;
+    text-align: center;
+    text-transform: uppercase;
+    color: $white;
+
+    &:hover {
+      color: $white;
+    }
   }
 }

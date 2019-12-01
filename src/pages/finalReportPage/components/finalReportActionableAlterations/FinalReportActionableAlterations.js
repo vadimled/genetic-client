@@ -77,7 +77,7 @@ const FinalReportActionableAlterations = ({
       {!isSelectVariantsForActionableAlterations && (
         <div className="select-variants-wrapper">
           <SimpleButton
-            className={"add-actionable-details-container-button-text"}
+            className={"select-variants-btn"}
             onClick={handleIsSelectVariantsForActionableAlterations}
             text={"Select variants"}
           />
@@ -85,13 +85,15 @@ const FinalReportActionableAlterations = ({
       )}
       {!selectedActionableAlterationId && isSelectVariantsForActionableAlterations && (
         <div className="final-report-variants">
-          <div className="flex justify-end">
+          <div className="final-report-teble-toolbar">
             <FinalReportTableToolBar />
-            <SimpleButton
-              className="move-to-actionabilities-btn"
-              onClick={saveNewActionableAlterations}
-              text={"MOVE TO ACTIONABILITIES"}
-            />
+            {!!selectedVariantsIdsForActionableAlterations?.length && (
+              <SimpleButton
+                className="apply-table-btn"
+                onClick={saveNewActionableAlterations}
+                text={"MOVE TO ACTIONABILITIES"}
+              />
+            )}
           </div>
 
           <FinalReportVariantsTable

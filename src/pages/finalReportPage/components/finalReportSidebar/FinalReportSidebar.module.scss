@@ -1,0 +1,47 @@
+@import "Css/Colors.scss";
+
+.final-report-sidebar {
+  display: flex;
+  flex-direction: column;
+  background: $white;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.section {
+  padding: 25px;
+
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    background-color: $a-color-primary-n1-highlight;
+  }
+}
+
+.section-selected {
+  background-color: $a-color-primary-n1-highlight;
+}
+
+.step-label {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+
+  color: $black;
+}
+
+.section-title {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: $a-color-grey-n1;
+  transition: all 0.15s;
+}
+
+.section-title-selected {
+  color: $a-color-primary-n1-btn-hover;
+}

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
 import FinalReportClinicalTable from "Pages/finalReportPage/components/finalReportClinicalTable";
-// import ActionableDetailsContainer from "Pages/finalReportPage/components/finalReportActionableTable/components/actionableDetailsContainer";
 import FinalReportVariantsTable from "Pages/finalReportPage/components/finalReportVariantsTable";
 import FinalReportTableToolBar from "Pages/finalReportPage/components/finalReportTableToolBar";
 import SimpleButton from "GenericComponents/simpleButton";
@@ -11,11 +10,6 @@ import SimpleButton from "GenericComponents/simpleButton";
 import style from "./FinalReportUncertainClinicalSignificance.module.scss";
 
 import {
-//   handleFinalReportSelectAllVariantsForActionableAlterations,
-//   handleFinalReportSelectedVariantsIdsForActionableAlterations,
-//   postAtionableAlterations,
-//   deleteActionableAlteration,
-//   setSelectedActionableAlterationId,
   setIsSelectVariantsForUncertainClinicalSignificance,
   handleFinalReportSelectedVariantsIdsForUncertainClinicalSignificance,
   handleFinalReportSelectAllVariantsForUncertainClinicalSignificance,
@@ -43,7 +37,6 @@ const FinalReportUncertainClinicalSignificance = (props) => {
     selectedVariantsIdsForUncertainClinicalSignificance,
     isAllDnaVariantsForUncertainClinicalSignificance,
     selectedUncertainClinicalSignificanceId,
-    // currentUncertainClinicalSignificanceTab,
 
     setIsSelectVariantsForUncertainClinicalSignificance,
     handleFinalReportSelectedVariantsIdsForUncertainClinicalSignificance,
@@ -83,7 +76,7 @@ const FinalReportUncertainClinicalSignificance = (props) => {
       {!isSelectVariantsForUncertainClinicalSignificance && (
         <div className="select-variants-wrapper">
           <SimpleButton
-            className={"add-details-container-button-text"}
+            className={"select-variants-btn"}
             onClick={handleIsSelectVariantsForUncertainClinicalSignificance}
             text={"Select variants"}
           />
@@ -91,13 +84,15 @@ const FinalReportUncertainClinicalSignificance = (props) => {
       )}
       {!selectedUncertainClinicalSignificanceId && isSelectVariantsForUncertainClinicalSignificance && (
         <div className="final-report-variants">
-          <div className="flex justify-end">
+          <div className="final-report-teble-toolbar">
             <FinalReportTableToolBar />
-            <SimpleButton
-              className="move-to-actionabilities-btn"
-              onClick={saveNewUncertainClinicalSignificance}
-              text={"MOVE TO UNCERTAIN CLINICAL SIGNIFICANCE"}
-            />
+            {!!selectedVariantsIdsForUncertainClinicalSignificance?.length && (
+              <SimpleButton
+                className="apply-table-btn"
+                onClick={saveNewUncertainClinicalSignificance}
+                text={"MOVE TO UNCERTAIN CLINICAL SIGNIFICANCE"}
+              />
+            )}
           </div>
 
           <FinalReportVariantsTable
@@ -161,7 +156,6 @@ function mapDispatchToProps(dispatch) {
     deleteUncertainClinicalSignificance: (data) => dispatch(deleteUncertainClinicalSignificance(data)),
   };
 }
-
 
 export default connect(
   mapStateToProps,

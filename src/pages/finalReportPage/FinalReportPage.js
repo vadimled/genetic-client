@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Button } from "antd";
 
 import style from "./FinalReportPage.module.scss";
 
 import FinalReportActionableAlterations from './components/finalReportActionableAlterations';
 import FinalReportUncertainClinicalSignificance from './components/finalReportUncertainClinicalSignificance';
 import FinalReportGenomeWideFindings from './components/finalReportGenomeWideFindings';
+import FinalReportSidebar from './components/finalReportSidebar';
 
 import {
   fetchFinalReportVariants,
   fetchActionableAlterations,
   fetchUncertainClinicalSignificance,
-  setFinalReportNavigationValue,
 } from "Actions/finalReportAction";
 import {
   fetchTestMetadata
@@ -47,6 +46,7 @@ class FinalReportPage extends Component {
       testId,
       mutation: mutationTypesValues[0]
     });
+
     this.state = {
       isMutationType: false
     };
@@ -64,17 +64,8 @@ class FinalReportPage extends Component {
     return null;
   }
 
-  handleRemoveClinicalRow = val => {
-    this.props.removeClinicalRow(val);
-  };
-
-  handlerSidebarActions = e => {
-    this.props.setFinalReportNavigationValue(e.target.name);
-  };
-
   renderSection = () => {
     const {
-      // selectedClinicalData,
       finalReportNavigationValue,
       match: {
         params: { testId }
@@ -109,6 +100,7 @@ class FinalReportPage extends Component {
         className={`${style["final-report-page-wrapper"]}`}
       >
         <div className="final-report-main-content">
+
           <div className="final-report-header">
             <Link
               to="/"
@@ -116,42 +108,28 @@ class FinalReportPage extends Component {
             >
               &lt; Back
             </Link>
+
             <h1 className="final-report-main-title">Final report</h1>
+
           </div>
 
-          <div className="final-report-section">
-            <div className="final-report-section-title">
-              {FINAL_REPORT_NAVIGATION_LABELS[finalReportNavigationValue]}
+          <div className="final-report-body-content">
+
+            <div className="final-report-section">
+              <div className="final-report-section-title">
+                {FINAL_REPORT_NAVIGATION_LABELS[finalReportNavigationValue]}
+              </div>
+              {this.renderSection()}
             </div>
-            {this.renderSection()}
+
+            <div className="final-report-sidebar">
+              <FinalReportSidebar />
+            </div>
+
           </div>
 
         </div>
-        <div className="sidebar">
-          <div className="sidebar-content-wrapper">
-            <Button
-              name={FINAL_REPORT_NAVIGATION_VALUES.actionableAlterations}
-              type="primary"
-              onClick={this.handlerSidebarActions}
-            >
-              Actionable alterations
-            </Button>
-            <Button
-              name={FINAL_REPORT_NAVIGATION_VALUES.uncertainClinicalSignificance}
-              type="primary"
-              onClick={this.handlerSidebarActions}
-            >
-              Uncertain clinical significance
-            </Button>
-            <Button
-              name={FINAL_REPORT_NAVIGATION_VALUES.genomeWideFindings}
-              type="primary"
-              onClick={this.handlerSidebarActions}
-            >
-              Genome-wide findings
-            </Button>
-          </div>
-        </div>
+
       </div>
     );
   }
@@ -174,8 +152,6 @@ function mapDispatchToProps(dispatch) {
     fetchUncertainClinicalSignificance: data => dispatch(fetchUncertainClinicalSignificance(data)),
 
     fetchActionableAlterations: data => dispatch(fetchActionableAlterations(data)),
-
-    setFinalReportNavigationValue: status => dispatch(setFinalReportNavigationValue(status)),
   };
 }
 

@@ -1,29 +1,12 @@
 @import "Css/Colors.scss";
 
 .final-report-page-wrapper :global {
-  display: flex;
   height: calc(100vh - 48px);
   overflow: auto;
+  background-color: $final-report-bg-color;
 
   .final-report-main-content {
     padding: 25px 40px;
-    width: calc(100% - 320px);
-  }
-
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    border: 2px solid red;
-    min-width: 320px;
-    width: 320px;
-
-    .sidebar-content-wrapper {
-      width: 70%;
-
-      button {
-        margin: 26px 0 0 12px;
-      }
-    }
   }
 
   .final-report-header {
@@ -45,10 +28,23 @@
     margin-bottom: 0;
   }
 
+  .final-report-body-content {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .final-report-sidebar {
+    width: 320px;
+    min-width: 320px;
+    margin-left: 33px;
+  }
+
   .final-report-section {
+    width: calc(100% - 353px);
     padding: 33px;
-    box-shadow: 0px 0px 15px $neutral_30;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
+    background-color: $white;
   }
 
   .final-report-section-title {
