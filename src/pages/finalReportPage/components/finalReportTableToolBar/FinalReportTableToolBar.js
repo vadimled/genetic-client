@@ -1,42 +1,59 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
-// import PropTypes from "prop-types";
+import React, { Fragment, useState, useEffect } from "react";
+import PropTypes from "prop-types";
 // import cn from "classnames
 
 import Search from "GenericComponents/search";
 
 import style from "./FinalReportTableToolBar.module.scss";
 
-class FinalReportTableToolBar extends Component {
+const FinalReportTableToolBar = (props) => {
+  const {
+    searchText,
+    onChangeSearch,
+    tebleData,
+  } = props;
 
-  render() {
-    return (
-      <div className={style["toolbar-wrapper"]}>
-        <Fragment>
-          <div className="left-wrapper">
-            <div className="search-field-wrapper">
-              <Search />
-            </div>
+  const [dataSource, setDataSource] = useState([]);
+
+  useEffect(() => {
+    const dataSource = tebleData.reduce((arr, item) => {
+      item.gene && arr.push(item.gene);
+      item.coding && arr.push(item.coding);
+      item.protein && arr.push(item.protein);
+      return arr;
+    }, []);
+
+    setDataSource(dataSource);
+
+  }, [searchText, tebleData]);
+
+  return (
+    <div className={style["toolbar-wrapper"]}>
+      <Fragment>
+        <div className="left-wrapper">
+          <div className="search-field-wrapper">
+            <Search
+              searchText={searchText}
+              dataSource={[...new Set(dataSource)]}
+              placeholder="Search"
+              onChange={onChangeSearch}
+              onClear={onChangeSearch.bind(null, '')}
+            />
           </div>
-        </Fragment>
-      </div>
-    );
-  }
-}
+        </div>
+      </Fragment>
+    </div>
+  );
+};
 
 FinalReportTableToolBar.propTypes = {
-
+  searchText: PropTypes.string,
+  onChangeSearch: PropTypes.func.isRequired,
+  tebleData: PropTypes.array,
+};
+FinalReportTableToolBar.defaultProps = {
+  searchText: '',
+  tebleData: []
 };
 
-const mapStateToProps = () => {
-  return {};
-};
-
-function mapDispatchToProps() {
-  return {};
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FinalReportTableToolBar);
+export default FinalReportTableToolBar;

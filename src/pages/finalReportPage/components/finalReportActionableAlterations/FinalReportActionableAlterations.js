@@ -16,7 +16,8 @@ import {
   postAtionableAlterations,
   deleteActionableAlteration,
   setSelectedActionableAlterationId,
-  setIsSelectVariantsForActionableAlterations
+  setIsSelectVariantsForActionableAlterations,
+  setSearchTextForFinalReportActionableAlterationsTable,
 } from "Actions/finalReportAction";
 import {
   getMutationTypesValues,
@@ -26,17 +27,20 @@ import {
   getIsSelectVariantsForActionableAlterations,
   getSelectedVariantsForActionableAlterations,
   getSelectedVariantsIdsForActionableAlterations,
+  getSearchTextForFinalReportActionableAlterationsTable,
 } from "Store/selectors";
 
 const FinalReportActionableAlterations = ({
   testId,
+  mutationTypesValues,
+
   actionableAlterations,
   isSelectVariantsForActionableAlterations,
   selectedActionableAlterationId,
   isAllDnaVariantsForActionableAlterationsSelected,
   selectedVariantsForActionableAlterations,
   selectedVariantsIdsForActionableAlterations,
-  mutationTypesValues,
+  searchTextForFinalReportActionableAlterationsTable,
 
   setSelectedActionableAlterationId,
   deleteActionableAlteration,
@@ -44,6 +48,7 @@ const FinalReportActionableAlterations = ({
   handleFinalReportSelectedVariantsIdsForActionableAlterations,
   handleFinalReportSelectAllVariantsForActionableAlterations,
   postAtionableAlterations,
+  setSearchTextForFinalReportActionableAlterationsTable,
 }) => {
 
   const handleSelectActionableAlterationId = id => {
@@ -86,7 +91,11 @@ const FinalReportActionableAlterations = ({
       {!selectedActionableAlterationId && isSelectVariantsForActionableAlterations && (
         <div className="final-report-variants">
           <div className="final-report-teble-toolbar">
-            <FinalReportTableToolBar />
+            <FinalReportTableToolBar
+              searchText={searchTextForFinalReportActionableAlterationsTable}
+              onChangeSearch={setSearchTextForFinalReportActionableAlterationsTable}
+              tebleData={selectedVariantsForActionableAlterations}
+            />
             {!!selectedVariantsIdsForActionableAlterations?.length && (
               <SimpleButton
                 className="apply-table-btn"
@@ -124,6 +133,7 @@ const mapStateToProps = state => {
     isAllDnaVariantsForActionableAlterationsSelected: getIsAllDnaVariantsForActionableAlterationsSelected(state),
     selectedVariantsForActionableAlterations: getSelectedVariantsForActionableAlterations(state),
     selectedVariantsIdsForActionableAlterations: getSelectedVariantsIdsForActionableAlterations(state),
+    searchTextForFinalReportActionableAlterationsTable: getSearchTextForFinalReportActionableAlterationsTable(state),
     actionableAlterations: getActionableAlterations(state),
     selectedActionableAlterationId: getSelectedActionableAlterationId(state),
     isSelectVariantsForActionableAlterations: getIsSelectVariantsForActionableAlterations(state)
@@ -137,7 +147,9 @@ function mapDispatchToProps(dispatch) {
     handleFinalReportSelectAllVariantsForActionableAlterations: data => dispatch(handleFinalReportSelectAllVariantsForActionableAlterations(data)),
     postAtionableAlterations: data => dispatch(postAtionableAlterations(data)),
     deleteActionableAlteration: data => dispatch(deleteActionableAlteration(data)),
-    setIsSelectVariantsForActionableAlterations: () => dispatch(setIsSelectVariantsForActionableAlterations())
+    setIsSelectVariantsForActionableAlterations: () => dispatch(setIsSelectVariantsForActionableAlterations()),
+    setSearchTextForFinalReportActionableAlterationsTable: (data) =>
+      dispatch(setSearchTextForFinalReportActionableAlterationsTable(data)),
   };
 }
 

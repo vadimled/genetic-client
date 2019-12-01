@@ -3,13 +3,14 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect";
-import Search from "GenericComponents/search";
+
 import style from "./Toolbar.module.scss";
 import { MUTATION } from "Utils/constants";
 import NumberVariants from "Pages/singleTestPage/components/numberVariants";
 import IgvLoadBAM from "./components/IgvLoadBAM";
 import AddResult from "./components/addResult";
 import EditResult from "./components/editResult";
+import Search from "./components/search";
 import { setMutationType } from "Actions/variantsActions";
 import {
   handleOnConfirmation,

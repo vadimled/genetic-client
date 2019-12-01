@@ -10,6 +10,7 @@ const initialSelectedActionableAlterationState = {
 const initSelectedVariantsForActionableAlterationsState = {
   selectedVariantsIdsForActionableAlterations: [],
   isSelectVariantsForActionableAlterations: false,
+  searchTextForFinalReportActionableAlterationsTable: '',
 };
 
 const initialSelectedUncertainClinicalSignificance = {
@@ -20,6 +21,7 @@ const initialSelectedUncertainClinicalSignificance = {
 const initSelectedVariantsForUncertainClinicalSignificanceState = {
   selectedVariantsIdsForUncertainClinicalSignificance: [],
   isSelectVariantsForUncertainClinicalSignificance: false,
+  searchTextForFinalReportUncertainClinicalSignificanceTable: '',
 };
 
 const initialState = {
@@ -291,6 +293,13 @@ const finalReportReducer = createReducer(initialState, {
     };
   },
 
+  [actionsTypes.SET_SEARCH_TEXT_FOR_FINAL_REPORT_ACTIONABLE_ALTERATIONS_TABLE]: (state, { payload }) => {
+    return {
+      ...state,
+      searchTextForFinalReportActionableAlterationsTable: payload,
+    };
+  },
+
   [actionsTypes.SET_FINAL_REPORT_UNCERTAIN_CLINICAL_SIGNIFICANCE_TO_STORE]: (state, { payload }) => {
     return {
       ...state,
@@ -359,6 +368,13 @@ const finalReportReducer = createReducer(initialState, {
       uncertainClinicalSignificance: newUncertainClinicalSignificance,
       ...initialSelectedUncertainClinicalSignificance,
       ...initSelectedVariantsForUncertainClinicalSignificanceState,
+    };
+  },
+
+  [actionsTypes.SET_SEARCH_TEXT_FOR_FINAL_REPORT_UNCERTAIN_CLINICAL_SIGNIFICANCE_TABLE]: (state, { payload }) => {
+    return {
+      ...state,
+      searchTextForFinalReportUncertainClinicalSignificanceTable: payload,
     };
   },
 

@@ -1,5 +1,6 @@
 import actionsTypes from "../actionsTypes";
 
+// Actionable Alterations
 export const fetchActionableAlterations = data => {
   return {
     type: actionsTypes.FETCH_ACTIONABLE_ALTERATIONS,
@@ -124,6 +125,13 @@ export function setActionableAlterationClinicalTrialToStore(data) {
 //     payload: data
 //   };
 // }
+export function setSearchTextForFinalReportActionableAlterationsTable(data) {
+  return {
+    type: actionsTypes.SET_SEARCH_TEXT_FOR_FINAL_REPORT_ACTIONABLE_ALTERATIONS_TABLE,
+    payload: data
+  };
+}
+// -- Actionable Alterations
 
 
 
@@ -181,6 +189,13 @@ export function deleteUncertainClinicalSignificance(data) {
 export function deleteUncertainClinicalSignificanceFromStore(data) {
   return {
     type: actionsTypes.DELETE_UNCERTAIN_CLINICAL_SIGNIFICANCE_FROM_STORE,
+    payload: data
+  };
+}
+
+export function setSearchTextForFinalReportUncertainClinicalSignificanceTable(data) {
+  return {
+    type: actionsTypes.SET_SEARCH_TEXT_FOR_FINAL_REPORT_UNCERTAIN_CLINICAL_SIGNIFICANCE_TABLE,
     payload: data
   };
 }

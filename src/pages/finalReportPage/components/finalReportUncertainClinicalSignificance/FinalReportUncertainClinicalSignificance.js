@@ -15,6 +15,7 @@ import {
   handleFinalReportSelectAllVariantsForUncertainClinicalSignificance,
   postUncertainClinicalSignificance,
   deleteUncertainClinicalSignificance,
+  setSearchTextForFinalReportUncertainClinicalSignificanceTable,
 } from "Actions/finalReportAction";
 import {
   getMutationTypesValues,
@@ -25,6 +26,7 @@ import {
   getIsAllDnaVariantsForUncertainClinicalSignificance,
   getSelectedUncertainClinicalSignificanceId,
   getCurrentUncertainClinicalSignificanceTab,
+  getSearchTextForFinalReportUncertainClinicalSignificanceTable,
 } from "Store/selectors";
 
 const FinalReportUncertainClinicalSignificance = (props) => {
@@ -37,12 +39,14 @@ const FinalReportUncertainClinicalSignificance = (props) => {
     selectedVariantsIdsForUncertainClinicalSignificance,
     isAllDnaVariantsForUncertainClinicalSignificance,
     selectedUncertainClinicalSignificanceId,
+    searchTextForFinalReportUncertainClinicalSignificanceTable,
 
     setIsSelectVariantsForUncertainClinicalSignificance,
     handleFinalReportSelectedVariantsIdsForUncertainClinicalSignificance,
     handleFinalReportSelectAllVariantsForUncertainClinicalSignificance,
     postUncertainClinicalSignificance,
     deleteUncertainClinicalSignificance,
+    setSearchTextForFinalReportUncertainClinicalSignificanceTable,
   } = props;
 
   // const handleSelectActionableAlterationId = id => {
@@ -85,7 +89,11 @@ const FinalReportUncertainClinicalSignificance = (props) => {
       {!selectedUncertainClinicalSignificanceId && isSelectVariantsForUncertainClinicalSignificance && (
         <div className="final-report-variants">
           <div className="final-report-teble-toolbar">
-            <FinalReportTableToolBar />
+            <FinalReportTableToolBar
+              searchText={searchTextForFinalReportUncertainClinicalSignificanceTable}
+              onChangeSearch={setSearchTextForFinalReportUncertainClinicalSignificanceTable}
+              tebleData={selectedVariantsForUncertainClinicalSignificance}
+            />
             {!!selectedVariantsIdsForUncertainClinicalSignificance?.length && (
               <SimpleButton
                 className="apply-table-btn"
@@ -142,6 +150,7 @@ const mapStateToProps = state => {
     isAllDnaVariantsForUncertainClinicalSignificance: getIsAllDnaVariantsForUncertainClinicalSignificance(state),
     selectedUncertainClinicalSignificanceId: getSelectedUncertainClinicalSignificanceId(state),
     currentUncertainClinicalSignificanceTab: getCurrentUncertainClinicalSignificanceTab(state),
+    searchTextForFinalReportUncertainClinicalSignificanceTable: getSearchTextForFinalReportUncertainClinicalSignificanceTable(state),
   };
 };
 
@@ -154,6 +163,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(handleFinalReportSelectAllVariantsForUncertainClinicalSignificance(data)),
     postUncertainClinicalSignificance: (data) => dispatch(postUncertainClinicalSignificance(data)),
     deleteUncertainClinicalSignificance: (data) => dispatch(deleteUncertainClinicalSignificance(data)),
+    setSearchTextForFinalReportUncertainClinicalSignificanceTable: (data) =>
+      dispatch(setSearchTextForFinalReportUncertainClinicalSignificanceTable(data)),
   };
 }
 
