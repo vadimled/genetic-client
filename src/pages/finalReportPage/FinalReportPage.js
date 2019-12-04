@@ -19,7 +19,6 @@ import {
 } from "Store/actions/testActions";
 import {
   getMutationTypesValues,
-  getDnaVariantsAsArray,
   getFinalReportNavigationValue,
   getTestId
 } from "Store/selectors";
@@ -139,7 +138,6 @@ const mapStateToProps = state => {
   return {
     mutationTypesValues: getMutationTypesValues(state),
     testId: getTestId(state),
-    filteredDnaVariants: getDnaVariantsAsArray(state),
     finalReportNavigationValue: getFinalReportNavigationValue(state),
   };
 };

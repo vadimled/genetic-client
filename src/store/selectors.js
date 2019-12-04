@@ -524,22 +524,6 @@ export const checkIsAllCoverageRowsSelected = createSelector(
 
 
 // Final report
-
-export const getFilteredDnaVariants = state => state.finalReport?.data;
-
-export const getDnaVariantsAsArray = createSelector(
-  getFilteredDnaVariants,
-  data => {
-    let arrayData = [];
-    for (let key in data) {
-      if (data.hasOwnProperty(key)) {
-        arrayData.push(data[key]);
-      }
-    }
-    return arrayData;
-  }
-);
-
 export const
   getFinalReportNavigationValue = state => state.finalReport.finalReportNavigationValue,
   getFinalReportDnaVariants = state => state.finalReport.dnaVariants,
