@@ -46,13 +46,13 @@ class FinalReportActionableTable extends Component {
       {
         title: `Approved drug\n
         (same indication)`,
-        dataIndex: "approved_drug_same_indication",
+        dataIndex: "approvedDrugSame",
         key: "7",
         width: 180
       },
       {
         title: "Approved drug\n" + "(other indication",
-        dataIndex: "approved_drug_other_indication",
+        dataIndex: "approvedDrugOther",
         key: "8",
         width: 180
       },
@@ -138,12 +138,30 @@ class FinalReportActionableTable extends Component {
             </HighlightedCell>
           );
         };
-      } else if (col.dataIndex === "clinical_trials") {
-        column.render = (text, record) => {
+      } else if (col.dataIndex === "approvedDrugSame") {
+        column.render = (data, record) => {
           const { isAdded } = record;
           return (
             <HighlightedCell isHighlighted={isAdded}>
-              <div className="ok-icon">{text && <OkIcon />}</div>
+              {data.map((item, index) => <div key={index}>{item.drugName}</div>)}
+            </HighlightedCell>
+          );
+        };
+      } else if (col.dataIndex === "approvedDrugOther") {
+        column.render = (data, record) => {
+          const { isAdded } = record;
+          return (
+            <HighlightedCell isHighlighted={isAdded}>
+              {data.map((item, index) => <div key={index}>{item.drugName}</div>)}
+            </HighlightedCell>
+          );
+        };
+      } else if (col.dataIndex === "clinical_trials") {
+        column.render = (data, record) => {
+          const { isAdded } = record;
+          return (
+            <HighlightedCell isHighlighted={isAdded}>
+              <div className="ok-icon">{!!data?.length && <OkIcon />}</div>
             </HighlightedCell>
           );
         };
@@ -195,6 +213,7 @@ class FinalReportActionableTable extends Component {
 
   render() {
     const { dataSource } = this.props;
+
     const columns = this.columnsConverter(this.state.columns);
     return (
       <TableLayout>

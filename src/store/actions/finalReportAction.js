@@ -223,3 +223,10 @@ export function setFinalReportNavigationValue(data) {
   };
 }
 
+export function getTestReport(data) {
+  return {
+    type: actionsTypes.GET_TEST_REPORT,
+    payload: data
+  };
+}
+

@@ -3,17 +3,26 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import cn from 'classnames';
 
+import SimpleButton from "GenericComponents/simpleButton";
+
 import {
   setFinalReportNavigationValue,
+  getTestReport,
 } from "Actions/finalReportAction";
 import {
   getFinalReportNavigationValue,
+  getTestId
 } from "Store/selectors";
 import { FINAL_REPORT_NAVIGATION_VALUES, FINAL_REPORT_NAVIGATION_LABELS } from "Utils/constants";
 
 import style from './FinalReportSidebar.module.scss';
 
-const FinalReportSidebar = ({ finalReportNavigationValue, setFinalReportNavigationValue }) => {
+const FinalReportSidebar = ({
+  finalReportNavigationValue,
+  setFinalReportNavigationValue,
+  getTestReport,
+  testId
+}) => {
 
   return (
     <div className={style["final-report-sidebar"]}>
@@ -65,6 +74,15 @@ const FinalReportSidebar = ({ finalReportNavigationValue, setFinalReportNavigati
         </div>
       </div>
 
+      <div className={style["generate-btn-wrapper"]}>
+        <SimpleButton
+          className="generate-btn"
+          onClick={getTestReport.bind(null, testId)}
+          text={"Generate report"}
+          type="light"
+        />
+      </div>
+
     </div>
   );
 };
@@ -72,20 +90,24 @@ const FinalReportSidebar = ({ finalReportNavigationValue, setFinalReportNavigati
 FinalReportSidebar.propTypes = {
   finalReportNavigationValue: PropTypes.string,
   setFinalReportNavigationValue: PropTypes.func.isRequired,
+  testId: PropTypes.string,
 };
 FinalReportSidebar.defaultProps = {
   finalReportNavigationValue: FINAL_REPORT_NAVIGATION_VALUES.actionableAlterations,
+  testId: null,
 };
 
 const mapStateToProps = (state) => {
   return {
     finalReportNavigationValue: getFinalReportNavigationValue(state),
+    testId: getTestId(state),
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    setFinalReportNavigationValue: status => dispatch(setFinalReportNavigationValue(status)),
+    setFinalReportNavigationValue: data => dispatch(setFinalReportNavigationValue(data)),
+    getTestReport: (data) => dispatch(getTestReport(data))
   };
 }
 

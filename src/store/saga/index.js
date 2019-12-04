@@ -39,6 +39,7 @@ import {
   setActionableAlterationExpandedInterpretationSaga,
   setActionableAlterationDrugsDescriptionSaga,
   setActionableAlterationClinicalTrialSaga,
+  getTestReportSaga,
 } from "./sagas";
 
 export function* watchSaga() {
@@ -83,6 +84,7 @@ export function* watchSaga() {
   yield takeEvery(types.FETCH_CONFIRMATION_PAGE_METADATA, fetchConfirmationMetadataSaga);
   yield takeEvery(types.APPLY_CONFIRMATION, applyConfirmationSaga);
 
+  yield takeLatest(types.GET_TEST_REPORT, getTestReportSaga);
   yield takeEvery(types.FETCH_FINAL_REPORT_VARIANTS, fetchFinalReportVariantsSaga);
 
   yield takeEvery(types.FETCH_ACTIONABLE_ALTERATIONS, fetchActionableAlterationsSaga);

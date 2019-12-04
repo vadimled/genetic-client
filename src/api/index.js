@@ -235,7 +235,7 @@ export function fetchFinalReportMetadataApi(data) {
   return axios_based.get(`/tests/${data.payload}/final_report`);
 }
 
-export function fetchFinalReportVariantsApi (params) {
+export function fetchFinalReportVariantsApi(params) {
   const { testId, mutation } = params;
   // return axios_based.get(`/tests/${testId}/variants?filter={"zygosity":["homo","hetero","hemi","somatic"],"germline_class":["path","lpath","vus","lben"],"somatic_class":["tier1","tier2","tier3"]}`, {
   //   params: {
@@ -248,6 +248,20 @@ export function fetchFinalReportVariantsApi (params) {
       mutation
     }
   });
+}
+
+export function getTestReportApi(params) {
+  const { testId } = params;
+  return axios_based
+    .get(`/tests/${testId}/report`, { responseType: "blob" })
+    .then(response => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${testId}.docx`);
+      document.body.appendChild(link);
+      link.click();
+    });
 }
 
 

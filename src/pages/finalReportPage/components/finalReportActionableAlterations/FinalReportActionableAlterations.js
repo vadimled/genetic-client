@@ -21,6 +21,7 @@ import {
 } from "Actions/finalReportAction";
 import {
   getMutationTypesValues,
+  getTestPhenotype,
   getIsAllDnaVariantsForActionableAlterationsSelected,
   getActionableAlterations,
   getSelectedActionableAlterationId,
@@ -33,6 +34,7 @@ import {
 const FinalReportActionableAlterations = ({
   testId,
   mutationTypesValues,
+  testPhenotype,
 
   actionableAlterations,
   isSelectVariantsForActionableAlterations,
@@ -71,11 +73,36 @@ const FinalReportActionableAlterations = ({
     postAtionableAlterations(data);
   };
 
+  const actionableAlterationTableDataConverter = (data) => data.map(item => {
+    const { drugs = [] } = item;
+
+    let approvedDrugSame = [];
+    let approvedDrugOther = [];
+    drugs.forEach(item => {
+      if (item.phenotype === testPhenotype) {
+        if (item.is_phenotype_and_indication_match) {
+          approvedDrugSame.push({ drugName: item.drug_name });
+        }
+        else {
+          approvedDrugOther.push({ drugName: item.drug_name });
+        }
+      }
+    });
+    if (!approvedDrugSame.length) approvedDrugSame.push({ drugName: 'None' });
+    if (!approvedDrugOther.length) approvedDrugOther.push({ drugName: 'None' });
+
+    return {
+      ...item,
+      approvedDrugSame,
+      approvedDrugOther,
+    };
+  });
+
   return (
     <div className={style["final-report-actionable-alterations"]}>
       <FinalReportActionableTable
         testId={testId}
-        dataSource={actionableAlterations}
+        dataSource={actionableAlterationTableDataConverter(actionableAlterations)}
         handleSelectRow={handleSelectActionableAlterationId}
         remove={handleDeleteActionableAlteration}
       />
@@ -130,13 +157,14 @@ FinalReportActionableAlterations.defaultProps = {
 const mapStateToProps = state => {
   return {
     mutationTypesValues: getMutationTypesValues(state),
+    testPhenotype: getTestPhenotype(state),
     isAllDnaVariantsForActionableAlterationsSelected: getIsAllDnaVariantsForActionableAlterationsSelected(state),
     selectedVariantsForActionableAlterations: getSelectedVariantsForActionableAlterations(state),
     selectedVariantsIdsForActionableAlterations: getSelectedVariantsIdsForActionableAlterations(state),
     searchTextForFinalReportActionableAlterationsTable: getSearchTextForFinalReportActionableAlterationsTable(state),
     actionableAlterations: getActionableAlterations(state),
     selectedActionableAlterationId: getSelectedActionableAlterationId(state),
-    isSelectVariantsForActionableAlterations: getIsSelectVariantsForActionableAlterations(state)
+    isSelectVariantsForActionableAlterations: getIsSelectVariantsForActionableAlterations(state),
   };
 };
 

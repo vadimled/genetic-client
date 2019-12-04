@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Tabs } from "antd";
 
-import SimpleButton from "GenericComponents/simpleButton";
+// import SimpleButton from "GenericComponents/simpleButton";
 import ActionableDetailsTabPaneHeader from "../actionableDetailsTabPaneHeader";
 import ExpandedInterpretation from "./components/expandedInterpretation";
 import Therapies from "./components/therapies";
@@ -137,13 +137,16 @@ class ActionableDetailsContainer extends Component {
             );
           })}
         </Tabs>
-        <div className="actionable-details-done-wrapper">
-          <SimpleButton
-            className={"actionable-details-done"}
-            // onClick={this.handleAddActionable}
-            text={"Done"}
-          />
-        </div>
+        {
+        // <div className="actionable-details-done-wrapper">
+        //   <SimpleButton
+        //     className={"actionable-details-done"}
+        //     // onClick={this.handleAddActionable}
+        //     text={"Done"}
+        //   />
+        // </div>
+        }
+
       </div>
     );
   }

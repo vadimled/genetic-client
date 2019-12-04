@@ -26,6 +26,7 @@ import {
   updateUserPreferencesApi,
   updateVariantApi,
 
+  getTestReportApi,
   fetchFinalReportVariantsApi,
 
   fetchActionableAlterationsApi,
@@ -889,6 +890,21 @@ export function* fetchConfirmationMetadataSaga(action) {
 }
 
 // --------------- FINAL REPORT PAGE ---------------
+
+export function* getTestReportSaga(action) {
+  console.log("action", action);
+  try {
+    const testId = action.payload;
+    yield call(getTestReportApi, { testId });
+  }
+  catch(e) {
+    Sentry.withScope(scope => {
+      scope.setFingerprint(["getTestReportSaga"]);
+      Sentry.captureException(e);
+    });
+    yield handleErrors(e);
+  }
+}
 
 export function* fetchFinalReportVariantsSaga(action) {
   try {

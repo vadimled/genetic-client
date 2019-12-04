@@ -45,3 +45,17 @@
 .section-title-selected {
   color: $a-color-primary-n1-btn-hover;
 }
+
+.generate-btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 41px;
+  margin-top: 10px;
+
+  button {
+    width: 142px !important;
+    height: 32px !important;
+    padding: 0 !important;
+  }
+}
