@@ -1245,6 +1245,7 @@ export const getHistoryTableData = (data, type, testsList) => {
         { key: index + 1 },
         { created_at: val.created_at },
         { gsid: val.gsid },
+        { phenotype: val.phenotype },
         { class: val.class },
         { analystName: val.user?.name },
         {testId}

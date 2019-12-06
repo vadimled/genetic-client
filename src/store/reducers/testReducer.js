@@ -20,7 +20,7 @@ const initialState = {
 const testReducer = createReducer(initialState, {
   [actionsTypes.SET_TEST_DATA]: (state, { payload }) => {
     return {
-      ...state,
+      ...initialState, // important to clear all previous state data
       ...payload
     };
   },

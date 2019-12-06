@@ -749,12 +749,8 @@ export function* exportTableSaga(action) {
 
   try {
     yield put(setTableReducerLoading(true));
-
-    const result = yield call(exportTableApi, testId);
-
-    if (result.status === 200) {
-      yield put(setTableReducerLoading(false));
-    }
+    yield call(exportTableApi, testId);
+    yield put(setTableReducerLoading(false));
   } catch (e) {
     yield put(setTableReducerLoading(false));
     yield handleErrors(e);
