@@ -56,7 +56,7 @@ export const
   getAlertMessage = state => state?.alert?.message,
 
   getVariantPage = state => state.variantPage.pageData,
-  getZygosityType = state => state.variantPage.pageData.selectedZygosityType,
+  getSelectedZygosityType = state => state.variantPage.pageData.selectedZygosityType,
   getCurrentZygosityType = state =>
     state.variantPage.pageData.serverData?.zygosity,
   getCurrentVariantClass = state =>
@@ -68,8 +68,6 @@ export const
     state.variantPage.pageData.variantData?.variantClassGermline,
   getExternalResources = state => state.variantPage.pageData.externalResources,
   getVariantData = state => state.variantPage.pageData.variantData,
-  getHistorySomatic = state => state.variantPage.pageData.somaticClassHistory,
-  getHistoryGermline = state => state.variantPage.pageData.germlineClassHistory,
   getVariantId = state => state.variantPage.pageData.variantId,
   getVariantPageTestId = state => state.variantPage.pageData.testId,
   getVariantPageServerData = state => state.variantPage.pageData.serverData,
@@ -340,6 +338,70 @@ export const getTests = state => {
   });
 };
 
+// Variant page: Classification history
+export const
+  getSomaticClassHistory = state => state.variantPage.pageData.somaticClassHistory,
+  getGermlineClassHistory = state => state.variantPage.pageData.germlineClassHistory,
+  getSelectedCurrentClassificationHistoryPhenotype = state =>
+    state.variantPage.pageData.selectedCurrentClassificationHistoryPhenotype;
+
+
+export const getCurrentClassificationHistoryPhenotypes = createSelector(
+  getSelectedZygosityType,
+  getSomaticClassHistory,
+  getGermlineClassHistory,
+  (
+    selectedZygosityType,
+    somaticClasificationHistory,
+    germlineClasificationHistory,
+  ) => {
+    let currentClassificationHistory = selectedZygosityType === TEXTS.somatic
+      ? somaticClasificationHistory
+      : germlineClasificationHistory;
+
+    let phenotypes = currentClassificationHistory.reduce((res, item) => {
+      if (item.phenotype) {
+        res.push(item.phenotype);
+      }
+      return res;
+    }, []);
+
+    phenotypes = [...new Set(phenotypes)];
+    let phenotypesAsSelectOptions = phenotypes.map(item => ({ label: item, value: item }));
+    phenotypesAsSelectOptions.unshift({ label: 'All phenotypes', value: null });
+
+    return phenotypesAsSelectOptions;
+  }
+);
+
+export const getHistorySomatic = createSelector(
+  getSomaticClassHistory,
+  getSelectedCurrentClassificationHistoryPhenotype,
+  (
+    somaticClassHistory,
+    selectedCurrentClassificationHistoryPhenotype
+  ) => {
+    if (selectedCurrentClassificationHistoryPhenotype) {
+      return somaticClassHistory.filter(item => item.phenotype === selectedCurrentClassificationHistoryPhenotype);
+    }
+    return somaticClassHistory;
+  }
+);
+
+export const getHistoryGermline = createSelector(
+  getGermlineClassHistory,
+  getSelectedCurrentClassificationHistoryPhenotype,
+  (
+    germlineClassHistory,
+    selectedCurrentClassificationHistoryPhenotype
+  ) => {
+    if (selectedCurrentClassificationHistoryPhenotype) {
+      return germlineClassHistory.filter(item => item.phenotype === selectedCurrentClassificationHistoryPhenotype);
+    }
+    return germlineClassHistory;
+  }
+);
+
 // Variant page: Evidence
 export const getSomaticEvidence = state =>
     state.variantPage.pageData.somatic_evidence,
@@ -372,6 +434,8 @@ export const getSomaticEvidence = state =>
     state.variantPage.evidenceConfig.evidencePhenotypeInput,
   getCurrentEvidenceTab = state =>
     state.variantPage.evidenceConfig.currentEvidenceTab,
+  getSelectedCurrentEvidencePhenotype = state =>
+    state.variantPage.evidenceConfig.selectedCurrentEvidencePhenotype,
   getSubmitData = createSelector(
     getEvidenceTypeSelect,
     getEvidenceSourceInput,
@@ -380,7 +444,7 @@ export const getSomaticEvidence = state =>
     getVariantPageTestId,
     getVariantId,
     getEvidenceConfigId,
-    getZygosityType,
+    getSelectedZygosityType,
     getEvidenceReferenceInput,
     getEvidenceDrugNameInput,
     getEvidenceIndicationInput,
@@ -428,7 +492,7 @@ export const getSomaticEvidence = state =>
     }
   ),
   getCurrentEvidenceData = createSelector(
-    getZygosityType,
+    getSelectedZygosityType,
     getVariantPage,
     (type, data) => {
       const res = Object.keys(data).find(key => {
@@ -439,7 +503,7 @@ export const getSomaticEvidence = state =>
     }
   ),
   getTabPaneHeaders = createSelector(
-    getZygosityType,
+    getSelectedZygosityType,
     getCurrentEvidenceData,
     (type, allData) => {
       if (allData) {
@@ -485,6 +549,40 @@ export const getSomaticEvidence = state =>
         status: status,
         notes: notes
       };
+    }
+  ),
+  getCurrentEvidencePhenotypes = createSelector(
+    getTabPaneHeaders,
+    getCurrentEvidenceTab,
+    getCurrentEvidenceData,
+    (
+      tabPaneHeaders,
+      currentEvidenceTab,
+      currentEvidenceData
+    ) => {
+
+      if (tabPaneHeaders) {
+        let phenotypes = [];
+
+        // currentEvidenceTab-1 because currentEvidenceTab starts from 1
+        const tabValue = tabPaneHeaders[currentEvidenceTab-1]?.value;
+
+        Object.keys(currentEvidenceData).map(key => {
+          if (currentEvidenceData.hasOwnProperty(key)) {
+            let item = currentEvidenceData[key];
+            if (item.category === tabValue && item.phenotype) {
+              phenotypes.push(item.phenotype);
+            }
+          }
+        });
+
+        phenotypes = [...new Set(phenotypes)];
+        let phenotypesAsSelectOptions = phenotypes.map(item => ({ label: item, value: item }));
+        phenotypesAsSelectOptions.unshift({ label: 'All phenotypes', value: null });
+
+        return phenotypesAsSelectOptions;
+      }
+      return [];
     }
   );
 

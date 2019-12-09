@@ -14,7 +14,8 @@ import VariantPageHeader from "variantComponents/variantPageHeader";
 import ExternalResources from "variantComponents/externalResources";
 import ClassificationHistoryTable from "variantComponents/classificationHistoryTable";
 import EvidenceContainer from "variantComponents/evidenceContainer";
-import Spinner from "GenericComponents/spinner/Spinner";
+import Spinner from "GenericComponents/spinner";
+import SimpleSelect from "GenericComponents/simpleSelect";
 
 import {
   getExternalResources,
@@ -24,11 +25,13 @@ import {
   getLoadingStatus,
   getSomaticEvidence,
   getVariantData,
-  getZygosityType,
+  getSelectedZygosityType,
   getVariantId,
   getVariantPageTestId,
   getIgvAlertShow,
-  getTestsList
+  getTestsList,
+  getSelectedCurrentClassificationHistoryPhenotype,
+  getCurrentClassificationHistoryPhenotypes,
 } from "Store/selectors";
 import {
   fetchEvidenceData,
@@ -36,7 +39,8 @@ import {
   setExternalResources,
   setSelectedZygosityType,
   setTestInformation,
-  fetchClassificationHistory
+  fetchClassificationHistory,
+  setCurrentClassificationHistoryPhenotype
 } from "Actions/variantPageActions";
 import { goToChrPositionIgv } from "Actions/igvActions";
 import { fetchTestMetadata } from "Actions/testActions";
@@ -100,6 +104,11 @@ class VariantPage extends Component {
     this.props.goToChrPositionIgv(chrPosition);
   };
 
+  handleCurrentClassificationHistoryPhenotype = e => {
+    const { setCurrentClassificationHistoryPhenotype } = this.props;
+    setCurrentClassificationHistoryPhenotype(e.target.value);
+  }
+
   render() {
     const { sidebarToggle } = this.state;
     const {
@@ -113,7 +122,10 @@ class VariantPage extends Component {
       isLoading,
       germlineClassHistory,
       somaticClassHistory,
-      isIgvAlertShow
+      isIgvAlertShow,
+
+      selectedCurrentClassificationHistoryPhenotype,
+      currentClassificationHistoryPhenotypes,
     } = this.props;
 
     return (
@@ -163,6 +175,18 @@ class VariantPage extends Component {
                     { "links-wrapper-open": sidebarToggle }
                   ])}
                 >
+                  <div className={style['section-toolbar']}>
+                    <div className="toolbar-title classification-history-title">Classification History</div>
+                    <div className="toolbar-select">
+                      <SimpleSelect
+                        value={selectedCurrentClassificationHistoryPhenotype}
+                        options={currentClassificationHistoryPhenotypes}
+                        onChange={this.handleCurrentClassificationHistoryPhenotype}
+                        isClearAvailable
+                        placeholder="All phenotypes"
+                      />
+                    </div>
+                  </div>
                   <ClassificationHistoryTable
                     data={
                       selectedZygosityType === TEXTS.somatic
@@ -216,12 +240,15 @@ const mapStateToProps = state => {
     somaticEvidence: getSomaticEvidence(state),
     germlineEvidence: getGermlineEvidence(state),
     externalResources: getExternalResources(state),
-    selectedZygosityType: getZygosityType(state),
+    selectedZygosityType: getSelectedZygosityType(state),
     testId: getVariantPageTestId(state),
     isLoading: getLoadingStatus(state),
     variantId: getVariantId(state),
     isIgvAlertShow: getIgvAlertShow(state),
-    testsList: getTestsList(state)
+    testsList: getTestsList(state),
+
+    selectedCurrentClassificationHistoryPhenotype: getSelectedCurrentClassificationHistoryPhenotype(state),
+    currentClassificationHistoryPhenotypes: getCurrentClassificationHistoryPhenotypes(state),
   };
 };
 
@@ -235,7 +262,8 @@ function mapDispatchToProps(dispatch) {
     setTestInformation: data => dispatch(setTestInformation(data)),
     goToChrPositionIgv: data => dispatch(goToChrPositionIgv(data)),
     fetchTestMetadata: id => dispatch(fetchTestMetadata(id)),
-    fetchTests: () => dispatch(fetchTests())
+    fetchTests: () => dispatch(fetchTests()),
+    setCurrentClassificationHistoryPhenotype: data => dispatch(setCurrentClassificationHistoryPhenotype(data))
   };
 }
 

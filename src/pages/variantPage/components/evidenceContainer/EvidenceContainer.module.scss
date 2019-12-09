@@ -13,15 +13,34 @@
     font-size: 18px;
     text-align: center;
     color: $white;
+    height: 32px !important;
   }
-  .evidence-title {
-    text-align: left;
-    font-weight: bold;
-    font-size: 22px;
-    color: $title_color;
+
+  .section-toolbar {
+    height: 41px;
+    display: flex;
+    align-items: center;
+
+    .evidence-title {
+      text-align: left;
+      font-weight: bold;
+      font-size: 22px;
+      color: $title_color;
+    }
+
+    .toolbar-select {
+      width: 200px;
+      margin-left: 10px;
+
+      .ant-select {
+        width: 100%;
+      }
+    }
   }
+
   .ant-tabs {
     text-align: left;
+
     .ant-tabs-ink-bar-animated {
       height: 5px !important;
     }

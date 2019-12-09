@@ -55,7 +55,6 @@
       // flex-direction: column;
 
       .history {
-        display: flex;
         width: calc(100% - 40px);
         padding: 15px 15px 15px 40px;
         max-height: 455px;
@@ -67,7 +66,6 @@
         }
       }
       .evidence {
-        display: flex;
         width: calc(100% - 40px);
         padding: 15px 15px 15px 40px;
         max-height: 455px;
@@ -80,6 +78,28 @@
           transition: 0.4s ease-in;
         }
       }
+    }
+  }
+}
+
+.section-toolbar :global {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+
+  .classification-history-title {
+    text-align: left;
+    font-weight: normal;
+    font-size: 18px;
+    color: $title_color;
+  }
+
+  .toolbar-select {
+    width: 200px;
+    margin-left: 10px;
+
+    .ant-select {
+      width: 100%;
     }
   }
 }

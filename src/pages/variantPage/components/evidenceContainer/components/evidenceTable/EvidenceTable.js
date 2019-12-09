@@ -19,7 +19,7 @@ import {
   COUNTRIES,
 } from "Utils/constants";
 import { createEvidenceTableData } from "Utils/helpers";
-import { getCurrentEvidenceData } from "Store/selectors";
+import { getCurrentEvidenceData, getSelectedCurrentEvidencePhenotype } from "Store/selectors";
 
 
 class EvidenceTable extends Component {
@@ -152,8 +152,8 @@ class EvidenceTable extends Component {
   };
 
   render() {
-    const { category, tabContent } = this.props;
-    this.data = createEvidenceTableData(category, tabContent);
+    const { category, tabContent, selectedCurrentEvidencePhenotype } = this.props;
+    this.data = createEvidenceTableData(category, tabContent, selectedCurrentEvidencePhenotype);
     const { length } = this.data;
 
     // add options to columns
@@ -193,7 +193,8 @@ EvidenceTable.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    tabContent: getCurrentEvidenceData(state)
+    tabContent: getCurrentEvidenceData(state),
+    selectedCurrentEvidencePhenotype: getSelectedCurrentEvidencePhenotype(state),
   };
 };
 
