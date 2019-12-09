@@ -1,6 +1,7 @@
 @import "Css/Colors.scss";
 
 .confirmation-lab-table :global {
+  padding: 16px;
   .ant-table-empty {
     .ant-table-body {
       overflow: hidden !important;
