@@ -23,10 +23,23 @@ import {
   handleConfirmationStatusSaga,
   exportTableSaga,
   setTumorInfoSaga,
+  saveTestPhenotypeSaga,
   saveUserPreferencesFiltersSaga,
   saveUserPreferencesSortingSaga,
   fetchUserPreferencesSaga,
-  fetchConfirmationMetadataSaga
+  fetchConfirmationMetadataSaga,
+  applyConfirmationSaga,
+  postAtionableAlterationsSaga,
+  fetchFinalReportVariantsSaga,
+  fetchActionableAlterationsSaga,
+  deleteActionableAlterationSaga,
+  fetchUncertainClinicalSignificanceSaga,
+  postUncertainClinicalSignificanceSaga,
+  deleteUncertainClinicalSignificanceSaga,
+  setActionableAlterationExpandedInterpretationSaga,
+  setActionableAlterationDrugsDescriptionSaga,
+  setActionableAlterationClinicalTrialSaga,
+  getTestReportSaga,
 } from "./sagas";
 
 export function* watchSaga() {
@@ -62,10 +75,27 @@ export function* watchSaga() {
   ]);
   yield takeEvery(types.EXPORT_TABLE, exportTableSaga);
   yield takeEvery(types.SET_TUMOR_INFO, setTumorInfoSaga);
+  yield takeEvery(types.SAVE_TEST_PHENOTYPE, saveTestPhenotypeSaga);
 
   yield takeEvery(types.SAVE_USER_PREFERENCES_FILTERS, saveUserPreferencesFiltersSaga);
   yield takeEvery(types.SAVE_USER_PREFERENCES_SORTING, saveUserPreferencesSortingSaga);
   yield takeEvery(types.FETCH_USER_PREFERENCES, fetchUserPreferencesSaga);
-  
+
   yield takeEvery(types.FETCH_CONFIRMATION_PAGE_METADATA, fetchConfirmationMetadataSaga);
+  yield takeEvery(types.APPLY_CONFIRMATION, applyConfirmationSaga);
+
+  yield takeLatest(types.GET_TEST_REPORT, getTestReportSaga);
+  yield takeEvery(types.FETCH_FINAL_REPORT_VARIANTS, fetchFinalReportVariantsSaga);
+
+  yield takeEvery(types.FETCH_ACTIONABLE_ALTERATIONS, fetchActionableAlterationsSaga);
+  yield takeEvery(types.POST_ACTIONABLE_ALTERATIONS, postAtionableAlterationsSaga);
+  yield takeEvery(types.DELETE_ACTIONABLE_ALTERATION, deleteActionableAlterationSaga);
+
+  yield takeEvery(types.FETCH_UNCERTAIN_CLINICAL_SIGNIFICANCE, fetchUncertainClinicalSignificanceSaga);
+  yield takeEvery(types.POST_UNCERTAIN_CLINICAL_SIGNIFICANCE, postUncertainClinicalSignificanceSaga);
+  yield takeEvery(types.DELETE_UNCERTAIN_CLINICAL_SIGNIFICANCE, deleteUncertainClinicalSignificanceSaga);
+
+  yield takeLatest(types.SET_ACTIONABLE_ALTERATION_EXPANDED_INTERPRETATION, setActionableAlterationExpandedInterpretationSaga);
+  yield takeLatest(types.SET_ACTIONABLE_ALTERATION_DRUGS_DESCRIPTION, setActionableAlterationDrugsDescriptionSaga);
+  yield takeLatest(types.SET_ACTIONABLE_ALTERATION_CLINICAL_TRIAL, setActionableAlterationClinicalTrialSaga);
 }

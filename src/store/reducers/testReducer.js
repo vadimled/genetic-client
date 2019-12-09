@@ -13,13 +13,14 @@ const initialState = {
     location: "",
     cancer_cell_percentage: -1
   },
-  isTumorInfoLoading: false
+  isTumorInfoLoading: false,
+  phenotype: null
 };
 
 const testReducer = createReducer(initialState, {
   [actionsTypes.SET_TEST_DATA]: (state, { payload }) => {
     return {
-      ...state,
+      ...initialState, // important to clear all previous state data
       ...payload
     };
   },

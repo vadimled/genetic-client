@@ -1,13 +1,22 @@
 import React, { Component, Fragment } from "react";
-import style from "./VariantPage.module.scss";
+import { connect } from "react-redux";
+import queryString from "query-string";
 import cn from "classnames";
+
+import style from "./VariantPage.module.scss";
+import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
+import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
+
 import SideBarLayout from "Pages/singleTestPage/components/sideBarLayout";
+import IgvAlertPopup from "Pages/singleTestPage/components/igvAlertPopup/IgvAlertPopup";
+
 import VariantPageHeader from "variantComponents/variantPageHeader";
 import ExternalResources from "variantComponents/externalResources";
 import ClassificationHistoryTable from "variantComponents/classificationHistoryTable";
 import EvidenceContainer from "variantComponents/evidenceContainer";
-import { ReactComponent as ClosedIcon } from "Assets/closeSideBar.svg";
-import { ReactComponent as OpenedIcon } from "Assets/openSideBar.svg";
+import Spinner from "GenericComponents/spinner";
+import SimpleSelect from "GenericComponents/simpleSelect";
+
 import {
   getExternalResources,
   getGermlineEvidence,
@@ -16,31 +25,32 @@ import {
   getLoadingStatus,
   getSomaticEvidence,
   getVariantData,
-  getZygosityType,
+  getSelectedZygosityType,
   getVariantId,
   getVariantPageTestId,
-  getIgvAlertShow
+  getIgvAlertShow,
+  getTestsList,
+  getSelectedCurrentClassificationHistoryPhenotype,
+  getCurrentClassificationHistoryPhenotypes,
 } from "Store/selectors";
-import { connect } from "react-redux";
 import {
   fetchEvidenceData,
   fetchVariantMetadataData,
   setExternalResources,
   setSelectedZygosityType,
   setTestInformation,
-  fetchClassificationHistory
+  fetchClassificationHistory,
+  setCurrentClassificationHistoryPhenotype
 } from "Actions/variantPageActions";
-
+import { goToChrPositionIgv } from "Actions/igvActions";
+import { fetchTestMetadata } from "Actions/testActions";
+import { fetchTests } from "Actions/testsActions";
 import {
   GERMLINE_VARIANT_CLASS_OPTIONS,
   SOMATIC_VARIANT_CLASS_OPTIONS,
   TEXTS
 } from "Utils/constants";
-import queryString from "query-string";
-import Spinner from "GenericComponents/spinner/Spinner";
-import { goToChrPositionIgv } from "Actions/igvActions";
-import IgvAlertPopup from "Pages/singleTestPage/components/igvAlertPopup/IgvAlertPopup";
-import { fetchTestMetadata } from "Actions/testActions";
+
 
 class VariantPage extends Component {
   constructor(props) {
@@ -50,24 +60,38 @@ class VariantPage extends Component {
       fetchEvidenceData,
       fetchVariantMetadataData,
       match,
-      fetchCH,
       setSelectedZygosityType,
       setTestInformation,
-      fetchTestMetadata
+      fetchTestMetadata,
+      fetchTests
     } = props;
     const { testId, variantId } = match.params;
     const { selectedZygosityType } = queryString.parse(window.location.search);
-
+    fetchTests();
     fetchVariantMetadataData({ testId, variantId });
     fetchEvidenceData(variantId);
     setSelectedZygosityType({ selectedZygosityType, testId, variantId });
     setTestInformation({ testId, variantId });
-    fetchCH(variantId);
     fetchTestMetadata(testId);
 
     this.state = {
-      sidebarToggle: true
+      sidebarToggle: true,
+      isTestsList: false
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.testsList.length > 0 && !state.isTestsList) {
+      const {
+        fetchClassificationHistory,
+        match: {
+          params: { variantId }
+        }
+      } = props;
+      fetchClassificationHistory({ variantId, testsList: props.testsList });
+      return { isTestsList: true };
+    }
+    return null;
   }
 
   handleClick = () => {
@@ -75,11 +99,16 @@ class VariantPage extends Component {
       sidebarToggle: !this.state.sidebarToggle
     });
   };
-  
+
   handelChrPosition = chrPosition => {
     this.props.goToChrPositionIgv(chrPosition);
   };
-  
+
+  handleCurrentClassificationHistoryPhenotype = e => {
+    const { setCurrentClassificationHistoryPhenotype } = this.props;
+    setCurrentClassificationHistoryPhenotype(e.target.value);
+  }
+
   render() {
     const { sidebarToggle } = this.state;
     const {
@@ -93,7 +122,10 @@ class VariantPage extends Component {
       isLoading,
       germlineClassHistory,
       somaticClassHistory,
-      isIgvAlertShow
+      isIgvAlertShow,
+
+      selectedCurrentClassificationHistoryPhenotype,
+      currentClassificationHistoryPhenotypes,
     } = this.props;
 
     return (
@@ -143,6 +175,18 @@ class VariantPage extends Component {
                     { "links-wrapper-open": sidebarToggle }
                   ])}
                 >
+                  <div className={style['section-toolbar']}>
+                    <div className="toolbar-title classification-history-title">Classification History</div>
+                    <div className="toolbar-select">
+                      <SimpleSelect
+                        value={selectedCurrentClassificationHistoryPhenotype}
+                        options={currentClassificationHistoryPhenotypes}
+                        onChange={this.handleCurrentClassificationHistoryPhenotype}
+                        isClearAvailable
+                        placeholder="All phenotypes"
+                      />
+                    </div>
+                  </div>
                   <ClassificationHistoryTable
                     data={
                       selectedZygosityType === TEXTS.somatic
@@ -196,24 +240,30 @@ const mapStateToProps = state => {
     somaticEvidence: getSomaticEvidence(state),
     germlineEvidence: getGermlineEvidence(state),
     externalResources: getExternalResources(state),
-    selectedZygosityType: getZygosityType(state),
+    selectedZygosityType: getSelectedZygosityType(state),
     testId: getVariantPageTestId(state),
     isLoading: getLoadingStatus(state),
     variantId: getVariantId(state),
     isIgvAlertShow: getIgvAlertShow(state),
+    testsList: getTestsList(state),
+
+    selectedCurrentClassificationHistoryPhenotype: getSelectedCurrentClassificationHistoryPhenotype(state),
+    currentClassificationHistoryPhenotypes: getCurrentClassificationHistoryPhenotypes(state),
   };
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     setResources: data => dispatch(setExternalResources(data)),
-    fetchCH: data => dispatch(fetchClassificationHistory(data)),
+    fetchClassificationHistory: data => dispatch(fetchClassificationHistory(data)),
     fetchVariantMetadataData: data => dispatch(fetchVariantMetadataData(data)),
     fetchEvidenceData: data => dispatch(fetchEvidenceData(data)),
     setSelectedZygosityType: data => dispatch(setSelectedZygosityType(data)),
     setTestInformation: data => dispatch(setTestInformation(data)),
-    goToChrPositionIgv: (data) => dispatch(goToChrPositionIgv(data)),
-    fetchTestMetadata: id => dispatch(fetchTestMetadata(id))
+    goToChrPositionIgv: data => dispatch(goToChrPositionIgv(data)),
+    fetchTestMetadata: id => dispatch(fetchTestMetadata(id)),
+    fetchTests: () => dispatch(fetchTests()),
+    setCurrentClassificationHistoryPhenotype: data => dispatch(setCurrentClassificationHistoryPhenotype(data))
   };
 }
 

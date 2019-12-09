@@ -45,5 +45,24 @@
     .first-button {
       margin-right: 18px;
     }
+
+    .reconfirm-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      width: 62%;
+      height: 30px;
+      .reconfirm-labeled-tag {
+        font-size: 12px;
+        font-weight: 600;
+        text-align: left;
+      }
+      .reconfirm-text {
+        font-size: 12px;
+        width: 100%;
+        text-align: left;
+      }
+    }
   }
 }

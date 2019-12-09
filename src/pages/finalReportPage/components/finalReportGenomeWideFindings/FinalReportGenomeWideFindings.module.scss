@@ -1,0 +1,28 @@
+@import "Css/Colors.scss";
+
+.final-report-genome-wide-findings {
+}
+
+.main-content {
+}
+
+.main-content-row {
+  display: flex;
+  align-items: flex-end;
+  color: $title_color;
+  margin-bottom: 24px;
+}
+
+.main-content-row-label {
+  width: 320px;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.main-content-row-value {
+  font-size: 14px;
+  line-height: 18px;
+}

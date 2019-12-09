@@ -1,4 +1,9 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import ActionAddEditEvidence from "variantComponents/evidenceContainer/components/actionAddEditEvidence";
+import SlideBar from "GenericComponents/slideBar";
+
 import {
   setEvidenceActionData,
   setEvidenceActionMode,
@@ -14,11 +19,16 @@ import {
   getEvidenceLevelSelect,
   getEvidenceSourceInput,
   getEvidenceTypeSelect,
-  getZygosityType
+  getSelectedZygosityType,
+  getEvidenceReferenceInput,
+  getEvidenceDrugNameInput,
+  getEvidenceIndicationInput,
+  getEvidenceTrialIdInput,
+  getEvidenceIsPhenotypeAndIndicationMatchSelect,
+  getEvidenceLocationSelect,
+  getEvidencePhenotypeInput,
 } from "Store/selectors";
-import { connect } from "react-redux";
-import SlideBar from "GenericComponents/slideBar";
-import ActionAddEditEvidence from "variantComponents/evidenceContainer/components/actionAddEditEvidence";
+
 import { TEXTS } from "Utils/constants";
 import { actionModeText } from "Utils/helpers";
 
@@ -42,7 +52,7 @@ class EvidenceConfig extends Component {
     mode === TEXTS.add
       ? addEvidenceEntry(submitData)
       : editEvidenceEntry(submitData);
-  
+
     openSlidePanel({ actionSlideBarStatus: false });
   };
 
@@ -59,7 +69,14 @@ class EvidenceConfig extends Component {
       evidenceSourceInput,
       evidenceLevelSelect,
       evidenceDescriptionTextarea,
-      classification
+      classification,
+      evidenceReferenceInput,
+      evidenceDrugNameInput,
+      evidenceIndicationInput,
+      evidenceTrialIdInput,
+      evidenceIsPhenotypeAndIndicationMatchSelect,
+      evidenceLocationSelect,
+      evidencePhenotypeInput,
     } = this.props;
 
     return (
@@ -77,6 +94,13 @@ class EvidenceConfig extends Component {
           sourceValue={evidenceSourceInput}
           levelValue={evidenceLevelSelect}
           descriptionValue={evidenceDescriptionTextarea}
+          referenceValue={evidenceReferenceInput}
+          drugNameValue={evidenceDrugNameInput}
+          indicationValue={evidenceIndicationInput}
+          trialIdValue={evidenceTrialIdInput}
+          isPhenotypeAndIndicationMatchValue={evidenceIsPhenotypeAndIndicationMatchSelect}
+          locationValue={evidenceLocationSelect}
+          phenotypeValue={evidencePhenotypeInput}
         />
       </SlideBar>
     );
@@ -90,19 +114,26 @@ const mapStateToProps = state => {
     isOpen: getEvidenceConfigIsOpen(state),
     mode: getEvidenceConfigMode(state),
     id: getEvidenceConfigId(state),
-    classification: getZygosityType(state),
+    classification: getSelectedZygosityType(state),
     evidenceTypeSelect: getEvidenceTypeSelect(state),
     evidenceSourceInput: getEvidenceSourceInput(state),
     evidenceLevelSelect: getEvidenceLevelSelect(state),
     evidenceDescriptionTextarea: getEvidenceDescription(state),
+    evidenceReferenceInput: getEvidenceReferenceInput(state),
+    evidenceDrugNameInput: getEvidenceDrugNameInput(state),
+    evidenceIndicationInput: getEvidenceIndicationInput(state),
+    evidenceTrialIdInput: getEvidenceTrialIdInput(state),
+    evidenceIsPhenotypeAndIndicationMatchSelect: getEvidenceIsPhenotypeAndIndicationMatchSelect(state),
+    evidenceLocationSelect: getEvidenceLocationSelect(state),
+    evidencePhenotypeInput: getEvidencePhenotypeInput(state),
     submitData: getSubmitData(state)
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    openSlidePanel: status => dispatch(setEvidenceActionMode(status)),
-    setEvidenceActionData: status => dispatch(setEvidenceActionData(status)),
+    openSlidePanel: data => dispatch(setEvidenceActionMode(data)),
+    setEvidenceActionData: data => dispatch(setEvidenceActionData(data)),
     addEvidenceEntry: data => dispatch(addEvidenceEntry(data)),
     editEvidenceEntry: data => dispatch(editEvidenceEntry(data))
   };

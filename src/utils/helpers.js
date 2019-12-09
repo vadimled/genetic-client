@@ -7,7 +7,10 @@ import {
   TEXTS,
   ZYGOSITY_TYPES,
   ROUTES,
-  EVIDENCE_CATEGORIES_OPTIONS
+  EVIDENCE_CATEGORIES_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  GNOM_AD
 } from "./constants";
 
 export const getPrevTagColor = ({ prevVal }) => {
@@ -123,7 +126,7 @@ const getLinksArray = (data, link) => {
   return Array.isArray(data)
     ? data.map(code => {
       return {
-        title: code,
+        childText: code,
         link: `${link}${[...code].slice(4).join("")}`
       };
     })
@@ -181,9 +184,16 @@ export const createResourcesLinks = variantData => {
     gnomAD: `https://gnomad.broadinstitute.org/variant/${[...chr]
       .slice(3)
       .join("")}-${position}-${ref}-${alt}`,
-    dbSNP: `https://www.ncbi.nlm.nih.gov/snp/?term=${db_snp || ""}`,
-    ClinVar: `https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvar_variation_id ||
-      0}`,
+    dbSNP: {
+      childText: db_snp,
+      link: db_snp && `https://www.ncbi.nlm.nih.gov/snp/?term=${db_snp}`
+    },
+    ClinVar: {
+      childText: clinvar_variation_id,
+      link:
+        clinvar_variation_id &&
+        `https://www.ncbi.nlm.nih.gov/clinvar/variation/${clinvar_variation_id}`
+    },
     COSMIC: getLinksArray(
       cosmic,
       "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id="
@@ -231,7 +241,7 @@ export const getDataArray = data => {
       arrayData.push(data[key]);
     }
   }
-  return arrayData;
+  return getTableSortedByDate(arrayData, "created_at");
 };
 
 export const zygosityTypeByName = name => {
@@ -251,6 +261,8 @@ export const zygosityTypeByName = name => {
 
   return "";
 };
+
+// FCRL4
 
 export const setPriority = record => {
   if (record.zygosity === ZYGOSITY.somatic.value) {
@@ -677,11 +689,10 @@ export const setPriority = record => {
     ) {
       record.priority = 131;
     } else if (
-      record.variantClassGermline ===
-        VARIANT_CLASS_GERMLINE.unclassified.value &&
+      record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value &&
       record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value
     ) {
-      record.priority = 136;
+      record.priority = 126;
     } else if (
       record.variantClassGermline === VARIANT_CLASS_GERMLINE.lben.value &&
       record.variantClassSomatic === VARIANT_CLASS_SOMATIC.unclassified.value
@@ -693,8 +704,7 @@ export const setPriority = record => {
     ) {
       record.priority = 98;
     } else if (
-      record.variantClassGermline ===
-        VARIANT_CLASS_GERMLINE.unclassified.value &&
+      record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value &&
       record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier3.value
     ) {
       record.priority = 97;
@@ -823,14 +833,7 @@ export const setPriority = record => {
     ) {
       record.priority = 130;
     } else if (
-      record.variantClassGermline ===
-        VARIANT_CLASS_GERMLINE.unclassified.value &&
-      record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value
-    ) {
-      record.priority = 132;
-    } else if (
-      record.variantClassGermline ===
-        VARIANT_CLASS_GERMLINE.unclassified.value &&
+      record.variantClassGermline === VARIANT_CLASS_GERMLINE.unclassified.value &&
       record.variantClassSomatic === VARIANT_CLASS_SOMATIC.tier4.value
     ) {
       record.priority = 129;
@@ -991,7 +994,7 @@ export const setDefaultZygosity = variant => {
   return variant;
 };
 
-export const createEvidenceTableData = (category, tabContent) => {
+export const createEvidenceTableData = (category, tabContent, phenotype) => {
   const obj = Object.keys(tabContent).reduce((accum, val, index) => {
     if (tabContent[val].category === category) {
       const newObj = Object.assign(
@@ -1006,7 +1009,11 @@ export const createEvidenceTableData = (category, tabContent) => {
     }
     return accum;
   }, {});
-  return getDataArray(obj);
+  const dataAsArray = getDataArray(obj);
+  if (phenotype) {
+    return dataAsArray.filter(item => item.phenotype === phenotype);
+  }
+  return dataAsArray;
 };
 
 export const getEvidenceData = data => {
@@ -1030,15 +1037,95 @@ export const getEvidenceData = data => {
   return newData;
 };
 
-const createVaf = numb => {
+export const convertVaf = numb => {
   if (numb) {
     return Math.round(parseFloat(numb) * 100);
   } else {
-    return "";
+    return 0;
   }
 };
 
+export const convertCoverage = numb => parseInt(numb, 10);
+
 const getAlleleChange = (ref, alt) => `${ref} > ${alt}`;
+
+// Computing the gnomAD --------------
+const getGnomADValue = val => {
+  if (val > 0 && val <= 1) return GNOM_AD.veryRare;
+  else if (val > 1 && val <= 5) return GNOM_AD.rare;
+  else if (val > 5) return GNOM_AD.common;
+  else return GNOM_AD.na;
+};
+
+const isGnomAD = (data, type, indexOfVeryRare) => {
+  const {
+    genome_cov_over_20,
+    exome_cov_over_20,
+    gnom_ad_genomes_popmax_af,
+    gnom_ad_exomes_popmax_af
+  } = data;
+
+  if (
+    type === GNOM_AD.na &&
+    (
+      (genome_cov_over_20 <= 0.1 && exome_cov_over_20 <= 0.1) ||
+      (!genome_cov_over_20 && !exome_cov_over_20)) ||
+      (genome_cov_over_20 <= 0.1 && !exome_cov_over_20) ||
+      (!genome_cov_over_20 && exome_cov_over_20 <= 0.1)
+  ) {
+    return true;
+  } else if (
+    (genome_cov_over_20 > 0.1 && exome_cov_over_20 <= 0.1) ||
+    (genome_cov_over_20 > 0.1 && !exome_cov_over_20)
+  ) {
+    if (!gnom_ad_genomes_popmax_af) {
+      return indexOfVeryRare;
+    } else if (getGnomADValue(gnom_ad_genomes_popmax_af * 100) === type) {
+      return true;
+    }
+  } else if (
+    (genome_cov_over_20 <= 0.1 && exome_cov_over_20 > 0.1) ||
+    (!genome_cov_over_20 && exome_cov_over_20 > 0.1)
+  ) {
+    if (!gnom_ad_exomes_popmax_af) {
+      return indexOfVeryRare;
+    } else if (getGnomADValue(gnom_ad_exomes_popmax_af * 100) === type) {
+      return true;
+    }
+  } else if (genome_cov_over_20 > 0.1 && exome_cov_over_20 > 0.1) {
+    let resValue = 0;
+    if(gnom_ad_genomes_popmax_af && gnom_ad_exomes_popmax_af){
+      resValue = ((gnom_ad_genomes_popmax_af + gnom_ad_exomes_popmax_af) / 2) * 100;
+    }
+    else if(gnom_ad_genomes_popmax_af){
+      resValue = gnom_ad_genomes_popmax_af * 100;
+    }
+    else if(gnom_ad_exomes_popmax_af){
+      resValue = gnom_ad_exomes_popmax_af * 100;
+    }
+
+    if (!gnom_ad_exomes_popmax_af && !gnom_ad_genomes_popmax_af) {
+      return indexOfVeryRare;
+    } else if ( getGnomADValue(resValue) === type ) {
+      return true;
+    }
+  }
+  return false;
+};
+
+function getGnomAD(startData) {
+  if (isGnomAD(startData, GNOM_AD.na)) {
+    return GNOM_AD.na;
+  } else if (isGnomAD(startData, GNOM_AD.veryRare, true)) {
+    return GNOM_AD.veryRare;
+  } else if (isGnomAD(startData, GNOM_AD.rare, false)) {
+    return GNOM_AD.rare;
+  } else if (isGnomAD(startData, GNOM_AD.common, false)) {
+    return GNOM_AD.common;
+  }
+  return undefined;
+}
+// -------------- Computing the gnomAD
 
 const createNewTableDataItem = ({
   alt,
@@ -1051,7 +1138,10 @@ const createNewTableDataItem = ({
   exon,
   gene,
   germline_class,
-  gnomAD,
+  genome_cov_over_20,
+  exome_cov_over_20,
+  gnom_ad_genomes_popmax_af,
+  gnom_ad_exomes_popmax_af,
   hgvs_c,
   hgvs_p,
   hot_spot,
@@ -1067,7 +1157,8 @@ const createNewTableDataItem = ({
   transcript,
   percentage_variants,
   zygosity,
-  activity_log
+  activity_log,
+  manual
 }) => {
   try {
     let newObj = {};
@@ -1075,6 +1166,10 @@ const createNewTableDataItem = ({
     newObj.id = id;
     newObj.key = id;
     newObj.gene = gene;
+    newObj.chr = chr;
+    newObj.position = position;
+    newObj.ref = ref;
+    newObj.alt = alt;
     newObj.chrPosition = `${chr}:${position}`;
     newObj.alleleChange = getAlleleChange(ref, alt);
     newObj.alleleChangeLong = getAlleleChange(ref, alt);
@@ -1082,17 +1177,18 @@ const createNewTableDataItem = ({
     newObj.zygosity = zygosity;
     newObj.protein = hgvs_p;
     newObj.proteinWholly = hgvs_p;
-    newObj.coverage = parseInt(dp, 10);
-    newObj.vaf = createVaf(percentage_variants);
+    newObj.coverage = dp;
+    newObj.vaf = percentage_variants;
     newObj.notes = notes;
     newObj.coding = hgvs_c;
     newObj.codingLong = hgvs_c;
     newObj.exon = exon; // temporary removed from the table
     newObj.variantClassGermline = germline_class || "unclassified";
     newObj.variantClassSomatic = somatic_class || "unclassified";
-    newObj.status = status || null;
+    newObj.status = status || TEXTS.UNCHECK;
     newObj.activityLog = getTableSortedByDate(activity_log, "timestamp") || [];
     newObj.db_snp = db_snp;
+    newObj.isAdded = manual;
     // filters
     newObj.clinvar = clinvar_variation_id;
     newObj.cosmic = cosmic;
@@ -1101,7 +1197,12 @@ const createNewTableDataItem = ({
     newObj.roi = roi;
     newObj.snp = snps;
     newObj.omim = omim || false;
-    newObj.gnomAD = gnomAD || null;
+    newObj.gnomAD = getGnomAD({
+      genome_cov_over_20,
+      exome_cov_over_20,
+      gnom_ad_genomes_popmax_af,
+      gnom_ad_exomes_popmax_af
+    });
 
     setDefaultZygosity(newObj);
     setPriority(newObj);
@@ -1129,17 +1230,22 @@ export const getTableSortedByDate = (data, datePropName) => {
   });
 };
 
-export const getHistoryTableData = (data, type) => {
+export const getHistoryTableData = (data, type, testsList) => {
   const newData = data.reduce((arr, val, index) => {
     if (val.zygosity_type === type) {
+      const testId = testsList?.length > 0 ?
+        testsList.find(test => test.gsid === val.gsid)?.id :
+        null;
       const newObj = Object.assign(
         {},
         { id: val.id },
         { key: index + 1 },
         { created_at: val.created_at },
         { gsid: val.gsid },
+        { phenotype: val.phenotype },
         { class: val.class },
-        { analystName: val.user?.name }
+        { analystName: val.user?.name },
+        {testId}
       );
       arr.push(newObj);
       return arr;
@@ -1169,31 +1275,37 @@ export const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
+export const firstLetterLowercase = string => {
+  return string.charAt(0).toLowerCase() + string.substring(1);
+};
+
 export const dateOptions = { day: "2-digit", month: "short", year: "numeric" };
 export const timeOptions = { timeStyle: "short" };
-export const actionModeText = mode => mode === TEXTS.add ? TEXTS.addEvidence : TEXTS.editEvidence;
+export const actionModeText = mode =>
+  mode === TEXTS.add ? TEXTS.addEvidence : TEXTS.editEvidence;
 
 export const getCurrentEvidenceTabKey = currEvidenceConfig => {
+  const evidenceCategoryOptions = EVIDENCE_CATEGORIES_OPTIONS[currEvidenceConfig.data.zygosity_type];
   const index =
-    Object.keys(EVIDENCE_CATEGORIES_OPTIONS).findIndex(
+    Object.keys(evidenceCategoryOptions).findIndex(
       item =>
-        EVIDENCE_CATEGORIES_OPTIONS[item].value ===
+        evidenceCategoryOptions[item].value ===
         currEvidenceConfig.data.category
     ) + 1;
   return index.toString();
 };
 
 export const getConfirmationPageMetadata = confirmationsData => {
-  if(!confirmationsData.variants) return [];
-  
+  if (!confirmationsData.variants) return [];
+
   let resultData = [];
-  const getPrimersArray = arr =>{
-    return arr.map( (primer, index) => {
+  const getPrimersArray = arr => {
+    return arr.map((primer, index) => {
       primer.keyId = index + 1;
       return primer;
     });
   };
-  
+
   confirmationsData.variants.map((variant, index) => {
     return resultData.push({
       key: index + 1,
@@ -1206,6 +1318,38 @@ export const getConfirmationPageMetadata = confirmationsData => {
       additionConfirmationData: getPrimersArray(variant.primers)
     });
   });
-  
+
   return resultData;
+};
+
+export const setVariantClassOptionsWithReconfirm = (
+  buttonOf,
+  currentZygosityType,
+  currentVariantClass
+) => {
+  if (!currentZygosityType) return;
+  const germlineData = GERMLINE_VARIANT_CLASS_OPTIONS.filter(
+    obj => obj.value !== TEXTS.unclassified
+  );
+  const somaticData = SOMATIC_VARIANT_CLASS_OPTIONS.filter(
+    obj => obj.value !== TEXTS.unclassified
+  );
+
+  if (buttonOf !== currentZygosityType) {
+    return buttonOf === TEXTS.somaticUp ? somaticData : germlineData;
+  }
+
+  let typeData;
+
+  if (currentZygosityType === TEXTS.somaticUp) {
+    typeData = somaticData;
+  } else if (currentZygosityType === TEXTS.germlineUp) {
+    typeData = germlineData;
+  }
+
+  return typeData.map(item => {
+    if (item.value === currentVariantClass) {
+      return { ...item, reconfirm: TEXTS.reconfirm };
+    } else return item;
+  });
 };

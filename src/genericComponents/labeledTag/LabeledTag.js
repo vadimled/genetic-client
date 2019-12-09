@@ -13,14 +13,14 @@ function LabeledTag({ value, label, typeData, tagColor, customClassName }) {
 
   let type;
   const getLabelByValue = () => typeData?.find(item => item?.value === value).label;
-    
+  
   const labelText = label ? label : getLabelByValue();
-    
+  
   const getTextOnly = text => {
       return (
         <div
           className={cn("label-text", {
-            unclassified: text === TEXTS.unclassified,
+            unclassified: text === TEXTS.unclassifiedUp,
             [customClassName]: !!customClassName
           })}
         >

@@ -13,7 +13,6 @@ import defaultImage from "Assets/smallEmptyState.svg";
 import TableDateAndUser from "variantComponents/evidenceContainer/components/tableDateAndUser";
 import { Link } from "react-router-dom";
 
-
 class ClassificationHistoryTable extends Component {
   state = {
     columns: [
@@ -30,15 +29,21 @@ class ClassificationHistoryTable extends Component {
         width: 300
       },
       {
+        title: "phenotype",
+        dataIndex: "phenotype",
+        key: "3",
+        width: 300
+      },
+      {
         title: "Analyst Name",
         dataIndex: "analystName",
-        key: "3",
+        key: "4",
         width: 400
       },
       {
         title: "Class",
         dataIndex: "class",
-        key: "4",
+        key: "5",
         width: 400
       }
     ],
@@ -76,7 +81,7 @@ class ClassificationHistoryTable extends Component {
   };
 
   columnsConverter = columns => {
-    const { typeData, testId } = this.props;
+    const { typeData } = this.props;
     return columns.map((col, index) => {
       let column = {
         ...col,
@@ -86,23 +91,20 @@ class ClassificationHistoryTable extends Component {
         })
       };
       if (col.dataIndex === "created_at") {
-        column.render = (date) => {
+        column.render = date => {
           return <TableDateAndUser date={date} />;
         };
-      }
-      else if (col.dataIndex === "gsid") {
-        column.render = (text) => {
-          return <Link to={`/tests/${testId}`}>{text}</Link>;
-        };
-      }
-      else if (col.dataIndex === "class") {
+      } else if (col.dataIndex === "gsid") {
+        column.render = (text, record) => (
+          <div className="label-custom-style">
+            <Link to={`/tests/${record.testId}`}>{text}</Link>
+          </div>
+        );
+      } else if (col.dataIndex === "class") {
         column.render = text => {
           return (
             <div className="label-custom-style">
-              <LabeledTag
-                value={text}
-                typeData={typeData}
-              />
+              <LabeledTag value={text} typeData={typeData} />
             </div>
           );
         };
@@ -127,9 +129,6 @@ class ClassificationHistoryTable extends Component {
 
     return (
       <div className={style["classification-history-wrapper"]}>
-        <div className="classification-history-title">
-          Classification History
-        </div>
         {!length ? (
           <div className="empty-state">
             <EmptyState

@@ -2,48 +2,67 @@ import axios from "axios";
 import axios_based from "./axios-base";
 import "Utils/axios-mock";
 
-export function fetchBAMFile({BAMFileUrl, BAMIndexFileUrl}) {
-  return axios.get(`http://localhost:60151/load?file=${BAMFileUrl}&index=${BAMIndexFileUrl}`);
+export function fetchBAMFile({ BAMFileUrl, BAMIndexFileUrl }) {
+  return axios.get(
+    `http://localhost:60151/load?file=${BAMFileUrl}&index=${BAMIndexFileUrl}`
+  );
 }
 
 export function goToChrPositionIgv(chrPosition) {
   return axios.get(`http://localhost:60151/goto?locus=${chrPosition}`);
 }
 
-export function loadHgvs(data) {
-  // -> API request
-  const mockResult = {
-    ...data,
-    coding: "c.2637 A>G",
-    protein: "p.Pro871Leu"
-  };
-  return mockResult;
+export function loadHgvsApi(data) {
+  const { chromosome, position, alleleReference, alleleAlternative } = data;
+  // eslint-disable-next-line
+  return axios.get(
+    `https://myvariant.info/v1/variant/chr${chromosome}:g.${
+      position
+    }${alleleReference}>${alleleAlternative
+    }?fields=snpeff.ann.hgvs_c%2Csnpeff.ann.hgvs_p%2Csnpeff.ann.feature_id&dotfield=true`
+  );
 }
 
-export function addResult(data) {
-  // -> API request
-  const mockResult = {
-    ...data,
-    id: Math.random().toString(),
-    chrPosition: `Chr${data.chromosome}:${data.position}`,
-    alleleChange: `${data.alleleReference} > ${data.alleleAlternative}`,
-    transcript: "NM_939778.7",
-    zygosity: "",
-    variantClassGermline: "unclassified",
-    variantClassSomatic: "unclassified"
+export function addResultApi(data) {
+  const { testId } = data;
+  const payload = {
+    mutation_type: "dna",
+    gene: data.gene,
+    chr: data.chromosome,
+    position: data.position,
+    ref: data.alleleReference,
+    alt: data.alleleAlternative,
+    hgvs_c: data.coding,
+    hgvs_p: data.protein,
+    transcript: data.transcript,
+    dp: data.coverage,
+    percentage_variants: data.vaf
   };
-  return mockResult;
+
+  return axios_based.post(`/tests/${testId}/variants`, {
+    ...payload
+  });
 }
 
-export function editResult(data) {
-  // -> API request
-  const mockResult = {
-    ...data,
-    chrPosition: `Chr${data.chromosome}:${data.position}`,
-    alleleChange: `${data.alleleReference} > ${data.alleleAlternative}`,
-    transcript: "NM_939778.7"
+export function editResultApi(data) {
+  const { testId, id: variantId } = data;
+  const payload = {
+    mutation_type: "dna",
+    gene: data.gene,
+    chr: data.chromosome,
+    position: data.position,
+    ref: data.alleleReference,
+    alt: data.alleleAlternative,
+    hgvs_c: data.coding,
+    hgvs_p: data.protein,
+    transcript: data.transcript,
+    dp: data.coverage,
+    percentage_variants: data.vaf
   };
-  return mockResult;
+
+  return axios_based.put(`/tests/${testId}/variants/${variantId}`, {
+    ...payload
+  });
 }
 
 export function fetchTestMetadataApi(id) {
@@ -53,10 +72,15 @@ export function fetchTestMetadataApi(id) {
 export function setTumorInfoApi(data) {
   const { testId, name, value } = data.payload;
   return axios_based.patch(`/tests/${testId}`, {
-    tumor_info:{
+    tumor_info: {
       [name]: value
     }
   });
+}
+
+export function patchTestApi(params) {
+  const { testId, data } = params;
+  return axios_based.patch(`/tests/${testId}`, data);
 }
 
 export function fetchVariantMetadataDataApi(data) {
@@ -76,7 +100,8 @@ export function fetchTestsApi() {
 }
 
 export function fetchClassificationHistoryApi(action) {
-  return axios_based.get(`/variants/${action.payload}/classification`);
+  const { variantId } = action.payload;
+  return axios_based.get(`/variants/${variantId}/classification`);
 }
 
 export function addEvidenceEntryApi(action) {
@@ -108,9 +133,7 @@ export function deleteEvidenceEntryApi(action) {
   const {
     ids: { variantId, evidenceId }
   } = action.payload;
-  return axios_based.delete(
-    `/variants/${variantId}/evidences/${evidenceId}`
-  );
+  return axios_based.delete(`/variants/${variantId}/evidences/${evidenceId}`);
 }
 
 export function fetchEvidenceDataApi(action) {
@@ -127,16 +150,19 @@ export function fetchTableDataApi(action) {
 }
 
 export function exportTableApi(testId) {
-  return axios_based.post(`/tests/${testId}/export`, {gsId: testId}, {responseType: 'blob'}).then((response) => {
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', `${testId}.tsv`);
-    document.body.appendChild(link);
-    link.click();
-  });
+  return axios_based
+    .post(`/tests/${testId}/export`, { gsId: testId }, { responseType: "blob" })
+    .then(response => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${testId}.tsv`);
+      document.body.appendChild(link);
+      link.click();
+    });
 }
 
+// User preferences
 export function updateUserPreferencesApi({ testId, preferences }) {
   return axios_based.put(`/tests/${testId}/preferences`, {
     preferences
@@ -147,6 +173,95 @@ export function fetchUserPreferencesApi({ testId }) {
   return axios_based.get(`/tests/${testId}/preferences`);
 }
 
+//
 export function fetchConfirmationMetadataApi(data) {
   return axios_based.get(`/confirmations/${data.payload}`);
 }
+export function sendVariantToConfirmation(data) {
+  const { variants, testId } = data;
+  return axios_based.post(`/tests/${testId}/confirmations`, {
+    variants
+  });
+}
+
+// Actionable Alterations
+export function fetchActionableAlterationsApi(params) {
+  const { testId } = params;
+  return axios_based.get(`/tests/${testId}/actionablealterations`);
+}
+
+export function postAtionableAlterationsApi(params) {
+  const { testId, mutation, variants_ids } = params;
+  return axios_based.post(`/tests/${testId}/actionablealterations?mutation=${mutation}`, { variants_ids });
+}
+
+export function deleteAtionableAlterationsApi(data) {
+  const { testId, id } = data.payload;
+  return axios_based.delete(`/tests/${testId}/actionablealterations/${id}`);
+}
+
+export function patchActionableAlterationsApi(params) {
+  const { testId, actionableAlterationId, body } = params;
+  return axios_based.patch(`/tests/${testId}/actionablealterations/${actionableAlterationId}`, body);
+}
+
+export function patchActionableAlterationsDrugsApi(params) {
+  const { testId, actionableAlterationId, actionablealterationDrugId, body } = params;
+  return axios_based.patch(`/tests/${testId}/actionablealterations/${actionableAlterationId}/drugs/${actionablealterationDrugId}`, body);
+}
+
+export function patchActionableAlterationsClinicalTrialsApi(params) {
+  const { testId, actionableAlterationId, actionablealterationClinicalTrialId, body } = params;
+  return axios_based.patch(`/tests/${testId}/actionablealterations/${actionableAlterationId}/clinical_trials/${actionablealterationClinicalTrialId}`, body);
+}
+
+// Uncertain clinical significance
+export function fetchUncertainClinicalSignificanceApi(params) {
+  const { testId } = params;
+  return axios_based.get(`/tests/${testId}/uncertain_clinical_significance`);
+}
+
+export function postUncertainClinicalSignificanceApi(params) {
+  const { testId, mutation, variants_ids } = params;
+  return axios_based.post(`/tests/${testId}/uncertain_clinical_significance?mutation=${mutation}`, { variants_ids });
+}
+
+export function deleteUncertainClinicalSignificanceApi(data) {
+  const { testId, id } = data.payload;
+  return axios_based.delete(`/tests/${testId}/uncertain_clinical_significance/${id}`);
+}
+
+export function fetchFinalReportMetadataApi(data) {
+  return axios_based.get(`/tests/${data.payload}/final_report`);
+}
+
+export function fetchFinalReportVariantsApi(params) {
+  const { testId, mutation } = params;
+  // return axios_based.get(`/tests/${testId}/variants?filter={"zygosity":["homo","hetero","hemi","somatic"],"germline_class":["path","lpath","vus","lben"],"somatic_class":["tier1","tier2","tier3"]}`, {
+  //   params: {
+  //     mutation
+  //   }
+  // });
+
+  return axios_based.get(`/tests/${testId}/variants`, {
+    params: {
+      mutation
+    }
+  });
+}
+
+export function getTestReportApi(params) {
+  const { testId } = params;
+  return axios_based
+    .get(`/tests/${testId}/report`, { responseType: "blob" })
+    .then(response => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${testId}.docx`);
+      document.body.appendChild(link);
+      link.click();
+    });
+}
+
+

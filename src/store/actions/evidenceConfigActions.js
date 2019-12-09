@@ -49,4 +49,11 @@ export const setCurrentEvidenceTab = data => {
   };
 };
 
+export const setSelectedCurrentEvidencePhenotype = data => {
+  return {
+    type: actionsTypes.SET_SELECTED_CURRENT_EVIDENCE_PHENOTYPE,
+    payload: data
+  };
+};
+
 

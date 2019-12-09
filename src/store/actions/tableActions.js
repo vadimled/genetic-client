@@ -92,13 +92,6 @@ export const tableDataAddResult = data => {
   };
 };
 
-export const tableDataEditResult = data => {
-  return{
-    type: actionsTypes.TABLE_DATA_EDIT_RESULT,
-    payload: data
-  };
-};
-
 export const setTableReducerLoading = data => {
   return{
     type: actionsTypes.SET_TABLE_REDUCER_LOADING,
@@ -141,3 +134,17 @@ export const fetchUserPreferences = data => {
   };
 };
 
+
+export const applyConfirmationSuccess = data => {
+  return {
+    type: actionsTypes.APPLY_CONFIRMATION_SUCCESS,
+    payload: data
+  };
+};
+
+export const setTableCurrentPage = data => {
+  return {
+    type: actionsTypes.SET_TABLE_CURRENT_PAGE,
+    payload: data
+  };
+};

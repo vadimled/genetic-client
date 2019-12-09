@@ -23,6 +23,7 @@ import {
   handleResultConfigAlleleAlternative,
   handleResultConfigCoding,
   handleResultConfigProtein,
+  handleResultConfigTranscript,
   resultConfigLoadHgvs,
   resultConfigAddResult,
   resultConfidEditResult,
@@ -42,11 +43,16 @@ import {
   getResultConfigCoverage,
   getResultConfigCoding,
   getResultConfigProtein,
+  getResultConfigTranscript,
   getResultConfigValidationFaildFields,
   getTableDataGenes,
-  getResultConfigid
+  getResultConfigid,
+  getTestId,
 } from "Store/selectors";
-import { PRIORITY } from "../../../../utils/constants";
+import {
+  convertVaf,
+  convertCoverage
+} from "Utils/helpers";
 
 const ResultConfig = (props) => {
   const {
@@ -63,10 +69,11 @@ const ResultConfig = (props) => {
     coverage,
     coding,
     protein,
+    transcript,
     validationFaildFields,
     geneDataSource,
     id,
-    priority,
+    testId,
 
     handleClose,
     handleGene,
@@ -77,6 +84,7 @@ const ResultConfig = (props) => {
     handleAlleleAlternative,
     handleCoding,
     handleProtein,
+    handleTranscript,
     loadHgvs,
     addResult,
     editResult
@@ -98,7 +106,7 @@ const ResultConfig = (props) => {
   const onApplyResult = () => {
     const data = {
       gene,
-      chromosome,
+      chromosome: `chr${chromosome}`,
       position,
       alleleType,
       alleleReference,
@@ -107,11 +115,11 @@ const ResultConfig = (props) => {
       coverage,
       coding,
       protein,
+      transcript,
       isHgvsLoaded,
       id,
-      priority
+      testId,
     };
-
 
     isOnEdit
       ? editResult(data)
@@ -237,11 +245,11 @@ const ResultConfig = (props) => {
           {!isOnEdit && <div className="vaf-covarage-row">
             <div className="vaf">
               <div className="label">VAF:</div>
-              <div className="vaf-covarage-result" data-testid="vaf">{vaf}</div>
+              <div className="vaf-covarage-result" data-testid="vaf">{convertVaf(vaf)}</div>
             </div>
             <div className="covarage">
               <div className="label">Coverage:</div>
-              <div className="vaf-covarage-result" data-testid="coverage">{coverage}</div>
+              <div className="vaf-covarage-result" data-testid="coverage">{convertCoverage(coverage)}</div>
             </div>
           </div>}
           <div className="allele-divider"/>
@@ -276,6 +284,13 @@ const ResultConfig = (props) => {
               onChange={e => handleProtein(e.target.value)}
               testId="protein-toggled-input"
             />
+            <ToggledInput
+              className="cp-row"
+              label="Transcript"
+              value={transcript}
+              onChange={e => handleTranscript(e.target.value)}
+              testId="protein-toggled-input"
+            />
           </Fragment>}
           {!isOnEdit && <Fragment>
             <div className="cp-row">
@@ -285,6 +300,10 @@ const ResultConfig = (props) => {
             <div className="cp-row">
               <div className="label">Protein:</div>
               <div className="cp-result" data-testid="protein-simple-result">{protein}</div>
+            </div>
+            <div className="cp-row">
+              <div className="label">Transcript:</div>
+              <div className="cp-result" data-testid="protein-simple-result">{transcript}</div>
             </div>
           </Fragment>}
           <div className="allele-divider"/>
@@ -315,8 +334,10 @@ ResultConfig.propTypes = {
   coverage: PropTypes.number,
   coding: PropTypes.string,
   protein: PropTypes.string,
+  transcript: PropTypes.string,
   validationFaildFields: PropTypes.array,
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  testId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
   handleClose: PropTypes.func.isRequired,
   handleGene: PropTypes.func.isRequired,
@@ -327,6 +348,7 @@ ResultConfig.propTypes = {
   handleAlleleAlternative: PropTypes.func.isRequired,
   handleCoding: PropTypes.func.isRequired,
   handleProtein: PropTypes.func.isRequired,
+  handleTranscript: PropTypes.func.isRequired,
   loadHgvs: PropTypes.func.isRequired,
   addResult: PropTypes.func.isRequired,
   editResult: PropTypes.func.isRequired,
@@ -346,9 +368,11 @@ ResultConfig.defaultProps = {
   coverage: 0,
   coding: '',
   protein: '',
+  transcript: '',
   validationFaildFields: [],
   geneDataSource: [],
   id: null,
+  testId: null,
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -364,6 +388,7 @@ const mapDispatchToProps = (dispatch) => {
     handleAlleleAlternative: data => dispatch(handleResultConfigAlleleAlternative(data)),
     handleCoding: data => dispatch(handleResultConfigCoding(data)),
     handleProtein: data => dispatch(handleResultConfigProtein(data)),
+    handleTranscript: data => dispatch(handleResultConfigTranscript(data)),
     loadHgvs: data => dispatch(resultConfigLoadHgvs(data)),
     addResult: data => dispatch(resultConfigAddResult(data)),
     editResult: data => dispatch(resultConfidEditResult(data)),
@@ -385,10 +410,11 @@ const mapStateToProps = (state) => {
     coverage: getResultConfigCoverage(state),
     coding: getResultConfigCoding(state),
     protein: getResultConfigProtein(state),
+    transcript: getResultConfigTranscript(state),
     validationFaildFields: getResultConfigValidationFaildFields(state),
     geneDataSource: getTableDataGenes(state),
     id: getResultConfigid(state),
-    priority: PRIORITY["unclassified"]
+    testId: getTestId(state),
   };
 };
 

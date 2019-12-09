@@ -16,17 +16,17 @@ describe("ExternalResources ", () => {
     {
       COSMIC: [
         {
-          title: "COSM3997243",
+          childText: "COSM3997243",
           link:
             "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=3997243"
         },
         {
-          title: "COSM3997245",
+          childText: "COSM3997245",
           link:
             "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=3997245"
         },
         {
-          title: "COSM3997244",
+          childText: "COSM3997244",
           link:
             "https://cancer.sanger.ac.uk/cosmic/mutation/overview?id=3997244"
         }

@@ -342,6 +342,14 @@ $heightTableContentWithTumorPanel: 198px;
   .ant-select-dropdown-menu-item-selected {
     background-color: $select-option-selected !important;
     font-weight: normal !important;
+
+    .reconfirm {
+      display: block;
+      width: 100%;
+      height: 100%;
+      font-size: 13px;
+      margin-right: 20px;
+    }
   }
 }
 
@@ -708,6 +716,11 @@ th {
 .ant-table {
   font-size: 16px !important;
 
+  // .ant-table-thead > tr > th,
+  // .ant-table-tbody > tr > td {
+  //   padding: 0 !important;
+  // }
+
   .ant-table-thead {
     tr {
       background-color: $table-header-bg;
@@ -715,6 +728,10 @@ th {
 
     .ant-table-column-title {
       // white-space: nowrap;
+    }
+
+    .ant-table-column-title {
+      // padding: 15px;
     }
 
     .ant-table-selection-column {
@@ -976,35 +993,35 @@ th {
   }
 }
 
-.ant-table-content {
-  transition: all 0.4s ease;
-  max-height: calc(100vh - #{$heightTableContent});
-
-  .ant-table-scroll {
-    height: calc(100vh - #{$heightTableContent});
-    overflow-x: auto !important;
-
-    .ant-table-body {
-      height: calc(100vh - #{$heightTableBody}) !important;
-      transition: all 0.4s ease;
-    }
-    table {
-      transition: 0.4s ease;
-      transform: translate(0px, 0px);
-      width: max-content;
-    }
-  }
-  .ant-table-fixed-left {
-    height: calc(100vh - 171px);
-    transition: all 0.4s ease;
-  }
-
-  .ant-table-body-inner {
-    height: calc(100vh - #{$heightTableBody}) !important;
-  }
-  .ant-table-fixed {
-  }
-}
+//.ant-table-content {
+//  transition: all 0.4s ease;
+//  max-height: calc(100vh - #{$heightTableContent});
+//
+//  .ant-table-scroll {
+//    height: calc(100vh - #{$heightTableContent});
+//    overflow-x: auto !important;
+//
+//    .ant-table-body {
+//      height: calc(100vh - #{$heightTableBody}) !important;
+//      transition: all 0.4s ease;
+//    }
+//    table {
+//      transition: 0.4s ease;
+//      transform: translate(0px, 0px);
+//      width: max-content;
+//    }
+//  }
+//  .ant-table-fixed-left {
+//    height: calc(100vh - 171px);
+//    transition: all 0.4s ease;
+//  }
+//
+//  .ant-table-body-inner {
+//    height: calc(100vh - #{$heightTableBody}) !important;
+//  }
+//  .ant-table-fixed {
+//  }
+//}
 
 .ant-table-bordered .ant-table-thead > tr > th,
 .ant-table-bordered .ant-table-tbody > tr > td {
@@ -1215,7 +1232,7 @@ th {
     overflow: hidden !important;
 
     .ant-table-thead > tr > th {
-      padding: 10px 16px;
+      // padding: 10px 16px;
     }
 
     .ant-table-content {

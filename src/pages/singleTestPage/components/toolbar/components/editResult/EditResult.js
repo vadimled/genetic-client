@@ -18,8 +18,10 @@ import {
   handleResultConfigAlleleAlternative,
   handleResultConfigCoding,
   handleResultConfigProtein,
+  handleResultConfigTranscript,
   resultConfigSetId
 } from 'Actions/resultConfigActions';
+import { ALLELE_TYPES } from "Utils/constants";
 
 const EditResult = ({
   handleResultConfigIsOpen,
@@ -53,16 +55,21 @@ const mapStateToProps = () => {
 function mapDispatchToProps(dispatch) {
   return {
     handleResultConfigIsOpen: (selectedResult) => {
+      let alleleType = ALLELE_TYPES.change.value; // by default if ref and alt are exist
+      if (!selectedResult.ref) alleleType = ALLELE_TYPES.insertion.value;
+      if (!selectedResult.alt) alleleType = ALLELE_TYPES.deletion.value;
+
       dispatch(handleResultConfigVaf(selectedResult.vaf));
       dispatch(handleResultConfigCoverage(selectedResult.coverage));
       dispatch(handleResultConfigGene(selectedResult.gene));
-      dispatch(handleResultConfigChromosome(selectedResult.chromosome));
+      dispatch(handleResultConfigChromosome(selectedResult.chr.replace(/\D+/g, '')));
       dispatch(handleResultConfigPosition(selectedResult.position));
-      dispatch(handleResultConfigAlleleType(selectedResult.alleleType));
-      dispatch(handleResultConfigAlleleReference(selectedResult.alleleReference));
-      dispatch(handleResultConfigAlleleAlternative(selectedResult.alleleAlternative));
+      dispatch(handleResultConfigAlleleType(alleleType));
+      dispatch(handleResultConfigAlleleReference(selectedResult.ref));
+      dispatch(handleResultConfigAlleleAlternative(selectedResult.alt));
       dispatch(handleResultConfigCoding(selectedResult.coding));
       dispatch(handleResultConfigProtein(selectedResult.protein));
+      dispatch(handleResultConfigTranscript(selectedResult.transcript));
       dispatch(handleResultConfigIsHgvsLoaded(true));
       dispatch(handleResultConfigIsOpen(true));
       dispatch(handleResultConfigIsOnEdit(true));

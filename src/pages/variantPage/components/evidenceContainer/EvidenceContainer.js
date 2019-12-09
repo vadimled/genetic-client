@@ -1,23 +1,31 @@
 import React, { Component } from "react";
-import style from "./EvidenceContainer.module.scss";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Tabs } from "antd";
+
+import style from "./EvidenceContainer.module.scss";
+
 import TabPaneHeader from "variantComponents/evidenceContainer/components/tabPaneHeader";
 import EvidenceTable from "variantComponents/evidenceContainer/components/evidenceTable";
 import ActionDeleteEvidence from "variantComponents/evidenceContainer/components/actionDeleteEvidence";
+import SimpleButton from "GenericComponents/simpleButton";
+import SimpleSelect from "GenericComponents/simpleSelect";
+
 import {
   getEvidenceConfigId,
   getSubmitData,
   getTabPaneHeaders,
-  getCurrentEvidenceTab
+  getCurrentEvidenceTab,
+  getSelectedZygosityType,
+  getCurrentEvidencePhenotypes,
+  getSelectedCurrentEvidencePhenotype,
 } from "Store/selectors";
-import { connect } from "react-redux";
-import SimpleButton from "GenericComponents/simpleButton";
 import {
   cleanEvidenceActionData,
   deleteEvidenceEntry,
   setEvidenceActionMode,
-  setCurrentEvidenceTab
+  setCurrentEvidenceTab,
+  setSelectedCurrentEvidencePhenotype,
 } from "Actions/evidenceConfigActions";
 import { TEXTS } from "Utils/constants";
 
@@ -68,16 +76,40 @@ class EvidenceContainer extends Component {
     this.setState({ showPopupDelete: !this.state.showPopupDelete });
     this.props.cleanData();
   };
-  
+
   onTabClicked = key => {
     this.props.setCurrentEvidenceTab(key);
   };
-  
+
+  handleSelectedCurrentEvidencePhenotype = e => {
+    this.props.setSelectedCurrentEvidencePhenotype(e.target.value);
+  }
+
   render() {
-    const { tabPaneHeaders, currentEvidenceTab } = this.props;
+    const {
+      tabPaneHeaders,
+      currentEvidenceTab,
+      selectedZygosityType,
+      currentEvidencePhenotypes,
+      selectedCurrentEvidencePhenotype
+    } = this.props;
+
     return (
       <div className={style["evidence-wrapper"]}>
-        <div className="evidence-title">Evidence:</div>
+        <div className="section-toolbar">
+          <div className="toolbar-title evidence-title">Evidence</div>
+          {selectedZygosityType === TEXTS.somatic && (+currentEvidenceTab === 5 || +currentEvidenceTab === 6) &&
+            <div className="toolbar-select">
+              <SimpleSelect
+                value={selectedCurrentEvidencePhenotype}
+                options={currentEvidencePhenotypes}
+                onChange={this.handleSelectedCurrentEvidencePhenotype}
+                isClearAvailable
+                placeholder="All phenotypes"
+              />
+            </div>
+          }
+        </div>
         <Tabs
           tabBarExtraContent={
             <SimpleButton
@@ -138,7 +170,10 @@ const mapStateToProps = state => {
     tabPaneHeaders: getTabPaneHeaders(state),
     currentEvidenceTab: getCurrentEvidenceTab(state),
     deleteData: getSubmitData(state),
-    id: getEvidenceConfigId(state)
+    id: getEvidenceConfigId(state),
+    selectedZygosityType: getSelectedZygosityType(state),
+    currentEvidencePhenotypes: getCurrentEvidencePhenotypes(state),
+    selectedCurrentEvidencePhenotype: getSelectedCurrentEvidencePhenotype(state),
   };
 };
 
@@ -148,6 +183,7 @@ function mapDispatchToProps(dispatch) {
     deleteEntry: data => dispatch(deleteEvidenceEntry(data)),
     cleanData: () => dispatch(cleanEvidenceActionData()),
     setCurrentEvidenceTab: key => dispatch(setCurrentEvidenceTab(key)),
+    setSelectedCurrentEvidencePhenotype: data => dispatch(setSelectedCurrentEvidencePhenotype(data)),
   };
 }
 

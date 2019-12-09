@@ -2,18 +2,24 @@ import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 import { TEXTS } from "Utils/constants";
 
+const initialClassificationHistoryState = {
+  classificationHistory: [],
+  selectedCurrentClassificationHistoryPhenotype: null,
+  somaticClassHistory: [],
+  germlineClassHistory: [],
+};
+
 const initialState = {
   isLoading: false,
   variantData: null,
   externalResources: [],
   selectedZygosityType: null,
-  classificationHistory: [],
-  somaticClassHistory: null,
-  germlineClassHistory: null
+  isReconfirmed: false,
+  ...initialClassificationHistoryState,
 };
 
 const variantPageReducer = createReducer(initialState, {
-  [actionsTypes.SET_VARIANT_CLASSIFICATION]: (state, { payload }) => {
+  [actionsTypes.SET_VARIANT_CLASS]: (state, { payload }) => {
     const { value, name } = payload;
     return {
       ...state,
@@ -47,6 +53,14 @@ const variantPageReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_VARIANT_ZYGOSITY_TYPE]: (state, { payload }) => {
+    return {
+      ...state,
+      ...payload,
+      selectedCurrentClassificationHistoryPhenotype: null,
+    };
+  },
+
+  [actionsTypes.SET_CURRENT_VARIANT_CLASS]: (state, { payload }) => {
     return {
       ...state,
       ...payload
@@ -89,7 +103,7 @@ const variantPageReducer = createReducer(initialState, {
       targetDataName = zygosity_type === TEXTS.germline
         ? "germline_evidence"
         : "somatic_evidence",
-      
+
       targetData = { ...state[targetDataName], [id]: payload };
     return {
       ...state,
@@ -100,36 +114,36 @@ const variantPageReducer = createReducer(initialState, {
   [actionsTypes.SET_EDITED_EVIDENCE_ENTRY]: (state, { payload }) => {
     const { zygosity_type, id  } = payload;
     delete payload.id;
-  
+
     const
       targetDataName = zygosity_type === TEXTS.germline
         ? "germline_evidence"
         : "somatic_evidence",
-    
+
       targetData = { ...state[targetDataName], [id]: payload };
     return {
       ...state,
       [targetDataName]: targetData
     };
   },
-  
+
   [actionsTypes.DELETE_EVIDENCE_ENTRY_FROM_STORE]: (state, { payload }) => {
     const
       { ids: {evidenceId } , data:{ zygosity_type } } = payload,
-    
+
       targetDataName =  zygosity_type === TEXTS.germline
         ? "germline_evidence"
         : "somatic_evidence",
-      
+
       targetData = Object.assign({}, state[targetDataName]);
-    
+
     delete targetData[evidenceId];
     return {
       ...state,
       [targetDataName]: targetData
     };
   },
-  
+
   [actionsTypes.SET_EVIDENCE_DATA]: (state, { payload }) => {
     return {
       ...state,
@@ -156,7 +170,22 @@ const variantPageReducer = createReducer(initialState, {
       ...state,
       isLoading: payload
     };
-  }
+  },
+
+  [actionsTypes.SET_RECONFIRM_STATUS]: (state, { payload }) => {
+    return {
+      ...state,
+      isReconfirmed: payload
+    };
+  },
+
+  [actionsTypes.SET_CURRENT_CLASSIFICATION_HISTORY_PHENOTYPE]: (state, { payload }) => {
+    return {
+      ...state,
+      selectedCurrentClassificationHistoryPhenotype: payload
+    };
+  },
+
 });
 
 export default variantPageReducer;

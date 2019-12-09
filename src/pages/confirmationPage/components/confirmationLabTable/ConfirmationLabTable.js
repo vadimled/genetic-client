@@ -207,6 +207,7 @@ class ConfirmationLabTable extends Component {
         columns={columns}
         dataSource={data}
         pagination={false}
+        scroll={{ x: "max-content", y: "true" }}
       />
     );
   }

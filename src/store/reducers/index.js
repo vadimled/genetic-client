@@ -11,6 +11,8 @@ import testReducer from "./testReducer";
 import testsPageReducer from "./testsPageReducer";
 import evidenceConfigReducer from "./evidenceConfigReducer";
 import confirmationPageReducer from "./confirmationPageReducer";
+import coveragePageReducer from "./coveragePageReducer";
+import finalReportReducer from "./finalReportReducer";
 
 export default combineReducers({
   test: testReducer,
@@ -26,5 +28,8 @@ export default combineReducers({
     pageData: variantPageReducer,
     evidenceConfig: evidenceConfigReducer
   }),
-  confirmationPage: confirmationPageReducer
+  confirmationPage: confirmationPageReducer,
+  coveragePage: coveragePageReducer,
+  finalReport: finalReportReducer
 });
+

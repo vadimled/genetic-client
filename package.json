@@ -40,6 +40,7 @@
     "jest-watch-typeahead": "0.3.1",
     "lodash.clonedeep": "^4.5.0",
     "lodash.isempty": "^4.4.0",
+    "lodash.remove": "^4.7.0",
     "mini-css-extract-plugin": "0.5.0",
     "nock": "^10.0.6",
     "node-sass": "^4.12.0",
@@ -82,6 +83,7 @@
     "fix:js": "yarn lint:js --fix",
     "fix": "yarn fix:js && yarn fix:other",
     "prettier": "prettier \"**/*.{json,md,scss,yaml,yml}\"",
+    "prettier:write": "prettier --write \"**/*.{json,md,scss,yaml,yml}\"",
     "lint:other": "yarn prettier --list-different",
     "lint:js": "eslint \"src/**/*.{js,jsx}\"",
     "lint": "yarn lint:other && yarn lint:js"

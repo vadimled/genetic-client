@@ -17,6 +17,7 @@ const initialState = {
   coverage: 0,
   coding: '',
   protein: '',
+  transcript: '',
   validationFaildFields: []
 };
 
@@ -51,6 +52,7 @@ const tableReducer = createReducer(initialState, {
       isHgvsLoaded: false, // drop in change
       coding: '', // drop in change
       protein: '', // drop in change
+      transcript: '', // drop in change
     };
   },
 
@@ -62,6 +64,7 @@ const tableReducer = createReducer(initialState, {
       isHgvsLoaded: false, // drop in change
       coding: '', // drop in change
       protein: '', // drop in change
+      transcript: '', // drop in change
     };
   },
 
@@ -73,6 +76,7 @@ const tableReducer = createReducer(initialState, {
       isHgvsLoaded: false, // drop in change
       coding: '', // drop in change
       protein: '', // drop in change
+      transcript: '', // drop in change
     };
   },
 
@@ -89,6 +93,7 @@ const tableReducer = createReducer(initialState, {
       isHgvsLoaded: false, // drop in change
       coding: '', // drop in change
       protein: '', // drop in change
+      transcript: '', // drop in change
     };
   },
 
@@ -104,6 +109,7 @@ const tableReducer = createReducer(initialState, {
       isHgvsLoaded: false, // drop in change
       coding: '', // drop in change
       protein: '', // drop in change
+      transcript: '', // drop in change
     };
   },
 
@@ -119,6 +125,7 @@ const tableReducer = createReducer(initialState, {
       isHgvsLoaded: false, // drop in change
       coding: '', // drop in change
       protein: '', // drop in change
+      transcript: '', // drop in change
     };
   },
 
@@ -147,6 +154,13 @@ const tableReducer = createReducer(initialState, {
     return {
       ...state,
       protein: payload
+    };
+  },
+
+  [actionsTypes.HANDLE_RESULT_CONFIG_TRANSCRIPT]: (state, { payload }) => {
+    return {
+      ...state,
+      transcript: payload
     };
   },
 

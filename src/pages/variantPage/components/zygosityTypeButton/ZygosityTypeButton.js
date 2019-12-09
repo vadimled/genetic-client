@@ -17,14 +17,15 @@ function ZygosityTypeButton({
   variantId,
   testId,
   onChangeClassification,
-  onChangeSelectedZygosityType
+  onChangeSelectedZygosityType,
+  reconfirmStatus,
+  currentVariantClass
 }) {
-
   const [isClassificationAllowed, setOpen] = useState(true);
 
   const currZygosityFormatted = currentZygosity?.toLowerCase();
 
-  const  handelFocus = () => {
+  const handelFocus = () => {
     if (selectedZygosityType !== currZygosityFormatted) {
       setOpen(false);
       onChangeClassification(
@@ -41,9 +42,7 @@ function ZygosityTypeButton({
   };
 
   return currZygosityFormatted === type ? (
-    <div
-      className={style["zygosity-type-button-wrapper"]}
-    >
+    <div className={style["zygosity-type-button-wrapper"]}>
       <div
         className={cn("zygosity-type-button", {
           active: selectedZygosityType !== type
@@ -70,6 +69,9 @@ function ZygosityTypeButton({
                 active: selectedZygosityType !== type
               })}
               className={selectedZygosityType === type ? "active" : null}
+              reconfirmMode
+              reconfirmStatus={reconfirmStatus}
+              currentVariantClass={currentVariantClass}
             />
           </Fragment>
         ) : (

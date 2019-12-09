@@ -3,6 +3,7 @@ import { Select } from "antd";
 import PropTypes from "prop-types";
 import CloseIcon from "Assets/close.svg";
 import LabeledTag from "GenericComponents/labeledTag";
+import { TEXTS } from "Utils/constants";
 
 // eslint-disable-next-line
 const Option = Select.Option;
@@ -22,8 +23,28 @@ const SimpleSelect = ({
   selectHeaderClass,
   className,
   onFocus,
+  reconfirmMode,
+  reconfirmStatus,
+  currentVariantClass,
   ...props
 }) => {
+  const handleReconfirm = e => {
+    const { key } = e;
+    if (
+      currentVariantClass &&
+      currentVariantClass === key &&
+      !reconfirmStatus
+    ) {
+      onChange({
+        target: {
+          name: name,
+          value: key,
+          reconfirm: true
+        }
+      });
+    }
+  };
+
   return (
     <Fragment>
       {!!label && <label>{label}</label>}
@@ -41,7 +62,10 @@ const SimpleSelect = ({
             }
           })
         }
-        value={value}
+        value={value
+          ? value === TEXTS.unclassified ? TEXTS.unclassifiedUp : value
+          : undefined
+        }
         name={name}
         allowClear={!!value && isClearAvailable}
         clearIcon={
@@ -57,17 +81,25 @@ const SimpleSelect = ({
         data-testid={testId}
         {...props}
       >
-        {options?.map(option => {
-          return (
-            <Option key={option.value} value={option.value}>
+        {options?.reduce((rez, option) => {
+          if (option) {
+            rez.push(<Option
+              key={option.value}
+              value={option.value}
+              onClick={reconfirmMode ? handleReconfirm : null}
+            >
               <LabeledTag
                 label={option.value === "notDefined" ? "" : option.label}
                 tagColor={option?.tagColor}
                 customClassName={selectHeaderClass}
               />
-            </Option>
-          );
-        })}
+              {option.reconfirm && (
+                <div className="reconfirm">{`(${option.reconfirm})`}</div>
+              )}
+            </Option>);
+          }
+          return rez;
+        }, [])}
       </Select>
     </Fragment>
   );
@@ -86,7 +118,11 @@ SimpleSelect.propTypes = {
   showArrow: PropTypes.bool,
   selectHeaderClass: PropTypes.string,
   className: PropTypes.string,
-  onFocus: PropTypes.func
+  onFocus: PropTypes.func,
+  reconfirmMode: PropTypes.bool,
+  reconfirmStatus: PropTypes.bool,
+  currentVariantClass: PropTypes.string,
+  placeholder: PropTypes.string,
 };
 
 SimpleSelect.defaultProps = {

@@ -22,7 +22,6 @@
         color: $neutral_30;
       }
     }
-
     .ant-select {
       .ant-select-arrow {
         & svg {
@@ -31,6 +30,12 @@
 
         &:hover {
           background: none;
+        }
+      }
+
+      .ant-select-selection-selected-value {
+        .reconfirm {
+          display: none;
         }
       }
     }
@@ -52,6 +57,12 @@
 
       svg path {
         fill: $neutral_30 !important;
+      }
+    }
+
+    &.active {
+      .ant-select-selection-selected-value {
+        color: $neutral_30;
       }
     }
   }

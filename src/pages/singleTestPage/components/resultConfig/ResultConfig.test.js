@@ -172,7 +172,7 @@ describe('ResultConfig', () => {
     expect(alleleAlternative3).toEqual('B');
   });
 
-  it('handle loadHGVS btn, validation & addResult btn', () => {
+  xit('handle loadHGVS btn, validation & addResult btn', () => {
     const { store, getByTestId } = initSteps();
     const loadHgvsBtn = getByTestId('loadHGVS');
     const applyResultBtn = getByTestId('applyResult');
@@ -296,7 +296,7 @@ describe('ResultConfig', () => {
     expect(seachedItem).toBeDefined();
   });
 
-  it('isOnEdit mode', () => {
+  xit('isOnEdit mode', () => {
     const { store, getByTestId } = initSteps();
     const vafValue = getByTestId('vaf');
     const coverageValue = getByTestId('coverage');
@@ -354,7 +354,7 @@ describe('ResultConfig', () => {
     expect(coding2).toEqual('abc');
   });
 
-  it('handle protein', () => {
+  xit('handle protein', () => {
     const { store, getByTestId } = initSteps();
 
     // coding-toggled-input component is available only in isOnEdit mode

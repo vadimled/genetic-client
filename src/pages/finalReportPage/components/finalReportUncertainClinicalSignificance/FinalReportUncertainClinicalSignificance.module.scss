@@ -1,0 +1,52 @@
+@import "Css/Colors.scss";
+
+.final-report-uncertain-clinical-significance :global {
+  .select-variants-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 32px;
+  }
+
+  .select-variants-btn {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 32px;
+    width: 141px;
+
+    font-weight: 600;
+    font-size: 12px !important;
+    text-align: center;
+    text-transform: uppercase;
+    color: $white;
+
+    &:hover {
+      color: $white;
+    }
+  }
+
+  .final-report-teble-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+  }
+
+  .apply-table-btn {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 32px;
+    width: 315px;
+
+    font-weight: 600;
+    font-size: 12px !important;
+    text-align: center;
+    text-transform: uppercase;
+    color: $white;
+
+    &:hover {
+      color: $white;
+    }
+  }
+}

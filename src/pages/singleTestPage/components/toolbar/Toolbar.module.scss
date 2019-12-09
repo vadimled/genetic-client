@@ -45,11 +45,11 @@ $bg-img-arrow-down: url("../assets/arrowDown.svg");
     display: flex;
     align-items: center;
 
-    transform: translate(0px, 0px);
+    // transform: translate(0px, 0px);
     transition: 0.4s ease;
 
     &.sidebar-open {
-      transform: translate(-175px, 0px);
+      // transform: translate(-175px, 0px);
     }
   }
   .search-field:focus {

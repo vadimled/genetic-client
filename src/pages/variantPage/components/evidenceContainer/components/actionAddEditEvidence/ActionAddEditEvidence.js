@@ -1,12 +1,20 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Button, Input, Select } from "antd";
-import SimpleSelect from "GenericComponents/simpleSelect/SimpleSelect";
+
 import style from "./ActionAddEditEvidence.module.scss";
+
+import TableLevel from "variantComponents/evidenceContainer/components/tableLevel";
+import SimpleSelect from "GenericComponents/simpleSelect/SimpleSelect";
+
 import {
   EVIDENCE_CATEGORIES_OPTIONS,
-  EVIDENCE_LEVEL_OPTIONS
+  EVIDENCE_LEVEL_OPTIONS,
+  TEXTS,
+  EC_VALUES,
+  COUNTRIES
 } from "Utils/constants";
-import TableLevel from "variantComponents/evidenceContainer/components/tableLevel";
+
 import { actionModeText } from "Utils/helpers";
 
 /*eslint-disable*/
@@ -22,6 +30,13 @@ const ActionAddEditEvidence = ({
   sourceValue,
   levelValue,
   descriptionValue,
+  referenceValue,
+  drugNameValue,
+  indicationValue,
+  trialIdValue,
+  isPhenotypeAndIndicationMatchValue,
+  locationValue,
+  phenotypeValue,
   classification
 }) => {
   const isRelevant = ({ type, category }) => {
@@ -39,7 +54,16 @@ const ActionAddEditEvidence = ({
   };
 
   const isSubmitEnabled = () => {
-    return evidenceCategory && sourceValue && levelValue;
+    if (evidenceCategory === EC_VALUES.clinicalTrials) {
+      return evidenceCategory && sourceValue && levelValue && descriptionValue
+        && drugNameValue && indicationValue && locationValue && phenotypeValue;
+    }
+    else if (evidenceCategory === EC_VALUES.drug) {
+      return evidenceCategory && sourceValue && levelValue && descriptionValue
+        && drugNameValue && indicationValue && phenotypeValue && isPhenotypeAndIndicationMatchValue;
+    }
+
+    return evidenceCategory && sourceValue && levelValue && descriptionValue;
   };
 
   return (
@@ -51,23 +75,84 @@ const ActionAddEditEvidence = ({
             testId={`evidence-type-select`}
             name={`evidenceTypeSelect`}
             value={evidenceCategory}
-            options={EVIDENCE_CATEGORIES_OPTIONS}
+            options={EVIDENCE_CATEGORIES_OPTIONS[classification]}
             onChange={onChange}
             disabled={mode === "edit"}
+            placeholder="Select type"
           />
         </div>
+        {(evidenceCategory === EC_VALUES.clinicalTrials || evidenceCategory === EC_VALUES.drug) &&
+        <div className="form-item">
+          <label htmlFor={"evidence-drug-name"}>Drug name</label>
+          <Input
+            id="evidence-drug-name"
+            name="evidenceDrugNameInput"
+            onChange={onChange}
+            className={"form-item-input-text"}
+            value={drugNameValue}
+            placeholder="Add name"
+          />
+        </div>}
         <div className="form-item">
           <label htmlFor={"evidence-source"}>Source</label>
           <Input
             id="evidence-source"
             name="evidenceSourceInput"
             onChange={onChange}
-            className={"form-item-source"}
+            className={"form-item-input-text"}
             value={sourceValue}
             placeholder="Paste source"
             required
           />
         </div>
+        {(evidenceCategory === EC_VALUES.clinicalTrials || evidenceCategory === EC_VALUES.drug) &&
+        <div className="form-item">
+          <label htmlFor={"evidence-indication"}>Indication</label>
+          <Input
+            id="evidence-indication"
+            name="evidenceIndicationInput"
+            onChange={onChange}
+            className={"form-item-input-text"}
+            value={indicationValue}
+            placeholder="Type here"
+          />
+        </div>}
+        {evidenceCategory === EC_VALUES.clinicalTrials && <div className="form-item">
+          <label htmlFor={"evidence-trial-id"}>Trial id</label>
+          <Input
+            id="evidence-trial-id"
+            name="evidenceTrialIdInput"
+            onChange={onChange}
+            className={"form-item-input-text"}
+            value={trialIdValue}
+            placeholder="Type here"
+          />
+        </div>}
+        {evidenceCategory === EC_VALUES.drug && <div className="form-item">
+          <label htmlFor={"evidence-is-phenotype-and-indication"}>Match</label>
+          <SimpleSelect
+            placeholder={"Select indication"}
+            testId={`evidence-is-phenotype-and-indication-select`}
+            name={`evidenceIsPhenotypeAndIndicationMatchSelect`}
+            value={isPhenotypeAndIndicationMatchValue}
+            options={[
+              { value: 'true', label: "Match" },
+              { value: 'false', label: "Don't match" },
+            ]}
+            onChange={onChange}
+          />
+        </div>}
+        {evidenceCategory === EC_VALUES.clinicalTrials && <div className="form-item">
+          <label htmlFor={"evidence-location"}>Location</label>
+          <SimpleSelect
+            placeholder={"Select country"}
+            testId={`evidence-location-select`}
+            name={`evidenceLocationSelect`}
+            value={locationValue}
+            options={COUNTRIES}
+            onChange={onChange}
+          />
+        </div>}
         <div className="form-item">
           <label htmlFor={"evidence-level-select"}>Level</label>
           <Select
@@ -80,8 +165,9 @@ const ActionAddEditEvidence = ({
                 }
               })
             }
-            value={levelValue}
+            value={levelValue || undefined}
             data-testid={"evidence-level-select"}
+            placeholder="Select LEVEL"
           >
             {EVIDENCE_LEVEL_OPTIONS.map(option => {
               return (
@@ -96,6 +182,29 @@ const ActionAddEditEvidence = ({
             })}
           </Select>
         </div>
+        {(evidenceCategory === EC_VALUES.clinicalTrials || evidenceCategory === EC_VALUES.drug) &&
+        <div className="form-item">
+          <label htmlFor={"evidence-indication"}>Phenotype</label>
+          <Input
+            id="evidence-phenotype"
+            name="evidencePhenotypeInput"
+            onChange={onChange}
+            className={"form-item-input-text"}
+            value={phenotypeValue}
+            placeholder="Type here"
+          />
+        </div>}
+        {evidenceCategory === EC_VALUES.publications && <div className="form-item">
+          <label htmlFor={"evidence-source"}>Reference</label>
+          <Input
+            id="evidence-reference"
+            name="evidenceReferenceInput"
+            onChange={onChange}
+            className={"form-item-input-text"}
+            value={referenceValue}
+            placeholder="Paste references separated by the coma"
+          />
+        </div>}
         <div className="form-item">
           <label htmlFor={"evidence-description-textarea"}>Description</label>
           <TextArea
@@ -116,6 +225,37 @@ const ActionAddEditEvidence = ({
   );
 };
 
-ActionAddEditEvidence.propTypes = {};
+ActionAddEditEvidence.propTypes = {
+  mode: PropTypes.oneOf([TEXTS.add, TEXTS.edit]),
+  submit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  evidenceCategory: PropTypes.string,
+  sourceValue: PropTypes.string,
+  levelValue: PropTypes.string,
+  descriptionValue: PropTypes.string,
+  referenceValue: PropTypes.string,
+  drugNameValue: PropTypes.string,
+  indicationValue: PropTypes.string,
+  trialIdValue: PropTypes.string,
+  isPhenotypeAndIndicationMatchValue: PropTypes.string,
+  locationValue: PropTypes.string,
+  phenotypeValue: PropTypes.string,
+  classification: PropTypes.oneOf([TEXTS.germline, TEXTS.somatic])
+};
+ActionAddEditEvidence.defaultProps = {
+  mode: null,
+  evidenceCategory: null,
+  sourceValue: null,
+  levelValue: null,
+  descriptionValue: null,
+  referenceValue: null,
+  drugNameValue: null,
+  indicationValue: null,
+  trialIdValue: null,
+  isPhenotypeAndIndicationMatchValue: null,
+  locationValue: null,
+  phenotypeValue: null,
+  classification: null
+};
 
 export default ActionAddEditEvidence;

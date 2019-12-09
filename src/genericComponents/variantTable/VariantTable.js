@@ -1,25 +1,30 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
-import { Table, Tooltip, Checkbox } from "antd";
+import { Checkbox, Table, Tooltip } from "antd";
 import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect";
 import ConfirmationStatus from "GenericComponents/confirmationStatus";
 import Notes from "GenericComponents/notes";
-import { ZYGOSITY_OPTIONS } from "Utils/constants";
+import {
+  GERMLINE_VARIANT_CLASS_OPTIONS,
+  SOMATIC_VARIANT_CLASS_OPTIONS,
+  TEXTS,
+  VARIANT_CLASS_GERMLINE,
+  VARIANT_CLASS_SOMATIC,
+  ZYGOSITY_OPTIONS
+} from "Utils/constants";
+import {
+  convertVaf,
+  convertCoverage
+} from "Utils/helpers";
 import ExternalLink from "GenericComponents/externalLink";
 import style from "./VariantTable.module.scss";
-import ActivityLog from "./components/ActivityLog";
+import ActivityLog from "./components/activityLog/ActivityLog";
 import ResizeableTitle from "./components/resizeableTitle";
 import TableSorter from "./components/TableSorter";
 import HighlightedCell from "./components/highlightedCell";
 import LabeledTag from "../labeledTag";
-import {
-  GERMLINE_VARIANT_CLASS_OPTIONS,
-  SOMATIC_VARIANT_CLASS_OPTIONS,
-  VARIANT_CLASS_GERMLINE,
-  VARIANT_CLASS_SOMATIC
-} from "../../utils/constants";
 
 class VariantTable extends Component {
   state = {
@@ -156,6 +161,11 @@ class VariantTable extends Component {
     });
   };
 
+  handleCheckboxChange = () => {
+    const { isAllRowSelected, handleSelectAllRows } = this.props;
+    handleSelectAllRows(isAllRowSelected);
+  };
+
   columnsConverter = columns => {
     return columns.map((col, index) => {
       let column = {
@@ -169,33 +179,32 @@ class VariantTable extends Component {
       // construction if/else is required
 
       if (column.dataIndex === "selection") {
+        const { isAllRowSelected, selectedRows } = this.props;
         column.title = (
           <div
             className={cn("table-header-selection-chbx", {
               partly:
-                !!this.props.selectedRows.length && !this.props.isAllRowSelected
+                !!selectedRows.length && !isAllRowSelected
             })}
           >
             <Checkbox
-              checked={this.props.isAllRowSelected}
-              onChange={this.props.handleSelectAllRows.bind(
-                null,
-                this.props.isAllRowSelected
-              )}
+              checked={isAllRowSelected}
+              onChange={this.handleCheckboxChange}
             />
           </div>
         );
 
         column.render = (text, record) => {
-          if (record.status) {
+
+          if (record.status && record.status !== TEXTS.UNCHECK) {
             return (
-              <HighlightedCell isHighlighted={record.isAdded}>
+              <HighlightedCell isHighlighted={record.isAdded} classes="no-padding">
                 <ConfirmationStatus
                   status={record.status}
                   handleStatus={status =>
                     this.props.handleConfirmationStatus({
                       variantId: record.id,
-                      testId,
+                      testId: this.props.testId,
                       status
                     })
                   }
@@ -204,7 +213,7 @@ class VariantTable extends Component {
             );
           }
           return (
-            <HighlightedCell isHighlighted={record.isAdded}>
+            <HighlightedCell isHighlighted={record.isAdded} classes="no-padding">
               <Checkbox
                 checked={record.selected}
                 onChange={this.props.handleSelectedRow.bind(null, {
@@ -365,11 +374,27 @@ class VariantTable extends Component {
             </HighlightedCell>
           );
         };
+      } else if (col.dataIndex === "vaf"){
+        column.render = (text, record) => {
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              {convertVaf(text)}
+            </HighlightedCell>
+          );
+        };
+      } else if (col.dataIndex === "coverage"){
+        column.render = (text, record) => {
+          return (
+            <HighlightedCell isHighlighted={record.isAdded}>
+              {convertCoverage(text)}
+            </HighlightedCell>
+          );
+        };
       } else {
         column.render = (text, record) => {
           return (
             <HighlightedCell isHighlighted={record.isAdded}>
-              {text}
+              {text || ""}
             </HighlightedCell>
           );
         };
@@ -391,7 +416,7 @@ class VariantTable extends Component {
   };
 
   render() {
-    const { data, tumorInfoPanel } = this.props;
+    const { data, tumorInfoPanel, handleChangeTablePage, currentPage } = this.props;
 
     // add options to columns
     const columns = this.columnsConverter(this.state.columns);
@@ -402,11 +427,12 @@ class VariantTable extends Component {
           "tumor-panel-opened": tumorInfoPanel
         })}
         components={this.components}
-        pagination={{ pageSize: 20 }}
+        pagination={{ pageSize: 20, current: currentPage || 1}}
         bordered
         columns={columns}
         dataSource={data}
         scroll={{ x: "max-content", y: "true" }}
+        onChange={handleChangeTablePage}
       />
     );
   }

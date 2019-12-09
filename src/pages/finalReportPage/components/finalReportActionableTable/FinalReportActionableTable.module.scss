@@ -1,0 +1,78 @@
+@import "Css/Colors.scss";
+
+.final-report-actionable-table :global {
+  // width: 94vw;
+
+  .ant-table-fixed {
+    table-layout: fixed !important;
+  }
+
+  .ant-table-empty {
+    .ant-table-body {
+      overflow-y: hidden !important;
+    }
+  }
+
+  .ant-table-thead > tr > th {
+    height: 64px;
+  }
+
+  .text {
+    width: 70%;
+    font-weight: normal;
+    font-size: 16px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $title_color;
+    margin-left: 4px;
+  }
+
+  .multiLine-text {
+    height: 80%;
+  }
+
+  .label-custom-style {
+    padding-left: 12px;
+  }
+
+  .ok-icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      width: 18px;
+      height: 11px;
+
+      path {
+        stroke: $icon_color;
+      }
+    }
+  }
+
+  .delete-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    svg {
+      width: 20px;
+      height: 20px;
+
+      &:hover {
+        border-radius: 4px;
+        g {
+          path {
+            fill: $input-border-color;
+          }
+        }
+      }
+    }
+  }
+}

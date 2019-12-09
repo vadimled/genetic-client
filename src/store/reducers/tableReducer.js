@@ -1,7 +1,7 @@
 import createReducer from "./createReducer";
 import actionsTypes from "../actionsTypes";
 import { PRIORITY } from "../../utils/constants";
-import { CONFIRMATION_VALUES, SORTING_ORDER } from "Utils/constants";
+import { CONFIRMATION_VALUES, SORTING_ORDER, TEXTS } from "Utils/constants";
 
 const initialState = {
   serverData: {},
@@ -9,7 +9,8 @@ const initialState = {
   uncheckConfirmationData: null,
   sortParam: "priority",
   sortOrder: SORTING_ORDER.default,
-  isLoading: false
+  isLoading: false,
+  currentPage: 1
 };
 
 const tableReducer = createReducer(initialState, {
@@ -45,6 +46,7 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_SELECTED_ROW]: (state, { payload }) => {
+
     const { item, value } = payload;
     let data = state?.data;
 
@@ -57,6 +59,7 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.HANDLE_SELECT_ALL_ROWS]: (state, { payload }) => {
+
     let data = state?.data;
 
     for (let key in data) {
@@ -64,13 +67,8 @@ const tableReducer = createReducer(initialState, {
         let item = data[key];
 
         // if an item has already status we cannot select it to send for confirmation
-        if (!item.status) {
-          item.selected =
-            payload === false
-              ? // if all rows selected or on discarding
-              false
-              : // otherwise
-              true;
+        if (item.status === TEXTS.UNCHECK) {
+          item.selected = !payload;
         }
       }
     }
@@ -122,7 +120,7 @@ const tableReducer = createReducer(initialState, {
     };
   },
 
-  [actionsTypes.APPLY_CONFIRMATION]: (state, { payload }) => {
+  [actionsTypes.APPLY_CONFIRMATION_SUCCESS]: (state, { payload }) => {
     let data = state?.data;
     // payload includes confirmed rows
     payload.forEach(row => {
@@ -138,10 +136,12 @@ const tableReducer = createReducer(initialState, {
   },
 
   [actionsTypes.SET_CONFIRMATION_STATUS_TO_STORE]: (state, { payload }) => {
-    const { id, status } = payload;
+
+    const { variantId, status } = payload;
+
     let data = state?.data;
 
-    data[id].status = status;
+    data[variantId].status = status;
 
     return {
       ...state,
@@ -158,27 +158,9 @@ const tableReducer = createReducer(initialState, {
 
   [actionsTypes.TABLE_DATA_ADD_RESULT]: (state, { payload }) => {
     let data = {
-      [payload.id]: {
-        ...payload,
-        key: payload.id, // need for variantTable
-        isAdded: true // indicate that this row has added by user
-      },
-      ...state.data
-    };
-
-    return {
-      ...state,
-      data
-    };
-  },
-
-  [actionsTypes.TABLE_DATA_EDIT_RESULT]: (state, { payload }) => {
-    let data = {
       ...state.data,
       [payload.id]: {
         ...payload,
-        key: payload.id, // need for variantTable
-        isAdded: true // indicate that this row has added by user
       }
     };
 
@@ -186,7 +168,14 @@ const tableReducer = createReducer(initialState, {
       ...state,
       data
     };
-  }
+  },
+  
+  [actionsTypes.SET_TABLE_CURRENT_PAGE]: (state, { payload }) => {
+    return {
+      ...state,
+      currentPage: payload
+    };
+  },
 });
 
 export default tableReducer;
