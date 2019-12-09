@@ -280,12 +280,11 @@ class FinalReportVariantsTable extends Component {
   };
 
   render() {
-
     const {selectedVariants} = this.props;
 
     const columns = this.columnsConverter(this.state.columns);
 
-    if(!selectedVariants){
+    if (!selectedVariants) {
       return <div>no data</div>;
     }
 

@@ -162,6 +162,7 @@ export function exportTableApi(testId) {
     });
 }
 
+// User preferences
 export function updateUserPreferencesApi({ testId, preferences }) {
   return axios_based.put(`/tests/${testId}/preferences`, {
     preferences
@@ -172,6 +173,7 @@ export function fetchUserPreferencesApi({ testId }) {
   return axios_based.get(`/tests/${testId}/preferences`);
 }
 
+//
 export function fetchConfirmationMetadataApi(data) {
   return axios_based.get(`/confirmations/${data.payload}`);
 }
@@ -183,20 +185,19 @@ export function sendVariantToConfirmation(data) {
 }
 
 // Actionable Alterations
-export function fetchActionableAlterationsApi(data) {
-  return axios_based.get(`/tests/${data.payload}/actionablealterations`);
+export function fetchActionableAlterationsApi(params) {
+  const { testId } = params;
+  return axios_based.get(`/tests/${testId}/actionablealterations`);
 }
 
-export function postAtionableAlterationsApi(data) {
-  const {testId, mutation, variants_ids} = data.payload;
-  return axios_based.post(`/tests/${testId}/actionablealterations?mutation=${mutation}`, {variants_ids});
+export function postAtionableAlterationsApi(params) {
+  const { testId, mutation, variants_ids } = params;
+  return axios_based.post(`/tests/${testId}/actionablealterations?mutation=${mutation}`, { variants_ids });
 }
 
 export function deleteAtionableAlterationsApi(data) {
   const { testId, id } = data.payload;
-  return axios_based.delete(
-    `/tests/${testId}/actionablealterations/${id}`
-  );
+  return axios_based.delete(`/tests/${testId}/actionablealterations/${id}`);
 }
 
 export function patchActionableAlterationsApi(params) {
@@ -214,19 +215,28 @@ export function patchActionableAlterationsClinicalTrialsApi(params) {
   return axios_based.patch(`/tests/${testId}/actionablealterations/${actionableAlterationId}/clinical_trials/${actionablealterationClinicalTrialId}`, body);
 }
 
+// Uncertain clinical significance
+export function fetchUncertainClinicalSignificanceApi(params) {
+  const { testId } = params;
+  return axios_based.get(`/tests/${testId}/uncertain_clinical_significance`);
+}
 
+export function postUncertainClinicalSignificanceApi(params) {
+  const { testId, mutation, variants_ids } = params;
+  return axios_based.post(`/tests/${testId}/uncertain_clinical_significance?mutation=${mutation}`, { variants_ids });
+}
 
-
-export function fetchFinalReportClinicalDataApi(data) {
-  return axios_based.get(`/tests/${data.payload}/clinical`);
+export function deleteUncertainClinicalSignificanceApi(data) {
+  const { testId, id } = data.payload;
+  return axios_based.delete(`/tests/${testId}/uncertain_clinical_significance/${id}`);
 }
 
 export function fetchFinalReportMetadataApi(data) {
   return axios_based.get(`/tests/${data.payload}/final_report`);
 }
 
-export function fetchFinalReportVariantsApi (action) {
-  const { testId, mutation } = action.payload;
+export function fetchFinalReportVariantsApi(params) {
+  const { testId, mutation } = params;
   // return axios_based.get(`/tests/${testId}/variants?filter={"zygosity":["homo","hetero","hemi","somatic"],"germline_class":["path","lpath","vus","lben"],"somatic_class":["tier1","tier2","tier3"]}`, {
   //   params: {
   //     mutation
@@ -238,6 +248,20 @@ export function fetchFinalReportVariantsApi (action) {
       mutation
     }
   });
+}
+
+export function getTestReportApi(params) {
+  const { testId } = params;
+  return axios_based
+    .get(`/tests/${testId}/report`, { responseType: "blob" })
+    .then(response => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${testId}.docx`);
+      document.body.appendChild(link);
+      link.click();
+    });
 }
 
 

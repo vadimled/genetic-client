@@ -1,77 +1,12 @@
 import actionsTypes from "../actionsTypes";
 
-export const deleteActionableAlteration = data => {
-  return {
-    type: actionsTypes.DELETE_ACTIONABLE_ALTERATION,
-    payload: data
-  };
-};
-
-
-export const deleteActionableAlterationFromStore = data => {
-  return {
-    type: actionsTypes.DELETE_ACTIONABLE_ALTERATION_FROM_STORE,
-    payload: data
-  };
-};
-
-export function removeClinicalSelectedRowFromStore(data) {
-  return {
-    type: actionsTypes.REMOVE_CLINICAL_SELECTED_ROW_FROM_STORE,
-    payload: data
-  };
-}
-
+// Actionable Alterations
 export const fetchActionableAlterations = data => {
   return {
     type: actionsTypes.FETCH_ACTIONABLE_ALTERATIONS,
     payload: data
   };
 };
-
-export const fetchFinalReportClinicalData = data => {
-  return {
-    type: actionsTypes.FETCH_FINAL_REPORT_CLINICAL_DATA,
-    payload: data
-  };
-};
-
-export const handleSelectedRow = data => {
-  return {
-    type: actionsTypes.HANDLE_SELECTED_ROW,
-    payload: data
-  };
-};
-
-export const handleSelectAllRows = data => {
-  return {
-    type: actionsTypes.HANDLE_SELECT_ALL_ROWS,
-    payload: data
-  };
-};
-
-export function setVariantsDataToStore(data) {
-  return {
-    type: actionsTypes.SET_VARIANTS_DATA_TO_STORE,
-    payload: data
-  };
-}
-
-export function postAtionableAlterations(data) {
-
-  return {
-    type: actionsTypes.POST_ACTIONABLE_ALTERATIONS,
-    payload: data
-  };
-}
-
-export function fetchFinalReportVariants(data) {
-
-  return {
-    type: actionsTypes.FETCH_FINAL_REPORT_VARIANTS,
-    payload: data
-  };
-}
 
 export function setActionableAlterations(data) {
   return {
@@ -80,19 +15,40 @@ export function setActionableAlterations(data) {
   };
 }
 
-export function setFinalReportClinicalDataToStore(data) {
+export function postAtionableAlterations(data) {
   return {
-    type: actionsTypes.SET_FINAL_REPORT_CLINICAL_DATA_TO_STORE,
+    type: actionsTypes.POST_ACTIONABLE_ALTERATIONS,
     payload: data
   };
 }
 
-export function setFinalReportNavigationStatus(data) {
+export const deleteActionableAlteration = data => {
   return {
-    type: actionsTypes.SET_NAVIGATION_STATUS,
+    type: actionsTypes.DELETE_ACTIONABLE_ALTERATION,
     payload: data
   };
-}
+};
+
+export const deleteActionableAlterationFromStore = data => {
+  return {
+    type: actionsTypes.DELETE_ACTIONABLE_ALTERATION_FROM_STORE,
+    payload: data
+  };
+};
+
+export const handleFinalReportSelectedVariantsIdsForActionableAlterations = data => {
+  return {
+    type: actionsTypes.HANDLE_FINAL_REPORT_SELECTED_VARIANTS_IDS_FOR_ACTIONABLE_ALTERATIONS,
+    payload: data
+  };
+};
+
+export const handleFinalReportSelectAllVariantsForActionableAlterations = data => {
+  return {
+    type: actionsTypes.HANDLE_FINAL_REPORT_SELECT_ALL_VARIANTS_FOR_ACTIONABLE_ALTERATIONS,
+    payload: data
+  };
+};
 
 export function setSelectedActionableAlterationId(id) {
   return {
@@ -129,9 +85,9 @@ export function setActionableAlterationExpandedInterpretation(data) {
 //   };
 // }
 
-export function setIsSelectVariants() {
+export function setIsSelectVariantsForActionableAlterations() {
   return {
-    type: actionsTypes.SET_IS_SELECT_VARIANTS
+    type: actionsTypes.SET_IS_SELECT_VARIANTS_FOR_ACTIONABLE_ALTERATIONS
   };
 }
 
@@ -169,3 +125,108 @@ export function setActionableAlterationClinicalTrialToStore(data) {
 //     payload: data
 //   };
 // }
+export function setSearchTextForFinalReportActionableAlterationsTable(data) {
+  return {
+    type: actionsTypes.SET_SEARCH_TEXT_FOR_FINAL_REPORT_ACTIONABLE_ALTERATIONS_TABLE,
+    payload: data
+  };
+}
+// -- Actionable Alterations
+
+
+
+
+// Uncertain Clinical Significance
+export const fetchUncertainClinicalSignificance = data => {
+  return {
+    type: actionsTypes.FETCH_UNCERTAIN_CLINICAL_SIGNIFICANCE,
+    payload: data
+  };
+};
+
+export function setFinalReportUncertainClinicalSignificanceToStore(data) {
+  return {
+    type: actionsTypes.SET_FINAL_REPORT_UNCERTAIN_CLINICAL_SIGNIFICANCE_TO_STORE,
+    payload: data
+  };
+}
+
+export function setIsSelectVariantsForUncertainClinicalSignificance(data) {
+  return {
+    type: actionsTypes.SET_IS_SELECT_VARIANTS_FOR_UNCERTAIN_CLINICAL_SIGNIFICANCE,
+    payload: data
+  };
+}
+
+export function handleFinalReportSelectedVariantsIdsForUncertainClinicalSignificance(data) {
+  return {
+    type: actionsTypes.HANDLE_FINAL_REPORT_SELECTED_VARIANTS_IDS_FOR_UNCERTAIN_CLINICAL_SIGNIFICANCE,
+    payload: data
+  };
+}
+
+export function handleFinalReportSelectAllVariantsForUncertainClinicalSignificance(data) {
+  return {
+    type: actionsTypes.HANDLE_FINAL_REPORT_SELECT_ALL_VARIANTS_FOR_UNCERTAIN_CLINICAL_SIGNIFICANCE,
+    payload: data
+  };
+}
+
+export function postUncertainClinicalSignificance(data) {
+  return {
+    type: actionsTypes.POST_UNCERTAIN_CLINICAL_SIGNIFICANCE,
+    payload: data
+  };
+}
+
+export function deleteUncertainClinicalSignificance(data) {
+  return {
+    type: actionsTypes.DELETE_UNCERTAIN_CLINICAL_SIGNIFICANCE,
+    payload: data
+  };
+}
+
+export function deleteUncertainClinicalSignificanceFromStore(data) {
+  return {
+    type: actionsTypes.DELETE_UNCERTAIN_CLINICAL_SIGNIFICANCE_FROM_STORE,
+    payload: data
+  };
+}
+
+export function setSearchTextForFinalReportUncertainClinicalSignificanceTable(data) {
+  return {
+    type: actionsTypes.SET_SEARCH_TEXT_FOR_FINAL_REPORT_UNCERTAIN_CLINICAL_SIGNIFICANCE_TABLE,
+    payload: data
+  };
+}
+// -- Uncertain Clinical Significance
+
+
+export function fetchFinalReportVariants(data) {
+  return {
+    type: actionsTypes.FETCH_FINAL_REPORT_VARIANTS,
+    payload: data
+  };
+}
+
+export function setFinalReportDnaVariantsToStore(data) {
+  return {
+    type: actionsTypes.SET_FINAL_REPORT_DNA_VARIANTS_TO_STORE,
+    payload: data
+  };
+}
+
+export function setFinalReportNavigationValue(data) {
+  return {
+    type: actionsTypes.SET_FINAL_REPORT_NAVIGATION_VALUE,
+    payload: data
+  };
+}
+
+export function getTestReport(data) {
+  return {
+    type: actionsTypes.GET_TEST_REPORT,
+    payload: data
+  };
+}
+
