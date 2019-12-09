@@ -994,7 +994,7 @@ export const setDefaultZygosity = variant => {
   return variant;
 };
 
-export const createEvidenceTableData = (category, tabContent) => {
+export const createEvidenceTableData = (category, tabContent, phenotype) => {
   const obj = Object.keys(tabContent).reduce((accum, val, index) => {
     if (tabContent[val].category === category) {
       const newObj = Object.assign(
@@ -1009,7 +1009,11 @@ export const createEvidenceTableData = (category, tabContent) => {
     }
     return accum;
   }, {});
-  return getDataArray(obj);
+  const dataAsArray = getDataArray(obj);
+  if (phenotype) {
+    return dataAsArray.filter(item => item.phenotype === phenotype);
+  }
+  return dataAsArray;
 };
 
 export const getEvidenceData = data => {
@@ -1238,6 +1242,7 @@ export const getHistoryTableData = (data, type, testsList) => {
         { key: index + 1 },
         { created_at: val.created_at },
         { gsid: val.gsid },
+        { phenotype: val.phenotype },
         { class: val.class },
         { analystName: val.user?.name },
         {testId}

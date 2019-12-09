@@ -18,6 +18,7 @@ const initialState = {
   evidenceIsPhenotypeAndIndicationMatchSelect: null,
   evidenceLocationSelect: null,
   evidencePhenotypeInput: null,
+  selectedCurrentEvidencePhenotype: null,
 };
 
 const evidenceConfigReducer = createReducer(initialState, {
@@ -82,9 +83,18 @@ const evidenceConfigReducer = createReducer(initialState, {
   [actionsTypes.SET_CURRENT_EVIDENCE_TAB]: (state, { payload }) => {
     return {
       ...state,
-      currentEvidenceTab: payload || "1"
+      currentEvidenceTab: payload || "1",
+      selectedCurrentEvidencePhenotype: null
     };
-  }
+  },
+
+  [actionsTypes.SET_SELECTED_CURRENT_EVIDENCE_PHENOTYPE]: (state, { payload }) => {
+    return {
+      ...state,
+      selectedCurrentEvidencePhenotype: payload
+    };
+  },
+
 });
 
 export default evidenceConfigReducer;

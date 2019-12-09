@@ -29,15 +29,21 @@ class ClassificationHistoryTable extends Component {
         width: 300
       },
       {
+        title: "phenotype",
+        dataIndex: "phenotype",
+        key: "3",
+        width: 300
+      },
+      {
         title: "Analyst Name",
         dataIndex: "analystName",
-        key: "3",
+        key: "4",
         width: 400
       },
       {
         title: "Class",
         dataIndex: "class",
-        key: "4",
+        key: "5",
         width: 400
       }
     ],
@@ -123,9 +129,6 @@ class ClassificationHistoryTable extends Component {
 
     return (
       <div className={style["classification-history-wrapper"]}>
-        <div className="classification-history-title">
-          Classification History
-        </div>
         {!length ? (
           <div className="empty-state">
             <EmptyState

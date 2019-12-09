@@ -18,7 +18,7 @@ import {
   getSomaticValue,
   getVariantId,
   getVariantPageTestId,
-  getZygosityType
+  getSelectedZygosityType
 } from "Store/selectors";
 import ZygosityButtonWithReconfirmText from "variantComponents/zygosityButtonWithReconfirmText";
 import { withRouter } from "react-router-dom";
@@ -174,7 +174,7 @@ VariantClassificationContainer.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    selectedZygosityType: getZygosityType(state),
+    selectedZygosityType: getSelectedZygosityType(state),
     currentZygosityType: zygosityTypeByName(getCurrentZygosityType(state)),
     somaticValue: getSomaticValue(state),
     germlineValue: getGermlineValue(state),
