@@ -221,7 +221,7 @@ const getAppliedFilters = createSelector(
       ...(effect.length && {
         effect: item =>
           effect.some(
-            filter => item.effect.toLowerCase() === filter.toLowerCase()
+            filter => item?.effect?.toLowerCase() === filter?.toLowerCase()
           )
       })
     };
