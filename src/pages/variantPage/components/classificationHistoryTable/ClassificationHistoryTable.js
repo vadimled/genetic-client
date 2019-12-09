@@ -129,9 +129,6 @@ class ClassificationHistoryTable extends Component {
 
     return (
       <div className={style["classification-history-wrapper"]}>
-        <div className="classification-history-title">
-          Classification History
-        </div>
         {!length ? (
           <div className="empty-state">
             <EmptyState

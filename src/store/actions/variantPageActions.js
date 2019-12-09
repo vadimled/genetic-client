@@ -132,3 +132,10 @@ export const setReconfirmStatus = data => {
     payload: data
   };
 };
+
+export const setCurrentClassificationHistoryPhenotype = data => {
+  return {
+    type: actionsTypes.SET_CURRENT_CLASSIFICATION_HISTORY_PHENOTYPE,
+    payload: data
+  };
+};
