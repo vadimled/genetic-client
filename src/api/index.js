@@ -65,8 +65,8 @@ export function editResultApi(data) {
   });
 }
 
-export function fetchTestMetadataApi(id) {
-  return axios_based.get(`/tests/${id.payload}`);
+export function fetchTestMetadataApi({ id }) {
+  return axios_based.get(`/tests/${id}`);
 }
 
 export function setTumorInfoApi(data) {

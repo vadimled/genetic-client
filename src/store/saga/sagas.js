@@ -515,7 +515,8 @@ export function* setNotesSaga(data) {
 export function* fetchTestMetadataSaga(action) {
   try {
     yield put(setLoading(true));
-    const { data } = yield call(fetchTestMetadataApi, action);
+    const { payload } = action;
+    const { data } = yield call(fetchTestMetadataApi, { id: payload });
     yield put(setTestData(data));
     yield put(setMutationType(data?.mutation_types[0]));
     yield put(setBamUrlToStore(data));
@@ -582,7 +583,6 @@ export function* saveTestPhenotypeSaga(action) {
     const { payload: { testId, phenotype }} = action;
 
     yield put(setLoading(true));
-    console.log(action);
     const { data } = yield call(patchTestApi, {
       testId,
       data: {
@@ -745,11 +745,16 @@ export function* fetchClassificationHistorySaga(action) {
 }
 
 export function* exportTableSaga(action) {
-  const testId = action.payload;
-
   try {
+    const testId = action.payload;
+
     yield put(setTableReducerLoading(true));
     yield call(exportTableApi, testId);
+
+    // update test data
+    const { data } = yield call(fetchTestMetadataApi, { id: testId });
+    yield put(setTestData(data));
+
     yield put(setTableReducerLoading(false));
   } catch (e) {
     yield put(setTableReducerLoading(false));
