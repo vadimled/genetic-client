@@ -16,7 +16,7 @@ exports[`<ActionableDetailsTabPaneHeader /> snapshot 1`] = `
       <div
         class="amount"
       >
-        (5)
+        5
       </div>
     </div>
   </div>
