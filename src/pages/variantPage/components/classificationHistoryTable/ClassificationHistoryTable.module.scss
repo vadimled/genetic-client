@@ -3,7 +3,6 @@
 .classification-history-wrapper :global {
   width: 100%;
   height: auto;
-  border-bottom: 1px solid $border_color;
   overflow: hidden !important;
 
   .empty-state {
@@ -41,7 +40,39 @@
       overflow-y: scroll !important;
     }
   }
-  .label-custom-style {
-    padding-left: 12px;
+
+  .ant-table-thead > tr > th {
+    background-color: white;
+    color: $a-color-black-n30;
+    font-weight: bold;
+    font-size: 12px !important;
+    line-height: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 10px 15px;
+  }
+
+  .n-table-cell {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .see-all-btn {
+    display: flex;
+    justify-content: center;
+
+    & > div {
+      width: 100px;
+
+      .label {
+        font-size: 12px;
+        line-height: 16px;
+        text-transform: uppercase;
+      }
+
+      .icon {
+        display: none;
+      }
+    }
   }
 }

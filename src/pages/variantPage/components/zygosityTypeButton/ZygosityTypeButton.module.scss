@@ -3,7 +3,7 @@
 .zygosity-type-button-wrapper :global {
   .zygosity-type-button {
     position: relative;
-    border-radius: 5px;
+    border-radius: 0px;
     background-color: $brand_primary_color !important;
     cursor: pointer;
 
@@ -11,10 +11,10 @@
       display: block;
       position: absolute;
       right: 34%;
-      top: 4px;
-      font-weight: 600;
-      font-size: 22px;
-      line-height: 100%;
+      top: 10px;
+      font-weight: 300;
+      font-size: 10px;
+      line-height: 16px;
       color: $white;
 
       &.active {
@@ -43,8 +43,8 @@
     .select-header-text-style {
       color: $white !important;
       font-weight: 600;
-      font-size: 22px;
-      line-height: 100%;
+      font-size: 16px;
+      line-height: 22px;
 
       &.active {
         color: $neutral_30 !important;
@@ -52,7 +52,7 @@
     }
 
     &.active {
-      background: none !important;
+      background: $a-color-grey-n5 !important;
       color: $neutral_30;
 
       svg path {

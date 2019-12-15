@@ -1,52 +1,99 @@
 @import "Css/Colors.scss";
 
-.evidence-table-wrapper :global {
-  width: 100%;
-  height: auto;
-  border-bottom: 1px solid $border_color;
-  overflow: hidden !important;
-
-  .empty-state {
-    height: 177px;
+.new-table :global {
+  .ant-table-fixed {
+    table-layout: fixed !important;
   }
 
-  /*
+  .ant-table-empty {
+    .ant-table-body {
+      overflow-y: hidden !important;
+    }
+  }
 
-  ant-table ant-table-default ant-table-bordered ant-table-fixed-header ant-table-scroll-position-left
-  */
-  .ant-table-wrapper {
-    -webkit-transition: all 0.4s ease;
-    -moz-transition: all 0.4s ease;
-    transition: all 0.4s ease;
+  .ant-table-thead > tr > th {
+    height: 64px;
+    background-color: $a-color-grey-n5;
+    font-size: 14px !important;
+    padding: 15px;
+
+    &:first-child {
+      padding-left: 60px;
+    }
+    &:last-child {
+      padding-right: 60px;
+    }
+  }
+
+  .ant-table-tbody > tr > td {
+    &:first-child {
+      padding-left: 45px;
+    }
+    &:last-child {
+      padding-right: 45px;
+    }
+  }
+
+  .multiLine-text {
+    height: 80%;
+    font-size: 14px !important;
+  }
+
+  .label-tag {
+    .label-text {
+      font-size: 12px;
+      font-weight: bold;
+      color: $title_color;
+    }
+  }
+
+  .ok-icon {
     width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    &.evidence-ant-table-wrapper {
-      overflow-y: scroll;
-      overflow-x: hidden !important;
+    svg {
+      width: 18px;
+      height: 11px;
 
-      .ant-table-content {
-        .ant-table-scroll {
-          overflow: hidden !important;
-          -webkit-transition: all 0.4s ease;
-          -moz-transition: all 0.4s ease;
-          transition: all 0.4s ease;
+      path {
+        stroke: $icon_color;
+      }
+    }
+  }
 
-          .ant-table-body {
-            //max-height: 255px !important;
-            height: 145px !important;
+  .delete-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    svg {
+      width: 15px;
+      height: 15px;
+
+      &:hover {
+        border-radius: 4px;
+        g {
+          path {
+            fill: $input-border-color;
           }
         }
       }
     }
   }
 
-  .evidence-level-text {
-    padding-left: 26px;
-    font-weight: 600;
-    font-size: 22px;
+  .n-table-cell {
+    padding: 10px 15px;
+    font-size: 14px;
   }
+}
 
-  .evidence-table-text {
-    padding: 0 16px;
-  }
+.evidence-table-wrapper :global {
+  width: 100%;
+  height: auto;
+  overflow: hidden !important;
 }

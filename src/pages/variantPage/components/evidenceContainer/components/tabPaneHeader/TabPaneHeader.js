@@ -7,7 +7,7 @@ const TabPaneHeader = ({title, amount }) => {
     <div className={style["tab-pane-content-wrapper"]}>
       <div className="flex flex-row justify-start content-center">
         <div className="title">{title}</div>
-        <div className="amount">{`(${amount})`}</div>
+        {!!amount && <div className="amount">{`${amount}`}</div>}
       </div>
     </div>
   );

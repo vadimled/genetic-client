@@ -993,36 +993,6 @@ th {
   }
 }
 
-//.ant-table-content {
-//  transition: all 0.4s ease;
-//  max-height: calc(100vh - #{$heightTableContent});
-//
-//  .ant-table-scroll {
-//    height: calc(100vh - #{$heightTableContent});
-//    overflow-x: auto !important;
-//
-//    .ant-table-body {
-//      height: calc(100vh - #{$heightTableBody}) !important;
-//      transition: all 0.4s ease;
-//    }
-//    table {
-//      transition: 0.4s ease;
-//      transform: translate(0px, 0px);
-//      width: max-content;
-//    }
-//  }
-//  .ant-table-fixed-left {
-//    height: calc(100vh - 171px);
-//    transition: all 0.4s ease;
-//  }
-//
-//  .ant-table-body-inner {
-//    height: calc(100vh - #{$heightTableBody}) !important;
-//  }
-//  .ant-table-fixed {
-//  }
-//}
-
 .ant-table-bordered .ant-table-thead > tr > th,
 .ant-table-bordered .ant-table-tbody > tr > td {
   min-width: 90px;
@@ -1184,12 +1154,15 @@ th {
 
 .zygosity-type-radio-group {
   .ant-select.ant-select-enabled {
-    width: 200px;
-    height: 54px;
+    width: 120px;
+    height: 60px;
+  }
+  .ant-select-selection {
+    border: 1px solid $a-color-black-n10;
   }
   .ant-select-selection.ant-select-selection--single {
     height: 100% !important;
-    border-radius: 5px !important;
+    border-radius: 0px !important;
 
     svg path {
       fill: white;
@@ -1200,9 +1173,11 @@ th {
       align-items: flex-end;
       left: -11px;
       height: 100%;
+      padding-right: 0px;
+
       font-weight: 600;
-      font-size: 22px;
-      line-height: 100%;
+      font-size: 16px;
+      line-height: 24px;
       color: $white;
 
       .ant-select-selection-selected-value {
@@ -1210,6 +1185,7 @@ th {
         justify-content: center;
         align-items: baseline;
         margin: 4px auto;
+        margin-bottom: 10px;
         overflow: hidden;
         white-space: unset;
         text-overflow: unset;
@@ -1221,6 +1197,11 @@ th {
           color: $white !important;
         }
       }
+    }
+
+    .ant-select-arrow {
+      top: 40px;
+      right: -2px;
     }
   }
 }

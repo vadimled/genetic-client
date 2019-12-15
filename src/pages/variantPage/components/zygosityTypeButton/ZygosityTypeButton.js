@@ -1,7 +1,7 @@
 import React, { Fragment, memo, useState } from "react";
 import cn from "classnames";
 import SimpleSelect from "GenericComponents/simpleSelect/SimpleSelect";
-import { ReactComponent as EditIcon } from "Assets/edit.svg";
+import { ReactComponent as EditIcon } from "Assets/icon-small-arrow.svg";
 import NonActiveButton from "variantComponents/nonActiveButton";
 import style from "./ZygosityTypeButton.module.scss";
 import PropTypes from "prop-types";

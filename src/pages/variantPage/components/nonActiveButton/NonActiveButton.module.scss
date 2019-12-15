@@ -4,25 +4,25 @@
   display: flex;
   position: relative;
   .select-non-active {
-    width: 200px;
-    height: 54px;
-    background: none;
+    width: 120px;
+    height: 60px;
+    background: $a-color-grey-n5;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: $brand_primary_color 1px solid;
-    border-radius: 5px;
-    padding-right: 30px;
+    border-radius: 0px;
+    border: 1px solid $a-color-black-n10;
 
     &.active {
       background-color: $brand_primary_color;
     }
 
     .select-non-active-title {
-      margin-top: 2px;
+      margin-top: 10px;
+
       font-weight: 600;
-      font-size: 22px;
-      line-height: 100%;
+      font-size: 10px;
+      line-height: 16px;
       text-align: center;
       color: $neutral_30;
 
@@ -35,7 +35,6 @@
       display: flex;
       justify-content: center;
       align-items: baseline;
-      height: 100%;
 
       .label-custom-style {
         font-weight: 600;
@@ -59,8 +58,8 @@
       }
       .label-text {
         font-weight: 600;
-        font-size: 22px;
-        line-height: 100%;
+        font-size: 16px;
+        line-height: 22px;
         color: $neutral_30;
       }
     }
