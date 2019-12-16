@@ -4,13 +4,14 @@ import HeaderIcon from "GenericComponents/headerIcon";
 import { ReactComponent as NotificationIcon } from "Assets/notifications.svg";
 import { ReactComponent as InfoIcon } from "Assets/info.svg";
 import User from "Pages/singleTestPage/components/header/components/user";
-import { getGSID, getTestId, getTumorInfoMode } from "Store/selectors";
+import { getTestGsid, getTestId, getTumorInfoMode, getTestPhenotype, getTestExportedAt } from "Store/selectors";
 import { setTumorInfoMode } from "Actions/testActions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { TEXTS } from "Utils/constants";
 import { layout } from "Utils/helpers";
 import GoBackButton from "Pages/singleTestPage/components/header/components/goBackButton";
+import LockImg from 'Assets/lock.svg';
 
 class Header extends Component {
   constructor(props) {
@@ -42,7 +43,14 @@ class Header extends Component {
   };
 
   render() {
-    const { testId, location, gsId } = this.props;
+    const {
+      testId,
+      location,
+      gsId,
+      phenotype ,
+      isTestExported
+    } = this.props;
+
     return (
       <div className={style["header-wrapper"]}>
         <div className="flex justify-start flex-row items-center">
@@ -58,14 +66,26 @@ class Header extends Component {
             />
           </div>
           {!layout(location.pathname, TEXTS.testsPage) && (
-            <div className="left-wrapper">{gsId}</div>
+            <Fragment>
+              <div className="left-wrapper">{gsId}</div>
+              {isTestExported && <div className="left-wrapper">
+                <div
+                  className="lock-img"
+                  style={{
+                    backgroundImage: `url(${LockImg})`
+                  }}
+                />
+              </div>}
+              <div className="left-wrapper">{phenotype}</div>
+            </Fragment>
           )}
         </div>
         <div className="flex justify-start flex-row">
           {!this.isMVP
             ? this.renderInfoIcon()
             : layout(location.pathname, TEXTS.singleTestPage) &&
-              this.renderInfoIcon()}
+              this.renderInfoIcon()
+          }
           {!this.isMVP && (
             <Fragment>
               <div className="right-side-item">
@@ -97,7 +117,9 @@ const mapStateToProps = state => {
   return {
     showTumorInfo: getTumorInfoMode(state),
     testId: getTestId(state),
-    gsId: getGSID(state)
+    gsId: getTestGsid(state),
+    phenotype: getTestPhenotype(state),
+    isTestExported: !!getTestExportedAt(state),
   };
 };
 

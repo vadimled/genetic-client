@@ -79,7 +79,6 @@ class SingleTestPage extends Component {
       testId,
     } = this.props;
 
-
     return (
       <div className={style["main-page"]}>
         <div

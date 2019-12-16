@@ -35,6 +35,14 @@
         background-color: $brand_primary_hover_color;
       }
     }
+
+    .lock-img {
+      width: 24px;
+      height: 24px;
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
   }
 
   .right-side-item {
