@@ -55,26 +55,25 @@
       // flex-direction: column;
 
       .history {
-        width: calc(100% - 40px);
-        padding: 15px 15px 15px 40px;
+        width: 100%;
+        padding: 15px 60px;
         max-height: 455px;
         box-sizing: border-box;
 
         &.links-wrapper-open {
-          width: calc(100% - 218px);
+          width: calc(100% - 179px);
           transition: 0.4s ease-in;
         }
       }
       .evidence {
-        width: calc(100% - 40px);
-        padding: 15px 15px 15px 40px;
+        width: 100%;
         max-height: 455px;
         overflow: hidden;
         box-sizing: border-box;
         transition: 0.3s ease-in;
 
         &.links-wrapper-open {
-          width: calc(100% - 203px);
+          width: calc(100% - 179px);
           transition: 0.4s ease-in;
         }
       }
@@ -88,10 +87,11 @@
   margin-bottom: 12px;
 
   .classification-history-title {
-    text-align: left;
-    font-weight: normal;
-    font-size: 18px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
     color: $title_color;
+    text-transform: uppercase;
   }
 
   .toolbar-select {

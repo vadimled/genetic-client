@@ -6,7 +6,6 @@ import { Table } from "antd";
 import style from "./EvidenceTable.module.scss";
 import defaultImage from "Assets/smallEmptyState.svg";
 
-import ResizeableTitle from "GenericComponents/variantTable/components/resizeableTitle";
 import EmptyState from "GenericComponents/emptyState/EmptyState";
 import TableDateAndUser from "variantComponents/evidenceContainer/components/tableDateAndUser";
 import TableSourceDescription from "variantComponents/evidenceContainer/components/tableSourceDescription";
@@ -21,7 +20,6 @@ import {
 import { createEvidenceTableData } from "Utils/helpers";
 import { getCurrentEvidenceData, getSelectedCurrentEvidencePhenotype } from "Store/selectors";
 
-
 class EvidenceTable extends Component {
   constructor(props) {
     super(props);
@@ -31,66 +29,49 @@ class EvidenceTable extends Component {
     };
   }
 
-  components = {
-    header: {
-      cell: ResizeableTitle
-    }
-  };
-
-  handleResize = index => (e, { size }) => {
-    this.setState(({ columns }) => {
-      const nextColumns = [...columns];
-      nextColumns[index] = {
-        ...nextColumns[index],
-        width: size.width
-      };
-      return { columns: nextColumns };
-    });
-  };
-
   columnsConverter = columns => {
     const { handleDeleteEntry, handleEditEntry } = this.props;
-    return columns.map((col, index) => {
-      let column = {
-        ...col,
-        onHeaderCell: column => ({
-          width: column.width,
-          onResize: this.handleResize(index)
-        })
-      };
-      if (col.dataIndex === "created_at") {
+    return columns.map((column) => {
+
+      if (column.dataIndex === "created_at") {
         column.render = (date, obj) => {
-          return <TableDateAndUser date={date} user={obj.user} />;
-        };
-      } else if (col.dataIndex === "source_description") {
-        column.render = (text, obj) => {
           return (
-            <TableSourceDescription
-              source={obj.source}
-              description={obj.description}
-            />
+            <div className="n-table-cell">
+              <TableDateAndUser date={date} user={obj.user} />
+            </div>
           );
         };
-      } else if (col.dataIndex === "level") {
+      } else if (column.dataIndex === "source_description") {
+        column.render = (text, obj) => {
+          return (
+            <div className="n-table-cell">
+              <TableSourceDescription
+                source={obj.source}
+                description={obj.description}
+              />
+            </div>
+          );
+        };
+      } else if (column.dataIndex === "level") {
         column.render = level => {
           return <TableLevel
             level={level}
-            className="evidence-level-text"
+            className="n-table-cell"
           />;
         };
-      } else if (col.dataIndex === "location") {
+      } else if (column.dataIndex === "location") {
         column.render = (text) => {
           const country = COUNTRIES.find(cntr => cntr.value === text);
-          return <div className="evidence-table-text">
+          return <div className="n-table-cell">
             {country?.label || ''}
           </div>;
         };
-      } else if (col.dataIndex === "trial_id") {
+      } else if (column.dataIndex === "trial_id") {
         column.render = (text, obj) => {
           if (obj?.source?.trim() === 'clinicaltrials.gov') {
             text = text.trim();
             return (
-              <div className="evidence-table-text">
+              <div className="n-table-cell">
                 <a href={`https://clinicaltrials.gov/ct2/show/${text}`}>
                   {`https://clinicaltrials.gov/ct2/show/${text}`}
                 </a>
@@ -101,47 +82,53 @@ class EvidenceTable extends Component {
             {text}
           </div>;
         };
-      } else if (col.dataIndex === "reference") {
+      } else if (column.dataIndex === "reference") {
         column.render = (text, obj) => {
           const arrayOfReferences = text?.split(',');
           if (!arrayOfReferences){
             return null;
           }
           if (obj?.source?.trim()?.toLowerCase() === 'pumbed') {
-            return arrayOfReferences.map((reference, index) => {
-              reference = reference.trim();
-              return (
-                <div className="evidence-table-text" key={index}>
-                  <a href={`https://www.ncbi.nlm.nih.gov/pubmed/${reference}`}>
-                    {`https://www.ncbi.nlm.nih.gov/pubmed/${reference}`}
-                  </a>
-                </div>
-              );
-            });
+            return <div className="n-table-cell">
+              {arrayOfReferences.map((reference, index) => {
+                reference = reference.trim();
+                return (
+                  <div key={index}>
+                    <a href={`https://www.ncbi.nlm.nih.gov/pubmed/${reference}`}>
+                      {`https://www.ncbi.nlm.nih.gov/pubmed/${reference}`}
+                    </a>
+                  </div>
+                );
+              })}
+            </div>;
           }
-          return arrayOfReferences.map((reference, index) => <div className="evidence-table-text" key={index}>
-            {reference}
-          </div>);
+          return <div className="n-table-cell">
+            {arrayOfReferences.map((reference, index) => <div key={index}>
+              {reference}
+            </div>)}
+          </div>;
         };
-      } else if (col.dataIndex === "is_phenotype_and_indication_match") {
+      } else if (column.dataIndex === "is_phenotype_and_indication_match") {
         column.render = (text) => {
           return (
             <TableMatch match={text}/>
           );
         };
-      } else if (col.dataIndex === "actions") {
+      } else if (column.dataIndex === "actions") {
         column.render = (text, obj) => {
           return (
-            <TableActions
-              onDelete={e => handleDeleteEntry(e, obj.id)}
-              onEdit={e => handleEditEntry(e, obj.id)}
-            />
+            <div className="n-table-cell">
+              <TableActions
+                onDelete={e => handleDeleteEntry(e, obj.id)}
+                onEdit={e => handleEditEntry(e, obj.id)}
+              />
+            </div>
           );
         };
       } else {
         column.render = (text) => {
           return (
-            <div className="evidence-table-text">
+            <div className="n-table-cell">
               {text}
             </div>
           );
@@ -172,13 +159,11 @@ class EvidenceTable extends Component {
         ) : (
           <Fragment>
             <Table
-              className={"evidence-ant-table-wrapper"}
-              components={this.components}
+              className={style["new-table"]}
               pagination={false}
-              bordered
               columns={columns}
               dataSource={this.data}
-              scroll={{ y: "240px" }}
+              // scroll={{ x: "max-content", y: "false" }}
             />
           </Fragment>
         )}

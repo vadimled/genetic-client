@@ -3,16 +3,28 @@
 .tab-pane-content-wrapper :global {
   width: 100%;
   height: auto;
-  .title {
-    font-weight: bold;
-    font-size: 14px;
-    color: $title_color;
-    margin-right: 4px;
-  }
+  position: relative;
 
+  .title {
+    color: $a-color-black-n30;
+    font-size: 12px;
+    line-height: 16px;
+  }
   .amount {
-    font-weight: bold;
-    font-size: 14px;
-    color: $brand_primary_color;
+    background-color: $a-color-green-n1;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    right: -14px;
+    top: -7px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 10px;
+    line-height: 16px;
+    color: white;
   }
 }

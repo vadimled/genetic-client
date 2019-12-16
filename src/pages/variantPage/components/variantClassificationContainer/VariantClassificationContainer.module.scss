@@ -4,7 +4,7 @@
   display: flex;
   justify-content: right;
   flex-direction: column;
-  width: 100%;
+  width: 295px;
   height: 100%;
   padding-right: 55px;
   align-items: center;
@@ -13,24 +13,20 @@
 
   .current-zygosity-wrapper {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     flex-direction: row;
     align-items: center;
     width: 100%;
-    padding-right: 140px;
 
     .title {
-      font-size: 14px;
-      line-height: 131.99%;
-      text-align: center;
-      color: $title_color;
+      font-size: 10px;
+      line-height: 16px;
+      color: $a-color-black-n30;
     }
     .context {
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 131.99%;
-      text-align: center;
-      color: $brand_primary_color;
+      font-size: 10px;
+      line-height: 16px;
+      color: $a-color-black-n30;
       padding-left: 5px;
     }
   }
@@ -41,10 +37,6 @@
     justify-content: flex-end;
     margin-top: 8px;
     flex-direction: row;
-
-    .first-button {
-      margin-right: 18px;
-    }
 
     .reconfirm-wrapper {
       display: flex;

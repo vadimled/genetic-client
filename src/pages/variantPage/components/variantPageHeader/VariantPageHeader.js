@@ -23,43 +23,43 @@ const VariantPageHeader = ({
     transcript,
     alleleChangeLong
   } = variantData || {};
-  
+
   const externalHandler = () => {
     onChrPosition(chrPosition);
   };
-  
+
   return (
     <div className={style["variant-page-header-wrapper"]}>
       <div className="left-data-wrapper">
         <div className="left-data">
-          <div className="gene">
+          <div className="cell">
             <InformField name="inform-field-gene" text={gene} />
           </div>
-          <div className="gene">
+          <div className="cell">
             <InformField name="inform-field-protein" text={protein} />
           </div>
-          <div className="gene gene-external-link">
+          <div className="cell cell-external-link">
             <ExternalLink
               name={"chrPosition"}
               data={chrPosition}
               externalHandler={externalHandler}
             />
           </div>
-          <div className="gene">
+          <div className="cell">
             <InformField
               name="inform-field-alleleChange"
               text={alleleChange}
               tooltip={alleleChangeLong}
             />
           </div>
-          <div className="gene">
+          <div className="cell">
             <InformField
               name="inform-field-coding"
               text={coding}
               tooltip={codingLong}
             />
           </div>
-          <div className="gene">
+          <div className="cell">
             <InformField name="inform-field-transcript" text={transcript} />
           </div>
         </div>
