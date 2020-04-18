@@ -208,7 +208,7 @@ const ActionAddEditEvidence = ({
         <div className="form-item">
           <label htmlFor={"evidence-description-textarea"}>Description</label>
           <TextArea
-            autosize
+            autoSize
             value={descriptionValue}
             name={"evidenceDescriptionTextarea"}
             onChange={onChange}

@@ -11,7 +11,7 @@ import TableData from "./components/tableData";
 import IgvAlertPopup from "./components/igvAlertPopup";
 import SendForConfirmationPopup from "./components/sendForConfirmationPopup";
 import UncheckConfirmationPopup from "./components/uncheckConfirmationPopup";
-import SetTestPhenotype from './components/setTestPhenotypePopup';
+// import SetTestPhenotype from './components/setTestPhenotypePopup';
 import Alert from "GenericComponents/alert";
 import TumorToolbar from "Pages/singleTestPage/components/tumorToolbar";
 import {
@@ -74,9 +74,9 @@ class SingleTestPage extends Component {
       alertMessage,
       setAlert,
       showTumorInfo,
-      isLoading,
-      testPhenotype,
-      testId,
+      isLoading
+      // testPhenotype,
+      // testId,
     } = this.props;
 
     return (
@@ -126,9 +126,6 @@ class SingleTestPage extends Component {
             onClose={setAlert.bind(null, null)}
           />
         )}
-        {!testPhenotype && testId &&
-          <SetTestPhenotype testId={testId} />
-        }
       </div>
     );
   }

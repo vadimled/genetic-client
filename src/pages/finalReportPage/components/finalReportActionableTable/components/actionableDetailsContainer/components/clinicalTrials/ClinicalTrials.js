@@ -80,7 +80,7 @@ class ClinicalTrials extends Component {
             <div className="textarea">
               <TextArea
                 id={record.id}
-                autosize
+                autoSize
                 value={record.description}
                 onChange={this.props.onChange.bind(null, 'description')}
                 placeholder={"Type here"}

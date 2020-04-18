@@ -22,7 +22,7 @@ const EditNotes = ({
           help={validateStatus.errorMsg}
         >
           <TextArea
-            autosize
+            autoSize
             autoFocus
             value={notesValue}
             onChange={handleOnChange}

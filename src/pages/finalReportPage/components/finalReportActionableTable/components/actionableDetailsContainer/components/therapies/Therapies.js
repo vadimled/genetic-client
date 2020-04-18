@@ -15,7 +15,7 @@ const Therapies = ({ data, onChange }) => {
         <div className="therapy-info-col">
           <TextArea
             id={id}
-            autosize
+            autoSize
             value={description}
             onChange={onChange}
             placeholder={"Type here"}

@@ -737,4 +737,10 @@ if (mock) {
       }
     ]
   );
-}
+  mock.onGet(/\/tests\/.+\/preferences$/)
+    .reply(200, {
+      "preferences": {
+        "filters": {},
+        "sorting": {}
+      }
+    });}

@@ -538,7 +538,7 @@ export function* fetchTableDataSaga(action) {
     const result = yield call(fetchTableDataApi, action);
     yield put(setServerDataToStore(result?.data));
     const newData = parseTableData(result?.data);
-
+    console.log(newData);
     yield put(setParsedDataToStore(newData));
     yield put(setLoading(false));
   } catch (e) {
@@ -609,6 +609,7 @@ export function* fetchVariantMetadataDataSaga(action) {
   try {
     yield put(setLoading(true));
     const { data } = yield call(fetchVariantMetadataDataApi, action);
+    console.log(data);
     yield put(setServerVariantMetadataToStore(data));
     const newData = parseTableDataObj(data);
     yield put(setVariantMetadataData(newData));
@@ -797,11 +798,12 @@ export function* saveUserPreferencesSortingSaga({ payload }) {
 export function* fetchUserPreferencesSaga({ payload }) {
   try {
     const { testId, panelType } = payload;
-    const response = yield call(fetchUserPreferencesApi, { testId });
-    const {
-      preferences: { filters, sorting }
-    } = response.data;
-
+    yield call(fetchUserPreferencesApi, { testId });
+    // const {
+    //   preferences: { filters, sorting }
+    // } = response.data;
+    let filters = {}, sorting = {}
+    
     if (filters) {
       yield put(setDefaultFilters(filters));
     } else {

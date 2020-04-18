@@ -23,7 +23,7 @@ const ExpandedInterpretation = ({
         <TextArea
           key={1}
           id={"gene-description-textarea"}
-          autosize
+          autoSize
           value={geneDescription}
           name={ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME.geneDescription}
           onChange={onChange}
@@ -45,7 +45,7 @@ const ExpandedInterpretation = ({
         <TextArea
           key={2}
           id={"variant-description-textarea"}
-          autosize
+          autoSize
           value={variantDescription}
           name={ACTIONABLE_ALTERATIONS_EXPANDED_INTERPRETATION_TEXTAREA_NAME.variantDescription}
           onChange={onChange}
