@@ -995,7 +995,7 @@ export const setDefaultZygosity = variant => {
 };
 
 export const createEvidenceTableData = (category, tabContent, phenotype) => {
-  const obj = Object.keys(tabContent).reduce((accum, val, index) => {
+  const obj  = Object.keys(tabContent).reduce((accum, val, index) => {
     if (tabContent[val].category === category) {
       const newObj = Object.assign(
         {},
